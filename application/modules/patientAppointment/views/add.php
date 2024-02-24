@@ -7,18 +7,18 @@
             <a href="<?php echo site_url('pwfpanel');?>">Home</a>
         </li>
         <li>
-            <a href="<?php echo site_url('patientAppointment');?>"><?php echo $title;?></a>
+            <a href="<?php echo site_url('patientAppointment');?>">Book Appointment<?php //echo $title;?></a>
         </li>
     </ul>
     <!-- END Datatables Header -->
     <!-- Datatables Content -->
     <div class="block full">
         <div class="block-title">
-            <h2><strong><?php echo $title;?></strong> Panel</h2>
+            <h2><strong>Book Appointment<?php //echo $title;?></strong> Panel</h2>
         </div>
         <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('index.php/' .$formUrl) ?>" enctype="multipart/form-data">
             <div class="modal-header text-center">
-                <h2 class="modal-title"><i class="fa fa-pencil"></i> <?php echo (isset($title)) ? ucwords($title) : "" ?></h2>
+                <h2 class="modal-title"><i class="fa fa-pencil"></i> Book Appointment<?php //echo (isset($title)) ? ucwords($title) : "" ?></h2>
             </div>
             <div class="alert alert-danger" id="error-box" style="display: none"></div>
             <div class="form-body">
