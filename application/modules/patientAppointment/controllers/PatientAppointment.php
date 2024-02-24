@@ -37,16 +37,19 @@ class PatientAppointment extends Common_Controller {
         }
         $option = array(
             'table' => 'patient_appointment',
-            'select' => 'patient_appointment.*, users.first_name, users.last_name',
+            'select' => 'patient_appointment.*, users.first_name, users.last_name,u.first_name as patient_f_name," ",u.last_name as patient_l_name',
             'join' => array(
-                array('users', 'users.id = patient_appointment.doctor_id', 'left')
+                array('users', 'users.id = patient_appointment.doctor_id', 'left'),
+                array('users as u', 'u.id = patient_appointment.patient_id', 'left')
             ),
+           
             'order' => array('patient_appointment.id' => 'desc'),
             // 'where' => array('appointment.status' => 0),
+
         );
        
         $appointment_table = $this->common_model->customGet($option);
-    //    print_r($facility_table);die;
+    //    print_r($appointment_table);die;
         $dataArray = array();
         
         //$dataArray1 = array();
@@ -88,6 +91,70 @@ class PatientAppointment extends Common_Controller {
      * @description load model box
      * @return array
      */
+
+     public function getAvailableSlots() {
+
+        // $id = $this->input->post('doctor_id');
+        $doctorId = $this->input->post('doctor_id');
+        $date = $this->input->post('date');
+    
+        if (!empty($doctorId)) {
+            $option = array(
+                'table' => 'appointment',
+            'select' => 'appointment.*, users.first_name, users.last_name',
+            'join' => array(
+                array('users', 'users.id = appointment.doctor_id', 'left')
+            ),
+             'where' => array('appointment.doctor_id' => $doctorId,'appointment.date' => $date, 'status'=>0),
+             'order' => array('appointment.id' => 'desc'),
+            );
+    
+            $appointments = $this->common_model->customGet($option);
+    
+            $jsonAppointments = json_encode($appointments);
+
+            header('Content-Type: application/json');
+            
+            echo $jsonAppointments;
+
+            exit();
+        }
+    }
+
+    public function getAvailableDoctor() {
+
+        $infectionsId = $this->input->post('infections_id');
+        
+    
+        if (!empty($infectionsId)) {
+           
+            $option = array(
+                'table' => 'users',
+                'select' => 'users.id, CONCAT(first_name," ",last_name) as doctor_name', 
+                'join' => array(
+                    array('doctors_qualification', 'doctors_qualification.user_id = users.id', 'inner'),
+                ),
+                'where' => array(
+                    'users.delete_status' => 0,
+                    'doctors_qualification.availability' => $infectionsId
+                ),
+            );
+          
+            $infectionsData = $this->common_model->customGet($option);
+           
+            $jsoninfectionsData = json_encode($infectionsData);
+
+            header('Content-Type: application/json');
+            
+            echo $jsoninfectionsData;
+
+            exit();
+        }
+    }
+   
+    
+    
+    
     function open_model() {
       $this->data['parent'] = $this->title;
         $this->data['title'] = "Add " . $this->title;
@@ -135,15 +202,22 @@ foreach($this->data['md_steward_id'] as $md_steward_id){
                 'doctors.facility_user_id' => $userIdd
             ),
         );
-        
 
         
+        $this->data['initial_dx'] = $this->common_model->customGet(array('table' => 'initial_dx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0)));
+        // $this->data['initial_rx'] = $this->common_model->customGet(array('table' => 'initial_rx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0)));
+               
         $this->data['doctors'] = $this->common_model->customGet($optionDoctor);
 
         $this->data['userData'] = $this->common_model->customGet($option);
    
         $this->load->admin_render('add', $this->data, 'inner_script');
     }
+
+
+    
+
+
 
     /**
      * @method users_add
@@ -160,23 +234,35 @@ foreach($this->data['md_steward_id'] as $md_steward_id){
         );
         $this->data['users'] = $this->common_model->customGet($option);
         // validate form input
-        $this->form_validation->set_rules('date', lang('date'), 'required');
-        $this->form_validation->set_rules('time_start', lang('time_start'), 'required');
-        $this->form_validation->set_rules('time_end', lang('time_end'), 'required');
-        $this->form_validation->set_rules('patient_name', lang('patient_name'), 'required');
-        $this->form_validation->set_rules('doctor_name', lang('doctor_name'), 'required');
-        $this->form_validation->set_rules('reason', lang('reason'), 'required');
-     
+
+        $this->form_validation->set_rules('appointment_id', lang('appointment_id'), 'required');
+       
         if ($this->form_validation->run() == true) {
 
+            $appointment_id  = $this->input->post('appointment_id');
+
+                $appointOption = array(
+                'table' => 'appointment',
+            'select' => 'appointment.*, users.first_name, users.last_name',
+            'join' => array(
+                array('users', 'users.id = appointment.doctor_id', 'left')
+            ),
+             'where' => array('appointment.id' => $appointment_id, 'status'=>0),
+             'single' => true,
+            );
+
+
+            $doctors = $this->common_model->customGet($appointOption);
+            $user_id = $this->session->userdata('user_id');
                     $additional_data_profile = array(
-                        
-                        'date' => $this->input->post('date'),
-                        'time_start' => $this->input->post('time_start'),
-                        'time_end' => $this->input->post('time_end'),
-                        'patient_id' => $this->input->post('patient_name'),
-                        'doctor_id' => $this->input->post('doctor_name'),
-                        'reason' => $this->input->post('reason'),
+
+                        'date' => $doctors->date,
+                        'time_start' => $doctors->time_start,
+                        'time_end' => $doctors->time_end,
+                        'patient_id' => $user_id,
+                        'doctor_id' => $doctors->doctor_id,
+                        'reason' => 'helth',
+
                        
                     );
                     $insert_id =$this->db->insert('vendor_sale_patient_appointment', $additional_data_profile);    
@@ -442,31 +528,5 @@ foreach($this->data['md_steward_id'] as $md_steward_id){
         }
         echo $response;
     }
-
-
-    public function getAvailableSlots() {
-
-        $id = $this->input->post('doctor_id');
-    
-        if (!empty($id)) {
-            $option = array(
-                'table' => 'appointment',
-                'select' => 'appointment.*, users.first_name, users.last_name',
-                'join' => array(
-                    array('users', 'users.id = appointment.doctor_id', 'left')
-                ),
-                'where' => array('appointment.doctor_id' => $id, 'status'=>0),
-            );
-    
-            $appointments = $this->common_model->customGet($option);
-    
-            // Return the appointments as a JSON response
-            header('Content-Type: application/json');
-            echo json_encode($appointments);
-            exit(); // Stop further execution
-        }
-    }
-    
-
-
+   
 }
