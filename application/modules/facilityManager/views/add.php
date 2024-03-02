@@ -56,34 +56,37 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label"><?php echo lang('user_email');?></label>
                             <div class="col-md-9">
+                               
                                 <input type="email" class="form-control" name="user_email" id="user_email" placeholder="<?php echo lang('user_email');?>"/>
+                                <?php $user_id = $this->session->userdata('user_id');?>
+                                <input type="hidden" class="form-control" name="admin_id" id="admin_id" value="<?php echo $user_id;?>"/>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12" >
+                    <!-- <div class="col-md-12" >
                         <div class="form-group">
                             <label class="col-md-3 control-label">Tie Hospital to department</label>
-                            <div class="col-md-9">                                
-                                    <select id="care_unit_id" name="care_unit_id[]" multiple class="form-control select-chosen"  size="1">
+                            <div class="col-md-9">                                 -->
+                                    <!-- <select id="care_unit_id" name="care_unit_id[]" multiple class="form-control select-chosen"  size="1">
                                         <option value="" disabled>Please select</option>
-                                        <?php foreach($care_unit as $row){?>
+                                        <?php //foreach($care_unit as $row){?>
                                                     
-                                        <option value="<?php echo $row->id;?>"><?php echo $row->name."(".$row->care_unit_code.")";?></option>
+                                        <option value="<?php //echo $row->id;?>"><?php //echo $row->name."(".$row->care_unit_code.")";?></option>
                                                 
-                                        <?php }?>
-                                    </select>
+                                        <?php //}?>
+                                    </select> -->
 
                                     <!-- <select id="category_id" name="category_id[]" multiple class="form-control select-chosen" size="1">
                                               <option value="">Please select</option>
-                                                <?php foreach($categorys as $category){?>
+                                                <?php //foreach($categorys as $category){?>
                                                             
-                                                <option value="<?php echo $category->id;?>"><?php echo $category->category_name;?></option>
+                                                <option value="<?php //echo $category->id;?>"><?php echo $category->category_name;?></option>
                                                         
-                                                <?php }?>
+                                                <?php// }?>
                                             </select> -->
-                            </div>
+                            <!-- </div>
                         </div>
-                    </div>
+                    </div> -->
 
 
                     <!-- <div class="col-md-12" >

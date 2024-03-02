@@ -35,19 +35,30 @@ class FacilityManager extends Common_Controller {
         } else {
             $vendor_profile_activate = 1;
         }
-       
-        $option = array('table' => USERS . ' as user',
-            'select' => 'user.*,group.name as group_name,UP.doc_file,CU.care_unit_code,CU.name',
-            'join' => array(array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
-                array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left'),
-                array('user_profile UP', 'UP.user_id=user.id', 'left'),
-                array('care_unit CU', 'CU.id=user.care_unit_id', 'left')),
-            'order' => array('user.id' => 'ASC'),
-            'where' => array('user.delete_status' => 0, 'group.id' => 5),
-            'order' => array('user.id' => 'desc')
-        );
-        $facility_table = $this->common_model->customGet($option);
-       // print_r($facility_table);die;
+        $user_id = $this->session->userdata('user_id');
+
+            $option = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*, group.name as group_name, UP.doc_file, CU.care_unit_code, CU.name, h.admin_id',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id = user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id = ugroup.group_id', 'left'),
+                    array('user_profile AS UP', 'UP.user_id = user.id', 'left'),
+                    array('care_unit AS CU', 'CU.id = user.care_unit_id', 'left'),
+                    array('hospital AS h', 'h.user_id = user.id', 'left')
+                ),
+                'where' => array(
+                    'user.delete_status' => 0,
+                    'group.id' => 6,
+                    'h.admin_id' => $user_id
+                ),
+                'order' => array('user.id' => 'DESC') // Order descending by user id
+            );
+
+            $facility_table = $this->common_model->customGet($option);
+
+        
+    //    print_r($facility_table);die;
         $dataArray = array();
         
         //$dataArray1 = array();
@@ -171,7 +182,7 @@ class FacilityManager extends Common_Controller {
                         array('user_profile UP', 'UP.user_id=user.id', 'left')),
                     'order' => array('user.id' => 'ASC'),
                     'where' => array('user.delete_status' => 0,
-                        'group.id' => 3),
+                        'group.id' => 2),
                     'order' => array('user.first_name' => 'ASC')
                 );
 
@@ -203,9 +214,9 @@ class FacilityManager extends Common_Controller {
         $this->form_validation->set_rules('hospital_name', lang('hospital_name'), 'required|trim|xss_clean');
         $this->form_validation->set_rules('first_name', lang('first_name'), 'required|trim|xss_clean');
         $this->form_validation->set_rules('user_email', lang('user_email'), 'required|trim|xss_clean');
-        if (empty($_POST['care_unit_id'])) {
+        if (empty($_POST['admin_id'])) {
        // $this->form_validation->set_rules('care_unit_id[]', "Care Unit", 'required',array('required' =>'Select at least one Care Unit'));
-        $this->form_validation->set_rules('care_unit_id[]', "Care Unit", 'trim');
+        $this->form_validation->set_rules('admin_id[]', "Care Unit", 'trim');
         }
         // if (empty($_POST['md_steward_id'])) {
         //      $this->form_validation->set_rules('md_steward_id[]', "MD Steward", 'trim');
@@ -269,7 +280,7 @@ class FacilityManager extends Common_Controller {
                         'profile_pic' => $image,
                         'phone' => $this->input->post('phone_no'),
                         'phone_code' => $this->input->post('phone_code'),
-                        'care_unit_id'=> json_encode($this->input->post('care_unit_id')),
+                        'care_unit_id'=> json_encode($this->input->post('admin_id')),
                         // 'md_steward_id'=> json_encode($this->input->post('md_steward_id')),
                         'zipcode_access' => json_encode($this->input->post('zipcode')),
                         'email_verify' => 1,
@@ -277,7 +288,7 @@ class FacilityManager extends Common_Controller {
                         'created_on' => strtotime(datetime())
                     );
                     
-                    $insert_id = $this->ion_auth->register($identity, $password, $email, $additional_data, array(5));
+                    $insert_id = $this->ion_auth->register($identity, $password, $email, $additional_data, array(6));
 
                     $additional_data_profile = array(
                         'user_id' => $insert_id,
@@ -293,6 +304,17 @@ class FacilityManager extends Common_Controller {
                         'update_date' => date('Y-m-d H:i:s')
                     );
                     $this->db->insert('vendor_sale_user_profile', $additional_data_profile);
+
+
+                    $additional_data_hospital = array(
+                        'user_id' => $insert_id,
+                        'admin_id'=>$this->input->post('admin_id'),
+                        'email' => $email,
+                        'hospital_name' => $this->input->post('hospital_name'),
+                        'created_on' => date('Y-m-d H:i:s')
+                    );
+                    $this->db->insert('vendor_sale_hospital', $additional_data_hospital);
+
 
                     /** info email * */
                     $EmailTemplate = getEmailTemplate("welcome");

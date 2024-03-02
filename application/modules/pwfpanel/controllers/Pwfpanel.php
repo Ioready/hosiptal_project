@@ -28,12 +28,53 @@ class Pwfpanel extends Common_Controller
             redirect('pwfpanel/login', 'refresh');
         } else {
             
-            if ($this->ion_auth->is_admin() || $this->ion_auth->is_subAdmin()) {
+            if ($this->ion_auth->is_superAdmin() || $this->ion_auth->is_admin() || $this->ion_auth->is_subAdmin()) {
                 // $data['parent'] = "Dashboard";
                 $data['careUnit'] = $this->common_model->customCount(array('table' => 'care_unit', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0)));
                 $data['initial_dx'] = $this->common_model->customCount(array('table' => 'initial_dx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0)));
                 $data['initial_rx'] = $this->common_model->customCount(array('table' => 'initial_rx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0)));
                 $data['doctors'] = $this->common_model->customCount(array('table' => 'doctors', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0)));
+                
+                $user_id = $this->session->userdata('user_id');
+
+            $optionHospital = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*, group.name as group_name, UP.doc_file, CU.care_unit_code, CU.name, h.admin_id',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id = user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id = ugroup.group_id', 'left'),
+                    array('user_profile AS UP', 'UP.user_id = user.id', 'left'),
+                    array('care_unit AS CU', 'CU.id = user.care_unit_id', 'left'),
+                    array('hospital AS h', 'h.user_id = user.id', 'left')
+                ),
+                'where' => array(
+                    'user.delete_status' => 0,
+                    'group.id' => 6,
+                    'h.admin_id' => $user_id
+                ),
+                'order' => array('user.id' => 'DESC') // Order descending by user id
+            );
+
+            $data['total_hospital'] = $this->common_model->customCount($optionHospital);
+
+
+                $adminOption = array(
+                    'table' => USERS . ' as user',
+                    'select' => 'user.id',
+                    'join' => array(
+                        array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                        array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left'),
+                        array('user_profile UP', 'UP.user_id=user.id', 'left')
+                    ),
+                    'order' => array('user.id' => 'ASC'),
+                    'where' => array(
+                        'user.delete_status' => 0,
+                        'group.id' => 2
+                    ),
+                    'order' => array('user.id' => 'desc'),
+                );
+                $data['total_admin'] = $this->common_model->customCount($adminOption);
+
                 $option = array(
                     'table' => USERS . ' as user',
                     'select' => 'user.id',
@@ -50,6 +91,7 @@ class Pwfpanel extends Common_Controller
                     'order' => array('user.id' => 'desc'),
                 );
                 $data['total_md_steward'] = $this->common_model->customCount($option);
+
                 $option = array(
                     'table' => "patient P",
                     'select' => "P.id"
@@ -523,6 +565,7 @@ class Pwfpanel extends Common_Controller
         if (strtolower(getConfig('google_captcha')) == 'on') {
             $this->form_validation->set_rules('g-recaptcha-response', 'Google recaptcha', 'required');
         }
+        
         if ($this->form_validation->run() == true) {
             $is_captcha = true;
             if (strtolower(getConfig('google_captcha')) == 'on') {
@@ -533,10 +576,15 @@ class Pwfpanel extends Common_Controller
                     $is_captcha = $responseData->success;
                 }
             }
+            
             if ($is_captcha) {
+                
                 $remember = (bool) $this->input->post('remember');
                 if ($this->ion_auth->login($this->input->post('identity'), $this->input->post('password'), $remember)) {
-                    if ($this->ion_auth->is_admin()) {
+
+                    
+                    if ($this->ion_auth->is_superAdmin()) {
+                        
                         $option = array(
                             'table' => 'users',
                             'select' => 'users.id',
@@ -547,6 +595,22 @@ class Pwfpanel extends Common_Controller
                             'where' => array(
                                 'users.email' => $this->input->post('identity'),
                                 'groups.id' => 1
+                            ),
+                        );
+                        $isAdmin = $this->common_model->customGet($option);
+                        
+                        redirect('pwfpanel', 'refresh');
+                    }else if($this->ion_auth->is_admin()) {
+                        $option = array(
+                            'table' => 'users',
+                            'select' => 'users.id',
+                            'join' => array(
+                                'users_groups' => 'users_groups.user_id=users.id',
+                                'groups' => 'groups.id=users_groups.group_id'
+                            ),
+                            'where' => array(
+                                'users.email' => $this->input->post('identity'),
+                                'groups.id' => 2
                             ),
                         );
                         $isAdmin = $this->common_model->customGet($option);
