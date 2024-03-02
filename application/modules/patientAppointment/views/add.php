@@ -22,14 +22,39 @@
             </div>
             <div class="alert alert-danger" id="error-box" style="display: none"></div>
             <div class="form-body">
-                <div class="row" style="margin-right: 72px;">
+                <div class="row" style="margin-right: 10px; margin-left: 10px;">
                         <div class="form-group">
 
-                            <label class="col-md-2 control-label">Doctor</label>
+
+                        <label class="col-md-1 control-label">Infections</label>
                        
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                         
-                                <select id="doctor_name" name="doctor_name" class="form-control select-chosen" onchange="getAvailableSlots()">
+                                <select id="infections_id" name="infections_id" class="form-control select-chosen" onchange="getAvailableDoctor()">
+                                
+                                    <option value="">Please Select</option>
+                                    
+                                    <?php
+                                    if (!empty($initial_dx)) {
+                                        
+                                        foreach ($initial_dx as $initial_d) {
+                                            
+                                    ?>
+                                            <option value="<?php echo $initial_d->id; ?>"><?php echo $initial_d->name; ?></option>
+                                    <?php
+                                        }
+                                    }
+                                    ?>
+                                </select>
+
+                            </div>
+
+
+                            <label class="col-md-1 control-label">Doctor</label>
+                       
+                            <div class="col-md-3">
+                                        
+                                <select id="doctor" name="doctor_name" class="form-control select-chosen" onchange="getAvailableSlots()">
                                 
                                     <option value="">Please Select</option>
                                     
@@ -48,15 +73,16 @@
 
                             </div>
 
-                            <label class="col-md-2 control-label">Date</label>
-                            <div class="col-md-4">
-                           
+                            <label class="col-md-1 control-label">Date</label>
+                            
+
+                            <div class="col-md-3">
                              <input type="date" id="date" name="date" class="form-control" required>
                             </div>
 
                         </div>
                     </div>
-                    <div class="row" style="margin-right: 72px;">
+                    <!-- <div class="row" style="margin-right: 72px;">
 
                    
                         <div class="form-group">
@@ -85,51 +111,182 @@
                             </div>
                         </div>
                     <div class="space-22"></div>
-                </div>
+                </div> -->
 
                
             </div>
             <div class="text-right">
-                <button type="submit" id="submit" class="btn btn-sm btn-primary" >Save</button>
+                <!-- <button type="submit" id="submit" class="btn btn-sm btn-primary" >Save</button> -->
             </div>
         </form>
         
+        <!-- Modal -->
 
-       
+                <div class="modal fade" id="appointmentModal" tabindex="-1" role="dialog" aria-labelledby="appointmentModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="appointmentModalLabel">Book Appointment</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('index.php/' .$formUrl) ?>" enctype="multipart/form-data">
+                    <div class="modal-body">
+                    <input type="hidden" class="form-control" name="appointment_id" id="appointmentIdInput" readonly>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                        <button type="submit" id="submit" class="btn btn-sm btn-primary" >Yes</button>
+                    </div>
+
+                    </form>
+                    </div>
+                </div>
+                </div>
+
+    <table id="appointment-table" class="table">
+    <thead>
+        <tr>
+            <th>Sn.</th>
+            <th>Doctor Name</th>
+            <th>Date</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Action</th>
+            <!-- Add more columns if needed -->
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Table body will be populated dynamically -->
+    </tbody>
+</table>
+        
     </div>
 <!-- END Datatables Content -->
 </div>
 <!-- END Page Content -->
 <script>
-function getAvailableSlots() {
-    var doctorId = document.getElementById('doctor_name').value;
-    if (doctorId) {
-        // Send AJAX request to fetch available slots for the selected doctor
-        $.ajax({
-            url: '<?php echo base_url('index.php/' .'patientAppointment/getAvailableSlots'); ?>',
-            type: 'POST',
-            data: { doctor_id: doctorId },
-            success: function(response) {
-                // Update HTML elements with available slots data
-                var slots = JSON.parse(response);
-                document.getElementById('date').value = slots.date;
-                document.getElementById('time_start').value = slots.start_time;
-                document.getElementById('time_end').value = slots.end_time;
-            },
-            error: function(xhr, status, error) {
-                // Handle error
-                console.error(error);
-            }
-        });
-    } else {
-        // Clear values if no doctor is selected
-        document.getElementById('date').value = '';
-        document.getElementById('time_start').value = '';
-        document.getElementById('time_end').value = '';
+
+// JavaScript Function to fetch appointment list based on doctor and date
+function fetchAppointments() {
+        var doctorId = document.getElementById('doctor').value;
+        var date = document.getElementById('date').value;
+
+        if (doctorId && date) {
+            $.ajax({
+                url: '<?php echo base_url('index.php/patientAppointment/getAvailableSlots'); ?>',
+                type: 'POST',
+                data: { doctor_id: doctorId, date: date },
+                success: function(response) {
+                    var tableBody = $('#appointment-table tbody');
+                    tableBody.empty(); // Clear existing rows
+                    if (response && response.length > 0) {
+                        $.each(response, function(index, appointment) {
+
+                            var formattedDate = new Date(appointment.date).toLocaleDateString('en-US', {
+                                year: 'numeric',
+                                month: 'short',
+                                day: 'numeric'
+                            });
+
+                            var time_start = new Date(appointment.time_start);
+                            var formattedTimeStart = time_start.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+
+                            var time_end = new Date(appointment.time_end);
+                            var formattedTimeEnd = time_end.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+                            var serialNumber = index + 1;
+                            var row = '<tr>' +
+                                '<td>' + serialNumber + '</td>' +
+                                '<td>' + appointment.first_name + ' ' + appointment.last_name + '</td>' +
+                                '<td>' + formattedDate + '</td>' +
+                                '<td>' + appointment.time_start + '</td>' +
+                                '<td>' + appointment.time_end + '</td>' +
+                                '<td> <button type="button" class="btn btn-sm btn-primary book-btn" data-toggle="modal" data-target="#appointmentModal" data-appointment-id="' + appointment.id + '">Book Now</button> </td>' +
+                                
+                                '</tr>';
+                            tableBody.append(row);
+                        });
+                    } else {
+                        tableBody.append('<tr><td colspan="3" style="text-align:center">No appointments found</td></tr>');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        }
     }
-}
+
+    
+    $('#doctor').change(fetchAppointments);
+    $('#date').change(fetchAppointments);
+
+  
+    fetchAppointments();
 </script>
 
+<script>
+
+
+
+
+// function fetchAppointmentsDoctor() {
+//         var infectionsId = document.getElementById('infections_id').value;
+        
+//         if (infectionsId) {
+//             $.ajax({
+//                 url: '<?php //echo base_url('index.php/patientAppointment/getAvailableDoctor'); ?>',
+//                 type: 'POST',
+//                 data: { infections_id: infectionsId },
+//                 success: function(response) {
+
+//                     $('#doctor').empty();
+
+//                     // Add default option
+//                     $('#doctor').html($('<option>', {
+//                         value: '',
+//                         text: 'Select Doctor'
+//                     }));
+
+//                     $.each(response, function(index, doctor) {
+//                         console.log(doctor.doctor_name);
+//                         $("#doctor").append('<option value="'+doctor.id +'">'+doctor.doctor_name+'</option>');
+                       
+//                     });
+//                     },
+//                     error: function(xhr, status, error) {
+//                     console.error(error);
+//                     }
+//             });
+//         }
+//     }
+
+    
+    // $('#doctor').change(fetchAppointments);
+    // $('#date').change(fetchAppointments);
+
+  
+    // fetchAppointmentsDoctor();
+
+</script>
+<script>
+ $(document).ready(function() {
+   
+    $('#appointmentModal').on('show.bs.modal', function(event) {
+        // Get the button that triggered the modal
+        var button = $(event.relatedTarget);
+
+        // Extract appointment ID from the button's data-appointment-id attribute
+        var appointmentId = button.data('appointment-id');
+
+        // Update the input field value with the appointment ID
+        $('#appointmentIdInput').val(appointmentId);
+    });
+});
+
+
+</script>
 
 <script type="text/javascript">
     // $('#date').datepicker({

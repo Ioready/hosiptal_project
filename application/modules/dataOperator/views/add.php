@@ -136,6 +136,48 @@
                                         <?php }?>
                                     </select>
                             </div>
+
+                            <!-- <div class="col-md-9">                                
+                                    <select id="availability_week" name="availability_week" class="form-control select2" size="1">
+                                        <option value="">Select Week</option>
+                                           
+                                        <option value="all">All Week</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>        
+                                      
+                                    </select>
+                            </div>
+                            <div class="col-md-9">                                
+                                    <select id="availability_week" name="availability_week" class="form-control select2" size="1">
+                                        <option value="">Select Day</option>
+                                           
+                                        <option value="all">All Days</option>
+                                        <option value="1">Monday</option>
+                                        <option value="2">Tuesday</option>
+                                        <option value="3">Wednesday</option>
+                                        <option value="4"></option>        
+                                      
+                                    </select>
+                            </div> -->
+
+                            <!-- <div class="availability-list">
+                                <h3>Availability</h3>
+                                <ul>
+                                    <?php foreach ($availability_data as $day => $slots): ?>
+                                        <li><strong><?php echo ucfirst($day); ?>:</strong>
+                                            <?php if (!empty($slots)): ?>
+                                                <?php echo implode(', ', $slots); ?>
+                                            <?php else: ?>
+                                                Not Available
+                                            <?php endif; ?>
+                                        </li>
+                                    <?php endforeach; ?>
+                                </ul>
+                            </div> -->
+
+
                         </div>
                     </div>
 

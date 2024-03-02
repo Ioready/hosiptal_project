@@ -46,7 +46,14 @@
     <!-- Datatables Content -->
     <div class="block full">
         <div class="block-title">
-            <?php if ($this->ion_auth->is_admin()) { ?>
+        <?php if ($this->ion_auth->is_superAdmin()) { ?>
+                <h2>
+                    <a href="<?php echo base_url().'index.php/' . $this->router->fetch_class(); ?>/open_model" class="btn btn-sm btn-primary">
+                        <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
+                    </a></h2>
+            
+
+            <?php }else if ($this->ion_auth->is_admin()) { ?>
                 <h2>
                     <a href="<?php echo base_url().'index.php/' . $this->router->fetch_class(); ?>/open_model" class="btn btn-sm btn-primary">
                         <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
@@ -76,7 +83,7 @@
                         <!--                                <th><?php echo "Referral Code"; ?></th>-->
                         <th class="text-center"><?php echo "Hospital Name"; ?></th>
                         <th class="text-center"><?php echo "User Name"; ?></th>
-                        <th class="text-center"><?php echo "Department"; ?></th>
+                        <!-- <th class="text-center"><?php echo "Department"; ?></th> -->
                         <!-- <th class="text-center"><?php echo "Doctor Name"; ?></th> -->
                         <th class="text-center"><?php echo lang('user_email'); ?></th>
 <!--                        <th class="text-center"><?php echo "Phone"; ?></th>-->
@@ -102,7 +109,7 @@
                                 <!--                            <td><?php echo $rows->team_code; ?></td>-->
                                 <td class="text-primary"><?php echo $rows->hospital_name ?></td>
                                 <td class="text-primary"><?php echo $rows->first_name . ' ' . $rows->last_name; ?></td>
-                                <td class="text-primary"><?php echo (!empty($rows->name)) ?  $rows->name /* . '(' . $rows->care_unit_code.')' */ : ''; ?></td>
+                                <!-- <td class="text-primary"><?php echo (!empty($rows->name)) ?  $rows->name /* . '(' . $rows->care_unit_code.')' */ : ''; ?></td> -->
                                 <!-- <td class="text-primary"><?php echo (!empty($rows->name1)) ?  $rows->name1  : ''; ?></td> -->
                                
                                 <td><?php echo $rows->email ?></td>

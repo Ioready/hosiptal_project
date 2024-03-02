@@ -13,6 +13,26 @@
 
     <!-- Datatables Content -->
     <div class="block full">
+    <div class="block-title">
+            <h2><strong><?php echo $title; ?></strong> Panel</h2>
+            <?php if ($this->ion_auth->is_facilityManager()) { ?>
+                <h2>
+                    
+                    <a href="<?php echo base_url() . $this->router->fetch_class(); ?>/open_model" class="btn btn-sm btn-primary">
+                        <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
+                    </a></h2>
+            
+
+            <?php } else if($this->ion_auth->is_subAdmin()){?>
+                <h2>
+                    
+                    <a href="<?php echo base_url() . $this->router->fetch_class(); ?>/open_model" class="btn btn-sm btn-primary">
+                        <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
+                    </a></h2>
+
+                <?php } ?>
+        </div>
+        
         <div class="block-title">
             <h2><strong>Contact</strong> List</h2>
         </div>

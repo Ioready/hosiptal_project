@@ -17,7 +17,7 @@
                 <div class="block-title">
                     <h2><strong><?php echo $title;?></strong> Panel</h2>
                 </div>        
-                <form class="form-horizontal" role="form" id="editFormAjaxUser" method="post" action="<?php echo base_url('index.php/appointment/update') ?>" enctype="multipart/form-data">
+                <form class="form-horizontal" role="form" id="editFormAjaxUser" method="post" action="<?php echo base_url('index.php/patientAppointment/update') ?>" enctype="multipart/form-data">
                     <div class="modal-header text-center">
                         <h2 class="modal-title"><i class="fa fa-pencil"></i> <?php echo (isset($title)) ? ucwords($title) : "" ?></h2>
                     </div>

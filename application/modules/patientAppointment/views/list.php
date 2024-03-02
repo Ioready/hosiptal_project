@@ -78,7 +78,7 @@
                         <th class="text-center"><?php echo "Patient Name"; ?></th>
                         <th class="text-center"><?php echo "Start Time"; ?></th>
                         <th class="text-center"><?php echo "End Time"; ?></th>
-                        <th class="text-center"><?php echo 'Reason for Appointment'; ?></th>
+                        <!-- <th class="text-center"><?php //echo 'Reason for Appointment'; ?></th> -->
                         <th class="text-center"><?php echo 'Appointment Date'; ?></th>
                         <!-- <th class="text-center">Created Date</th> -->
                                                    
@@ -98,11 +98,11 @@
                                 <td class="text-center text-primary"><strong><?php echo $rowCount; ?></strong></td>        
                                 <!--                            <td><?php echo $rows->id; ?></td>-->
                                 <td class="text-primary"><?php echo $rows->first_name . ' ' . $rows->last_name; ?></td>
-                                <td class="text-primary"><?php echo $rows->patient_id ?></td>
+                                <td class="text-primary"><?php echo $rows->patient_f_name. ' '.$rows->patient_l_name; ?></td>
                                 <td class="text-primary"><?php echo (!empty($rows->time_start)) ?  $rows->time_start /* . '(' . $rows->care_unit_code.')' */ : ''; ?></td>
                                 <td class="text-primary"><?php echo (!empty($rows->time_end)) ?  $rows->time_end  : ''; ?></td>
                                
-                                <td><?php echo $rows->reason ?></td>
+                                <!-- <td><?php //echo $rows->reason ?></td> -->
         
                                 <td><?php echo ($rows->date != null) ? date('d-m-Y', strtotime($rows->date)) : ""; ?></td>
                                

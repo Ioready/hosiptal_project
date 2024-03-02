@@ -17,7 +17,9 @@ class Common_Controller extends MX_Controller {
         if (!$this->ion_auth->logged_in()) {
             $this->session->set_flashdata('message', 'Your session has been expired');
             redirect('index.php/pwfpanel/login', 'refresh');
-        } else if ($this->ion_auth->is_admin()) {
+        }else if ($this->ion_auth->is_superAdmin()) {
+            return true;
+        }else if ($this->ion_auth->is_admin()) {
             return true;
         } else if ($this->ion_auth->is_vendor()) {
             return true;

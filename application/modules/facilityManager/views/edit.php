@@ -60,10 +60,12 @@
                                     <label class="col-md-3 control-label"><?php echo lang('user_email'); ?></label>
                                     <div class="col-md-9">
                                         <input type="email" class="form-control" name="user_email" id="user_email" value="<?php echo $results->email; ?>" readonly/>
+                                        <?php $user_id = $this->session->userdata('user_id');?>
+                                <input type="hidden" class="form-control" name="admin_id" id="admin_id" value="<?php echo $user_id;?>"/>
                                     </div>
                                 </div>
                             </div>
-                        <div class="col-md-12" >
+                        <!-- <div class="col-md-12" >
                         <div class="form-group">
                             <label class="col-md-3 control-label">Tie Hospital to department</label>
                             <div class="col-md-9"> 
@@ -80,7 +82,7 @@
                                     </select>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                     <!-- <div class="col-md-12" >
                         <div class="form-group">

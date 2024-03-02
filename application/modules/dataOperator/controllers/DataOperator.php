@@ -50,34 +50,35 @@ class DataOperator extends Common_Controller
                 array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
                 array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left'),
                 array('user_profile UP', 'UP.user_id=user.id', 'left'),
-                array('care_unit CU', 'CU.id=user.care_unit_id', 'left')
+                array('care_unit CU', 'CU.id=user.care_unit_id', 'left'),
+                array('doctors AS d', 'd.user_id = user.id', 'left')
             ),
-            'order' => array('user.id' => 'ASC'),
-            'where' => array('user.delete_status' => 0, 'group.id' => 4, 'user.login_id' => $x),
+           
+            'where' => array('user.delete_status' => 0, 'group.id' => 5, 'user.login_id' => $x),
             'order' => array('user.id' => 'desc')
         );
 
-        $option1 = array(
-            'table' => USERS . ' as user',
-            'select' => 'user.id,user.first_name,user.last_name,user.email,user.login_id,user.created_on,user.active,group.name as group_name,UP.doc_file,CU.care_unit_code,CU.name',
-            'join' => array(
-                array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
-                array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left'),
-                array('user_profile UP', 'UP.user_id=user.id', 'left'),
-                array('care_unit CU', 'CU.id=user.care_unit_id', 'left')
-            ),
-            'order' => array('user.id' => 'ASC'),
-            'where' => array('user.delete_status' => 0, 'group.id' => 4),
-            'order' => array('user.id' => 'desc')
-        );
+        // $option1 = array(
+        //     'table' => USERS . ' as user',
+        //     'select' => 'user.id,user.first_name,user.last_name,user.email,user.login_id,user.created_on,user.active,group.name as group_name,UP.doc_file,CU.care_unit_code,CU.name',
+        //     'join' => array(
+        //         array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+        //         array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left'),
+        //         array('user_profile UP', 'UP.user_id=user.id', 'left'),
+        //         array('care_unit CU', 'CU.id=user.care_unit_id', 'left')
+        //     ),
+        //     'order' => array('user.id' => 'ASC'),
+        //     'where' => array('user.delete_status' => 0, 'group.id' => 5),
+        //     'order' => array('user.id' => 'desc')
+        // );
         // $this->data['list'] = $this->common_model->customGet($option);
+        $this->data['list'] = $this->common_model->customGet($option);
 
-
-        if ($LoginID != 1) {
-            $this->data['list'] = $this->common_model->customGet($option);
-        } else {
-            $this->data['list'] = $this->common_model->customGet($option1);
-        }
+        // if ($LoginID != 1) {
+        //     $this->data['list'] = $this->common_model->customGet($option);
+        // } else {
+        //     $this->data['list'] = $this->common_model->customGet($option1);
+        // }
         /* $option = array('table' => USERS . ' as user',
           'select' => 'user.*,group.name as group_name,UP.doc_file',
           'join' => array(array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
@@ -267,7 +268,7 @@ class DataOperator extends Common_Controller
                         'is_pass_token' => $password,
                         'created_on' => strtotime(datetime())
                     );
-                    $insert_id = $this->ion_auth->register($identity, $password, $email, $additional_data, array(4));
+                    $insert_id = $this->ion_auth->register($identity, $password, $email, $additional_data, array(5));
 
                     $additional_data_profile = array(
                         'user_id' => $insert_id,
