@@ -110,62 +110,51 @@
 
                                         <ul class="nav nav-pills nav-fill nav-tabss" id="pills-tab" role="tablist" >
                                             <li class="nav-item">
-                                                <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-1" role="tab">Practice Contacts</a>
+                                            <a href="<?php echo site_url('contactus'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "contactus") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">Practice Contacts</span></a>
+                                                <!-- <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-1" role="tab">Practice Contacts</a> -->
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-2" role="tab">Directory</a>
+                                            <a href="<?php echo site_url('contactus/directory'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "directory") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">Directory</span></a>
+                                                <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-2" role="tab"></a>
                                             </li>
                                         </ul>
                                         
-                                        <div class="tab-pane-second fade show active" id="pills-1" role="tabpanel" aria-labelledby="pills-home-tab">
+                                        <div class="tab-pane-second" role="tabpanel" aria-labelledby="pills-home-tab">
                                             <ul class="nav nav-pills-second nav-fill nav-tab-appointment active" id="pills-tab" role="tablist" >
                                                 <li class="nav-item-second">
                                                 <a class="btn btn-sm nav-link-second new-contact"  data-target="#pills-5"  role="tab" href="<?php echo base_url() . $this->router->fetch_class(); ?>/open_model"> New </a>
                                                 </li>
 
 
-                                                <div class="row">
-                                                    <div class="col-md-3">
-
-                                                    <!-- </div> -->
-                                                <!-- <form> -->
-                                                    <!-- <div class="form-group"> -->
-                                                    <label for="companySelect">Select Company:</label>
-                                                    <select class="form-control" id="companySelect">
-                                                        <option value="">Select...</option>
-                                                        <option value="company1">Company 1</option>
-                                                        <option value="company2">Company 2</option>
-                                                        <option value="company3">Company 3</option>
-                                                        <!-- Add more options as needed -->
-                                                    </select>
+                                            <div class="row">
+                                                <div class="input-group" style="padding-left: 120px;">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group"> 
+                                                            
+                                                            <select class="form-control" id="companySelect" style="border: 1px solid;border-radius: 6px;">
+                                                                <!-- <option value="">Select...</option> -->
+                                                                <option value="company1">Company</option>
+                                                                <option value="first_name">First Name</option>
+                                                                <option value="last_name">Last Name</option>
+                                                            </select>
+                                                        </div>
                                                     </div>
-                                                    <div class="col-md-6">
-                                                    <div class="form-group">
-                                                    <!-- <label for="searchInput">Search:</label> -->
-                                                    <button type="submit" class="btn btn-primary"><i class="fas fa-circle"> </i></button>
-                                                    <input type="text" class="form-control" id="searchInput" placeholder="Enter search keyword...">
-                                                    </div>
-                                </div>
-                                                    
-                                                <!-- </form> -->
+                                                    <div class="col-md-8">
+                                                        <div class="input-group" style="border: 1px solid; border-radius: 6px;">
+                                                        <div class="col-md-3">
+                                                                <button class="btn" type="search"><i class="fa fa-search" name="search-outline"></i></button>
+                                                            </div>
+                                                            <div class="col-md-9">
 
+                                                                <input type="search" class="form-control" name="search" placeholder="Search..">
+                                                            </div>
+                                                            
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </ul>
-
-                                            
-                                        </div> 
-
-                                        <!-- <div class="input-group"> -->
-                                            <!-- <div class="input-group-prepend">
-                                            <button id="button-addon8" type="submit" class="btn btn-danger"><i class="fa fa-search"></i></button>
-                                            
-                                            <input type="search" placeholder="What're you searching for?" aria-describedby="button-addon8" class="form-control">
-                                            </div> -->
-                                            <!-- </div> -->
-
-
-                              
-
+                                        </div>                                       
+                                    </ul>
+                                 </div> 
                             </div> 
                             <div class="panel-body">
                             
@@ -211,14 +200,40 @@
                         <?php if($this->ion_auth->is_admin()){ ?>
                         <th class="text-center" style="width: 150px;"><?php echo "Facility Manager Name"; ?></th>
                         <?php } ?>
+
+                        <?php if($this->ion_auth->is_subAdmin()){ ?>
+                        <th class="text-center" style="width: 150px;"><?php echo "Full Name"; ?></th>
+                        <?php } ?>
+
                         <th class="text-center" style="width: 200px;"><?php echo "Title"; ?></th>
-                        <th class="text-center" style="width: 400px;"><?php echo "Description";; ?></th>
+
+                        <th class="text-center" style="width: 200px;"><?php echo "Company"; ?></th>
+                        <th class="text-center" style="width: 200px;"><?php echo "Clinician"; ?></th>
+                        <th class="text-center" style="width: 200px;"><?php echo "Comment"; ?></th>
+                        <th class="text-center" style="width: 200px;"><?php echo "Phone Type"; ?></th>
+                        <th class="text-center" style="width: 200px;"><?php echo "Phone Number"; ?></th>
+                        <th class="text-center" style="width: 200px;"><?php echo "Email"; ?></th>
+                        <th class="text-center" style="width: 200px;"><?php echo "Address Lookup"; ?></th>
+                        <th class="text-center" style="width: 200px;"><?php echo "Streem Address"; ?></th>
+                        <th class="text-center" style="width: 200px;"><?php echo "City"; ?></th>
+
+                        <th class="text-center" style="width: 200px;"><?php echo "Post Code"; ?></th>
+                        <th class="text-center" style="width: 200px;"><?php echo "Country"; ?></th>
+                        <th class="text-center" style="width: 200px;"><?php echo "Billing Detail"; ?></th>
+                        <th class="text-center" style="width: 200px;"><?php echo "Payment Reference"; ?></th>
+                        <th class="text-center" style="width: 200px;"><?php echo "System"; ?></th>
+                        <th class="text-center" style="width: 200px;"><?php echo "Health Code"; ?></th>
+                        
                         <?php if($this->ion_auth->is_facilityManager()){?>
                         <th class="text-center" style="width: 60px;">Created Date</th>
                         <?php }else if($this->ion_auth->is_admin()){ ?>
                         <th class="text-center" style="width: 60px;">Query Date</th>
                         <?php } ?>
                         <?php if($this->ion_auth->is_facilityManager()){?>
+                        <th class="text-center" style="width: 70px;"><?php echo lang('action'); ?></th>
+                        <?php } ?>
+
+                        <?php if($this->ion_auth->is_subAdmin()){?>
                         <th class="text-center" style="width: 70px;"><?php echo lang('action'); ?></th>
                         <?php } ?>
                     </tr>
@@ -275,21 +290,44 @@
                     endif;
                 }else{
                     $rowCount = 0;
-                    foreach ($list1 as $rows){
+                    foreach ($list as $rows){
                         $rowCount++;
                         ?>
-                        <?php if($LoginID == $rows->facility_manager_id){ ?>
+                        
                         <tr>
                         
                             <td class="text-center text-primary"><strong><?php echo $rowCount; ?></strong></td>  
+
                             <?php if($this->ion_auth->is_admin()){ ?>
+
+                            <td class="text-primary"><?php echo $rows->first_name . ' ' . $rows->last_name; ?></td>
+
+                            <?php } ?>
+                            
+                            <?php if($this->ion_auth->is_subAdmin()){ ?>
                             <td class="text-primary"><?php echo $rows->first_name . ' ' . $rows->last_name; ?></td>
                             <?php } ?>
+
                             <td><?php echo $rows->title ?></td>
-                            <td><?php echo $rows->description ?></td>
-                            <td class="text-center"><?php echo date('m/d/Y', $rows->create_date); ?></td>
+                            <td><?php echo $rows->company ?></td>
+                            <td><?php echo $rows->contacts_clinician ?></td>
+                            <td><?php echo $rows->comment ?></td>
+                            <td><?php echo $rows->phone_type ?></td>
+                            <td><?php echo $rows->phone_number ?></td>
+                            <td><?php echo $rows->user_email ?></td>
+                            <td><?php echo $rows->address_lookup ?></td>
+                            <td><?php echo $rows->streem_address ?></td>
+                            <td><?php echo $rows->city ?></td>
+                            <td><?php echo $rows->post_code ?></td>
+                            <td><?php echo $rows->country ?></td>
+                            <td><?php echo $rows->billing_detail ?></td>
+                            <td><?php echo $rows->payment_reference ?></td>
+                            <td><?php echo $rows->System ?></td>
+                            <td><?php echo $rows->healthcode ?></td>
                            
-                            <?php if ($this->ion_auth->is_facilityManager()) { ?>
+                            <td class="text-center"><?php echo date('m/d/Y', $rows->create_at); ?></td>
+                            <?php if ($this->ion_auth->is_facilityManager() || $this->ion_auth->is_subAdmin()) { ?>
+
                             <td class="actions text-center" >
                                 <div class="btn-group btn-group-xs">
                                     <a href="<?php echo base_url() . 'contactus/edit?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-pencil"></i></a>
@@ -319,7 +357,7 @@
                             <?php } ?>
                             <?php
                         }};
-                }
+             
                     ?>
                 </tbody>
             </table>
@@ -416,3 +454,48 @@ a.new-contact:hover{
     width: 88px;
 }
 </style>
+
+<style>
+    /* Custom styles for dropdown */
+.select-dropdown {
+    position: relative;
+}
+
+/* Custom styles for search input */
+.input-group-search {
+    position: relative;
+}
+
+/* Adjust the dropdown and search input width as needed */
+.select-dropdown .btn-secondary,
+.input-group-search .form-control {
+    width: 100%;
+}
+
+
+
+</style>
+<script>
+
+$(document).ready(function() {
+    // Toggle dropdown on button click
+    $('[data-testid="button__dropdown--sort-menu"]').click(function() {
+        $(this).toggleClass('active');
+        // Toggle dropdown menu visibility
+        $(this).next('.ListViewMenu__buttonGroup___MY6Wh').toggle();
+    });
+
+    // Handle search button click
+    $('.btn-search').click(function() {
+        // Get search input value
+        var searchTerm = $(this).closest('.input-group').find('.form-control').val();
+        // Perform search operation with the searchTerm
+        console.log('Search term:', searchTerm);
+    });
+});
+
+</script>
+
+
+
+

@@ -436,8 +436,8 @@
 
 
                                 
-                                <li title="DayTimeSlot">
-                                    <a href="<?php echo site_url('dayTimeSlot'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "DayTimeSlot") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/tasks.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp;Tasks</span></a>
+                                <li title="Tasks">
+                                    <a href="<?php echo site_url('tasks'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "tasks") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/tasks.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp;Tasks</span></a>
                                 </li>
 
                                 <li title="DayTimeSlot">
@@ -446,11 +446,11 @@
                                 <li title="DayTimeSlot">
                                     <a href="<?php echo site_url('dayTimeSlot'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "DayTimeSlot") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/letterss.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp;Letters</span></a>
                                 </li>
-                                <li title="DayTimeSlot">
-                                    <a href="<?php echo site_url('dayTimeSlot'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "DayTimeSlot") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/invoice.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp;Invoices</span></a>
+                                <li title="Invoices">
+                                    <a href="<?php echo site_url('invoices'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "invoices") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/invoice.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp;Invoices</span></a>
                                 </li>
-                                <li title="DayTimeSlot">
-                                    <a href="<?php echo site_url('dayTimeSlot'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "DayTimeSlot") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/new-product.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp;Products</span></a>
+                                <li title="Products">
+                                    <a href="<?php echo site_url('products'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "products") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/new-product.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp;Products</span></a>
                                 </li>
                                 <li title="Contact Us">
                                     <a href="<?php echo site_url('contactus'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "contactus") ? "active" : "" ?>"><i class="fa fa-comment sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Contact Us</span></a>
@@ -459,8 +459,8 @@
                                     <a href="<?php echo site_url('contact'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "Contact") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/department.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp;Contacts</span></a>
                                 </li> -->
                                
-                                <li title="setting">
-                                    <a href="<?php echo site_url('setting'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "setting") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/setting.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp; Setting</span></a>
+                                <li title="Settings">
+                                    <a href="<?php echo site_url('userSettings'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "userSettings") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/setting.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp; Setting</span></a>
                                 </li>
 
 

@@ -1,630 +1,322 @@
-<link href="<?php echo base_url(); ?>backend_asset/plugins/select2/select2.css" rel="stylesheet">
-<script src="<?php echo base_url(); ?>backend_asset/plugins/select2/select2.js"></script>
-<script src="<?php echo base_url() . 'backend_asset/plugins/dataTables/datatablepdf/' ?>dataTables.buttons.min.js"></script>   
-<script src="<?php echo base_url() . 'backend_asset/plugins/dataTables/datatablepdf/' ?>buttons.flash.min.js"></script>   
-<script src="<?php echo base_url() . 'backend_asset/plugins/dataTables/datatablepdf/' ?>buttons.flash.min.js"></script>   
-<script src="<?php echo base_url() . 'backend_asset/plugins/dataTables/datatablepdf/' ?>jszip.min.js"></script>   
-<script src="<?php echo base_url() . 'backend_asset/plugins/dataTables/datatablepdf/' ?>pdfmake.min.js"></script>   
-<script src="<?php echo base_url() . 'backend_asset/plugins/dataTables/datatablepdf/' ?>vfs_fonts.js"></script>  
-<script src="<?php echo base_url() . 'backend_asset/plugins/dataTables/datatablepdf/' ?>buttons.html5.min.js"></script>  
-<script src="<?php echo base_url() . 'backend_asset/plugins/dataTables/datatablepdf/' ?>buttons.print.min.js"></script>  
-<link href="<?php echo base_url() . 'backend_asset/plugins/dataTables/datatablepdf/' ?>buttons.dataTables.min.css" rel="stylesheet">
-
-<script src="<?php echo base_url() . 'backend_asset/admin/js/' ?>app.js"></script> 
+<script src="<?php echo base_url() . 'backend_asset/admin/js/' ?>app.js"></script>
 <script>
- App.datatables();
-    jQuery('body').on('click', '#submit', function () {
+    var isDataChange = false;
 
-        var form_name = this.form.id;
-        if (form_name == '[object HTMLInputElement]')
-            form_name = 'editFormAjax';
-        $("#" + form_name).validate({
-            rules: {
-                patient: "required",
-                // time_start: "required",
-                // time_end: "required",
-                // patient_name: "required",
-                doctor_name: "required",
-                // reason: "required"
-                
-            },
-            messages: {
-                // date: '<?php echo lang('date_validation'); ?>',
-                // time_start: '<?php echo lang('time_start_validation'); ?>',
-                // time_end: '<?php echo lang('time_end_validation'); ?>',
-                patient: '<?php echo lang('patient_name_validation'); ?>',
-                doctor_name: '<?php echo lang('doctor_name_validation'); ?>',
-                // reason: '<?php echo lang('rreason_validation'); ?>',
-              
-
-            },
-            submitHandler: function (form) {
-                jQuery(form).ajaxSubmit({
-                });
-            }
-        });
-    });
-   
-  var base_url = '<?php echo base_url() ?>';
-    var user_id = $('#uid').val();
-    /*matches list*/
-    function getReferrals(user_id){
-        $("#matches").dataTable().fnDestroy();
-        $('#matches').DataTable({
-            "processing": true,
-            "serverSide": true,
-            "ajax": {
-                "url": base_url + "vendors/get_referrals_list",
-                "dataType": "json",
-                "type": "POST",
-                "data": {user_id: user_id}
-            },
-            "columns": [
-                {"data": "id"},
-                {"data": "userByInvited"},
-                {"data": "userInvited"},
-                {"data": "invitedDate"},
-                {"data": "registerdStatus"},
-                {"data": "addCashStatus"},
-                {"data": "verifiedStatus"},
-                {"data": "appDownload"}
-            ],
-            "order": [[0, "asc"]],
-            "aoColumnDefs": [{
-                    "bSortable": false,
-                    "aTargets": [0,1,2,3,4,5,6]
-                }]
-
-        });
-    }
-    
-    getReferrals(user_id);
-
-
-    jQuery('body').on('change', '.input_img2', function () {
-
-        var file_name = jQuery(this).val();
-        var fileObj = this.files[0];
-        var calculatedSize = fileObj.size / (1024 * 1024);
-        var split_extension = file_name.split(".");
-        var ext = ["jpg", "gif", "png", "jpeg"];
-        if (jQuery.inArray(split_extension[1].toLowerCase(), ext) == -1)
-        {
-            $(this).val(fileObj.value = null);
-            //showToaster('error',"You Can Upload Only .jpg, gif, png, jpeg  files !");
-            $('.ceo_file_error').html('<?php echo lang('image_upload_error'); ?>');
-            return false;
+    function isDirty(val) {
+        if(val!="" || val.trim().length>0 ){
+            isDataChange = true;
         }
-        if (calculatedSize > 1)
-        {
-            $(this).val(fileObj.value = null);
-            //showToaster('error',"File size should be less than 1 MB !");
-            $('.ceo_file_error').html(' 1MB');
-            return false;
-        }
-        if (jQuery.inArray(split_extension[1].toLowerCase(), ext) != -1 && calculatedSize < 10)
-        {
-            $('.ceo_file_error').html('');
-            readURL(this);
-        }
-    });
-
-    jQuery('body').on('change', '.input_img3', function () {
-
-        var file_name = jQuery(this).val();
-        var fileObj = this.files[0];
-        var calculatedSize = fileObj.size / (1024 * 1024);
-        var split_extension = file_name.split(".");
-        var ext = ["jpg", "gif", "png", "jpeg"];
-        if (jQuery.inArray(split_extension[1].toLowerCase(), ext) == -1)
-        {
-            $(this).val(fileObj.value = null);
-            //showToaster('error',"You Can Upload Only .jpg, gif, png, jpeg  files !");
-            $('.ceo_file_error').html('<?php echo lang('image_upload_error'); ?>');
-            return false;
-        }
-        if (calculatedSize > 1)
-        {
-            $(this).val(fileObj.value = null);
-            //showToaster('error',"File size should be less than 1 MB !");
-            $('.ceo_file_error').html(' 1MB');
-            return false;
-        }
-        if (jQuery.inArray(split_extension[1].toLowerCase(), ext) != -1 && calculatedSize < 10)
-        {
-            $('.ceo_file_error').html('');
-            readURL(this);
-        }
-    });
-
-
-    function changeVendorStatus(id,status, txt) {
-    
-        var message = "";
-        if (status == "Yes") {
-            message = "Block";
-        } else if (status == "No") {
-            message = "Unblock";
-        }
-
-        bootbox.confirm({
-            message: "Do you want to " + message + " "+txt+"?",
-            buttons: {
-                confirm: {
-                    label: 'Ok',
-                    className: '<?php echo THEME_BUTTON; ?>'
-                },
-                cancel: {
-                    label: 'Cancel',
-                    className: 'btn-danger'
-                }
-            },
-            callback: function (result) {
-                if (result) {
-                        $.ajax({
-                        url: '<?php echo base_url(); ?>' + "index.php/appointment/updateAccountStatus",
-                        type: "post",
-                        data: {userId: id, status: status},
-                        success: function (data, textStatus, jqXHR) {
-                            setTimeout(function() {
-                                window.location.reload();
-                            }, 1000);
-                        }
-                    });
-                    
-                    
-                    
-                    
-                    
-//                    $.ajax({
-//                        method: "POST",
-//                        url: url,
-//                        data: {userId: userId, status: status},
-//                        dataType: "json",
-//                        success: function (response) {
-//                            if (response.status == 200) {
-//                                setTimeout(function () {
-//                                    $("#msg").html("<div class='alert alert-success'>" + response.msg + "</div>");
-//                                });
-//                                $('.modal-backdrop').remove();
-//                                setTimeout(function () {
-//                                    $("#panModal").modal('hide');
-//                                }, 1000);
-//                            } else {
-//                                $("#msg").html("<div class='alert alert-danger'>" + response.msg + "</div>");
-//                                $('.modal-backdrop').remove();
-//                            }
-//                        },
-//                        error: function (error, ror, r) {
-//                            bootbox.alert(error);
-//                        },
-//                    });
-                } else {
-                    $('.modal-backdrop').remove();
-                }
-            }
-        });
-   
+        
     }
 
-
-    function readURL(input) {
-        var cur = input;
-        if (cur.files && cur.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $(cur).hide();
-                $(cur).next('span:first').hide();
-                $(cur).next().next('img').attr('src', e.target.result);
-                $(cur).next().next('img').css("display", "block");
-                $(cur).next().next().next('span').attr('style', "");
-            }
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-
-      jQuery('body').on('click', '.remove_img', function () {
-        var img = jQuery(this).prev()[0];
-        var span = jQuery(this).prev().prev()[0];
-        var input = jQuery(this).prev().prev().prev()[0];
-        jQuery(img).attr('src', '').css("display", "none");
-        jQuery(span).css("display", "block");
-        jQuery(input).css("display", "inline-block");
-        jQuery(this).css("display", "none");
-        jQuery(".image_hide").css("display", "block");
-        jQuery("#user_image").val("");
-    });
-
-    jQuery('body').on('change', '#user_id', function () {
-        $("#upper-lavel-box").html("");
-    });
-
-    $('#common_datatable_users').dataTable({
-        order: [],
-        columnDefs: [{orderable: false, targets: [0,4]}]
-    });
-
-    $('#common_datatable_users_contest').dataTable({
-        order: [],
-        columnDefs: [{orderable: false, targets: [8]}]
-    });
-
-    $('#common_datatable_users_contest_team').dataTable({
-        order: [],
-        columnDefs: [{orderable: false, targets: [2]}]
-    });
-
-    $('#common_datatable_users_contest_joined').dataTable({
-        order: [],
-        columnDefs: [{orderable: false, targets: [9]}]
-    });
-
-    $('#common_datatable_users_team').dataTable({
-        order: [],
-        columnDefs: [{orderable: false, targets: [4]}]
-    });
-
-    function MyTeams(teamId, seriesId) {
-        // alert(seriesId);
-        $.ajax({
-            url: '<?php echo base_url(); ?>' + "users/getTeamPlayers",
-            type: "post",
-            data: {teamId: teamId, seriesId: seriesId},
-            success: function (data, textStatus, jqXHR) {
-                $('#players_model_box').html(data);
-                $("#commonModal1").modal('show');
-            }
-        });
-    }
-    function getPanDetails(userId) {
-        $.ajax({
-            url: '<?php echo base_url(); ?>' + "users/getPanCard",
-            type: "post",
-            data: {userId: userId},
-            success: function (data, textStatus, jqXHR) {
-                $('#form-modal-box').html(data);
-                $("#panModal").modal('show');
-            }
-        });
-    }
-    function getBankDetails(userId) {
-        $.ajax({
-            url: '<?php echo base_url(); ?>' + "users/getBankAccount",
-            type: "post",
-            data: {userId: userId},
-            success: function (data, textStatus, jqXHR) {
-                $('#form-modal-box').html(data);
-                $("#bankModal").modal('show');
-            }
-        });
-    }
-    function panCardStatus(userId, status) {
-        var message = "";
-        if (status == 1) {
-            message = "Verified";
-        } else if (status == 2) {
-            message = "InActive";
-        }
-
-        bootbox.confirm({
-            message: "Do you want to " + message + " it?",
-            buttons: {
-                confirm: {
-                    label: 'Ok',
-                    className: '<?php echo THEME_BUTTON; ?>'
-                },
-                cancel: {
-                    label: 'Cancel',
-                    className: 'btn-danger'
-                }
-            },
-            callback: function (result) {
-                if (result) {
-                    var url = "<?php echo base_url() ?>appointment/panCardStatus";
-                    $.ajax({
-                        method: "POST",
-                        url: url,
-                        data: {userId: userId, status: status},
-                        dataType: "json",
-                        success: function (response) {
-                            if (response.status == 200) {
-                                setTimeout(function () {
-                                    $("#msg").html("<div class='alert alert-success'>" + response.msg + "</div>");
-                                });
-                                $('.modal-backdrop').remove();
-                                setTimeout(function () {
-                                    $("#panModal").modal('hide');
-                                }, 1000);
-                            } else {
-                                $("#msg").html("<div class='alert alert-danger'>" + response.msg + "</div>");
-                                $('.modal-backdrop').remove();
-                            }
-                        },
-                        error: function (error, ror, r) {
-                            bootbox.alert(error);
-                        },
-                    });
-                } else {
-                    $('.modal-backdrop').remove();
-                }
-            }
-        });
-    }
-    function bankStatus(userId, status) {
-        var message = "";
-        if (status == 1) {
-            message = "Verified";
-        } else if (status == 2) {
-            message = "InActive";
-        }
-
-        bootbox.confirm({
-            message: "Do you want to " + message + " it?",
-            buttons: {
-                confirm: {
-                    label: 'Ok',
-                    className: '<?php echo THEME_BUTTON; ?>'
-                },
-                cancel: {
-                    label: 'Cancel',
-                    className: 'btn-danger'
-                }
-            },
-            callback: function (result) {
-                if (result) {
-                    var url = "<?php echo base_url() ?>users/bankAccountStatus";
-                    $.ajax({
-                        method: "POST",
-                        url: url,
-                        data: {userId: userId, status: status},
-                        dataType: "json",
-                        success: function (response) {
-                            if (response.status == 200) {
-                                setTimeout(function () {
-                                    $("#msg").html("<div class='alert alert-success'>" + response.msg + "</div>");
-                                });
-                                $('.modal-backdrop').remove();
-                                setTimeout(function () {
-                                    $("#bankModal").modal('hide');
-                                }, 1000);
-                            } else {
-                                $("#msg").html("<div class='alert alert-danger'>" + response.msg + "</div>");
-                                $('.modal-backdrop').remove();
-                            }
-                        },
-                        error: function (error, ror, r) {
-                            bootbox.alert(error);
-                        },
-                    });
-                } else {
-                    $('.modal-backdrop').remove();
-                }
-            }
-        });
-    }
-      function aadharCardStatus(userId, status) {
-        var message = "";
-        if (status == 1) {
-            message = "Verified";
-        } else if (status == 2) {
-            message = "InActive";
-        }else if(status == 3){
-            message = "Cancel";
-        }
-
-
-        bootbox.confirm({
-            message: "Do you want to " + message + " it?",
-            buttons: {
-                confirm: {
-                    label: 'Ok',
-                    className: '<?php echo THEME_BUTTON; ?>'
-                },
-                cancel: {
-                    label: 'Cancel',
-                    className: 'btn-danger'
-                }
-            },
-            callback: function (result) {
-                if (result) {
-                    var url = "<?php echo base_url() ?>users/aadharCardStatus";
-                    $.ajax({
-                        method: "POST",
-                        url: url,
-                        data: {userId: userId, status: status},
-                        dataType: "json",
-                        success: function (response) {
-                            if (response.status == 200) {
-                                setTimeout(function () {
-                                    $("#msg").html("<div class='alert alert-success'>" + response.msg + "</div>");
-                                });
-                                $('.modal-backdrop').remove();
-                                setTimeout(function () {
-                                    $("#aadharModal").modal('hide');
-                                }, 1000);
-                            } else {
-                                $("#msg").html("<div class='alert alert-danger'>" + response.msg + "</div>");
-                                $('.modal-backdrop').remove();
-                            }
-                        },
-                        error: function (error, ror, r) {
-                            bootbox.alert(error);
-                        },
-                    });
-                } else {
-                    $('.modal-backdrop').remove();
-                }
-            }
-        });
-    }
- function getAadharCardDetails(userId) {
-        $.ajax({
-            url: '<?php echo base_url(); ?>' + "users/getAadharCard",
-            type: "post",
-            data: {userId: userId},
-            success: function (data, textStatus, jqXHR) {
-                $('#form-modal-box').html(data);
-                $("#aadharModal").modal('show');
-            }
-        });
-    }
-    function getRankWinners(contestId) {
-        var url = "<?php echo base_url() ?>users/getRankWinners";
-        $.ajax({
+    function headingSearch() {
+        var md_steward_id=jQuery('#md_steward_id').val();
+        var doctor_id=jQuery('#doctor_id').val();
+        var patient_id=jQuery('#name').val();
+        var md_stayward_response = jQuery('#md_stayward_response').val().trim();
+        var psa = jQuery('#psa').val().trim();
+        var new_initial_dx = jQuery('#new_initial_dx :selected').text();
+        var new_initial_rx = jQuery('#new_initial_rx :selected').text();
+        var additional_comment_option = jQuery('#additional_comment_option :selected').text();
+        
+        var new_initial_dot = jQuery('#new_initial_dot').val().trim();
+       // var pct = jQuery('#pct').val().trim();
+        var url = "<?php echo base_url() ?>task/email_smtp";
+        if(md_stayward_response != "" || psa != "" || new_initial_dx != "" || new_initial_rx != "" ||  additional_comment_option != "" || new_initial_dot != "" /* || pct != "" */ ){
+            $.ajax({
             method: "POST",
             url: url,
-            data: {contestId: contestId},
-            success: function (response) {
-                $("#form-modal-box").html(response);
-                $("#rankWinners").modal('show');
+            data: {
+                patient_id:patient_id,
+                md_stayward_response: md_stayward_response,
+                psa: psa,
+                new_initial_dx: new_initial_dx,
+                new_initial_rx: new_initial_rx,
+                additional_comment_option: additional_comment_option,
+                
+                new_initial_dot: new_initial_dot,
+                //pct: pct,
+                doctor_id:doctor_id,
+                md_steward_id:md_steward_id
             },
-            error: function (error, ror, r) {
-                bootbox.alert(error);
-            },
-        });
-    }
-
-     var open_modal_referral = function (controller) {
-        $.ajax({
-            url: '<?php echo base_url(); ?>' + controller + "/send_referrals_model",
-            type: 'POST',
-            data: {'<?php echo $this->security->get_csrf_token_name(); ?>': '<?php echo $this->security->get_csrf_hash(); ?>'},
-            success: function (data, textStatus, jqXHR) {
-
-                $('#form-modal-box').html(data);
-                $("#commonModal").modal('show');
-
-
+            success: function(data) {
+                $('.center').html(data);
             }
         });
+        }
+       
     }
- $('#common_datatable_affiliate_list').dataTable({
-        order: [],
-        dom: 'Bfrtip',
-        buttons: [
-            {
-                extend: 'excel',
-                exportOptions: {
-                    columns: [0,1, 2, 3, 4,5,6,7,8,9]
-                }
-            },
-            {
-                // extend: 'pdf',
-                // exportOptions: {
-                //     columns: [0,1, 2, 3, 4,5,6,7,8,9,10]
-                // }
-                  extend: 'pdfHtml5',
-                orientation: 'landscape',
-                pageSize: 'A4'
-            },
 
-            {
-                extend: 'print',
-                exportOptions: {
-                    columns: [0,1, 2, 3, 4,5,6,7,8,9]
-                }
+    function headingSearch1() {
+
+        var to_email=jQuery('#to_email').val();
+        var patient_id=jQuery('#name').val();
+        var room_number=jQuery('#room_number').val();
+        var care_unit_name=jQuery('#care_unit_name').val();
+        var doctor_name=jQuery('#doctor_name').val();
+        var symptom_onset=jQuery('#symptom_onset').val();
+        var culture_source_name=jQuery('#culture_source_name').val();
+        var organism_name=jQuery('#organism_name').val();
+        var precautions_name=jQuery('#precautions_name').val();
+        var md_steward = jQuery('#md_steward').val();
+        var date_of_start_abx = jQuery('#date_of_start_abx').val();
+        var initial_rx_name = jQuery('#initial_rx_name').val();
+        var initial_dx_name = jQuery('#initial_dx_name').val();
+        var initial_dot = jQuery('#initial_dot').val();
+        var infection_surveillance_checklist = jQuery('#infection_surveillance_checklist').val();
+        var criteria_met = jQuery('#criteria_met').val();
+        var md_stayward_response = jQuery('#md_stayward_response').val();
+        var new_initial_rx_name = jQuery('#new_initial_rx_name').val();
+        var psa = jQuery('#psa').val();
+        var new_initial_dx_name = jQuery('#new_initial_dx_name').val();
+        var new_initial_dot = jQuery('#new_initial_dot').val();
+       // var pct = jQuery('#pct').val().trim();
+        var additional_comment_option = jQuery('#additional_comment_option').val().trim();
+
+       /*  var md_steward_id=jQuery('#md_steward_id').val();
+        var doctor_id=jQuery('#doctor_id').val();
+        */
+        //var md_stayward_response = jQuery('#md_stayward_response').val().trim();
+       
+        
+        
+        
+        
+       
+       
+        var url = "<?php echo base_url() ?>task/email_smtp1";
+        if(patient_id != "" /* || psa != "" || new_initial_dx != "" || new_initial_rx != "" ||  additional_comment_option != "" || new_initial_dot != "" || pct != "" */ ){
+            $.ajax({
+            method: "POST",
+            url: url,
+            data: {
+                to_email:to_email,
+                patient_id:patient_id,
+                room_number:room_number,
+                care_unit_name:care_unit_name,
+                doctor_name:doctor_name,
+                symptom_onset:symptom_onset,
+                culture_source_name:culture_source_name,
+                organism_name:organism_name,
+                precautions_name:precautions_name,
+                md_steward:md_steward,
+                date_of_start_abx:date_of_start_abx,
+                initial_rx_name:initial_rx_name,
+                initial_dx_name:initial_dx_name,
+                initial_dot:initial_dot,
+                infection_surveillance_checklist:infection_surveillance_checklist,
+                criteria_met:criteria_met,
+                md_stayward_response:md_stayward_response,
+                new_initial_rx_name: new_initial_rx_name,
+                psa: psa,
+                new_initial_dx_name: new_initial_dx_name,
+                new_initial_dot: new_initial_dot,
+                //pct: pct,
+                additional_comment_option: additional_comment_option,
+                
+                
+               
+               /*  doctor_id:doctor_id,
+                md_steward_id:md_steward_id */
+            },
+            success: function(data) {
+                $('.center').html(data);
             }
+        });
+        }
+       
+    }
 
-        ],
-        //columnDefs: [{orderable: false, targets: [5, 6]}]
-    }); 
-  $('#common_datatable_new_reg').dataTable({
-        order: [],
-        dom: 'Bfrtip',
-        buttons: [
-            {
-                extend: 'excel',
-                exportOptions: {
-                    columns: [0,1, 2, 3, 4,5,6,7,8,9]
-                }
-            },
-            {
-                // extend: 'pdf',
-                // exportOptions: {
-                //     columns: [0,1, 2, 3, 4,5,6,7,8,9]
-                // }
-                  extend: 'pdfHtml5',
-                orientation: 'landscape',
-                pageSize: 'A4'
-            },
-
-            {
-                extend: 'print',
-                exportOptions: {
-                    columns: [0,1, 2, 3, 4,5,6,7,8,9]
-                }
-            }
-
-        ],
-        //columnDefs: [{orderable: false, targets: [5, 6]}]
+    App.datatables();
+    jQuery('body').on('click', '#submit1', function() {
+       // if (isDataChange1){
+        headingSearch1();
+        //}
     });
-     $('#common_datatable_referral_bonus').dataTable({
+    App.datatables();
+    jQuery('body').on('click', '#submit', function() {
+        // e.preventDefault();
+        /*  console.log(isDataChange);
+         return false; */
+       /*   if(headingSearch()=""){
+             return false;
+         } */
+         /* if($("#md_stayward_response").val()!="" && $("#new_initial_dx").val()!=""
+         && $("#new_initial_rx").val()!="" && $("#new_initial_dot").val()!="" 
+         && $("#pct").val()!=""){
+             return true;
+         }
+          */
+        if (isDataChange) {
+            headingSearch()
+        }
+        /* console.log(isDataChange);
+         return false; */
+
+        // if ($("#infection_surveillance_checklist").val() != "N/A" && $("#infection_surveillance_checklist").val() == "Loeb") {
+        //     alert("Printable ABX Checklist form will appear after clicking OK button. Please complete and submit the form.");
+        //     window.open("<?php //echo base_url(); ?>application/modules/patient/views/form1.html","_self");
+        // };
+
+        // if ($("#infection_surveillance_checklist").val() != "N/A" && $("#infection_surveillance_checklist").val() == "McGeer – UTI") {
+        //     alert("Printable ABX Checklist form will appear after clicking OK button. Please complete and submit the form.");
+        //     window.open("<?php //echo base_url(); ?>application/modules/patient/views/form2.html","_self");
+        // };
+
+        // if ($("#infection_surveillance_checklist").val() != "N/A" && $("#infection_surveillance_checklist").val() == "McGeer – RTI") {
+        //     alert("Printable ABX Checklist form will appear after clicking OK button. Please complete and submit the form.");
+        //     window.open("<?php //echo base_url(); ?>application/modules/patient/views/form3.html","_self");   
+        // };
+
+        // if ($("#infection_surveillance_checklist").val() != "N/A" && $("#infection_surveillance_checklist").val() == "McGeer – GITI") {
+        //     alert("Printable ABX Checklist form will appear after clicking OK button. Please complete and submit the form.");
+        //       window.open("<?php //echo base_url(); ?>application/modules/patient/views/form4.html","_self"); 
+        // };
+
+        // if ($("#infection_surveillance_checklist").val() != "N/A" && $("#infection_surveillance_checklist").val() == "McGeer –SSTI") {
+        //     alert("Printable ABX Checklist form will appear after clicking OK button. Please complete and submit the form.");
+        //     window.open("<?php //echo base_url(); ?>application/modules/patient/views/form5.html","_self");
+        // };
+
+        // var form_name = this.form.id;
+        // if (form_name == '[object HTMLInputElement]')
+        //     form_name = 'addFormAjax';
+        // $("#" + form_name).validate({
+        //     rules: {
+        //         // name: "required",
+        //     },
+        //     submitHandler: function(form) {
+        //         jQuery(form).ajaxSubmit({});
+        //     }
+        // });
+
+    });
+    $('#common_datatable_menucat').dataTable({
         order: [],
-        dom: 'Bfrtip',
-        buttons: [
-            {
-                extend: 'excel',
-                exportOptions: {
-                    columns: [0,1, 2, 3, 4,5,6,7,8,9,10]
-                }
-            },
-            {
-                // extend: 'pdf',
-                // exportOptions: {
-                //     columns: [0,1, 2, 3, 4,5,6,7,8]
-                // }
-                  extend: 'pdfHtml5',
-                orientation: 'landscape',
-                pageSize: 'A4'
-            },
-
-            {
-                extend: 'print',
-                exportOptions: {
-                    columns: [0,1, 2, 3, 4,5,6,7,8,9,10]
-                }
-            }
-
-        ],
-        //columnDefs: [{orderable: false, targets: [5, 6]}]
+        columnDefs: [{
+            orderable: false,
+            targets: [0, 13]
+        }]
     });
 
-     $('#from_date').datepicker({
-                startView: 3,
-                todayBtn: "linked",
-                format: "mm/dd/yyyy",
-                keyboardNavigation: false,
-                forceParse: false,
-                calendarWeeks: true,
-                autoclose: true,
-                //startDate: '-0d',
-                // endDate: '+2m',
+    function getPatient() {
+        var care_unit = $("#care_unit").val();
+        $("#careUnitID").val(care_unit);
+
+        var care_unit1 = $("#care_unit1").val();
+        if (care_unit1) {
+            $(".hidetext").show();
+        } else {
+            $(".hidetext").hide();
+        }
+    }
+    $(".hidetext").hide();
+
+    /* function getPatientId(id) {
+        var patient_mode = $("#patient_mode").val();
+        if (patient_mode == 'Existing') {
+            var url = "<?php echo base_url() ?>patient/get_patient_id";
+            $.ajax({
+                method: "POST",
+                url: url,
+                data: {
+                    careunit_id: id
+                },
+                success: function(response) {
+                    $("#patient_id_dropbox").html(response);
+                },
+                error: function(error, ror, r) {
+                    bootbox.alert(error);
+                },
             });
-
-            $('#to_date').datepicker({
-                startView: 3,
-                format: "mm/dd/yyyy",
-                todayBtn: "linked",
-                keyboardNavigation: false,
-                forceParse: false,
-                calendarWeeks: true,
-                autoclose: true,
-                //startDate: '-0d',
-                //endDate: '+2m',
-            });
+        }
 
 
-             function getPanDetails(userId) {
-        $.ajax({
-            url: '<?php echo base_url(); ?>' + "mdSteward/getPanCard",
-            type: "post",
-            data: {userId: userId},
-            success: function (data, textStatus, jqXHR) {
-                $('#form-modal-box').html(data);
-                $("#panModal").modal('show');
+    } */
+
+
+    
+    function deletePatient(patient_id) {
+        bootbox.confirm({
+            message: "Do you really want to delete task?",
+            buttons: {
+                confirm: {
+                    label: 'Ok',
+                    className: '<?php echo THEME_BUTTON; ?>'
+                },
+                cancel: {
+                    label: 'Cancel',
+                    className: 'btn-danger'
+                }
+            },
+            callback: function(result) {
+                if (result) {
+                    var url = "<?php echo base_url() ?>task/delete_patient";
+                    $.ajax({
+                        method: "POST",
+                        url: url,
+                        data: {
+                            patient_id: patient_id
+                        },
+                        dataType: "json",
+                        success: function(response) {
+                            if (response.status == 200) {
+                                $("#msg").html("<div class='alert alert-success'>" + response.message + "</div>");
+                                setTimeout(function() {
+                                    window.location.href = response.url;
+                                }, 1500);
+                            } else {
+                                $("#msg").html("<div class='alert alert-danger'>" + response.message + "</div>");
+                            }
+                        },
+                        error: function(error, ror, r) {
+                            bootbox.alert(error);
+                        },
+                    });
+                } else {
+                    $('.modal-backdrop').remove();
+                }
             }
         });
     }
+
+    $("#date").datepicker({
+        dateFormat: 'mm/dd/yy'
+    });
+    $("#date1").datepicker({
+        dateFormat: 'mm/dd/yy'
+    });
+
+    $("#month, #year").change(function() {
+        var selectedMonth = $("#month").val();
+        var selectedYear = $("#year").val();
+
+        if (selectedMonth && selectedYear) {
+            // Convert the month to a string with two characters
+            selectedMonth = selectedMonth.padStart(2, '0');
+
+            var startDate = selectedYear + '-' + selectedMonth + '-01';
+            var endDate = selectedYear + '-' + selectedMonth + '-' + new Date(selectedYear, parseInt(selectedMonth), 0).getDate();
+
+            // Set the values to input fields with names and IDs as "month" and "year"
+            $("input[name='month']").val(startDate);
+            $("input[name='year']").val(endDate);
+        }
+    });
+
+    // get last five years 
+    var currentYear = new Date().getFullYear();
+
+    // Reference to the select element
+    var select = document.getElementById("year");
+
+    // Generate options for the last 5 years
+    for (var i = 0; i < 5; i++) {
+        var optionYear = currentYear - i;
+        var option = document.createElement("option");
+        option.value = optionYear;
+        option.text = optionYear;
+        select.appendChild(option);
+    }
+    // 
 </script>
-
-

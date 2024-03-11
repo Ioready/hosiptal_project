@@ -12,12 +12,14 @@
     </ul>
     <!-- END Datatables Header -->
     <div class="row">
- 
+    <p style="display:none">
+    <?php $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : ''; ?>
+    </p>
         <div class="col-md-12" >    <div class="block full">
                 <div class="block-title">
                     <h2><strong><?php echo $title;?></strong> Panel</h2>
                 </div>        
-                <form class="form-horizontal" role="form" id="editFormAjaxUser" method="post" action="<?php echo base_url('index.php/appointment/update') ?>" enctype="multipart/form-data">
+                <form class="form-horizontal" role="form" id="editFormAjaxUser" method="post" action="<?php echo base_url('contactus/update') ?>" enctype="multipart/form-data">
                     <div class="modal-header text-center">
                         <h2 class="modal-title"><i class="fa fa-pencil"></i> <?php echo (isset($title)) ? ucwords($title) : "" ?></h2>
                     </div>
@@ -25,78 +27,50 @@
                         <img src="<?php //echo base_url().'backend_asset/images/Preloader_2.gif'; ?>" class="loaders-img" class="img-responsive">
                     </div> -->
                     <div class="alert alert-danger" id="error-box" style="display: none"></div>
-                   
                     <div class="form-body">
-                <div class="row">
-                    <div class="col-md-12" >
-                        <div class="form-group">
-                            <label class="col-md-3 control-label">Date</label>
-                            <div class="col-md-9">
-                            <input type="date" id="date" name="date" class="form-control" value="<?php echo date('Y-m-d', strtotime($results->date)); ?>" required>
+                        <div class="row">
 
-                            <!-- <input type="date" id="date" name="date" class="form-control" value="<?php echo isset($results->date) ? $results->date : ''; ?>" required> -->
 
-                            </div>
-                             <!-- <span class="help-block m-b-none col-md-offset-3"><i class="fa fa-arrow-circle-o-up"></i> <?php echo lang('english_note');?></span>  -->
-                        </div>
-                    </div>
-                   
-                    
-                    <div class="col-md-12" >
-                        <div class="form-group">
-                            <label class="col-md-3 control-label">Start Time</label>
-                            <div class="col-md-9">
-                            <input type="time" class="form-control" value="<?php $date = date("H:i", strtotime($results->time_start)); echo "$date"; ?>" id="time_start" name="time_start" />
-                            <!-- <input type="time" id="time_start" name="time_start" class="form-control" required> -->
-                            </div>
-                           
-                        </div>
-                    </div>
-                    <div class="col-md-12" >
-                        <div class="form-group">
-                            <label class="col-md-3 control-label">End Time</label>
-                            <div class="col-md-9">
-                            <input type="time" class="form-control" value="<?php $date = date("H:i", strtotime($results->time_end)); echo "$date"; ?>" id="time_end" name="time_end" />
-                            <!-- <input type="time" id="time_end" name="time_end" class="form-control" required> -->
-                            </div>
-                           
-                        </div>
-                    </div>
 
-                <div class="col-md-12" >
-                        <div class="form-group">
-                            <label class="col-md-3 control-label">Patient Name:</label>
-                            <div class="col-md-9">
-                           
-                    <input type="text" id="patient_name" name="patient_name" class="form-control" value="<?php echo $results->patient_id; ?>" required>
+                            <div class="col-md-12" style="display:none">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Facility Manager</label>
+                                    <div class="col-md-9">  
+                                    <input type="text" class="form-control" name="facility_manager_id" id="facility_manager_id" placeholder="Login ID" value="<?php echo $LoginID; ?>"/>                              
+                                            <!-- <select id="facility_manager_id" name="facility_manager_id" class="form-control select2" size="1">
+                                                <option value="">Please select</option>
+                                                <?php foreach($care_unit as $row){?>
+                                                            
+                                                <option value="<?php echo $row->id;?>" <?php echo ($results->facility_manager_id == $row->id) ? "selected" : ""; ?>><?php echo $row->first_name." ".$row->last_name;?></option>
+                                                        
+                                                <?php }?>
+                                            </select> -->
+                                    </div>
+                                </div>
                             </div>
-                             <!-- <span class="help-block m-b-none col-md-offset-3"><i class="fa fa-arrow-circle-o-up"></i> <?php echo lang('english_note');?></span>  -->
-                        </div>
-                    </div>
-                    
-                     <div class="col-md-12" >
-                        <div class="form-group">
-                            <!-- <label class="col-md-3 control-label">Doctor Name:</label> -->
-                            <div class="col-md-9">
-                           
-                        <input type="hidden" id="doctor_name" name="doctor_name" class="form-control" value="<?php echo $results->doctor_id; ?>" required>
+
+                            <div class="col-md-12" >
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Title</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" name="title" id="title" placeholder="Title" value="<?php echo $results->title; ?>"/>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12" >
-                    <div class="form-group">
-                            <label class="col-md-3 control-label">Reason for Appointment:</label>
-                            <div class="col-md-9">
-                        <textarea id="reason" name="reason" rows="4" cols="50" class="form-control" value="<?php echo $results->reason; ?>" required><?php echo $results->reason; ?></textarea>
+
+                            <div class="col-md-12" >
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><?php echo lang('description');?></label>
+                                    <div class="col-md-9">
+                                        <textarea type="text" class=" form-control" style="height:100px; " name="description" id="description" placeholder="Description"><?php echo $results->description;?></textarea>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    <div class="space-22"></div>
-                </div>
-            </div>
+
 
                             <input type="hidden" name="id" value="<?php echo $results->id; ?>" />
-                            <input type="hidden" name="password" value="<?php echo $results->password; ?>" />
-                            <input type="hidden" name="exists_image" value="<?php echo $results->profile_pic; ?>" />
+                            <!-- <input type="hidden" name="password" value="<?php echo $results->password; ?>" />
+                            <input type="hidden" name="exists_image" value="<?php echo $results->profile_pic; ?>" /> -->
                             <div class="space-22"></div>
                         </div>
                     </div>
