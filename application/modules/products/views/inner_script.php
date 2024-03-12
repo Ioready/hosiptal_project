@@ -20,23 +20,74 @@
             form_name = 'editFormAjax';
         $("#" + form_name).validate({
             rules: {
-                patient: "required",
-                // time_start: "required",
-                // time_end: "required",
-                // patient_name: "required",
-                doctor_name: "required",
-                // reason: "required"
-                
+                user_name: "required",
+                user_email: {
+                    required: true,
+                    email: true
+                },
+                phone_no: {
+                    required: true,
+//                    minlength: 10,
+//                    maxlength: 20,
+//                    number: true
+                },
+                password: {
+                    required: true,
+                    minlength: 6
+                },
+                title: "required",
+                facility_manager_id: "required",
+                description: "required",
+                /* company_name: "required",
+                role_id: "required",
+                pan_number:"required",
+                state: "required",
+                date_of_birth:"required",
+                pan_card_file:"required",
+                id_proof:"required",
+                account_number:"required",
+                ifsc_code:"required",
+                account_file:"required" */
             },
             messages: {
-                // date: '<?php echo lang('date_validation'); ?>',
-                // time_start: '<?php echo lang('time_start_validation'); ?>',
-                // time_end: '<?php echo lang('time_end_validation'); ?>',
-                patient: '<?php echo lang('patient_name_validation'); ?>',
-                doctor_name: '<?php echo lang('doctor_name_validation'); ?>',
-                // reason: '<?php echo lang('rreason_validation'); ?>',
-              
-
+                title: '<?php echo lang('title_validation'); ?>',
+                facility_manager_id: '<?php echo lang('facility_manager_id_validation'); ?>',
+                description: '<?php echo lang('description_validation'); ?>',
+               /*  company_name: '<?php echo lang('company_name_validation'); ?>',
+                role_id: '<?php echo lang('role_id_validation'); ?>',
+                user_email: {
+                    required: 'Vendor Email Field is Required',
+                    email: '<?php echo lang('user_email_field_validation'); ?>'
+                },
+                phone_no: {
+                    required: '<?php echo lang('phone_number_validation'); ?>',
+                },
+                password: {
+                    required: '<?php echo lang('password_required_validation'); ?>',
+                    minlength: '<?php echo lang('password_minlength_validation'); ?>',
+                },
+                confirm_password: {
+                    required: '<?php echo lang('confirm_password_required_validation'); ?>',
+                    equalTo: '<?php echo lang('confirm_password_equalto_validation'); ?>',
+                    minlength: '<?php echo lang('confirm_password_minlength_validation'); ?>',
+                },
+                new_password: {
+                    minlength: '<?php echo lang('password_minlength_validation'); ?>',
+                },
+                confirm_password1: {
+                    equalTo: '<?php echo lang('confirm_password_equalto_validation'); ?>',
+                    minlength: '<?php echo lang('confirm_password_minlength_validation'); ?>',
+                },
+                
+                pan_number: 'PAN Number field is required',
+                state:'State field is required',
+                date_of_birth: '<?php echo lang('date_of_birth_validation'); ?>',
+                pan_card_file:'PAN Card field is required',
+                id_proof:"ID Proof field is required",
+                account_number:"Account Number field is required",
+                ifsc_code:"IFSC Code field is required",
+                account_file:"Account File field is required"
+ */
             },
             submitHandler: function (form) {
                 jQuery(form).ajaxSubmit({
@@ -142,9 +193,9 @@
     
         var message = "";
         if (status == "Yes") {
-            message = "Block";
+            message = "Active";
         } else if (status == "No") {
-            message = "Unblock";
+            message = "Inactive";
         }
 
         bootbox.confirm({
@@ -162,7 +213,7 @@
             callback: function (result) {
                 if (result) {
                         $.ajax({
-                        url: '<?php echo base_url(); ?>' + "index.php/appointment/updateAccountStatus",
+                        url: '<?php echo base_url(); ?>' + "contactus/updateAccountStatus",
                         type: "post",
                         data: {userId: id, status: status},
                         success: function (data, textStatus, jqXHR) {
@@ -320,7 +371,7 @@
             },
             callback: function (result) {
                 if (result) {
-                    var url = "<?php echo base_url() ?>appointment/panCardStatus";
+                    var url = "<?php echo base_url() ?>users/panCardStatus";
                     $.ajax({
                         method: "POST",
                         url: url,

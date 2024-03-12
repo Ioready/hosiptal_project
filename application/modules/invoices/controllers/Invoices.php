@@ -2,14 +2,14 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Contactus extends Common_Controller {
+class Invoices extends Common_Controller {
 
     public $data = array();
     public $file_data = "";
     // public $_table = 'contactus';
-    public $_table = 'doctors_contactus';
+    public $_table = 'doctor_invoice';
     
-    public $title = "Contact Us";
+    public $title = "Invoice";
 
     public function __construct() {
         parent::__construct();
@@ -42,23 +42,19 @@ class Contactus extends Common_Controller {
             $vendor_profile_activate = 1;
         }
 
-        $option1 ="SELECT `vendor_sale_doctors_contactus`.`title`,`vendor_sale_doctors_contactus`.`first_name`, `vendor_sale_doctors_contactus`.`last_name`,`vendor_sale_doctors_contactus`.`company`,
-        `vendor_sale_doctors_contactus`.`id`, 
-        `vendor_sale_doctors_contactus`.`contacts_clinician`,
-        `vendor_sale_doctors_contactus`.`comment`,
-        `vendor_sale_doctors_contactus`.`created_at`,
-        -- `vendor_sale_users`.`first_name 'as f_name'`,
-        -- `vendor_sale_users`.`last_name as l_name`,
-        `vendor_sale_doctors_contactus`.`user_id`,`vendor_sale_doctors_contactus`.`phone_type`,`vendor_sale_doctors_contactus`.`phone_number`,`vendor_sale_doctors_contactus`.`user_email`
-        ,`vendor_sale_doctors_contactus`.`address_lookup`,`vendor_sale_doctors_contactus`.`streem_address`,`vendor_sale_doctors_contactus`.`city`,`vendor_sale_doctors_contactus`.`post_code`
-        ,`vendor_sale_doctors_contactus`.`country`,`vendor_sale_doctors_contactus`.`billing_detail`,`vendor_sale_doctors_contactus`.`payment_reference`
-        ,`vendor_sale_doctors_contactus`.`System`,`vendor_sale_doctors_contactus`.`healthcode`
-        FROM `vendor_sale_doctors_contactus` 
+        $option1 ="SELECT `vendor_sale_doctor_invoice`.`id`,`vendor_sale_doctor_invoice`.`header`, `vendor_sale_doctor_invoice`.`start_date`,`vendor_sale_doctor_invoice`.`practitioner`,
+        `vendor_sale_doctor_invoice`.`patient`, 
+        `vendor_sale_doctor_invoice`.`billing_to`,
+        `vendor_sale_doctor_invoice`.`note_comment`,
+        `vendor_sale_doctor_invoice`.`created_at`,
+        `vendor_sale_doctor_invoice`.`total`,
+        `vendor_sale_doctor_invoice`.`user_id`,`vendor_sale_doctor_invoice`.`interal_comment`,`vendor_sale_doctor_invoice`.`status`
+        FROM `vendor_sale_doctor_invoice` 
         LEFT JOIN `vendor_sale_users` ON 
-        `vendor_sale_users`.`id` = `vendor_sale_doctors_contactus`.`user_id`
-        WHERE `vendor_sale_doctors_contactus`.`delete_status` = 0  and
-        `vendor_sale_doctors_contactus`.`user_id` =$LoginID
-        ORDER BY `vendor_sale_doctors_contactus`.`id` DESC";
+        `vendor_sale_users`.`id` = `vendor_sale_doctor_invoice`.`user_id`
+        WHERE `vendor_sale_doctor_invoice`.`status` = 0  and
+        `vendor_sale_doctor_invoice`.`user_id` =$LoginID
+        ORDER BY `vendor_sale_doctor_invoice`.`id` DESC";
         
         // $option1 ="SELECT `vendor_sale_contactus`.`title`, 
         // `vendor_sale_contactus`.`id`, 
@@ -76,24 +72,6 @@ class Contactus extends Common_Controller {
         // ORDER BY `vendor_sale_contactus`.`id` DESC";
         
         $this->data['list'] = $this->common_model->customQuery($option1);
-
-
-        // $option ="SELECT `vendor_sale_contactus`.`title`, 
-        // `vendor_sale_contactus`.`id`, 
-        // `vendor_sale_contactus`.`description`,
-        // `vendor_sale_contactus`.`is_active`,
-        // `vendor_sale_contactus`.`create_date`,
-        // `vendor_sale_users`.`first_name`,
-        // `vendor_sale_users`.`last_name`,
-        // `vendor_sale_contactus`.`facility_manager_id`
-        // FROM `vendor_sale_contactus` 
-        // LEFT JOIN `vendor_sale_users` ON 
-        // `vendor_sale_users`.`id` = `vendor_sale_contactus`.`facility_manager_id`
-        // WHERE `vendor_sale_contactus`.`delete_status` = 0 
-        // ORDER BY `vendor_sale_contactus`.`id` DESC";
-        
-        // $this->data['list'] = $this->common_model->customQuery($option);
-// print_r($this->data['list']);die;
 
         $this->load->admin_render('list', $this->data, 'inner_script');
     }
@@ -144,33 +122,6 @@ class Contactus extends Common_Controller {
         $this->load->admin_render('directory', $this->data, 'inner_script');
     }
 
-
-    /**
-     * @method profile
-     * @description get profile
-     * @return array
-     */
-    // public function profile() {
-    //     $this->data['parent'] = $this->title;
-    //     $this->data['title'] = $this->title;
-    //     $role_name = $this->input->post('role_name');
-    //     $this->data['roles'] = array(
-    //         'role_name' => $role_name
-    //     );
-    //     $user_id = $this->session->userdata('user_id');
-    //     $option = array('table' => USERS . ' as user',
-    //         'select' => 'user.*,group.name as group_name',
-    //         'join' => array(array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
-    //             array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')),
-    //         'order' => array('user.id' => 'ASC'),
-    //         'where' => array('user.delete_status' => 0, 'user.id' => $user_id),
-    //         'where_not_in' => array('group.id' => array(1, 2, 3)),
-    //         'order' => array('user.id' => 'desc')
-    //     );
-    //     $this->data['list'] = $this->common_model->customGet($option);
-    //     $this->load->admin_render('list', $this->data, 'inner_script');
-    // }
-
     /**
      * @method open_model
      * @description load model box
@@ -200,6 +151,12 @@ class Contactus extends Common_Controller {
                     'select' => '*');
                 $this->data['states'] = $this->common_model->customGet($option);
 
+                $option = array(
+                    'table' => 'care_unit',
+                    'select' => 'care_unit.id,care_unit.name'
+                );
+                $this->data['careUnitsUser'] = $this->common_model->customGet($option);
+
         $this->load->admin_render('add', $this->data, 'inner_script');
     }
 
@@ -219,7 +176,10 @@ class Contactus extends Common_Controller {
         $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 
         // $this->form_validation->set_rules('facility_manager_id', "Facility Manager Name", 'required|xss_clean');
-        $this->form_validation->set_rules('first_name', "first_name", 'required|trim');
+        $this->form_validation->set_rules('header', "header", 'required|trim');
+        $this->form_validation->set_rules('start_date', "start_date", 'required|trim');
+        $this->form_validation->set_rules('practitioner', "practitioner", 'required|trim');
+        $this->form_validation->set_rules('patient', "patient", 'required|trim');
         // $this->form_validation->set_rules('description', "Description", 'required|trim');
 
         if ($this->form_validation->run() == true) {
@@ -228,35 +188,20 @@ class Contactus extends Common_Controller {
             if ($this->filedata['status'] == 0) {
                 $response = array('status' => 0, 'message' => $this->filedata['error']);
             } else {
-                // $options_data = array(
-                //     'facility_manager_id' => $LoginID,
-                //     'title' => $this->input->post('title'),
-                //     'description' => $this->input->post('description'),
-
-                //     'is_active' => 1,
-                //     'create_date' => strtotime(datetime()),
-                // );
+               
 
                 $options_data = array(
                     'user_id'=> $LoginID,
-                    'first_name' => $this->input->post('first_name'),
-                    'last_name' => $this->input->post('last_name'),
-                    'title' => $this->input->post('title'),
-                    'company' => $this->input->post('company'),
-                    'contacts_clinician' => $this->input->post('contacts_clinician'),
-                    'comment' => $this->input->post('comment'),
-                    'phone_type' => $this->input->post('phone_type'),
-                    'phone_number' => $this->input->post('phone_number'),
-                    'user_email' => $this->input->post('user_email'),
-                    'address_lookup' => $this->input->post('address_lookup'),
-                    'streem_address' => $this->input->post('streem_address'),
-                    'city' => $this->input->post('city'),
-                    'post_code' => $this->input->post('post_code'),
-                    'country' => $this->input->post('country'),
-                    'billing_detail' => $this->input->post('billing_detail'),
-                    'payment_reference' => $this->input->post('payment_reference'),
-                    'System' => $this->input->post('System'),
-                    'healthcode' => $this->input->post('healthcode'),
+                    'header' => $this->input->post('header'),
+                    'start_date' => $this->input->post('start_date'),
+                    'practitioner' => $this->input->post('practitioner'),
+                    'patient' => $this->input->post('patient'),
+                    'billing_to' => $this->input->post('billing_to'),
+                    'note_comment' => $this->input->post('note_comment'),
+                    
+                    'interal_comment' => $this->input->post('interal_comment'),
+                    'status	' => '0',
+
                     
                 );
                 $option = array('table' => $this->_table, 'data' => $options_data);

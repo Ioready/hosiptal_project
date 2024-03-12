@@ -18,83 +18,84 @@
         var form_name = this.form.id;
         if (form_name == '[object HTMLInputElement]')
             form_name = 'editFormAjax';
-        $("#" + form_name).validate({
-            rules: {
-                user_name: "required",
-                user_email: {
-                    required: true,
-                    email: true
-                },
-                phone_no: {
-                    required: true,
-//                    minlength: 10,
-//                    maxlength: 20,
-//                    number: true
-                },
-                password: {
-                    required: true,
-                    minlength: 6
-                },
-                title: "required",
-                facility_manager_id: "required",
-                description: "required",
-                /* company_name: "required",
-                role_id: "required",
-                pan_number:"required",
-                state: "required",
-                date_of_birth:"required",
-                pan_card_file:"required",
-                id_proof:"required",
-                account_number:"required",
-                ifsc_code:"required",
-                account_file:"required" */
-            },
-            messages: {
-                title: '<?php echo lang('title_validation'); ?>',
-                facility_manager_id: '<?php echo lang('facility_manager_id_validation'); ?>',
-                description: '<?php echo lang('description_validation'); ?>',
-               /*  company_name: '<?php echo lang('company_name_validation'); ?>',
-                role_id: '<?php echo lang('role_id_validation'); ?>',
-                user_email: {
-                    required: 'Vendor Email Field is Required',
-                    email: '<?php echo lang('user_email_field_validation'); ?>'
-                },
-                phone_no: {
-                    required: '<?php echo lang('phone_number_validation'); ?>',
-                },
-                password: {
-                    required: '<?php echo lang('password_required_validation'); ?>',
-                    minlength: '<?php echo lang('password_minlength_validation'); ?>',
-                },
-                confirm_password: {
-                    required: '<?php echo lang('confirm_password_required_validation'); ?>',
-                    equalTo: '<?php echo lang('confirm_password_equalto_validation'); ?>',
-                    minlength: '<?php echo lang('confirm_password_minlength_validation'); ?>',
-                },
-                new_password: {
-                    minlength: '<?php echo lang('password_minlength_validation'); ?>',
-                },
-                confirm_password1: {
-                    equalTo: '<?php echo lang('confirm_password_equalto_validation'); ?>',
-                    minlength: '<?php echo lang('confirm_password_minlength_validation'); ?>',
-                },
+
+//         $("#" + form_name).validate({
+//             rules: {
+//                 user_name: "required",
+//                 user_email: {
+//                     required: true,
+//                     email: true
+//                 },
+//                 phone_no: {
+//                     required: true,
+// //                    minlength: 10,
+// //                    maxlength: 20,
+// //                    number: true
+//                 },
+//                 password: {
+//                     required: true,
+//                     minlength: 6
+//                 },
+//                 title: "required",
+//                 facility_manager_id: "required",
+//                 description: "required",
+//                 /* company_name: "required",
+//                 role_id: "required",
+//                 pan_number:"required",
+//                 state: "required",
+//                 date_of_birth:"required",
+//                 pan_card_file:"required",
+//                 id_proof:"required",
+//                 account_number:"required",
+//                 ifsc_code:"required",
+//                 account_file:"required" */
+//             },
+//             messages: {
+//                 title: '<?php echo lang('title_validation'); ?>',
+//                 facility_manager_id: '<?php echo lang('facility_manager_id_validation'); ?>',
+//                 description: '<?php echo lang('description_validation'); ?>',
+//                /*  company_name: '<?php echo lang('company_name_validation'); ?>',
+//                 role_id: '<?php echo lang('role_id_validation'); ?>',
+//                 user_email: {
+//                     required: 'Vendor Email Field is Required',
+//                     email: '<?php echo lang('user_email_field_validation'); ?>'
+//                 },
+//                 phone_no: {
+//                     required: '<?php echo lang('phone_number_validation'); ?>',
+//                 },
+//                 password: {
+//                     required: '<?php echo lang('password_required_validation'); ?>',
+//                     minlength: '<?php echo lang('password_minlength_validation'); ?>',
+//                 },
+//                 confirm_password: {
+//                     required: '<?php echo lang('confirm_password_required_validation'); ?>',
+//                     equalTo: '<?php echo lang('confirm_password_equalto_validation'); ?>',
+//                     minlength: '<?php echo lang('confirm_password_minlength_validation'); ?>',
+//                 },
+//                 new_password: {
+//                     minlength: '<?php echo lang('password_minlength_validation'); ?>',
+//                 },
+//                 confirm_password1: {
+//                     equalTo: '<?php echo lang('confirm_password_equalto_validation'); ?>',
+//                     minlength: '<?php echo lang('confirm_password_minlength_validation'); ?>',
+//                 },
                 
-                pan_number: 'PAN Number field is required',
-                state:'State field is required',
-                date_of_birth: '<?php echo lang('date_of_birth_validation'); ?>',
-                pan_card_file:'PAN Card field is required',
-                id_proof:"ID Proof field is required",
-                account_number:"Account Number field is required",
-                ifsc_code:"IFSC Code field is required",
-                account_file:"Account File field is required"
- */
+//                 pan_number: 'PAN Number field is required',
+//                 state:'State field is required',
+//                 date_of_birth: '<?php echo lang('date_of_birth_validation'); ?>',
+//                 pan_card_file:'PAN Card field is required',
+//                 id_proof:"ID Proof field is required",
+//                 account_number:"Account Number field is required",
+//                 ifsc_code:"IFSC Code field is required",
+//                 account_file:"Account File field is required"
+//  */
             },
             submitHandler: function (form) {
                 jQuery(form).ajaxSubmit({
                 });
             }
-        });
-    });
+        // });
+    // });
    
   var base_url = '<?php echo base_url() ?>';
     var user_id = $('#uid').val();
@@ -188,6 +189,50 @@
         }
     });
 
+
+    function deleteConsult(patient_id) {
+        bootbox.confirm({
+            message: "Do you really want to delete task?",
+            buttons: {
+                confirm: {
+                    label: 'Ok',
+                    className: '<?php echo THEME_BUTTON; ?>'
+                },
+                cancel: {
+                    label: 'Cancel',
+                    className: 'btn-danger'
+                }
+            },
+            callback: function(result) {
+                if (result) {
+                    var url = "<?php echo base_url() ?>userSettings/delete_patient";
+                    $.ajax({
+                        method: "POST",
+                        url: url,
+                        data: {
+                            patient_id: patient_id
+                        },
+                        dataType: "json",
+                        success: function(response) {
+                            if (response.status == 200) {
+                                $("#msg").html("<div class='alert alert-success'>" + response.message + "</div>");
+                                setTimeout(function() {
+                                    window.location.href = response.url;
+                                }, 1500);
+                            } else {
+                                $("#msg").html("<div class='alert alert-danger'>" + response.message + "</div>");
+                            }
+                        },
+                        error: function(error, ror, r) {
+                            bootbox.alert(error);
+                        },
+                    });
+                } else {
+                    $('.modal-backdrop').remove();
+                }
+            }
+        });
+    }
 
     function changeVendorStatus(id,status, txt) {
     
