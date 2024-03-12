@@ -277,14 +277,12 @@
 <!-- END Datatables Content -->
 </div>
 <!-- END Page Content -->
-<script>
+<!-- <script>
     $('#myForm').on('submit', function(event) {
     event.preventDefault();
         var selectQuestion = $('select#question').find(':selected').val();
         var customeName = $('#custome_name').val();
         var questionResponse_type = $('#response_type').val();
-        // var question = selectQuestion + " " + textQuestion; 
-        
         var dataa =  $( "#addQuestion" ).html(selectQuestion);
         var dataa =  $( "#select_question" ).html('<input type="hidden" name="question" id="question" value="'+selectQuestion+'">');
         var dataa =  $( "#customeName" ).html('<input type="hidden" name="custome_name" id="custome_name" value="'+customeName+'">');
@@ -292,7 +290,38 @@
 
 });
 
+</script> -->
+
+<script>
+
+    $('#addQuestion').on('click', '.btn-danger', function() {
+        $(this).closest('div').remove(); 
+        var valueToRemove = $(this).siblings('input').val(); 
+        $('#select_question').find('input[value="' + valueToRemove + '"]').remove();
+    });
+
+
+    $('#myForm').on('submit', function(event) {
+        event.preventDefault();
+        var selectQuestion = $('select#question').find(':selected').val();
+
+        $("#addQuestion").append('<div style="padding-top: 15px;"><i class="fa fa-bars"></i> ' + selectQuestion + ' <button type="button" class="btn btn-danger" style="float: right;">Delete</button></div>');
+        
+        $("#select_question").append('<input type="text" name="question[]" value="' + selectQuestion + '">');
+    });
+
+    // If you want to handle the change event of the dropdown to add data
+    $('select#question').on('submit', function() {
+        var selectQuestion = $(this).find(':selected').val();
+        
+        // Append new data to the existing content
+        $("#addQuestion").append('<div style="padding-top: 15px;"><i class="fa fa-bars"></i> ' + selectQuestion + ' <button type="button" class="btn btn-danger" style="float: right;">Delete</button></div>');
+        
+        // Add a hidden input field with the selected value
+        $("#select_question").append('<input type="text" name="question[]" value="' + selectQuestion + '">');
+    });
 </script>
+
 <script>
     // Get the modal
 var modal = document.getElementById("myModal");

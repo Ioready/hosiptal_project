@@ -39,12 +39,14 @@ class Patient extends Common_Controller
             $_GET['date'] = $startDate;
             $_GET['date1'] =  $endDate;
         }
+
         // else{
         //     if (!empty($selectedMonth) || !empty($selectedYear)) {
         //     }
         // }
 
         //    print_r($_GET); die;
+        
 
         $this->data['url'] = base_url() . $this->router->fetch_class();
         $this->data['pageTitle'] = "Add " . $this->title;
@@ -55,20 +57,20 @@ class Patient extends Common_Controller
         $this->data['model'] = 'patient/open_model';
         $this->data['table'] = $this->_table;
         $AdminCareUnitID = isset($_SESSION['admin_care_unit_id']) ? $_SESSION['admin_care_unit_id'] : '';
+
         $option = array('table' => 'care_unit', 'where' => array('delete_status' => 0, 'is_active' => 1), 'order' => array('name' => 'ASC'));
+        // print_r($option);
         if (!empty($AdminCareUnitID)) {
 
             $option['where']['id'] = $AdminCareUnitID;
         }
-        //print_r(json_decode($AdminCareUnitID));die;
+        
         $this->data['careUnit'] = $this->common_model->customGet($option);
-        // print_r($this->data['careUnit']);die;
         $this->data['careUnits'] = json_decode($AdminCareUnitID);
 
         $y = $this->data['careUnits'];
         $x = count($y);
-        // print_r($x);die;
-
+        
         $careUnitData = array();
         foreach ($this->data['careUnits'] as $value) {
 
@@ -82,7 +84,8 @@ class Patient extends Common_Controller
         $arraySingle = call_user_func_array('array_merge', $careUnitData);
         $this->data['careUnitsUser'] = $arraySingle;
 
-        //$this->data['careUnits_list'] = json_decode($AdminCareUnitID);
+        $this->data['careUnits_list'] = json_decode($AdminCareUnitID);
+// print_r($this->data['careUnits_list']);die;
         $careUnitData_list = array();
                  
         foreach ($this->data['careUnits_list'] as $value) {
@@ -97,52 +100,6 @@ class Patient extends Common_Controller
                 ),
                 'where' => array('patient.id' => $value)
             );
-
-
-            // $option = array(
-            //     'table' => 'patient P',
-            //     'select' => 'P.id as patient_id,P.patient_id as pid,P.name as patient_name,P.date_of_start_abx,P.address,P.room_number,P.symptom_onset,P.md_stayward_consult,P.criteria_met,P.md_stayward_response,P.psa,P.created_date,'
-            //         . 'P.care_unit_id,CI.name as care_unit_name,P.doctor_id,P.culture_source,P.organism,P.precautions,CS.name as culture_source_name,Org.name as organism_name,Pre.name as precautions_name,DOC.name as doctor_name,P.md_steward_id,U.first_name as md_stayward,'
-            //         . 'PC.initial_rx,IRX.name as initial_rx_name,PC.initial_dx,IDX.name as initial_dx_name,PC.initial_dot,'
-            //         . 'PC.new_initial_rx,IRX2.name as new_initial_rx_name,PC.new_initial_dx,IDX2.name as new_initial_dx_name,PC.new_initial_dot,PC.comment',
-            //         'join' => array(
-            //             array('care_unit CI', 'CI.id=P.care_unit_id', 'inner'),
-            //             array('doctors DOC', 'DOC.id=P.doctor_id', 'inner'),
-            //             array('users U', 'U.id=P.md_steward_id', 'left'),
-            //             array('patient_consult PC', 'PC.patient_id=P.id', 'inner'),
-            //             array('initial_rx IRX', 'IRX.id=PC.initial_rx', 'left'),
-            //             array('initial_dx IDX', 'IDX.id=PC.initial_dx', 'left'),
-            //             array('culture_source CS', 'CS.name=P.culture_source', 'left'),
-            //             array('organism Org', 'Org.name=P.organism', 'left'),
-            //             array('precautions Pre', 'Pre.name=P.precautions', 'left'),
-            //             array('initial_rx IRX2', 'IRX2.id=PC.new_initial_rx', 'left'),
-            //             array('initial_dx IDX2', 'IDX2.id=PC.new_initial_dx', 'left')
-            //         ),
-            //         'where' =>array('patient.id'=>$value)
-            //     );
-
-
-            // $option = array(
-            //     'table' => 'patient P',
-            //     'select' => 'P.id as patient_id,P.patient_id as pid,P.name as patient_name,P.date_of_start_abx,P.address,P.room_number,P.symptom_onset,P.md_stayward_consult,P.criteria_met,P.md_stayward_response,P.psa,P.created_date,'
-            //         . 'P.care_unit_id,CI.name as care_unit_name,P.doctor_id,P.culture_source,P.organism,P.precautions,CS.name as culture_source_name,Org.name as organism_name,Pre.name as precautions_name,DOC.name as doctor_name,P.md_steward_id,U.first_name as md_stayward,'
-            //         . 'PC.initial_rx,IRX.name as initial_rx_name,PC.initial_dx,IDX.name as initial_dx_name,PC.initial_dot,'
-            //         . 'PC.new_initial_rx,IRX2.name as new_initial_rx_name,PC.new_initial_dx,IDX2.name as new_initial_dx_name,PC.new_initial_dot,PC.comment',
-            //     'join' => array(
-            //         array('care_unit CI', 'CI.id=P.care_unit_id', 'inner'),
-            //         array('doctors DOC', 'DOC.id=P.doctor_id', 'inner'),
-            //         array('users U', 'U.id=P.md_steward_id', 'left'),
-            //         array('patient_consult PC', 'PC.patient_id=P.id', 'inner'),
-            //         array('initial_rx IRX', 'IRX.id=PC.initial_rx', 'left'),
-            //         array('initial_dx IDX', 'IDX.id=PC.initial_dx', 'left'),
-            //         array('culture_source CS', 'CS.name=P.culture_source', 'left'),
-            //         array('organism Org', 'Org.name=P.organism', 'left'),
-            //         array('precautions Pre', 'Pre.name=P.precautions', 'left'),
-            //         array('initial_rx IRX2', 'IRX2.id=PC.new_initial_rx', 'left'),
-            //         array('initial_dx IDX2', 'IDX2.id=PC.new_initial_dx', 'left')
-            //     ),
-            //     'order' => array('P.id' => 'DESC')
-            // );
 
             $careUnitData_list[] = $this->common_model->customGet($option);
         }
@@ -159,12 +116,14 @@ class Patient extends Common_Controller
 
 
         // $Sql = "SELECT vendor_sale_patient.id as patient_id,vendor_sale_patient.patient_id as pid,vendor_sale_care_unit.name,vendor_sale_doctors.name as doctor_name,vendor_sale_users.first_name as md_stayward,vendor_sale_patient.date_of_start_abx FROM vendor_sale_patient JOIN vendor_sale_care_unit ON vendor_sale_care_unit.id = vendor_sale_patient.care_unit_id JOIN vendor_sale_doctors ON vendor_sale_doctors.id= vendor_sale_patient.doctor_id JOIN vendor_sale_users ON vendor_sale_users.id= vendor_sale_patient.md_steward_id  WHERE vendor_sale_patient.operator_id = $UsersCareUnitID ORDER BY `patient_id` DESC";
+        
         if (!empty($careUnitID) and !empty($from) and !empty($to)) {
+
             $Sql = "SELECT vendor_sale_patient.id as patient_id,vendor_sale_patient.room_number,vendor_sale_patient.symptom_onset,vendor_sale_patient.total_days_of_patient_stay,vendor_sale_patient_consult.initial_dot,vendor_sale_patient.culture_source as culture_source_name,vendor_sale_patient.organism as organism_name,vendor_sale_patient.patient_id as pid,vendor_sale_care_unit.name,vendor_sale_doctors.name as doctor_name,vendor_sale_initial_dx.name as initial_dx_name,vendor_sale_initial_rx.name as initial_rx_name,vendor_sale_users.first_name as md_stayward,vendor_sale_patient.date_of_start_abx FROM vendor_sale_patient JOIN vendor_sale_care_unit ON vendor_sale_care_unit.id = vendor_sale_patient.care_unit_id JOIN vendor_sale_doctors ON vendor_sale_doctors.id= vendor_sale_patient.doctor_id JOIN vendor_sale_patient_consult ON vendor_sale_patient_consult.patient_id= vendor_sale_patient.id JOIN vendor_sale_initial_dx ON vendor_sale_initial_dx.id= vendor_sale_patient_consult.initial_dx JOIN vendor_sale_initial_rx ON vendor_sale_initial_rx.id= vendor_sale_patient_consult.initial_rx JOIN vendor_sale_users ON vendor_sale_users.id= vendor_sale_patient.md_steward_id  WHERE vendor_sale_patient.operator_id = $UsersCareUnitID AND vendor_sale_patient.care_unit_id = $careUnitID AND vendor_sale_patient.date_of_start_abx  >= '$from'  AND vendor_sale_patient.date_of_start_abx <= '$to' ORDER BY `patient_id` DESC";
         } else if (!empty($from) and !empty($to)) {
+
             $Sql = "SELECT vendor_sale_patient.id as patient_id,vendor_sale_patient.room_number,vendor_sale_patient.symptom_onset,vendor_sale_patient.total_days_of_patient_stay,vendor_sale_patient_consult.initial_dot,vendor_sale_patient.culture_source as culture_source_name,vendor_sale_patient.organism as organism_name,vendor_sale_patient.patient_id as pid,vendor_sale_care_unit.name,vendor_sale_doctors.name as doctor_name,vendor_sale_initial_dx.name as initial_dx_name,vendor_sale_initial_rx.name as initial_rx_name,vendor_sale_users.first_name as md_stayward,vendor_sale_patient.date_of_start_abx FROM vendor_sale_patient JOIN vendor_sale_care_unit ON vendor_sale_care_unit.id = vendor_sale_patient.care_unit_id JOIN vendor_sale_doctors ON vendor_sale_doctors.id= vendor_sale_patient.doctor_id JOIN vendor_sale_patient_consult ON vendor_sale_patient_consult.patient_id= vendor_sale_patient.id JOIN vendor_sale_initial_dx ON vendor_sale_initial_dx.id= vendor_sale_patient_consult.initial_dx JOIN vendor_sale_initial_rx ON vendor_sale_initial_rx.id= vendor_sale_patient_consult.initial_rx JOIN vendor_sale_users ON vendor_sale_users.id= vendor_sale_patient.md_steward_id  WHERE vendor_sale_patient.operator_id = $UsersCareUnitID AND  vendor_sale_patient.date_of_start_abx  >= '$from'  AND vendor_sale_patient.date_of_start_abx <= '$to' ORDER BY `patient_id` DESC";
         } else if (!empty($careUnitID)) {
-
 
             $Sql = "SELECT vendor_sale_patient.id as patient_id,vendor_sale_patient.room_number,vendor_sale_patient.symptom_onset,vendor_sale_patient.total_days_of_patient_stay,vendor_sale_patient_consult.initial_dot,vendor_sale_patient.culture_source as culture_source_name,vendor_sale_patient.organism as organism_name,vendor_sale_patient.patient_id as pid,vendor_sale_care_unit.name,vendor_sale_doctors.name as doctor_name,vendor_sale_initial_dx.name as initial_dx_name,vendor_sale_initial_rx.name as initial_rx_name,vendor_sale_users.first_name as md_stayward,vendor_sale_patient.date_of_start_abx FROM vendor_sale_patient JOIN vendor_sale_care_unit ON vendor_sale_care_unit.id = vendor_sale_patient.care_unit_id JOIN vendor_sale_doctors ON vendor_sale_doctors.id= vendor_sale_patient.doctor_id JOIN vendor_sale_patient_consult ON vendor_sale_patient_consult.patient_id= vendor_sale_patient.id JOIN vendor_sale_initial_dx ON vendor_sale_initial_dx.id= vendor_sale_patient_consult.initial_dx JOIN vendor_sale_initial_rx ON vendor_sale_initial_rx.id= vendor_sale_patient_consult.initial_rx JOIN vendor_sale_users ON vendor_sale_users.id= vendor_sale_patient.md_steward_id  WHERE vendor_sale_patient.operator_id = $UsersCareUnitID AND vendor_sale_patient.care_unit_id = $careUnitID ORDER BY `patient_id` DESC";
         } else {
@@ -174,29 +133,18 @@ class Patient extends Common_Controller
 
         $careunit_facility_counts = $this->common_model->customQuery($Sql);
 
-
-        // $arraySingles = call_user_func_array('array_merge', $careUnitData_list);
+        $arraySingles = call_user_func_array('array_merge', $careUnitData_list);
         $this->data['careUnitsUser_list'] = $careunit_facility_counts;
 
-
-
-        // $this->data['careUnitID'] = $careUnitID = (isset($_GET['careUnit'])) ? $_GET['careUnit'] : "";
-
-        // $careUnitID = (isset($_GET['careUnit'])) ? $_GET['careUnit'] : "";
-
-        // print_r($UsersCareUnitID);die;
-        // $from = (isset($_GET['date']) && !empty($_GET['date'])) ? date('Y-m-d', strtotime($_GET['date'])) : "";
-        // $to = (isset($_GET['date1']) && !empty($_GET['date1'])) ? date('Y-m-d', strtotime($_GET['date1'])) : "";
-
-        // echo $from; echo "<br>";
-        // echo $to; echo "<br>";
-        // echo $careUnitID; echo "<br>"; die;
         if ($_GET["export"] == 'Export') {
 
             $this->patientExport($from, $to, $careUnitID);
             return;
         }
 
+
+        // print_r($UsersCareUnitID);die;
+        
         $option = array(
             'table' => 'patient P',
             'select' => 'P.id as patient_id,P.patient_id as pid,P.name as patient_name,P.date_of_start_abx,P.address,P.total_days_of_patient_stay,P.room_number,P.symptom_onset,P.md_stayward_consult,P.criteria_met,P.md_stayward_response,P.psa,P.created_date,'
@@ -206,7 +154,7 @@ class Patient extends Common_Controller
             'join' => array(
                 array('care_unit CI', 'CI.id=P.care_unit_id', 'inner'),
                 array('doctors DOC', 'DOC.id=P.doctor_id', 'inner'),
-                array('users U', 'U.id=P.md_steward_id', 'left'),
+                array('users U', 'U.id=P.md_steward_id', 'inner'),
                 array('patient_consult PC', 'PC.patient_id=P.id', 'inner'),
                 array('initial_rx IRX', 'IRX.id=PC.initial_rx', 'left'),
                 array('initial_dx IDX', 'IDX.id=PC.initial_dx', 'left'),
@@ -216,9 +164,14 @@ class Patient extends Common_Controller
                 array('initial_rx IRX2', 'IRX2.id=PC.new_initial_rx', 'left'),
                 array('initial_dx IDX2', 'IDX2.id=PC.new_initial_dx', 'left')
             ),
-            //'group_by' => 'P.patient_id'
+            
+            // 'where'=>array('P.care_unit_id,'. $careUnitID),
+            // 'where'=>array('P.md_steward_id,'. $UsersCareUnitID),
+            // 'where'=>array('P.id,'. '1'),
             'group_by' => 'pid'
         );
+
+
         if (!empty($careUnitID)) {
             $option['where']['P.care_unit_id'] = $careUnitID;
         }
@@ -233,10 +186,9 @@ class Patient extends Common_Controller
         }
         $option['order'] = array('P.id' => 'desc');
 
-        /* print_r($option);die; */
         $this->data['list'] = $this->common_model->customGet($option);
 
-        // print_r($careUnitID);die;
+        // print_r($this->data['list']);die;
         $this->load->admin_render('list', $this->data, 'inner_script');
     }
 
@@ -386,7 +338,7 @@ class Patient extends Common_Controller
             'order' => array('user.id' => 'ASC'),
             'where' => array(
                 'user.delete_status' => 0,
-                'group.id' => 3
+                'group.id' => 6
             ),
             'order' => array('user.first_name' => 'ASC')
         );
@@ -1266,7 +1218,7 @@ class Patient extends Common_Controller
                 'select' => 'P.total_days_of_patient_stay,P.infection_surveillance_checklist,P.date_of_start_abx,P.md_patient_status,P.id ,P.patient_id,P.name as patient_name,P.address,P.room_number,P.symptom_onset,P.md_stayward_consult,P.criteria_met,P.md_stayward_response,P.psa,P.created_date,'
                     . 'P.care_unit_id,CI.name as care_unit_name,P.doctor_id,P.culture_source,P.organism,P.precautions,CS.name as culture_source_name,Org.name as organism_name,Pre.name as precautions_name,DOC.name as doctor_name,P.md_steward_id,U.first_name as md_steward,'
                     . 'PC.initial_rx,IRX.name as initial_rx_name,PC.initial_dx,IDX.name as initial_dx_name,PC.initial_dot,'
-                    . 'PC.new_initial_rx,IRX2.name as new_initial_rx_name,PC.new_initial_dx,IDX2.name as new_initial_dx_name,PC.new_initial_dot,PC.additional_comment_option,PC.comment,u.email as patient_email,u.email as password',
+                    . 'PC.new_initial_rx,IRX2.name as new_initial_rx_name,PC.new_initial_dx,IDX2.name as new_initial_dx_name,PC.new_initial_dot,PC.additional_comment_option,PC.comment,U.email as patient_email,U.email as password',
                 'join' => array(
                     array('care_unit CI', 'CI.id=P.care_unit_id', 'inner'),
                     array('doctors DOC', 'DOC.id=P.doctor_id', 'inner'),
