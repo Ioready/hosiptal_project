@@ -152,9 +152,9 @@
         <a href="<?php echo site_url('reports'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "reports") ? "active" : "" ?>"><i class="gi gi-charts sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Reports Details</span></a>
     </li> -->
 
-<li title="Reports">
-    <a href="<?php echo site_url('reportsSummary'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "reportsSummary") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/report.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp;Report Summary</span></a>
-</li>
+<!--<li title="Reports">-->
+<!--    <a href="<?php echo site_url('reportsSummary'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "reportsSummary") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/report.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp;Report Summary</span></a>-->
+<!--</li>-->
 
 <!-- <li title="Patient">
     <a href="<?php echo site_url('patient'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "patient") ? "active" : "" ?>"><i class="fa fa-user-circle sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Patient</span></a>
@@ -171,19 +171,27 @@
     <a href="<?php echo site_url('mdSteward'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "mdSteward") ? "active" : "" ?>"><i class="fa fa-user-md sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Doctor / MD Steward</span></a>
 </li> -->
 <li title="Admin">
-        <a href="<?php echo site_url('admin'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "reports") ? "admin" : "" ?>"><i class="gi gi-charts sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Admin</span></a>
+        <a href="<?php echo site_url('admin'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "reports") ? "admin" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/patient.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">Admin</span></a>
     </li>
 
+<li title="All Plans">
+        <a href="<?php echo site_url('allPlans'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "allPlans") ?>"><img src="<?php echo base_url(); ?>uploads/icons/purchase-plan.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">All Plans</span></a>
+</li>
 
-<li title="Data Operator">
-    <a href="<?php echo site_url('dataOperator'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "dataOperator") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/doctors_md.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp;Doctor</span></a>
+<li title="Withdrawal">
+        <a href="<?php echo site_url('admin'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "reports") ? "admin" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/cash-withdrawal.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">Withdrawal</span></a>
 </li>
 
 
+<!--<li title="Data Operator">-->
+<!--    <a href="<?php echo site_url('dataOperator'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "dataOperator") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/doctors_md.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp;Doctor</span></a>-->
+<!--</li>-->
 
-<li title="Hospital Manage">
-    <a href="<?php echo site_url('facilityManager'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "facilityManager") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/hospital.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp; Hospital Manage</span></a>
-</li>
+
+
+<!--<li title="Hospital Manage">-->
+<!--    <a href="<?php echo site_url('facilityManager'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "facilityManager") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/hospital.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp; Hospital Manage</span></a>-->
+<!--</li>-->
 
 <li title="User Rewards">
     <a href="<?php echo site_url('userReward'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "userReward") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/login.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp; Login data</span></a>
@@ -202,24 +210,25 @@
         <span class="sidebar-header-options clearfix"><a href="javascript:void(0)" data-toggle="tooltip" title="Quick Settings"><i class="gi gi-settings"></i></a><a href="javascript:void(0)" data-toggle="tooltip" title="Create the most amazing pages with the widget kit!"><i class="gi gi-lightbulb"></i></a></span>
         <span class="sidebar-header-title">Widget Kit</span>
     </li>-->
-<li title="Department">
-    <a href="<?php echo site_url('careUnit'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "careUnit") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/department.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp; Department/Care Unit</span></a>
-</li>
-<li title="Diagnosis">
-    <a href="<?php echo site_url('initialDx'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "initialDx") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/infection.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp; Infections</span></a>
-</li>
-<li title="Culture Source">
-    <a href="<?php echo site_url('cultureSource'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "cultureSource") ? "active" : "" ?>"><i class="fa fa-heartbeat sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Culture Source</span></a>
-</li>
-<li title="Organism">
-    <a href="<?php echo site_url('organism'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "organism") ? "active" : "" ?>"><i class="fa fa-bug sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Organism</span></a>
-</li>
-<li title="Precautions">
-    <a href="<?php echo site_url('precautions'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "precautions") ? "active" : "" ?>"><i class="fa fa-h-square sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Precautions</span></a>
-</li>
-<li title="Antibiotic Name">
-    <a href="<?php echo site_url('initialRx'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "initialRx") ? "active" : "" ?>"><i class="fa fa-medkit sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Antibiotic Name</span></a>
-</li>
+    
+<!--<li title="Department">-->
+<!--    <a href="<?php echo site_url('careUnit'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "careUnit") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/department.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp; Department/Care Unit</span></a>-->
+<!--</li>-->
+<!--<li title="Diagnosis">-->
+<!--    <a href="<?php echo site_url('initialDx'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "initialDx") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/infection.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp; Infections</span></a>-->
+<!--</li>-->
+<!--<li title="Labs">-->
+<!--    <a href="<?php echo site_url('cultureSource'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "cultureSource") ? "active" : "" ?>"><i class="fa fa-heartbeat sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Labs</span></a>-->
+<!--</li>-->
+<!--<li title="Organism">-->
+<!--    <a href="<?php echo site_url('organism'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "organism") ? "active" : "" ?>"><i class="fa fa-bug sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Organism</span></a>-->
+<!--</li>-->
+<!--<li title="Precautions">-->
+<!--    <a href="<?php echo site_url('precautions'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "precautions") ? "active" : "" ?>"><i class="fa fa-h-square sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Precautions</span></a>-->
+<!--</li>-->
+<!--<li title="Antibiotic Name">-->
+<!--    <a href="<?php echo site_url('initialRx'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "initialRx") ? "active" : "" ?>"><i class="fa fa-medkit sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Antibiotic Name</span></a>-->
+<!--</li>-->
 
 <!--                                <li title="CMS">
                                         <a href="<?php echo site_url('cms'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "cms") ? "active" : "" ?>"><i class="gi gi-charts sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">CMS</span></a>
@@ -440,9 +449,13 @@
                                     <a href="<?php echo site_url('tasks'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "tasks") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/tasks.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp;Tasks</span></a>
                                 </li>
 
-                                <li title="DayTimeSlot">
+                                <!-- <li title="DayTimeSlot">
                                     <a href="<?php echo site_url('dayTimeSlot'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "DayTimeSlot") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/labs.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp;Labs</span></a>
+                                </li> -->
+                                <li title="Labs">
+                                 <a href="<?php echo site_url('cultureSource'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "cultureSource") ? "active" : "" ?>"><i class="fa fa-heartbeat sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Labs</span></a>
                                 </li>
+
                                 <li title="DayTimeSlot">
                                     <a href="<?php echo site_url('dayTimeSlot'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "DayTimeSlot") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/letterss.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp;Letters</span></a>
                                 </li>
@@ -475,6 +488,9 @@
                                 </li>
                                 <li title="Patient">
                                     <a href="<?php echo site_url('patient'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "patient") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/patient.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp;Patient</span></a>
+                                </li>
+                                <li title="Labs">
+                                <a href="<?php echo site_url('cultureSource'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "cultureSource") ? "active" : "" ?>"><i class="fa fa-heartbeat sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Labs</span></a>
                                 </li>
 
                                 <!-- <li title="Provider MD">

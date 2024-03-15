@@ -21,28 +21,37 @@
                         <div class="row">
                             <div class="col-md-12" >
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Name</label>
+                                    <label class="col-md-3 control-label">Plan Name</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" name="name" id="name" placeholder="Name" />
+                                        <input type="text" class="form-control" name="plan_name" id="plan_name" placeholder="Plan Name" />
                                     </div>
                                 </div>
                             </div>
-                            <!-- <div class="col-md-12" >
+                            <div class="col-md-12" >
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Last Name</label>
+                                    <label class="col-md-3 control-label">Amount</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Last Name" />
+                                        <input type="text" class="form-control" name="amount" id="amount" placeholder="Amount" />
                                     </div>
                                 </div>
-                            </div> -->
-                            <!-- <div class="col-md-12" >
+                            </div>
+                            <div class="col-md-12" >
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Email</label>
+                                    <label class="col-md-3 control-label">Start Date</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" name="email" id="email" placeholder="Email" />
+                                        <input type="datetime-local" class="form-control" name="start_date" id="start_date" placeholder="start date" />
                                     </div>
                                 </div>
-                            </div> -->
+                            </div>
+                            <div class="col-md-12" >
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">End Date</label>
+                                    <div class="col-md-9">
+                                        <input type="datetime-local" class="form-control" name="end_date" id="end_date" placeholder="End date" />
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="space-22"></div>
                         </div>
                     </div>

@@ -30,12 +30,35 @@ class Pwfpanel extends Common_Controller
             
             if ($this->ion_auth->is_superAdmin() || $this->ion_auth->is_admin() || $this->ion_auth->is_subAdmin()) {
                 // $data['parent'] = "Dashboard";
+                $user_id = $this->session->userdata('user_id');
                 $data['careUnit'] = $this->common_model->customCount(array('table' => 'care_unit', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0)));
                 $data['initial_dx'] = $this->common_model->customCount(array('table' => 'initial_dx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0)));
                 $data['initial_rx'] = $this->common_model->customCount(array('table' => 'initial_rx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0)));
-                $data['doctors'] = $this->common_model->customCount(array('table' => 'doctors', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0)));
+
+                $data['doctors'] = $this->common_model->customCount(array('table' => 'doctors', 'select' => 'id,name', 'where' => array('is_active' => 1, 'facility_user_id'=>$user_id, 'delete_status' => 0)));
                 
-                $user_id = $this->session->userdata('user_id');
+                
+//                 $optionHospital = array(
+//                     'table' => USERS . ' as user',
+//                     'select' => 'user.*',
+//                     'join' => array(
+//                         array(USER_GROUPS . ' as ugroup', 'ugroup.user_id = user.id', 'left'),
+//                         array(GROUPS . ' as group', 'group.id = ugroup.group_id', 'left'),
+//                         array('user_profile AS UP', 'UP.user_id = user.id', 'left'),
+//                         array('care_unit AS CU', 'CU.id = user.care_unit_id', 'left'),
+//                         array('hospital AS h', 'h.user_id = user.id', 'inner')
+//                     ),
+//                     'where' => array(
+//                         'user.delete_status' => 0,
+//                         'group.id' => 6,
+//                         'h.admin_id' => $user_id
+//                     ),
+//                     // 'single'=>true,
+//                     'order' => array('user.id' => 'DESC') // Order descending by user id
+//                 );
+    
+//                 $data['hospital_id'] = $this->common_model->customGet($optionHospital);
+// print_r($data['hospital_id']);die;
 
             $optionHospital = array(
                 'table' => USERS . ' as user',
@@ -45,7 +68,7 @@ class Pwfpanel extends Common_Controller
                     array(GROUPS . ' as group', 'group.id = ugroup.group_id', 'left'),
                     array('user_profile AS UP', 'UP.user_id = user.id', 'left'),
                     array('care_unit AS CU', 'CU.id = user.care_unit_id', 'left'),
-                    array('hospital AS h', 'h.user_id = user.id', 'left')
+                    array('hospital AS h', 'h.user_id = user.id', 'inner')
                 ),
                 'where' => array(
                     'user.delete_status' => 0,
@@ -148,14 +171,14 @@ class Pwfpanel extends Common_Controller
 
                 $data['initial_dx'] = $this->common_model->customCount(array('table' => 'initial_dx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0)));
                 $data['initial_rx'] = $this->common_model->customCount(array('table' => 'initial_rx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0)));
-                $data['doctors'] = $this->common_model->customCount(array('table' => 'doctors', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0)));
+                $data['doctors'] = $this->common_model->customCount(array('table' => 'doctors', 'select' => 'id,name', 'where' => array('is_active' => 1, 'facility_user_id'=>$user_id, 'delete_status' => 0)));
                 $option = array(
                     'table' => USERS . ' as user',
                     'select' => 'user.id',
                     'join' => array(
                         array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
                         array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left'),
-                        array('user_profile UP', 'UP.user_id=user.id', 'left')
+                        array('user_profile UP', 'UP.user_id=user.id', 'inner')
                     ),
                     'order' => array('user.id' => 'ASC'),
                     'where' => array(
@@ -921,7 +944,7 @@ class Pwfpanel extends Common_Controller
         $this->session->set_flashdata('message', $this->ion_auth->messages());
         $logoutUrl = base_url() . 'pwfpanel/login';
         if ($this->ion_auth->is_admin()) {
-            $logoutUrl = base_url() . 'index.php/pwfpanel/login';
+            $logoutUrl = base_url() . '/pwfpanel/login';
         } else if ($this->ion_auth->is_vendor()) {
             $logoutUrl = base_url() . 'site/authVendorLogin';
         } else if ($this->ion_auth->is_subAdmin()) {

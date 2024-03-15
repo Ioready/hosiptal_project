@@ -29,14 +29,14 @@
 <!--                                    <span class="help-block m-b-none col-md-offset-3"><i class="fa fa-arrow-circle-o-up"></i>Name</span>-->
                                 </div>
                             </div>
-                           <!-- <div class="col-md-12" >
+                           <div class="col-md-12" >
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Email</label>
                                     <div class="col-md-9">
                                         <input type="text" class="form-control" name="email" id="email" placeholder="Email" value="<?php echo $results->email; ?>"/>
                                     </div>
                                 </div>
-                            </div> -->
+                            </div>
                             <input type="hidden" name="id" value="<?php echo $results->id; ?>" />
 
                             <div class="space-22"></div>

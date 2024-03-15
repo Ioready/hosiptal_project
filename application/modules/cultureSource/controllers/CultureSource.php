@@ -7,7 +7,7 @@ class CultureSource extends Common_Controller {
     public $data = array();
     public $file_data = "";
     public $_table = 'culture_source';
-    public $title = "Culture Source";
+    public $title = "Labs";
 
     public function __construct() {
         parent::__construct();

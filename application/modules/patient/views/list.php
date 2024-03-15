@@ -208,10 +208,15 @@
     <div class="block full">
         <div class="block-title">
             <h2><strong><?php echo $title; ?></strong> Panel</h2>
-            <h2><a href="javascript:void(0)" onclick="open_modal('<?php
+            <!-- <h2><a href="javascript:void(0)" onclick="open_modal('<?php
                                                                     echo 'index.php/'.$model; ?>')" class="btn btn-sm btn-primary">
                     <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
-                </a></h2>
+                </a></h2> -->
+                <h2>
+                    
+                    <a href="<?php echo base_url() . $this->router->fetch_class(); ?>/open_model" class="btn btn-sm btn-primary">
+                        <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
+                    </a></h2>
 
         </div>
 
@@ -222,16 +227,19 @@
                         <th style="width:10px">Sr. No</th>
                         <th>Date Of Start ABX</th>
                         <th>Patient ID</th>
+                        <th>Patient Name</th>
                         <th>Care Unit</th>
                         <th>Provider MD</th>
                         <th>Diagnosis</th>
                         <th>Room Number</th>
                         <th>Infection Onset</th>
                         <th>Total Days</th>
-                        <th>Culture Source</th>
+                        <th>Labs</th>
+                        <!-- <th>Culture Source</th> -->
                         <th>Organism</th>
                         <th>Antibiotic Name</th>
-                        <th>MD Steward</th>
+                        <!-- <th>MD Steward</th> -->
+                        <th>Hospital Name</th>
                         <th><?php echo lang('action'); ?></th>
                     </tr>
                 </thead>
@@ -242,63 +250,20 @@
                     //if(!empty($careUnitsUser_list)){
 
 
-                    if (!empty($careUnitsUser_list)) {
-                        $rowCount = 0;
-                        foreach ($careUnitsUser_list as $rows) {
-                            $rowCount++;
-                            //print_r($rows);die;
-
+                    // if (!empty($careUnitsUser_list)) {
+                    //     $rowCount = 0;
+                    //     foreach ($careUnitsUser_list as $rows) {
+                    //         $rowCount++;
                     ?>
 
 
-                            <tr>
-                                <td><?php echo $rowCount; ?></td>
-                                <td><?php echo date('m/d/Y', strtotime($rows->date_of_start_abx)); ?></td>
-                                <td><?php echo $rows->pid; ?></td>
-                                <td><?php echo $rows->name; ?></td>
-                                <td><?php echo $rows->doctor_name; ?></td>
-                                <td><?php echo $rows->initial_dx_name; ?></td>
-                                <td><?php echo $rows->room_number; ?></td>
-                                <?php if ($rows->symptom_onset == 'Facility') { ?>
-                                    <td><?php echo 'Facility/HAI'; ?></td>
-                                <?php } else if ($rows->symptom_onset == 'Hospital') { ?>
-                                    <td><?php echo 'Hospital/CAI'; ?></td>
-                                <?php } else { ?>
-                                    <td><?php echo 'NULL'; ?></td>
-                                <?php } ?>
-
-                                <td><?php echo $rows->initial_dot; ?></td>
-
-                                <?php if (!empty($rows->culture_source_name)) { ?>
-                                    <td><?php echo $rows->culture_source_name; ?></td>
-                                <?php } else { ?>
-                                    <td><?php echo 'NULL'; ?></td>
-                                <?php } ?>
-
-                                <?php if (!empty($rows->organism_name)) { ?>
-                                    <td><?php echo $rows->organism_name; ?></td>
-                                <?php } else { ?>
-                                    <td><?php echo 'NULL'; ?></td>
-                                <?php } ?>
-
-                                <td><?php echo $rows->initial_rx_name; ?></td>
-                                <td><?php echo ucfirst($rows->md_stayward); ?></td>
-                                <td class="actions">
-                                    <a href="javascript:void(0)" class="btn btn-default" onclick="editFn('index.php/patient', 'edit_patient', '<?php echo encoding($rows->patient_id) ?>', 'patient');"><i class="fa fa-pencil"></i></a>
-                                    <!--                 <a href="<?php echo base_url() . 'patient/edit?id=' . encoding($rows->patient_id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-eye"></i></a> -->
-                                    <!--                                    <a href="<?php echo base_url() . 'patient/edit_parient?id=' . encoding($rows->patient_id); ?>" data-toggle="tooltip" class="btn btn-default" target="_blank"><i class="fa fa-pencil"></i></a>-->
-                                  
-                                    <a href="<?php echo base_url() . '/patient/existing_list/' . $rows->pid; ?>" target='_blank' data-toggle="tooltip" class="btn btn-default">View History</a>
-                                    <a href="javascript:void(0)" onclick="deletePatient('<?php echo $rows->patient_id; ?>')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
-
-                                </td>
-                            </tr>
+                            
 
 
                         <?php
-                        }
+                        // }
                         //}
-                    } else {
+                    // } else {
                         $rowCount = 0;
                         foreach ($list as $rows) :
                             $rowCount++;
@@ -307,6 +272,7 @@
                                 <td><?php echo $rowCount; ?></td>
                                 <td><?php echo date('m/d/Y', strtotime($rows->date_of_start_abx)); ?></td>
                                 <td><?php echo $rows->pid; ?></td>
+                                <td><?php echo $rows->patient_name; ?></td>
                                 <td><?php echo $rows->care_unit_name; ?></td>
                                 <td><?php echo $rows->doctor_name; ?></td>
                                 <td><?php echo $rows->initial_dx_name; ?></td>
@@ -346,7 +312,7 @@
                             </tr>
                     <?php
                         endforeach;
-                    }
+                    // }
                     ?>
 
                 </tbody>
