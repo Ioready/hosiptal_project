@@ -10,7 +10,7 @@
             <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url($formUrl) ?>" enctype="multipart/form-data">
             <div class="modal-header text-center">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <h2 class="modal-title"><i class="fa fa-pencil"></i> <?php echo (isset($title)) ? ucwords($title) : "" ?></h2>
+                        <h2 class="modal-title"><i class="fa fa-pencil"></i> New Plan</h2>
                     </div>
                 <div class="modal-body">
                     <!-- <div class="loaders">
@@ -29,28 +29,38 @@
                             </div>
                             <div class="col-md-12" >
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Amount</label>
+                                    <label class="col-md-3 control-label">Price</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" name="amount" id="amount" placeholder="Amount" />
+                                        <input type="text" class="form-control" name="price" id="price" placeholder="Price" />
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-12" >
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Start Date</label>
+                                    <label class="col-md-3 control-label">Duration</label>
                                     <div class="col-md-9">
-                                        <input type="datetime-local" class="form-control" name="start_date" id="start_date" placeholder="start date" />
+                                    <div class="switch-wrapper">
+                                        <input id="toggle-monthly" type="radio" name="Duration" value="month" checked>
+                                        <label for="monthly">Monthly</label>
+                                        <input id="toggle-yearly" type="radio" name="Duration" value="years">
+                                        
+                                        <label for="yearly">Yearly</label>
+                                        <span class="highlighter"></span>
+                                    </div>
+                                    
+
+                                        <!-- <input type="datetime-local" class="form-control" name="start_date" id="start_date" placeholder="start date" /> -->
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-12" >
+                            <!-- <div class="col-md-12" >
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">End Date</label>
                                     <div class="col-md-9">
                                         <input type="datetime-local" class="form-control" name="end_date" id="end_date" placeholder="End date" />
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
                             <div class="space-22"></div>
                         </div>

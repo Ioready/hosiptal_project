@@ -50,7 +50,7 @@
             <h2><strong>Email Template</strong> Panel</h2>
            
               
-        <?php if ($this->ion_auth->is_admin()) {?>
+        <?php if ($this->ion_auth->is_superAdmin()) {?>
 
             <h2><a href="javascript:void(0)" onclick="open_modal('emailTemplate')" class="btn btn-sm btn-primary">
             <i class="gi gi-circle_plus"></i> Email Template

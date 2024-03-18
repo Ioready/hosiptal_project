@@ -11,7 +11,7 @@
         bootbox.confirm('<?php echo lang('Logout_Confirmation'); ?>', function (isTrue) {
             if (isTrue) {
                 $.ajax({
-                    url: '<?php echo base_url() . 'index.php/pwfpanel/logout' ?>',
+                    url: '<?php echo base_url() . 'pwfpanel/logout' ?>',
                     type: 'POST',
                     dataType: "JSON",
                     success: function (data) {

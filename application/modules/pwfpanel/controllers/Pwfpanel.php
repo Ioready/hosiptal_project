@@ -60,6 +60,9 @@ class Pwfpanel extends Common_Controller
 //                 $data['hospital_id'] = $this->common_model->customGet($optionHospital);
 // print_r($data['hospital_id']);die;
 
+
+
+
             $optionHospital = array(
                 'table' => USERS . ' as user',
                 'select' => 'user.*, group.name as group_name, UP.doc_file, CU.care_unit_code, CU.name, h.admin_id',
@@ -73,7 +76,7 @@ class Pwfpanel extends Common_Controller
                 'where' => array(
                     'user.delete_status' => 0,
                     'group.id' => 6,
-                    'h.admin_id' => $user_id
+                    // 'h.admin_id' => $user_id
                 ),
                 'order' => array('user.id' => 'DESC') // Order descending by user id
             );
@@ -97,6 +100,20 @@ class Pwfpanel extends Common_Controller
                     'order' => array('user.id' => 'desc'),
                 );
                 $data['total_admin'] = $this->common_model->customCount($adminOption);
+
+
+                $option_order = array(
+                    'table' => 'admin_plans',
+                    'select' => 'admin_plans.*',
+                );
+                $data['total_plans'] = $this->common_model->customCount($option_order);
+
+                $option_order = array(
+                    'table' => 'user_subscribers',
+                    'select' => 'user_subscribers.*',
+                );
+                $data['total_order'] = $this->common_model->customCount($option_order);
+
 
                 $option = array(
                     'table' => USERS . ' as user',
@@ -129,6 +146,13 @@ class Pwfpanel extends Common_Controller
                 );
 
                 $data['total_patient_today'] = $this->common_model->customCount($option);
+
+
+               
+                // print_r($this->data['total_order']);die;
+               
+
+
 
                 if ($this->ion_auth->is_subAdmin()) {
                     // $this->load->admin_render('dashboard', $data);
@@ -1554,6 +1578,37 @@ class Pwfpanel extends Common_Controller
         } else {
             return FALSE;
         }
+    }
+
+    public function orders()
+    {
+        // $id = decoding($this->input->post('id'));
+        $option = array(
+            'table' => 'orders',
+            'select' => 'users.phone,users.email,users.first_name,users.last_name,orders.id,orders.order_code as order_id,orders.order_date,
+                            IFNULL(shipping_date,"") as shipping_date,orders.final_price as total_amount,
+                            orders.transact_status,orders.delivery_fee,orders.discounted_price,
+                            user_address.address1,user_address.address2,user_address.city,"India" as country,
+                            user_address.pin_code,states.name as state_name',
+            'join' => array(
+                'users' => 'users.id=orders.user_id',
+                'user_address' => 'user_address.id=orders.address_id',
+                'states' => 'states.id=user_address.state'
+            ),
+            // 'where' => array('orders.id' => $id),
+            'single' => true
+        );
+        $this->data['order'] = $order = $this->common_model->customGet($option);
+        if (!empty($order)) {
+            $option = array(
+                'table' => 'order_products as BTMOP',
+                'select' => 'item.item_code,item.item_name,item.image,BTMOP.product_qty,BTMOP.product_price,BTMOP.total_product_price,BTMOP.final_price',
+                'join' => array('item' => 'item.id=BTMOP.product_id'),
+                'where' => array('BTMOP.order_id' => $id)
+            );
+            $this->data['products'] = $this->common_model->customGet($option);
+        }
+        $this->load->view('order_details', $this->data);
     }
 
     public function viewOrder()
