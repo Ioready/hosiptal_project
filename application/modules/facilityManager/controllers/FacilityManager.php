@@ -135,6 +135,47 @@ class FacilityManager extends Common_Controller {
      * @description get profile
      * @return array
      */
+    public function hospitalDetail($id){
+
+        // print_r($id);die;
+        // $user_id = $this->session->userdata('user_id');
+        // print_r($id);
+        $this->data['title'] = $this->title;
+        $this->data['model'] = $this->router->fetch_class();
+        $role_name = $this->input->post('role_name');
+       
+        $this->data['roles'] = array(
+            'role_name' => $role_name
+        );
+        
+        $user_id = $id;
+        $this->data['careUnit'] = $this->common_model->customCount(array('table' => 'care_unit', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0)));
+                $this->data['initial_dx'] = $this->common_model->customCount(array('table' => 'initial_dx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0)));
+                $this->data['initial_rx'] = $this->common_model->customCount(array('table' => 'initial_rx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0)));
+
+                $this->data['doctors'] = $this->common_model->customCount(array('table' => 'doctors', 'select' => 'id,name', 'where' => array('is_active' => 1, 'facility_user_id'=>$user_id, 'delete_status' => 0)));
+                
+                $option1 = array(
+                    'table' => "patient",
+                    'select' => "patient.*",
+                    'where'=>array('patient.md_steward_id'=>$user_id),
+                );
+                // print_r($this->data['total_md_steward']);die;
+
+                $this->data['total_patient'] = $this->common_model->customCount($option1);
+                // print_r($data['total_patient']);die;
+                $option = array(
+                    'table' => "patient P",
+                    'select' => "P.id",
+                    'where' => array('DATE(created_date)' => date('Y-m-d'), 'P.md_steward_id'=>$user_id)
+                );
+                
+                $this->data['total_patient_today'] = $this->common_model->customCount($option);
+
+// print_r($data);die;
+
+        $this->load->admin_render('hospital_details', $this->data, 'inner_script');
+    }
     public function profile() {
         $this->data['parent'] = $this->title;
         $this->data['title'] = $this->title;

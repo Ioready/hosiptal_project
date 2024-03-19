@@ -289,8 +289,55 @@
                               
 
                                 <li title="Hospital Manage">
-                                    <a href="<?php echo site_url('facilityManager'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "facilityManager") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/hospital.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp; Hospital Manage</span></a>
+                                    
+                                    <a href="<?php echo site_url('facilityManager'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "facilityManager") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/hospital.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp; Hospital Manage</span>
+                                    
+                                </a>
+                                   
+                                   
                                 </li>
+                               
+
+
+                                <?php 
+                                $user_id = $this->session->userdata('user_id');
+
+                                $option = array(
+                                    'table' => USERS . ' as user',
+                                    'select' => 'user.*, group.name as group_name, UP.doc_file, CU.care_unit_code, CU.name, h.admin_id',
+                                    'join' => array(
+                                        array(USER_GROUPS . ' as ugroup', 'ugroup.user_id = user.id', 'left'),
+                                        array(GROUPS . ' as group', 'group.id = ugroup.group_id', 'left'),
+                                        array('user_profile AS UP', 'UP.user_id = user.id', 'left'),
+                                        array('care_unit AS CU', 'CU.id = user.care_unit_id', 'left'),
+                                        array('hospital AS h', 'h.user_id = user.id', 'left')
+                                    ),
+                                    'where' => array(
+                                        'user.delete_status' => 0,
+                                        'group.id' => 6,
+                                        'h.admin_id' => $user_id
+                                    ),
+                                    'order' => array('user.id' => 'DESC') // Order descending by user id
+                                );
+
+                            $list = $this->common_model->customGet($option);
+
+                        ?>
+                        <li data-toggle="collapse" data-target="#new" class="collapsed" data-parent="#menu-content" onclick="toggleDropdown(event)">
+                            <a href="#">
+                            <img src="<?php echo base_url(); ?>uploads/icons/hospital.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp; Hospital List </span><i class="fa fa-chevron-down"></i>
+                            </a>
+                        </li>
+                        <ul class="sub-menu collapse" id="new">
+                            <?php foreach($list as $lists){ ?>
+                                <li><a href="<?php echo site_url('facilityManager/hospitalDetail/'.$lists->id); ?> <?php base_url('facilityManager/hospitalDetail/'.$lists->id); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "facilityManager/hospitalDetail/.$lists->id") ? "active" : "" ?>"><?php echo ucfirst($lists->first_name. ' '.$lists->last_name);?></a></li>
+                            <?php }?>
+                        </ul>
+
+
+
+
+
 
                                 <li title="User Rewards">
                                     <a href="<?php echo site_url('userReward'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "userReward") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/login.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp; Login data</span></a>
