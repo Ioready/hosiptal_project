@@ -2,12 +2,12 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class CultureSource extends Common_Controller {
+class AllPlans extends Common_Controller {
 
     public $data = array();
     public $file_data = "";
-    public $_table = 'culture_source';
-    public $title = "Labs";
+    public $_table = 'admin_plans';
+    public $title = "Admin Plans";
 
     public function __construct() {
         parent::__construct();
@@ -28,7 +28,15 @@ class CultureSource extends Common_Controller {
         $this->data['title'] = $this->title;
         $this->data['tablePrefix'] = 'vendor_sale_' . $this->_table;
         $this->data['table'] = $this->_table;
-        $option = array('table' => $this->_table, 'where' => array('delete_status' => 0),'order'=>array('name'=>'asc'));
+
+       
+         $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+         
+
+         
+
+
+        $option = array('table' => $this->_table, 'where' => array('status' => 0), 'order' => array('id' => 'desc'));
         $this->data['list'] = $this->common_model->customGet($option);
         $this->load->admin_render('list', $this->data, 'inner_script');
     }
@@ -51,31 +59,40 @@ class CultureSource extends Common_Controller {
      */
     public function add() {
 
-        $this->form_validation->set_rules('name', "Name", 'required|trim');
+       
+// "<pre>";
+// print_r($this->input->post());die;
+// "<pre>";
+
+        $this->form_validation->set_rules('plan_name', "Plan Name", 'required|trim');
+        $this->form_validation->set_rules('price', "Price", 'required|trim');
+        $this->form_validation->set_rules('Duration', "Duration", 'required|trim');
         if ($this->form_validation->run() == true) {
-            $this->filedata['status'] = 1;
-            $image = "";
-            if (!empty($_FILES['image']['name'])) {
-                $this->filedata = $this->commonUploadImage($_POST, 'submenu', 'image');
-                if ($this->filedata['status'] == 1) {
-                    $image = 'uploads/submenu/' . $this->filedata['upload_data']['file_name'];
-                }
-            }
-            if ($this->filedata['status'] == 0) {
-                $response = array('status' => 0, 'message' => $this->filedata['error']);
-            } else {
-                $options_data = array(
-                    'name' => $this->input->post('name'),
-                    'is_active' => 1,
-                    'create_date' => datetime()
-                );
-                $option = array('table' => $this->_table, 'data' => $options_data);
-                if ($this->common_model->customInsert($option)) {
-                    $response = array('status' => 1, 'message' => "Successfully added", 'url' => base_url($this->router->fetch_class()));
-                } else {
-                    $response = array('status' => 0, 'message' => "Failed to add");
-                }
-            }
+            
+           
+                // $option = array('table' => $this->_table, 'where' => array('PlanName' => $this->input->post('plan_name')),array('DurationInMonths' => $this->input->post('Duration')));
+              
+                // if (!$this->common_model->customGet($option)) {
+                    $plan_name = $this->input->post('plan_name');
+                    
+                    $options_data = array(
+                        'PlanName' => $plan_name,
+                        'Price' => $this->input->post('price'),
+                        'DurationInMonths' =>$this->input->post('Duration'),
+                        // 'create_date' => datetime()
+                    );
+                    $option = array('table' => $this->_table, 'data' => $options_data);
+                   $this->common_model->customInsert($option);
+
+                
+
+                        $response = array('status' => 1, 'message' => "Successfully added", 'url' => base_url($this->router->fetch_class()));
+                  
+                    
+                // } else {
+                //     $response = array('status' => 0, 'message' => "PlanName already exists");
+                // }
+           
         } else {
             $messages = (validation_errors()) ? validation_errors() : '';
             $response = array('status' => 0, 'message' => $messages);
@@ -119,7 +136,8 @@ class CultureSource extends Common_Controller {
      */
     public function update() {
 
-        $this->form_validation->set_rules('name', "Name", 'required|trim');
+        $this->form_validation->set_rules('name', "User Name", 'required|trim');
+        $this->form_validation->set_rules('email', "Email", 'valid_email|trim');
         $where_id = $this->input->post('id');
         if ($this->form_validation->run() == FALSE):
             $messages = (validation_errors()) ? validation_errors() : '';
@@ -139,16 +157,22 @@ class CultureSource extends Common_Controller {
                 $response = array('status' => 0, 'message' => $this->filedata['error']);
             } else {
 
-                $options_data = array(
-                    'name' => $this->input->post('name')
-                );
-                $option = array(
-                    'table' => $this->_table,
-                    'data' => $options_data,
-                    'where' => array('id' => $where_id)
-                );
-                $update = $this->common_model->customUpdate($option);
-                $response = array('status' => 1, 'message' => "Successfully updated", 'url' => base_url($this->router->fetch_class()));
+                $option = array('table' => $this->_table, 'where' => array('email' => $this->input->post('email'), 'id !=' => $where_id,'delete_status'=>0));
+                if (!$this->common_model->customGet($option)) {
+                    $options_data = array(
+                        'name' => $this->input->post('name'),
+                        'email' => $this->input->post('email'),
+                    );
+                    $option = array(
+                        'table' => $this->_table,
+                        'data' => $options_data,
+                        'where' => array('id' => $where_id)
+                    );
+                    $update = $this->common_model->customUpdate($option);
+                    $response = array('status' => 1, 'message' => "Successfully updated", 'url' => base_url($this->router->fetch_class()));
+                } else {
+                    $response = array('status' => 0, 'message' => "Email already exists"); 
+                }
             }
         endif;
 

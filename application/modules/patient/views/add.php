@@ -171,6 +171,16 @@
 
                                 
                                 <?php }?>
+                                <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Mobile Number</label>
+                                    <!-- <div class="col-md-9" id='patient_id_dropbox'> -->
+                                    <div class="col-md-9">
+                                        <input type="number" class="form-control" name="phone" id="phone" placeholder="phone number" maxlength="12" />
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Patient Id</label>

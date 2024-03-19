@@ -89,7 +89,8 @@
     </div>
 </div>
 <!-- END User Settings -->
-
+<!-- <script src="https://cdn.tailwindcss.com"></script> -->
+<!-- <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script> -->
 <!-- jQuery, Bootstrap.js, jQuery plugins and Custom JS code -->
 <script src="<?php echo base_url(); ?>backend_asset/admin/js/vendor/jquery.min.js"></script>
  <script src="<?php echo base_url(); ?>backend_asset/admin/js/vendor/jquery.uploadPreview.min.js"></script>  

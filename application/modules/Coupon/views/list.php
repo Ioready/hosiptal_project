@@ -18,14 +18,14 @@
     <div class="block full">
         <div class="block-title">
             <h2><strong><?php echo $title; ?></strong> Panel</h2>
-            <?php if ($this->ion_auth->is_admin()) { ?>
+            <?php if ($this->ion_auth->is_superAdmin()) { ?>
                 <h2><a href="javascript:void(0)"  onclick="open_modal('<?php echo $model; ?>')" class="btn btn-sm btn-primary">
                         <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
                     </a></h2>
             <?php }else if($this->ion_auth->is_facilityManager()){ ?>
-                <h2><a href="javascript:void(0)"  onclick="open_modal('<?php echo $model; ?>')" class="btn btn-sm btn-primary">
+                <!-- <h2><a href="javascript:void(0)"  onclick="open_modal('<?php echo $model; ?>')" class="btn btn-sm btn-primary">
                         <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
-                    </a></h2>
+                    </a></h2> -->
                     <?php } ?>
 
         </div>
@@ -34,12 +34,20 @@
                 <thead>
                     <tr>
                         <th style="width:10px;">Sr. No</th>
-                        <th>Name</th>
-                        <!-- <th>Email</th> -->
-                        <?php if ($this->ion_auth->is_admin()){?>
+                        <th>coupon_type</th>
+                        <th>coupon_code</th>
+                        <th>user_size</th>
+                        <th>total_use_user</th>
+                        <th>cash_type</th>
+                        <th>amount</th>
+                        <th>used_type</th>
+                        <th>min_amount</th>
+                        <th>max_amount</th>
+                        <th>percentage_in_amount</th>
+                        <?php if ($this->ion_auth->is_superAdmin()){?>
                         <th><?php echo lang('action'); ?></th>
                         <?php } else if ($this->ion_auth->is_facilityManager()){?>
-                            <th><?php echo lang('action'); ?></th>
+                            <!-- <th><?php echo lang('action'); ?></th> -->
                             <?php } ?>
                     </tr>
                 </thead>
@@ -52,7 +60,17 @@
                             ?>
                             <tr>
                                 <td><?php echo $rowCount1; ?></td>            
-                                <td><?php echo $rows->name; ?></td>
+                                <td><?php echo $rows->coupon_type; ?></td>
+                                <td><?php echo $rows->coupon_code; ?></td>
+                                <td><?php echo $rows->user_size; ?></td>
+                                <td><?php echo $rows->total_use_user; ?></td>
+                                <td><?php echo $rows->cash_type; ?></td>
+                                <td><?php echo $rows->amount; ?></td>
+                                <td><?php echo $rows->used_type; ?></td>
+                                <td><?php echo $rows->min_amount; ?></td>
+                                <td><?php echo $rows->max_amount; ?></td>
+                                <td><?php echo $rows->percentage_in_amount; ?></td>
+
                                 <!-- <td><?php //echo (!empty($rows->email)) ? $rows->email : ""; ?></td> -->
 
                                 <td class="actions">
@@ -73,8 +91,17 @@
                             $rowCount++;
                     ?>
                      <tr>
-                                <td><?php echo $rowCount; ?></td>            
-                                <td><?php echo $rows->name; ?></td>
+                                <td><?php echo $rowCount1; ?></td>            
+                                <td><?php echo $rows->coupon_type; ?></td>
+                                <td><?php echo $rows->coupon_code; ?></td>
+                                <td><?php echo $rows->user_size; ?></td>
+                                <td><?php echo $rows->total_use_user; ?></td>
+                                <td><?php echo $rows->cash_type; ?></td>
+                                <td><?php echo $rows->amount; ?></td>
+                                <td><?php echo $rows->used_type; ?></td>
+                                <td><?php echo $rows->min_amount; ?></td>
+                                <td><?php echo $rows->max_amount; ?></td>
+                                <td><?php echo $rows->percentage_in_amount; ?></td>
                                 
 
                                 <td class="actions">

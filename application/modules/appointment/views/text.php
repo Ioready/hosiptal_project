@@ -40,13 +40,13 @@
                 <div class="row">
                     <div class="col-md-12" >
                         <div class="form-group">
-            
+          
                                 <div class="col-md-12">
-                                <h2>Weekly Timetable</h2>
+                                <!-- <h2>Weekly Timetable</h2> -->
                             <form id="timeSlotForm" action="submit.php" method="post">
                                     
                             <div style="overflow-x: auto; overflow-y: auto; width: auto; height: 500px;">
-                            <table class="table table-bordered" style="width: max-content;">
+                            <table class="table table-bordered">
                                 <thead>
                                 <tr>
                                     <th>Time</th>
@@ -57,6 +57,7 @@
                                 </thead>
                                 <tbody>
                                 <?php
+                                // $time =1;
                                 $start_time = strtotime('07:00');
                                 $end_time = strtotime('20:00');
                                 $interval = 30 * 60; // 30 minutes interval

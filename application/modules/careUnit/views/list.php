@@ -32,9 +32,9 @@
               </a></h2>
 
                 <?php }else if(($this->ion_auth->is_facilityManager()) && $user_idddd!=''){ ?>
-                <!-- <h2><a href="javascript:void(0)"  onclick="open_modal('<?php echo $model; ?>')" class="btn btn-sm btn-primary">
+                <h2><a href="javascript:void(0)"  onclick="open_modal('<?php echo $model; ?>')" class="btn btn-sm btn-primary">
                         <i class="gi gi-circle_plus"></i><?php echo $title; ?>
-              </a></h2> -->
+              </a></h2>
 <?php } ?>
         </div>
         <div class="table-responsive">
@@ -57,7 +57,7 @@
 
                         $rowCount = 0;
                         foreach ($careUnit as $rows){
-                            //print_r($rows);die;
+                            // print_r($rows);die;
                             $rowCount++;
                             ?>
                             <tr>
@@ -80,7 +80,7 @@
                     }else if($this->ion_auth->is_facilityManager()){
                         $rowCount = 0;
                         foreach ($careUnit as $rows){
-                            //print_r($rows);die;
+                            // print_r($rows);die;
                             $rowCount++;
                             ?>
                             <tr>
@@ -105,7 +105,7 @@
                         $rowCount = 0;
                         foreach ($list as $rows){
                             $rowCount++;
-                            
+                            // print_r($rows);die;
                             ?>
 <tr>
                                 <td><?php echo $rowCount; ?></td>

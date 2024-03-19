@@ -220,13 +220,14 @@
                 <thead>
                     <tr>
                         <th style="width:10px">Sr. No</th>
-                        <th>Due Date</th>
+                        <th>Priority</th>
+                        
                         <th>Task Name</th>
                         <th>Assign To</th>
                         <th>Patient Name</th>
                         <th>Type</th>
-                        <th>Priority</th>
                         <th>Task Comment</th>
+                        <th>Due Date</th>
                         <!-- <th>MD Steward</th> -->
                         <th><?php echo lang('action'); ?></th>
                     </tr>
@@ -249,16 +250,33 @@
 
                             <tr>
                                 <td><?php echo $rowCount; ?></td>
-                                
-                                <td><?php echo $rows->culture_source_name; ?></td>
+                                <td><?php if($rows->priority =="High"){ 
+                                    ?>
+                                    <label class="priority-label" data-priority="High">
+                                    <i class="fa fa-flag-o fa_custom"></i>
+                                    <?php
+                                    echo 'H'; 
+                                } else if($rows->priority =="Low"){
+                                    ?>
+                                    <label class="priority-label" data-priority="Low">
+                                    <i class="fa fa-flag-o fa_custom"></i>
+                                    <?php
+                                echo 'L';
+                                }else if($rows->priority =="Medium"){
+                                    ?>
+                                    <label class="priority-label" data-priority="Medium">
+                                    <i class="fa fa-flag-o fa_custom"></i>
+                                    <?php
+                                    
+                                    echo 'M';
+                                } ?></td>
+
                                 <td><?php echo $rows->task_name; ?></td>
                                 <td><?php echo $rows->f_name. ' '.$rows->l_name; ?></td>
                                 <td><?php echo $rows->patient_name; ?></td>
                                 <td><?php echo $rows->type_name; ?></td>
-                                <td><?php echo $rows->priority; ?></td>
-                                
-
                                 <td><?php echo $rows->task_comment; ?></td>
+                                <td><?php echo $rows->culture_source_name; ?></td>
 
                                 <td class="actions">
                                     <!-- <a href="javascript:void(0)" class="btn btn-default" onclick="editFn('index.php/Tasks', 'edit_patient', '<?php echo encoding($rows->task_id) ?>', 'tasks');"><i class="fa fa-pencil"></i></a> -->
@@ -281,18 +299,34 @@
                         ?>
                             <tr>
                                 
-                            <td><?php echo $rowCount; ?></td>
-                                <td><?php echo $rows->culture_source_name; ?></td>
-                                
-                                
+                                <td><?php echo $rowCount; ?></td>
+                                <td><?php if($rows->priority =="High"){ 
+                                    ?>
+                                    <label class="priority-label" data-priority="High">
+                                    <i class="fa fa-flag-o fa_custom"></i>
+                                    <?php
+                                    echo 'H'; 
+                                } else if($rows->priority =="Low"){
+                                    ?>
+                                    <label class="priority-label" data-priority="Low">
+                                    <i class="fa fa-flag-o fa_custom"></i>
+                                    <?php
+                                echo 'L';
+                                }else if($rows->priority =="Medium"){
+                                    ?>
+                                    <label class="priority-label" data-priority="Medium">
+                                    <i class="fa fa-flag-o fa_custom"></i>
+                                    <?php
+                                    
+                                    echo 'M';
+                                } ?></td>
+
                                 <td><?php echo $rows->task_name; ?></td>
                                 <td><?php echo $rows->f_name. ' '.$rows->l_name; ?></td>
                                 <td><?php echo $rows->patient_name; ?></td>
                                 <td><?php echo $rows->type_name; ?></td>
-                                <td><?php echo $rows->priority; ?></td>
-                            
                                 <td><?php echo $rows->task_comment; ?></td>
-
+                                <td><?php echo $rows->culture_source_name; ?></td>
                                 
                                 
                                 <td class="actions">
@@ -318,3 +352,41 @@
 <!-- END Page Content -->
 <div id="form-modal-box"></div>
 </div>
+
+<style>
+.priority-label {
+    cursor: pointer;
+}
+
+.priority-label:hover i {
+    color: blue; /* Change color on hover */
+}
+
+.priority-label.active i {
+    color: green; /* Change color when active */
+}
+
+.priority{
+    width: 20px;
+}
+.pl{
+    padding-left: 25px;
+}
+
+.priority-label[data-priority="High"] i {
+    color: red; /* Set color for High priority */
+}
+
+.priority-label[data-priority="Medium"] i {
+    color: orange; /* Set color for Medium priority */
+}
+
+.priority-label[data-priority="Low"] i {
+    color: green; /* Set color for Low priority */
+}
+
+.priority-label[data-priority="Unset"] i {
+    color: grey; /* Set color for Unset priority */
+}
+
+</style>

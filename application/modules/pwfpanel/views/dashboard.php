@@ -17,7 +17,7 @@
                         <div class="row">
                                         <!-- <div class="stat-percent font-bold text-primary"> <i class="fa fa-plus"></i></div> -->
                         <?php if ($this->ion_auth->is_superAdmin()) { ?>
-                            <div class="col-lg-4">
+                            <div class="col-lg-3">
                                 <div class="ibox float-e-margins">
                                     <div class="ibox-title">
 
@@ -33,84 +33,95 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-4">
+                        <div class="col-lg-3">
                             <div class="ibox float-e-margins">
                                 <div class="ibox-title">
                                 </div>
                                 <div class="ibox-content">
                                 <h1 class="no-margins">
 
-                                <?php echo $total_patient; ?>
+                                <?php echo $total_hospital; ?>
                                 </h1>
-                                <h5 class="text-primary"><strong>Total Patient</strong></h5>
+                                <h5 class="text-primary"><strong>Total Hospital</strong></h5>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3">
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-title">
+                                </div>
+                                <div class="ibox-content">
+                                <h1 class="no-margins">
+
+                                <?php echo $total_plans; ?>
+                                </h1>
+                                <h5 class="text-primary"><strong>Total Plan</strong></h5>
                                 </div>
                             </div>
                         </div>
                         
-                        <div class="col-lg-4">
+                        <div class="col-lg-3">
                                 <div class="ibox float-e-margins">
                                     <div class="ibox-title">
                                     </div>
                                     <div class="ibox-content">
-                                        <h1 class="no-margins"><?php echo $doctors; ?></h1>
-                                        <h5 class="text-primary"><strong>Total Doctor</strong></h5>
+                                        <h1 class="no-margins"><?php echo $total_order; ?></h1>
+                                        <h5 class="text-primary"><strong>Total Order</strong></h5>
                                     </div>
                                 </div>
                         </div>
-                        <div class="col-lg-4">
-                            <div class="ibox float-e-margins">
-                                <div class="ibox-title">
-                                        <!-- <div class="stat-percent font-bold text-primary"> <i class="fa fa-plus"></i></div> -->
-                                        <!-- <h5 class="text-primary"><strong>Care Unit</strong></h5> -->
-                                    </div>
-                                    <div class="ibox-content">
-                                        <h1 class="no-margins"><?php echo $careUnit; ?></h1>
-                                        <h5 class="text-primary"><strong>Total Care Unit</strong></h5>
-                                    </div>
-                                </div>
-                        </div>
+                        <!-- <div class="col-lg-4">
+                           <div class="ibox float-e-margins">
+                               <div class="ibox-title">
+                                        <div class="stat-percent font-bold text-primary"> <i class="fa fa-plus"></i></div>
+                                        <h5 class="text-primary"><strong>Care Unit</strong></h5>
+                                   </div>
+                                   <div class="ibox-content">
+                                       <h1 class="no-margins"><?php //echo $careUnit; ?></h1>
+                                       <h5 class="text-primary"><strong>Total hospitals</strong></h5>
+                                   </div>
+                               </div>
+                        </div> -->
 
-                        <div class="col-lg-4">
-                            <div class="ibox float-e-margins">
-                                    <div class="ibox-title">
-                                        <!-- <div class="stat-percent font-bold text-primary"> <i class="fa fa-plus"></i></div> -->
-                                        <!-- <h5 class="text-primary"><strong>Infections</strong></h5> -->
-                                    </div>
-                                    <div class="ibox-content">
-                                        <h1 class="no-margins"><?php echo $initial_dx; ?></h1>
-                                        <!-- <small>Total Infections</small> -->
-                                        <h5 class="text-primary"><strong>Total Infections</strong></h5>
-                                    </div>
-                                </div>
-                         </div>
+                        <!--<div class="col-lg-4">-->
+                        <!--    <div class="ibox float-e-margins">-->
+                        <!--            <div class="ibox-title">-->
+                                      
+                        <!--            </div>-->
+                        <!--            <div class="ibox-content">-->
+                        <!--                <h1 class="no-margins"><?php echo $initial_dx; ?></h1>-->
+                                       
+                        <!--                <h5 class="text-primary"><strong>Total Infections</strong></h5>-->
+                        <!--            </div>-->
+                        <!--        </div>-->
+                        <!-- </div>-->
 
-                        <div class="col-lg-4">
-                                <div class="ibox float-e-margins">
-                                    <div class="ibox-title">
-                                        <!-- <div class="stat-percent font-bold text-primary"> <i class="fa fa-plus"></i></div> -->
-                                        <!-- <h5 class="text-primary"><strong>Total Antibiotic</strong></h5> -->
-                                    </div>
-                                    <div class="ibox-content">
-                                        <h1 class="no-margins"><?php echo $initial_rx; ?></h1>
-                                        <!-- <small>Total Antibiotic</small> -->
-                                        <h5 class="text-primary"><strong>Total Antibiotic</strong></h5>
-                                    </div>
-                                </div>
-                        </div>
+                        <!--<div class="col-lg-4">-->
+                        <!--        <div class="ibox float-e-margins">-->
+                        <!--            <div class="ibox-title">-->
+                                       
+                        <!--            </div>-->
+                        <!--            <div class="ibox-content">-->
+                        <!--                <h1 class="no-margins"><?php echo $initial_rx; ?></h1>-->
+                                       
+                        <!--                <h5 class="text-primary"><strong>Total Antibiotic</strong></h5>-->
+                        <!--            </div>-->
+                        <!--        </div>-->
+                        <!--</div>-->
 
-                        <div class="col-lg-4">
-                                <div class="ibox float-e-margins">
-                                    <div class="ibox-title">
-                                        <!-- <div class="stat-percent font-bold text-primary"> <i class="fa fa-plus"></i></div> -->
-                                        <!-- <h5 class="text-primary"><strong>Patient Today</strong></h5> -->
-                                    </div>
-                                    <div class="ibox-content">
-                                        <h1 class="no-margins"><?php echo $total_patient_today; ?></h1>
-                                        <!-- <small>Total Patient Today</small> -->
-                                        <h5 class="text-primary"><strong>Total Patient Today</strong></h5>
-                                    </div>
-                                </div>
-                        </div>
+                        <!--<div class="col-lg-4">-->
+                        <!--        <div class="ibox float-e-margins">-->
+                        <!--            <div class="ibox-title">-->
+                                        
+                        <!--            </div>-->
+                        <!--            <div class="ibox-content">-->
+                        <!--                <h1 class="no-margins"><?php echo $total_patient_today; ?></h1>-->
+                                       
+                        <!--                <h5 class="text-primary"><strong>Total Patient Today</strong></h5>-->
+                        <!--            </div>-->
+                        <!--        </div>-->
+                        <!--</div>-->
 
 
 
@@ -132,7 +143,7 @@
                             </div>
                         </div>
                         
-                        <div class="col-lg-4">
+                        <!-- <div class="col-lg-4">
                             <div class="ibox float-e-margins">
                                 <div class="ibox-title">
                                 </div>
@@ -155,7 +166,7 @@
                                         <h5 class="text-primary"><strong>Total Doctor</strong></h5>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="col-lg-4">
                                 <div class="ibox float-e-margins">
                                     <div class="ibox-title">
