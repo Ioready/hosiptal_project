@@ -12,10 +12,10 @@
     </ul>
     <!-- END Datatables Header -->
     <!-- Datatables Content -->
-    <div class="block full">
+    <div style="border-radius:12px" class="block full">
     <div class="block-title">
             <?php if ($this->ion_auth->is_subAdmin()) { ?>
-                <h2>
+                <h2 class="save-btn">
                     <a href="<?php echo base_url().'index.php/' . $this->router->fetch_class(); ?>/open_model" class="btn btn-sm btn-primary">
                         <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
                     </a></h2>
@@ -28,19 +28,19 @@
         </div>
 
 
-        <div class="block-title">
-            <h2><strong><?php echo $title;?></strong> Panel</h2>
+        <div class="block-title d-flex justify-content-center">
+            <h2 style="font-size: 2rem !important;
+    font-weight: 700 !important;" ><strong><?php echo $title;?></strong> Panel</h2>
         </div>
         <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('index.php/' .$formUrl) ?>" enctype="multipart/form-data">
-            <div class="modal-header text-center">
-                <h2 class="modal-title"><i class="fa fa-pencil"></i> <?php echo (isset($title)) ? ucwords($title) : "" ?></h2>
+            <div style="justify-content:center" class="modal-header text-center">
+                <h2 style="font-weight:600" class="modal-title"><img src="<?php echo base_url(); ?>uploads/form.svg" style="height: 30px;width:30px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt=""> <?php echo (isset($title)) ? ucwords($title) : "" ?></h2>
             </div>
             <div class="alert alert-danger" id="error-box" style="display: none"></div>
             <div class="form-body">
                 <div class="row">
                     <div class="col-md-12" >
                         <div class="form-group">
-          
                                 <div class="col-md-12">
                                 <!-- <h2>Weekly Timetable</h2> -->
                             <form id="timeSlotForm" action="submit.php" method="post">
@@ -280,6 +280,16 @@ tbody th {
 thead th,
 tbody th {
   background-color: #f8f8f8;
+}
+.save-btn a{
+    font-weight:700 !important;
+    font-size: 1.2rem !important;
+    padding: 0.6rem 2.25rem !important;
+    background:#337ab7 !important;
+}
+.save-btn a:hover{
+    background-color:#00008B !important;
+    /* background:#00008B !important; */
 }
 </style>
 
