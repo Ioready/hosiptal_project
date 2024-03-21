@@ -349,7 +349,7 @@ div.tagsinput span.tag,
 .sidebar-nav a.active,
 .sidebar-nav ul a.active,
 .sidebar-nav ul a.active:hover {
-    border-left-color: #d9416c;
+    /* border-left-color: #d9416c; */
 }
 
 /* NProgress */

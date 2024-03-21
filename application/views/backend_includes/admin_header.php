@@ -18,6 +18,7 @@
 
     <!-- Icons -->
     <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="shortcut icon" href="<?php echo base_url(); ?>backend_asset/admin/img/favicon.png">
     <link rel="apple-touch-icon" href="<?php echo base_url(); ?>backend_asset/admin/img/icon57.png" sizes="57x57">
     <link rel="apple-touch-icon" href="<?php echo base_url(); ?>backend_asset/admin/img/icon72.png" sizes="72x72">
@@ -87,6 +88,7 @@
 </head>
 
 <body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <div id="page-wrapper">
 
         <div class="preloader themed-background">
@@ -97,12 +99,12 @@
             </div>
         </div>
 
-        <div id="page-container" style="box-sizing: border-box; display: block;" class="sidebar-partial sidebar-visible-lg sidebar-no-animations style-alt">
+        <div id="page-container" style="box-sizing: border-box; display: block;" class="sidebar-partial sidebar-visible-lg sidebar-no-animations style-alt bg-light">
             <!-- Alternative Sidebar -->
             <!-- END Alternative Sidebar -->
 
             <!-- Main Sidebar -->
-            <div id="sidebar" >
+            <div id="sidebar"  class="bg-light">
                 <!-- Wrapper for scrolling functionality -->
                 <div id="sidebar-scroll">
                     <!-- Sidebar Content -->
@@ -114,7 +116,7 @@
                         <!-- END Brand -->
 
                         <!-- User Info -->
-                        <div class="sidebar-section sidebar-user clearfix sidebar-nav-mini-hide">
+                        <div class="sidebar-section sidebar-user clearfix sidebar-nav-mini-hide m-0">
                             <div class="sidebar-user-avatar">
                                 <a href="<?php echo base_url() . 'pwfpanel' ?>">
                                     <img src="<?php echo base_url() . getConfig('site_logo'); ?>" alt="avatar">
@@ -127,7 +129,7 @@
                                                             }
                                                             ?></div>
                             <!-- <div class="sidebar-user-links"> -->
-                            <div>
+                            <div class="d-flex justify-content-end mt-3">
                                 <!-- 
                                     <a href="page_ready_inbox.html" data-toggle="tooltip" data-placement="bottom" title="Messages"><i class="gi gi-envelope"></i></a> -->
                                 <!-- Opens the user settings modal that can be found at the bottom of each page (page_footer.html in PHP version) -->
@@ -146,7 +148,8 @@
 
 <li>
     <a href="<?php echo site_url('pwfpanel') ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "pwfpanel") ? "active" : "" ?>">
-    <img src="<?php echo base_url(); ?>uploads/icons/dashboard.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">Dashboard</span></a>
+    <!-- <img src="<?php echo base_url(); ?>uploads/icons/dashboard.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Dashboard</span></a> -->
+    <img src="<?php echo base_url(); ?>uploads/home.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Dashboard</span></a>
 </li>
 
 <!--                                     <li title="Reports">
@@ -255,7 +258,7 @@
 
                                 <li>
                                     <a href="<?php echo site_url('pwfpanel') ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "pwfpanel") ? "active" : "" ?>">
-                                    <img src="<?php echo base_url(); ?>uploads/icons/dashboard.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">Dashboard</span></a>
+                                    <img src="<?php echo base_url(); ?>uploads/home.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Dashboard</span></a>
                                 </li>
 
                                 <!--                                     <li title="Reports">
@@ -431,12 +434,12 @@
                                     <a href="<?php echo site_url('tutorials'); ?>" target="_blank" class=" <?php echo (strtolower($this->router->fetch_class()) == "howItWorks") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/studying.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp;Tutorials</span></a>
                                 </li> -->
                                 <li>
-                                    <a href="<?php echo site_url('users'); ?>" class="<?php echo (strtolower($this->router->fetch_class()) == "users" || strpos($parent, "UA") !== false || strpos($parent, "UH") !== false) ? "active" : "" ?>"><i class="gi gi-user sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Users</span></a>
+                                    <a href="<?php echo site_url('users'); ?>" class="<?php echo (strtolower($this->router->fetch_class()) == "users" || strpos($parent, "UA") !== false || strpos($parent, "UH") !== false) ? "active" : "" ?>"><i class="gi gi-user sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide text-dark">Users</span></a>
                                 </li>
                                 
-                                <li title="Appointment">`
+                                <li title="Appointment">
                                 
-                                <a href="<?php echo site_url('appointment'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "appointment") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/appointment.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp;Appointments</span></a>
+                                <a href="<?php echo site_url('appointment'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "appointment") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/appointment.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">&nbsp;Appointments</span></a>
                             </li>
                             <li title="Contact Us">
                                     <a href="<?php echo site_url('contactus'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "contactus") ? "active" : "" ?>"><i class="fa fa-comment sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Contact Us</span></a>
@@ -451,58 +454,58 @@
                                 </li> -->
                                 <li>
                                     <a href="<?php echo site_url('pwfpanel') ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "pwfpanel") ? "active" : "" ?>">
-                                    <img src="<?php echo base_url(); ?>uploads/icons/dashboard.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">Dashboard</span></a>
+                                    <img src="<?php echo base_url(); ?>uploads/home.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Dashboard</span></a>
                                 </li>
                                 <li title="Appointment">`
                                 
-                                    <a href="<?php echo site_url('appointment'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "appointment") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/appointment.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp;Appointments</span></a>
+                                    <a href="<?php echo site_url('appointment'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "appointment") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/appointment.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">&nbsp;Appointments</span></a>
                                 </li>
                                 <li>
-                                    <a href="<?php echo site_url('users'); ?>" class="<?php echo (strtolower($this->router->fetch_class()) == "users" || strpos($parent, "UA") !== false || strpos($parent, "UH") !== false) ? "active" : "" ?>"><i class="gi gi-user sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Users</span></a>
+                                    <a href="<?php echo site_url('users'); ?>" class="<?php echo (strtolower($this->router->fetch_class()) == "users" || strpos($parent, "UA") !== false || strpos($parent, "UH") !== false) ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/users.svg" height="23px" width="23px"><span class="sidebar-nav-mini-hide text-dark">Users</span></a>
                                 </li>
                                 
                                 <li title="Patient">
-                                    <a href="<?php echo site_url('patient'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "patient") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/patient.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp;Patients</span></a>
+                                    <a href="<?php echo site_url('patient'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "patient") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/patients.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">&nbsp;Patients</span></a>
                                 </li>
 
 
                                 
                                 <li title="Tasks">
-                                    <a href="<?php echo site_url('tasks'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "tasks") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/tasks.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp;Tasks</span></a>
+                                    <a href="<?php echo site_url('tasks'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "tasks") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/tasks.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">&nbsp;Tasks</span></a>
                                 </li>
 
                                 <!-- <li title="DayTimeSlot">
                                     <a href="<?php echo site_url('dayTimeSlot'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "DayTimeSlot") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/labs.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp;Labs</span></a>
                                 </li> -->
                                 <li title="Labs">
-                                 <a href="<?php echo site_url('cultureSource'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "cultureSource") ? "active" : "" ?>"><i class="fa fa-heartbeat sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Labs</span></a>
+                                 <a href="<?php echo site_url('cultureSource'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "cultureSource") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/labs.svg" height="23px" width="23px"><span class="sidebar-nav-mini-hide text-dark">Labs</span></a>
                                 </li>
 
                                 <li title="DayTimeSlot">
-                                    <a href="<?php echo site_url('dayTimeSlot'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "DayTimeSlot") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/letterss.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp;Letters</span></a>
+                                    <a href="<?php echo site_url('dayTimeSlot'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "DayTimeSlot") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/letters.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">&nbsp;Letters</span></a>
                                 </li>
                                 <li title="Invoices">
-                                    <a href="<?php echo site_url('invoices'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "invoices") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/invoice.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp;Invoices</span></a>
+                                    <a href="<?php echo site_url('invoices'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "invoices") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/invoice.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">&nbsp;Invoices</span></a>
                                 </li>
                                 <li title="Products">
-                                    <a href="<?php echo site_url('products'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "products") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/new-product.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp;Products</span></a>
+                                    <a href="<?php echo site_url('products'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "products") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/products.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">&nbsp;Products</span></a>
                                 </li>
                                 <li title="Contact Us">
-                                    <a href="<?php echo site_url('contactus'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "contactus") ? "active" : "" ?>"><i class="fa fa-comment sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Contact Us</span></a>
+                                    <a href="<?php echo site_url('contactus'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "contactus") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/contact.svg" height="23px" width="23px"><span class="sidebar-nav-mini-hide text-dark">Contact Us</span></a>
                                 </li>
                                 <!-- <li title="Contact">
                                     <a href="<?php echo site_url('contact'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "Contact") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/department.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp;Contacts</span></a>
                                 </li> -->
                                
                                 <li title="Settings">
-                                    <a href="<?php echo site_url('userSettings'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "userSettings") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/setting.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp; Setting</span></a>
+                                    <a href="<?php echo site_url('userSettings'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "userSettings") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/setting.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">&nbsp; Setting</span></a>
                                 </li>
 
 
                             <?php } elseif ($this->ion_auth->is_facilityManager()) {  ?>
 
                                   <li>
-                                        <a href="<?php echo site_url('pwfpanel') ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "pwfpanel") ? "active" : "" ?>"><i class="gi gi-stopwatch sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Dashboard</span></a>
+                                        <a href="<?php echo site_url('pwfpanel') ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "pwfpanel") ? "active" : "" ?>"><i class="gi gi-stopwatch sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide text-dark">Dashboard</span></a>
                                     </li>
 
                                 <li title="Reports">
@@ -516,7 +519,7 @@
                                     <a href="<?php echo site_url('patient'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "patient") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/patient.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp;Patient</span></a>
                                 </li>
                                 <li title="Labs">
-                                <a href="<?php echo site_url('cultureSource'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "cultureSource") ? "active" : "" ?>"><i class="fa fa-heartbeat sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Labs</span></a>
+                                <a href="<?php echo site_url('cultureSource'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "cultureSource") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/labs.svg" height="23px" width="23px"><span class="sidebar-nav-mini-hide text-dark">Labs</span></a>
                                 </li>
 
                                 <!-- <li title="Provider MD">
@@ -567,7 +570,7 @@
 
                                 <li>
                                     <a href="<?php echo site_url('pwfpanel') ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "pwfpanel") ? "active" : "" ?>">
-                                    <img src="<?php echo base_url(); ?>uploads/icons/dashboard.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">Dashboard</span></a>
+                                    <img src="<?php echo base_url(); ?>uploads/home.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Dashboard</span></a>
                                 </li>
 
                                 <li title="PatientAppointment">
@@ -589,15 +592,15 @@
             <!-- Main Container -->
             <div id="main-container">
 
-                <header class="navbar navbar-default">
+         <!-- //       <header class="navbar navbar-default"> -->
                     <!-- Left Header Navigation -->
-                    <ul class="nav navbar-nav-custom">
+           <!-- //         <ul class="nav navbar-nav-custom"> -->
                         <!-- Main Sidebar Toggle Button -->
-                        <li>
+        <!-- //                <li>
                             <a href="javascript:void(0)" onclick="App.sidebar('toggle-sidebar');this.blur();">
                                 <i class="fa fa-bars fa-fw"></i>
                             </a>
-                        </li>
+         //               </li> -->
                         <!-- END Main Sidebar Toggle Button -->
 
                         <!-- Template Options -->
@@ -624,7 +627,7 @@
                                 </ul>
                             </li> -->
                         <!-- END Template Options -->
-                    </ul>
+     <!-- //               </ul> -->
                     <!-- END Left Header Navigation -->
 
                     <!-- Search Form -->
@@ -633,24 +636,24 @@
                                 <input type="text" id="top-search" name="top-search" class="form-control" placeholder="Search..">
                             </div>
                         </form> -->
-                        <ul class="nav navbar-nav-custom pull-center">
-                        <?php if ($this->ion_auth->is_facilityManager()) { ?>
+        <!-- //                <ul class="nav navbar-nav-custom pull-center">
+         //               <?php if ($this->ion_auth->is_facilityManager()) { ?> -->
                         <!-- <div style="background-color: #e3d3e7; text-align: center;"> -->
-                            <h1>
+                            <!-- <h1>
                                 <?php
                                 $user = getUser($this->session->userdata('user_id'));
                                 if (!empty($user)) {
                                     echo '<strong>' . ucwords($user->hospital_name) . '</strong>';
                                 }
                                 ?>
-                            </h1>
+                           </h1> -->
                         <!-- </div> -->
-                        <?php } ?>
-                            </ul>
+                    <!--  //    <?php } ?> -->
+      <!-- //                      </ul> -->
                     <!-- END Search Form -->
 
                     <!-- Right Header Navigation -->
-                    <ul class="nav navbar-nav-custom pull-right">
+            <!-- //        <ul class="nav navbar-nav-custom pull-right"> -->
                         <!-- Alternative Sidebar Toggle Button -->
                         <!--                            <li>
                                                              If you do not want the main sidebar to open when the alternative sidebar is closed, just remove the second parameter: App.sidebar('toggle-sidebar-alt'); 
@@ -662,7 +665,7 @@
                         <!-- END Alternative Sidebar Toggle Button -->
 
                         <!-- User Dropdown -->
-                        <li class="dropdown">
+         <!-- //               <li class="dropdown">
                             <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
                                 <img src="<?php echo base_url() . getConfig('site_logo'); ?>" alt="avatar"> <i class="fa fa-angle-down"></i>
                             </a>
@@ -675,7 +678,7 @@
                                                                                                                 }
                                                                                                                 ?></a>
                                     <a href="javascript:void(0)" onclick="logout()"><img src="<?php echo base_url(); ?>uploads/icons/logout.png" style="height: 20px;width:20px;" alt="avatar"> Logout</a>
-                                </li>
+      //                          </li> -->
                                 <!-- <li>
                                         <a href="page_ready_timeline.html">
                                             <i class="fa fa-clock-o fa-fw pull-right"></i>
@@ -732,10 +735,25 @@
                                                                                 <i class="fa fa-bug fa-fw"></i> <a href="javascript:void(0)" class="alert-link">New bug submitted</a>
                                                                             </div>
                                                                         </li>-->
-                            </ul>
-                        </li>
+                <!-- //            </ul> -->
+            <!-- //            </li> -->
                         <!-- END User Dropdown -->
-                    </ul>
+         <!-- //           </ul> -->
                     <!-- END Right Header Navigation -->
-                </header>
+                <!-- </header> -->
                 <!-- END Header -->
+
+
+                <header>
+
+                <div class="newHeader pt-3 pb-3 ps-2 pe-4 d-flex justify-content-end align-items-center">
+                    <div class="d-flex  align-items-center">
+                        <img src="<?php echo base_url(); ?>uploads/soloUser.svg" style="height: 23px;width:23px; filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%)" alt="">
+                        <h2 style="font-size:1.75rem;font-weight:600" class="headerFonts ms-2">User</h2>
+                    </div>
+                       <div>
+                        <h2 style="font-size:1.75rem;font-weight:600" class="headerFonts ms-5 ">Logout</h2>
+                       </div>                                                                                             
+                </div>
+
+                                                                                                            </header>
