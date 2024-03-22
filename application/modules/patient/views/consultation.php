@@ -434,7 +434,7 @@ document.addEventListener('DOMContentLoaded', function() {
     width: 88px;
 }
 a.new-contact:hover{
-    background-color: #d9416c !important;
+    /* background-color: #d9416c !important; */
     color: white;
     font-weight: 900;
     width: 88px;

@@ -1,5 +1,23 @@
 <!-- Page content -->
 <style>
+
+    .save-btn{
+    font-weight:700;
+    font-size: 1.5rem;
+    padding: 0.6rem 2.25rem;
+    background:#337ab7;
+}
+.save-btn:hover{
+    /* background-color:#00008B !important; */
+    background:#00008B !important;
+}
+.t-head{
+    background-color:rgb(219, 234, 255) !important;
+    font-size:1.3rem !important;
+}
+.srNo{
+    width: 50px !important;
+}
 #act{
     display: none;
    
@@ -19,7 +37,7 @@
         <div class="block-title">
             <h2><strong><?php echo $title; ?></strong> Panel</h2>
             <?php if ($this->ion_auth->is_superAdmin()) { ?>
-                <h2><a href="javascript:void(0)"  onclick="open_modal('<?php echo $model; ?>')" class="btn btn-sm btn-primary">
+                <h2><a href="javascript:void(0)"  onclick="open_modal('<?php echo $model; ?>')" class="save-btn btn btn-sm btn-primary">
                         <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
                     </a></h2>
             <?php }else if($this->ion_auth->is_facilityManager()){ ?>
@@ -33,19 +51,19 @@
             <table id="common_datatable_menucat" class="table table-vcenter table-condensed table-bordered">
                 <thead>
                     <tr>
-                        <th style="width:10px;">Sr. No</th>
-                        <th>coupon_type</th>
-                        <th>coupon_code</th>
-                        <th>user_size</th>
-                        <th>total_use_user</th>
-                        <th>cash_type</th>
-                        <th>amount</th>
-                        <th>used_type</th>
-                        <th>min_amount</th>
-                        <th>max_amount</th>
-                        <th>percentage_in_amount</th>
+                        <th class="t-head srNo">Sr. No</th>
+                        <th class="t-head">coupon_type</th>
+                        <th class="t-head">coupon_code</th>
+                        <th class="t-head">user_size</th>
+                        <th class="t-head">total_use_user</th>
+                        <th class="t-head">cash_type</th>
+                        <th class="t-head">amount</th>
+                        <th class="t-head">used_type</th>
+                        <th class="t-head">min_amount</th>
+                        <th class="t-head">max_amount</th>
+                        <th class="t-head">percentage_in_amount</th>
                         <?php if ($this->ion_auth->is_superAdmin()){?>
-                        <th><?php echo lang('action'); ?></th>
+                        <th class="t-head"><?php echo lang('action'); ?></th>
                         <?php } else if ($this->ion_auth->is_facilityManager()){?>
                             <!-- <th><?php echo lang('action'); ?></th> -->
                             <?php } ?>

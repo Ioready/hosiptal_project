@@ -22,15 +22,15 @@
                                     <div style="margin: 0px 0px 20px 16px;">
                                     <ul class="nav nav-pills nav-fill nav-tabss" id="pills-tab" role="tablist" >
                                             <li class="nav-item">
-                                            <a href="<?php echo site_url('userSettings'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "userSettings") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">Users</span></a>
+                                            <a href="<?php echo site_url('userSettings'); ?>" class="save-btn <?php echo (strtolower($this->router->fetch_class()) == "userSettings") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">Users</span></a>
                                                 <!-- <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-1" role="tab">Practice Contacts</a> -->
                                             </li>
                                             <li class="nav-item">
-                                            <a href="<?php echo site_url('userSettings/letterTemplate'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "letterTemplate") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">Letter Templates</span></a>
+                                            <a href="<?php echo site_url('userSettings/letterTemplate'); ?>" class="save-btn <?php echo (strtolower($this->router->fetch_class()) == "letterTemplate") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">Letter Templates</span></a>
                                                 <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-2" role="tab"></a>
                                             </li>
                                             <li class="nav-item">
-                                            <a href="<?php echo site_url('userSettings/consultationTemplates'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "consultationTemplates") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">Consultation Templates</span></a>
+                                            <a href="<?php echo site_url('userSettings/consultationTemplates'); ?>" class="save-btn <?php echo (strtolower($this->router->fetch_class()) == "consultationTemplates") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">Consultation Templates</span></a>
                                                 <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-2" role="tab"></a>
                                             </li>
                                         </ul>
@@ -142,7 +142,7 @@
            
                 <a href="<?php echo site_url('userSettings/header'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "directory") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">
                                             
-                <button type="button" class="btn btn-primary"><i class="fa fa-solid fa-plus"></i> New Header</button>
+                <button type="button" class="btn btn-primary save-btn"><i class="fa fa-solid fa-plus"></i> New Header</button>
                 </span></a>
                 
                 <div class="header-toggle ">
@@ -155,11 +155,11 @@
                     <table id="common_datatable_menucat" class="table table-vcenter table-condensed table-bordered">
                         <thead>
                             <tr>
-                                <th>Sn.</th>
-                                <th>Name</th>
-                                <th>Created On</th>
-                                <th>Updated On</th>
-                                <th>Status</th>
+                                <th style="background-color:#DBEAFF;font-size:1.3rem;">Sn.</th>
+                                <th style="background-color:#DBEAFF;font-size:1.3rem;">Name</th>
+                                <th style="background-color:#DBEAFF;font-size:1.3rem;">Created On</th>
+                                <th style="background-color:#DBEAFF;font-size:1.3rem;">Updated On</th>
+                                <th style="background-color:#DBEAFF;font-size:1.3rem;">Status</th>
                             
                             </tr>
                         </thead>
@@ -260,7 +260,7 @@
             <div class="col-md-2">
                 
                 <a href="<?php echo site_url('userSettings/bodies'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "directory") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">
-                        <button type="button" class="btn btn-primary"><i class="fa fa-solid fa-plus"></i> New Bodies</button>
+                        <button type="button" class="btn btn-primary save-btn"><i class="fa fa-solid fa-plus"></i> New Bodies</button>
                 </span></a>
                 
                 <div class="body-toggle ">
@@ -273,11 +273,11 @@
                     <table id="common_datatable_menucat" class="table table-vcenter table-condensed table-bordered">
                         <thead>
                             <tr>
-                                <th>Sn.</th>
-                                <th>Name</th>
-                                <th>Created On</th>
-                                <th>Updated On</th>
-                                <th>Status</th>
+                                <th style="background-color:#DBEAFF;font-size:1.3rem;">Sn.</th>
+                                <th style="background-color:#DBEAFF;font-size:1.3rem;">Name</th>
+                                <th style="background-color:#DBEAFF;font-size:1.3rem;">Created On</th>
+                                <th style="background-color:#DBEAFF;font-size:1.3rem;">Updated On</th>
+                                <th style="background-color:#DBEAFF;font-size:1.3rem;">Status</th>
                             
                             </tr>
                         </thead>
@@ -378,7 +378,7 @@
 
             
                 <a href="<?php echo site_url('userSettings/recipients'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "directory") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">
-                        <button type="button" class="btn btn-primary"><i class="fa fa-solid fa-plus"></i> New Recipients block</button>
+                        <button type="button" class="btn btn-primary save-btn"><i class="fa fa-solid fa-plus"></i> New Recipients block</button>
                 </span></a>
                 
                 <div class="rec-toggle">
@@ -391,11 +391,11 @@
                     <table id="common_datatable_menucat" class="table table-vcenter table-condensed table-bordered">
                         <thead>
                             <tr>
-                                <th>Sn.</th>
-                                <th>Name</th>
-                                <th>Created On</th>
-                                <th>Updated On</th>
-                                <th>Status</th>
+                                <th style="background-color:#DBEAFF;font-size:1.3rem;">Sn.</th>
+                                <th style="background-color:#DBEAFF;font-size:1.3rem;">Name</th>
+                                <th style="background-color:#DBEAFF;font-size:1.3rem;">Created On</th>
+                                <th style="background-color:#DBEAFF;font-size:1.3rem;">Updated On</th>
+                                <th style="background-color:#DBEAFF;font-size:1.3rem;">Status</th>
                             
                             </tr>
                         </thead>
@@ -494,7 +494,7 @@
             </div>
             <div class="col-md-2">
                 <a href="<?php echo site_url('userSettings/footer'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "directory") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">
-                     <button type="button" class="btn btn-primary"><i class="fa fa-solid fa-plus"></i> New Footers</button>
+                     <button type="button" class="btn btn-primary save-btn"><i class="fa fa-solid fa-plus"></i> New Footers</button>
                 </span></a>
                 <div class="footer-toggle ">
                     <span class="arrow"></span>
@@ -506,11 +506,11 @@
                     <table id="common_datatable_menucat" class="table table-vcenter table-condensed table-bordered">
                         <thead>
                             <tr>
-                                <th>Sn.</th>
-                                <th>Name</th>
-                                <th>Created On</th>
-                                <th>Updated On</th>
-                                <th>Status</th>
+                                <th style="background-color:#DBEAFF;font-size:1.3rem;">Sn.</th>
+                                <th style="background-color:#DBEAFF;font-size:1.3rem;">Name</th>
+                                <th style="background-color:#DBEAFF;font-size:1.3rem;">Created On</th>
+                                <th style="background-color:#DBEAFF;font-size:1.3rem;">Updated On</th>
+                                <th style="background-color:#DBEAFF;font-size:1.3rem;">Status</th>
                             
                             </tr>
                         </thead>
@@ -686,7 +686,7 @@
     width: 88px;
 }
 a.new-contact:hover{
-    background-color: #d9416c !important;
+    /* background-color: #d9416c !important; */
     color: white;
     font-weight: 900;
     width: 88px;
@@ -710,7 +710,18 @@ a.new-contact:hover{
     width: 100%;
 }
 
-
+.save-btn{
+    font-weight:700;
+    color:white;
+    font-size: 1.5rem;
+    padding: 0.6rem 2.25rem !important;
+    background-color: #337ab7 !important;
+    background:none;
+}
+.save-btn:hover{
+    color:white;
+    background:#00008B !important;
+}
 
 </style>
 <script>
@@ -811,7 +822,17 @@ $(document).ready(function() {
     border-bottom: none;
     border-top: 5px solid black;
 }
-
+.save-btn{
+    font-weight:700;
+    color:white;
+    font-size: 1.5rem;
+    padding: 0.6rem 2.25rem !important;
+    background-color: #337ab7 !important;
+}
+.save-btn:hover{
+    color:white;
+    background:#00008B !important;
+}
 </style>
 
 

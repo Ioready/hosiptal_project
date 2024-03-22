@@ -4,6 +4,10 @@
     display: none;
    
 }
+.t-head{
+    background-color:rgb(219, 234, 255) !important;
+    font-size:1.3rem !important;
+}
 </style>
 <div id="page-content">
     <ul class="breadcrumb breadcrumb-top">
@@ -33,22 +37,20 @@
             <table id="common_datatable_menucat" class="table table-vcenter table-condensed table-bordered">
                 <thead>
                     <tr>
-                        <th style="width:10px;">Sr. No</th>
+                       
+                        <th  class="t-head" style="width:40px;">Sr. No</th>
                         
-                        <th>User Name</th>
-                        <th>Plan Name</th>
-                        <th>Amount</th>
-                        <th>Plan Type</th>
-                        <!-- <th>Start Date</th>
-                        <th>End Date</th> -->
-                        <th>Order Date</th>
-                        <th>Plan Expire Date</th>
-                        
-                        <th>status</th>
+                        <th class="t-head">User Name</th>
+                        <th class="t-head">Plan Name</th>
+                        <th class="t-head">Amount</th>
+                        <th class="t-head">Plan Type</th>
+                        <th class="t-head">Order Date</th>
+                        <th class="t-head">Plan Expire Date</th>
+                        <th class="t-head">status</th>
 
                         <!-- <th>Email</th> -->
                         <?php if ($this->ion_auth->is_superAdmin()){?>
-                        <th><?php echo lang('action'); ?></th>
+                        <th class="t-head"><?php echo lang('action'); ?></th>
                         <?php } else if ($this->ion_auth->is_facilityManager()){?>
                             <!-- <th><?php //echo lang('action'); ?></th> -->
                             <?php } ?>

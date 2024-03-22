@@ -26,15 +26,15 @@
 
                                         <ul class="nav nav-pills nav-fill nav-tabss" id="pills-tab" role="tablist" >
                                             <li class="nav-item">
-                                            <a href="<?php echo site_url('userSettings'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "userSettings") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">Users</span></a>
+                                            <a href="<?php echo site_url('userSettings'); ?>" class="save-btn <?php echo (strtolower($this->router->fetch_class()) == "userSettings") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">Users</span></a>
                                                 <!-- <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-1" role="tab">Practice Contacts</a> -->
                                             </li>
                                             <li class="nav-item">
-                                            <a href="<?php echo site_url('userSettings/letterTemplate'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "letterTemplate") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">Letter Templates</span></a>
+                                            <a href="<?php echo site_url('userSettings/letterTemplate'); ?>" class="save-btn <?php echo (strtolower($this->router->fetch_class()) == "letterTemplate") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">Letter Templates</span></a>
                                                 <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-2" role="tab"></a>
                                             </li>
                                             <li class="nav-item">
-                                            <a href="<?php echo site_url('userSettings/consultationTemplates'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "consultationTemplates") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">Consultation Templates</span></a>
+                                            <a href="<?php echo site_url('userSettings/consultationTemplates'); ?>" class="save-btn <?php echo (strtolower($this->router->fetch_class()) == "consultationTemplates") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">Consultation Templates</span></a>
                                                 <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-2" role="tab"></a>
                                             </li>
                                         </ul>
@@ -56,12 +56,12 @@
           <div class="block-title">
             <?php if ($this->ion_auth->is_subAdmin()) { ?>
                 <h2>
-                    <a href="<?php echo base_url().'index.php/' . $this->router->fetch_class(); ?>/open_consult" class="btn btn-sm btn-primary">
+                    <a href="<?php echo base_url().'index.php/' . $this->router->fetch_class(); ?>/open_consult" class="save-btn btn btn-sm btn-primary">
                         <i class="gi gi-circle_plus"></i> <?php echo 'New'; ?>
                     </a></h2>
             <?php }else if($this->ion_auth->is_facilityManager()){ ?>
                     <h2>
-                    <a href="<?php echo base_url() . $this->router->fetch_class(); ?>/open_consult" class="btn btn-sm btn-primary">
+                    <a href="<?php echo base_url() . $this->router->fetch_class(); ?>/open_consult" class="btn btn-sm btn-primary save-btn">
                         <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
                     </a></h2>
                 <?php } ?>
@@ -123,10 +123,10 @@
             <table id="common_datatable_users" class="table table-vcenter table-condensed table-bordered">
                 <thead>
                     <tr>
-                        <th style="width:10px">Sr. No</th>
-                        <th>Internal Name</th>
-                        <th>Created date</th>
-                        <th><?php echo lang('action'); ?></th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem;width:10px;">Sr. No</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem;">Internal Name</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem;">Created date</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem;"><?php echo lang('action'); ?></th>
                     </tr>
                 </thead>
 
@@ -428,7 +428,7 @@ document.addEventListener('DOMContentLoaded', function() {
     width: 88px;
 }
 a.new-contact:hover{
-    background-color: #d9416c !important;
+    /* background-color: #d9416c !important; */
     color: white;
     font-weight: 900;
     width: 88px;
@@ -453,7 +453,18 @@ a.new-contact:hover{
 }
 
 
-
+.save-btn{
+    font-weight:700;
+    color:white;
+    font-size: 1.5rem;
+    padding: 0.6rem 2.25rem !important;
+    background-color: #337ab7 !important;
+    background:none;
+}
+.save-btn:hover{
+    color:white;
+    background:#00008B !important;
+}
 </style>
 <script>
 

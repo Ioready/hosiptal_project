@@ -69,6 +69,20 @@
     .dataTables_wrapper>div {
         background-color: #f2ebed important;
     }
+
+    .save-btn{
+    font-weight:700;
+    font-size: 1.5rem;
+    padding: 0.6rem 2.25rem;
+    background:#337ab7;
+}
+.save-btn:hover{
+    /* background-color:#00008B !important; */
+    background:#00008B !important;
+}
+.t-head{
+    background-color:rgb(219, 234, 255) !important;
+}
 </style>
 <!-- start patient -->
 
@@ -88,14 +102,14 @@
         <div class="block-title">
             <h2><strong><?php echo $title; ?></strong> Panel</h2>
 
-            <h2> <a href="javascript:void(0)" onclick="open_modal('index.php/tutorials/open_model')" class="<?php echo THEME_BUTTON; ?>">
+            <h2 > <a href="javascript:void(0)" onclick="open_modal('index.php/tutorials/open_model')" class="<?php echo THEME_BUTTON;?> save-btn">
                     Tutorials
                     <i class="fa fa-plus"></i>
                 </a>
                 </a></h2>
 
                 <h2>
-                <a href="javascript:void(0)" onclick="open_category_modal('index.php/tutorials')" class="<?php echo THEME_BUTTON; ?>">
+                <a href="javascript:void(0)" onclick="open_category_modal('index.php/tutorials')" class="<?php echo THEME_BUTTON; ?> save-btn">
                     Category
                     <i class="fa fa-plus"></i>
                 </a>
@@ -120,12 +134,12 @@
                                     <table class="table table-bordered table-responsive" id="common_datatable_cms">
                                         <thead>
                                             <tr>
-                                                <th><?php echo lang('serial_no'); ?></th>
-                                                <th>Category</th>
-                                                <th>Tutorial</th>
-                                                <th>Description</th>
-                                                <th>File</th>
-                                                <th><?php echo lang('action'); ?></th>
+                                                <th  class="t-head"><?php echo lang('serial_no'); ?></th>
+                                                <th class="t-head">Category</th>
+                                                <th class="t-head">Tutorial</th>
+                                                <th class="t-head">Description</th>
+                                                <th class="t-head">File</th>
+                                                <th class="t-head"><?php echo lang('action'); ?></th>
                                             </tr>
                                         </thead>
 
@@ -142,7 +156,7 @@
                                                         <td><?php echo $rows->tutorial; ?></td>
                                                         <td><?php echo $rows->description; ?></td>
                                                         <td>
-                                                            <a class="btn btn-primary" href="<?php echo base_url() . 'index.php/tutorials/show?tutorial_id=' . ($rows->id); ?>" data-toggle="tooltip" class="btn btn-default"></i>View Attachments</a>
+                                                            <a class="save-btn btn btn-primary" href="<?php echo base_url() . 'index.php/tutorials/show?tutorial_id=' . ($rows->id); ?>" data-toggle="tooltip" class=" btn btn-default"></i>View Attachments</a>
                                                         </td>
                                                         <td class="actions">
                                                             <a href="javascript:void(0)" class="btn btn-xs btn-default" onclick="editFn('index.php/tutorials', 'tutorial_edit', '<?php echo encoding($rows->id) ?>');"><i class="fa fa-pencil"></i></a>
