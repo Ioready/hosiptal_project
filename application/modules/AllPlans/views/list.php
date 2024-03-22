@@ -17,9 +17,9 @@
     <!-- Datatables Content -->
     <div class="block full">
         <div class="block-title">
-            <h2><strong><?php echo $title; ?></strong> Panel</h2>
+            <h2><strong><?php echo $title; ?></strong></h2>
             <?php if ($this->ion_auth->is_superAdmin()) { ?>
-                <h2><a href="javascript:void(0)"  onclick="open_modal('<?php echo $model; ?>')" class="btn btn-sm btn-primary">
+                <h2><a href="javascript:void(0)"  onclick="open_modal('<?php echo $model; ?>')" class="save-btn btn btn-sm btn-primary">
                         <i class="gi gi-circle_plus"></i> <?php echo "New Plan"; ?>
                     </a></h2>
             <?php }
@@ -119,10 +119,10 @@
 
     <div class="switch-wrapper">
     <input id="toggle-monthly" type="radio" name="switch" checked>
-    <label for="monthly">Monthly</label>
-    <input id="toggle-yearly" type="radio" name="switch">
+    <label style="font-size:1.5rem;margin-bottom:10px" for="monthly">Monthly</label>
+    <input style="margin-left:2rem" id="toggle-yearly" type="radio" name="switch">
     
-    <label for="yearly">Yearly</label>
+    <label style="font-size:1.5rem;margin-bottom:10px   " for="yearly">Yearly</label>
     <span class="highlighter"></span>
   </div>
 
@@ -138,7 +138,7 @@
 
             ?>
             <div class="basic box price monthly">
-                <h2 class="title"><?php echo $row->PlanName;?></h2>
+                <h2 style="margin-top:0;margin-bottom:0" class="title"><?php echo $row->PlanName;?></h2>
                 <div class="view">
                     <div class="icon">
                         <img src="https://i.postimg.cc/2jcfMcf4/hot-air-balloon.png" alt="hot-air-balloon">
@@ -169,7 +169,7 @@
             <?php 
             }else if($row->DurationInMonths == 'years'){ ?>
  <div class="basic box price yearly ">
-                <h2 class="title"><?php echo $row->PlanName;?></h2>
+                <h2 style="margin-top:0;margin-bottom:0" class="title"><?php echo $row->PlanName;?></h2>
                 <div class="view">
                     <div class="icon">
                         <img src="https://i.postimg.cc/2jcfMcf4/hot-air-balloon.png" alt="hot-air-balloon">
@@ -256,6 +256,18 @@ yearlyButton.addEventListener("click", () => {
 
 <style>
     @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+
+    .save-btn{
+    font-weight:700;
+    font-size: 1.5rem;
+    padding: 0.6rem 2.25rem;
+    background:#337ab7;
+}
+.save-btn:hover{
+    /* background-color:#00008B !important; */
+    background:#00008B !important;
+}
+
 
 *{
     margin: 0;

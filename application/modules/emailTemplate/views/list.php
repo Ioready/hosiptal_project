@@ -28,6 +28,21 @@
         text-align: justify;
         width: 99%;
     }
+    .t-head{
+    background-color:rgb(219, 234, 255) !important;
+}
+
+    .save-btn{
+    font-weight:700;
+    font-size: 1.5rem;
+    padding: 0.6rem 2.25rem;
+    background:#337ab7;
+}
+.save-btn:hover{
+    /* background-color:#00008B !important; */
+    background:#00008B !important;
+}
+
 </style>   
                    
     <!-- Page content -->
@@ -52,7 +67,7 @@
               
         <?php if ($this->ion_auth->is_superAdmin()) {?>
 
-            <h2><a href="javascript:void(0)" onclick="open_modal('emailTemplate')" class="btn btn-sm btn-primary">
+            <h2><a href="javascript:void(0)" onclick="open_modal('emailTemplate')" class="save-btn btn btn-sm btn-primary">
             <i class="gi gi-circle_plus"></i> Email Template
             </a></h2>
             
@@ -64,12 +79,12 @@
                 <table id="common_datatable_cms" class="table table-vcenter table-condensed table-bordered">
                     <thead>
                         <tr>                                            
-                            <th><?php echo lang('serial_no'); ?></th>
-                            <th>Email Type</th>
-                            <th>Title</th>
-<!--                            <th><?php echo lang('description'); ?></th>
-                            <th><?php echo lang('image'); ?></th>-->
-                            <th><?php echo lang('action'); ?></th>
+                            <th  class="t-head"><?php echo lang('serial_no'); ?></th>
+                            <th class="t-head">Email Type</th>
+                            <th class="t-head" class="t-head">Title</th>
+<!--                            <th class="t-head"><?php echo lang('description'); ?></th>
+                            <th class="t-head"><?php echo lang('image'); ?></th>-->
+                            <th class="t-head"><?php echo lang('action'); ?></th>
                         </tr>
                     </thead>
                     <tbody>

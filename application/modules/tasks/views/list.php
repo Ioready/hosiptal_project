@@ -171,7 +171,7 @@
                                     </div>
 
                                     <div class="col-sm-6 col-lg-1" style="margin-right: 8px;">
-                                        <input type="submit" name="search" class="btn btn-primary btn-sm" value="Search" />
+                                        <input type="submit" name="search" class="btn btn-primary btn-sm save-btn" value="Search" />
                                     </div>
 
                                     <div class="col-sm-12 col-lg-3" style="margin-left:-29px;margin-right:-12px;">
@@ -192,7 +192,7 @@
 
                             <form action="<?php echo site_url('task'); ?>" name="patientFormExport" method="get">
                                 <div class="col-sm-12 col-lg-1">
-                                    <button type="submit" class="btn btn-primary btn-sm">
+                                    <button type="submit" class="btn btn-primary btn-sm save-btn">
                                         <fa class="fa fa-undo"></fa> Reset
                                     </button>
                                 </div>
@@ -209,7 +209,7 @@
         <div class="block-title">
             <h2><strong><?php echo $title; ?></strong> Panel</h2>
             <h2><a href="javascript:void(0)" onclick="open_modal('<?php
-                                                                    echo 'index.php/'.$model; ?>')" class="btn btn-sm btn-primary">
+                                                                    echo 'index.php/'.$model; ?>')" class="btn btn-sm btn-primary save-btn">
                     <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
                 </a></h2>
 
@@ -219,17 +219,17 @@
             <table id="common_datatable_menucat" class="table table-vcenter table-condensed table-bordered">
                 <thead>
                     <tr>
-                        <th style="width:10px">Sr. No</th>
-                        <th>Priority</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem;width:40px !important">Sr. No</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem">Priority</th>
                         
-                        <th>Task Name</th>
-                        <th>Assign To</th>
-                        <th>Patient Name</th>
-                        <th>Type</th>
-                        <th>Task Comment</th>
-                        <th>Due Date</th>
-                        <!-- <th>MD Steward</th> -->
-                        <th><?php echo lang('action'); ?></th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem">Task Name</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem">Assign To</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem">Patient Name</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem">Type</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem">Task Comment</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem">Due Date</th>
+                        <!-- <th style="background-color:#DBEAFF;font-size:1.3rem">MD Steward</th> -->
+                        <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('action'); ?></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -387,6 +387,16 @@
 
 .priority-label[data-priority="Unset"] i {
     color: grey; /* Set color for Unset priority */
+}
+.save-btn{
+    font-weight:700;
+    font-size: 1.1rem;
+    padding: 0.6rem 2.25rem;
+    background:#337ab7;
+}
+.save-btn:hover{
+    /* background-color:#00008B !important; */
+    background:#00008B !important;
 }
 
 </style>

@@ -48,12 +48,12 @@
         <div class="block-title">
             <?php if ($this->ion_auth->is_superAdmin()) { ?>
                 <h2>
-                    <a href="<?php echo base_url().'index.php/' . $this->router->fetch_class(); ?>/open_model" class="btn btn-sm btn-primary">
-                        <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
+                    <a  href="<?php echo base_url().'index.php/' . $this->router->fetch_class(); ?>/open_model" class="save-btn btn btn-sm btn-primary">
+                        <i class="gi gi-circle_plus mb-1 me-2"></i> <?php echo $title; ?>
                     </a></h2>
             <?php }else if($this->ion_auth->is_superAdmin()){ ?>
                     <h2>
-                    <a href="<?php echo base_url() . $this->router->fetch_class(); ?>/open_model" class="btn btn-sm btn-primary">
+                    <a href="<?php echo base_url() . $this->router->fetch_class(); ?>/open_model" class="save-btn btn btn-sm btn-primary">
                         <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
                     </a></h2>
                 <?php } ?>
@@ -71,21 +71,21 @@
         <div class="table-responsive">
             <table id="common_datatable_users" class="table table-vcenter table-condensed table-bordered">
                 <thead>
-                    <tr>
-                        <th class="text-center" style="width: 10px;">Sr. No</th>
+                    <tr >
+                        <th  class="text-center" style="width: 40px;background-color:#DBEAFF;font-size:1.3rem">Sr No.</th>
                         <!--                                <th><?php echo "Referral Code"; ?></th>-->
-                        <th class="text-center"><?php echo "Admin Name"; ?></th>
-                        <th class="text-center"><?php echo "User Name"; ?></th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem" class="text-center"><?php echo "Admin Name"; ?></th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem"  class="text-center"><?php echo "User Name"; ?></th>
                         <!-- <th class="text-center"><?php echo "Department"; ?></th> -->
                         <!-- <th class="text-center"><?php echo "Doctor Name"; ?></th> -->
-                        <th class="text-center"><?php echo lang('user_email'); ?></th>
-                       <th class="text-center"><?php echo "Phone"; ?></th>
-                         <th><?php echo "DOB"; ?></th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem" class="text-center"><?php echo lang('user_email'); ?></th>
+                       <th style="background-color:#DBEAFF;font-size:1.3rem" class="text-center"><?php echo "Phone"; ?></th>
+                         <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo "DOB"; ?></th>
                         <!--                                <th><?php echo "Current Password"; ?></th>-->
                         <!--                                <th><?php echo lang('profile_image'); ?></th>-->
-                        <th class="text-center">Created Date</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem" class="text-center">Created Date</th>
                         <!--                                <th><?php //echo lang('user_createdate');     ?></th>-->
-                        <th class="text-center"><?php echo lang('action'); ?></th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem" class="text-center"><?php echo lang('action'); ?></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -98,10 +98,10 @@
                            // print_r($rows->first_name); die;
                             ?>
                             <tr>
-                                <td class="text-center text-primary"><strong><?php echo $rowCount; ?></strong></td>        
+                                <td class="text-center text-dark"><strong><?php echo $rowCount; ?></strong></td>        
                                 <!--                            <td><?php echo $rows->team_code; ?></td>-->
-                                <td class="text-primary"><?php echo $rows->hospital_name ?></td>
-                                <td class="text-primary"><?php echo $rows->first_name . ' ' . $rows->last_name; ?></td>
+                                <td class="text-dark"><?php echo $rows->hospital_name ?></td>
+                                <td class="text-dark"><?php echo $rows->first_name . ' ' . $rows->last_name; ?></td>
                                 <!-- <td class="text-primary"><?php echo (!empty($rows->name)) ?  $rows->name /* . '(' . $rows->care_unit_code.')' */ : ''; ?></td> -->
                                 <!-- <td class="text-primary"><?php echo (!empty($rows->name1)) ?  $rows->name1  : ''; ?></td> -->
                                
@@ -141,7 +141,7 @@
                                                 }
                                                 if ($rows->active == 1) {
                                                     ?>
-                                                    <a href="javascript:void(0)" data-toggle="tooltip" class="btn btn-xs btn-success" onclick="changeVendorStatus('<?php echo encoding($rows->id); ?>', 'No','<?php echo $rows->first_name . ' ' . $rows->last_name; ?>')" title="Inactive Now"><i class="fa fa-check"></i> Active</a>
+                                                    <a style="border-radius:12px;margin-left:10px;margin-right:10px;padding:2px 8px;" href="javascript:void(0)" data-toggle="tooltip" class="btn btn-xs btn-success" onclick="changeVendorStatus('<?php echo encoding($rows->id); ?>', 'No','<?php echo $rows->first_name . ' ' . $rows->last_name; ?>')" title="Inactive Now"><i class="fa fa-check"></i> </a>
                                                 <?php } else { ?>
                                                     <a href="javascript:void(0)" data-toggle="tooltip" class="btn btn-xs btn-danger" onclick="changeVendorStatus('<?php echo encoding($rows->id); ?>', 'Yes','<?php echo $rows->first_name . ' ' . $rows->last_name; ?>')" title="Active Now"><i class="fa fa-times"></i> Inactive</a>
                                                 <?php } ?>
@@ -164,3 +164,15 @@
 </div>
 <!-- END Page Content -->
 <div id="form-modal-box"></div>
+<style>
+    .save-btn{
+    font-weight:700;
+    font-size: 1.5rem;
+    padding: 0.6rem 2.25rem;
+    background:#337ab7;
+}
+.save-btn:hover{
+    /* background-color:#00008B !important; */
+    background:#00008B !important;
+}
+</style>

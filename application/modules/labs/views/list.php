@@ -34,12 +34,12 @@
                 <thead>
                     <tr>
                         <th style="width:10px;">Sr. No</th>
-                        <th>Name</th>
-                        <!-- <th>Email</th> -->
+                        <th style="background-color:#DBEAFF;font-size:1.3rem">Name</th>
+                        <!-- <th style="background-color:#DBEAFF;font-size:1.3rem">Email</th> -->
                         <?php if ($this->ion_auth->is_admin()){?>
-                        <th><?php echo lang('action'); ?></th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('action'); ?></th>
                         <?php } else if ($this->ion_auth->is_facilityManager()){?>
-                            <th><?php echo lang('action'); ?></th>
+                            <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('action'); ?></th>
                             <?php } ?>
                     </tr>
                 </thead>

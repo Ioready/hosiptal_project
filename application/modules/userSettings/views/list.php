@@ -26,15 +26,15 @@
 
                                         <ul class="nav nav-pills nav-fill nav-tabss" id="pills-tab" role="tablist" >
                                             <li class="nav-item">
-                                            <a href="<?php echo site_url('userSettings'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "userSettings") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">Users</span></a>
+                                            <a  href="<?php echo site_url('userSettings'); ?>" class="save-btn <?php echo (strtolower($this->router->fetch_class()) == "userSettings") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">Users</span></a>
                                                 <!-- <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-1" role="tab">Practice Contacts</a> -->
                                             </li>
                                             <li class="nav-item">
-                                            <a href="<?php echo site_url('userSettings/letterTemplate'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "letterTemplate") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">Letter Templates</span></a>
+                                            <a href="<?php echo site_url('userSettings/letterTemplate'); ?>" class="save-btn <?php echo (strtolower($this->router->fetch_class()) == "letterTemplate") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">Letter Templates</span></a>
                                                 <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-2" role="tab"></a>
                                             </li>
                                             <li class="nav-item">
-                                            <a href="<?php echo site_url('userSettings/consultationTemplates'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "consultationTemplates") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">Consultation Templates</span></a>
+                                            <a href="<?php echo site_url('userSettings/consultationTemplates'); ?>" class="save-btn <?php echo (strtolower($this->router->fetch_class()) == "consultationTemplates") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">Consultation Templates</span></a>
                                                 <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-2" role="tab"></a>
                                             </li>
                                         </ul>
@@ -135,20 +135,20 @@
             <table id="common_datatable_users" class="table table-vcenter table-condensed table-bordered">
             <thead>
                     <tr>
-                        <th style="width:10px">Sr. No</th>
-                        <th>Date Of Start ABX</th>
-                        <th>Patient ID</th>
-                        <th>Care Unit</th>
-                        <th>Provider MD</th>
-                        <th>Diagnosis</th>
-                        <th>Room Number</th>
-                        <th>Infection Onset</th>
-                        <th>Total Days</th>
-                        <th>Culture Source</th>
-                        <th>Organism</th>
-                        <th>Antibiotic Name</th>
-                        <th>MD Steward</th>
-                        <th><?php echo lang('action'); ?></th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem;width:10px;" >Sr. No</th>
+                        <th  style="background-color:#DBEAFF;font-size:1.3rem;">Date Of Start ABX</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem;">Patient ID</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem;">Care Unit</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem;">Provider MD</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem;">Diagnosis</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem;">Room Number</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem;">Infection Onset</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem;">Total Days</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem;">Culture Source</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem;">Organism</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem;">Antibiotic Name</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem;">MD Steward</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem;"><?php echo lang('action'); ?></th>
                     </tr>
                 </thead>
 
@@ -506,7 +506,7 @@ document.addEventListener('DOMContentLoaded', function() {
     width: 88px;
 }
 a.new-contact:hover{
-    background-color: #d9416c !important;
+    /* background-color: #d9416c !important; */
     color: white;
     font-weight: 900;
     width: 88px;
@@ -531,7 +531,17 @@ a.new-contact:hover{
 }
 
 
-
+.save-btn{
+    font-weight:700;
+    color:white;
+    font-size: 1.5rem;
+    padding: 0.6rem 2.25rem !important;
+    background-color: #337ab7 !important;
+}
+.save-btn:hover{
+    color:white;
+    background:#00008B !important;
+}
 </style>
 <script>
 

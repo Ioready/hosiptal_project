@@ -466,7 +466,7 @@
                                                 <!-- <a href="" target="blank">Add new relation</a> -->
                                                 <!-- <a href="<?php echo site_url('patient/openRelationship'); ?>" target="blank" class=" <?php echo (strtolower($this->router->fetch_class()) == "patient") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">Add New Relationship</span></a> -->
                                                 <!-- <button type="button" style="border" onclick="addRelationship(this.click);" >Add New Relationship</button> -->
-                                                <button type="button" style="border" data-toggle="modal" data-target="#myModal" >Add New Relationship</button>
+                                                <button class="save-btn" type="button" style="border" data-toggle="modal" data-target="#myModal" >Add New Relationship</button>
                                                 
                                             </div>
                 
@@ -500,24 +500,24 @@
                                                             <div class="col-md-12">
                 
                                                                     <input type="checkbox" id="receive_emails" name="receive_emails" class="custom-control-input" value="receive_emails">
-                                                                    <label class="custom-control-label" for="customRadioInline1">Receive emails</label>
+                                                                    <label class="custom-control-label check-labels" for="customRadioInline1">Receive emails</label>
                                                             
                                                             </div>
                                                             <div class="col-md-12">
                                                                 
                                                                     <input type="checkbox" id="receive_sms_messages" name="receive_sms_messages" class="custom-control-input" value="receive_sms_messages">
-                                                                    <label class="custom-control-label" for="customRadioInline2">Receive SMS messages</label>                                      
+                                                                    <label class="custom-control-label check-labels" for="customRadioInline2">Receive SMS messages</label>                                      
                                                             </div>
                                                             <div class="col-md-12">
                                                                 
                                                                 <input type="checkbox" id="has_consented_to_promotional_marketing" name="has_consented_to_promotional_marketing" class="custom-control-input" value="has_consented_to_promotional_marketing">
-                                                                <label class="custom-control-label" for="customRadioInline2">Has consented to promotional marketing</label>                                      
+                                                                <label class="custom-control-label check-labels" for="customRadioInline2">Has consented to promotional marketing</label>                                      
                                                             </div>
                 
                                                             <div class="col-md-12">
                                                                 
                                                                 <input type="checkbox" id="receive_payment_reminders" name="receive_payment_reminders" class="custom-control-input" value="receive_payment_reminders">
-                                                                <label class="custom-control-label" for="customRadioInline2">Receive payment reminders</label>                                      
+                                                                <label class="custom-control-label check-labels" for="customRadioInline2">Receive payment reminders</label>                                      
                                                             </div>
                                                         </div>
                                                 </div>
@@ -530,18 +530,18 @@
                                                                 <div class="col-md-12">
                 
                                                                     <input type="radio" id="privacy_policy" name="privacy_policy" class="custom-control-input" value="no_response">
-                                                                    <label class="custom-control-label" for="customRadioInline1">No response</label>
+                                                                    <label class="custom-control-label check-labels" for="customRadioInline1">No response</label>
                                                             
                                                             </div>
                                                             <div class="col-md-12">
                                                                 
                                                                     <input type="radio" id="privacy_policy" name="privacy_policy" class="custom-control-input" value="accepted">
-                                                                    <label class="custom-control-label" for="customRadioInline2">Accepted</label>                                      
+                                                                    <label class="custom-control-label check-labels" for="customRadioInline2">Accepted</label>                                      
                                                             </div>
                                                             <div class="col-md-12">
                                                                 
                                                                 <input type="radio" id="privacy_policy" name="privacy_policy" class="custom-control-input" value="rejected">
-                                                                <label class="custom-control-label" for="customRadioInline2">Rejected</label>                                      
+                                                                <label class="custom-control-label check-labels" for="customRadioInline2">Rejected</label>                                      
                                                             </div>
                                                         </div>
                                                 </div>
@@ -865,7 +865,7 @@
                                                         <br />
                                                         <div id="hidden_div" style="display: none;">
                                                             <div style="text-align: right;">
-                                                                <button class="btn btn-sm btn-primary" onclick="myFun()">Print ABX Checklist form</button>
+                                                                <button class="save-btn btn btn-sm btn-primary" onclick="myFun()">Print ABX Checklist form</button>
                                                             </div>
                                                             <label> Criteria Met</label>
                                                             <input type="radio" id="criteria_met" name="criteria_met" value="Yes">
@@ -1118,8 +1118,8 @@
 
 
 
-                    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal"><?php echo lang('reset_btn'); ?></button>
-                    <button type="submit" id="submit" class="btn btn-sm btn-primary"><?php echo lang('submit_btn'); ?></button>
+                    <button type="button" class="btn btn-sm btn-default reset-btn" data-dismiss="modal"><?php echo lang('reset_btn'); ?></button>
+                    <button type="submit" id="submit" class="save-btn btn btn-sm btn-primary"><?php echo lang('submit_btn'); ?></button>
                 </div>
             </form>
         
@@ -1184,7 +1184,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <button type="submit" class="btn btn-primary">Save</button>
+                                                    <button type="submit" class="btn btn-primary save-btn">Save</button>
                                                 </form>
                                             </div>
 
@@ -1206,7 +1206,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <button type="submit" class="btn btn-primary">Save</button>
+                                                    <button type="submit" class="btn btn-primary save-btn">Save</button>
                                                 </form>
                                             </div>
 
@@ -1228,7 +1228,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <button type="submit" class="btn btn-primary">Save</button>
+                                                    <button type="submit" class="btn btn-primary save-btn">Save</button>
                                                 </form>
                                             </div>
 
@@ -1252,7 +1252,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <button type="submit" class="btn btn-primary">Save</button>
+                                                    <button type="submit" class="btn btn-primary save-btn">Save</button>
                                                 </form>
                                             </div>
 
@@ -1313,7 +1313,7 @@
                                                     </div>
 
 
-                                                    <button type="submit" class="btn btn-primary">Save</button>
+                                                    <button type="submit" class="btn btn-primary save-btn">Save</button>
                                                 </form>
                                             </div>
 
@@ -1334,7 +1334,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <button type="submit" class="btn btn-primary">Save</button>
+                                                    <button type="submit" class="btn btn-primary save-btn">Save</button>
                                                 </form>
                                             </div>
 
@@ -1355,7 +1355,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <button type="submit" class="btn btn-primary">Save</button>
+                                                    <button type="submit" class="btn btn-primary save-btn">Save</button>
                                                 </form>
                                             </div>
 
@@ -1390,7 +1390,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <button type="submit" class="btn btn-primary">Save</button>
+                                                    <button type="submit" class="btn btn-primary save-btn">Save</button>
                                                 </form>
                                             </div>
 
@@ -1411,7 +1411,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <button type="submit" class="btn btn-primary">Save</button>
+                                                    <button type="submit" class="btn btn-primary save-btn">Save</button>
                                                 </form>
                                             </div>
 
@@ -1432,7 +1432,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <button type="submit" class="btn btn-primary">Save</button>
+                                                    <button type="submit" class="btn btn-primary save-btn">Save</button>
                                                 </form>
                                             </div>
 
@@ -1452,7 +1452,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <button type="submit" class="btn btn-primary">Save</button>
+                                                    <button type="submit" class="btn btn-primary save-btn">Save</button>
                                                 </form>
                                             </div>
 
@@ -1472,7 +1472,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <button type="submit" class="btn btn-primary">Save</button>
+                                                    <button type="submit" class="btn btn-primary save-btn">Save</button>
                                                 </form>
                                             </div>
 
@@ -1492,7 +1492,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <button type="submit" class="btn btn-primary">Save</button>
+                                                    <button type="submit" class="btn btn-primary save-btn">Save</button>
                                                 </form>
                                             </div>
                                 
@@ -2148,3 +2148,32 @@ document.getElementById("relationship").style.display = "none";
         placeholder: "Please select",
     });
 </script>
+<style>
+    .save-btn{
+    font-weight:700;
+    color:white;
+    font-size: 1.5rem;
+    padding: 0.6rem 2.25rem !important;
+    background-color: #337ab7 !important;
+    background:none;
+}
+.save-btn:hover{
+    color:white;
+    background:#00008B !important;
+}
+    .reset-btn{
+    font-weight:700;
+    color:white;
+    font-size: 1.5rem;
+    padding: 0.6rem 2.25rem !important;
+    background-color: #aad178 !important;
+    background:none;
+}
+.reset-btn:hover{
+    color:white;
+    background:#7db831 !important;
+}
+.check-labels{
+    font-weight:normal !important;
+}
+    </style>

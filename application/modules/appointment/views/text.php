@@ -49,9 +49,9 @@
                             <table class="table table-bordered">
                                 <thead>
                                 <tr>
-                                    <th>Time</th>
+                                    <th style="background-color:#DBEAFF;font-size:1.3rem;">Time</th>
                                     <?php foreach($care_unit as $department) { ?>
-                                    <th class="day-cell"><?php echo $department->name; ?></th>
+                                    <th style="background-color:#DBEAFF;font-size:1.3rem;" class="day-cell"><?php echo $department->name; ?></th>
                                     <?php } ?>
                                 </tr>
                                 </thead>

@@ -129,15 +129,15 @@
                                                             }
                                                             ?></div>
                             <!-- <div class="sidebar-user-links"> -->
-                            <div class="d-flex justify-content-end mt-3">
+                            <!-- <div class="d-flex justify-content-end mt-3"> -->
                                 <!-- 
                                     <a href="page_ready_inbox.html" data-toggle="tooltip" data-placement="bottom" title="Messages"><i class="gi gi-envelope"></i></a> -->
                                 <!-- Opens the user settings modal that can be found at the bottom of each page (page_footer.html in PHP version) -->
                                 <!-- <a href="javascript:void(0)" class="enable-tooltip" data-placement="bottom" title="Settings" onclick="$('#modal-user-settings').modal('show');"><i class="gi gi-cogwheel"></i></a> -->
-                                <a href="<?php echo site_url('pwfpanel/profile'); ?>" data-toggle="tooltip" data-placement="bottom" title="Profile"><img src="<?php echo base_url(); ?>uploads/icons/profile.png" style="height: 20px;width:20px;" alt="avatar"></a>
+                                <!-- <a href="<?php echo site_url('pwfpanel/profile'); ?>" data-toggle="tooltip" data-placement="bottom" title="Profile"><img src="<?php echo base_url(); ?>uploads/icons/profile.png" style="height: 20px;width:20px;" alt="avatar"></a>
                                 <a href="<?php echo site_url('pwfpanel/password'); ?>" data-toggle="tooltip" data-placement="bottom" title="Change Password"><img src="<?php echo base_url(); ?>uploads/icons/password.png" style="height: 20px;width:20px;" alt="avatar"></a>
                                 <a href="javascript:void(0)" onclick="logout()" data-toggle="tooltip" data-placement="bottom" title="Logout"><img src="<?php echo base_url(); ?>uploads/icons/logout.png" style="height: 20px;width:20px;" alt="avatar"></a>
-                            </div>
+                            </div> -->
                         </div>
                         <!-- END User Info -->
 
@@ -175,23 +175,23 @@
     <a href="<?php echo site_url('mdSteward'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "mdSteward") ? "active" : "" ?>"><i class="fa fa-user-md sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Doctor / MD Steward</span></a>
 </li> -->
             <li title="Admin">
-                    <a href="<?php echo site_url('admin'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "reports") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/patient.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">Admin</span></a>
+                    <a href="<?php echo site_url('admin'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "reports") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/admin.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Admin</span></a>
                 </li>
 
             <li title="Plans">
-                    <a href="<?php echo site_url('allPlans'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "plans") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/purchase-plan.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">Plans</span></a>
+                    <a href="<?php echo site_url('allPlans'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "plans") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/ham.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Plans</span></a>
             </li>
 
             <li title="Coupon">
-                    <a href="<?php echo site_url('coupon'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "coupon") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/cash-withdrawal.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">Coupon</span></a>
+                    <a href="<?php echo site_url('coupon'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "coupon") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/cash-withdrawal.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Coupon</span></a>
             </li>
 
             <li title="Order">
-                    <a href="<?php echo site_url('userOrder'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "userOrder") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/cash-withdrawal.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">Orders</span></a>
+                    <a href="<?php echo site_url('userOrder'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "userOrder") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/orders.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Orders</span></a>
             </li>
 
             <li title="Email Template">
-                <a href="<?php echo site_url('emailTemplate'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "emailTemplate") ? "active" : "" ?>"><i class="gi gi-envelope sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Email Template</span></a>
+                <a href="<?php echo site_url('emailTemplate'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "emailTemplate") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/email.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Email Template</span></a>
             </li>
             
 
@@ -248,11 +248,11 @@
     <a href="https://alluring-impala-001.notion.site/Team-Home-0f87afe9fd1a4a38bc5d5f4a816c27b6" target="_blank" class=" <?php echo (strtolower($this->router->fetch_class()) == "recommendation1") ? "active" : "" ?>"><i class="fa fa-hand-o-right sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Tutorials and Modules</span></a>
 </li> -->
 <li title="Tutorial">
-    <a href="<?php echo site_url('tutorials'); ?>" target="_blank" class=" <?php echo (strtolower($this->router->fetch_class()) == "howItWorks") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/studying.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp;Tutorials</span></a>
+    <a href="<?php echo site_url('tutorials'); ?>" target="_blank" class=" <?php echo (strtolower($this->router->fetch_class()) == "howItWorks") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/tutorials.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">&nbsp;Tutorials</span></a>
 </li>
 
 <li title="setting">
-    <a href="<?php echo site_url('setting'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "setting") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/setting.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp;Admin Setting</span></a>
+    <a href="<?php echo site_url('setting'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "setting") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/setting.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">&nbsp;Admin Setting</span></a>
 </li>
             <?php }else if ($this->ion_auth->is_admin()) { ?>
 
@@ -589,162 +589,161 @@
             </div>
             <!-- END Main Sidebar -->
 
-            <!-- Main Container -->
-            <div id="main-container">
+            <!-- <div id="main-container"> -->
 
-         <!-- //       <header class="navbar navbar-default"> -->
-                    <!-- Left Header Navigation -->
-           <!-- //         <ul class="nav navbar-nav-custom"> -->
-                        <!-- Main Sidebar Toggle Button -->
-        <!-- //                <li>
-                            <a href="javascript:void(0)" onclick="App.sidebar('toggle-sidebar');this.blur();">
-                                <i class="fa fa-bars fa-fw"></i>
-                            </a>
-         //               </li> -->
-                        <!-- END Main Sidebar Toggle Button -->
+<!-- <header class="navbar navbar-default"> -->
+    <!-- Left Header Navigation -->
+    <!-- <ul class="nav navbar-nav-custom"> -->
+        <!-- Main Sidebar Toggle Button -->
+        <!-- <li>
+            <a href="javascript:void(0)" onclick="App.sidebar('toggle-sidebar');this.blur();">
+                <i class="fa fa-bars fa-fw"></i>
+            </a>
+        </li> -->
+        <!-- END Main Sidebar Toggle Button -->
 
-                        <!-- Template Options -->
-                        <!-- Change Options functionality can be found in js/app.js - templateOptions() -->
-                        <!-- <li class="dropdown">
-                                <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="gi gi-settings"></i>
-                                </a>
-                                <ul class="dropdown-menu dropdown-custom dropdown-options">
-                                    <li class="dropdown-header text-center">Header Style</li>
-                                    <li>
-                                        <div class="btn-group btn-group-justified btn-group-sm">
-                                            <a href="javascript:void(0)" class="btn btn-primary" id="options-header-default">Light</a>
-                                            <a href="javascript:void(0)" class="btn btn-primary" id="options-header-inverse">Dark</a>
-                                        </div>
-                                    </li>
-                                    <li class="dropdown-header text-center">Page Style</li>
-                                    <li>
-                                        <div class="btn-group btn-group-justified btn-group-sm">
-                                            <a href="javascript:void(0)" class="btn btn-primary" id="options-main-style">Default</a>
-                                            <a href="javascript:void(0)" class="btn btn-primary" id="options-main-style-alt">Alternative</a>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li> -->
-                        <!-- END Template Options -->
-     <!-- //               </ul> -->
-                    <!-- END Left Header Navigation -->
+        <!-- Template Options -->
+        <!-- Change Options functionality can be found in js/app.js - templateOptions() -->
+        <!-- <li class="dropdown">
+                <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="gi gi-settings"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-custom dropdown-options">
+                    <li class="dropdown-header text-center">Header Style</li>
+                    <li>
+                        <div class="btn-group btn-group-justified btn-group-sm">
+                            <a href="javascript:void(0)" class="btn btn-primary" id="options-header-default">Light</a>
+                            <a href="javascript:void(0)" class="btn btn-primary" id="options-header-inverse">Dark</a>
+                        </div>
+                    </li>
+                    <li class="dropdown-header text-center">Page Style</li>
+                    <li>
+                        <div class="btn-group btn-group-justified btn-group-sm">
+                            <a href="javascript:void(0)" class="btn btn-primary" id="options-main-style">Default</a>
+                            <a href="javascript:void(0)" class="btn btn-primary" id="options-main-style-alt">Alternative</a>
+                        </div>
+                    </li>
+                </ul>
+            </li> -->
+        <!-- END Template Options -->
+    <!-- </ul> -->
+    <!-- END Left Header Navigation -->
 
-                    <!-- Search Form -->
-                    <!-- <form action="page_ready_search_results.html" method="post" class="navbar-form-custom">
-                            <div class="form-group">
-                                <input type="text" id="top-search" name="top-search" class="form-control" placeholder="Search..">
-                            </div>
-                        </form> -->
-        <!-- //                <ul class="nav navbar-nav-custom pull-center">
-         //               <?php if ($this->ion_auth->is_facilityManager()) { ?> -->
-                        <!-- <div style="background-color: #e3d3e7; text-align: center;"> -->
-                            <!-- <h1>
-                                <?php
-                                $user = getUser($this->session->userdata('user_id'));
-                                if (!empty($user)) {
-                                    echo '<strong>' . ucwords($user->hospital_name) . '</strong>';
-                                }
-                                ?>
-                           </h1> -->
-                        <!-- </div> -->
-                    <!--  //    <?php } ?> -->
-      <!-- //                      </ul> -->
-                    <!-- END Search Form -->
+    <!-- Search Form -->
+    <!-- <form action="page_ready_search_results.html" method="post" class="navbar-form-custom">
+            <div class="form-group">
+                <input type="text" id="top-search" name="top-search" class="form-control" placeholder="Search..">
+            </div>
+        </form> -->
+        <!-- <ul class="nav navbar-nav-custom pull-center">
+        <?php if ($this->ion_auth->is_facilityManager()) { ?> -->
+        <!-- <div style="background-color: #e3d3e7; text-align: center;"> -->
+            <!-- <h1>
+                <?php
+                $user = getUser($this->session->userdata('user_id'));
+                if (!empty($user)) {
+                    echo '<strong>' . ucwords($user->hospital_name) . '</strong>';
+                }
+                ?>
+            </h1> -->
+        <!-- </div> -->
+        <!-- <?php } ?> -->
+            <!-- </ul> -->
+    <!-- END Search Form -->
 
-                    <!-- Right Header Navigation -->
-            <!-- //        <ul class="nav navbar-nav-custom pull-right"> -->
-                        <!-- Alternative Sidebar Toggle Button -->
-                        <!--                            <li>
-                                                             If you do not want the main sidebar to open when the alternative sidebar is closed, just remove the second parameter: App.sidebar('toggle-sidebar-alt'); 
-                                                            <a href="javascript:void(0)" onclick="App.sidebar('toggle-sidebar-alt', 'toggle-other');this.blur();">
-                                                                <i class="gi gi-share_alt"></i>
-                                                                <span class="label label-primary label-indicator animation-floating">4</span>
+    <!-- Right Header Navigation -->
+    <!-- <ul class="nav navbar-nav-custom pull-right"> -->
+        <!-- Alternative Sidebar Toggle Button -->
+        <!--                            <li>
+                                             If you do not want the main sidebar to open when the alternative sidebar is closed, just remove the second parameter: App.sidebar('toggle-sidebar-alt'); 
+                                            <a href="javascript:void(0)" onclick="App.sidebar('toggle-sidebar-alt', 'toggle-other');this.blur();">
+                                                <i class="gi gi-share_alt"></i>
+                                                <span class="label label-primary label-indicator animation-floating">4</span>
+                                            </a>
+                                        </li>-->
+        <!-- END Alternative Sidebar Toggle Button -->
+
+        <!-- User Dropdown -->
+        <!-- <li class="dropdown">
+            <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
+                <img src="<?php echo base_url() . getConfig('site_logo'); ?>" alt="avatar"> <i class="fa fa-angle-down"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-custom dropdown-menu-right">
+                <li>
+                    <a href="javascript:void(0)"><img src="<?php echo base_url(); ?>uploads/icons/profile.png" style="height: 20px;width:20px;" alt="avatar"><?php
+                                                                                                //$user = getUser($this->session->userdata('user_id'));
+                                                                                                if (!empty($user)) {
+                                                                                                    echo ucwords($user->first_name . " " . $user->last_name);
+                                                                                                }
+                                                                                                ?></a>
+                    <a href="javascript:void(0)" onclick="logout()"><img src="<?php echo base_url(); ?>uploads/icons/logout.png" style="height: 20px;width:20px;" alt="avatar"> Logout</a>
+                </li> -->
+                <!-- <li>
+                        <a href="page_ready_timeline.html">
+                            <i class="fa fa-clock-o fa-fw pull-right"></i>
+                            <span class="badge pull-right">10</span>
+                            Updates
+                        </a>
+                        <a href="page_ready_inbox.html">
+                            <i class="fa fa-envelope-o fa-fw pull-right"></i>
+                            <span class="badge pull-right">5</span>
+                            Messages
+                        </a>
+                        <a href="page_ready_pricing_tables.html"><i class="fa fa-magnet fa-fw pull-right"></i>
+                            <span class="badge pull-right">3</span>
+                            Subscriptions
+                        </a>
+                        <a href="page_ready_faq.html"><i class="fa fa-question fa-fw pull-right"></i>
+                            <span class="badge pull-right">11</span>
+                            FAQ
+                        </a>
+                    </li> -->
+                <!-- <li class="divider"></li> -->
+                <!--                                    <li>
+                                                             <a href="page_ready_user_profile.html">
+                                                                <i class="fa fa-user fa-fw pull-right"></i>
+                                                                Profile
+                                                            </a> 
+                                                             Opens the user settings modal that can be found at the bottom of each page (page_footer.html in PHP version) 
+                                                            <a href="#modal-user-settings" data-toggle="modal">
+                                                                <i class="fa fa-cog fa-fw pull-right"></i>
+                                                                Change Password
                                                             </a>
                                                         </li>-->
-                        <!-- END Alternative Sidebar Toggle Button -->
+                <!--                                    <li class="divider"></li>-->
+                <!--                                    <li>
+                                                             <a href="page_ready_lock_screen.html"><i class="fa fa-lock fa-fw pull-right"></i> Lock Account</a> 
+                                                            <a href="javascript:void(0)" onclick="logout()"><i class="fa fa-ban fa-fw pull-right"></i> Logout</a>
+                                                        </li>-->
+                <!--                                    <li class="dropdown-header text-center">Activity</li>
+                                                        <li>
+                                                            <div class="alert alert-success alert-alt">
+                                                                <small>5 min ago</small><br>
+                                                                <i class="fa fa-thumbs-up fa-fw"></i> You had a new sale ($10)
+                                                            </div>
+                                                            <div class="alert alert-info alert-alt">
+                                                                <small>10 min ago</small><br>
+                                                                <i class="fa fa-arrow-up fa-fw"></i> Upgraded to Pro plan
+                                                            </div>
+                                                            <div class="alert alert-warning alert-alt">
+                                                                <small>3 hours ago</small><br>
+                                                                <i class="fa fa-exclamation fa-fw"></i> Running low on space<br><strong>18GB in use</strong> 2GB left
+                                                            </div>
+                                                            <div class="alert alert-danger alert-alt">
+                                                                <small>Yesterday</small><br>
+                                                                <i class="fa fa-bug fa-fw"></i> <a href="javascript:void(0)" class="alert-link">New bug submitted</a>
+                                                            </div>
+                                                        </li>-->
+            <!-- </ul> -->
+        <!-- </li> -->
+        <!-- END User Dropdown -->
+    <!-- </ul> -->
+    <!-- END Right Header Navigation -->
+<!-- </header> -->
+<!-- END Header -->
 
-                        <!-- User Dropdown -->
-         <!-- //               <li class="dropdown">
-                            <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
-                                <img src="<?php echo base_url() . getConfig('site_logo'); ?>" alt="avatar"> <i class="fa fa-angle-down"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-custom dropdown-menu-right">
-                                <li>
-                                    <a href="javascript:void(0)"><img src="<?php echo base_url(); ?>uploads/icons/profile.png" style="height: 20px;width:20px;" alt="avatar"><?php
-                                                                                                                //$user = getUser($this->session->userdata('user_id'));
-                                                                                                                if (!empty($user)) {
-                                                                                                                    echo ucwords($user->first_name . " " . $user->last_name);
-                                                                                                                }
-                                                                                                                ?></a>
-                                    <a href="javascript:void(0)" onclick="logout()"><img src="<?php echo base_url(); ?>uploads/icons/logout.png" style="height: 20px;width:20px;" alt="avatar"> Logout</a>
-      //                          </li> -->
-                                <!-- <li>
-                                        <a href="page_ready_timeline.html">
-                                            <i class="fa fa-clock-o fa-fw pull-right"></i>
-                                            <span class="badge pull-right">10</span>
-                                            Updates
-                                        </a>
-                                        <a href="page_ready_inbox.html">
-                                            <i class="fa fa-envelope-o fa-fw pull-right"></i>
-                                            <span class="badge pull-right">5</span>
-                                            Messages
-                                        </a>
-                                        <a href="page_ready_pricing_tables.html"><i class="fa fa-magnet fa-fw pull-right"></i>
-                                            <span class="badge pull-right">3</span>
-                                            Subscriptions
-                                        </a>
-                                        <a href="page_ready_faq.html"><i class="fa fa-question fa-fw pull-right"></i>
-                                            <span class="badge pull-right">11</span>
-                                            FAQ
-                                        </a>
-                                    </li> -->
-                                <!-- <li class="divider"></li> -->
-                                <!--                                    <li>
-                                                                             <a href="page_ready_user_profile.html">
-                                                                                <i class="fa fa-user fa-fw pull-right"></i>
-                                                                                Profile
-                                                                            </a> 
-                                                                             Opens the user settings modal that can be found at the bottom of each page (page_footer.html in PHP version) 
-                                                                            <a href="#modal-user-settings" data-toggle="modal">
-                                                                                <i class="fa fa-cog fa-fw pull-right"></i>
-                                                                                Change Password
-                                                                            </a>
-                                                                        </li>-->
-                                <!--                                    <li class="divider"></li>-->
-                                <!--                                    <li>
-                                                                             <a href="page_ready_lock_screen.html"><i class="fa fa-lock fa-fw pull-right"></i> Lock Account</a> 
-                                                                            <a href="javascript:void(0)" onclick="logout()"><i class="fa fa-ban fa-fw pull-right"></i> Logout</a>
-                                                                        </li>-->
-                                <!--                                    <li class="dropdown-header text-center">Activity</li>
-                                                                        <li>
-                                                                            <div class="alert alert-success alert-alt">
-                                                                                <small>5 min ago</small><br>
-                                                                                <i class="fa fa-thumbs-up fa-fw"></i> You had a new sale ($10)
-                                                                            </div>
-                                                                            <div class="alert alert-info alert-alt">
-                                                                                <small>10 min ago</small><br>
-                                                                                <i class="fa fa-arrow-up fa-fw"></i> Upgraded to Pro plan
-                                                                            </div>
-                                                                            <div class="alert alert-warning alert-alt">
-                                                                                <small>3 hours ago</small><br>
-                                                                                <i class="fa fa-exclamation fa-fw"></i> Running low on space<br><strong>18GB in use</strong> 2GB left
-                                                                            </div>
-                                                                            <div class="alert alert-danger alert-alt">
-                                                                                <small>Yesterday</small><br>
-                                                                                <i class="fa fa-bug fa-fw"></i> <a href="javascript:void(0)" class="alert-link">New bug submitted</a>
-                                                                            </div>
-                                                                        </li>-->
-                <!-- //            </ul> -->
-            <!-- //            </li> -->
-                        <!-- END User Dropdown -->
-         <!-- //           </ul> -->
-                    <!-- END Right Header Navigation -->
-                <!-- </header> -->
-                <!-- END Header -->
-
-
-                <header>
+                        <div id="main-container">                                                                    
+                <header class="navbar navbar-default d-flex justify-content-end" >
 
                 <div class="newHeader pt-3 pb-3 ps-2 pe-4 d-flex justify-content-end align-items-center">
                     <div class="d-flex  align-items-center">
@@ -756,4 +755,4 @@
                        </div>                                                                                             
                 </div>
 
-                                                                                                            </header>
+                                                                                                            </header>  
