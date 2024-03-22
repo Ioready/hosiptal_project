@@ -257,6 +257,9 @@
                                     <a href="<?php echo site_url('pwfpanel') ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "pwfpanel") ? "active" : "" ?>">
                                     <img src="<?php echo base_url(); ?>uploads/icons/dashboard.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">Dashboard</span></a>
                                 </li>
+                                <li title="Plans">
+                                        <a href="<?php echo site_url('allPlans'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "plans") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/purchase-plan.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide"> &nbsp;Plans</span></a>
+                                </li>
 
                                 <!--                                     <li title="Reports">
                                         <a href="<?php echo site_url('reports'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "reports") ? "active" : "" ?>"><i class="gi gi-charts sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Reports Details</span></a>
@@ -285,8 +288,6 @@
                                 <li title="Data Operator">
                                     <a href="<?php echo site_url('dataOperator'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "dataOperator") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/doctors_md.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp;Doctor</span></a>
                                 </li>
-
-                              
 
                                 <li title="Hospital Manage">
                                     
@@ -508,6 +509,11 @@
                                 <li title="Reports">
                                     <a href="<?php echo site_url('reportsSummary'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "reportsSummary") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/report.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp; Report Summary</span></a>
                                 </li>
+                                <li title="Appointment">`
+                                
+                                    <a href="<?php echo site_url('appointment'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "appointment") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/appointment.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp;Appointments</span></a>
+                                </li>
+
                                  <li>
                                     <a href="<?php echo site_url('users'); ?>" class="<?php echo (strtolower($this->router->fetch_class()) == "users" || strpos($parent, "UA") !== false || strpos($parent, "UH") !== false) ? "active" : "" ?>"><i class="gi gi-user sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Users</span></a>
                                 </li>
@@ -537,9 +543,9 @@
                                 <li title="Department">
                                     <a href="<?php echo site_url('careUnit'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "careUnit") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/department.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp;Department/Care Unit</span></a>
                                 </li>
-                                <li title="DayTimeSlot">
+                                <!-- <li title="DayTimeSlot">
                                     <a href="<?php echo site_url('dayTimeSlot'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "DayTimeSlot") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/department.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp;Day Time Slot</span></a>
-                                </li>
+                                </li> -->
 
                                 
                                 <li title="Tutorial">

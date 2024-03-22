@@ -5,6 +5,8 @@
    
 }
 </style>
+
+<!-- <script src="https://js.stripe.com/v3"></script> -->
 <div id="page-content">
     <ul class="breadcrumb breadcrumb-top">
         <li>
@@ -145,11 +147,11 @@
                     </div>
                     <div class="price monthly cost">
                         <p class="amount">$<?php echo $row->Price;?></p>
-                        <p class="detail">per student per month</p>
+                        <p class="detail">Admin Per Month</p>
                     </div>
                     <div class="price yearly hide cost">
                         <p class="amount">$<?php echo $row->Price;?></p>
-                        <p class="detail">per student per years</p>
+                        <p class="detail">Admin Per Years</p>
                     </div>
                 </div>
                 <div class="description">
@@ -162,13 +164,22 @@
                         <li>Aliquid, quasi repellat!</li>
                     </ul>
                 </div>
+
                 <div class="button">
-                    <button type="submit" >START FREE 7 DAYS TRIAL</button>
+                
+                <!-- <a href="<?php echo site_url('stripePayments'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "stripePaymentController") ? "active" : "" ?>"> -->
+                <!-- <button >START FREE 7 DAYS TRIAL </button></a> -->
+                <a href="<?php echo base_url('make-stripe-payment?'.'id='.$row->id);?>"><button >START FREE 7 DAYS TRIAL </button></a>
+                <!-- <a href="<?php echo base_url('my-stripe?'.'id='.$row->id);?>"><button >START FREE 7 DAYS TRIAL </button></a> -->
                 </div>
             </div>
+
+            
+
+            <!-- make-stripe-payment -->
             <?php 
             }else if($row->DurationInMonths == 'years'){ ?>
- <div class="basic box price yearly ">
+            <div class="basic box price yearly ">
                 <h2 class="title"><?php echo $row->PlanName;?></h2>
                 <div class="view">
                     <div class="icon">
@@ -176,11 +187,11 @@
                     </div>
                     <div class="price monthly cost">
                         <p class="amount">$<?php echo $row->Price;?></p>
-                        <p class="detail">per student per month</p>
+                        <p class="detail">Admin Per Month</p>
                     </div>
                     <div class="price yearly hide cost">
                         <p class="amount">$<?php echo $row->Price;?></p>
-                        <p class="detail">per student per years</p>
+                        <p class="detail">Admin per Years</p>
                     </div>
                 </div>
                 <div class="description">
@@ -194,7 +205,8 @@
                     </ul>
                 </div>
                 <div class="button">
-                    <button type="submit" >START FREE 7 DAYS TRIAL</button>
+                <a href="<?php echo base_url('make-stripe-payment?'.'id='.$row->id);?>"><button >START FREE 7 DAYS TRIAL </button></a>
+                    <!-- <button type="submit" id="checkout-button">START FREE 7 DAYS TRIAL</button> -->
                 </div>
             </div>
        <?php } ?>     
@@ -212,6 +224,34 @@
 <div id="form-modal-box"></div>
 </div>
 
+<script>
+    var stripe = Stripe('pk_test_P3N5vEUYda6Xg4MZM2tWd9PJ00hZgBj5nj', {
+    betas: ['checkout_beta_4']
+  });
+
+  var checkoutButton = document.getElementById('checkout-button');
+  checkoutButton.addEventListener('click', function () {
+    // When the customer clicks on the button, redirect
+    // them to Checkout.
+    stripe.redirectToCheckout({
+      items: [{sku: 'sku_EouPQJ6eEYCU1q', quantity: 1}],
+
+      // Note that it is not guaranteed your customers will be redirected to this
+      // URL *100%* of the time, it's possible that they could e.g. close the
+      // tab between form submission and the redirect.
+      successUrl: 'https://formhero.com/',
+      cancelUrl: 'https://formhero.com/',
+    })
+    .then(function (result) {
+      if (result.error) {
+        // If `redirectToCheckout` fails due to a browser or network
+        // error, display the localized error message to your customer.
+        var displayError = document.getElementById('error-message');
+        displayError.textContent = result.error.message;
+      }
+    });
+  });
+</script>
 <script>
     // Get the toggle buttons and pricing elements
 // Get references to the toggle buttons
@@ -397,7 +437,7 @@ li{
 }
 
 button{
-    height: 40px;
+    /* height: 40px;
     width: 250px;
     font-size: 0.7em;
     font-weight: bold;
@@ -406,7 +446,17 @@ button{
     border: 2px solid var(--dark-gray);
     border-radius: 50px;
 
-    background: transparent;
+    background: transparent; */
+    height: 40px;
+    width: 250px;
+    font-size: 0.7em;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    color: #f7f3f3;
+    border: 2px solid #d9416c;
+    border-radius: 50px;
+    background: #d90a4b;
+    
 }
 
 button:hover{

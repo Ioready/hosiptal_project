@@ -34,14 +34,16 @@
                 <thead>
                     <tr>
                         <th style="width:10px;">Sr. No</th>
-                        <th>Plan Name</th>
+                        
                         <th>User Name</th>
+                        <th>Plan Name</th>
                         <th>Amount</th>
                         <th>Plan Type</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
-                        <th>Expire Date</th>
-                        <th>order Date</th>
+                        <!-- <th>Start Date</th>
+                        <th>End Date</th> -->
+                        <th>Order Date</th>
+                        <th>Plan Expire Date</th>
+                        
                         <th>status</th>
 
                         <!-- <th>Email</th> -->
@@ -60,17 +62,31 @@
                             $rowCount1++;
                             ?>
                             <tr>
+                                <?php
+                                $currentDate1 = $rows->created;
+
+                                if($rows->DurationInMonths == 'month'){
+
+                                    $expireDate = date('Y-m-d - H:i', strtotime('+1 month', strtotime($currentDate1)));
+                                }else if($rows->DurationInMonths == 'years'){
+                                    $expireDate = date('Y-m-d - H:i', strtotime('+1 year', strtotime($currentDate1)));
+                                }
+
+                                
+                                ?>
+
                                 <td><?php echo $rowCount1; ?></td>            
                                 <td><?php echo $rows->first_name.' '. $rows->last_name; ?></td>
                                 <td><?php echo $rows->PlanName; ?></td>
                                 <td><?php echo $rows->Price; ?></td>
                                 <td><?php echo $rows->DurationInMonths; ?></td>
-                                <td><?php echo $rows->start_date; ?></td>
-                                <td><?php echo $rows->end_date; ?></td>
-                                <td><?php echo $rows->expire_date; ?></td>
-                                <td><?php echo $rows->user_createdAtid; ?></td>
+                                <td><?php echo $rows->created; ?></td>
+                                <td><?php echo $expireDate; ?></td>
+                                <!-- <td><?php echo $rows->expire_date; ?></td>
+                                <td><?php echo $rows->user_createdAtid; ?></td> -->
+                                <!-- <td><?php echo $rows->payment_status; ?></td> -->
                                 <td>
-                                <?php if ($rows->status == 0) { ?>
+                                <?php if ($rows->payment_status == 'succeeded') { ?>
                                         <a href="javascript:void(0)" class="btn btn-xs btn-success"  title="Active Now">Active</a>
                                     <?php } else { ?>
                                         <a href="javascript:void(0)" class="btn btn-xs btn-danger" onclick="editStatusFn('<?php echo $tablePrefix; ?>', 'id', '<?php echo encoding($rows->id); ?>', '<?php echo $rows->status; ?>','<?php echo $rows->name; ?>')" title="Inactive Now">Inactive Now</a>
@@ -97,17 +113,32 @@
                             $rowCount++;
                     ?>
                      <tr>
-                                <td><?php echo $rowCount1; ?></td>            
+                     <?php
+                               $currentDate1 = $rows->created;
+
+                               if($rows->DurationInMonths == 'month'){
+
+                                   $expireDate = date('Y-m-d - H:i', strtotime('+1 month', strtotime($currentDate1)));
+                               }else if($rows->DurationInMonths == 'years'){
+                                   $expireDate = date('Y-m-d - H:i', strtotime('+1 year', strtotime($currentDate1)));
+                               }
+                               
+                             
+                                ?>
+
+                                <td><?php echo $rowCount; ?></td>            
                                 <td><?php echo $rows->first_name.' '. $rows->last_name; ?></td>
                                 <td><?php echo $rows->PlanName; ?></td>
                                 <td><?php echo $rows->Price; ?></td>
                                 <td><?php echo $rows->DurationInMonths; ?></td>
-                                <td><?php echo $rows->start_date; ?></td>
-                                <td><?php echo $rows->end_date; ?></td>
-                                <td><?php echo $rows->expire_date; ?></td>
-                                <td><?php echo $rows->user_createdAtid; ?></td>
+                                <td><?php echo $rows->created; ?></td>
+                                <td><?php echo $expireDate; ?></td>
+                                <!-- <td><?php echo $rows->expireDate; ?></td> -->
+                                <!-- <td><?php echo $rows->user_createdAtid; ?></td> -->
+                                <!-- <td><?php echo $rows->payment_status; ?></td> -->
+                                
                                 <td>
-                                <?php if ($rows->status == 0) { ?>
+                                <?php if ($rows->payment_status == 'succeeded') { ?>
                                         <a href="javascript:void(0)" class="btn btn-xs btn-success"  title="Active Now">Active</a>
                                     <?php } else { ?>
                                         <a href="javascript:void(0)" class="btn btn-xs btn-danger" onclick="editStatusFn('<?php echo $tablePrefix; ?>', 'id', '<?php echo encoding($rows->id); ?>', '<?php echo $rows->status; ?>','<?php echo $rows->name; ?>')" title="Inactive Now">Inactive Now</a>
@@ -117,7 +148,7 @@
 
                                 <td class="actions">
                                     <a href="javascript:void(0)" class="btn btn-xs btn-default" onclick="editFn('<?php echo $model; ?>', 'edit', '<?php echo encoding($rows->id) ?>', '<?php echo $model; ?>');"><i class="fa fa-pencil"></i></a>
-                                    <?php if ($rows->status == 0) { ?>
+                                    <?php if ($rows->payment_status == 'succeeded') { ?>
                                         <a href="javascript:void(0)" class="btn btn-xs btn-success" onclick="editStatusFn('<?php echo $tablePrefix; ?>', 'id', '<?php echo encoding($rows->id); ?>', '<?php echo $rows->status; ?>','<?php echo $rows->name; ?>')" title="Inactive Now"><i class="fa fa-check"></i></a>
                                     <?php } else { ?>
                                         <a href="javascript:void(0)" class="btn btn-xs btn-danger" onclick="editStatusFn('<?php echo $tablePrefix; ?>', 'id', '<?php echo encoding($rows->id); ?>', '<?php echo $rows->status; ?>','<?php echo $rows->name; ?>')" title="Active Now"><i class="fa fa-times"></i></a>

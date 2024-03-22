@@ -19,7 +19,7 @@
     });
     $('#common_datatable_menucat').dataTable({
         order: [],
-        columnDefs: [{orderable: false, targets: [0, 3]}]
+        columnDefs: [{orderable: false, targets: [0, 4]}]
     });
 </script>
 

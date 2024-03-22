@@ -78,7 +78,13 @@ class Appointment extends Common_Controller {
             'select' => '*', 'where' => array('delete_status' => 0), 'order' => array('name' => 'ASC')
         );
         $this->data['care_unit'] = $this->common_model->customGet($option);
-    
+
+        $option = array(
+            'table' => 'clinic_appointment',
+            'select' => '*', 'where' => array('status' => 0),
+        );
+        $this->data['clinic_appointment'] = $this->common_model->customGet($option);
+    // print_r($this->data['clinic_appointment'] );die;
         
         // $this->load->admin_render('list', $this->data, 'inner_script');
 

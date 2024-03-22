@@ -127,6 +127,37 @@
 
 
                                             <!-- <h5 class="text-primary"><strong>Patient</strong></h5> -->
+
+                                            <div>
+  <canvas id="myChart"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  const ctx = document.getElementById('myChart');
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      datasets: [{
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>
+
+
                     <?php }else if ($this->ion_auth->is_admin()) { ?>
 
                         <div class="col-lg-4">
@@ -143,30 +174,7 @@
                             </div>
                         </div>
                         
-                        <!-- <div class="col-lg-4">
-                            <div class="ibox float-e-margins">
-                                <div class="ibox-title">
-                                </div>
-                                <div class="ibox-content">
-                                <h1 class="no-margins">
-
-                                <?php echo $total_patient; ?>
-                                </h1>
-                                <h5 class="text-primary"><strong>Total Patient</strong></h5>
-                                </div>
-                            </div>
-                        </div>
-                        
-                            <div class="col-lg-4">
-                                <div class="ibox float-e-margins">
-                                    <div class="ibox-title">
-                                    </div>
-                                    <div class="ibox-content">
-                                        <h1 class="no-margins"><?php echo $doctors; ?></h1>
-                                        <h5 class="text-primary"><strong>Total Doctor</strong></h5>
-                                    </div>
-                                </div>
-                            </div> -->
+                      
                             <div class="col-lg-4">
                                 <div class="ibox float-e-margins">
                                     <div class="ibox-title">
@@ -222,6 +230,35 @@
                                 </div>
                             </div>
 
+
+                            <!-- <div> -->
+  <canvas id="myChart"></canvas>
+<!-- </div> -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  const ctx = document.getElementById('myChart');
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      datasets: [{
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>
 
 
                                             <!-- <h5 class="text-primary"><strong>Patient</strong></h5> -->

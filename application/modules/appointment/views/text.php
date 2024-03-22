@@ -45,7 +45,7 @@
                                 <!-- <h2>Weekly Timetable</h2> -->
                             <form id="timeSlotForm" action="submit.php" method="post">
                                     
-                            <div style="overflow-x: auto; overflow-y: auto; width: auto; height: 500px;">
+                            <!-- <div style="overflow-x: auto; overflow-y: auto; width: auto; height: 500px;">
                             <table class="table table-bordered">
                                 <thead>
                                 <tr>
@@ -65,20 +65,96 @@
                                 
                                 for ($time = $start_time; $time <= $end_time; $time += $interval) {
                                     $formatted_time = date('H:i', $time); // Format time in 24-hour format
+                                    foreach($clinic_appointment as $rows){
+
+                                   $appointmentTime = date('H:i', $rows->start_date_appointment);
+                                    }
                                 ?>
                                     <tr>
                                     <td><?php echo $index; ?></td>
                                     <td class="time-cell"><?php echo $formatted_time; ?></td>
                                     <?php foreach($care_unit as $department) { ?>
-                                        <td class="day-cell" data-time="<?php echo $formatted_time; ?>" data-day="<?php echo $department->id; ?>">
-                                        <?php echo $formatted_time; ?>
+                                        <td class="day-cell" data-time="<?php //echo $formatted_time; ?>" data-day="<?php echo $department->id; ?>">
+                                        <?php echo $formatted_time; 
+                                          if($formatted_time == $appointmentTime){
+                                            ?>
+                                            <p style="background-color:red;"><?php echo $appointmentTime;?></p>
+                                            <?php
+                                          }
+                                        ?>
                                         </td>
                                     <?php } ?>
                                     </tr>
                                 <?php $index++; } ?>
                                 </tbody>
                             </table>
-                            </div>
+                            </div> -->
+
+                            <div style="overflow-x: auto; overflow-y: auto; width: auto; height: 500px;">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Time</th>
+                <?php foreach($care_unit as $department) { ?>
+                    <th class="day-cell"><?php echo $department->name; ?></th>
+                <?php } ?>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            $start_time = strtotime('07:00');
+            $end_time = strtotime('24:00');
+            $interval = 30 * 60; // 30 minutes interval
+            $index = 1;
+
+            for ($time = $start_time; $time <= $end_time; $time += $interval) {
+                $formatted_time = date('H:i', $time); // Format time in 24-hour format
+            ?>
+                <tr>
+                    <!-- <td><?php echo $index; ?></td> -->
+                    <td class="time-cell"><?php echo $formatted_time; ?></td>
+                    <?php foreach($care_unit as $department) { 
+
+                        $appointment_found = false;
+                        foreach($clinic_appointment as $appointment) {
+                            $appointmentTime = date('H:i', strtotime($appointment->start_date_appointment));
+                            if ($formatted_time == $appointmentTime && $department->id == $appointment->clinician_appointment) {
+                                $appointment_found = true;
+                                break;
+                            }
+                        }
+                       
+                        if ($formatted_time == $appointmentTime && $department->id == $appointment->clinician_appointment) {
+
+                        // echo $appointmentTime;die;
+                        ?>
+
+                        <td style="background-color: red; color:white;" class="day-cell" data-time="<?php //echo $formatted_time; ?>" data-day="<?php echo $department->id; ?>">
+                            <?php 
+                            echo $appointmentTime; 
+                            // echo $appointmentTime; 
+                            // echo $appointmentTime; 
+                            // echo $appointmentTime; 
+                            ?>
+                        </td>
+
+                        <?php }else{ ?>
+
+                        <td class="day-cell" data-time="<?php //echo $formatted_time; ?>" data-day="<?php echo $department->id; ?>">
+                        <?php 
+                        // echo $formatted_time; 
+                            ?>
+                            
+                        </td>
+
+                    <?php } } ?>
+                </tr>
+            <?php $index++; } ?>
+        </tbody>
+    </table>
+</div>
+
+
 
   <!-- <table class="table table-bordered" style="overflow-x: auto; overflow-y: auto; width: 300px; height: 300px;">
     <thead>
