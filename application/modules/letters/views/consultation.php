@@ -1,25 +1,16 @@
 <!-- Page content -->
 <div id="page-content">
     <!-- Datatables Header -->
-    <!-- <div class="content-header">
-        <div class="header-section">
-            <h1>
-                <i class="fa fa-user"></i>Users<br><small>Users listing</small>
-            </h1>
-        </div>
-    </div> -->
     <ul class="breadcrumb breadcrumb-top">
-    <li>
-        <a href="<?php echo site_url('pwfpanel');?>">Home</a>
-    </li>
-    <li>
-        <a href="<?php echo site_url('users');?>">Users</a>
-    </li>
+        <li>
+            <a href="<?php echo site_url('pwfpanel'); ?>">Home</a>
+        </li>
+        <li>
+            <a href="<?php echo site_url($model); ?>"><?php echo $title; ?></a>
+        </li>
     </ul>
-    <!-- END Datatables Header -->
-    
-    <div class="block_list full">
-
+   
+    <!-- END Quick Stats -->
     <?php if ($this->ion_auth->is_admin() or $this->ion_auth->is_subAdmin() or $this->ion_auth->is_facilityManager()) { ?>
         <div class="block full">
             <div class="row text-center">
@@ -35,7 +26,7 @@
 
                                         <ul class="nav nav-pills nav-fill nav-tabss" id="pills-tab" role="tablist" >
                                             <li class="nav-item">
-                                            <a  href="<?php echo site_url('userSettings'); ?>" class="save-btn <?php echo (strtolower($this->router->fetch_class()) == "userSettings") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">Users</span></a>
+                                            <a href="<?php echo site_url('userSettings'); ?>" class="save-btn <?php echo (strtolower($this->router->fetch_class()) == "userSettings") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">Users</span></a>
                                                 <!-- <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-1" role="tab">Practice Contacts</a> -->
                                             </li>
                                             <li class="nav-item">
@@ -60,95 +51,151 @@
     <?php } ?>
     <!-- Datatables Content -->
     <!-- Datatables Content -->
-
     <div class="block full">
+
           <div class="block-title">
             <?php if ($this->ion_auth->is_subAdmin()) { ?>
                 <h2>
-                    <a href="<?php echo base_url().'index.php/' . $this->router->fetch_class(); ?>/open_model" class="btn btn-sm btn-primary">
-                        <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
+                    <a href="<?php echo base_url().'index.php/' . $this->router->fetch_class(); ?>/open_consult" class="save-btn btn btn-sm btn-primary">
+                        <i class="gi gi-circle_plus"></i> <?php echo 'New'; ?>
                     </a></h2>
             <?php }else if($this->ion_auth->is_facilityManager()){ ?>
                     <h2>
-                    <a href="<?php echo base_url() . $this->router->fetch_class(); ?>/open_model" class="btn btn-sm btn-primary">
+                    <a href="<?php echo base_url() . $this->router->fetch_class(); ?>/open_consult" class="btn btn-sm btn-primary save-btn">
                         <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
                     </a></h2>
-         <?php } ?> 
-    </div>
+                <?php } ?>
+          </div>
 
-
-     
-                        <div class="row text-center">
-                            <div class="col-sm-6 col-lg-3">
-                                <a href="<?php echo base_url()."userSettings/index/No";?>" class="widget widget-hover-effect2">
-                                    <div class="widget-extra themed-background">
-                                        <h4 class="widget-content-light"><strong> Inactivate </strong> Users</h4>
-                                    </div>
-                                    <div class="widget-extra-full"><span class="h2 animation-expandOpen"><?php echo $inactive;?></span></div>
-                                </a>
-                            </div>
-                            <div class="col-sm-6 col-lg-3">
-                                <a href="<?php echo base_url()."userSettings/index/Yes";?>" class="widget widget-hover-effect2">
-                                    <div class="widget-extra themed-background-dark">
-                                        <h4 class="widget-content-light"><strong> Activated </strong> Users</h4>
-                                    </div>
-                                    <div class="widget-extra-full"><span class="h2 themed-color-dark animation-expandOpen"><?php echo $active;?></span></div>
-                                </a>
-                            </div>
-                            <div class="col-sm-6 col-lg-3">
-                               
-                            </div>
-                            <div class="col-sm-6 col-lg-3">
-                                
-                            </div>
-                        </div>
-                        
-                        </div>
-
-    <!-- Datatables Content -->
-    <div class="block full">
         <div class="block-title">
-            <h2><strong>Users</strong> Panel</h2>
-            <?php if ($this->ion_auth->is_admin()) {?>
-                <h2>
-                    <a href="<?php echo base_url() ?>users/open_model" class="btn btn-sm btn-primary" target="_blank">
-                <i class="gi gi-circle_plus"></i> User
-                </a></h2>
-            <?php }?>
+            <h2><strong><?php echo 'Consultation templates';?></strong> Panel</h2>
         </div>
-       
+        <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('index.php/' .$formUrl) ?>" enctype="multipart/form-data">
+            <!-- <div class="modal-header text-center">
+                <h2 class="modal-title"><i class="fa fa-pencil"></i> <?php echo (isset($title)) ? ucwords($title) : "" ?></h2>
+            </div> -->
+            <div class="alert alert-danger" id="error-box" style="display: none"></div>
+            <div class="form-body">
+                <div class="row">
+                    <div class="col-md-12" >
+                        <div class="form-group">
+            
+                                <div class="col-md-12">
+                                <!-- <h2>Users</h2> -->
+                            <form id="timeSlotForm" action="submit.php" method="post">
+                                    
+                            <div style="overflow-x: auto; overflow-y: auto; width: auto; height: auto;">
 
-        <div class="table-responsive">
-            <table id="users" class="table table-vcenter table-condensed table-bordered">
+                           <p>Make consultations more efficient by setting up consultation templates. Create the sections and questions needed for each type of consultation so clinicians can take notes easily.</p>
+                        
+                            
+                                    
+                            </div>
+                             <!-- <input type="date" id="date" name="date" class="form-control" required> -->
+                            </div>
+                            
+                        </div>
+                    </div>
+
+                     <div class="col-md-12" >
+                        <div class="form-group">
+                            <!-- <label class="col-md-3 control-label">Doctor Name:</label> -->
+                            <div class="col-md-9">
+                           
+                        <input type="hidden" id="doctor_name" name="doctor_name" class="form-control" value="<?php echo $userData->id; ?>">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12" >
+                   
+                    <div class="space-22"></div>
+                </div>
+            </div>
+            <div class="text-right">
+                <!-- <button type="submit" id="submit" class="btn btn-sm btn-primary" >Save</button> -->
+            </div>
+            
+        </form>
+
+    
+
+    <div class="table-responsive">
+            <table id="common_datatable_users" class="table table-vcenter table-condensed table-bordered">
                 <thead>
                     <tr>
-
-                        
-            <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('serial_no');?></th>
-            <!-- <th class="text-center"><?php echo "Team Code";?></th> -->
-            <th style="background-color:#DBEAFF;font-size:1.3rem" class="text-center"><?php echo "Name";?></th>
-            <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('user_email');?></th>
-<!--            <th style="background-color:#DBEAFF;font-size:1.3rem" class="text-center"><?php echo "Phone";?></th>-->
-            <!-- <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo "Total purchase amount";?></th>
-            <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo "Total deposit amount";?></th>
-             <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo "Total amount due";?></th> -->
-<!--                                <th><?php echo lang('profile_image');?></th>-->
-<!--             <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('status');?></th>-->
-            <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('user_createdate');?></th>
-            <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('action');?></th>
-        
+                        <th style="background-color:#DBEAFF;font-size:1.3rem;width:10px;">Sr. No</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem;">Internal Name</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem;">Created date</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem;"><?php echo lang('action'); ?></th>
                     </tr>
                 </thead>
-              
+
+                <tbody>
+
+
+                    <?php
+                    
+                    if (!empty($careUnitsUser_list)) {
+                        $rowCount = 0;
+                        foreach ($careUnitsUser_list as $rows) {
+                            $rowCount++;
+                           
+                    ?>
+
+
+                            <tr>
+                                <td><?php echo $rowCount; ?></td>
+                                <td><?php echo $rows->internal_name; ?></td>
+                                <td><?php echo date('m/d/Y', strtotime($rows->created_on)); ?></td>
+                               
+                                <td class="actions">
+                                <td class="actions">
+                                    <!-- <a href="javascript:void(0)" class="btn btn-default" onclick="editFn('index.php/userSettings/open_consult/edit?id=', '<?php echo encoding($rows->id) ?>', 'userSettings/open_consult');"><i class="fa fa-pencil"></i></a> -->
+                                                    <a href="<?php echo base_url() . 'userSettings/edit?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-eye"></i></a>
+                                                                        
+                                    <!-- <a href="<?php echo base_url() . 'index.php/userSettings/existing_list/' . $rows->pid; ?>" target='_blank' data-toggle="tooltip" class="btn btn-default">View History</a> -->
+                                    <a href="javascript:void(0)" onclick="deletePatient('<?php echo $rows->id; ?>')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+
+                                </td>
+
+                                </td>
+                            </tr>
+
+
+                        <?php
+                        }
+                        //}
+                    } else {
+                        $rowCount = 0;
+                        foreach ($list as $rows) :
+                            $rowCount++;
+                        ?>
+                            <tr>
+                            <td><?php echo $rowCount; ?></td>
+                                <td><?php echo $rows->internal_name; ?></td>
+                                <td><?php echo date('m/d/Y', strtotime($rows->created_on)); ?></td>
+                                    <td class="actions">
+                                    <!-- <a href="javascript:void(0)" class="btn btn-default" onclick="editFn('index.php/userSettings/open_consult/edit?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-pencil"></i></a> -->
+                                                    <a href="<?php echo base_url() . 'userSettings/consultEdit?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-pencil"></i></a>
+                                                                        
+                                    <!-- <a href="<?php echo base_url() . 'index.php/userSettings/open_consult/existing_list/' . $rows->pid; ?>" target='_blank' data-toggle="tooltip" class="btn btn-default">View History</a> -->
+                                    <a href="javascript:void(0)" onclick="deleteConsult('<?php echo $rows->id; ?>')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+
+                                </td>
+                            </tr>
+                    <?php
+                        endforeach;
+                    }
+                    ?>
+
+                </tbody>
             </table>
+            </div>
         </div>
-    </div>
     <!-- END Datatables Content -->
 </div>
 <!-- END Page Content -->
 <div id="form-modal-box"></div>
-<input type="hidden" id="UserStatus" value="<?php echo $status;?>" />
-
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -412,13 +459,13 @@ a.new-contact:hover{
     font-size: 1.5rem;
     padding: 0.6rem 2.25rem !important;
     background-color: #337ab7 !important;
+    background:none;
 }
 .save-btn:hover{
     color:white;
     background:#00008B !important;
 }
 </style>
-
 <script>
 
 $(document).ready(function() {

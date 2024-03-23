@@ -482,8 +482,8 @@
                                  <a href="<?php echo site_url('cultureSource'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "cultureSource") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/labs.svg" height="23px" width="23px"><span class="sidebar-nav-mini-hide text-dark">Labs</span></a>
                                 </li>
 
-                                <li title="DayTimeSlot">
-                                    <a href="<?php echo site_url('dayTimeSlot'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "DayTimeSlot") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/letters.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">&nbsp;Letters</span></a>
+                                <li title="Letters">
+                                    <a href="<?php echo site_url('letters'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "Letters") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/letters.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">&nbsp;Letters</span></a>
                                 </li>
                                 <li title="Invoices">
                                     <a href="<?php echo site_url('invoices'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "invoices") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/invoice.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">&nbsp;Invoices</span></a>
@@ -754,11 +754,21 @@
                 <div class="newHeader pt-3 pb-3 ps-2 pe-4 d-flex justify-content-end align-items-center">
                     <div class="d-flex  align-items-center">
                         <img src="<?php echo base_url(); ?>uploads/soloUser.svg" style="height: 23px;width:23px; filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%)" alt="">
-                        <h2 style="font-size:1.75rem;font-weight:600" class="headerFonts ms-2">User</h2>
+                        <h2 style="font-size:1.75rem;font-weight:600" class="headerFonts ms-2">
+                        <a href="<?php echo site_url('pwfpanel/profile'); ?>" data-toggle="tooltip" data-placement="bottom" title="Profile">User</a>
+                        </h2>
                     </div>
                        <div>
-                        <h2 style="font-size:1.75rem;font-weight:600" class="headerFonts ms-5 ">Logout</h2>
+                        <h2 style="font-size:1.75rem;font-weight:600" class="headerFonts ms-5 ">
+                        <a href="javascript:void(0)" onclick="logout()" data-toggle="tooltip" data-placement="bottom" title="Logout">Logout</a>
+                        </h2>
                        </div>                                                                                             
                 </div>
 
-                                                                                                            </header>  
+
+                <!-- <a href="<?php echo site_url('pwfpanel/profile'); ?>" data-toggle="tooltip" data-placement="bottom" title="Profile"><img src="<?php echo base_url(); ?>uploads/icons/profile.png" style="height: 20px;width:20px;" alt="avatar"></a>
+                                <a href="<?php echo site_url('pwfpanel/password'); ?>" data-toggle="tooltip" data-placement="bottom" title="Change Password"><img src="<?php echo base_url(); ?>uploads/icons/password.png" style="height: 20px;width:20px;" alt="avatar"></a>
+                                <a href="javascript:void(0)" onclick="logout()" data-toggle="tooltip" data-placement="bottom" title="Logout"><img src="<?php echo base_url(); ?>uploads/icons/logout.png" style="height: 20px;width:20px;" alt="avatar"></a>
+                               -->
+
+             </header>  

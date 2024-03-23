@@ -155,8 +155,8 @@ class Pwfpanel extends Common_Controller
 
 
                 if ($this->ion_auth->is_subAdmin()) {
-                    // $this->load->admin_render('dashboard', $data);
-                    redirect('patient', 'refresh');
+                    $this->load->admin_render('dashboard', $data);
+                    // redirect('patient', 'refresh');
                 }
                 /* else if ($this->ion_auth->is_facilityManager()) {
                     //redirect('patient', 'refresh');
@@ -246,8 +246,8 @@ class Pwfpanel extends Common_Controller
                     'where' => array('DATE(created_date)' => date('Y-m-d'))
                  ); */
                 //$data['total_patient_today'] = $this->common_model->customCount($option);
-                redirect('reportsSummary', 'refresh');
-                // $this->load->admin_render('dashboard', $data);
+                // redirect('reportsSummary', 'refresh');
+                $this->load->admin_render('dashboard', $data);
 
             } else if ($this->ion_auth->is_patient()) {
 
