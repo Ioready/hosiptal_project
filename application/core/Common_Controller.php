@@ -283,12 +283,25 @@ class Common_Controller extends MX_Controller {
 
         $this->load->library('email');
 
+        // $config['protocol'] = 'smtp';
+        // $config['smtp_host'] = 'ssl://smtp.gmail.com';
+        // $config['smtp_port'] = '465';
+        // $config['smtp_timeout'] = '7';
+        // $config['smtp_user'] = 'pawan.mobiwebtech@gmail.com';
+        // $config['smtp_pass'] = '********';
+        // $config['charset'] = 'iso-8859-1';
+        // $config['newline'] = "\r\n";
+        // $config['mailtype'] = 'html';
+        // $config['validation'] = TRUE;
+        // $config['wordwrap'] = TRUE;
+
+
         $config['protocol'] = 'smtp';
-        $config['smtp_host'] = 'ssl://smtp.gmail.com';
-        $config['smtp_port'] = '465';
+        $config['smtp_host'] = 'sandbox.smtp.mailtrap.io';
+        $config['smtp_port'] = '2525';
         $config['smtp_timeout'] = '7';
-        $config['smtp_user'] = 'pawan.mobiwebtech@gmail.com';
-        $config['smtp_pass'] = '********';
+        $config['smtp_user'] = '868674bcd452b1';
+        $config['smtp_pass'] = 'fc2a5bb163923d';
         $config['charset'] = 'iso-8859-1';
         $config['newline'] = "\r\n";
         $config['mailtype'] = 'html';

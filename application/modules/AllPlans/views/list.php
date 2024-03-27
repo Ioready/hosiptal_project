@@ -155,16 +155,25 @@
                     </div>
                 </div>
                 <div class="description">
-                    <ul>
-                        <li>Lorem, ipsum dolor.</li>
-                        <li>Harum, beatae laudantium.</li>
-                        <li>Odit, fugit saepe.</li>
-                        <li>Harum, veniam suscipit!</li>
-                        <li>A, aut veritatis!</li>
-                        <li>Aliquid, quasi repellat!</li>
-                    </ul>
+                  
+
+                    <?php echo $row->plan_description; ?>
+
+                </div>
+                <?php if($this->ion_auth->is_superAdmin()){ ?>
+                <div class="button">
+                
+               
+                
+                <!--<a href="<?php echo base_url('make-stripe-payment?'.'id='.$row->id);?>"><button >START FREE 7 DAYS TRIAL </button></a>-->
+                <h2>
+                    <a href="javascript:void(0)" onclick="open_modal_edit('<?php echo $model; ?>', '<?php echo $row->id; ?>')" class="save-btn btn btn-sm btn-primary">
+                        <i class="gi gi-circle_plus"></i> Edit Plan
+                    </a>
+                </h2>
                 </div>
 
+        <?php } else if($this->ion_auth->is_admin()){ ?>
                 <div class="button">
                 
                 <!-- <a href="<?php echo site_url('stripePayments'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "stripePaymentController") ? "active" : "" ?>"> -->
@@ -172,6 +181,7 @@
                 <a href="<?php echo base_url('make-stripe-payment?'.'id='.$row->id);?>"><button >START FREE 7 DAYS TRIAL </button></a>
                 <!-- <a href="<?php echo base_url('my-stripe?'.'id='.$row->id);?>"><button >START FREE 7 DAYS TRIAL </button></a> -->
                 </div>
+                <?php } ?>
             </div>
 
             
@@ -195,19 +205,45 @@
                     </div>
                 </div>
                 <div class="description">
-                    <ul>
+                    <!-- <ul>
                         <li>Lorem, ipsum dolor.</li>
                         <li>Harum, beatae laudantium.</li>
                         <li>Odit, fugit saepe.</li>
                         <li>Harum, veniam suscipit!</li>
                         <li>A, aut veritatis!</li>
                         <li>Aliquid, quasi repellat!</li>
-                    </ul>
+                    </ul> -->
+                    <?php echo $row->plan_description; ?>
                 </div>
-                <div class="button">
+                <?php if($this->ion_auth->is_admin()){ ?>
+                <!-- <div class="button">
                 <a href="<?php echo base_url('make-stripe-payment?'.'id='.$row->id);?>"><button >START FREE 7 DAYS TRIAL </button></a>
-                    <!-- <button type="submit" id="checkout-button">START FREE 7 DAYS TRIAL</button> -->
+                    
+                </div> -->
+                <?php }?>
+                <?php if($this->ion_auth->is_superAdmin()){ ?>
+                <div class="button">
+                
+               
+                
+                <!--<a href="<?php echo base_url('make-stripe-payment?'.'id='.$row->id);?>"><button >START FREE 7 DAYS TRIAL </button></a>-->
+                <h2>
+                    <a href="javascript:void(0)" onclick="open_modal_edit('<?php echo $model; ?>', '<?php echo $row->id; ?>')" class="save-btn btn btn-sm btn-primary">
+                        <i class="gi gi-circle_plus"></i> Edit Plan
+                    </a>
+                </h2>
                 </div>
+
+        <?php } else if($this->ion_auth->is_admin()){ ?>
+                <div class="button">
+                
+                <!-- <a href="<?php echo site_url('stripePayments'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "stripePaymentController") ? "active" : "" ?>"> -->
+                <!-- <button >START FREE 7 DAYS TRIAL </button></a> -->
+                <a href="<?php echo base_url('make-stripe-payment?'.'id='.$row->id);?>"><button >START FREE 7 DAYS TRIAL </button></a>
+                <!-- <a href="<?php echo base_url('my-stripe?'.'id='.$row->id);?>"><button >START FREE 7 DAYS TRIAL </button></a> -->
+                </div>
+                <?php } ?>
+
             </div>
        <?php } ?>     
         

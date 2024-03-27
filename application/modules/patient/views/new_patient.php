@@ -991,7 +991,7 @@
                                                     </h3>
                                                 </div>
                                             </div> -->
-                                            <div id="demo1" class="collapse">
+                                            <!-- <div id="demo1" class="collapse"> -->
                                                 <!-- <div class="col-md-6" >
                                                 <div class="form-group">
                                                     <label class="col-md-3 control-label">Infection Surveillance Checklist</label>
@@ -1078,14 +1078,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <!-- <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="col-md-3 control-label">PCT</label>
-                                                        <div class="col-md-9">
-                                                            <input type="text" onchange="isDirty(this.value)" class="form-control" name="pct" id="pct" placeholder="" />
-                                                        </div>
-                                                    </div>
-                                                </div> -->
+                                               
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label class="col-md-3 control-label">Additional Comment</label>

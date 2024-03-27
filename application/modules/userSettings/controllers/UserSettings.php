@@ -2152,7 +2152,8 @@ class UserSettings extends Common_Controller {
                     $data['content'] = "Playwin Fantasy account login Credentials"
                         . "<p>username: " . $email . "</p><p>Password: " . $password . "</p>";
                     $template = $this->load->view('user_signup_mail', $data, true);
-                    $this->send_email($email, $from, $subject, $template, $title);
+                    $this->send_email_smtp($email, $from, $subject, $template, $title);
+                    // $this->send_email($email, $from, $subject, $template, $title);
                     $response = array('status' => 1, 'message' => lang('user_success'), 'url' => base_url('users'));
                 } else {
                     $response = array('status' => 0, 'message' => lang('user_failed'));

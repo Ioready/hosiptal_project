@@ -166,7 +166,14 @@
                                     <div class="col-sm-12 col-lg-2" style="margin-right: 8px;">
                                         <select class="form-control" name="year" id="year">
                                             <option value="">Select Year</option>
-                                            <!-- Your year options here -->
+                                            <option value="2020">2020</option>
+                                            <option value="2021">2021</option>
+                                            <option value="2022">2022</option>
+                                            <option value="2023">2023</option>
+                                            <option value="2024">2024</option>
+                                            <option value="2025">2025</option>
+                                            <option value="2026">2026</option>
+                                            
                                         </select>
                                     </div>
 
@@ -174,7 +181,7 @@
                                         <input type="submit" name="search" class="btn btn-primary btn-sm save-btn" value="Search" />
                                     </div>
 
-                                    <div class="col-sm-12 col-lg-3" style="margin-left:-16px;margin-right:-12px;">
+                                    <div class="col-sm-12 col-lg-3" style="margin-left:-20px;margin-right:-30px;">
                                         <button type="submit" class="btn btn-success btn-sm" value="Export" name="export">
                                             <fa class="fa fa-file-pdf-o"></fa> Download Monthly Surveillance List
                                         </button>
@@ -403,25 +410,25 @@
 
                                         <div class="col-md-9">
                                             <label class="priority-label" data-priority="High">
-                                                <input type="radio" class="form-control priority" name="priority" value="High" />
+                                                <input type="radio" class="form-control priority" name="priority" value="High" style="height: 1px; border: aliceblue;"/>
                                                 <i class="fa fa-flag-o fa_custom"></i>
                                                 High
                                             </label>
 
                                             <label class="priority-label pl" data-priority="Medium">
-                                                <input type="radio" class="form-control priority" name="priority" value="Medium" />
+                                                <input type="radio" class="form-control priority" name="priority" value="Medium" style="height: 1px; border: aliceblue;"/>
                                                 <i class="fa fa-flag-o fa_custom"></i>
                                                 Medium
                                             </label>
 
                                             <label class="priority-label pl" data-priority="Low">
-                                                <input type="radio" class="form-control priority" name="priority" value="Low" />
+                                                <input type="radio" class="form-control priority" name="priority" value="Low" style="height: 1px; border: aliceblue;"/>
                                                 <i class="fa fa-flag-o fa_custom"></i>
                                                 Low
                                             </label>
 
                                             <label class="priority-label pl" data-priority="Unset">
-                                                <input type="radio" class="form-control priority" name="priority" value="Unset" />
+                                                <input type="radio" class="form-control priority" name="priority" value="Unset" style="height: 1px; border: aliceblue;"/>
                                                 <i class="fa fa-flag-o fa_custom"></i>
                                                 Unset
                                             </label>
@@ -632,6 +639,7 @@
 
 .priority-label[data-priority="High"] i {
     color: red; /* Set color for High priority */
+    
 }
 
 .priority-label[data-priority="Medium"] i {
@@ -680,3 +688,81 @@
         background-color: #d9416c;
     }
 </style>
+<script>
+    function myFunction4() {
+        var txt;
+        if (confirm("You are about to ADD the MD Steward recommendations, please confirm or cancel.")) {
+            //txt = "You pressed OK!";
+            document.getElementById("demo1").style = 'display:block';
+
+        } else {
+            //txt = "You pressed Cancel!";
+            document.getElementById("demo1").style = 'display:none';
+        }
+    }
+
+
+    function showDiv(select) {
+        if (select.value == "Loeb" || select.value == "Nhsn -UTI" || select.value == "Nhsn -CDI/MDRO" || select.value == "McGeer – UTI" || select.value == "McGeer – RTI" || select.value == "McGeer – GITI" || select.value == "McGeer –SSTI") {
+            document.getElementById('hidden_div').style.display = "block";
+        } else {
+            document.getElementById('hidden_div').style.display = "none";
+        }
+    }
+
+
+
+    function myFun() {
+        event.preventDefault();
+        if ($("#infection_surveillance_checklist").val() != "N/A" && $("#infection_surveillance_checklist").val() == "Loeb") {
+            alert("Printable ABX Checklist form will appear after clicking OK button. Please complete and submit the form.");
+            window.open("<?php echo base_url(); ?>application/modules/patient/views/form1.html", "_blank")
+        }
+
+        if ($("#infection_surveillance_checklist").val() != "N/A" && $("#infection_surveillance_checklist").val() == "McGeer – UTI") {
+            alert("Printable ABX Checklist form will appear after clicking OK button. Please complete and submit the form.");
+            window.open("<?php echo base_url(); ?>application/modules/patient/views/form2.html", "_blank")
+        }
+        if ($("#infection_surveillance_checklist").val() != "N/A" && $("#infection_surveillance_checklist").val() == "McGeer – RTI") {
+            alert("Printable ABX Checklist form will appear after clicking OK button. Please complete and submit the form.");
+            window.open("<?php echo base_url(); ?>application/modules/patient/views/form3.html", "_blank")
+        }
+        if ($("#infection_surveillance_checklist").val() != "N/A" && $("#infection_surveillance_checklist").val() == "McGeer – GITI") {
+            alert("Printable ABX Checklist form will appear after clicking OK button. Please complete and submit the form.");
+            window.open("<?php echo base_url(); ?>application/modules/patient/views/form4.html", "_blank")
+        }
+        if ($("#infection_surveillance_checklist").val() != "N/A" && $("#infection_surveillance_checklist").val() == "McGeer –SSTI") {
+            alert("Printable ABX Checklist form will appear after clicking OK button. Please complete and submit the form.");
+            window.open("<?php echo base_url(); ?>application/modules/patient/views/form5.html", "_blank")
+        }
+        if ($("#infection_surveillance_checklist").val() != "N/A" && $("#infection_surveillance_checklist").val() == "Nhsn -UTI") {
+            alert("Printable ABX Checklist form will appear after clicking OK button. Please complete and submit the form.");
+            window.open("<?php echo base_url(); ?>front_assets/images/57.114_uti_blank.pdf")
+        }
+        if ($("#infection_surveillance_checklist").val() != "N/A" && $("#infection_surveillance_checklist").val() == "Nhsn -CDI/MDRO") {
+            alert("Printable ABX Checklist form will appear after clicking OK button. Please complete and submit the form.");
+            window.open("<?php echo base_url(); ?>front_assets/images/57.128_LabIDEvent_BLANK")
+        }
+
+    }
+
+    $('input[type=radio][name="criteria_met"]').prop('checked', false);
+</script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+    $(".multiple-select").select2({
+        // maximumSelectionLength: 2
+        placeholder: "Please select",
+    });
+</script>
+
+<script>
+ $(document).ready(function() {
+    $('.priority-label input[type="radio"]').click(function() {
+        $('.priority-label').removeClass('active');
+        $(this).parent().addClass('active');
+    });
+});
+
+
+</script>

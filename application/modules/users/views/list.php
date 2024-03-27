@@ -57,6 +57,18 @@
                 <i class="gi gi-circle_plus"></i> User
                 </a></h2>
             <?php }?>
+            <?php if ($this->ion_auth->is_subAdmin()) {?>
+                <h2>
+                    <a href="<?php echo base_url() ?>users/open_model" class="btn btn-sm btn-primary" target="_blank">
+                <i class="gi gi-circle_plus"></i> User
+                </a></h2>
+            <?php }?>
+            <?php if ($this->ion_auth->is_facilityManager()) {?>
+                <h2>
+                    <a href="<?php echo base_url() ?>users/open_model" class="btn btn-sm btn-primary" target="_blank">
+                <i class="gi gi-circle_plus"></i> User
+                </a></h2>
+            <?php }?>
         </div>
        
 

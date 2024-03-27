@@ -1,4 +1,3 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.js"></script>
 <!-- Page content -->
 <div id="page-content">
     <!-- Datatables Header -->
@@ -7,339 +6,145 @@
             <a href="<?php echo site_url('pwfpanel');?>">Home</a>
         </li>
         <li>
-            <a href="<?php echo site_url('business');?>">Vendor</a>
+            <a href="<?php echo site_url('users');?>">Users</a>
         </li>
     </ul>
     <!-- END Datatables Header -->
 
     <!-- Datatables Content -->
-    
-    
- 
-    
     <div class="block full">
         <div class="block-title">
-            <h2><strong>Contacts</strong> Panel</h2>
+            <h2><strong>User</strong> Add</h2>
         </div>
-        <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url($formUrl) ?>" enctype="multipart/form-data">
-
-        <!-- <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('business/vendors_add') ?>" enctype="multipart/form-data"> -->
-            <div class="modal-header">
-                <h3 class="modal-title"><strong> Basic Details</strong></h3>
-            </div>
+        <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('users/users_add') ?>" enctype="multipart/form-data">
             <!-- <div class="loaders">
-                <img src="<?php //echo base_url().'backend_asset/images/Preloader_2.gif';?>" class="loaders-img" class="img-responsive">
+                <img src="<?php echo base_url().'backend_asset/images/Preloader_2.gif';?>" class="loaders-img" class="img-responsive">
             </div> -->
             <div class="alert alert-danger" id="error-box" style="display: none"></div>
-            <div class="form-body">
-                <div class="row">
-                    <div class="col-md-12" >
-                        <div class="form-group">
-                           <div class="col-md-2"></div>
-
-                           <div class="col-md-10">
-                            <div class="col-md-4">
-                            <label class="">First Name</label>
-                                <input type="text" class="form-control" name="first_name" id="first_name" placeholder="<?php echo lang('first_name');?>" />
-                            </div>
-                            <!-- <span class="help-block m-b-none col-md-offset-3"><i class="fa fa-arrow-circle-o-up"></i> <?php echo lang('english_note');?></span> -->
-                            
-                            <div class="col-md-4">
-                            <label class=""><?php echo lang('last_name');?></label>
-                                <input type="text" class="form-control" name="last_name" id="last_name" placeholder="<?php echo lang('last_name');?>" />
-                            </div>
-
-                            
-                            <div class="col-md-4">
-                            <label class=""><?php echo lang('title');?> (Optional)</label>
-                                <input type="text" class="form-control" name="title" id="title" placeholder="<?php echo lang('title');?>" />
-                            </div>
-
-                            </div>
-
+            <div class="row">
+                <div class="col-md-12" >
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">First Name</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" name="first_name" id="first_name" placeholder="First Name" />
+                        </div>
+                        <!-- <span class="help-block m-b-none col-md-offset-3"><i class="fa fa-arrow-circle-o-up"></i> <?php echo lang('english_note');?></span> -->
+                    </div>
+                </div>
+                
+                 <div class="col-md-12" >
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Last Name</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Last Name" />
+                        </div>
+                         <!-- <span class="help-block m-b-none col-md-offset-3"><i class="fa fa-arrow-circle-o-up"></i> <?php //echo lang('english_note');?></span>  -->
+                    </div>
+                </div>
+                
+                 <div class="col-md-12" >
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"><?php echo lang('user_email');?></label>
+                        <div class="col-md-9">
+                            <input type="email" class="form-control" name="user_email" id="user_email" placeholder="<?php echo lang('user_email');?>"/>
                         </div>
                     </div>
-                    
-                    <div class="col-md-12" >
-                        <div class="form-group">
-                            <div class="col-md-2">
-
-                            </div>
-
-                            <div class="col-md-10">
-                                <div class="col-md-12">
-                                    <label class="">Company (Optional)</label>
-                                    <input type="text" class="form-control" name="company" id="company" placeholder="<?php echo lang('company');?>" />
-                                </div>
-                            
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="col-md-12" >
-                        <div class="form-group">
-                            <div class="col-md-2"></div>
-
-                            <div class="col-md-10">
-                                <div class="col-md-12">
-                                 <label class="">This Contacts is a clinician</label> <br>
-                                 
-                                    <div class="form-group">
-                                        <div class="col-md-1">
-
-                                            <input type="radio" id="contacts_clinician" name="contacts_clinician" class="custom-control-input">
-                                            <label class="custom-control-label" for="customRadioInline1">No</label>
+                </div>
+                           <div class="col-md-12" >
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Country</label>
+                                    <div class="col-md-9">
+                                        <!-- <input type="text" class="form-control" name="country" id="country" placeholder="Country"/> -->
+                                        
+                                            <select id="country" name="country" class="form-control select2" size="1">
+                                                <option value="" disabled selected>Please select</option>
+                                                <?php foreach($countries as $country){?>
+                                                            
+                                                <option value="<?php echo $country->id;?>"><?php echo $country->name;?></option>
+                                                        
+                                                <?php }?>
+                                            </select>
                                        
                                     </div>
-                                    <div class="col-md-1">
-                                        
-                                            <input type="radio" id="contacts_clinician" name="contacts_clinician" class="custom-control-input">
-                                            <label class="custom-control-label" for="customRadioInline2">Yes</label>                                      
-                                    </div>
-                                    </div>
-                             </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    
-                    <div class="col-md-12" >
-                        <div class="form-group">
-                            <div class="col-md-2">
-
-                            </div>
-
-                             <div class="col-md-10">
-                                <div class="col-md-12">
-                                    <label class="">Comments (Optional)</label>
-                                    <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
-                                </div>
-                            
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="modal-header">
-                        <h3 class="modal-title"><strong> Contact details</strong></h3>
-                    </div>
-
-                    
-                    <div class="col-md-12" >
-                        <div class="form-group">
-                           <div class="col-md-2">
-                           </div>
-
-                           <div class="col-md-10">
-                                <div class="col-md-6">
-                                    <label class="">Phone Type</label>
-                                    <select id="phone_code" name="phone_type" class="form-control select2" size="1" placeholder="Choose a phone type">
-                                        <option value="" disabled selected>Choose a phone type</option>
-                                        <option value="mobile">Mobile</option>
-                                        <option value="home">Home</option>
-                                        <option value="office">Office</option>
-                                        <option value="fax">Fax</option>
-                                        <option value="other">Other</option>      
-                                    </select>
-                                 </div>
-                                    <!-- <span class="help-block m-b-none col-md-offset-3"><i class="fa fa-arrow-circle-o-up"></i> <?php echo lang('english_note');?></span> -->
-                            
-                                <div class="col-md-6">
-                                    <label class="">Phone Number</label>
-                                    <input type="text" class="form-control" name="phone_number" id="phone_number" placeholder="<?php echo lang('Phone Number');?>" />
                                 </div>
                             </div>
+                 <div class="col-md-12" >
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"><?php echo lang('phone_no');?></label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" name="phone_no" id="phone_no" placeholder="<?php echo lang('phone_no');?>" />
+                        </div>
+                        <!-- <span class="help-block m-b-none col-md-offset-3"><i class="fa fa-arrow-circle-o-up"></i> <?php echo lang('english_note');?></span> -->
+                    </div>
+                </div>
+                  <div class="col-md-12" >
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"><?php echo lang('password');?></label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" name="password" id="password" placeholder="<?php echo lang('password');?>" value="<?php echo randomPassword();?>"/>
                         </div>
                     </div>
-
-
-
-                    <div class="col-md-12" >
-                        <div class="form-group">
-                            <div class="col-md-2">
-
-                            </div>
-
-                            <div class="col-md-10">
-                                <div class="col-md-12">
-                                    <label class=""><?php echo lang('user_email');?> (Optional)</label>
-                                    <input type="email" class="form-control" name="user_email" id="user_email" placeholder="<?php echo lang('user_email');?>" />
-                                </div>
-                            
-                            </div>
-                        </div>
-                    </div>
-
+                </div>
                 
-                    <div class="col-md-12" >
-                        <div class="form-group">
-                            <div class="col-md-2">
-
-                            </div>
-
-                            <div class="col-md-10">
-                                <div class="col-md-12">
-                                    <label class="">Address Lookup</label>
-                                    <input type="text" class="form-control" name="address_lookup" id="address_lookup" placeholder="Address Lookup" />
-                                </div>
-                            
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-12" >
-                        <div class="form-group">
-                            <div class="col-md-2">
-
-                            </div>
-
-                            <div class="col-md-10">
-                                <div class="col-md-12">
-                                    <label class="">Street address (Optional)</label>
-                                    <input type="text" class="form-control" name="streem_address" id="streem_address" placeholder="Streem Address" />
-                                </div>
-                            
-                            </div>
-                        </div>
-                    </div>
-                     
-
-
-                    <div class="col-md-12" >
-                        <div class="form-group">
-                           <div class="col-md-2"></div>
-
-                           <div class="col-md-10">
-                            <div class="col-md-4">
-                            <label class="">City (Optional)</label>
-                                    <select id="country" name="city" class="form-control select2" size="1">
-                                        <option value="" disabled selected>Please select</option>
-                                        <?php foreach($states as $state){?>
-                                                    
-                                        <option value="<?php echo $state->id;?>"><?php echo $state->name;?></option>
-                                                
-                                        <?php }?>
-                                    </select>
-
-                                <!-- <input type="text" class="form-control" name="first_name" id="first_name" placeholder="<?php echo lang('first_name');?>" /> -->
-                            </div>
-                            <!-- <span class="help-block m-b-none col-md-offset-3"><i class="fa fa-arrow-circle-o-up"></i> <?php echo lang('english_note');?></span> -->
-                            
-                            <div class="col-md-4">
-                            <label class="">PostCode (Optional)</label>
-                                <input type="text" class="form-control" name="post_code" id="post_code" placeholder="Post Code" />
-                            </div>
-
-                            
-                            <div class="col-md-4">
-                            <label class="">Country (Optional)</label>
-                                    <select id="country" name="country" class="form-control select2" size="1">
-                                        <option value="0">Please select</option>
-                                        <?php foreach($countries as $country){?>
-                                                    
-                                        <option value="<?php echo $country->id;?>"><?php echo $country->name;?></option>
-                                                
-                                        <?php }?>
-                                    </select>
-                            </div>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div class="modal-header">
-                        <h3 class="modal-title"><strong> Billing settings</strong></h3>
-                    </div>
-
-                    <div class="col-md-12" >
-                        <div class="form-group">
-                           <div class="col-md-2">
+               <div class="col-md-12" >
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"><?php echo lang('profile_image'); ?></label>
+                        <div class="col-md-9"> 
+                        
+                        <div class="group_filed">
+                                            <div class="img_back_prieview_Academic">
+                                                <div class="images_box_upload_ven_adduser_vendore">
+                                                    <div id="image-preview-adduser-vendore">
+                                                         <input type="file" name="user_image" id="image-upload-adduser-vendore" />
+                                                    </div>
+                                                </div>
+                                                    <div id="image-preview-adduser">
+                                                         <label for="image-upload-adduser-vendore" id="image-label-adduser-vendore">Upload Logo</label>
+                                                    </div>
+                                            </div>
                            </div>
-
-                           <div class="col-md-10">
-                                <div class="col-md-6">
-                                    <label class="">Billing details(optional)</label>
                                     
-                                    <input type="text" class="form-control" name="billing_detail" id="billing_detail" placeholder="Choose a billing details" />
-                                 </div>
+                                    
                                    
-                            
-                                <div class="col-md-6">
-                                    <label class="">Payment reference(optional)</label>
-                                    <input type="text" class="form-control" name="payment_reference" id="payment_reference" placeholder="<?php echo lang('Payment Reference');?>" />
+                        
+                                <!--<div class="profile_content edit_img">
+                                <div class="file_btn file_btn_logo">
+                                  <input type="file"  class="input_img2" id="user_image" name="user_image" style="display: inline-block;"><br><br>s
+                                  <span class="glyphicon input_img2 logo_btn" style="display: block;">
+                                      <div id="show_company_img"></div>
+                                    <span class="ceo_logo">
+                                        <img src="<?php echo base_url().'backend_asset/images/default.jpg';?>">
+                                    </span>
+                                  </span>
+                                  <img class="show_company_img2" style="display:none" alt="img" src="<?php echo base_url() ?>/backend_asset/images/logo.png">
+                                  <span style="display:none" class="fa fa-close remove_img"></span>
                                 </div>
-                            </div>
+                              </div>-->
+                              
+                              
+                              
+                              <div class="ceo_file_error file_error text-danger"></div>
                         </div>
                     </div>
-
-
-                    
-                    <div class="modal-header">
-                        <h3 class="modal-title"><strong> ID numbers</strong></h3>
-                    </div>
-
-
-                    <div class="col-md-12" >
-                        <div class="form-group">
-                            <div class="col-md-2">
-
-                            </div>
-
-                            <div class="col-md-10">
-                                <div class="col-md-12">
-                                    <label class="">System</label>
-                                    <input type="text" class="form-control" name="System" id="System" placeholder="System Id" />
-                                </div>
-                            
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="modal-header">
-                        <h3 class="modal-title"><strong> Healthcode</strong></h3>
-                    </div>
-
-
-                    <div class="col-md-12" >
-                        <div class="form-group">
-                            <div class="col-md-2">
-
-                            </div>
-
-                            <div class="col-md-10">
-                                <div class="col-md-12">
-                                    <label class="">Healthcode identifier (insurance)(optional)</label>
-                                    <input type="text" class="form-control" name="healthcode" id="healthcode" placeholder="Health Code" />
-                                </div>
-                            
-                            </div>
-                        </div>
-                    </div>
-
+                </div>
+                <div class="space-22"></div>
             </div>
-            <div class="text-right">
-                <button type="submit" id="submit" class="btn btn-sm btn-primary" >Save</button>
+            <div class="modal-footer">
+                <button type="submit" id="submit" class="btn btn-sm btn-primary" ><?php echo lang('submit_btn');?></button>
             </div>
         </form>
-        
     </div>
-<!-- END Datatables Content -->
 </div>
-<!-- END Page Content -->
 <script type="text/javascript">
-    $('#date_of_birth').datepicker({
-        startView: 2,
-        todayBtn: "linked",
-        keyboardNavigation: false,
-        forceParse: false,
-        calendarWeeks: true,
-        autoclose: true,
-        endDate:'today'       
-    });
-/*    $("#zipcode").select2({
-        allowClear: true
-    });*/
+ $('#date_of_birth').datepicker({
+                startView: 2,
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                calendarWeeks: true,
+                autoclose: true,
+                endDate:'today'
+       
+       
+       });
 </script>

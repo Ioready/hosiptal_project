@@ -20,8 +20,12 @@
                         <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
                     </a></h2>
             <?php }else if($this->ion_auth->is_facilityManager()){ ?>
-                    <h2>
+                    <!-- <h2>
                     <a href="<?php echo base_url() . $this->router->fetch_class(); ?>/open_model" class="btn btn-sm btn-primary">
+                        <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
+                    </a></h2> -->
+                    <h2 class="save-btn">
+                    <a href="<?php echo base_url().'index.php/' . $this->router->fetch_class(); ?>/open_model" class="btn btn-sm btn-primary">
                         <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
                     </a></h2>
                 <?php } ?>
@@ -32,15 +36,34 @@
             <h2 style="font-size: 2rem !important;
     font-weight: 700 !important;" ><strong><?php echo $title;?></strong> Panel</h2>
         </div>
+
+
+
+        
+
+
+
         <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('index.php/' .$formUrl) ?>" enctype="multipart/form-data">
             <div style="justify-content:center" class="modal-header text-center">
-                <h2 style="font-weight:600" class="modal-title"><img src="<?php echo base_url(); ?>uploads/form.svg" style="height: 30px;width:30px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt=""> <?php echo (isset($title)) ? ucwords($title) : "" ?></h2>
+                <!-- <h2 style="font-weight:600" class="modal-title"><img src="<?php echo base_url(); ?>uploads/form.svg" style="height: 30px;width:30px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt=""> <?php echo (isset($title)) ? ucwords($title) : "" ?></h2> -->
+
+    <div class="form-group save-btn">
+      <button class="btn btn-sm btn-primary" style="background:#337ab7 "  onclick="filterByToday()">Today's Appointments</button>
+      <button class="btn btn-sm btn-primary" style="background:#337ab7 " onclick="filterByNextDate()">Next Date Appointments</button>
+      <button class="btn btn-sm btn-primary" style="background:#337ab7 " onclick="showAll()">Show All</button>
+    </div>
+
             </div>
             <div class="alert alert-danger" id="error-box" style="display: none"></div>
             <div class="form-body">
                 <div class="row">
                     <div class="col-md-12" >
                         <div class="form-group">
+
+
+
+                        
+
                                 <div class="col-md-12">
                                 <!-- <h2>Weekly Timetable</h2> -->
                             <form id="timeSlotForm" action="submit.php" method="post">
@@ -90,7 +113,7 @@
                             </table>
                             </div> -->
 
-                            <div style="overflow-x: auto; overflow-y: auto; width: auto; height: 500px;">
+  <div style="overflow-x: auto; overflow-y: auto; width: auto; height: 500px;">
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -118,6 +141,9 @@
                         $appointment_found = false;
                         foreach($clinic_appointment as $appointment) {
                             $appointmentTime = date('H:i', strtotime($appointment->start_date_appointment));
+                            $end_date_appointment = date('H:i', strtotime($appointment->end_date_appointment));
+                            $comment_appointment = $appointment->comment_appointment;
+                            $appointment_date = date('Y-m-d',$appointment->created_at);
                             if ($formatted_time == $appointmentTime && $department->id == $appointment->clinician_appointment) {
                                 $appointment_found = true;
                                 break;
@@ -129,14 +155,30 @@
                         // echo $appointmentTime;die;
                         ?>
 
-                        <td style="background-color: red; color:white;" class="day-cell" data-time="<?php //echo $formatted_time; ?>" data-day="<?php echo $department->id; ?>">
+                        <!-- <td style="background-color: red; color:white;" class="day-cell" data-time="<?php //echo $formatted_time; ?>" data-day="<?php echo $department->id; ?>">
                             <?php 
-                            echo $appointmentTime; 
-                            // echo $appointmentTime; 
-                            // echo $appointmentTime; 
-                            // echo $appointmentTime; 
+                            // echo $comment_appointment.'<br>';
+                            // echo $appointmentTime .' - '.$end_date_appointment; 
+                            ?>
+                        </td> -->
+
+                        <td class="day-cell" data-time="<?php //echo $formatted_time; ?>" data-day="<?php echo $department->id; ?>">
+                            <?php 
+                                $current_date = date('Y-m-d');
+                                if ($appointment_date == $current_date) {
+                                    // If appointment date is the current date
+                                    echo '<span style="background-color: green; color: white;">'.$comment_appointment.'<br>'.$appointmentTime.' - '.$end_date_appointment.'</span>';
+                                } elseif ($appointment_date == date('Y-m-d', strtotime('+1 day'))) {
+                                    // If appointment date is the next date
+                                    echo '<span style="background-color: blue; color: white;">'.$comment_appointment.'<br>'.$appointmentTime.' - '.$end_date_appointment.'</span>';
+                                } elseif ($appointment_date == date('Y-m-d', strtotime('-1 day'))) {
+                                    // For other dates
+                                    echo '<span style="background-color: blue; color: white;">'.$comment_appointment.'<br>'.$appointmentTime.' - '.$end_date_appointment.'</span>';
+                                }
                             ?>
                         </td>
+
+
 
                         <?php }else{ ?>
 
@@ -434,3 +476,43 @@ tbody th {
         allowClear: true
     });*/
 </script>
+
+<script>
+    function filterByToday() {
+        // $('.day-cell').hide();
+        var today = "<?php echo date('Y-m-d'); ?>";
+        $('.day-cell').each(function() {
+            var appointmentDate = $(this).data('date');
+            if (appointmentDate === today) {
+                $(this).show();
+            }
+        });
+    }
+
+    function filterByNextDate() {
+        // $('.day-cell').hide();
+        var nextDate = "<?php echo date('Y-m-d', strtotime('+1 day')); ?>";
+        $('.day-cell').each(function() {
+            var appointmentDate = $(this).data('date');
+            if (appointmentDate === nextDate) {
+                $('.day-cell',this).show();
+            }
+        });
+    }
+
+    function showAll() {
+        // $('.day-cell').show();
+
+        // $('.day-cell').hide();
+        var nextDate = "<?php echo date('Y-m-d', strtotime('+1 day')); ?>";
+        $('.day-cell').each(function() {
+            var appointmentDate = $(this).data('date');
+            if (appointmentDate === nextDate) {
+                $('.day-cell',this).show();
+            }
+        });
+        
+    }
+</script>
+
+

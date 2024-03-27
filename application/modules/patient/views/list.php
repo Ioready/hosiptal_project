@@ -174,7 +174,7 @@
                                         <input type="submit" name="search" class="save-btn btn btn-primary btn-sm" value="Search" />
                                     </div>
 
-                                    <div class="col-sm-12 col-lg-3" style="margin-left:-29px;margin-right:-12px;">
+                                    <div class="col-sm-12 col-lg-3" style="margin-left:-20px;margin-right:-12px;">
                                         <button type="submit" class="btn btn-success btn-sm" value="Export" name="export">
                                             <fa class="fa fa-file-pdf-o"></fa> Download Monthly Surveillance List
                                         </button>

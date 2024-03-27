@@ -1067,6 +1067,63 @@ class Tasks extends Common_Controller
                 //         $this->session->set_flashdata('error', lang('not_found'));
                 // redirect($this->router->fetch_class());
 
+
+                $user_id = $this->session->userdata('user_id');
+
+                    $option = array(
+                        'table' => USERS . ' as user',
+                        'select' => 'user.*,group.name as group_name',
+                        'join' => array(
+                            array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                            array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                        ),
+                        'order' => array('user.id' => 'DESC'),
+                        'where' => array('user.id'=>$user_id),
+                        'single'=>true,
+                    );
+            
+                    $authUser = $this->common_model->customGet($option);
+
+
+                    $option = array(
+                        'table' => USERS . ' as user',
+                        'select' => 'user.*,group.name as group_name',
+                        'join' => array(
+                            array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                            array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                        ),
+                        'order' => array('user.id' => 'DESC'),
+                        'where' => array('user.id'=>$this->input->post('assign_to')),
+                        'single'=>true,
+                    );
+            
+                    $assignTo = $this->common_model->customGet($option);
+
+                    $option = array('table' => 'care_unit', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0,'id'=>$this->input->post('type')), 'order' => array('name' => 'asc'),'single'=>true);
+                    $care_unit = $this->common_model->customGet($option);
+
+                    $type =$care_unit->name;
+                    // print_r($authUser->email);die;
+                    $from = $authUser->email;
+                    
+                    $email = $assignTo->email;;
+                    
+                    // $from = getConfig('admin_email');
+                    $subject = "Hospital Task";
+                    $title = "Hospital  Task";
+                    $data['name'] = ucwords($this->input->post('task_name'));
+                    $data['content'] = "Hospital Assign Task"
+                        . "<p>Task Name: " . $this->input->post('task_name') . "</p><p>Assign to: " . $email . "</p><p>Department: " . $type . "</p><p>Patient Name: " . $this->input->post('patient_name') . "</p><p>Due date: " . $this->input->post('due_date') . "</p><p>Task Comment: " . $this->input->post('task_comment') . "</p>";
+                    // $template = $this->load->view('user_signup_mail', $data, true);
+                    // print_r($data);die;
+                    $template = $this->load->view('email-template/task_email', $data, true);
+
+                    // $this->send_email($email, $from, $subject, $template, $title);
+                    
+                    $this->send_email_smtp($email, $from, $subject, $template, $title);
+
+
+
                     $response = array('status' => 1, 'show_redirection_alert' => $show_redirection_alert, 'message' => "Successfully added", 'url' => $redirect_to);
                     $this->session->set_flashdata('error', $response);
                     redirect($this->router->fetch_class());

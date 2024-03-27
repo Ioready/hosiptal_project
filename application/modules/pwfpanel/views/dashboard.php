@@ -349,84 +349,160 @@
 
                         
 
-                        <div class="col-lg-4">
-                            <div class="ibox float-e-margins">
-                                <div class="ibox-title">
-                                </div>
-                                <div class="ibox-content">
-                                <h1 class="no-margins">
+                            <div class="col-lg-3 dashboardBoxes">
+                   
 
-                                <?php echo $total_patient; ?>
-                                </h1>
-                                <h5 class="text-primary"><strong>Total Patient</strong></h5>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="col-lg-4">
-                                <div class="ibox float-e-margins">
-                                    <div class="ibox-title">
-                                    </div>
-                                    <div class="ibox-content">
-                                        <h1 class="no-margins"><?php echo $doctors; ?></h1>
-                                        <h5 class="text-primary"><strong>Total Doctor</strong></h5>
-                                    </div>
-                                </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="ibox float-e-margins">
-                                <div class="ibox-title">
-                                        <!-- <div class="stat-percent font-bold text-primary"> <i class="fa fa-plus"></i></div> -->
-                                        <!-- <h5 class="text-primary"><strong>Care Unit</strong></h5> -->
-                                    </div>
-                                    <div class="ibox-content">
-                                        <h1 class="no-margins"><?php echo $careUnit; ?></h1>
-                                        <h5 class="text-primary"><strong>Total Care Unit</strong></h5>
-                                    </div>
-                                </div>
-                        </div>
 
-                        <div class="col-lg-4">
-                            <div class="ibox float-e-margins">
-                                    <div class="ibox-title">
-                                        <!-- <div class="stat-percent font-bold text-primary"> <i class="fa fa-plus"></i></div> -->
-                                        <!-- <h5 class="text-primary"><strong>Infections</strong></h5> -->
-                                    </div>
-                                    <div class="ibox-content">
-                                        <h1 class="no-margins"><?php echo $initial_dx; ?></h1>
-                                        <!-- <small>Total Infections</small> -->
-                                        <h5 class="text-primary"><strong>Total Infections</strong></h5>
-                                    </div>
-                                </div>
-                         </div>
 
-                        <div class="col-lg-4">
-                                <div class="ibox float-e-margins">
-                                    <div class="ibox-title">
-                                        <!-- <div class="stat-percent font-bold text-primary"> <i class="fa fa-plus"></i></div> -->
-                                        <!-- <h5 class="text-primary"><strong>Total Antibiotic</strong></h5> -->
-                                    </div>
-                                    <div class="ibox-content">
-                                        <h1 class="no-margins"><?php echo $initial_rx; ?></h1>
-                                        <!-- <small>Total Antibiotic</small> -->
-                                        <h5 class="text-primary"><strong>Total Antibiotic</strong></h5>
-                                    </div>
-                                </div>
-                        </div>
 
-                        <div class="col-lg-4">
-                                <div class="ibox float-e-margins">
-                                    <div class="ibox-title">
-                                        <!-- <div class="stat-percent font-bold text-primary"> <i class="fa fa-plus"></i></div> -->
-                                        <!-- <h5 class="text-primary"><strong>Patient Today</strong></h5> -->
-                                    </div>
-                                    <div class="ibox-content">
-                                        <h1 class="no-margins"><?php echo $total_patient_today; ?></h1>
-                                        <!-- <small>Total Patient Today</small> -->
-                                        <h5 class="text-primary"><strong>Total Patient Today</strong></h5>
-                                    </div>
+                   <div style="background-color:#EDEAFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
+                       <div class="ibox-title">
+
+                       <div class="ibox-content">
+
+                       <h1 class="no-margins">
+
+                       <?php echo $total_patient; ?>
+                       </h1>
+                       <h5 class="text-primary"><strong>Total Patient</strong></h5>
+                       </div>
+                    </div>
+                    <img src="<?php echo base_url(); ?>uploads/form.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+               </div>
+           </div>
+
+           <div class="col-lg-3 dashboardBoxes">
+               <div style="background-color:#FEE2E1; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);"  class="ibox float-e-margins">
+                   <!-- <div class="ibox-title">
+                   </div> -->
+                   <div class="ibox-content">
+                   <h1 class="no-margins">
+
+                   <?php echo $careUnit; ?>
+                   </h1>
+                   <h5 class="text-primary"><strong>Total Care Unit</strong></h5>
+                   </div>
+                   <img src="<?php echo base_url(); ?>uploads/form.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+               </div>
+           </div>
+
+           <div class="col-lg-3 dashboardBoxes">
+               <div style="background-color:#DAEBFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
+                   <!-- <div class="ibox-title">
+                   </div> -->
+                   <div class="ibox-content">
+                   <h1 class="no-margins">
+
+                   <?php echo $initial_dx; ?>
+                   </h1>
+                   <h5 class="text-primary"><strong>Total Infections</strong></h5>
+                   </div>
+                   <img src="<?php echo base_url(); ?>uploads/form.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+               </div>
+           </div>
+           
+           <div class="col-lg-3 dashboardBoxes">
+                   <div style="background-color:#D0FAE4; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
+                       <!-- <div class="ibox-title">
+                       </div> -->
+                       <div class="ibox-content">
+                           <h1 class="no-margins"><?php echo $initial_rx; ?></h1>
+                           <h5 class="text-primary"><strong>Total Antibiotic</strong></h5>
+                       </div>
+                       <img src="<?php echo base_url(); ?>uploads/form.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+                   </div>
+           </div>
+
+           <div class="col-lg-3 dashboardBoxes">
+                   <div style="background-color:#D0FAE4; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
+                       <!-- <div class="ibox-title">
+                       </div> -->
+                       <div class="ibox-content">
+                           <h1 class="no-margins"><?php echo $total_patient_today; ?></h1>
+                           <h5 class="text-primary"><strong>Total Patient Today</strong></h5>
+                       </div>
+                       <img src="<?php echo base_url(); ?>uploads/form.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+                   </div>
+           </div>
+
+
+                                <div class="col-lg-6">
+                                <canvas id="myChart"></canvas>
                                 </div>
-                        </div>
+                                <div class="col-lg-8">
+                                <canvas  id="myChart2"></canvas>
+                                </div>
+
+                                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+                                <script>
+                                const ctx = document.getElementById('myChart');
+
+                                new Chart(ctx, {
+                                type: 'bar',
+                                data: {
+                                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                                datasets: [{
+                                label: '# of Votes',
+                                data: [12, 19, 3, 5, 2, 3],
+                                borderWidth: 1
+                                }]
+                                },
+                                options: {
+                                scales: {
+                                y: {
+                                beginAtZero: true
+                                }
+                                }
+                                }
+                                });
+
+                                const pie = document.getElementById('myChart2');
+                                const data = {
+                                labels: [
+                                'Red',
+                                'Blue',
+                                'Yellow'
+                                ],
+                                datasets: [{
+                                label: 'My First Dataset',
+                                data: [300, 50, 100],
+                                backgroundColor: [
+                                'rgb(255, 99, 132)',
+                                'rgb(54, 162, 235)',
+                                'rgb(255, 205, 86)'
+                                ],
+                                hoverOffset: 4
+                                }]
+                                };
+                                const config = {
+                                type: 'doughnut',
+                                data: data,
+                                };
+                                new Chart(pie, {
+                                type: 'doughnut',
+                                data: {
+                                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                                datasets: [{
+                                label: '# of Votes',
+                                data: [12, 19, 3, 5, 2, 3],
+                                borderWidth: 1
+                                }]
+                                },
+                                options: {
+                                scales: {
+                                y: {
+                                beginAtZero: true
+                                }
+                                },
+                                layout: {
+                                padding: 200
+                                }
+                                }
+                                });
+
+                                </script>
+
    
 
                         <?php } else if ($this->ion_auth->is_facilityManager()) { ?>
@@ -510,6 +586,84 @@
                                 </div>
                         </div>
 
+                        <div class="col-lg-6">
+                                <canvas id="myChart"></canvas>
+                                </div>
+                                <div class="col-lg-8">
+                                <canvas  id="myChart2"></canvas>
+                                </div>
+
+                                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+                                <script>
+                                const ctx = document.getElementById('myChart');
+
+                                new Chart(ctx, {
+                                type: 'bar',
+                                data: {
+                                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                                datasets: [{
+                                label: '# of Votes',
+                                data: [12, 19, 3, 5, 2, 3],
+                                borderWidth: 1
+                                }]
+                                },
+                                options: {
+                                scales: {
+                                y: {
+                                beginAtZero: true
+                                }
+                                }
+                                }
+                                });
+
+                                const pie = document.getElementById('myChart2');
+                                const data = {
+                                labels: [
+                                'Red',
+                                'Blue',
+                                'Yellow'
+                                ],
+                                datasets: [{
+                                label: 'My First Dataset',
+                                data: [300, 50, 100],
+                                backgroundColor: [
+                                'rgb(255, 99, 132)',
+                                'rgb(54, 162, 235)',
+                                'rgb(255, 205, 86)'
+                                ],
+                                hoverOffset: 4
+                                }]
+                                };
+                                const config = {
+                                type: 'doughnut',
+                                data: data,
+                                };
+                                new Chart(pie, {
+                                type: 'doughnut',
+                                data: {
+                                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                                datasets: [{
+                                label: '# of Votes',
+                                data: [12, 19, 3, 5, 2, 3],
+                                borderWidth: 1
+                                }]
+                                },
+                                options: {
+                                scales: {
+                                y: {
+                                beginAtZero: true
+                                }
+                                },
+                                layout: {
+                                padding: 200
+                                }
+                                }
+                                });
+
+                                </script>
+
+
                         <?php }else if($this->ion_auth->is_patient()){ ?>
                             <div class="col-lg-4">
                             <div class="ibox float-e-margins">
@@ -591,6 +745,8 @@
                         </div>
 
 
+                        
+
                         <?php } ?>
                                     </div>
 
@@ -610,6 +766,8 @@
 
     </div>
     <!-- END Page Content -->
+
+    
 
 
 

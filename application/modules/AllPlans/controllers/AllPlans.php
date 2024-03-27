@@ -52,6 +52,12 @@ class AllPlans extends Common_Controller {
         $this->load->view('add', $this->data);
     }
 
+    // function open_model_edit() {
+    //     $this->data['title'] = "Add " . $this->title;
+    //     $this->data['formUrl'] = $this->router->fetch_class() . "/add";
+    //     $this->load->view('edit', $this->data);
+    // }
+
     /**
      * @method menu_category_add
      * @description add dynamic rows
@@ -67,6 +73,8 @@ class AllPlans extends Common_Controller {
         $this->form_validation->set_rules('plan_name', "Plan Name", 'required|trim');
         $this->form_validation->set_rules('price', "Price", 'required|trim');
         $this->form_validation->set_rules('Duration', "Duration", 'required|trim');
+        $this->form_validation->set_rules('plan_description', "plan_description", 'required|trim');
+        
         if ($this->form_validation->run() == true) {
             
            
@@ -79,7 +87,7 @@ class AllPlans extends Common_Controller {
                         'PlanName' => $plan_name,
                         'Price' => $this->input->post('price'),
                         'DurationInMonths' =>$this->input->post('Duration'),
-                        // 'create_date' => datetime()
+                        'plan_description' => $this->input->post('plan_description'),
                     );
                     $option = array('table' => $this->_table, 'data' => $options_data);
                    $this->common_model->customInsert($option);
@@ -105,10 +113,11 @@ class AllPlans extends Common_Controller {
      * @description edit dynamic rows
      * @return array
      */
-    public function edit() {
+    public function open_model_edit() {
         $this->data['title'] = "Edit " . $this->title;
         $this->data['formUrl'] = $this->router->fetch_class() . "/update";
-        $id = decoding($this->input->post('id'));
+        $id = $this->input->get('id');
+       
         if (!empty($id)) {
             $option = array(
                 'table' => $this->_table,
@@ -136,42 +145,61 @@ class AllPlans extends Common_Controller {
      */
     public function update() {
 
-        $this->form_validation->set_rules('name', "User Name", 'required|trim');
-        $this->form_validation->set_rules('email', "Email", 'valid_email|trim');
+        $this->form_validation->set_rules('plan_name', "Plan Name", 'required|trim');
+        $this->form_validation->set_rules('price', "Price", 'required|trim');
+        $this->form_validation->set_rules('Duration', "Duration", 'required|trim');
+        $this->form_validation->set_rules('plan_description', "plan_description", 'required|trim');
+        
+        // if ($this->form_validation->run() == true) {
+            
+           
+                // $option = array('table' => $this->_table, 'where' => array('PlanName' => $this->input->post('plan_name')),array('DurationInMonths' => $this->input->post('Duration')));
+              
+                // if (!$this->common_model->customGet($option)) {
+                    
+                    
+                    // $options_data = array(
+                    //     'PlanName' => $this->input->post('plan_name'),
+                    //     'Price' => $this->input->post('price'),
+                    //     'DurationInMonths' =>$this->input->post('Duration'),
+                    //     'plan_description' => $this->input->post('plan_description'),
+                    // );
+                    // $option = array('table' => $this->_table, 'data' => $options_data);
+                //    $this->common_model->customInsert($option);
+                // }
+
         $where_id = $this->input->post('id');
+        
         if ($this->form_validation->run() == FALSE):
             $messages = (validation_errors()) ? validation_errors() : '';
-            $response = array('status' => 0, 'message' => $messages);
+            $response = array('status' => 1, 'message' => $messages);
         else:
-            $this->filedata['status'] = 1;
-            $image = $this->input->post('exists_image');
-
-            if (!empty($_FILES['image']['name'])) {
-                $this->filedata = $this->commonUploadImage($_POST, 'submenu', 'image');
-                if ($this->filedata['status'] == 1) {
-                    $image = 'uploads/submenu/' . $this->filedata['upload_data']['file_name'];
-                    delete_file($this->input->post('exists_image'), FCPATH);
-                }
-            }
-            if ($this->filedata['status'] == 0) {
-                $response = array('status' => 0, 'message' => $this->filedata['error']);
+            $this->filedata['status'] = 0;
+           
+            if ($this->filedata['status'] == 1) {
+                $response = array('status' => 1, 'message' => $this->filedata['error']);
             } else {
+                // print_r($this->input->post('plan_description'));die;
 
-                $option = array('table' => $this->_table, 'where' => array('email' => $this->input->post('email'), 'id !=' => $where_id,'delete_status'=>0));
-                if (!$this->common_model->customGet($option)) {
+                $option = array('table' => $this->_table, 'where' => array('id =' => $where_id));
+                if (!empty($this->common_model->customGet($option))) {
                     $options_data = array(
-                        'name' => $this->input->post('name'),
-                        'email' => $this->input->post('email'),
+                        'PlanName' => $this->input->post('plan_name'),
+                        'Price' => $this->input->post('price'),
+                        'DurationInMonths' =>$this->input->post('Duration'),
+                        'plan_description' => $this->input->post('plan_description'),
                     );
+                    
                     $option = array(
                         'table' => $this->_table,
                         'data' => $options_data,
                         'where' => array('id' => $where_id)
                     );
+                    // print_r($option);die;
                     $update = $this->common_model->customUpdate($option);
                     $response = array('status' => 1, 'message' => "Successfully updated", 'url' => base_url($this->router->fetch_class()));
                 } else {
-                    $response = array('status' => 0, 'message' => "Email already exists"); 
+                    $response = array('status' => 0, 'message' => "plan id is empty"); 
                 }
             }
         endif;

@@ -6,7 +6,7 @@
 </style>
 <div id="commonModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content" style="width: inherit;">
             <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url($formUrl) ?>" enctype="multipart/form-data">
             <div class="modal-header text-center">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -53,6 +53,16 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="col-md-12" >
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Description</label>
+                                    <div class="col-md-9">
+                                        <textarea name="plan_description" id="editor" cols="30" rows="10"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
                             <!-- <div class="col-md-12" >
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">End Date</label>
@@ -73,4 +83,11 @@
             </form>
         </div> <!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
+
 </div>
+<script src="https://cdn.ckeditor.com/4.17.2/standard/ckeditor.js"></script>
+
+<script>
+  // Initialize CKEditor
+  CKEDITOR.replace('editor');
+</script>

@@ -477,14 +477,40 @@ class Users extends Common_Controller
                     );
                     $this->db->insert('vendor_sale_user_profile', $additional_data);
 
-                    $from = getConfig('admin_email');
-                    $subject = "Playwin Fantasy Registration Login Credentials";
-                    $title = "Playwin Fantasy Registration";
+                    $user_id = $this->session->userdata('user_id');
+
+                    $option = array(
+                        'table' => USERS . ' as user',
+                        'select' => 'user.*,group.name as group_name',
+                        'join' => array(
+                            array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                            array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                        ),
+                        'order' => array('user.id' => 'DESC'),
+                        'where' => array('user.id'=>$user_id),
+                        'single'=>true,
+                    );
+            
+                    $authUser = $this->common_model->customGet($option);
+
+                    // print_r($authUser->email);die;
+                    $from = $authUser->email;
+                    
+
+                    // $from = getConfig('admin_email');
+                    $subject = "Hospital Registration Login Credentials";
+                    $title = "Hospital  Registration";
                     $data['name'] = ucwords($this->input->post('first_name'));
-                    $data['content'] = "Playwin Fantasy account login Credentials"
+                    $data['content'] = "Hospital account login Credentials"
                         . "<p>username: " . $email . "</p><p>Password: " . $password . "</p>";
-                    $template = $this->load->view('user_signup_mail', $data, true);
-                    $this->send_email($email, $from, $subject, $template, $title);
+                    // $template = $this->load->view('user_signup_mail', $data, true);
+                    // print_r($data);die;
+                    $template = $this->load->view('email-template/registration', $data, true);
+
+                    // $this->send_email($email, $from, $subject, $template, $title);
+                    
+                    $this->send_email_smtp($email, $from, $subject, $template, $title);
+
                     $response = array('status' => 1, 'message' => lang('user_success'), 'url' => base_url('users'));
                 } else {
                     $response = array('status' => 0, 'message' => lang('user_failed'));
