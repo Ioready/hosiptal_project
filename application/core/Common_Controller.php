@@ -296,17 +296,42 @@ class Common_Controller extends MX_Controller {
         // $config['wordwrap'] = TRUE;
 
 
+        // $config['protocol'] = 'smtp';
+        // $config['smtp_host'] = 'sandbox.smtp.mailtrap.io';
+        // $config['smtp_port'] = '2525';
+        // $config['smtp_timeout'] = '7';
+        // $config['smtp_user'] = '868674bcd452b1';
+        // $config['smtp_pass'] = 'fc2a5bb163923d';
+        // $config['charset'] = 'iso-8859-1';
+        // $config['newline'] = "\r\n";
+        // $config['mailtype'] = 'html';
+        // $config['validation'] = TRUE;
+        // $config['wordwrap'] = TRUE;
+
         $config['protocol'] = 'smtp';
-        $config['smtp_host'] = 'sandbox.smtp.mailtrap.io';
-        $config['smtp_port'] = '2525';
-        $config['smtp_timeout'] = '7';
-        $config['smtp_user'] = '868674bcd452b1';
-        $config['smtp_pass'] = 'fc2a5bb163923d';
+        $config['smtp_host'] = 'http://smtp.gmail.com';
+        $config['smtp_port'] = '587';
+        // $config['smtp_timeout'] = '7';
+        $config['smtp_user'] = 'kalpanaofficial94@gmail.com';
+        $config['smtp_pass'] = 'avbcfhvzvypfftgz';
         $config['charset'] = 'iso-8859-1';
         $config['newline'] = "\r\n";
         $config['mailtype'] = 'html';
         $config['validation'] = TRUE;
         $config['wordwrap'] = TRUE;
+
+        // $config['protocol'] = 'smtp';
+        // $config['smtp_host'] = 'smtp.gmail.com';
+        // $config['smtp_port'] = '587';
+        // $config['smtp_timeout'] = '7';
+        // $config['smtp_encryption'] = 'tls';
+        // $config['smtp_user'] = 'testing.sht007@gmail.com';
+        // $config['smtp_pass'] = 'zxezvtwaolkxypy';
+        // $config['charset'] = 'iso-8859-1';
+        // $config['newline'] = "\r\n";
+        // $config['mailtype'] = 'html';
+        // $config['validation'] = TRUE;
+        // $config['wordwrap'] = TRUE;
 
         $this->email->initialize($config);
         $this->email->set_newline("\r\n");
@@ -604,6 +629,15 @@ class Common_Controller extends MX_Controller {
         } else {
             return false;
         }
+    }
+    public function sending_mail(){
+        $this->load->library('email'); // Note: no $config param needed
+        $this->email->from('kalpanaofficial94@gmail.com', 'kalpanaofficial94@gmail.com');
+        $this->email->to('tech.sunilvishwakarma@gmail.com');
+        $this->email->subject('Test email from CI and Gmail');
+        $this->email->message('This is a test.');
+        $this->email->send();
+      
     }
 
 }

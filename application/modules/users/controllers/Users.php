@@ -528,6 +528,17 @@ class Users extends Common_Controller
      * @description edit dynamic rows
      * @return array
      */
+
+     public function sending_mail(){
+        $this->load->library('email'); // Note: no $config param needed
+        $this->email->from('kalpanaofficial94@gmail.com', 'kalpanaofficial94@gmail.com');
+        $this->email->to('tech.sunilvishwakarma@gmail.com');
+        $this->email->subject('Test email from CI and Gmail');
+        $this->email->message('This is a test.');
+        $this->email->send();
+      
+    }
+    
     public function user_edit()
     {
         $this->data['title'] = lang("edit_user");

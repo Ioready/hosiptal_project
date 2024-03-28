@@ -81,7 +81,12 @@ class Appointment extends Common_Controller {
 
         $option = array(
             'table' => 'clinic_appointment',
-            'select' => '*', 'where' => array('status' => 0),
+            'select' => 'clinic_appointment.*, U.first_name, U.last_name, UP.address1,UP.city,UP.state',
+            'join' => array(
+                array('users as U', 'clinic_appointment.location_appointment=U.id', 'left'),
+                // array('users as UP', 'clinic_appointment.doctor_name=UP.id', 'left')),
+                array('user_profile as UP', 'UP.user_id=clinic_appointment.location_appointment', 'left')),
+            'where' => array('status' => 0),
         );
         $this->data['clinic_appointment'] = $this->common_model->customGet($option);
     // print_r($this->data['clinic_appointment'] );die;
@@ -122,6 +127,23 @@ class Appointment extends Common_Controller {
             'single' => true
         );
         $this->data['userData'] = $this->common_model->customGet($option);
+
+        $option = array(
+            'table' => USERS . ' as user',
+            'select' => 'user.*, UP.address1,UP.city,UP.country,UP.state,UP.description,'
+            . 'UP.designation,UP.website,group.name as group_name,group.id as g_id,'
+            . 'UP.doc_file,UP.company_name,UP.category_id,UP.profile_pic img,UP.doc_file as nda_doc,UP.doc_file_referral',
+            'join' => array(
+                array(USER_GROUPS . ' as u_group', 'u_group.user_id=user.id', ''),
+                array(GROUPS . ' as group', 'group.id=u_group.group_id', ''),
+                array('user_profile as UP', 'UP.user_id=user.id', 'left')),
+                'where' => array('group.id' => 6),
+            // 'where' => array('user.id' => $user_id),
+            // 'single' => true
+        );
+        $this->data['userlocation'] = $this->common_model->customGet($option);
+
+        // print_r($this->data['userData']);die;
         $option = array('table' => 'countries',
         'select' => '*'
     );

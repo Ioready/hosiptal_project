@@ -78,7 +78,7 @@
     <!-- END Datatables Header -->
 
     
-    <?php if ($this->ion_auth->is_subAdmin() || $this->ion_auth->is_facilityManager()) { ?>
+    <?php if ($this->ion_auth->is_subAdmin() || $this->ion_auth->is_subAdmin()) { ?>
         <div class="block full">
             <div class="row text-center">
 
@@ -159,12 +159,21 @@
                                                                         <label class="col-md-3 control-label">Location</label>
                                                                         <div class="col-md-9">
                                                                             
-                                                                                <select id="country" name="location_appointment" class="form-control select2" size="1">
+                                                                                <!-- <select id="country" name="location_appointment" class="form-control select2" size="1">
                                                                                     <option value="0">Please select</option>
                                                                                     <?php foreach ($countries as $country) { ?>
                                                                                         <option value="<?php echo $country->id; ?>"><?php echo $country->name; ?></option>
                                                                                         <?php } ?>
-                                                                                </select>
+                                                                                </select> -->
+
+                                                                                <select id="country" name="location_appointment" class="form-control select2" size="1">
+                                                                                        <option value="0">Please select</option>
+                                                                                        <?php foreach ($userlocation as $country) { 
+                                                                                           
+                                                                                            ?>
+                                                                                            <option value="<?php echo $country->id; ?>"><?php echo $country->address1.' '.$country->city.' - '.$country->first_name.' '.$country->last_name ; ?></option>
+                                                                                            <?php } ?>
+                                                                                    </select>
                                                                         </div>
                                                                 </div>
                                                             </div>
