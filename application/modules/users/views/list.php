@@ -57,6 +57,18 @@
                 <i class="gi gi-circle_plus"></i> User
                 </a></h2>
             <?php }?>
+            <?php if ($this->ion_auth->is_subAdmin()) {?>
+                <h2>
+                    <a href="<?php echo base_url() ?>users/open_model" class="btn btn-sm btn-primary" target="_blank">
+                <i class="gi gi-circle_plus"></i> User
+                </a></h2>
+            <?php }?>
+            <?php if ($this->ion_auth->is_facilityManager()) {?>
+                <h2>
+                    <a href="<?php echo base_url() ?>users/open_model" class="btn btn-sm btn-primary" target="_blank">
+                <i class="gi gi-circle_plus"></i> User
+                </a></h2>
+            <?php }?>
         </div>
        
 
@@ -66,18 +78,18 @@
                     <tr>
 
                         
-            <th><?php echo lang('serial_no');?></th>
+            <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('serial_no');?></th>
             <!-- <th class="text-center"><?php echo "Team Code";?></th> -->
-            <th class="text-center"><?php echo "Name";?></th>
-            <th><?php echo lang('user_email');?></th>
-<!--            <th class="text-center"><?php echo "Phone";?></th>-->
-            <!-- <th><?php echo "Total purchase amount";?></th>
-            <th><?php echo "Total deposit amount";?></th>
-             <th><?php echo "Total amount due";?></th> -->
+            <th style="background-color:#DBEAFF;font-size:1.3rem" class="text-center"><?php echo "Name";?></th>
+            <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('user_email');?></th>
+<!--            <th style="background-color:#DBEAFF;font-size:1.3rem" class="text-center"><?php echo "Phone";?></th>-->
+            <!-- <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo "Total purchase amount";?></th>
+            <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo "Total deposit amount";?></th>
+             <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo "Total amount due";?></th> -->
 <!--                                <th><?php echo lang('profile_image');?></th>-->
-<!--             <th><?php echo lang('status');?></th>-->
-            <th><?php echo lang('user_createdate');?></th>
-            <th><?php echo lang('action');?></th>
+<!--             <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('status');?></th>-->
+            <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('user_createdate');?></th>
+            <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('action');?></th>
         
                     </tr>
                 </thead>

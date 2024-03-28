@@ -22,9 +22,9 @@
             <table id="common_datatable_menucat" class="table table-vcenter table-condensed table-bordered">
                 <thead>
                     <tr>
-                        <th style="width: 15%;">Sr. No</th>
-                        <th style="width: 60%;">Name</th>
-                        <th><?php echo lang('action'); ?></th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem;width:15%;;">Sr. No</th>
+                        <th  style="background-color:#DBEAFF;font-size:1.3rem;width:60%;;">Name</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('action'); ?></th>
                     </tr>
                 </thead>
                 <tbody>

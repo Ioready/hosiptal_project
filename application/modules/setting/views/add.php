@@ -87,8 +87,8 @@
                                                         </div>
                                                         <div class="form-group">
                                                             <div class="col-sm-4 col-sm-offset-2">
-                                                                <button class="btn btn-danger" type="submit"><?php echo lang('cancle_btn'); ?></button>
-                                                                <button class="<?php echo THEME_BUTTON; ?>" type="submit" id="submit" ><?php echo lang('save_btn'); ?></button>
+                                                                <button style="background-color:#DC143C;color:white" class="cancel-btn btn" type="submit"><?php echo lang('cancle_btn'); ?></button>
+                                                                <button class="<?php echo THEME_BUTTON; ?> save-btn" type="submit" id="submit" ><?php echo lang('save_btn'); ?></button>
                                                             </div>
                                                         </div>
                                                     </form>
@@ -110,7 +110,21 @@
 
 
 
-
+    <style>
+    .save-btn{
+    font-weight:700;
+    font-size: 1.5rem;
+    padding: 0.6rem 2.25rem;
+    background:#337ab7;
+}
+.save-btn:hover{
+    /* background-color:#00008B !important; */
+    background:#00008B !important;
+}
+.cancel-btn:hover{
+    background-color:#E9967A !important;
+}
+</style>
 
 
 

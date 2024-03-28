@@ -171,10 +171,10 @@
                                     </div>
 
                                     <div class="col-sm-6 col-lg-1" style="margin-right: 8px;">
-                                        <input type="submit" name="search" class="btn btn-primary btn-sm" value="Search" />
+                                        <input type="submit" name="search" class="save-btn btn btn-primary btn-sm" value="Search" />
                                     </div>
 
-                                    <div class="col-sm-12 col-lg-3" style="margin-left:-29px;margin-right:-12px;">
+                                    <div class="col-sm-12 col-lg-3" style="margin-left:-20px;margin-right:-12px;">
                                         <button type="submit" class="btn btn-success btn-sm" value="Export" name="export">
                                             <fa class="fa fa-file-pdf-o"></fa> Download Monthly Surveillance List
                                         </button>
@@ -192,7 +192,7 @@
 
                             <form action="<?php echo site_url('patient'); ?>" name="patientFormExport" method="get">
                                 <div class="col-sm-12 col-lg-1">
-                                    <button type="submit" class="btn btn-primary btn-sm">
+                                    <button type="submit" class="btn btn-primary save-btn btn-sm">
                                         <fa class="fa fa-undo"></fa> Reset
                                     </button>
                                 </div>
@@ -209,12 +209,12 @@
         <div class="block-title">
             <h2><strong><?php echo $title; ?></strong> Panel</h2>
             <!-- <h2><a href="javascript:void(0)" onclick="open_modal('<?php
-                                                                    echo 'index.php/'.$model; ?>')" class="btn btn-sm btn-primary">
+                                                                    echo 'index.php/'.$model; ?>')" class="btn save-btn btn-sm btn-primary">
                     <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
                 </a></h2> -->
                 <h2>
                     
-                    <a href="<?php echo base_url() . $this->router->fetch_class(); ?>/open_model" class="btn btn-sm btn-primary">
+                    <a href="<?php echo base_url() . $this->router->fetch_class(); ?>/open_model" class="btn btn-sm btn-primary save-btn">
                         <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
                     </a></h2>
 
@@ -224,23 +224,23 @@
             <table id="common_datatable_menucat" class="table table-vcenter table-condensed table-bordered">
                 <thead>
                     <tr>
-                        <th style="width:10px">Sr. No</th>
-                        <th>Date Of Start ABX</th>
-                        <th>Patient ID</th>
-                        <th>Patient Name</th>
-                        <th>Care Unit</th>
-                        <th>Provider MD</th>
-                        <th>Diagnosis</th>
-                        <th>Room Number</th>
-                        <th>Infection Onset</th>
-                        <th>Total Days</th>
-                        <th>Labs</th>
-                        <!-- <th>Culture Source</th> -->
-                        <th>Organism</th>
-                        <th>Antibiotic Name</th>
-                        <!-- <th>MD Steward</th> -->
-                        <th>Hospital Name</th>
-                        <th><?php echo lang('action'); ?></th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem;width:40px !important">Sr. No</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem">Date Of Start ABX</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem">Patient ID</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem">Patient Name</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem">Care Unit</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem">Provider MD</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem">Diagnosis</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem">Room Number</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem">Infection Onset</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem">Total Days</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem">Labs</th>
+                        <!-- <th style="background-color:#DBEAFF;font-size:1.3rem">Culture Source</th> -->
+                        <th style="background-color:#DBEAFF;font-size:1.3rem">Organism</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem">Antibiotic Name</th>
+                        <!-- <th style="background-color:#DBEAFF;font-size:1.3rem">MD Steward</th> -->
+                        <th style="background-color:#DBEAFF;font-size:1.3rem">Hospital Name</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('action'); ?></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -325,3 +325,17 @@
 <!-- END Page Content -->
 <div id="form-modal-box"></div>
 </div>
+
+<style>
+
+.save-btn{
+    font-weight:700;
+    font-size: 1.1rem;
+    padding: 0.6rem 2.25rem;
+    background:#337ab7;
+}
+.save-btn:hover{
+    /* background-color:#00008B !important; */
+    background:#00008B !important;
+}
+</style>

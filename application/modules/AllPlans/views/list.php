@@ -5,6 +5,8 @@
    
 }
 </style>
+
+<!-- <script src="https://js.stripe.com/v3"></script> -->
 <div id="page-content">
     <ul class="breadcrumb breadcrumb-top">
         <li>
@@ -17,9 +19,9 @@
     <!-- Datatables Content -->
     <div class="block full">
         <div class="block-title">
-            <h2><strong><?php echo $title; ?></strong> Panel</h2>
+            <h2><strong><?php echo $title; ?></strong></h2>
             <?php if ($this->ion_auth->is_superAdmin()) { ?>
-                <h2><a href="javascript:void(0)"  onclick="open_modal('<?php echo $model; ?>')" class="btn btn-sm btn-primary">
+                <h2><a href="javascript:void(0)"  onclick="open_modal('<?php echo $model; ?>')" class="save-btn btn btn-sm btn-primary">
                         <i class="gi gi-circle_plus"></i> <?php echo "New Plan"; ?>
                     </a></h2>
             <?php }
@@ -119,10 +121,10 @@
 
     <div class="switch-wrapper">
     <input id="toggle-monthly" type="radio" name="switch" checked>
-    <label for="monthly">Monthly</label>
-    <input id="toggle-yearly" type="radio" name="switch">
+    <label style="font-size:1.5rem;margin-bottom:10px" for="monthly">Monthly</label>
+    <input style="margin-left:2rem" id="toggle-yearly" type="radio" name="switch">
     
-    <label for="yearly">Yearly</label>
+    <label style="font-size:1.5rem;margin-bottom:10px   " for="yearly">Yearly</label>
     <span class="highlighter"></span>
   </div>
 
@@ -138,64 +140,110 @@
 
             ?>
             <div class="basic box price monthly">
-                <h2 class="title"><?php echo $row->PlanName;?></h2>
+                <h2 style="margin-top:0;margin-bottom:0" class="title"><?php echo $row->PlanName;?></h2>
                 <div class="view">
                     <div class="icon">
                         <img src="https://i.postimg.cc/2jcfMcf4/hot-air-balloon.png" alt="hot-air-balloon">
                     </div>
                     <div class="price monthly cost">
                         <p class="amount">$<?php echo $row->Price;?></p>
-                        <p class="detail">per student per month</p>
+                        <p class="detail">Admin Per Month</p>
                     </div>
                     <div class="price yearly hide cost">
                         <p class="amount">$<?php echo $row->Price;?></p>
-                        <p class="detail">per student per years</p>
+                        <p class="detail">Admin Per Years</p>
                     </div>
                 </div>
                 <div class="description">
-                    <ul>
-                        <li>Lorem, ipsum dolor.</li>
-                        <li>Harum, beatae laudantium.</li>
-                        <li>Odit, fugit saepe.</li>
-                        <li>Harum, veniam suscipit!</li>
-                        <li>A, aut veritatis!</li>
-                        <li>Aliquid, quasi repellat!</li>
-                    </ul>
+                  
+
+                    <?php echo $row->plan_description; ?>
+
                 </div>
+                <?php if($this->ion_auth->is_superAdmin()){ ?>
                 <div class="button">
-                    <button type="submit" >START FREE 7 DAYS TRIAL</button>
+                
+               
+                
+                <!--<a href="<?php echo base_url('make-stripe-payment?'.'id='.$row->id);?>"><button >START FREE 7 DAYS TRIAL </button></a>-->
+                <h2>
+                    <a href="javascript:void(0)" onclick="open_modal_edit('<?php echo $model; ?>', '<?php echo $row->id; ?>')" class="save-btn btn btn-sm btn-primary">
+                        <i class="gi gi-circle_plus"></i> Edit Plan
+                    </a>
+                </h2>
                 </div>
+
+        <?php } else if($this->ion_auth->is_admin()){ ?>
+                <div class="button">
+                
+                <!-- <a href="<?php echo site_url('stripePayments'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "stripePaymentController") ? "active" : "" ?>"> -->
+                <!-- <button >START FREE 7 DAYS TRIAL </button></a> -->
+                <a href="<?php echo base_url('make-stripe-payment?'.'id='.$row->id);?>"><button >START FREE 7 DAYS TRIAL </button></a>
+                <!-- <a href="<?php echo base_url('my-stripe?'.'id='.$row->id);?>"><button >START FREE 7 DAYS TRIAL </button></a> -->
+                </div>
+                <?php } ?>
             </div>
+
+            
+
+            <!-- make-stripe-payment -->
             <?php 
             }else if($row->DurationInMonths == 'years'){ ?>
  <div class="basic box price yearly ">
-                <h2 class="title"><?php echo $row->PlanName;?></h2>
+                <h2 style="margin-top:0;margin-bottom:0" class="title"><?php echo $row->PlanName;?></h2>
                 <div class="view">
                     <div class="icon">
                         <img src="https://i.postimg.cc/2jcfMcf4/hot-air-balloon.png" alt="hot-air-balloon">
                     </div>
                     <div class="price monthly cost">
                         <p class="amount">$<?php echo $row->Price;?></p>
-                        <p class="detail">per student per month</p>
+                        <p class="detail">Admin Per Month</p>
                     </div>
                     <div class="price yearly hide cost">
                         <p class="amount">$<?php echo $row->Price;?></p>
-                        <p class="detail">per student per years</p>
+                        <p class="detail">Admin per Years</p>
                     </div>
                 </div>
                 <div class="description">
-                    <ul>
+                    <!-- <ul>
                         <li>Lorem, ipsum dolor.</li>
                         <li>Harum, beatae laudantium.</li>
                         <li>Odit, fugit saepe.</li>
                         <li>Harum, veniam suscipit!</li>
                         <li>A, aut veritatis!</li>
                         <li>Aliquid, quasi repellat!</li>
-                    </ul>
+                    </ul> -->
+                    <?php echo $row->plan_description; ?>
                 </div>
+                <?php if($this->ion_auth->is_admin()){ ?>
+                <!-- <div class="button">
+                <a href="<?php echo base_url('make-stripe-payment?'.'id='.$row->id);?>"><button >START FREE 7 DAYS TRIAL </button></a>
+                    
+                </div> -->
+                <?php }?>
+                <?php if($this->ion_auth->is_superAdmin()){ ?>
                 <div class="button">
-                    <button type="submit" >START FREE 7 DAYS TRIAL</button>
+                
+               
+                
+                <!--<a href="<?php echo base_url('make-stripe-payment?'.'id='.$row->id);?>"><button >START FREE 7 DAYS TRIAL </button></a>-->
+                <h2>
+                    <a href="javascript:void(0)" onclick="open_modal_edit('<?php echo $model; ?>', '<?php echo $row->id; ?>')" class="save-btn btn btn-sm btn-primary">
+                        <i class="gi gi-circle_plus"></i> Edit Plan
+                    </a>
+                </h2>
                 </div>
+
+        <?php } else if($this->ion_auth->is_admin()){ ?>
+                <div class="button">
+                
+                <!-- <a href="<?php echo site_url('stripePayments'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "stripePaymentController") ? "active" : "" ?>"> -->
+                <!-- <button >START FREE 7 DAYS TRIAL </button></a> -->
+                <a href="<?php echo base_url('make-stripe-payment?'.'id='.$row->id);?>"><button >START FREE 7 DAYS TRIAL </button></a>
+                <!-- <a href="<?php echo base_url('my-stripe?'.'id='.$row->id);?>"><button >START FREE 7 DAYS TRIAL </button></a> -->
+                </div>
+                <?php } ?>
+
             </div>
        <?php } ?>     
         
@@ -212,6 +260,34 @@
 <div id="form-modal-box"></div>
 </div>
 
+<script>
+    var stripe = Stripe('pk_test_P3N5vEUYda6Xg4MZM2tWd9PJ00hZgBj5nj', {
+    betas: ['checkout_beta_4']
+  });
+
+  var checkoutButton = document.getElementById('checkout-button');
+  checkoutButton.addEventListener('click', function () {
+    // When the customer clicks on the button, redirect
+    // them to Checkout.
+    stripe.redirectToCheckout({
+      items: [{sku: 'sku_EouPQJ6eEYCU1q', quantity: 1}],
+
+      // Note that it is not guaranteed your customers will be redirected to this
+      // URL *100%* of the time, it's possible that they could e.g. close the
+      // tab between form submission and the redirect.
+      successUrl: 'https://formhero.com/',
+      cancelUrl: 'https://formhero.com/',
+    })
+    .then(function (result) {
+      if (result.error) {
+        // If `redirectToCheckout` fails due to a browser or network
+        // error, display the localized error message to your customer.
+        var displayError = document.getElementById('error-message');
+        displayError.textContent = result.error.message;
+      }
+    });
+  });
+</script>
 <script>
     // Get the toggle buttons and pricing elements
 // Get references to the toggle buttons
@@ -256,6 +332,18 @@ yearlyButton.addEventListener("click", () => {
 
 <style>
     @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+
+    .save-btn{
+    font-weight:700;
+    font-size: 1.5rem;
+    padding: 0.6rem 2.25rem;
+    background:#337ab7;
+}
+.save-btn:hover{
+    /* background-color:#00008B !important; */
+    background:#00008B !important;
+}
+
 
 *{
     margin: 0;
@@ -397,7 +485,7 @@ li{
 }
 
 button{
-    height: 40px;
+    /* height: 40px;
     width: 250px;
     font-size: 0.7em;
     font-weight: bold;
@@ -406,7 +494,17 @@ button{
     border: 2px solid var(--dark-gray);
     border-radius: 50px;
 
-    background: transparent;
+    background: transparent; */
+    height: 40px;
+    width: 250px;
+    font-size: 0.7em;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    color: #f7f3f3;
+    border: 2px solid #d9416c;
+    border-radius: 50px;
+    background: #d90a4b;
+    
 }
 
 button:hover{

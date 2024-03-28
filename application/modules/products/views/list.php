@@ -85,7 +85,7 @@
                                         <div class="tab-pane-second" role="tabpanel" aria-labelledby="pills-home-tab">
                                             <ul class="nav nav-pills-second nav-fill nav-tab-appointment active" id="pills-tab" role="tablist" >
                                                 <li class="nav-item-second">
-                                                <a class="btn btn-sm nav-link-second new-contact"  data-target="#pills-5"  role="tab" href="<?php echo base_url() . $this->router->fetch_class(); ?>/open_model"> New </a>
+                                                <a class="btn btn-sm nav-link-second new-contact save-btn"  data-target="#pills-5"  role="tab" href="<?php echo base_url() . $this->router->fetch_class(); ?>/open_model"> New </a>
                                                 </li>
 
 
@@ -158,46 +158,46 @@
             <table id="common_datatable_users" class="table table-vcenter table-condensed table-bordered">
                 <thead>
                     <tr>
-                        <th class="text-center" style="width: 10px;">Sr. No</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem;width: 40px;" class="text-center" >Sr. No</th>
                         <!--                                <th><?php echo "Referral Code"; ?></th>-->
                         <?php if($this->ion_auth->is_admin()){ ?>
-                        <th class="text-center" style="width: 150px;"><?php echo "Facility Manager Name"; ?></th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem;width: 150px;" class="text-center" ><?php echo "Facility Manager Name"; ?></th>
                         <?php } ?>
 
                         <?php if($this->ion_auth->is_subAdmin()){ ?>
-                        <th class="text-center" style="width: 150px;"><?php echo "Type"; ?></th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem;width: 150px;" class="text-center"><?php echo "Type"; ?></th>
                         <?php } ?>
 
-                        <th class="text-center" style="width: 200px;"><?php echo "Renewal"; ?></th>
+                        <th  class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 200px;"><?php echo "Renewal"; ?></th>
 
-                        <th class="text-center" style="width: 200px;"><?php echo "Name"; ?></th>
-                        <th class="text-center" style="width: 200px;"><?php echo "Price"; ?></th>
-                        <th class="text-center" style="width: 200px;"><?php echo "Supplier"; ?></th>
-                        <th class="text-center" style="width: 200px;"><?php echo "Product Code"; ?></th>
-                        <th class="text-center" style="width: 200px;"><?php echo "Serial Number"; ?></th>
-                        <th class="text-center" style="width: 200px;"><?php echo "Stock Level"; ?></th>
-                        <th class="text-center" style="width: 200px;"><?php echo "Tax"; ?></th>
-                        <th class="text-center" style="width: 200px;"><?php echo "Cost"; ?></th>
-                        <th class="text-center" style="width: 200px;"><?php echo "Comment"; ?></th>
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 200px;"><?php echo "Name"; ?></th>
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 200px;"><?php echo "Price"; ?></th>
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 200px;"><?php echo "Product Code"; ?></th>
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 200px;"><?php echo "Serial Number"; ?></th>
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 200px;"><?php echo "Supplier"; ?></th>
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 200px;"><?php echo "Stock Level"; ?></th>
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 200px;"><?php echo "Tax"; ?></th>
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 200px;"><?php echo "Cost"; ?></th>
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 200px;"><?php echo "Comment"; ?></th>
 
-                        <th class="text-center" style="width: 200px;"><?php echo "Appointment Booked"; ?></th>
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 200px;"><?php echo "Appointment Booked"; ?></th>
                         
                         
-                        <th class="text-center" style="width: 200px;"><?php echo "Status"; ?></th>
-                        <th class="text-center" style="width: 200px;"><?php echo "Date"; ?></th>
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 200px;"><?php echo "Status"; ?></th>
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 200px;"><?php echo "Date"; ?></th>
 
                         
                         <?php if($this->ion_auth->is_facilityManager()){?>
-                        <th class="text-center" style="width: 60px;">Created Date</th>
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 60px;">Created Date</th>
                         <?php }else if($this->ion_auth->is_admin()){ ?>
-                        <th class="text-center" style="width: 60px;">Query Date</th>
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 60px;">Query Date</th>
                         <?php } ?>
                         <?php if($this->ion_auth->is_facilityManager()){?>
-                        <th class="text-center" style="width: 70px;"><?php echo lang('action'); ?></th>
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 60px;"><?php echo lang('action'); ?></th>
                         <?php } ?>
 
                         <?php if($this->ion_auth->is_subAdmin()){?>
-                        <th class="text-center" style="width: 70px;"><?php echo lang('action'); ?></th>
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 70px;"><?php echo lang('action'); ?></th>
                         <?php } ?>
                     </tr>
                 </thead>
@@ -212,9 +212,9 @@
                             <?php if($LoginID == 1){ ?>
                             <tr>
                             
-                                <td class="text-center text-primary"><strong><?php echo $rowCount; ?></strong></td> 
+                                <td class="text-center"><strong><?php echo $rowCount; ?></strong></td> 
                                 <?php if($this->ion_auth->is_admin()){ ?> 
-                                <td class="text-primary"><?php echo $rows->first_name . ' ' . $rows->last_name; ?></td>
+                                <td class=""><?php echo $rows->first_name . ' ' . $rows->last_name; ?></td>
                                 <?php } ?>
                                 <td><?php echo $rows->title ?></td>
                                 <td><?php echo $rows->description ?></td>
@@ -259,16 +259,16 @@
                         
                         <tr>
                         
-                            <td class="text-center text-primary"><strong><?php echo $rowCount; ?></strong></td>  
+                            <td class="text-center"><strong><?php echo $rowCount; ?></strong></td>  
 
                             <?php if($this->ion_auth->is_admin()){ ?>
 
-                            <td class="text-primary"><?php echo $rows->first_name . ' ' . $rows->last_name; ?></td>
+                            <td class=""><?php echo $rows->first_name . ' ' . $rows->last_name; ?></td>
 
                             <?php } ?>
                             
                             <?php if($this->ion_auth->is_subAdmin()){ ?>
-                            <td class="text-primary"><?php echo $rows->type; ?></td>
+                            <td class=""><?php echo $rows->type; ?></td>
                             <?php } ?>
 
                             <td><?php echo $rows->renewal ?></td>
@@ -407,7 +407,7 @@
     width: 88px;
 }
 a.new-contact:hover{
-    background-color: #d9416c !important;
+    /* background-color: #d9416c !important; */
     color: white;
     font-weight: 900;
     width: 88px;
@@ -430,7 +430,15 @@ a.new-contact:hover{
 .input-group-search .form-control {
     width: 100%;
 }
-
+.save-btn{
+    font-weight:700;
+    font-size: 1.5rem;
+    padding: 0.6rem 2.25rem !important;
+    background-color: #337ab7 !important;
+}
+.save-btn:hover{
+    background:#00008B !important;
+}
 
 
 </style>

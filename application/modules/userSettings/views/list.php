@@ -1,16 +1,25 @@
 <!-- Page content -->
 <div id="page-content">
     <!-- Datatables Header -->
+    <!-- <div class="content-header">
+        <div class="header-section">
+            <h1>
+                <i class="fa fa-user"></i>Users<br><small>Users listing</small>
+            </h1>
+        </div>
+    </div> -->
     <ul class="breadcrumb breadcrumb-top">
-        <li>
-            <a href="<?php echo site_url('pwfpanel'); ?>">Home</a>
-        </li>
-        <li>
-            <a href="<?php echo site_url($model); ?>"><?php echo $title; ?></a>
-        </li>
+    <li>
+        <a href="<?php echo site_url('pwfpanel');?>">Home</a>
+    </li>
+    <li>
+        <a href="<?php echo site_url('users');?>">Users</a>
+    </li>
     </ul>
-   
-    <!-- END Quick Stats -->
+    <!-- END Datatables Header -->
+    
+    <div class="block_list full">
+
     <?php if ($this->ion_auth->is_admin() or $this->ion_auth->is_subAdmin() or $this->ion_auth->is_facilityManager()) { ?>
         <div class="block full">
             <div class="row text-center">
@@ -26,15 +35,15 @@
 
                                         <ul class="nav nav-pills nav-fill nav-tabss" id="pills-tab" role="tablist" >
                                             <li class="nav-item">
-                                            <a href="<?php echo site_url('userSettings'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "userSettings") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">Users</span></a>
+                                            <a  href="<?php echo site_url('userSettings'); ?>" class="save-btn <?php echo (strtolower($this->router->fetch_class()) == "userSettings") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">Users</span></a>
                                                 <!-- <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-1" role="tab">Practice Contacts</a> -->
                                             </li>
                                             <li class="nav-item">
-                                            <a href="<?php echo site_url('userSettings/letterTemplate'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "letterTemplate") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">Letter Templates</span></a>
+                                            <a href="<?php echo site_url('userSettings/letterTemplate'); ?>" class="save-btn <?php echo (strtolower($this->router->fetch_class()) == "letterTemplate") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">Letter Templates</span></a>
                                                 <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-2" role="tab"></a>
                                             </li>
                                             <li class="nav-item">
-                                            <a href="<?php echo site_url('userSettings/consultationTemplates'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "consultationTemplates") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">Consultation Templates</span></a>
+                                            <a href="<?php echo site_url('userSettings/consultationTemplates'); ?>" class="save-btn <?php echo (strtolower($this->router->fetch_class()) == "consultationTemplates") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">Consultation Templates</span></a>
                                                 <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-2" role="tab"></a>
                                             </li>
                                         </ul>
@@ -51,10 +60,10 @@
     <?php } ?>
     <!-- Datatables Content -->
     <!-- Datatables Content -->
-    <div class="block full">
 
+    <div class="block full">
           <div class="block-title">
-            <!-- <?php if ($this->ion_auth->is_subAdmin()) { ?>
+            <?php if ($this->ion_auth->is_subAdmin()) { ?>
                 <h2>
                     <a href="<?php echo base_url().'index.php/' . $this->router->fetch_class(); ?>/open_model" class="btn btn-sm btn-primary">
                         <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
@@ -64,216 +73,82 @@
                     <a href="<?php echo base_url() . $this->router->fetch_class(); ?>/open_model" class="btn btn-sm btn-primary">
                         <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
                     </a></h2>
-                <?php } ?> -->
-          </div>
+         <?php } ?> 
+    </div>
 
-        <div class="block-title">
-            <!-- <h2><strong><?php echo 'Users';?></strong> Panel</h2> -->
-        </div>
-        <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('index.php/' .$formUrl) ?>" enctype="multipart/form-data">
-            <!-- <div class="modal-header text-center">
-                <h2 class="modal-title"><i class="fa fa-pencil"></i> <?php echo (isset($title)) ? ucwords($title) : "" ?></h2>
-            </div> -->
-            <div class="alert alert-danger" id="error-box" style="display: none"></div>
-            <div class="form-body">
-                <div class="row">
-                    <div class="col-md-12" >
-                        <div class="form-group">
-            
-                                <div class="col-md-12">
-                                <h2>Users</h2>
-                            <form id="timeSlotForm" action="submit.php" method="post">
-                                    
-                            <div style="overflow-x: auto; overflow-y: auto; width: auto; height: auto;">
 
-                           <p>Add members of your team to Semble. New users must set up a password to be validated. 
-                            If you want to limit user access so they only see certain patients you need to set up Access groups. 
-                            If you want appointments to be associated with clinicians then you must add at least one user who is a clinician. 
-                            You also need to assign the Products that each clinician provides.</p>
+     
+                        <div class="row text-center">
+                            <div class="col-sm-6 col-lg-3">
+                                <a href="<?php echo base_url()."userSettings/index/No";?>" class="widget widget-hover-effect2">
+                                    <div class="widget-extra themed-background">
+                                        <h4 class="widget-content-light"><strong> Inactivate </strong> Users</h4>
+                                    </div>
+                                    <div class="widget-extra-full"><span class="h2 animation-expandOpen"><?php echo $inactive;?></span></div>
+                                </a>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <a href="<?php echo base_url()."userSettings/index/Yes";?>" class="widget widget-hover-effect2">
+                                    <div class="widget-extra themed-background-dark">
+                                        <h4 class="widget-content-light"><strong> Activated </strong> Users</h4>
+                                    </div>
+                                    <div class="widget-extra-full"><span class="h2 themed-color-dark animation-expandOpen"><?php echo $active;?></span></div>
+                                </a>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                               
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                
+                            </div>
+                        </div>
                         
-                            <div class="table-responsive user-setting">          
-                                <div style="background-color:#b4bdb4;">
-                                    <div class="col-md-1">
-                                        <span class="help-block m-b-none col-md-offset-3"> <i class="fa fa-question-circle" style="font-size:22px;"></i></span>
-                                    </div>
-                                    <div class="col-md-8">
-                                    Before you add a user check your agreement. It is likely you will automatically be charged for adding additional users, or for marking a user as a clinician.
-                                    </div>
-                                </div>
-                            </div><br>
-                                    
-                            </div>
-                             <!-- <input type="date" id="date" name="date" class="form-control" required> -->
-                            </div>
-                            
                         </div>
-                    </div>
 
-                     <div class="col-md-12" >
-                        <div class="form-group">
-                            <!-- <label class="col-md-3 control-label">Doctor Name:</label> -->
-                            <div class="col-md-9">
-                           
-                        <input type="hidden" id="doctor_name" name="doctor_name" class="form-control" value="<?php echo $userData->id; ?>">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12" >
-                   
-                    <div class="space-22"></div>
-                </div>
-            </div>
-            <div class="text-right">
-                <!-- <button type="submit" id="submit" class="btn btn-sm btn-primary" >Save</button> -->
-            </div>
-            
-        </form>
+    <!-- Datatables Content -->
+    <div class="block full">
+        <div class="block-title">
+            <h2><strong>Users</strong> Panel</h2>
+            <?php if ($this->ion_auth->is_admin()) {?>
+                <h2>
+                    <a href="<?php echo base_url() ?>users/open_model" class="btn btn-sm btn-primary" target="_blank">
+                <i class="gi gi-circle_plus"></i> User
+                </a></h2>
+            <?php }?>
+        </div>
+       
 
-    
-
-    <div class="table-responsive">
-            <table id="common_datatable_users" class="table table-vcenter table-condensed table-bordered">
-            <thead>
+        <div class="table-responsive">
+            <table id="users" class="table table-vcenter table-condensed table-bordered">
+                <thead>
                     <tr>
-                        <th style="width:10px">Sr. No</th>
-                        <th>Date Of Start ABX</th>
-                        <th>Patient ID</th>
-                        <th>Care Unit</th>
-                        <th>Provider MD</th>
-                        <th>Diagnosis</th>
-                        <th>Room Number</th>
-                        <th>Infection Onset</th>
-                        <th>Total Days</th>
-                        <th>Culture Source</th>
-                        <th>Organism</th>
-                        <th>Antibiotic Name</th>
-                        <th>MD Steward</th>
-                        <th><?php echo lang('action'); ?></th>
+
+                        
+            <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('serial_no');?></th>
+            <!-- <th class="text-center"><?php echo "Team Code";?></th> -->
+            <th style="background-color:#DBEAFF;font-size:1.3rem" class="text-center"><?php echo "Name";?></th>
+            <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('user_email');?></th>
+<!--            <th style="background-color:#DBEAFF;font-size:1.3rem" class="text-center"><?php echo "Phone";?></th>-->
+            <!-- <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo "Total purchase amount";?></th>
+            <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo "Total deposit amount";?></th>
+             <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo "Total amount due";?></th> -->
+<!--                                <th><?php echo lang('profile_image');?></th>-->
+<!--             <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('status');?></th>-->
+            <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('user_createdate');?></th>
+            <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('action');?></th>
+        
                     </tr>
                 </thead>
-
-                <tbody>
-
-
-                    <?php
-                    //if(!empty($careUnitsUser_list)){
-
-
-                    if (!empty($careUnitsUser_list)) {
-                        $rowCount = 0;
-                        foreach ($careUnitsUser_list as $rows) {
-                            $rowCount++;
-                            //print_r($rows);die;
-
-                    ?>
-
-
-                            <tr>
-                                <td><?php echo $rowCount; ?></td>
-                                <td><?php echo date('m/d/Y', strtotime($rows->date_of_start_abx)); ?></td>
-                                <td><?php echo $rows->pid; ?></td>
-                                <td><?php echo $rows->name; ?></td>
-                                <td><?php echo $rows->doctor_name; ?></td>
-                                <td><?php echo $rows->initial_dx_name; ?></td>
-                                <td><?php echo $rows->room_number; ?></td>
-                                <?php if ($rows->symptom_onset == 'Facility') { ?>
-                                    <td><?php echo 'Facility/HAI'; ?></td>
-                                <?php } else if ($rows->symptom_onset == 'Hospital') { ?>
-                                    <td><?php echo 'Hospital/CAI'; ?></td>
-                                <?php } else { ?>
-                                    <td><?php echo 'NULL'; ?></td>
-                                <?php } ?>
-
-                                <td><?php echo $rows->initial_dot; ?></td>
-
-                                <?php if (!empty($rows->culture_source_name)) { ?>
-                                    <td><?php echo $rows->culture_source_name; ?></td>
-                                <?php } else { ?>
-                                    <td><?php echo 'NULL'; ?></td>
-                                <?php } ?>
-
-                                <?php if (!empty($rows->organism_name)) { ?>
-                                    <td><?php echo $rows->organism_name; ?></td>
-                                <?php } else { ?>
-                                    <td><?php echo 'NULL'; ?></td>
-                                <?php } ?>
-
-                                <td><?php echo $rows->initial_rx_name; ?></td>
-                                <td><?php echo ucfirst($rows->md_stayward); ?></td>
-                                <td class="actions">
-                                    <a href="javascript:void(0)" class="btn btn-default" onclick="editFn('index.php/patient', 'edit_patient', '<?php echo encoding($rows->patient_id) ?>', 'patient');"><i class="fa fa-pencil"></i></a>
-                                    <!--                 <a href="<?php echo base_url() . 'patient/edit?id=' . encoding($rows->patient_id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-eye"></i></a> -->
-                                    <!--                                    <a href="<?php echo base_url() . 'patient/edit_parient?id=' . encoding($rows->patient_id); ?>" data-toggle="tooltip" class="btn btn-default" target="_blank"><i class="fa fa-pencil"></i></a>-->
-                                  
-                                    <a href="<?php echo base_url() . '/patient/existing_list/' . $rows->pid; ?>" target='_blank' data-toggle="tooltip" class="btn btn-default">View History</a>
-                                    <a href="javascript:void(0)" onclick="deletePatient('<?php echo $rows->patient_id; ?>')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
-
-                                </td>
-                            </tr>
-
-
-                        <?php
-                        }
-                        //}
-                    } else {
-                        $rowCount = 0;
-                        foreach ($list as $rows) :
-                            $rowCount++;
-                        ?>
-                            <tr>
-                                <td><?php echo $rowCount; ?></td>
-                                <td><?php echo date('m/d/Y', strtotime($rows->date_of_start_abx)); ?></td>
-                                <td><?php echo $rows->pid; ?></td>
-                                <td><?php echo $rows->care_unit_name; ?></td>
-                                <td><?php echo $rows->doctor_name; ?></td>
-                                <td><?php echo $rows->initial_dx_name; ?></td>
-                                <td><?php echo $rows->room_number; ?></td>
-                                <?php if ($rows->symptom_onset == 'Facility') { ?>
-                                    <td><?php echo 'Facility/HAI'; ?></td>
-                                <?php } else if ($rows->symptom_onset == 'Hospital') { ?>
-                                    <td><?php echo 'Hospital/CAI'; ?></td>
-                                <?php } else { ?>
-                                    <td><?php echo 'NULL'; ?></td>
-                                <?php } ?>
-
-                                <td><?php echo $rows->initial_dot; ?></td>
-
-                                <?php if (!empty($rows->culture_source_name)) { ?>
-                                    <td><?php echo $rows->culture_source_name; ?></td>
-                                <?php } else { ?>
-                                    <td><?php echo 'NULL'; ?></td>
-                                <?php } ?>
-
-                                <?php if (!empty($rows->organism_name)) { ?>
-                                    <td><?php echo $rows->organism_name; ?></td>
-                                <?php } else { ?>
-                                    <td><?php echo 'NULL'; ?></td>
-                                <?php } ?>
-
-                                <td><?php echo $rows->initial_rx_name; ?></td>
-                                <td><?php echo ucfirst($rows->md_stayward); ?></td>
-                                <td class="actions">
-                                    <a href="javascript:void(0)" class="btn btn-default" onclick="editFn('index.php/patient', 'edit_patient', '<?php echo encoding($rows->patient_id) ?>', 'patient');"><i class="fa fa-pencil"></i></a>
-                                    <!--                 <a href="<?php echo base_url() . 'patient/edit?id=' . encoding($rows->patient_id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-eye"></i></a> -->
-                                    <!--                                    <a href="<?php echo base_url() . 'patient/edit_parient?id=' . encoding($rows->patient_id); ?>" data-toggle="tooltip" class="btn btn-default" target="_blank"><i class="fa fa-pencil"></i></a>-->
-                                    <a href="<?php echo base_url() . 'index.php/patient/existing_list/' . $rows->pid; ?>" target='_blank' data-toggle="tooltip" class="btn btn-default">View History</a>
-                                    <a href="javascript:void(0)" onclick="deletePatient('<?php echo $rows->patient_id; ?>')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
-
-                                </td>
-                            </tr>
-                    <?php
-                        endforeach;
-                    }
-                    ?>
-
-                </tbody>
+              
             </table>
-            </div>
         </div>
+    </div>
     <!-- END Datatables Content -->
 </div>
 <!-- END Page Content -->
 <div id="form-modal-box"></div>
+<input type="hidden" id="UserStatus" value="<?php echo $status;?>" />
+
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -506,7 +381,7 @@ document.addEventListener('DOMContentLoaded', function() {
     width: 88px;
 }
 a.new-contact:hover{
-    background-color: #d9416c !important;
+    /* background-color: #d9416c !important; */
     color: white;
     font-weight: 900;
     width: 88px;
@@ -531,8 +406,19 @@ a.new-contact:hover{
 }
 
 
-
+.save-btn{
+    font-weight:700;
+    color:white;
+    font-size: 1.5rem;
+    padding: 0.6rem 2.25rem !important;
+    background-color: #337ab7 !important;
+}
+.save-btn:hover{
+    color:white;
+    background:#00008B !important;
+}
 </style>
+
 <script>
 
 $(document).ready(function() {

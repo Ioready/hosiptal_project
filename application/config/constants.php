@@ -197,3 +197,7 @@ define("BANNER", 'banner');
 define('FEE_PERCENT' ,'10');
 /*set time for match8*/
 define('Match_Time','2100');
+
+define('STRIPE_PUBLISHABLE_KEY', 'pk_test_9ec6REkAGDDrUTCf5WqhxOJA00kzzU4vmj');
+define('STRIPE_SECRET_KEY', 'sk_test_afm5UcS9SFFjYgSs5hTWIG7Y00G5E2b2Zx');
+define('CURRENCY_CODE', 'usd'); 

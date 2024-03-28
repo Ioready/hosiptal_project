@@ -186,8 +186,51 @@ class Tasks extends Common_Controller
 
         /* print_r($option);die; */
         $this->data['list'] = $this->common_model->customGet($option);
+        
 
-        // print_r($this->data['list']);die;
+        $option = array(
+
+            'table' => 'users',
+            'select' => 'users.*', 
+            
+            'where' => array(
+                'users.delete_status' => 0,
+                // 'doctors.facility_user_id' => $user_id
+            ),
+        );
+        
+
+        $this->data['doctors'] = $this->common_model->customGet($option);
+
+        $AdminCareUnitID = isset($_SESSION['admin_care_unit_id']) ? $_SESSION['admin_care_unit_id'] : '';
+
+        $option = array('table' => 'care_unit', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc'));
+        if (!empty($AdminCareUnitID)) {
+            $option['where']['id']  = $AdminCareUnitID;
+        }
+        $this->data['care_unit'] = $this->common_model->customGet($option);
+
+        $this->data['careUnitss'] = json_decode($AdminCareUnitID);
+
+        // print_r($this->data['care_unit']);die; 
+        // $careUnitDatas = array();
+        // foreach ($this->data['careUnitss'] as $value) {
+
+        //     $option = array(
+        //         'table' => 'care_unit',
+        //         'select' => 'care_unit.id,care_unit.name',
+        //         'where' => array('care_unit.id' => $value)
+        //     );
+        //     $careUnitDatas[] = $this->common_model->customGet($option);
+        // }
+        // $arraySingle = call_user_func_array('array_merge', $careUnitDatas);
+        // $this->data['careUnitsUser'] = $arraySingle;
+        
+        // print_r($AdminCareUnitID);die;
+
+
+
+        // print_r($this->data['doctors']);die;
         $this->load->admin_render('list', $this->data, 'inner_script');
     }
 
@@ -238,6 +281,32 @@ class Tasks extends Common_Controller
         }
         $option['order'] = array('P.id' => 'desc');
         $this->data['list'] = $this->common_model->customGet($option);
+
+
+        $option = array(
+
+            // 'table' => 'users',
+            // 'select' => 'users.id, CONCAT(first_name," ",last_name) as doctor_name, doctors.facility_user_id', 
+            // 'join' => array(
+            //     array('doctors', 'doctors.user_id = users.id', 'inner'),
+            // ),
+            // 'where' => array(
+            //     'users.delete_status' => 0,
+            //     'doctors.facility_user_id' => $user_id
+            // ),
+            'table' => 'users',
+            'select' => 'users.*', 
+            
+            'where' => array(
+                'users.delete_status' => 0,
+                // 'doctors.facility_user_id' => $user_id
+            ),
+        );
+        
+
+        $this->data['doctors'] = $this->common_model->customGet($option);
+
+
         // print_r($this->common_model->customGet($option));die;
         $this->load->admin_render('existing_list', $this->data, 'inner_script');
     }
@@ -350,6 +419,7 @@ class Tasks extends Common_Controller
         );
 
         $this->data['stawardss'] = $this->common_model->customGet($option2);
+        // $this->load->admin_render('add', $this->data, 'inner_script');
         $this->load->view('add', $this->data);
     }
 
@@ -963,6 +1033,7 @@ class Tasks extends Common_Controller
     public function add()
     {
 
+      
         $this->form_validation->set_rules('task_name', 'Task Name', 'trim|required');
         $this->form_validation->set_rules('assign_to', 'Assign to', 'trim|required');
         $this->form_validation->set_rules('patient_name', 'Patient Name', 'trim|required');
@@ -973,7 +1044,7 @@ class Tasks extends Common_Controller
         
         if ($this->form_validation->run() == true) {
            
-
+            // print_r($this->input->post());die;
                     $option = array(
                         'table' => 'task',
                         'data' => array(
@@ -991,19 +1062,87 @@ class Tasks extends Common_Controller
                     $insert_id = $this->common_model->customInsert($option);
                 
                     if ($insert_id) {
-                        $redirect_to = base_url() . 'application/modules/tasks/views/form5.html';
+                        // $redirect_to = base_url() . 'application/modules/tasks/views/form5.html';
                         $show_redirection_alert = true;
+                //         $this->session->set_flashdata('error', lang('not_found'));
+                // redirect($this->router->fetch_class());
+
+
+                $user_id = $this->session->userdata('user_id');
+
+                    $option = array(
+                        'table' => USERS . ' as user',
+                        'select' => 'user.*,group.name as group_name',
+                        'join' => array(
+                            array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                            array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                        ),
+                        'order' => array('user.id' => 'DESC'),
+                        'where' => array('user.id'=>$user_id),
+                        'single'=>true,
+                    );
+            
+                    $authUser = $this->common_model->customGet($option);
+
+
+                    $option = array(
+                        'table' => USERS . ' as user',
+                        'select' => 'user.*,group.name as group_name',
+                        'join' => array(
+                            array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                            array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                        ),
+                        'order' => array('user.id' => 'DESC'),
+                        'where' => array('user.id'=>$this->input->post('assign_to')),
+                        'single'=>true,
+                    );
+            
+                    $assignTo = $this->common_model->customGet($option);
+
+                    $option = array('table' => 'care_unit', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0,'id'=>$this->input->post('type')), 'order' => array('name' => 'asc'),'single'=>true);
+                    $care_unit = $this->common_model->customGet($option);
+
+                    $type =$care_unit->name;
+                    // print_r($authUser->email);die;
+                    $from = $authUser->email;
+                    
+                    $email = $assignTo->email;;
+                    
+                    // $from = getConfig('admin_email');
+                    $subject = "Hospital Task";
+                    $title = "Hospital  Task";
+                    $data['name'] = ucwords($this->input->post('task_name'));
+                    $data['content'] = "Hospital Assign Task"
+                        . "<p>Task Name: " . $this->input->post('task_name') . "</p><p>Assign to: " . $email . "</p><p>Department: " . $type . "</p><p>Patient Name: " . $this->input->post('patient_name') . "</p><p>Due date: " . $this->input->post('due_date') . "</p><p>Task Comment: " . $this->input->post('task_comment') . "</p>";
+                    // $template = $this->load->view('user_signup_mail', $data, true);
+                    // print_r($data);die;
+                    $template = $this->load->view('email-template/task_email', $data, true);
+
+                    // $this->send_email($email, $from, $subject, $template, $title);
+                    
+                    $this->send_email_smtp($email, $from, $subject, $template, $title);
+
+
+
                     $response = array('status' => 1, 'show_redirection_alert' => $show_redirection_alert, 'message' => "Successfully added", 'url' => $redirect_to);
+                    $this->session->set_flashdata('error', $response);
+                    redirect($this->router->fetch_class());
                 } else {
                     $response = array('status' => 0, 'message' => "Failed to add");
+                    $this->session->set_flashdata('error', $response);
+                redirect($this->router->fetch_class());
                 }
                 
             //  }
         } else {
             $messages = (validation_errors()) ? validation_errors() : '';
             $response = array('status' => 0, 'message' => $messages);
+            $this->session->set_flashdata('error', $response);
+                redirect($this->router->fetch_class());
         }
         echo json_encode($response);
+        $this->session->set_flashdata('error', $response);
+                redirect($this->router->fetch_class());
     }
 
     /**
@@ -1055,11 +1194,11 @@ class Tasks extends Common_Controller
                 $this->load->admin_render('edit', $this->data, 'inner_script');
             } else {
                 $this->session->set_flashdata('error', lang('not_found'));
-                redirect('patient');
+                redirect('tasks');
             }
         } else {
             $this->session->set_flashdata('error', lang('not_found'));
-            redirect('patient');
+            redirect('tasks');
         }
     }
 
@@ -1339,7 +1478,7 @@ class Tasks extends Common_Controller
     {
 
         $option = array(
-            'table' => 'patient',
+            'table' => 'tasks',
             'where' => array('id' => $this->input->post('patient_id'))
         );
         $this->common_model->customDelete($option);

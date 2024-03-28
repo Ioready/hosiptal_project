@@ -34,12 +34,12 @@ class UserOrder extends Common_Controller {
 
         
          $option = array(
-            'table' => 'user_subscribers',
-            'select' => 'user_subscribers.*,U.first_name ,U.last_name,p.PlanName,p.Price,p.DurationInMonths',
+            'table' => 'orders',
+            'select' => 'orders.*,U.first_name ,U.last_name,p.PlanName,p.Price,p.DurationInMonths',
             'join' => array(
                            
-                            array('users AS U', 'U.id = user_subscribers.user_id', 'left'),
-                            array('admin_plans AS p', 'p.id = user_subscribers.plan_id', 'left')
+                            array('users AS U', 'U.id = orders.user_id', 'left'),
+                            array('admin_plans AS p', 'p.id = orders.plan_id', 'left')
                         ),
         );
 

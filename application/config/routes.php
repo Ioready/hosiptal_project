@@ -78,3 +78,14 @@ $route['default_controller'] = 'pwfpanel';
 //$route['fantasy-account/(:any)/(:any)'] = 'frontPrediction/myAccount/$1/$2';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+$route['make-stripe-payment'] = "StripePaymentController";
+// $route['handleStripePayment']['post'] = "StripePaymentController/handlePayment";
+$route['check']['post'] = "StripePaymentController/check";
+
+$route['make-stripe-payment'] = "StripePaymentController";
+    // $route['make-stripe-payment'] = 'StripePayment/index';
+    // $route['/stripe/callback'] = 'StripePayment/callback';
+    // $route['stripe/checkout/(:any)'] = 'StripePayment/checkout/$1';
+    // $route['stripe/success'] = 'StripePayment/success';
+//     $route['my-stripe'] = "StripeController";
+// $route['stripePost']['post'] = "StripeController/stripePost";

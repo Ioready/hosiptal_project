@@ -44,6 +44,21 @@
             $(targetPaneId).show();
         });
     });
+    function toggleHidden() {
+    var element = document.getElementById("elementToToggle");
+    element.classList.add("hidden");
+  }
+    function toggleDisplay() {
+    var element = document.getElementById("elementToToggle");
+    element.classList.remove("hidden");
+    document.getElementById("autoClickButton").click();
+    document.getElementById("autoClickButton").focus();
+  }
+  window.onload = function() {
+    document.getElementById("autoClickButton").click();
+    document.getElementById("autoClickButton").focus();
+  };
+    
 </script>
 
 
@@ -63,7 +78,7 @@
     <!-- END Datatables Header -->
 
     
-    <?php if ($this->ion_auth->is_subAdmin()) { ?>
+    <?php if ($this->ion_auth->is_subAdmin() || $this->ion_auth->is_subAdmin()) { ?>
         <div class="block full">
             <div class="row text-center">
 
@@ -80,26 +95,26 @@
                                     <div class="container" style="border-radius: 5px;">
                                     
                                         <ul class="nav nav-pills nav-fill nav-tabss" id="pills-tab" role="tablist" >
-                                            <li class="nav-item">
+                                            <li  onclick="toggleDisplay() " class="nav-item" >
                                                 <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-1" role="tab">Appointment</a>
                                             </li>
-                                            <li class="nav-item">
+                                            <li onclick="toggleHidden()" class="nav-item" id="myButton">
                                                 <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-2" role="tab">Availability</a>
                                             </li>
-                                            <li class="nav-item">
+                                            <li onclick="toggleHidden()" class="nav-item" id="myButton">
                                                 <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-3" role="tab">Out of office</a>
                                             </li>
                                             
                                         </ul>
                                     </div>
                                     <!-- <div class="tab-content" id="pills-tabContent"> -->
-                                        <div class="tab-pane-second fade show active" id="pills-1" role="tabpanel" aria-labelledby="pills-home-tab">
+                                        <div id="elementToToggle" class="tab-pane-second d-block " id="pills-1" role="tabpanel" aria-labelledby="pills-home-tab">
 
                                             <ul class="nav nav-pills-second nav-fill nav-tab-appointment active" id="pills-tab" role="tablist" >
                                               
 
-                                                <li class="nav-item-second">
-                                                     <a class="nav-link-second active" id="pills-home-tab" data-toggle="pill" data-target="#pills-5" href="#pills-5" role="tab">Clinic Appointment</a>
+                                                <li  class="nav-item-second active">
+                                                     <a id="autoClickButton"  class="nav-link-second active" id="pills-home-tab" data-toggle="pill" data-target="#pills-5" href="#pills-5" role="tab">Clinic Appointment</a>
                                                      <div class="underline"></div>
                                                 </li>
                                                 <li class="nav-item-second">
@@ -115,14 +130,14 @@
                                     <div class="tab-content" id="pills-tabContent" style="width: 1032px;">
                                       
                                         
-                                        <div class="tab-pane-second fade active" id="pills-5" role="tabpanel" aria-labelledby="pills-home-tab">
+                                        <div class="tab-pane-second  active" id="pills-5" role="tabpanel" aria-labelledby="pills-home-tab">
                                             <div class="block full">
                                                 <div class="block-title">
-                                                    <h2><strong>Clinic Appointment</strong> Panel</h2>
+                                                    <h2 class="form-head"><strong>Clinic Appointment</strong> Panel</h2>
                                                 </div>
                                                 <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('index.php/' .$formUrl) ?>" enctype="multipart/form-data">
                                                 <div class="modal-header text-center">
-                                                        <h2 class="modal-title"><i class="fa fa-pencil"></i> Clinic Appointment</h2>
+                                                        <h2 class="modal-title"><img src="<?php echo base_url(); ?>uploads/form.svg" style="height: 30px;width:30px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt=""> Clinic Appointment</h2>
                                                     </div>
                                                     <div class="alert alert-danger" id="error-box" style="display: none"></div>
                                                     <div class="form-body">
@@ -144,12 +159,21 @@
                                                                         <label class="col-md-3 control-label">Location</label>
                                                                         <div class="col-md-9">
                                                                             
-                                                                                <select id="country" name="location_appointment" class="form-control select2" size="1">
+                                                                                <!-- <select id="country" name="location_appointment" class="form-control select2" size="1">
                                                                                     <option value="0">Please select</option>
                                                                                     <?php foreach ($countries as $country) { ?>
                                                                                         <option value="<?php echo $country->id; ?>"><?php echo $country->name; ?></option>
                                                                                         <?php } ?>
-                                                                                </select>
+                                                                                </select> -->
+
+                                                                                <select id="country" name="location_appointment" class="form-control select2" size="1">
+                                                                                        <option value="0">Please select</option>
+                                                                                        <?php foreach ($userlocation as $country) { 
+                                                                                           
+                                                                                            ?>
+                                                                                            <option value="<?php echo $country->id; ?>"><?php echo $country->address1.' '.$country->city.' - '.$country->first_name.' '.$country->last_name ; ?></option>
+                                                                                            <?php } ?>
+                                                                                    </select>
                                                                         </div>
                                                                 </div>
                                                             </div>
@@ -246,7 +270,7 @@
                                                             </div>
 
                                                                 <div class="text-right">
-                                                                 <button type="submit" id="submit" class="btn btn-sm btn-primary" >Save</button>
+                                                                 <button type="submit" id="submit" class="save-btn btn btn-sm btn-primary" >Save</button>
                                                                 </div>
                                                         </div>
                                                     </div>
@@ -254,14 +278,14 @@
                                             </div>
                                         </div>
 
-                                        <div class="tab-pane-second fade" id="pills-6" role="tabpanel" aria-labelledby="pills-profile-tab">
+                                        <div class="tab-pane-second " id="pills-6" role="tabpanel" aria-labelledby="pills-profile-tab">
                                             <div class="block full"> 
                                                 <div class="block-title">
-                                                        <h2><strong>Theatre Appointment</strong> Panel</h2>
+                                                        <h2 class="form-head"><strong>Theatre Appointment</strong> Panel</h2>
                                                     </div>
                                                     <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('index.php/' .$formUrl) ?>" enctype="multipart/form-data">
                                                         <div class="modal-header text-center">
-                                                            <h2 class="modal-title"><i class="fa fa-pencil"></i> Theatre Appointment</h2>
+                                                            <h2 class="modal-title"><img src="<?php echo base_url(); ?>uploads/form.svg" style="height: 30px;width:30px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt=""> Theatre Appointment</h2>
                                                         </div>
                                                         <div class="alert alert-danger" id="error-box" style="display: none"></div>
                                                         <div class="form-body">
@@ -522,7 +546,7 @@
                                                                 </div>
 
                                                                     <div class="text-right">
-                                                                    <button type="submit" id="submit" class="btn btn-sm btn-primary" >Save</button>
+                                                                    <button type="submit" id="submit" class="save-btn btn btn-sm btn-primary" >Save</button>
                                                                     </div>
                                                             </div>
                                                         </div>
@@ -531,14 +555,14 @@
                                             </div>
                                         </div>
                                    
-                                        <div class="tab-pane-second fade show" id="pills-2" role="tabpanel" aria-labelledby="pills-profile-tab">
+                                        <div class="tab-pane-second" id="pills-2" role="tabpanel" aria-labelledby="pills-profile-tab">
                                             <div class="block full" style="width: 93%;"> 
                                                     <div class="block-title">
-                                                        <h2><strong> Availability</strong> Panel</h2>
+                                                        <h2 class="form-head"><strong> Availability</strong> Panel</h2>
                                                     </div>
                                                     <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('index.php/' .$formUrl) ?>" enctype="multipart/form-data">
                                                         <div class="modal-header text-center">
-                                                            <h2 class="modal-title"><i class="fa fa-pencil"></i> Availability</h2>
+                                                            <h2 class="modal-title"><img src="<?php echo base_url(); ?>uploads/form.svg" style="height: 30px;width:30px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt=""> Availability</h2>
                                                         </div>
                                                         <div class="alert alert-danger" id="error-box" style="display: none"></div>
                                                         <div class="form-body">
@@ -618,7 +642,7 @@
                                                                 </div>
 
                                                                     <div class="text-right">
-                                                                    <button type="submit" id="submit" class="btn btn-sm btn-primary" >Save</button>
+                                                                    <button type="submit" id="submit" class="save-btn btn btn-sm btn-primary" >Save</button>
                                                                     </div>
                                                             </div>
                                                         </div>
@@ -627,14 +651,14 @@
                                             </div>
                                         </div>
                                        
-                                        <div class="tab-pane-second fade show" id="pills-3" role="tabpanel" aria-labelledby="pills-profile-tab">
+                                        <div class="tab-pane-second " id="pills-3" role="tabpanel" aria-labelledby="pills-profile-tab">
                                             <div class="block full" style="width: 93%;"> 
                                                     <div class="block-title">
-                                                        <h2><strong> Out Of Office</strong> Panel</h2>
+                                                        <h2 class="form-head"><strong> Out Of Office</strong> Panel</h2>
                                                     </div>
                                                     <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('index.php/' .$formUrl) ?>" enctype="multipart/form-data">
                                                         <div class="modal-header text-center">
-                                                            <h2 class="modal-title"><i class="fa fa-pencil"></i> Out Of Office</h2>
+                                                            <h2 class="modal-title"><img src="<?php echo base_url(); ?>uploads/form.svg" style="height: 30px;width:30px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt=""> Out Of Office</h2>
                                                         </div>
                                                         <div class="alert alert-danger" id="error-box" style="display: none"></div>
                                                         <div class="form-body">
@@ -722,7 +746,7 @@
                                                                 </div>
 
                                                                     <div class="text-right">
-                                                                    <button type="submit" id="submit" class="btn btn-sm btn-primary" >Save</button>
+                                                                    <button type="submit" id="submit" class="save-btn btn btn-sm btn-primary" >Save</button>
                                                                     </div>
                                                             </div>
                                                         </div>
@@ -901,7 +925,34 @@ document.getElementById('end_time').value = currentHours + ':' + currentMinutes;
     border-radius: 0; /* Optional: Reset border radius */
     box-shadow: none; /* Optional: Remove box shadow */
 }
-
+/* .tab-pane-second{
+    display:block !important;
+}   */
+.fade:not(.show){
+    display:none;
+}
+.hidden{
+    display:none !important;
+}
+.form-head{
+    font-size:2rem !important;
+    font-weight:700 !important;
+}
+.modal-header{
+    justify-content:center !important;
+}
+.block{
+    box-shadow:0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+.save-btn{
+    font-weight:700;
+    font-size: 1.5rem;
+    padding: 0.6rem 2.25rem;
+}
+.save-btn:hover{
+    /* background-color:#00008B !important; */
+    background:#00008B !important;
+}
 
 </style>
 <script>

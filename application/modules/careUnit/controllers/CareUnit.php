@@ -32,7 +32,8 @@ class CareUnit extends Common_Controller {
         //$AdminCareUnitID = isset($_SESSION['admin_care_unit_id']) ? $_SESSION['admin_care_unit_id'] : '';
         $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
                 // $option = array('table' => 'care_unit', 'where' => array('delete_status' => 0, 'is_active' => 1), 'order' => array('name' => 'ASC'));
-                $Sql = "SELECT vendor_sale_users.care_unit_id FROM vendor_sale_users WHERE vendor_sale_users.id = '$CareUnitID'"; 
+                // $Sql = "SELECT vendor_sale_users.care_unit_id FROM vendor_sale_users WHERE vendor_sale_users.id = '$CareUnitID'"; 
+                $Sql = "SELECT vendor_sale_users.care_unit_id FROM vendor_sale_users"; 
                
                 $careUnit_list_id = $this->common_model->customQuery($Sql);
                
@@ -47,13 +48,15 @@ class CareUnit extends Common_Controller {
               //  print_r($y);die;
                 $careunit_facility_counts =[];
                 foreach($careUnit_lists as $uids){
-                $Sql = "SELECT vendor_sale_care_unit.id,vendor_sale_care_unit.care_unit_code,vendor_sale_care_unit.name,vendor_sale_care_unit.email FROM vendor_sale_care_unit WHERE vendor_sale_care_unit.id ='$uids'"; 
+                // $Sql = "SELECT vendor_sale_care_unit.id,vendor_sale_care_unit.care_unit_code,vendor_sale_care_unit.name,vendor_sale_care_unit.email FROM vendor_sale_care_unit WHERE vendor_sale_care_unit.id ='$uids'"; 
+                $Sql = "SELECT vendor_sale_care_unit.id,vendor_sale_care_unit.care_unit_code,vendor_sale_care_unit.name,vendor_sale_care_unit.email FROM vendor_sale_care_unit"; 
                 $careunit_facility_counts[] = $this->common_model->customQuery($Sql);
                    }
                 $arraySingle = call_user_func_array('array_merge', $careunit_facility_counts);
                 $this->data['careUnit'] = $arraySingle;
 
-                $Sql = "SELECT vendor_sale_care_unit.facility_user_id FROM vendor_sale_care_unit WHERE vendor_sale_care_unit.facility_user_id ='$CareUnitID'"; 
+                // $Sql = "SELECT vendor_sale_care_unit.facility_user_id FROM vendor_sale_care_unit WHERE vendor_sale_care_unit.facility_user_id ='$CareUnitID'"; 
+                $Sql = "SELECT vendor_sale_care_unit.facility_user_id FROM vendor_sale_care_unit"; 
                 $careunit_facility_user_id = $this->common_model->customQuery($Sql);
 
                 $this->data['careUnit_user_id'] = $careunit_facility_user_id;
@@ -129,19 +132,29 @@ class CareUnit extends Common_Controller {
         $this->form_validation->set_rules('email', "Email", 'valid_email|trim');
         if ($this->form_validation->run() == true) {
             $care_unit_code = $this->input->post('care_unit_code');
+            // $option = array(
+            //     'table' => 'care_unit',
+            //     'where' => array(
+            //         'care_unit_code' => $care_unit_code,
+            //     )
+            // );
+
             $option = array(
                 'table' => 'care_unit',
-                'where' => array(
+                'where' => array('facility_user_id' =>$CareUnitID,
                     'care_unit_code' => $care_unit_code,
+                
                 )
             );
+
             $IsCareUnitUniqueID = $this->common_model->customGet($option);
-            // print_r($IsCareUnitUniqueID);die;
+            
             if (!empty($IsCareUnitUniqueID)) {
                 $response = array('status' => 0, 'message' => "Care Unit id already exists");
                 echo json_encode($response);
                 exit;
             }
+           
             $this->filedata['status'] = 1;
             $image = "";
             if (!empty($_FILES['image']['name'])) {
@@ -155,7 +168,7 @@ class CareUnit extends Common_Controller {
             } else {
                 
               if($CareUnitID != 1){
-
+                
               
                 $options_data = array(
                     'name' => $this->input->post('name'),
@@ -166,6 +179,7 @@ class CareUnit extends Common_Controller {
                     'create_date' => datetime()
                 );
             }else{
+               
                 $options_data = array(
                     'name' => $this->input->post('name'),
                     'care_unit_code' => strtoupper($this->input->post('care_unit_code')),

@@ -12,119 +12,135 @@
     </ul>
     <!-- END Datatables Header -->
     <!-- Datatables Content -->
-    <div class="block full">
+    <div style="border-radius:12px" class="block full">
     <div class="block-title">
             <?php if ($this->ion_auth->is_subAdmin()) { ?>
-                <h2>
+                <h2 class="save-btn">
                     <a href="<?php echo base_url().'index.php/' . $this->router->fetch_class(); ?>/open_model" class="btn btn-sm btn-primary">
                         <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
                     </a></h2>
             <?php }else if($this->ion_auth->is_facilityManager()){ ?>
-                    <h2>
+                    <!-- <h2>
                     <a href="<?php echo base_url() . $this->router->fetch_class(); ?>/open_model" class="btn btn-sm btn-primary">
+                        <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
+                    </a></h2> -->
+                    <h2 class="save-btn">
+                    <a href="<?php echo base_url().'index.php/' . $this->router->fetch_class(); ?>/open_model" class="btn btn-sm btn-primary">
                         <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
                     </a></h2>
                 <?php } ?>
         </div>
 
 
-        <div class="block-title">
-            <h2><strong><?php echo $title;?></strong> Panel</h2>
+        <div class="block-title d-flex justify-content-center">
+            <h2 style="font-size: 2rem !important;
+    font-weight: 700 !important;" ><strong><?php echo $title;?></strong> Panel</h2>
         </div>
+
         <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('index.php/' .$formUrl) ?>" enctype="multipart/form-data">
-            <div class="modal-header text-center">
-                <h2 class="modal-title"><i class="fa fa-pencil"></i> <?php echo (isset($title)) ? ucwords($title) : "" ?></h2>
+            <div style="justify-content:center" class="modal-header text-center">
+               
+                <div class="form-group save-btn">
+                <button class="btn btn-sm btn-primary" style="background:#337ab7" onclick="filterByPreDate()">Previous Date</button>
+                <button class="btn btn-sm btn-primary" style="background:#337ab7" onclick="filterByToday()">Today's Appointments</button>
+                <button class="btn btn-sm btn-primary" style="background:#337ab7" onclick="filterByNextDate()">Next Date Appointments</button>
+
+            </div>
+
             </div>
             <div class="alert alert-danger" id="error-box" style="display: none"></div>
             <div class="form-body">
                 <div class="row">
                     <div class="col-md-12" >
                         <div class="form-group">
-          
-                                <div class="col-md-12">
-                                <!-- <h2>Weekly Timetable</h2> -->
-                            <form id="timeSlotForm" action="submit.php" method="post">
+                        <div class="col-md-12">
+                <div style="overflow-x: auto; overflow-y: auto; width: auto; height: 500px;">
+                  <table class="table table-bordered">
+                      <thead>
+                          <tr>
+                              <th>Time</th>
+                              <?php foreach($care_unit as $department) { ?>
+                                  <th class="day-cell"><?php echo $department->name; ?></th>
+                              <?php } ?>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <?php
+                          $start_time = strtotime('07:00');
+                          $end_time = strtotime('24:00');
+                          $interval = 30 * 60; // 30 minutes interval
+                          $index = 1;
+
+                          for ($time = $start_time; $time <= $end_time; $time += $interval) {
+                              $formatted_time = date('H:i', $time); // Format time in 24-hour format
+                          ?>
+                              <tr>
+                                  <!-- <td><?php echo $index; ?></td> -->
+                                  <td class="time-cell"><?php echo $formatted_time; ?></td>
+                                  <?php foreach($care_unit as $department) { 
+
+                                      $appointment_found = false;
+                                      foreach($clinic_appointment as $appointment) {
+
+                                          $appointmentTime = date('H:i', strtotime($appointment->start_date_appointment));
+                                          $end_date_appointment = date('H:i', strtotime($appointment->end_date_appointment));
+                                          $comment_appointment = $appointment->comment_appointment;
+                                          $address1 = $appointment->address1;
+                                          $city = $appointment->city;
+                                          $first_name = $appointment->first_name;
+                                          $last_name = $appointment->last_name;
+                                          
+                                          // $appointment_date = date('Y-m-d', strtotime($appointment->created_at));
+
+                                          $appointment_date = date('Y-m-d', strtotime($appointment->start_date_appointment));
+
+                                        
+                                          // if ($formatted_time == $appointmentTime && $department->id == $appointment->clinician_appointment) {
+                                          //     $appointment_found = true;
+                                          //     break;
+                                          // }
+                                          if ($formatted_time >= $appointmentTime && $formatted_time <= $end_date_appointment && $department->id == $appointment->clinician_appointment) {
+                                            $appointment_found = true;
+                                            break;
+                                        }
+                                      } 
                                     
-                            <div style="overflow-x: auto; overflow-y: auto; width: auto; height: 500px;">
-                            <table class="table table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>Time</th>
-                                    <?php foreach($care_unit as $department) { ?>
-                                    <th class="day-cell"><?php echo $department->name; ?></th>
-                                    <?php } ?>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <?php
-                                // $time =1;
-                                $start_time = strtotime('07:00');
-                                $end_time = strtotime('20:00');
-                                $interval = 30 * 60; // 30 minutes interval
-                                $index = 1;
-                                
-                                for ($time = $start_time; $time <= $end_time; $time += $interval) {
-                                    $formatted_time = date('H:i', $time); // Format time in 24-hour format
-                                ?>
-                                    <tr>
-                                    <td><?php echo $index; ?></td>
-                                    <td class="time-cell"><?php echo $formatted_time; ?></td>
-                                    <?php foreach($care_unit as $department) { ?>
-                                        <td class="day-cell" data-time="<?php echo $formatted_time; ?>" data-day="<?php echo $department->id; ?>">
-                                        <?php echo $formatted_time; ?>
-                                        </td>
-                                    <?php } ?>
-                                    </tr>
-                                <?php $index++; } ?>
-                                </tbody>
-                            </table>
-                            </div>
+                                      if ($formatted_time >= $appointmentTime && $formatted_time <= $end_date_appointment && $department->id == $appointment->clinician_appointment) {
+                                      ?>
+                            <td class="day-cell appointment-row" data-date="<?php echo $appointment_date; ?>" data-day="<?php echo $department->id; ?>">
+                                  <?php 
+                                      $current_date = date('Y-m-d');
+                                      if ($appointment_date == $current_date) {
+                                          
+                                          echo '<span style="background-color: green; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong>'.'<br>' .$address1.'<br>'.$city.'<br>'.$comment_appointment.'<br>'.$appointmentTime.' - '.$end_date_appointment.'</span>';
+                                      } 
+                                      elseif ($appointment_date == date('Y-m-d', strtotime('+1 day'))) {
+                                          
+                                          echo '<span style="background-color: blue; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong>'.'<br>'.$address1.'<br>'.$city.'<br>'.$comment_appointment.'<br>'.$appointmentTime.' - '.$end_date_appointment.'</span>';
+                                      } elseif ($appointment_date == date('Y-m-d', strtotime('-1 day'))) {
+                                          
+                                          echo '<span style="background-color: red; color: white;">'.$first_name.' '.$last_name.'<br>'.$address1.'<br>'.$city.'<br>'.$comment_appointment.'<br>'.$appointmentTime.' - '.$end_date_appointment.'</span>';
+                                      }
+                                  ?>
+                              </td>
 
-  <!-- <table class="table table-bordered" style="overflow-x: auto; overflow-y: auto; width: 300px; height: 300px;">
-    <thead>
-      <tr>
-        <th>Time</th>
 
-        
 
-        <?php  $countDepartent = count($care_unit);
-        
-        foreach($care_unit as $key => $department){ ?>
+                                      <?php }else{ ?>
 
-        <th class="day-cell"><?php echo $department->name;?></th>
+                                      <td class="day-cell" data-time="<?php //echo $formatted_time; ?>" data-day="<?php echo $department->id; ?>">
+                                      <?php 
+                                      // echo $formatted_time; 
+                                          ?>
+                                          
+                                      </td>
 
-        <?php  }?>
-
-        
-      </tr>
-    </thead>
-    <tbody>
-      <?php
-        $start_time = strtotime('07:00');
-        $end_time = strtotime('20:00');
-        $interval = 30 * 60; // 30 minutes interval
-        $index = 1;
-        
-        for ($time = $start_time; $time <= $end_time; $time += $interval) {
-          $formatted_time = date('H:i', $time); // Format time in 24-hour format
-      ?>
-          <tr>
-            <td><?php echo $index; ?></td>
-            <td class="time-cell"><?php echo $formatted_time; ?></td>
-            <?php for ($day = 1; $day <= $countDepartent; $day++) { ?>
-              <td class="day-cell" data-time="<?php echo $formatted_time; ?>" data-day="<?php echo $day; ?>">
-                <?php echo $formatted_time; ?>
-              </td>
-            <?php } ?>
-          </tr>
-      <?php  $index++; } ?>
-    </tbody>
-  </table> -->
-  <!-- Hidden input fields to store selected time and day -->
-  
-  <!-- Submit button -->
-  <!-- <button type="submit">Submit</button>
-</form> -->
+                                  <?php } } ?>
+                              </tr>
+                          <?php $index++; } ?>
+                      </tbody>
+                  </table>
+              </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -143,39 +159,6 @@ $(document).ready(function(){
 });
 </script>
 
-    
-
-<!-- <table class="table table-bordered">
-    <thead>
-      <tr>
-      <th>Days</th>
-        <th colspan="10">Time</th>
-        
-      </tr>
-    </thead>
-    <tbody >
-    <?php
-     
-      $start_time = strtotime('07:00');
-      $end_time = strtotime('20:00');
-      $interval = 30 * 60;
-      $days = array("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday");
-    ?>
-        <tr style="overflow-x:auto;">
-        <?php foreach ($days as $day) {  ?>
-            <td> 
-            <?php echo $day; ?>
-            </td>
-            <?php
-             for ($time = $start_time; $time <= $end_time; $time += $interval) {
-                $formatted_time = date('H:i', $time);
-            ?>           
-              <td ><?php echo $formatted_time; ?></td>
-          <?php } ?>
-        </tr>
-    <?php } ?>
-  </tbody>
-</table> -->
 
 <script>
 $(document).ready(function(){
@@ -281,29 +264,39 @@ thead th,
 tbody th {
   background-color: #f8f8f8;
 }
+.save-btn a{
+    font-weight:700 !important;
+    font-size: 1.2rem !important;
+    padding: 0.6rem 2.25rem !important;
+    background:#337ab7 !important;
+}
+.save-btn a:hover{
+    background-color:#00008B !important;
+    /* background:#00008B !important; */
+}
 </style>
 
 
-                                <script>
-                                document.addEventListener('DOMContentLoaded', function() {
-                                    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-                                    checkboxes.forEach(function(checkbox) {
-                                    checkbox.addEventListener('click', function() {
-                                        checkboxes.forEach(function(cb) {
-                                        cb.parentNode.parentNode.classList.remove('selected');
-                                        });
-                                        if (this.checked) {
-                                        this.parentNode.parentNode.classList.add('selected');
-                                        const selectedTime = this.getAttribute('data-time');
-                                        const selectedDay = this.getAttribute('data-day');
-                                        console.log(`Selected time: ${selectedTime}, Selected day: ${selectedDay}`);
-                                        }
-                                    });
-                                    });
-                                });
-                                </script>
+                      <script>
+                      document.addEventListener('DOMContentLoaded', function() {
+                          const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+                          checkboxes.forEach(function(checkbox) {
+                          checkbox.addEventListener('click', function() {
+                              checkboxes.forEach(function(cb) {
+                              cb.parentNode.parentNode.classList.remove('selected');
+                              });
+                              if (this.checked) {
+                              this.parentNode.parentNode.classList.add('selected');
+                              const selectedTime = this.getAttribute('data-time');
+                              const selectedDay = this.getAttribute('data-day');
+                              console.log(`Selected time: ${selectedTime}, Selected day: ${selectedDay}`);
+                              }
+                          });
+                          });
+                      });
+                      </script>
 
-                             <!-- <input type="date" id="date" name="date" class="form-control" required> -->
+                             
                             </div>
                             
                         </div>
@@ -348,3 +341,28 @@ tbody th {
         allowClear: true
     });*/
 </script>
+
+<script>
+    function filterByToday() {
+        $('.appointment-row').hide(); // Hide all appointment rows
+        var today = "<?php echo date('Y-m-d'); ?>";
+        $('.appointment-row[data-date="' + today + '"]').show(); // Show appointment rows for today
+    }
+
+    function filterByNextDate() {
+        $('.appointment-row').hide(); // Hide all appointment rows
+        var nextDate = "<?php echo date('Y-m-d', strtotime('+1 day')); ?>";
+        $('.appointment-row[data-date="' + nextDate + '"]').show(); // Show appointment rows for next date
+    }
+
+    function filterByPreDate() {
+        // $('.appointment-row').show(); // Show all appointment rows
+
+        $('.appointment-row').hide(); // Hide all appointment rows
+        var preDate = "<?php echo date('Y-m-d', strtotime('-1 day')); ?>";
+        // alert(preDate);
+        $('.appointment-row[data-date="' + preDate + '"]').show(); // Show appointment rows for next date
+    }
+</script>
+
+
