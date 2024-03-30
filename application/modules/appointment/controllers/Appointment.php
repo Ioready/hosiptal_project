@@ -20,6 +20,8 @@ class Appointment extends Common_Controller {
      * @return array
      */
     public function index($vendor_profile_activate = "No") {
+
+       
         $this->data['parent'] = $this->title;
        
         $this->data['title'] = $this->title;
@@ -79,16 +81,105 @@ class Appointment extends Common_Controller {
         );
         $this->data['care_unit'] = $this->common_model->customGet($option);
 
-        $option = array(
-            'table' => 'clinic_appointment',
-            'select' => 'clinic_appointment.*, U.first_name, U.last_name, UP.address1,UP.city,UP.state',
-            'join' => array(
-                array('users as U', 'clinic_appointment.location_appointment=U.id', 'left'),
-                // array('users as UP', 'clinic_appointment.doctor_name=UP.id', 'left')),
-                array('user_profile as UP', 'UP.user_id=clinic_appointment.location_appointment', 'left')),
-            'where' => array('status' => 0),
-        );
-        $this->data['clinic_appointment'] = $this->common_model->customGet($option);
+
+        if($this->input->post('appointment_id') == 'clinic_appointment'){
+           
+            $option = array(
+                'table' => 'clinic_appointment',
+                'select' => 'clinic_appointment.*, U.first_name, U.last_name, UP.address1,UP.city,UP.state',
+                'join' => array(
+                    array('users as U', 'clinic_appointment.location_appointment=U.id', 'left'),
+                    array('user_profile as UP', 'UP.user_id=clinic_appointment.location_appointment', 'left')),
+                'where' => array('status' => 0),
+            );
+
+            $this->data['clinic_appointment'] = $this->common_model->customGet($option);
+            
+            }else if($this->input->post('appointment_id') == 'theatre_appointment'){
+
+                $option = array(
+                    'table' => 'theatre_appointment',
+                    'select' => 'theatre_appointment.*, U.first_name, U.last_name, UP.address1,UP.city,UP.state',
+                    'join' => array(
+                        array('users as U', 'theatre_appointment.theatre_location=U.id', 'left'),
+                        array('user_profile as UP', 'UP.user_id=theatre_appointment.theatre_location', 'left')),
+                    'where' => array('status' => 0),
+                );
+                $this->data['clinic_appointment'] = $this->common_model->customGet($option);
+               
+            }else if($this->input->post('appointment_id') == 'availability'){
+    
+                $option = array(
+                    'table' => 'doctor_availability',
+                    'select' => 'doctor_availability.*, U.first_name, U.last_name, UP.address1,UP.city,UP.state',
+                    'join' => array(
+                        array('users as U', 'doctor_availability.availability_location=U.id', 'left'),
+                        array('user_profile as UP', 'UP.user_id=doctor_availability.availability_location', 'left')),
+                    'where' => array('status' => 0),
+                );
+    
+                $this->data['clinic_appointment'] = $this->common_model->customGet($option);
+            
+            }else if($this->input->post('appointment_id') == 'out_of_office'){
+                $option = array(
+                    'table' => 'out_of_office_doctor',
+                    'select' => 'out_of_office_doctor.*, U.first_name, U.last_name, UP.address1,UP.city,UP.state',
+                    'join' => array(
+                        array('users as U', 'out_of_office_doctor.out_of_office_location=U.id', 'left'),
+                        array('user_profile as UP', 'UP.user_id=out_of_office_doctor.out_of_office_location', 'left')),
+                    'where' => array('status' => 0),
+                );
+        
+                $this->data['clinic_appointment'] = $this->common_model->customGet($option);
+                }else{
+
+                    $option = array(
+                        'table' => 'clinic_appointment',
+                        'select' => 'clinic_appointment.*, U.first_name, U.last_name, UP.address1,UP.city,UP.state',
+                        'join' => array(
+                            array('users as U', 'clinic_appointment.location_appointment=U.id', 'left'),
+                            array('user_profile as UP', 'UP.user_id=clinic_appointment.location_appointment', 'left')),
+                        'where' => array('status' => 0),
+                    );
+
+                    $this->data['clinic_appointment'] = $this->common_model->customGet($option);
+                }
+
+
+//                 $sql = '
+//                 SELECT *
+//                 FROM (
+//                     SELECT doctor_name FROM `vendor_sale_clinic_appointment`
+//                     UNION
+//                     SELECT doctor_name FROM `vendor_sale_out_of_office_doctor`
+//                 ) AS combined_data';
+//                 $data = $this->db->query($sql);
+			
+// 			if($data->num_rows() > 0){
+// 				return $data->result();
+// 			}
+// 			return false;
+// print_r($data);die;
+
+                $option = array(
+                    'table' => 'clinic_appointment',
+                    'select' => 'clinic_appointment.*,od.*,da.*,ta.*, U.first_name, U.last_name, UP.address1,UP.city,UP.state',
+                    'join' => array(
+                        array('users as U', 'clinic_appointment.location_appointment=U.id', 'left'),
+                        array('user_profile as UP', 'UP.user_id=clinic_appointment.doctor_name', 'left'),
+                        array('out_of_office_doctor as od', 'od.doctor_name=clinic_appointment.doctor_name', 'left'),
+                        array('doctor_availability as da', 'da.doctor_name=clinic_appointment.doctor_name', 'left'),
+                        array('theatre_appointment as ta', 'ta.doctor_name=clinic_appointment.doctor_name', 'left')),
+
+                    'where' => array('clinic_appointment.status' => 0),
+                );
+
+                $this->data['clinic_appointment'] = $this->common_model->customGet($option);
+
+
+
+
+        // $this->data['clinic_appointment'] = $this->common_model->customGet($option);
     // print_r($this->data['clinic_appointment'] );die;
         
         // $this->load->admin_render('list', $this->data, 'inner_script');
@@ -143,7 +234,7 @@ class Appointment extends Common_Controller {
         );
         $this->data['userlocation'] = $this->common_model->customGet($option);
 
-        // print_r($this->data['userData']);die;
+        // print_r($this->data['userlocation']);die;
         $option = array('table' => 'countries',
         'select' => '*'
     );
