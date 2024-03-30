@@ -37,10 +37,29 @@
     font-weight: 700 !important;" ><strong><?php echo $title;?></strong> Panel</h2>
         </div>
 
-        <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('index.php/' .$formUrl) ?>" enctype="multipart/form-data">
-            <div style="justify-content:center" class="modal-header text-center">
-               
+        <!-- <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('index.php/' .$formUrl) ?>" enctype="multipart/form-data"> -->
+            
+        <div style=" display:flex;" class="modal-header text-center">
+         
+            <form action="<?php echo site_url('appointment'); ?>" name="patientForm" method="get">
+            <div class="col-sm-6 col-lg-8 col-md-8" style="margin-right: 10px;">
+            <select id="appointmentType" name="appointment_id" class="form-control" onchange="fetchData()">                 
+
+                      <option value="clinic_appointment">Clinic Appointment</option>
+                      <option value="theatre_appointment">Theatre Appointment</option>
+                      <option value="availability">Availability</option>
+                      <option value="out_of_office">Out Of Office</option>
+                  </select>
+              </div>
+              <div class="col-sm-3 col-lg-3 col-md-3">
+                <button type="submit" class="btn btn-primary">Search</button>
+              </div>
+            </form>
+            
                 <div class="form-group save-btn">
+
+                <div class="form-group save-btn" id="dateDisplay"></div>
+
                 <button class="btn btn-sm btn-primary" style="background:#337ab7" onclick="filterByPreDate()">Previous Date</button>
                 <button class="btn btn-sm btn-primary" style="background:#337ab7" onclick="filterByToday()">Today's Appointments</button>
                 <button class="btn btn-sm btn-primary" style="background:#337ab7" onclick="filterByNextDate()">Next Date Appointments</button>
@@ -48,14 +67,17 @@
             </div>
 
             </div>
-            <div class="alert alert-danger" id="error-box" style="display: none"></div>
+            <!-- <div class="alert alert-danger" id="error-box" style="display: none"></div> -->
             <div class="form-body">
+
+          
                 <div class="row">
                     <div class="col-md-12" >
                         <div class="form-group">
                         <div class="col-md-12">
                 <div style="overflow-x: auto; overflow-y: auto; width: auto; height: 500px;">
-                  <table class="table table-bordered">
+
+                  <table class="table table-bordered" id="datatable">
                       <thead>
                           <tr>
                               <th>Time</th>
@@ -75,13 +97,13 @@
                               $formatted_time = date('H:i', $time); // Format time in 24-hour format
                           ?>
                               <tr>
-                                  <!-- <td><?php echo $index; ?></td> -->
+                                 
                                   <td class="time-cell"><?php echo $formatted_time; ?></td>
                                   <?php foreach($care_unit as $department) { 
 
                                       $appointment_found = false;
                                       foreach($clinic_appointment as $appointment) {
-
+                                        
                                           $appointmentTime = date('H:i', strtotime($appointment->start_date_appointment));
                                           $end_date_appointment = date('H:i', strtotime($appointment->end_date_appointment));
                                           $comment_appointment = $appointment->comment_appointment;
@@ -89,94 +111,307 @@
                                           $city = $appointment->city;
                                           $first_name = $appointment->first_name;
                                           $last_name = $appointment->last_name;
-                                          
-                                          // $appointment_date = date('Y-m-d', strtotime($appointment->created_at));
+
+
+                                          $out_start_time_at = date('H:i', strtotime($appointment->out_start_time_at));
+                                          $out_end_time_at = date('H:i', strtotime($appointment->out_end_time_at));
+                                          $out_of_office_comment = $appointment->out_of_office_comment;
+
+                                          $start_date_availability = date('H:i', strtotime($appointment->start_date_availability));
+                                          $end_time_date_availability = date('H:i', strtotime($appointment->end_time_date_availability));
+                                          $out_of_office_comment = $appointment->out_of_office_comment;
+
+
 
                                           $appointment_date = date('Y-m-d', strtotime($appointment->start_date_appointment));
 
+                                          $out_start_timeAt = date('Y-m-d', strtotime($appointment->out_start_time_at));
+
+                                          $start_dateAvailability = date('Y-m-d', strtotime($appointment->start_date_availability));
+
                                         
-                                          // if ($formatted_time == $appointmentTime && $department->id == $appointment->clinician_appointment) {
-                                          //     $appointment_found = true;
-                                          //     break;
-                                          // }
                                           if ($formatted_time >= $appointmentTime && $formatted_time <= $end_date_appointment && $department->id == $appointment->clinician_appointment) {
                                             $appointment_found = true;
                                             break;
                                         }
+
+
+                                        if ($formatted_time >= $out_start_time_at && $formatted_time <= $out_end_time_at && $department->id == $appointment->out_of_office_practitioner) {
+                                          $appointment_found = true;
+                                          break;
+                                      }
+
+                                      if ($formatted_time >= $start_date_availability && $formatted_time <= $end_time_date_availability && $department->id == $appointment->availability_practitioner) {
+                                        $appointment_found = true;
+                                        break;
+                                    }
+
                                       } 
                                     
+                                      // Clinic Appointment
+
                                       if ($formatted_time >= $appointmentTime && $formatted_time <= $end_date_appointment && $department->id == $appointment->clinician_appointment) {
                                       ?>
-                            <td class="day-cell appointment-row" data-date="<?php echo $appointment_date; ?>" data-day="<?php echo $department->id; ?>">
-                                  <?php 
-                                      $current_date = date('Y-m-d');
-                                      if ($appointment_date == $current_date) {
-                                          
-                                          echo '<span style="background-color: green; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong>'.'<br>' .$address1.'<br>'.$city.'<br>'.$comment_appointment.'<br>'.$appointmentTime.' - '.$end_date_appointment.'</span>';
-                                      } 
-                                      elseif ($appointment_date == date('Y-m-d', strtotime('+1 day'))) {
-                                          
-                                          echo '<span style="background-color: blue; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong>'.'<br>'.$address1.'<br>'.$city.'<br>'.$comment_appointment.'<br>'.$appointmentTime.' - '.$end_date_appointment.'</span>';
-                                      } elseif ($appointment_date == date('Y-m-d', strtotime('-1 day'))) {
-                                          
-                                          echo '<span style="background-color: red; color: white;">'.$first_name.' '.$last_name.'<br>'.$address1.'<br>'.$city.'<br>'.$comment_appointment.'<br>'.$appointmentTime.' - '.$end_date_appointment.'</span>';
-                                      }
-                                  ?>
-                              </td>
+                                      <td class="day-cell appointment-row" data-date="<?php echo $appointment_date; ?>" data-day="<?php echo $department->id; ?>">
+                                            <?php 
+                                                $current_date = date('Y-m-d');
 
+                                                if ($appointment_date == $current_date) {
+                                                    echo '<label style="background-color:green; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;">';
+                                                    echo '<span style="background-color: green; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong>' .$address1.'<br>'.$city.'<br>'.$comment_appointment.'<br>'.$appointmentTime.' - '.$end_date_appointment.'</span>';
+                                                    echo '</label>';
 
+                                                    
+                                                  } 
+                                                elseif ($appointment_date == date('Y-m-d', strtotime('+1 day'))) {
+                                                  echo '<label style="background-color:blue; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;">';
+                                                    echo '<span style="background-color: blue; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong>'.$address1.'<br>'.$city.'<br>'.$comment_appointment.'<br>'.$appointmentTime.' - '.$end_date_appointment.'</span>';
+                                                    echo '</label>';
 
+                                                  } elseif ($appointment_date == date('Y-m-d', strtotime('-1 day'))) {
+                                                    echo '<label style="background-color:red; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;">';
+                                                    echo '<span style="background-color: red; color: white;">'.$first_name.' '.$last_name.'<br>'.$address1.'<br>'.$city.'<br>'.$comment_appointment.'<br>'.$appointmentTime.' - '.$end_date_appointment.'</span>';
+                                                    echo '</label>';
+                                                  }
+                                                  
+                                            ?>
+                                        </td>
                                       <?php }else{ ?>
 
-                                      <td class="day-cell" data-time="<?php //echo $formatted_time; ?>" data-day="<?php echo $department->id; ?>">
-                                      <?php 
-                                      // echo $formatted_time; 
-                                          ?>
+                                      <!-- <td class="day-cell" data-time="<?php //echo $formatted_time; ?>" data-day="<?php echo $department->id; ?>">
+                                     
                                           
-                                      </td>
+                                      </td> -->
+                                      <?php 
+                                      }
+                                      // out of office
 
-                                  <?php } } ?>
+                                  if ($formatted_time >= $out_start_time_at && $formatted_time <= $out_end_time_at && $department->id == $appointment->out_of_office_practitioner) {
+                                      ?>
+                                      <td class="day-cell appointment-row" data-date="<?php echo $out_start_timeAt; ?>" data-day="<?php echo $department->id; ?>">
+                                            <?php 
+                                                $current_date = date('Y-m-d');
+
+                                              
+                                                  if ($out_start_timeAt == $current_date) {
+                                                    
+                                                     
+                                                      echo '<label style="background-color:pink; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;">';
+                                                      echo '<span style="background-color: pink; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong>' .$address1.'<br>'.$city.'<br>'.$out_of_office_comment.'<br>'.$out_start_time_at.' - '.$out_end_time_at.'</span>';
+                                                      echo '</label>';
+                                                    
+  
+                                                    } 
+                                                  elseif ($out_start_timeAt == date('Y-m-d', strtotime('+1 day'))) {
+                                                   
+                                                      echo '<label style="background-color:#FFBF00; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;">';
+                                                      echo '<span style="background-color: #FFBF00; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong>' .$address1.'<br>'.$city.'<br>'.$out_of_office_comment.'<br>'.$out_start_time_at.' - '.$out_end_time_at.'</span>';
+                                                      echo '</label>';
+                                                      
+  
+                                                    } elseif ($out_start_timeAt == date('Y-m-d', strtotime('-1 day'))) {
+                                                     
+                                                      echo '<label style="background-color:#FF7F50; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;">';
+                                                      echo '<span style="background-color: #FF7F50; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong>' .$address1.'<br>'.$city.'<br>'.$out_of_office_comment.'<br>'.$out_start_time_at.' - '.$out_end_time_at.'</span>';
+                                                      echo '</label>';
+                                                      
+                                                    }
+                                            ?>
+                                        </td>
+                                      <?php }else{ ?>
+
+                                      <!-- <td class="day-cell" data-time="<?php //echo $formatted_time; ?>" data-day="<?php echo $department->id; ?>"> 
+                                     
+                                          
+                                      </td> -->
+                                      <?php 
+                                      }
+                                     
+                                      // start_date_availability
+                                      
+                                      if ($formatted_time >= $start_date_availability && $formatted_time <= $end_time_date_availability && $department->id == $appointment->availability_practitioner) {
+                                          ?>
+                                          <td class="day-cell appointment-row" data-date="<?php echo $start_dateAvailability; ?>" data-day="<?php echo $department->id; ?>">
+                                                <?php 
+                                                    $current_date = date('Y-m-d');
+    
+                                                  
+                                                      if ($start_dateAvailability == $current_date) {
+                                                        
+                                                         
+                                                          echo '<label style="background-color:#40E0D0; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;">';
+                                                          echo '<span style="background-color: #40E0D0; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong>' .$address1.'<br>'.$city.'<br>Available<br>'.$start_date_availability.' - '.$out_end_time_at.'</span>';
+                                                          echo '</label>';
+                                                        
+      
+                                                        } 
+                                                      elseif ($start_dateAvailability == date('Y-m-d', strtotime('+1 day'))) {
+                                                       
+                                                          echo '<label style="background-color:#6495ED; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;">';
+                                                          echo '<span style="background-color: #6495ED; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong>' .$address1.'<br>'.$city.'<br>Available<br>'.$start_date_availability.' - '.$out_end_time_at.'</span>';
+                                                          echo '</label>';
+                                                          
+      
+                                                        } elseif ($start_dateAvailability == date('Y-m-d', strtotime('-1 day'))) {
+                                                         
+                                                          echo '<label style="background-color:#CCCCFF; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;">';
+                                                          echo '<span style="background-color: #CCCCFF; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong>' .$address1.'<br>'.$city.'<br>Available<br>'.$start_date_availability.' - '.$out_end_time_at.'</span>';
+                                                          echo '</label>';
+                                                          
+                                                        }
+                                                ?>
+                                            </td>
+                                          <?php }else{ ?>
+    
+                                          <td class="day-cell" data-time="<?php //echo $formatted_time; ?>" data-day="<?php echo $department->id; ?>"> 
+                                         
+                                              
+                                          </td>
+                                          <?php 
+                                          }
+                                          ?>
+    
+    
+                                  <?php  } ?>
+
+
                               </tr>
                           <?php $index++; } ?>
                       </tbody>
                   </table>
               </div>
 
+                                     
+                            </div>
+                            
+                        </div>
+                    </div>
+
+                     <div class="col-md-12" >
+                        <div class="form-group">
+                            <!-- <label class="col-md-3 control-label">Doctor Name:</label> -->
+                            <div class="col-md-9">
+                           
+                        <input type="hidden" id="doctor_name" name="doctor_name" class="form-control" value="<?php echo $userData->id; ?>">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12" >
+                   
+                    <div class="space-22"></div>
+                </div>
+            </div>
+            <div class="text-right">
+                <!-- <button type="submit" id="submit" class="btn btn-sm btn-primary" >Save</button> -->
+            </div>
+        <!-- </form> -->
+        
+
+       
+    </div>
+<!-- END Datatables Content -->
+</div>
+<!-- END Page Content -->
+
+<!-- <script type="text/javascript">  
+                  $(document).ready(function() {  
+                     $("#appointmentType").change(function(){  
+                     /*dropdown post *///
+                     var selectedValue = document.getElementById("appointmentType").value;  
+                    //  alert(selectedValue);
+                     $.ajax({  
+                        url:"<?php echo  
+                        base_url();?>appointment/index",  
+                        data: {id:selectedValue},  
+                        type: "POST",  
+                        success:function(data){   -->
+<!-- // alert(data);
+                          // $('#datatable').dataTable().fnClearTable();
+                          // $('#datatable').dataTable().fnAddData(data);
+                        // $("#all_appointment").html(data);   -->
+                     <!-- } , 
+                  
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+                  });  
+               });  
+            });  
+</script>   -->
+
+<script type="text/javascript">
+    $('#date').datepicker({
+        startView: 2,
+        todayBtn: "linked",
+        keyboardNavigation: false,
+        forceParse: false,
+        calendarWeeks: true,
+        autoclose: true,
+        endDate:'today'       
+    });
+/*    $("#zipcode").select2({
+        allowClear: true
+    });*/
+</script>
+
+<script>
+    function filterByToday() {
+        $('.appointment-row').hide(); // Hide all appointment rows
+        var today = "<?php echo date('Y-m-d'); ?>";
+        $('.appointment-row[data-date="' + today + '"]').show(); // Show appointment rows for today
+
+        var currentDate = new Date();
+    document.getElementById("dateDisplay").innerText = "Selected Date: " + currentDate.toDateString();
+
+    }
+
+    function filterByNextDate() {
+        $('.appointment-row').hide(); // Hide all appointment rows
+        var nextDate = "<?php echo date('Y-m-d', strtotime('+1 day')); ?>";
+        $('.appointment-row[data-date="' + nextDate + '"]').show(); // Show appointment rows for next date
+
+        var currentDate = new Date();
+    currentDate.setDate(currentDate.getDate() + 1); // Adds one day
+    document.getElementById("dateDisplay").innerText = "Selected Date: " + currentDate.toDateString();
+       
+        
+    }
+
+    function filterByPreDate() {
+        // $('.appointment-row').show(); // Show all appointment rows
+
+        $('.appointment-row').hide(); // Hide all appointment rows
+        var preDate = "<?php echo date('Y-m-d', strtotime('-1 day')); ?>";
+        // alert(preDate);
+        $('.appointment-row[data-date="' + preDate + '"]').show(); // Show appointment rows for next date
+
+        var currentDate = new Date();
+    currentDate.setDate(currentDate.getDate() - 1); // Subtracts one day
+    document.getElementById("dateDisplay").innerText = "Selected Date: " + currentDate.toDateString();
+    }
+
+    filterByToday();
+</script>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-$(document).ready(function(){
-  // Add click event listener to all td elements with class 'day-cell'
-  $('.day-cell').click(function(){
-    // Get time and day values from data attributes
-    var time = $(this).data('time');
-    var day = $(this).data('day');
-    // Set hidden input values
-    $('#selectedTime').val(time);
-    $('#selectedDay').val(day);
-    // Submit the form
-    $('#timeSlotForm').submit();
-  });
-});
-</script>
+        <script>
+        $(document).ready(function(){
+          // Add click event listener to all td elements with class 'day-cell'
+          $('.day-cell').click(function(){
+            // Get time and day values from data attributes
+            var time = $(this).data('time');
+            var day = $(this).data('day');
+            // Set hidden input values
+            $('#selectedTime').val(time);
+            $('#selectedDay').val(day);
+            // Submit the form
+            $('#timeSlotForm').submit();
+          });
+        });
+        </script>
 
 
-<script>
-$(document).ready(function(){
-  // Add click event listener to all td elements with class 'time-cell'
-  $('.time-cell').click(function(){
-    // Toggle 'highlight' class on click
-    $(this).toggleClass('highlight');
-  });
-
-  // Add click event listener to all td elements with class 'day-cell'
-  $('.day-cell').click(function(){
-    // Toggle 'highlight' class on click
-    $(this).toggleClass('highlight');
-  });
-
-  
-});
-</script>
+      
 
 <style>
 .highlight {
@@ -277,92 +512,25 @@ tbody th {
 </style>
 
 
-                      <script>
-                      document.addEventListener('DOMContentLoaded', function() {
-                          const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-                          checkboxes.forEach(function(checkbox) {
-                          checkbox.addEventListener('click', function() {
-                              checkboxes.forEach(function(cb) {
-                              cb.parentNode.parentNode.classList.remove('selected');
-                              });
-                              if (this.checked) {
-                              this.parentNode.parentNode.classList.add('selected');
-                              const selectedTime = this.getAttribute('data-time');
-                              const selectedDay = this.getAttribute('data-day');
-                              console.log(`Selected time: ${selectedTime}, Selected day: ${selectedDay}`);
-                              }
-                          });
-                          });
-                      });
-                      </script>
-
-                             
-                            </div>
-                            
-                        </div>
-                    </div>
-
-                     <div class="col-md-12" >
-                        <div class="form-group">
-                            <!-- <label class="col-md-3 control-label">Doctor Name:</label> -->
-                            <div class="col-md-9">
-                           
-                        <input type="hidden" id="doctor_name" name="doctor_name" class="form-control" value="<?php echo $userData->id; ?>">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12" >
-                   
-                    <div class="space-22"></div>
-                </div>
-            </div>
-            <div class="text-right">
-                <!-- <button type="submit" id="submit" class="btn btn-sm btn-primary" >Save</button> -->
-            </div>
-        </form>
-        
-
-       
-    </div>
-<!-- END Datatables Content -->
-</div>
-<!-- END Page Content -->
-<script type="text/javascript">
-    $('#date').datepicker({
-        startView: 2,
-        todayBtn: "linked",
-        keyboardNavigation: false,
-        forceParse: false,
-        calendarWeeks: true,
-        autoclose: true,
-        endDate:'today'       
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(function(checkbox) {
+        checkbox.addEventListener('click', function() {
+            checkboxes.forEach(function(cb) {
+            cb.parentNode.parentNode.classList.remove('selected');
+            });
+            if (this.checked) {
+            this.parentNode.parentNode.classList.add('selected');
+            const selectedTime = this.getAttribute('data-time');
+            const selectedDay = this.getAttribute('data-day');
+            console.log(`Selected time: ${selectedTime}, Selected day: ${selectedDay}`);
+            }
+        });
+        });
     });
-/*    $("#zipcode").select2({
-        allowClear: true
-    });*/
-</script>
+    </script>
 
-<script>
-    function filterByToday() {
-        $('.appointment-row').hide(); // Hide all appointment rows
-        var today = "<?php echo date('Y-m-d'); ?>";
-        $('.appointment-row[data-date="' + today + '"]').show(); // Show appointment rows for today
-    }
 
-    function filterByNextDate() {
-        $('.appointment-row').hide(); // Hide all appointment rows
-        var nextDate = "<?php echo date('Y-m-d', strtotime('+1 day')); ?>";
-        $('.appointment-row[data-date="' + nextDate + '"]').show(); // Show appointment rows for next date
-    }
-
-    function filterByPreDate() {
-        // $('.appointment-row').show(); // Show all appointment rows
-
-        $('.appointment-row').hide(); // Hide all appointment rows
-        var preDate = "<?php echo date('Y-m-d', strtotime('-1 day')); ?>";
-        // alert(preDate);
-        $('.appointment-row[data-date="' + preDate + '"]').show(); // Show appointment rows for next date
-    }
-</script>
 
 

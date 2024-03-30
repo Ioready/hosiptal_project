@@ -169,9 +169,9 @@
                                                                                 <select id="country" name="location_appointment" class="form-control select2" size="1">
                                                                                         <option value="0">Please select</option>
                                                                                         <?php foreach ($userlocation as $country) { 
-                                                                                           
+                                                                                           print_r($country);
                                                                                             ?>
-                                                                                            <option value="<?php echo $country->id; ?>"><?php echo $country->address1.' '.$country->city.' - '.$country->first_name.' '.$country->last_name ; ?></option>
+                                                                                            <option value="<?php echo $country->id; ?>"><?php echo $country->address1.' '.$country->city.' '.$country->first_name.' '.$country->last_name ; ?></option>
                                                                                             <?php } ?>
                                                                                     </select>
                                                                         </div>
@@ -617,7 +617,7 @@
                                                                                 </div>
                                                                                 <div class="col-md-5 date-time-container">
                                                                                 
-                                                                                <input type="time" class="form-control time-input" id="end_time" name="end_time_date_availability">
+                                                                                <input type="datetime-local" class="form-control time-input" id="end_time" name="end_time_date_availability">
                                                                                 </div>
                                                                             </div>
                                                                         </div>

@@ -409,6 +409,10 @@ class Users extends Common_Controller
      * @description add dynamic rows
      * @return array
      */
+
+    
+
+
     public function users_add()
     {
         $tables = $this->config->item('tables', 'ion_auth');
@@ -499,7 +503,7 @@ class Users extends Common_Controller
 
                     // $from = getConfig('admin_email');
                     $subject = "Hospital Registration Login Credentials";
-                    $title = "Hospital  Registration";
+                    $title = "Hospital Registration";
                     $data['name'] = ucwords($this->input->post('first_name'));
                     $data['content'] = "Hospital account login Credentials"
                         . "<p>username: " . $email . "</p><p>Password: " . $password . "</p>";
@@ -511,6 +515,9 @@ class Users extends Common_Controller
                     
                     $this->send_email_smtp($email, $from, $subject, $template, $title);
 
+                    // $this->sent_mail($email, $from, $subject, $template, $title);
+
+                    
                     $response = array('status' => 1, 'message' => lang('user_success'), 'url' => base_url('users'));
                 } else {
                     $response = array('status' => 0, 'message' => lang('user_failed'));
@@ -522,6 +529,34 @@ class Users extends Common_Controller
         }
         echo json_encode($response);
     }
+
+    // public function sent_mail(){
+        
+	// 	$config = Array(    
+	// 	  'protocol' => 'smtp',
+	// 	  'smtp_host' => 'ssl://smtp.googlemail.com',
+	// 	  'smtp_port' => 465,
+	// 	  'smtp_user' => 'kalpanaofficial94@gmail.com',
+	// 	  'smtp_pass' => 'avbcfhvzvypfftgz',
+	// 	  'smtp_timeout' => '4',
+	// 	  'mailtype' => 'html',
+	// 	  'charset' => 'iso-8859-1'
+	// 	);
+       
+	// 	$this->load->library('email', $config); 
+    //         $this->email->set_newline("\r\n");
+    //         $this->email->from($from, $title);
+    //         $data = array(
+    // 			'user_name'=> 'Kalpana',
+    //         );
+    //     $this->email->to($to); 
+	// 	$this->email->subject($subject); 
+		
+
+	// 	$this->email->message($template); 
+	//  $this->email->send(); $this->email->initialize($config);
+        
+    // }
 
     /**
      * @method user_edit
@@ -538,7 +573,7 @@ class Users extends Common_Controller
         $this->email->send();
       
     }
-    
+
     public function user_edit()
     {
         $this->data['title'] = lang("edit_user");
