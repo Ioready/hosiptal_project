@@ -1,18 +1,22 @@
-<?php $config['useragent'] = 'CodeIgniter';
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+/* 
+| ------------------------------------------------------------------- 
+| EMAIL CONFING 
+| ------------------------------------------------------------------- 
+| Configuration of outgoing mail server. 
+| */
+
 $config['protocol'] = 'smtp';
-//$config['mailpath'] = '/usr/sbin/sendmail';
-$config['smtp_host'] = 'ssl://smtp.googlemail.com';
-$config['smtp_user'] = 'kalpanaofficial94@gmail.com';
+$config['smtp_host'] = 'ssl://smtp.googlemail.com';  
+$config['smtp_port'] = '465';  
+$config['smtp_timeout'] = '30';  
+$config['smtp_user'] = 'kalpanaofficial94@gmail.com';  
 $config['smtp_pass'] = 'avbcfhvzvypfftgz';
-$config['smtp_port'] = 587; 
-$config['smtp_timeout'] = 5;
-$config['wordwrap'] = TRUE;
-$config['wrapchars'] = 76;
-$config['mailtype'] = 'html';
 $config['charset'] = 'utf-8';
-$config['validate'] = FALSE;
-$config['priority'] = 3;
-$config['crlf'] = "\r\n";
+$config['mailtype'] = 'html';
+$config['wordwrap'] = TRUE;
 $config['newline'] = "\r\n";
-$config['bcc_batch_mode'] = FALSE;
-$config['bcc_batch_size'] = 200;
+
+/* End of file email.php */  
+/* Location: ./system/application/config/email.php */

@@ -625,6 +625,44 @@
             }
         });
     }
+
+
+
+    function getPatient() {
+        var care_unit = $("#appointment_id").val();
+        $("#careUnitID").val(care_unit);
+
+        var care_unit1 = $("#care_unit1").val();
+        if (care_unit1) {
+            $(".hidetext").show();
+        } else {
+            $(".hidetext").hide();
+        }
+    }
+    $(".hidetext").hide();
+
+    function getPatientId(id) {
+        var patient_mode = $("#appointment").val();
+        if (patient_mode == 'Existing') {
+            var url = "<?php echo base_url() ?>appointment/get_patient_id";
+            $.ajax({
+                method: "POST",
+                url: url,
+                data: {
+                    careunit_id: id
+                },
+                success: function(response) {
+                    $("#patient_id_dropbox").html(response);
+                },
+                error: function(error, ror, r) {
+                    bootbox.alert(error);
+                },
+            });
+        }
+
+
+    } 
+
 </script>
 
 

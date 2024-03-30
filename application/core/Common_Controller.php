@@ -279,71 +279,29 @@ class Common_Controller extends MX_Controller {
         }
     }
 
-    function send_email_smtp($to, $from, $subject, $template, $title) {
+    function send_email_smtp($email, $from, $subject, $template, $title) {
 
-        $this->load->library('email');
-
-        // $config['protocol'] = 'smtp';
-        // $config['smtp_host'] = 'ssl://smtp.gmail.com';
-        // $config['smtp_port'] = '465';
-        // $config['smtp_timeout'] = '7';
-        // $config['smtp_user'] = 'pawan.mobiwebtech@gmail.com';
-        // $config['smtp_pass'] = '********';
-        // $config['charset'] = 'iso-8859-1';
-        // $config['newline'] = "\r\n";
-        // $config['mailtype'] = 'html';
-        // $config['validation'] = TRUE;
-        // $config['wordwrap'] = TRUE;
-
-
-        // $config['protocol'] = 'smtp';
-        // $config['smtp_host'] = 'sandbox.smtp.mailtrap.io';
-        // $config['smtp_port'] = '2525';
-        // $config['smtp_timeout'] = '7';
-        // $config['smtp_user'] = '868674bcd452b1';
-        // $config['smtp_pass'] = 'fc2a5bb163923d';
-        // $config['charset'] = 'iso-8859-1';
-        // $config['newline'] = "\r\n";
-        // $config['mailtype'] = 'html';
-        // $config['validation'] = TRUE;
-        // $config['wordwrap'] = TRUE;
-
-        $config['protocol'] = 'smtp';
-        $config['smtp_host'] = 'http://smtp.gmail.com';
-        $config['smtp_port'] = '587';
-        // $config['smtp_timeout'] = '7';
-        $config['smtp_user'] = 'kalpanaofficial94@gmail.com';
-        $config['smtp_pass'] = 'avbcfhvzvypfftgz';
-        $config['charset'] = 'iso-8859-1';
-        $config['newline'] = "\r\n";
-        $config['mailtype'] = 'html';
-        $config['validation'] = TRUE;
-        $config['wordwrap'] = TRUE;
-
-        // $config['protocol'] = 'smtp';
-        // $config['smtp_host'] = 'smtp.gmail.com';
-        // $config['smtp_port'] = '587';
-        // $config['smtp_timeout'] = '7';
-        // $config['smtp_encryption'] = 'tls';
-        // $config['smtp_user'] = 'testing.sht007@gmail.com';
-        // $config['smtp_pass'] = 'zxezvtwaolkxypy';
-        // $config['charset'] = 'iso-8859-1';
-        // $config['newline'] = "\r\n";
-        // $config['mailtype'] = 'html';
-        // $config['validation'] = TRUE;
-        // $config['wordwrap'] = TRUE;
-
-        $this->email->initialize($config);
-        $this->email->set_newline("\r\n");
-        $this->email->from($from, $title);
-        $this->email->to($to);
-        $this->email->subject($subject);
-        $this->email->message($template);
-        if ($this->email->send()) {
-            return true;
-        } else {
-            return false;
-        }
+       
+        $config = Array(    
+            'protocol' => 'smtp',
+            'smtp_host' => 'ssl://smtp.googlemail.com',
+            'smtp_port' => 465,
+            'smtp_user' => 'kalpanaofficial94@gmail.com',
+            'smtp_pass' => 'avbcfhvzvypfftgz',
+            'smtp_timeout' => '4',
+            'mailtype' => 'html',
+            'charset' => 'iso-8859-1'
+          );
+          $this->load->library('email', $config); 
+              $this->email->set_newline("\r\n");
+              $this->email->from($from, $title);
+              $data = array(
+                  'user_name'=> 'Sunil',
+              );
+          $this->email->to($email); 
+          $this->email->subject($subject); 
+          $this->email->message($template); 
+          $this->email->send(); $this->email->initialize($config);
     }
 
     /**
@@ -639,5 +597,43 @@ class Common_Controller extends MX_Controller {
         $this->email->send();
       
     }
+
+    public function sent_mail($email, $from, $subject, $template, $title){
+       
+		$config = Array(    
+		  'protocol' => 'smtp',
+		  'smtp_host' => 'ssl://smtp.googlemail.com',
+		  'smtp_port' => 465,
+		  'smtp_user' => 'kalpanaofficial94@gmail.com',
+		  'smtp_pass' => 'avbcfhvzvypfftgz',
+		  'smtp_timeout' => '4',
+		  'mailtype' => 'html',
+		  'charset' => 'iso-8859-1'
+		);
+		$this->load->library('email', $config); 
+            $this->email->set_newline("\r\n");
+            $this->email->from($from, $title);
+            $data = array(
+    			'user_name'=> 'Sunil',
+            );
+        $this->email->to($email); 
+		$this->email->subject($subject); 
+		
+
+		$this->email->message($template); 
+	 $this->email->send(); $this->email->initialize($config);
+        //     $this->email->from('kalpanaofficial94@gmail.com', 'Kalpana');
+        //     $data = array(
+    	// 		'user_name'=> 'Kalpana',
+        //     );
+        // $this->email->to('tech.sunilvishwakarma@gmail.com'); 
+		// $this->email->subject('Hey, Thank you for Registering with us'); 
+		// $this->email->message('hiiiiii'); 
+		// $send = $this->email->send();
+        // if($send){
+        //     print_r($send);
+        // }
+    }
+
 
 }
