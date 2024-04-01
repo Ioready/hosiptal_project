@@ -39,9 +39,9 @@
 
         <!-- <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('index.php/' .$formUrl) ?>" enctype="multipart/form-data"> -->
             
-        <div style=" display:flex;" class="modal-header text-center">
+        <div style=" display:flex; gap:20px" class="modal-header text-center">
          
-            <form action="<?php echo site_url('appointment'); ?>" name="patientForm" method="get">
+            <form action="<?php echo site_url('appointment'); ?>" name="patientForm" method="get" style='margin-top: 20px;'>
             <div class="col-sm-6 col-lg-8 col-md-8" style="margin-right: 10px;">
             <select id="appointmentType" name="appointment_id" class="form-control" onchange="fetchData()">                 
 
@@ -56,7 +56,7 @@
               </div>
             </form>
             
-                <div class="form-group save-btn">
+                <div class="form-group save-btn" style='margin-left: 25px;'>
 
                 <div class="form-group save-btn" id="dateDisplay"></div>
 
