@@ -68,14 +68,14 @@
                 ?>
              <div class="col-sm-4 col-lg-4 col-md-4" style="margin-right: 10px;">
                     <select id="appointmentType" name="appointment_id" class="form-control" onchange="fetchData()">                 
-                    <option value="" disabled>Select hospital</option>
+                    <!-- <option value="" disabled>Select hospital</option> -->
                     <?php
-                  // if (!empty($doctors)) {
-                      // foreach ($doctors as $doctor) { ?>
-                          <!-- <option value="<?php echo $doctor->id; ?>"><?php echo $doctor->doctor_name; ?></option> -->
+                  // if (!empty($hospitals)) {
+                  //     foreach ($hospitals as $hospital) { ?>
+                          <!-- <option value="<?php echo $hospital->id; ?>"><?php echo $hospital->name; ?></option> -->
                   <?php 
-                  // }
-                  // }
+                 // }
+                  //}
                   ?>
 
                     </select>
