@@ -55,6 +55,7 @@
     <script src="<?php echo base_url(); ?>backend_asset/admin/js/vendor/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.js"></script>
     <style>
+
         .btn-primary {
             /*                background-color: #b22b57;*/
             background: linear-gradient(to right, rgba(71, 74, 127, 1) 0%, rgba(178, 43, 87, 1) 100%);
@@ -99,12 +100,12 @@
             </div>
         </div>
 
-        <div id="page-container" style="box-sizing: border-box; display: block;" class="sidebar-partial sidebar-visible-lg sidebar-no-animations style-alt bg-light">
+        <div id="page-container" style="box-sizing: border-box; display: block; background-color: #FFFF !important; box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.4);" class="sidebar-partial sidebar-visible-lg sidebar-no-animations style-alt bg-light">
             <!-- Alternative Sidebar -->
             <!-- END Alternative Sidebar -->
-
+           
             <!-- Main Sidebar -->
-            <div id="sidebar"  class="bg-light">
+            <div id="sidebar"  class="bg-light" style="background-color: #FFFF !important; box-shadow: 2px 0px 2px rgba(0, 0, 0, 0.2);">
                 <!-- Wrapper for scrolling functionality -->
                 <div id="sidebar-scroll">
                     <!-- Sidebar Content -->
@@ -144,7 +145,7 @@
                         <!-- Sidebar Navigation -->
                         <ul class="sidebar-nav">
 
-<?php if ($this->ion_auth->is_superAdmin()) { ?>
+                        <?php if ($this->ion_auth->is_superAdmin()) { ?>
 
 <li>
     <a href="<?php echo site_url('pwfpanel') ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "pwfpanel") ? "active" : "" ?>">
@@ -459,7 +460,7 @@
                                 </li> -->
                                 <li>
                                     <a href="<?php echo site_url('pwfpanel') ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "pwfpanel") ? "active" : "" ?>">
-                                    <img src="<?php echo base_url(); ?>uploads/home.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Dashboard</span></a>
+                                    <img src="<?php echo base_url(); ?>uploads/home.png" style="height:23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Dashboard</span></a>
                                 </li>
                                 <li title="Appointment">`
                                 
@@ -511,7 +512,7 @@
 
                                   <li>
                                     <a href="<?php echo site_url('pwfpanel') ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "pwfpanel") ? "active" : "" ?>">
-                                    <img src="<?php echo base_url(); ?>uploads/home.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Dashboard</span></a>
+                                    <img src="<?php echo base_url(); ?>uploads/home.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Dashboard</span></a>
                                 </li>
 
                                 <li title="Reports">
@@ -753,19 +754,23 @@
 <!-- END Header -->
 
                         <div id="main-container">                                                                    
-                <header class="navbar navbar-default d-flex justify-content-end" >
+                <header class="navbar navbar-default d-flex justify-content-end" style="background-color: #FFFF; box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.4);">
 
                 <div class="newHeader pt-3 pb-3 ps-2 pe-4 d-flex justify-content-end align-items-center">
                     <div class="d-flex  align-items-center">
-                        <img src="<?php echo base_url(); ?>uploads/soloUser.svg" style="height: 23px;width:23px; filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%)" alt="">
-                        <h2 style="font-size:1.75rem;font-weight:600" class="headerFonts ms-2">
-                        <a href="<?php echo site_url('pwfpanel/profile'); ?>" data-toggle="tooltip" data-placement="bottom" title="Profile">User</a>
+                        <img src="<?php echo base_url(); ?>uploads/user.png" style="height: 23px;width:23px; filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%)" alt="">
+                        <h2 style="font-size:1.5rem;font-weight:600" class="headerFonts ms-2">
+                        <a href="<?php echo site_url('pwfpanel/profile'); ?>" data-toggle="tooltip" data-placement="bottom" title="Profile" style="color:black;">User</a>
                         </h2>
                     </div>
                        <div>
-                        <h2 style="font-size:1.75rem;font-weight:600" class="headerFonts ms-5 ">
+                        <!-- <h2 style="font-size:1.5rem;font-weight:700" class="headerFonts ms-5 ">
                         <a href="javascript:void(0)" onclick="logout()" data-toggle="tooltip" data-placement="bottom" title="Logout">Logout</a>
-                        </h2>
+                        </h2> -->
+                        <h2 style="font-size: 1.5rem; font-weight:600" class="headerFonts ms-5">
+    <a href="javascript:void(0)" onclick="logout()" data-toggle="tooltip" data-placement="bottom" title="Logout" style="color:black;">Logout</a>
+</h2>
+
                        </div>                                                                                             
                 </div>
 
