@@ -1,5 +1,363 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 
+<<<<<<< HEAD
+ERROR - 2024-03-30 08:01:57 --> Severity: Warning --> Illegal string offset 'title' C:\xampp\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 609
+ERROR - 2024-03-30 08:01:58 --> Severity: Warning --> Illegal string offset 'message' C:\xampp\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 834
+ERROR - 2024-03-30 08:01:58 --> Severity: Warning --> Cannot assign an empty string to a string offset C:\xampp\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 834
+ERROR - 2024-03-30 08:01:58 --> Severity: Warning --> Illegal string offset 'identity' C:\xampp\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 835
+ERROR - 2024-03-30 08:01:58 --> Severity: Warning --> Illegal string offset 'password' C:\xampp\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 842
+ERROR - 2024-03-30 08:01:58 --> Severity: Warning --> Illegal string offset 'parent' C:\xampp\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 848
+ERROR - 2024-03-30 08:01:58 --> Severity: Warning --> Illegal string offset 'title' C:\xampp\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 849
+ERROR - 2024-03-30 08:01:58 --> 404 Page Not Found: ../modules/pwfpanel/controllers/Pwfpanel/img
+ERROR - 2024-03-30 08:06:51 --> Severity: Warning --> Illegal string offset 'title' C:\xampp\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 609
+ERROR - 2024-03-30 08:06:53 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 08:06:53 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 08:06:53 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 08:06:53 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 08:06:53 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 08:06:53 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 08:06:53 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 08:06:53 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 08:06:53 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 08:06:53 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 08:06:53 --> Could not find the language line "date_validation"
+ERROR - 2024-03-30 08:06:53 --> Could not find the language line "time_start_validation"
+ERROR - 2024-03-30 08:06:53 --> Could not find the language line "time_end_validation"
+ERROR - 2024-03-30 08:06:53 --> Could not find the language line "patient_name_validation"
+ERROR - 2024-03-30 08:06:53 --> Could not find the language line "doctor_name_validation"
+ERROR - 2024-03-30 08:06:53 --> Could not find the language line "rreason_validation"
+ERROR - 2024-03-30 08:07:06 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 08:07:06 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 08:07:06 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 08:07:06 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 08:07:06 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 08:07:06 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 08:07:06 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 08:07:06 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 08:07:06 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 08:07:06 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 08:07:06 --> Could not find the language line "date_validation"
+ERROR - 2024-03-30 08:07:06 --> Could not find the language line "time_start_validation"
+ERROR - 2024-03-30 08:07:06 --> Could not find the language line "time_end_validation"
+ERROR - 2024-03-30 08:07:06 --> Could not find the language line "patient_name_validation"
+ERROR - 2024-03-30 08:07:06 --> Could not find the language line "doctor_name_validation"
+ERROR - 2024-03-30 08:07:06 --> Could not find the language line "rreason_validation"
+ERROR - 2024-03-30 08:11:18 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:13:31 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:13:32 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:13:34 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:14:03 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:14:09 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:14:43 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:14:44 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:14:44 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:14:45 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:14:46 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:14:46 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:19:40 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:23:37 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:23:40 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:23:48 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:24:11 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:24:25 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:24:43 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:24:57 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:26:25 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:26:29 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:26:30 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:27:15 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:27:26 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:27:45 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:27:47 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:29:34 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:29:53 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:30:08 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:30:22 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:30:51 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:30:53 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:31:05 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:31:06 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:31:44 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:31:45 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:31:54 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:31:55 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:31:56 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:32:06 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:32:21 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:32:49 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:32:59 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:33:34 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:36:00 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:37:57 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:38:16 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:38:36 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:38:54 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:39:28 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:39:50 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:41:08 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:41:56 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:42:33 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:43:12 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:43:27 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:43:44 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:43:58 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:44:25 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:44:40 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:45:03 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:45:45 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:46:05 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:46:24 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:46:34 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:46:55 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:47:27 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:47:29 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:47:49 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:48:08 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:48:19 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:48:21 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:48:27 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:48:40 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:49:36 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:49:38 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:51:29 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:51:54 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:52:10 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:52:49 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:53:02 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:53:35 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:55:12 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:55:24 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:55:25 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:55:36 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:56:00 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:56:13 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:56:34 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:57:01 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:57:32 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:57:47 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:58:10 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:58:55 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:59:07 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:59:39 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:59:41 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 08:59:51 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:00:17 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:00:32 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:00:57 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:01:47 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:02:33 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:02:53 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:03:08 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:03:21 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:04:24 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:04:33 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:05:03 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:05:30 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:05:50 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:06:28 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:06:49 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:07:12 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:07:24 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:07:39 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:07:47 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:08:18 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:09:12 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:09:41 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:09:42 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:09:42 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:10:04 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:10:26 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:10:43 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:11:12 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:11:32 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:11:43 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:13:21 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:13:38 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:13:55 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:14:07 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:14:28 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:14:45 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:14:46 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:15:09 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:15:11 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:15:21 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:15:22 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:15:24 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:15:45 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:16:18 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:16:19 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:16:29 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:17:02 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:17:14 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:18:06 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:19:31 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:20:07 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:20:09 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:21:37 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:28:03 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:29:38 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:32:44 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:33:59 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:34:01 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:34:01 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:34:14 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:34:16 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:34:16 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:34:17 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:34:17 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:35:37 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:36:51 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:39:26 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:40:54 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:40:56 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:40:56 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:41:05 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:41:07 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-03-30 09:45:30 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:45:30 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:45:30 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:45:30 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:45:30 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:45:30 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:45:30 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:45:30 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:45:30 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:45:30 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:45:30 --> Could not find the language line "date_validation"
+ERROR - 2024-03-30 09:45:30 --> Could not find the language line "time_start_validation"
+ERROR - 2024-03-30 09:45:30 --> Could not find the language line "time_end_validation"
+ERROR - 2024-03-30 09:45:30 --> Could not find the language line "patient_name_validation"
+ERROR - 2024-03-30 09:45:30 --> Could not find the language line "doctor_name_validation"
+ERROR - 2024-03-30 09:45:30 --> Could not find the language line "rreason_validation"
+ERROR - 2024-03-30 09:45:33 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:45:33 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:45:33 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:45:33 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:45:33 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:45:33 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:45:33 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:45:33 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:45:33 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:45:33 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:45:33 --> Could not find the language line "date_validation"
+ERROR - 2024-03-30 09:45:33 --> Could not find the language line "time_start_validation"
+ERROR - 2024-03-30 09:45:33 --> Could not find the language line "time_end_validation"
+ERROR - 2024-03-30 09:45:33 --> Could not find the language line "patient_name_validation"
+ERROR - 2024-03-30 09:45:33 --> Could not find the language line "doctor_name_validation"
+ERROR - 2024-03-30 09:45:33 --> Could not find the language line "rreason_validation"
+ERROR - 2024-03-30 09:45:35 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:45:35 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:45:35 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:45:35 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:45:35 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:45:35 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:45:35 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:45:35 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:45:35 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:45:35 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:45:35 --> Could not find the language line "date_validation"
+ERROR - 2024-03-30 09:45:35 --> Could not find the language line "time_start_validation"
+ERROR - 2024-03-30 09:45:35 --> Could not find the language line "time_end_validation"
+ERROR - 2024-03-30 09:45:35 --> Could not find the language line "patient_name_validation"
+ERROR - 2024-03-30 09:45:35 --> Could not find the language line "doctor_name_validation"
+ERROR - 2024-03-30 09:45:35 --> Could not find the language line "rreason_validation"
+ERROR - 2024-03-30 09:45:35 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:45:35 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:45:35 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:45:35 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:45:35 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:45:35 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:45:35 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:45:35 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:45:35 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:45:35 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:45:35 --> Could not find the language line "date_validation"
+ERROR - 2024-03-30 09:45:35 --> Could not find the language line "time_start_validation"
+ERROR - 2024-03-30 09:45:35 --> Could not find the language line "time_end_validation"
+ERROR - 2024-03-30 09:45:35 --> Could not find the language line "patient_name_validation"
+ERROR - 2024-03-30 09:45:35 --> Could not find the language line "doctor_name_validation"
+ERROR - 2024-03-30 09:45:35 --> Could not find the language line "rreason_validation"
+ERROR - 2024-03-30 09:46:14 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:46:14 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:46:14 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:46:14 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:46:14 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:46:14 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:46:14 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:46:14 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:46:14 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:46:14 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:46:14 --> Could not find the language line "date_validation"
+ERROR - 2024-03-30 09:46:14 --> Could not find the language line "time_start_validation"
+ERROR - 2024-03-30 09:46:14 --> Could not find the language line "time_end_validation"
+ERROR - 2024-03-30 09:46:14 --> Could not find the language line "patient_name_validation"
+ERROR - 2024-03-30 09:46:14 --> Could not find the language line "doctor_name_validation"
+ERROR - 2024-03-30 09:46:14 --> Could not find the language line "rreason_validation"
+ERROR - 2024-03-30 09:47:02 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:47:02 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:47:02 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:47:02 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:47:02 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:47:02 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:47:02 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:47:02 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:47:02 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:47:02 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:47:02 --> Could not find the language line "date_validation"
+ERROR - 2024-03-30 09:47:02 --> Could not find the language line "time_start_validation"
+ERROR - 2024-03-30 09:47:02 --> Could not find the language line "time_end_validation"
+ERROR - 2024-03-30 09:47:02 --> Could not find the language line "patient_name_validation"
+ERROR - 2024-03-30 09:47:02 --> Could not find the language line "doctor_name_validation"
+ERROR - 2024-03-30 09:47:02 --> Could not find the language line "rreason_validation"
+ERROR - 2024-03-30 09:47:03 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:47:03 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:47:03 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:47:03 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:47:03 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:47:03 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:47:03 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:47:03 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:47:03 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:47:03 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:47:03 --> Could not find the language line "date_validation"
+ERROR - 2024-03-30 09:47:03 --> Could not find the language line "time_start_validation"
+ERROR - 2024-03-30 09:47:03 --> Could not find the language line "time_end_validation"
+ERROR - 2024-03-30 09:47:03 --> Could not find the language line "patient_name_validation"
+ERROR - 2024-03-30 09:47:03 --> Could not find the language line "doctor_name_validation"
+ERROR - 2024-03-30 09:47:03 --> Could not find the language line "rreason_validation"
+ERROR - 2024-03-30 09:47:03 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:47:03 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:47:03 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:47:03 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:47:03 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:47:03 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:47:03 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:47:03 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:47:03 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:47:03 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:47:03 --> Could not find the language line "date_validation"
+ERROR - 2024-03-30 09:47:03 --> Could not find the language line "time_start_validation"
+ERROR - 2024-03-30 09:47:03 --> Could not find the language line "time_end_validation"
+ERROR - 2024-03-30 09:47:03 --> Could not find the language line "patient_name_validation"
+ERROR - 2024-03-30 09:47:03 --> Could not find the language line "doctor_name_validation"
+ERROR - 2024-03-30 09:47:03 --> Could not find the language line "rreason_validation"
+ERROR - 2024-03-30 09:47:21 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:47:21 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:47:21 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:47:21 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:47:21 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:47:21 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:47:21 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:47:21 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:47:21 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:47:21 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 57
+ERROR - 2024-03-30 09:47:21 --> Could not find the language line "date_validation"
+ERROR - 2024-03-30 09:47:21 --> Could not find the language line "time_start_validation"
+ERROR - 2024-03-30 09:47:21 --> Could not find the language line "time_end_validation"
+ERROR - 2024-03-30 09:47:21 --> Could not find the language line "patient_name_validation"
+ERROR - 2024-03-30 09:47:21 --> Could not find the language line "doctor_name_validation"
+ERROR - 2024-03-30 09:47:21 --> Could not find the language line "rreason_validation"
+=======
 ERROR - 2024-03-30 06:11:14 --> Severity: error --> Exception: Cannot access offset of type string on string C:\xampp\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 609
 ERROR - 2024-03-30 06:11:15 --> Severity: error --> Exception: Cannot access offset of type string on string C:\xampp\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 609
 ERROR - 2024-03-30 06:13:36 --> Severity: Warning --> Illegal string offset 'title' C:\xampp\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 609
@@ -470,319 +828,3 @@ ERROR - 2024-03-30 08:09:29 --> Could not find the language line "time_end_valid
 ERROR - 2024-03-30 08:09:29 --> Could not find the language line "patient_name_validation"
 ERROR - 2024-03-30 08:09:29 --> Could not find the language line "doctor_name_validation"
 ERROR - 2024-03-30 08:09:29 --> Could not find the language line "rreason_validation"
-ERROR - 2024-03-30 10:23:18 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 609
-ERROR - 2024-03-30 10:23:18 --> Severity: Warning --> Illegal string offset 'message' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 834
-ERROR - 2024-03-30 10:23:18 --> Severity: Warning --> Illegal string offset 'identity' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 835
-ERROR - 2024-03-30 10:23:18 --> Severity: Warning --> Illegal string offset 'password' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 842
-ERROR - 2024-03-30 10:23:18 --> Severity: Warning --> Illegal string offset 'parent' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 848
-ERROR - 2024-03-30 10:23:18 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 849
-ERROR - 2024-03-30 10:23:19 --> 404 Page Not Found: ../modules/pwfpanel/controllers/Pwfpanel/img
-ERROR - 2024-03-30 10:24:47 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 609
-ERROR - 2024-03-30 10:24:47 --> Severity: Warning --> Illegal string offset 'message' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 834
-ERROR - 2024-03-30 10:24:47 --> Severity: Warning --> Cannot assign an empty string to a string offset C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 834
-ERROR - 2024-03-30 10:24:47 --> Severity: Warning --> Illegal string offset 'identity' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 835
-ERROR - 2024-03-30 10:24:47 --> Severity: Warning --> Illegal string offset 'password' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 842
-ERROR - 2024-03-30 10:24:47 --> Severity: Warning --> Illegal string offset 'parent' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 848
-ERROR - 2024-03-30 10:24:47 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 849
-ERROR - 2024-03-30 10:25:27 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 609
-ERROR - 2024-03-30 10:25:27 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 609
-ERROR - 2024-03-30 10:25:27 --> Severity: Warning --> Illegal string offset 'message' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 834
-ERROR - 2024-03-30 10:25:27 --> Severity: Warning --> Illegal string offset 'identity' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 835
-ERROR - 2024-03-30 10:25:27 --> Severity: Warning --> Illegal string offset 'password' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 842
-ERROR - 2024-03-30 10:25:27 --> Severity: Warning --> Illegal string offset 'parent' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 848
-ERROR - 2024-03-30 10:25:27 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 849
-ERROR - 2024-03-30 10:25:55 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 609
-ERROR - 2024-03-30 10:25:55 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 609
-ERROR - 2024-03-30 10:25:55 --> Severity: Warning --> Illegal string offset 'message' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 834
-ERROR - 2024-03-30 10:25:55 --> Severity: Warning --> Illegal string offset 'identity' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 835
-ERROR - 2024-03-30 10:25:55 --> Severity: Warning --> Illegal string offset 'password' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 842
-ERROR - 2024-03-30 10:25:55 --> Severity: Warning --> Illegal string offset 'parent' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 848
-ERROR - 2024-03-30 10:25:55 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 849
-ERROR - 2024-03-30 10:26:26 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 609
-ERROR - 2024-03-30 10:26:27 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 609
-ERROR - 2024-03-30 10:26:27 --> Severity: Warning --> Illegal string offset 'message' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 834
-ERROR - 2024-03-30 10:26:27 --> Severity: Warning --> Illegal string offset 'identity' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 835
-ERROR - 2024-03-30 10:26:27 --> Severity: Warning --> Illegal string offset 'password' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 842
-ERROR - 2024-03-30 10:26:27 --> Severity: Warning --> Illegal string offset 'parent' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 848
-ERROR - 2024-03-30 10:26:27 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 849
-ERROR - 2024-03-30 10:27:15 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 609
-ERROR - 2024-03-30 10:28:17 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 966
-ERROR - 2024-03-30 10:28:17 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 609
-ERROR - 2024-03-30 10:28:17 --> Severity: Warning --> Illegal string offset 'message' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 834
-ERROR - 2024-03-30 10:28:17 --> Severity: Warning --> Illegal string offset 'identity' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 835
-ERROR - 2024-03-30 10:28:17 --> Severity: Warning --> Illegal string offset 'password' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 842
-ERROR - 2024-03-30 10:28:17 --> Severity: Warning --> Illegal string offset 'parent' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 848
-ERROR - 2024-03-30 10:28:17 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 849
-ERROR - 2024-03-30 10:28:17 --> 404 Page Not Found: ../modules/pwfpanel/controllers/Pwfpanel/img
-ERROR - 2024-03-30 10:28:31 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 609
-ERROR - 2024-03-30 10:38:59 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\reportsSummary\controllers\ReportsSummary.php 122
-ERROR - 2024-03-30 10:38:59 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\reportsSummary\views\dashboards.php 212
-ERROR - 2024-03-30 10:38:59 --> Severity: Warning --> Division by zero C:\database\htdocs\hosiptal_project\application\modules\reportsSummary\controllers\ReportsSummary.php 3120
-ERROR - 2024-03-30 10:39:05 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
-ERROR - 2024-03-30 10:39:05 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
-ERROR - 2024-03-30 10:39:05 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
-ERROR - 2024-03-30 10:39:05 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
-ERROR - 2024-03-30 10:39:05 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
-ERROR - 2024-03-30 10:39:05 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
-ERROR - 2024-03-30 10:39:05 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
-ERROR - 2024-03-30 10:39:05 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
-ERROR - 2024-03-30 10:39:05 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
-ERROR - 2024-03-30 10:39:05 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
-ERROR - 2024-03-30 10:39:05 --> Could not find the language line "date_validation"
-ERROR - 2024-03-30 10:39:05 --> Could not find the language line "time_start_validation"
-ERROR - 2024-03-30 10:39:05 --> Could not find the language line "time_end_validation"
-ERROR - 2024-03-30 10:39:05 --> Could not find the language line "patient_name_validation"
-ERROR - 2024-03-30 10:39:05 --> Could not find the language line "doctor_name_validation"
-ERROR - 2024-03-30 10:39:05 --> Could not find the language line "rreason_validation"
-ERROR - 2024-03-30 10:39:16 --> Severity: Warning --> count(): Parameter must be an array or an object that implements Countable C:\database\htdocs\hosiptal_project\application\modules\patient\controllers\Patient.php 72
-ERROR - 2024-03-30 10:39:16 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\patient\controllers\Patient.php 75
-ERROR - 2024-03-30 10:39:16 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\patient\controllers\Patient.php 91
-ERROR - 2024-03-30 10:40:26 --> Could not find the language line "user_email_field_validation"
-ERROR - 2024-03-30 10:40:33 --> Severity: Warning --> count(): Parameter must be an array or an object that implements Countable C:\database\htdocs\hosiptal_project\application\modules\patient\controllers\Patient.php 72
-ERROR - 2024-03-30 10:40:33 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\patient\controllers\Patient.php 75
-ERROR - 2024-03-30 10:40:33 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\patient\controllers\Patient.php 91
-ERROR - 2024-03-30 10:40:35 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
-ERROR - 2024-03-30 10:40:35 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
-ERROR - 2024-03-30 10:40:35 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
-ERROR - 2024-03-30 10:40:35 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
-ERROR - 2024-03-30 10:40:35 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
-ERROR - 2024-03-30 10:40:35 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
-ERROR - 2024-03-30 10:40:35 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
-ERROR - 2024-03-30 10:40:35 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
-ERROR - 2024-03-30 10:40:35 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
-ERROR - 2024-03-30 10:40:35 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
-ERROR - 2024-03-30 10:40:35 --> Could not find the language line "date_validation"
-ERROR - 2024-03-30 10:40:35 --> Could not find the language line "time_start_validation"
-ERROR - 2024-03-30 10:40:35 --> Could not find the language line "time_end_validation"
-ERROR - 2024-03-30 10:40:35 --> Could not find the language line "patient_name_validation"
-ERROR - 2024-03-30 10:40:35 --> Could not find the language line "doctor_name_validation"
-ERROR - 2024-03-30 10:40:35 --> Could not find the language line "rreason_validation"
-ERROR - 2024-03-30 10:40:49 --> Could not find the language line "description_validation"
-ERROR - 2024-03-30 10:54:36 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\reportsSummary\controllers\ReportsSummary.php 122
-ERROR - 2024-03-30 10:54:36 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\reportsSummary\views\dashboards.php 212
-ERROR - 2024-03-30 10:54:36 --> Severity: Warning --> Division by zero C:\database\htdocs\hosiptal_project\application\modules\reportsSummary\controllers\ReportsSummary.php 3120
-ERROR - 2024-03-30 10:55:04 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 966
-ERROR - 2024-03-30 10:55:04 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 609
-ERROR - 2024-03-30 10:55:04 --> Severity: Warning --> Illegal string offset 'message' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 834
-ERROR - 2024-03-30 10:55:04 --> Severity: Warning --> Illegal string offset 'identity' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 835
-ERROR - 2024-03-30 10:55:04 --> Severity: Warning --> Illegal string offset 'password' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 842
-ERROR - 2024-03-30 10:55:04 --> Severity: Warning --> Illegal string offset 'parent' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 848
-ERROR - 2024-03-30 10:55:04 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 849
-ERROR - 2024-03-30 10:56:05 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 609
-ERROR - 2024-03-30 11:00:28 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\reportsSummary\controllers\ReportsSummary.php 122
-ERROR - 2024-03-30 11:00:28 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\reportsSummary\views\dashboards.php 212
-ERROR - 2024-03-30 11:00:29 --> Severity: Warning --> Division by zero C:\database\htdocs\hosiptal_project\application\modules\reportsSummary\controllers\ReportsSummary.php 3120
-ERROR - 2024-03-30 11:36:54 --> Could not find the language line "description_validation"
-ERROR - 2024-03-30 12:14:14 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 966
-ERROR - 2024-03-30 12:14:14 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 609
-ERROR - 2024-03-30 12:14:14 --> Severity: Warning --> Illegal string offset 'message' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 834
-ERROR - 2024-03-30 12:14:14 --> Severity: Warning --> Illegal string offset 'identity' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 835
-ERROR - 2024-03-30 12:14:14 --> Severity: Warning --> Illegal string offset 'password' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 842
-ERROR - 2024-03-30 12:14:14 --> Severity: Warning --> Illegal string offset 'parent' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 848
-ERROR - 2024-03-30 12:14:14 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 849
-ERROR - 2024-03-30 12:14:14 --> 404 Page Not Found: ../modules/pwfpanel/controllers/Pwfpanel/img
-ERROR - 2024-03-30 12:14:43 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 609
-ERROR - 2024-03-30 13:12:51 --> Severity: Warning --> mysqli::real_connect(): (HY000/2002): No connection could be made because the target machine actively refused it.
- C:\database\htdocs\hosiptal_project\system\database\drivers\mysqli\mysqli_driver.php 203
-ERROR - 2024-03-30 13:12:51 --> Unable to connect to the database
-ERROR - 2024-03-30 13:13:00 --> Severity: Warning --> mysqli::real_connect(): (HY000/2002): No connection could be made because the target machine actively refused it.
- C:\database\htdocs\hosiptal_project\system\database\drivers\mysqli\mysqli_driver.php 203
-ERROR - 2024-03-30 13:13:00 --> Unable to connect to the database
-ERROR - 2024-03-30 13:14:33 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 966
-ERROR - 2024-03-30 13:14:33 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 609
-ERROR - 2024-03-30 13:14:33 --> Severity: Warning --> Illegal string offset 'message' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 834
-ERROR - 2024-03-30 13:14:33 --> Severity: Warning --> Illegal string offset 'identity' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 835
-ERROR - 2024-03-30 13:14:33 --> Severity: Warning --> Illegal string offset 'password' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 842
-ERROR - 2024-03-30 13:14:33 --> Severity: Warning --> Illegal string offset 'parent' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 848
-ERROR - 2024-03-30 13:14:33 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 849
-ERROR - 2024-03-30 13:14:34 --> 404 Page Not Found: ../modules/pwfpanel/controllers/Pwfpanel/img
-ERROR - 2024-03-30 13:15:02 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 609
-ERROR - 2024-03-30 13:15:18 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
-ERROR - 2024-03-30 13:15:18 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
-ERROR - 2024-03-30 13:15:18 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
-ERROR - 2024-03-30 13:15:18 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
-ERROR - 2024-03-30 13:15:18 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
-ERROR - 2024-03-30 13:15:18 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
-ERROR - 2024-03-30 13:15:18 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
-ERROR - 2024-03-30 13:15:18 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
-ERROR - 2024-03-30 13:15:18 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
-ERROR - 2024-03-30 13:15:18 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
-ERROR - 2024-03-30 13:15:18 --> Could not find the language line "date_validation"
-ERROR - 2024-03-30 13:15:18 --> Could not find the language line "time_start_validation"
-ERROR - 2024-03-30 13:15:18 --> Could not find the language line "time_end_validation"
-ERROR - 2024-03-30 13:15:18 --> Could not find the language line "patient_name_validation"
-ERROR - 2024-03-30 13:15:18 --> Could not find the language line "doctor_name_validation"
-ERROR - 2024-03-30 13:15:18 --> Could not find the language line "rreason_validation"
-ERROR - 2024-03-30 13:15:21 --> Could not find the language line "user_email_field_validation"
-ERROR - 2024-03-30 13:15:52 --> Could not find the language line "title_validation"
-ERROR - 2024-03-30 13:15:52 --> Could not find the language line "facility_manager_id_validation"
-ERROR - 2024-03-30 13:15:52 --> Could not find the language line "description_validation"
-ERROR - 2024-03-30 13:15:52 --> Could not find the language line "user_email_field_validation"
-ERROR - 2024-03-30 13:15:52 --> Could not find the language line "user_email_field_validation"
-ERROR - 2024-03-30 13:15:54 --> Could not find the language line "user_email_field_validation"
-ERROR - 2024-03-30 13:17:39 --> Severity: Warning --> Division by zero C:\database\htdocs\hosiptal_project\application\modules\reportsSummary\controllers\ReportsSummary.php 3120
-ERROR - 2024-03-30 13:42:19 --> Severity: Warning --> mysqli::real_connect(): (HY000/2002): No connection could be made because the target machine actively refused it.
- C:\database\htdocs\hosiptal_project\system\database\drivers\mysqli\mysqli_driver.php 203
-ERROR - 2024-03-30 13:42:19 --> Unable to connect to the database
-ERROR - 2024-03-30 13:42:37 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 966
-ERROR - 2024-03-30 13:42:38 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 609
-ERROR - 2024-03-30 13:42:38 --> Severity: Warning --> Illegal string offset 'message' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 834
-ERROR - 2024-03-30 13:42:38 --> Severity: Warning --> Illegal string offset 'identity' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 835
-ERROR - 2024-03-30 13:42:38 --> Severity: Warning --> Illegal string offset 'password' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 842
-ERROR - 2024-03-30 13:42:38 --> Severity: Warning --> Illegal string offset 'parent' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 848
-ERROR - 2024-03-30 13:42:38 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 849
-ERROR - 2024-03-30 13:42:38 --> 404 Page Not Found: ../modules/pwfpanel/controllers/Pwfpanel/img
-ERROR - 2024-03-30 13:42:56 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 609
-ERROR - 2024-03-30 14:43:32 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 609
-ERROR - 2024-03-30 14:43:32 --> Severity: Warning --> Illegal string offset 'message' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 834
-ERROR - 2024-03-30 14:43:32 --> Severity: Warning --> Cannot assign an empty string to a string offset C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 834
-ERROR - 2024-03-30 14:43:32 --> Severity: Warning --> Illegal string offset 'identity' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 835
-ERROR - 2024-03-30 14:43:32 --> Severity: Warning --> Illegal string offset 'password' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 842
-ERROR - 2024-03-30 14:43:32 --> Severity: Warning --> Illegal string offset 'parent' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 848
-ERROR - 2024-03-30 14:43:32 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 849
-ERROR - 2024-03-30 14:43:33 --> 404 Page Not Found: ../modules/pwfpanel/controllers/Pwfpanel/img
-ERROR - 2024-03-30 14:44:59 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 609
-ERROR - 2024-03-30 15:01:10 --> Could not find the language line "user_email_field_validation"
-ERROR - 2024-03-30 15:12:45 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\reportsSummary\controllers\ReportsSummary.php 122
-ERROR - 2024-03-30 15:12:45 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\reportsSummary\views\dashboards.php 212
-ERROR - 2024-03-30 15:12:45 --> Severity: Warning --> Division by zero C:\database\htdocs\hosiptal_project\application\modules\reportsSummary\controllers\ReportsSummary.php 3120
-ERROR - 2024-03-30 15:12:48 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
-ERROR - 2024-03-30 15:12:48 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
-ERROR - 2024-03-30 15:12:48 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
-ERROR - 2024-03-30 15:12:48 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
-ERROR - 2024-03-30 15:12:48 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
-ERROR - 2024-03-30 15:12:48 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
-ERROR - 2024-03-30 15:12:48 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
-ERROR - 2024-03-30 15:12:48 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
-ERROR - 2024-03-30 15:12:48 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
-ERROR - 2024-03-30 15:12:48 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
-ERROR - 2024-03-30 15:12:48 --> Could not find the language line "date_validation"
-ERROR - 2024-03-30 15:12:48 --> Could not find the language line "time_start_validation"
-ERROR - 2024-03-30 15:12:48 --> Could not find the language line "time_end_validation"
-ERROR - 2024-03-30 15:12:48 --> Could not find the language line "patient_name_validation"
-ERROR - 2024-03-30 15:12:48 --> Could not find the language line "doctor_name_validation"
-ERROR - 2024-03-30 15:12:48 --> Could not find the language line "rreason_validation"
-ERROR - 2024-03-30 15:12:51 --> Could not find the language line "user_email_field_validation"
-ERROR - 2024-03-30 15:12:53 --> Severity: Warning --> count(): Parameter must be an array or an object that implements Countable C:\database\htdocs\hosiptal_project\application\modules\patient\controllers\Patient.php 72
-ERROR - 2024-03-30 15:12:53 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\patient\controllers\Patient.php 75
-ERROR - 2024-03-30 15:12:53 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\patient\controllers\Patient.php 91
-ERROR - 2024-03-30 15:12:58 --> Could not find the language line "user_email_field_validation"
-ERROR - 2024-03-30 15:13:00 --> Could not find the language line "description_validation"
-ERROR - 2024-03-30 15:55:46 --> 404 Page Not Found: /index
-ERROR - 2024-03-30 16:05:11 --> 404 Page Not Found: /index
-ERROR - 2024-03-30 16:17:03 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 609
-ERROR - 2024-03-30 16:17:03 --> Severity: Warning --> Illegal string offset 'message' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 834
-ERROR - 2024-03-30 16:17:03 --> Severity: Warning --> Cannot assign an empty string to a string offset C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 834
-ERROR - 2024-03-30 16:17:03 --> Severity: Warning --> Illegal string offset 'identity' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 835
-ERROR - 2024-03-30 16:17:03 --> Severity: Warning --> Illegal string offset 'password' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 842
-ERROR - 2024-03-30 16:17:03 --> Severity: Warning --> Illegal string offset 'parent' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 848
-ERROR - 2024-03-30 16:17:03 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 849
-ERROR - 2024-03-30 16:17:04 --> 404 Page Not Found: ../modules/pwfpanel/controllers/Pwfpanel/img
-ERROR - 2024-03-30 16:17:31 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 609
-ERROR - 2024-03-30 16:17:31 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 609
-ERROR - 2024-03-30 16:17:31 --> Severity: Warning --> Illegal string offset 'message' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 834
-ERROR - 2024-03-30 16:17:31 --> Severity: Warning --> Illegal string offset 'identity' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 835
-ERROR - 2024-03-30 16:17:31 --> Severity: Warning --> Illegal string offset 'password' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 842
-ERROR - 2024-03-30 16:17:31 --> Severity: Warning --> Illegal string offset 'parent' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 848
-ERROR - 2024-03-30 16:17:31 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 849
-ERROR - 2024-03-30 16:17:45 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 609
-ERROR - 2024-03-30 16:18:05 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\reportsSummary\controllers\ReportsSummary.php 122
-ERROR - 2024-03-30 16:18:05 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\reportsSummary\views\dashboards.php 212
-ERROR - 2024-03-30 16:18:06 --> Severity: Warning --> Division by zero C:\database\htdocs\hosiptal_project\application\modules\reportsSummary\controllers\ReportsSummary.php 3120
-ERROR - 2024-03-30 16:18:08 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
-ERROR - 2024-03-30 16:18:08 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
-ERROR - 2024-03-30 16:18:08 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
-ERROR - 2024-03-30 16:18:08 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
-ERROR - 2024-03-30 16:18:08 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
-ERROR - 2024-03-30 16:18:08 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
-ERROR - 2024-03-30 16:18:08 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
-ERROR - 2024-03-30 16:18:08 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
-ERROR - 2024-03-30 16:18:08 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
-ERROR - 2024-03-30 16:18:08 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
-ERROR - 2024-03-30 16:18:08 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
-ERROR - 2024-03-30 16:18:08 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
-ERROR - 2024-03-30 16:18:08 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
-ERROR - 2024-03-30 16:18:08 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
-ERROR - 2024-03-30 16:18:08 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
-ERROR - 2024-03-30 16:18:08 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
-ERROR - 2024-03-30 16:18:08 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
-ERROR - 2024-03-30 16:18:08 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
-ERROR - 2024-03-30 16:18:08 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
-ERROR - 2024-03-30 16:18:08 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
-ERROR - 2024-03-30 16:18:08 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
-ERROR - 2024-03-30 16:18:08 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
-ERROR - 2024-03-30 16:18:08 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
-ERROR - 2024-03-30 16:18:08 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
-ERROR - 2024-03-30 16:18:08 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
-ERROR - 2024-03-30 16:18:08 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
-ERROR - 2024-03-30 16:18:08 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
-ERROR - 2024-03-30 16:18:08 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
-ERROR - 2024-03-30 16:18:08 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
-ERROR - 2024-03-30 16:18:08 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
-ERROR - 2024-03-30 16:18:08 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
-ERROR - 2024-03-30 16:18:08 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
-ERROR - 2024-03-30 16:18:08 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
-ERROR - 2024-03-30 16:18:08 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
-ERROR - 2024-03-30 16:18:08 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
-ERROR - 2024-03-30 16:18:08 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
-ERROR - 2024-03-30 16:18:08 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
-ERROR - 2024-03-30 16:18:08 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
-ERROR - 2024-03-30 16:18:08 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
-ERROR - 2024-03-30 16:18:08 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
-ERROR - 2024-03-30 16:18:08 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
-ERROR - 2024-03-30 16:18:08 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
-ERROR - 2024-03-30 16:18:08 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
-ERROR - 2024-03-30 16:18:08 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
-ERROR - 2024-03-30 16:18:08 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
-ERROR - 2024-03-30 16:18:08 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
-ERROR - 2024-03-30 16:18:08 --> Could not find the language line "hospital_name_validation"
-ERROR - 2024-03-30 16:18:08 --> Could not find the language line "user_email_field_validation"
-ERROR - 2024-03-30 16:18:11 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\reportsSummary\controllers\ReportsSummary.php 122
-ERROR - 2024-03-30 16:18:11 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\reportsSummary\views\dashboards.php 212
-ERROR - 2024-03-30 16:18:11 --> Severity: Warning --> Division by zero C:\database\htdocs\hosiptal_project\application\modules\reportsSummary\controllers\ReportsSummary.php 3120
-ERROR - 2024-03-30 16:18:15 --> Could not find the language line "user_email_field_validation"
-ERROR - 2024-03-30 16:18:36 --> Could not find the language line "user_email_field_validation"
-ERROR - 2024-03-30 16:18:40 --> Could not find the language line "user_email_field_validation"
-ERROR - 2024-03-30 16:18:45 --> Severity: Warning --> count(): Parameter must be an array or an object that implements Countable C:\database\htdocs\hosiptal_project\application\modules\patient\controllers\Patient.php 72
-ERROR - 2024-03-30 16:18:45 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\patient\controllers\Patient.php 75
-ERROR - 2024-03-30 16:18:45 --> Severity: Warning --> Invalid argument supplied for foreach() C:\database\htdocs\hosiptal_project\application\modules\patient\controllers\Patient.php 91
-ERROR - 2024-03-30 16:19:18 --> Could not find the language line "user_email_field_validation"
-ERROR - 2024-03-30 16:19:27 --> Could not find the language line "description_validation"
-ERROR - 2024-03-30 16:20:31 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 966
-ERROR - 2024-03-30 16:20:31 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 609
-ERROR - 2024-03-30 16:20:31 --> Severity: Warning --> Illegal string offset 'message' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 834
-ERROR - 2024-03-30 16:20:31 --> Severity: Warning --> Illegal string offset 'identity' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 835
-ERROR - 2024-03-30 16:20:31 --> Severity: Warning --> Illegal string offset 'password' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 842
-ERROR - 2024-03-30 16:20:31 --> Severity: Warning --> Illegal string offset 'parent' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 848
-ERROR - 2024-03-30 16:20:31 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 849
-ERROR - 2024-03-30 16:20:31 --> 404 Page Not Found: ../modules/pwfpanel/controllers/Pwfpanel/img
-ERROR - 2024-03-30 16:21:02 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 609
-ERROR - 2024-03-30 16:21:02 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 609
-ERROR - 2024-03-30 16:21:02 --> Severity: Warning --> Illegal string offset 'message' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 834
-ERROR - 2024-03-30 16:21:02 --> Severity: Warning --> Illegal string offset 'identity' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 835
-ERROR - 2024-03-30 16:21:02 --> Severity: Warning --> Illegal string offset 'password' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 842
-ERROR - 2024-03-30 16:21:02 --> Severity: Warning --> Illegal string offset 'parent' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 848
-ERROR - 2024-03-30 16:21:02 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 849
-ERROR - 2024-03-30 16:21:34 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 609
-ERROR - 2024-03-30 16:21:34 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 609
-ERROR - 2024-03-30 16:21:34 --> Severity: Warning --> Illegal string offset 'message' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 834
-ERROR - 2024-03-30 16:21:34 --> Severity: Warning --> Illegal string offset 'identity' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 835
-ERROR - 2024-03-30 16:21:34 --> Severity: Warning --> Illegal string offset 'password' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 842
-ERROR - 2024-03-30 16:21:34 --> Severity: Warning --> Illegal string offset 'parent' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 848
-ERROR - 2024-03-30 16:21:34 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 849
-ERROR - 2024-03-30 16:21:57 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 609
-ERROR - 2024-03-30 16:21:57 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 609
-ERROR - 2024-03-30 16:21:57 --> Severity: Warning --> Illegal string offset 'message' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 834
-ERROR - 2024-03-30 16:21:57 --> Severity: Warning --> Illegal string offset 'identity' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 835
-ERROR - 2024-03-30 16:21:57 --> Severity: Warning --> Illegal string offset 'password' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 842
-ERROR - 2024-03-30 16:21:57 --> Severity: Warning --> Illegal string offset 'parent' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 848
-ERROR - 2024-03-30 16:21:57 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 849
-ERROR - 2024-03-30 16:22:18 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 609
-ERROR - 2024-03-30 18:42:20 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 609
-ERROR - 2024-03-30 18:42:20 --> Severity: Warning --> Illegal string offset 'message' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 834
-ERROR - 2024-03-30 18:42:20 --> Severity: Warning --> Cannot assign an empty string to a string offset C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 834
-ERROR - 2024-03-30 18:42:20 --> Severity: Warning --> Illegal string offset 'identity' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 835
-ERROR - 2024-03-30 18:42:20 --> Severity: Warning --> Illegal string offset 'password' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 842
-ERROR - 2024-03-30 18:42:20 --> Severity: Warning --> Illegal string offset 'parent' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 848
-ERROR - 2024-03-30 18:42:20 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 849
-ERROR - 2024-03-30 18:42:22 --> Severity: Warning --> Illegal string offset 'title' C:\database\htdocs\hosiptal_project\application\modules\pwfpanel\controllers\Pwfpanel.php 609
