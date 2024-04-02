@@ -307,6 +307,14 @@ class FacilityManager extends Common_Controller {
                     'single' => true
                 );
                 $email_exist = $this->common_model->customGet($option);
+                $this->load->helper('security');
+
+                // Generate a random 6-digit alphanumeric string
+                $first_letter = strtoupper(substr($this->input->post('hospital_name'), 0, 3));
+
+                $random_part = strtoupper(substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 5));
+                $random_id = $first_letter . $random_part;
+                 
             
                 if (empty($email_exist)) {
 
@@ -341,6 +349,7 @@ class FacilityManager extends Common_Controller {
                         'city' => $this->input->post('city'),
                         'address1' => $this->input->post('address1'),
                         'company_name' => $this->input->post('company_name'),
+                        
                         'profile_pic' => $image,
                         'update_date' => date('Y-m-d H:i:s')
                     );
@@ -352,6 +361,7 @@ class FacilityManager extends Common_Controller {
                         'admin_id'=>$this->input->post('admin_id'),
                         'email' => $email,
                         'hospital_name' => $this->input->post('hospital_name'),
+                        'token_uniq' => $random_id,
                         'created_on' => date('Y-m-d H:i:s')
                     );
                     $this->db->insert('vendor_sale_hospital', $additional_data_hospital);

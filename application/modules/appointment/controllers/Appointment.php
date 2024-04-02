@@ -175,6 +175,7 @@ class Appointment extends Common_Controller {
                 );
 
                 $this->data['clinic_appointment'] = $this->common_model->customGet($option);
+
                 $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
                 $option = array(
                     'table' => USERS . ' as user',
@@ -193,7 +194,31 @@ class Appointment extends Common_Controller {
 
 
         $this->data['doctors'] = $this->common_model->customGet($option);
-        // print_r($this->data['doctors'] );die;
+
+        $user_id = $this->session->userdata('user_id');
+        // print_r($user_id);die;
+
+                                $option = array(
+                                    'table' => USERS . ' as user',
+                                    'select' => 'user.*, group.name as group_name, UP.doc_file, CU.care_unit_code, CU.name, h.admin_id',
+                                    'join' => array(
+                                        array(USER_GROUPS . ' as ugroup', 'ugroup.user_id = user.id', 'left'),
+                                        array(GROUPS . ' as group', 'group.id = ugroup.group_id', 'left'),
+                                        array('user_profile AS UP', 'UP.user_id = user.id', 'left'),
+                                        array('care_unit AS CU', 'CU.id = user.care_unit_id', 'left'),
+                                        array('hospital AS h', 'h.user_id = user.id', 'left')
+                                    ),
+                                    'where' => array(
+                                        'user.delete_status' => 0,
+                                        'group.id' => 6,
+                                        // 'h.admin_id' => $user_id
+                                    ),
+                                    'order' => array('user.id' => 'DESC') // Order descending by user id
+                                );
+
+        $this->data['hospitals'] = $this->common_model->customGet($option);
+                            
+        // print_r($this->data['hospitals'] );die;
 
         // $this->data['clinic_appointment'] = $this->common_model->customGet($option);
     // print_r($this->data['clinic_appointment'] );die;
