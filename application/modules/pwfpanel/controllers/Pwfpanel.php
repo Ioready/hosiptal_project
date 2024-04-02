@@ -6,8 +6,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Pwfpanel extends Common_Controller
 {
 
-    public $data = "";
-
+    // public $data = "";
+    public $data = array();
     function __construct()
     {
 
@@ -152,7 +152,8 @@ class Pwfpanel extends Common_Controller
                 // print_r($this->data['total_order']);die;
                
 
-
+                $option = array('table' => 'admin_plans', 'where' => array('status' => 0), 'order' => array('id' => 'desc'));
+                $data['all_plan_list'] = $this->common_model->customGet($option);
 
                 if ($this->ion_auth->is_subAdmin()) {
                     $this->load->admin_render('dashboard', $data);
@@ -988,16 +989,21 @@ class Pwfpanel extends Common_Controller
      */
     public function profile()
     {
+        $user= $this->session->userdata('user_id');
         $this->data['parent'] = "Profile";
-        $this->adminIsAuth();
+        // $this->adminIsAuth();
         $option = array(
             'table' => 'users',
-            'where' => array('id' => $this->session->userdata('user_id')),
-            'single' => true
+            'select' => 'users.*',
+            'where' => array('id' => $user),
+            'single' => true,
         );
-        $this->data['user'] = $this->common_model->customGet($option);
+       
+        $userss = $this->common_model->customGet($option);
+        $this->data['user'] =$userss;
         $this->data['title'] = "Profile";
-        $this->load->admin_render('profile', $this->data);
+       
+        $this->load->admin_render('profile', $this->data, 'inner_script');
     }
 
     /**

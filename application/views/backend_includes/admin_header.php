@@ -771,6 +771,7 @@
                         <!-- <h2 style="font-size:1.5rem;font-weight:700" class="headerFonts ms-5 ">
                         <a href="javascript:void(0)" onclick="logout()" data-toggle="tooltip" data-placement="bottom" title="Logout">Logout</a>
                         </h2> -->
+                        
                         <h2 style="font-size: 1.5rem; font-weight:600" class="headerFonts ms-5">
     <a href="javascript:void(0)" onclick="logout()" data-toggle="tooltip" data-placement="bottom" title="Logout" style="color:black;">Logout</a>
 </h2>
