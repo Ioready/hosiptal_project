@@ -39,7 +39,56 @@
         </div>
 
         <!-- <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('index.php/' .$formUrl) ?>" enctype="multipart/form-data"> -->
+<<<<<<< HEAD
 
+=======
+            
+        <div style=" display:flex;" class="modal-header text-center">
+         
+            
+            
+            
+            
+        <?php if ($this->ion_auth->is_facilityManager()) { ?>
+
+            
+              <div class="col-sm-4 col-lg-4 col-md-4" style="margin-right: 10px;">
+              <label for="">Select Doctor</label>
+                    <select id="appointmentType" name="appointment_id" class="form-control" onchange="fetchData()">                 
+                    <option value="" disabled>Select Doctor</option>
+                    <?php
+                  if (!empty($doctors)) {
+                      foreach ($doctors as $doctor) { ?>
+                          <option value="<?php echo $doctor->id; ?>"><?php echo $doctor->first_name.' '.$doctor->last_name; ?></option>
+                  <?php }
+                  }
+                  ?>
+
+                    </select>
+
+                  
+              </div>
+              <?php }else if($this->ion_auth->is_subAdmin()){
+                ?>
+             <div class="col-sm-4 col-lg-4 col-md-4" style="margin-right: 10px;">
+                    <select id="appointmentType" name="appointment_id" class="form-control" onchange="fetchData()">                 
+                    <!-- <option value="" disabled>Select hospital</option> -->
+                    <?php
+                  // if (!empty($hospitals)) {
+                  //     foreach ($hospitals as $hospital) { ?>
+                          <!-- <option value="<?php echo $hospital->id; ?>"><?php echo $hospital->name; ?></option> -->
+                  <?php 
+                 // }
+                  //}
+                  ?>
+
+                    </select>
+                  
+              </div>
+            <?php } ?>
+
+                <div class="form-group save-btn">
+>>>>>>> 70227fb0b4f348b6d424d056d5a22e7cf8f25453
 
 
 
@@ -169,6 +218,8 @@
                                       $appointment_found = false;
                                       foreach($clinic_appointment as $appointment) {
                                         
+                                        // Clinic Appointment
+
                                           $appointmentTime = date('H:i', strtotime($appointment->start_date_appointment));
                                           $end_date_appointment = date('H:i', strtotime($appointment->end_date_appointment));
                                           $comment_appointment = $appointment->comment_appointment;
@@ -177,22 +228,40 @@
                                           $first_name = $appointment->first_name;
                                           $last_name = $appointment->last_name;
 
+                                        // Out Of Office
 
                                           $out_start_time_at = date('H:i', strtotime($appointment->out_start_time_at));
                                           $out_end_time_at = date('H:i', strtotime($appointment->out_end_time_at));
                                           $out_of_office_comment = $appointment->out_of_office_comment;
 
+                                        // Availability
+
                                           $start_date_availability = date('H:i', strtotime($appointment->start_date_availability));
                                           $end_time_date_availability = date('H:i', strtotime($appointment->end_time_date_availability));
                                           $out_of_office_comment = $appointment->out_of_office_comment;
 
+                                         // theatre Appointment
 
+                                         $theatre_date_time = date('H:i', strtotime($appointment->theatre_date_time));
+                                         $theatre_time_duration = $appointment->theatre_time_duration;
+                                        //  $theatre_end_time = $appointment->theatre_time_duration + $theatre_date_time;
+                                        // Convert theatre_time_duration to seconds
+                                        $durationInSeconds = $theatre_time_duration * 60;
 
+                                        // Add duration to theatre_date_time
+                                        $theatre_end_time = date('H:i', strtotime($theatre_date_time . " +$durationInSeconds seconds"));
+
+                                         $theatre_comment = $appointment->theatre_comment;
+                                         $theatre_clinician = $appointment->theatre_clinician;
+
+                                        //  print_r($theatre_end_time);
                                           $appointment_date = date('Y-m-d', strtotime($appointment->start_date_appointment));
 
                                           $out_start_timeAt = date('Y-m-d', strtotime($appointment->out_start_time_at));
 
                                           $start_dateAvailability = date('Y-m-d', strtotime($appointment->start_date_availability));
+
+                                          $theatre_dateTime = date('Y-m-d', strtotime($appointment->theatre_date_time));
 
                                         
                                           if ($formatted_time >= $appointmentTime && $formatted_time <= $end_date_appointment && $department->id == $appointment->clinician_appointment) {
@@ -210,6 +279,12 @@
                                         $appointment_found = true;
                                         break;
                                     }
+
+
+                                    if ($formatted_time >= $theatre_date_time && $formatted_time <= $theatre_end_time && $department->id == $appointment->theatre_clinician) {
+                                      $appointment_found = true;
+                                      break;
+                                  }
 
                                       } 
                                     
@@ -328,6 +403,50 @@
                                             </td>
                                           <?php }else{ ?>
     
+                                          <!-- <td class="day-cell" data-time="<?php //echo $formatted_time; ?>" data-day="<?php echo $department->id; ?>"> 
+                                         
+                                              
+                                          </td> -->
+                                          <?php 
+                                          }
+                                          
+
+                                // theatre_appointment
+                                      
+                                      if ($formatted_time >= $theatre_date_time && $formatted_time <= $theatre_end_time && $department->id === $appointment->theatre_clinician) {
+                                          ?>
+                                          <td class="day-cell appointment-row" data-date="<?php echo $theatre_dateTime; ?>" data-day="<?php echo $department->id; ?>">
+                                                <?php 
+                                                    $current_date = date('Y-m-d');
+    
+                                                  
+                                                      if ($theatre_dateTime == $current_date) {
+                                                        
+                                                         
+                                                          echo '<label style="background-color:#800080; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;">';
+                                                          echo '<span style="background-color: #800080; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong>' .$address1.'<br>'.$city.'<br>theatre_comment<br>'.$theatre_date_time.' - '.$theatre_end_time.'</span>';
+                                                          echo '</label>';
+                                                        
+      
+                                                        } 
+                                                      elseif ($theatre_dateTime == date('Y-m-d', strtotime('+1 day'))) {
+                                                       
+                                                          echo '<label style="background-color:#FF00FF; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;">';
+                                                          echo '<span style="background-color: #FF00FF; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong>' .$address1.'<br>'.$city.'<br>'.$theatre_comment.'<br>'.$theatre_date_time.' - '.$theatre_end_time.'</span>';
+                                                          echo '</label>';
+                                                          
+      
+                                                        } elseif ($theatre_dateTime == date('Y-m-d', strtotime('-1 day'))) {
+                                                         
+                                                          echo '<label style="background-color:#00FF00; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;">';
+                                                          echo '<span style="background-color: #00FF00; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong>' .$address1.'<br>'.$city.'<br>'.$theatre_comment.'<br>'.$theatre_date_time.' - '.$theatre_end_time.'</span>';
+                                                          echo '</label>';
+                                                          
+                                                        }
+                                                ?>
+                                            </td>
+                                          <?php }else{ ?>
+    
                                           <td class="day-cell" data-time="<?php //echo $formatted_time; ?>" data-day="<?php echo $department->id; ?>"> 
                                          
                                               
@@ -335,6 +454,9 @@
                                           <?php 
                                           }
                                           ?>
+    
+    
+                                 
     
     
                                   <?php  } ?>

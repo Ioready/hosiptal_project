@@ -348,9 +348,9 @@
 
 
 
-                                <li title="User Rewards">
+                                <!-- <li title="User Rewards">
                                     <a href="<?php echo site_url('userReward'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "userReward") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/login.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">&nbsp; Login data</span></a>
-                                </li>
+                                </li> -->
 
                                 <!--                                <li>
                                                                         <a href="<?php echo site_url('vendors') . "/index/No"; ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "vendors") ? "active" : "" ?>"><i class="gi gi-user sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Vendor</span></a>
@@ -441,13 +441,17 @@
                                 </li> -->
                                 <!-- <li>
                                     <a href="<?php echo site_url('users'); ?>" class="<?php echo (strtolower($this->router->fetch_class()) == "users" || strpos($parent, "UA") !== false || strpos($parent, "UH") !== false) ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/patients.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Users</span></a>
-                                </li>
+                                </li> -->
                                 
-                               <li title="Appointment">`
+                               <!-- <li title="Appointment">`
                                 
                                     <a href="<?php echo site_url('appointment'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "appointment") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/appointment.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">&nbsp;Appointments</span></a>
+                                </li> -->
+                                <li title="Email Template">
+                                    <a href="<?php echo site_url('emailTemplate'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "emailTemplate") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/email.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Email Template</span></a>
                                 </li>
-                            <li title="Contact Us">
+
+                                <!-- <li title="Contact Us">
                                     <a href="<?php echo site_url('contactus'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "contactus") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/contact.svg" height="23px" width="23px"><span class="sidebar-nav-mini-hide text-dark">Contact Us</span></a>
                                 </li> -->
                                 <li title="setting">
@@ -769,6 +773,7 @@
                         <!-- <h2 style="font-size:1.5rem;font-weight:700" class="headerFonts ms-5 ">
                         <a href="javascript:void(0)" onclick="logout()" data-toggle="tooltip" data-placement="bottom" title="Logout">Logout</a>
                         </h2> -->
+                        
                         <h2 style="font-size: 1.5rem; font-weight:600" class="headerFonts ms-5">
     <a href="javascript:void(0)" onclick="logout()" data-toggle="tooltip" data-placement="bottom" title="Logout" style="color:black;">Logout</a>
 </h2>

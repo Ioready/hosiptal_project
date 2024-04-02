@@ -78,7 +78,7 @@
     <!-- END Datatables Header -->
 
     
-    <?php if ($this->ion_auth->is_subAdmin() || $this->ion_auth->is_subAdmin()) { ?>
+    <?php if ($this->ion_auth->is_subAdmin() || $this->ion_auth->is_facilityManager()) { ?>
         <div class="block full">
             <div class="row text-center">
 
