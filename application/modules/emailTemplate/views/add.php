@@ -2,7 +2,6 @@
 <script src="<?php echo base_url() . 'backend_asset/admin/js/' ?>helpers/ckeditor/ckeditor.js"></script> 
 <div id="commonModal" class="modal fade m-4" role="dialog" >
     <div class="modal-dialog modal-dialog-centered modal-lg" >
- 
         <div class="modal-content modal-lg">
             <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('emailTemplate/template_add') ?>" enctype="multipart/form-data">
                 <div class="modal-header">
