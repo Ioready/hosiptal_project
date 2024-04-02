@@ -45,7 +45,6 @@
 }
 
 </style>   
-                   
     <!-- Page content -->
     <div id="page-content">
         <!-- Datatables Header -->
