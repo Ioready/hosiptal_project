@@ -69,7 +69,7 @@
             <?php if ($this->ion_auth->is_admin()) {?>
                 <h2>
                     <a href="<?php echo base_url() ?>users/open_model" class="btn btn-sm btn-primary" target="_blank">
-                <i class="gi gi-circle_plus"></i> User
+                <i class="gi gi-circle_plus"></i> User 
                 </a></h2>
             <?php }?>
             <?php if ($this->ion_auth->is_subAdmin()) {?>
@@ -87,34 +87,11 @@
         </div>
        
 
-        <div class="table-responsive" >
-
-
-
-
-
-        <table id="users" class="table table-vcenter table-condensed table-bordered" style="background-color: #F0F8FF;">
-    <thead>
-        <tr>
-            <th style="background-color:#DBEAFF;font-size:1.3rem; text-align: center !important;"><?php echo lang('serial_no');?></th>
-            <th style="background-color:#DBEAFF;font-size:1.3rem; text-align: center;"><?php echo "Name";?></th>
-            <th style="background-color:#DBEAFF;font-size:1.3rem; text-align: center;"><?php echo lang('user_email');?></th>
-            <th style="background-color:#DBEAFF;font-size:1.3rem; text-align: center;"><?php echo lang('user_createdate');?></th>
-            <th style="background-color:#DBEAFF;font-size:1.3rem; text-align: center;"><?php echo lang('action');?></th>
-        </tr>
-    </thead>
-</table>
-
-
-
-
-
-            <!-- <table id="users" class="table table-vcenter table-condensed table-bordered"> -->
-                <!-- <thead > -->
-                    <!-- <tr > -->
-
-                        
-            <!-- <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('serial_no');?></th> -->
+        <div class="table-responsive">
+            <table id="users" class="table table-vcenter table-condensed table-bordered">
+                <thead>
+                    <tr>     
+            <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('serial_no');?></th>
             <!-- <th class="text-center"><?php echo "Team Code";?></th> -->
             <!-- <th style="background-color:#DBEAFF;font-size:1.3rem" class="text-center"><?php echo "Name";?></th> -->
             <!-- <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('user_email');?></th> -->
@@ -124,11 +101,10 @@
              <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo "Total amount due";?></th> -->
 <!--                                <th><?php echo lang('profile_image');?></th>-->
 <!--             <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('status');?></th>-->
-            <!-- <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('user_createdate');?></th> -->
-            <!-- <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('action');?></th> -->
-        
-                    <!-- </tr> -->
-                <!-- </thead> -->
+            <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('user_createdate');?></th>
+            <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('action');?></th>
+                    </tr>
+                </thead>
               
             <!-- </table> -->
         </div>
