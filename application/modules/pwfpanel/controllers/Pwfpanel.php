@@ -998,7 +998,7 @@ class Pwfpanel extends Common_Controller
             'where' => array('id' => $user),
             'single' => true,
         );
-       
+       print_r($option);die;
         $userss = $this->common_model->customGet($option);
         $this->data['user'] =$userss;
         $this->data['title'] = "Profile";
