@@ -910,3 +910,79 @@ ERROR - 2024-04-02 09:45:19 --> Could not find the language line "user_email_fie
 ERROR - 2024-04-02 09:45:24 --> Severity: Warning --> count(): Parameter must be an array or an object that implements Countable C:\xampp\htdocs\hosiptal_project\application\modules\patient\controllers\Patient.php 72
 ERROR - 2024-04-02 09:45:24 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\patient\controllers\Patient.php 75
 ERROR - 2024-04-02 09:45:24 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\patient\controllers\Patient.php 91
+ERROR - 2024-04-02 10:22:27 --> Could not find the language line "description_validation"
+ERROR - 2024-04-02 10:40:01 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\controllers\FacilityManager.php 69
+ERROR - 2024-04-02 10:40:01 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\controllers\FacilityManager.php 69
+ERROR - 2024-04-02 10:40:01 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\controllers\FacilityManager.php 69
+ERROR - 2024-04-02 10:40:01 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\controllers\FacilityManager.php 69
+ERROR - 2024-04-02 10:40:01 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\controllers\FacilityManager.php 69
+ERROR - 2024-04-02 10:40:02 --> Could not find the language line "hospital_name_validation"
+ERROR - 2024-04-02 10:40:02 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-04-02 10:40:35 --> Could not find the language line "hospital_name_validation"
+ERROR - 2024-04-02 10:40:35 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-04-02 10:41:16 --> Could not find the language line "description_validation"
+ERROR - 2024-04-02 10:43:02 --> Could not find the language line "description_validation"
+ERROR - 2024-04-02 10:45:54 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\controllers\FacilityManager.php 69
+ERROR - 2024-04-02 10:45:54 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\controllers\FacilityManager.php 69
+ERROR - 2024-04-02 10:45:54 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\controllers\FacilityManager.php 69
+ERROR - 2024-04-02 10:45:54 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\controllers\FacilityManager.php 69
+ERROR - 2024-04-02 10:45:54 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\controllers\FacilityManager.php 69
+ERROR - 2024-04-02 10:45:54 --> Could not find the language line "hospital_name_validation"
+ERROR - 2024-04-02 10:45:54 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-04-02 10:46:28 --> Could not find the language line "hospital_name_validation"
+ERROR - 2024-04-02 10:46:28 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-04-02 10:46:54 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\controllers\FacilityManager.php 69
+ERROR - 2024-04-02 10:46:54 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\controllers\FacilityManager.php 69
+ERROR - 2024-04-02 10:46:54 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\controllers\FacilityManager.php 69
+ERROR - 2024-04-02 10:46:54 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\controllers\FacilityManager.php 69
+ERROR - 2024-04-02 10:46:54 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\controllers\FacilityManager.php 69
+ERROR - 2024-04-02 10:46:54 --> Could not find the language line "hospital_name_validation"
+ERROR - 2024-04-02 10:46:54 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-04-02 10:59:05 --> Severity: Warning --> in_array() expects parameter 2 to be array, string given C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\views\edit.php 77
+ERROR - 2024-04-02 10:59:05 --> Severity: Warning --> in_array() expects parameter 2 to be array, string given C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\views\edit.php 77
+ERROR - 2024-04-02 10:59:05 --> Severity: Warning --> in_array() expects parameter 2 to be array, string given C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\views\edit.php 77
+ERROR - 2024-04-02 10:59:05 --> Severity: Warning --> in_array() expects parameter 2 to be array, string given C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\views\edit.php 77
+ERROR - 2024-04-02 10:59:05 --> Severity: Warning --> in_array() expects parameter 2 to be array, string given C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\views\edit.php 77
+ERROR - 2024-04-02 10:59:05 --> Severity: Warning --> in_array() expects parameter 2 to be array, string given C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\views\edit.php 77
+ERROR - 2024-04-02 10:59:05 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\views\edit.php 172
+ERROR - 2024-04-02 10:59:05 --> Could not find the language line "hospital_name_validation"
+ERROR - 2024-04-02 10:59:05 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-04-02 10:59:18 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\controllers\FacilityManager.php 69
+ERROR - 2024-04-02 10:59:18 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\controllers\FacilityManager.php 69
+ERROR - 2024-04-02 10:59:18 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\controllers\FacilityManager.php 69
+ERROR - 2024-04-02 10:59:18 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\controllers\FacilityManager.php 69
+ERROR - 2024-04-02 10:59:18 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\controllers\FacilityManager.php 69
+ERROR - 2024-04-02 10:59:18 --> Could not find the language line "hospital_name_validation"
+ERROR - 2024-04-02 10:59:18 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-04-02 10:59:26 --> Severity: Warning --> in_array() expects parameter 2 to be array, string given C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\views\edit.php 77
+ERROR - 2024-04-02 10:59:26 --> Severity: Warning --> in_array() expects parameter 2 to be array, string given C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\views\edit.php 77
+ERROR - 2024-04-02 10:59:26 --> Severity: Warning --> in_array() expects parameter 2 to be array, string given C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\views\edit.php 77
+ERROR - 2024-04-02 10:59:26 --> Severity: Warning --> in_array() expects parameter 2 to be array, string given C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\views\edit.php 77
+ERROR - 2024-04-02 10:59:26 --> Severity: Warning --> in_array() expects parameter 2 to be array, string given C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\views\edit.php 77
+ERROR - 2024-04-02 10:59:26 --> Severity: Warning --> in_array() expects parameter 2 to be array, string given C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\views\edit.php 77
+ERROR - 2024-04-02 10:59:26 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\views\edit.php 172
+ERROR - 2024-04-02 10:59:26 --> Could not find the language line "hospital_name_validation"
+ERROR - 2024-04-02 10:59:26 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-04-02 10:59:31 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\controllers\FacilityManager.php 69
+ERROR - 2024-04-02 10:59:31 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\controllers\FacilityManager.php 69
+ERROR - 2024-04-02 10:59:31 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\controllers\FacilityManager.php 69
+ERROR - 2024-04-02 10:59:31 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\controllers\FacilityManager.php 69
+ERROR - 2024-04-02 10:59:31 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\controllers\FacilityManager.php 69
+ERROR - 2024-04-02 10:59:31 --> Could not find the language line "hospital_name_validation"
+ERROR - 2024-04-02 10:59:31 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-04-02 10:59:37 --> Severity: Warning --> in_array() expects parameter 2 to be array, string given C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\views\edit.php 77
+ERROR - 2024-04-02 10:59:37 --> Severity: Warning --> in_array() expects parameter 2 to be array, string given C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\views\edit.php 77
+ERROR - 2024-04-02 10:59:37 --> Severity: Warning --> in_array() expects parameter 2 to be array, string given C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\views\edit.php 77
+ERROR - 2024-04-02 10:59:37 --> Severity: Warning --> in_array() expects parameter 2 to be array, string given C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\views\edit.php 77
+ERROR - 2024-04-02 10:59:37 --> Severity: Warning --> in_array() expects parameter 2 to be array, string given C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\views\edit.php 77
+ERROR - 2024-04-02 10:59:37 --> Severity: Warning --> in_array() expects parameter 2 to be array, string given C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\views\edit.php 77
+ERROR - 2024-04-02 10:59:37 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\views\edit.php 172
+ERROR - 2024-04-02 10:59:37 --> Could not find the language line "hospital_name_validation"
+ERROR - 2024-04-02 10:59:37 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-04-02 10:59:42 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\controllers\FacilityManager.php 69
+ERROR - 2024-04-02 10:59:42 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\controllers\FacilityManager.php 69
+ERROR - 2024-04-02 10:59:42 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\controllers\FacilityManager.php 69
+ERROR - 2024-04-02 10:59:42 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\controllers\FacilityManager.php 69
+ERROR - 2024-04-02 10:59:42 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\controllers\FacilityManager.php 69
+ERROR - 2024-04-02 10:59:42 --> Could not find the language line "hospital_name_validation"
+ERROR - 2024-04-02 10:59:42 --> Could not find the language line "user_email_field_validation"
