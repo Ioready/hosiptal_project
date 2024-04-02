@@ -17,106 +17,61 @@
     
  
     
-    <div class="block full">
-        <div class="block-title">
-            <h2><strong>Header</strong> Panel</h2>
-        </div>
-        <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url($formUrl) ?>" enctype="multipart/form-data">
-
-        <!-- <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('business/vendors_add') ?>" enctype="multipart/form-data"> -->
-            <!-- <div class="modal-header">
-                <h3 class="modal-title"><strong> Header</strong></h3>
-            </div> -->
-            <!-- <div class="loaders">
-                <img src="<?php //echo base_url().'backend_asset/images/Preloader_2.gif';?>" class="loaders-img" class="img-responsive">
-            </div> -->
-            <div class="alert alert-danger" id="error-box" style="display: none"></div>
-            <div class="form-body">
-                <div class="row">
-                    <div class="col-md-12" >
-
-                    
-                        <div class="form-group">
-                           <div class="col-md-2"></div>
-
-                           <div class="col-md-10">
-                            <div class="col-md-12">
-                            <label class="">Internal name*</label><br>
-                            <span>This is used for internal reference and won't be seen by patients.</span>
-                                <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('first_name');?>" />
-                            </div>
-                            <!-- <span class="help-block m-b-none col-md-offset-3"><i class="fa fa-arrow-circle-o-up"></i> <?php echo lang('english_note');?></span> -->
-                            
-                            
-                            </div>
-
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-12" >
-                        <div class="form-group">
-                            <div class="col-md-2">
-
-                            </div>
-
-                            <div class="col-md-10" style="padding-left: 32px;">
-                                
-                            <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="header_checked" value="1" id="flexCheckIndeterminate">
-                            <label class="form-check-label" for="flexCheckIndeterminate">
-                            Set this as the primary header and select it by default
-                            </label>
-                            </div>
-                            
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="col-md-12" >
-                        <div class="form-group">
-                            <div class="col-md-2">
-
-                            </div>
-
-                             <div class="col-md-10">
-                                <div class="col-md-12">
-                                    <label class="">Upload your header * </label><br>
-                                    <span>Make sure the image size is below 2MB and the image format is PNG or JPG/JPEG.</span>
-
-                                    <!-- CHANGE THE ACTION TO THE PHP SCRIPT THAT WILL PROCESS THE FILE VIA AJAX -->
-
-                                        <input id="file-upload" type="file" name="image" />
-                                        <label for="file-upload" id="file-drag">
-                                            <br /><br /><span id="file-upload-btn" class="button">Browse files</span>
-                                        </label>
-                                        
-                                        <progress id="file-progress" value="0">
-                                            <span>0</span>%
-                                        </progress>
-                                        
-                                        <output for="file-upload" id="messages" name="image"></output>
-
-
-
-
-                                    <!-- <input type="file" class="form-control" id="comment" name="comment" rows="3"> -->
-                                </div>
-                            
-                            </div>
-                        </div>
-                    </div>
-
-
-                 
-
-            </div>
-            <div class="text-right">
-                <button type="submit" id="submit" class="btn btn-sm btn-primary" >Save</button>
-            </div>
-        </form>
-        
+	<div class="block full">
+    <div class="block-title">
+        <h2 style="font-size: 1.5rem; margin-bottom: 10px;"><strong>Header</strong> Panel</h2>
     </div>
+    <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url($formUrl) ?>" enctype="multipart/form-data">
+        <div class="alert alert-danger" id="error-box" style="display: none"></div>
+        <div class="form-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Internal name*</label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('first_name');?>" />
+                            <span style="font-size: 0.85rem; color: #6c757d;">This is used for internal reference and won't be seen by patients.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 ">
+                    <div class="form-group">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-10 p-2" style="padding-left: 32px;">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="header_checked" value="1" id="flexCheckIndeterminate">
+                                <label class="form-check-label" for="flexCheckIndeterminate">
+                                    Set this as the primary header and select it by default
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-10">
+                            <label class="">Upload your header*</label>
+                            <span style="font-size: 1.2rem; color: #6c757d;">Make sure the image size is below 2MB and the image format is PNG or JPG/JPEG.</span>
+                            <input id="file-upload" type="file" name="image" style="margin-top: 10px;" />
+                            <label for="file-upload" id="file-drag" style="cursor: pointer; margin-top: 10px;">
+                                <span id="file-upload-btn" class="button">Browse files</span>
+                            </label>
+                            <progress id="file-progress" value="0" style="width: 100%; margin-top: 10px;">
+                                <span>0</span>%
+                            </progress>
+                            <output for="file-upload" id="messages" name="image" style="margin-top: 10px;"></output>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-right" style="margin-top: 20px;">
+            <button type="submit" id="submit" class="btn btn-sm btn-primary mt-2" style="background:#337ab7;">Save</button>
+        </div>
+    </form>
+</div>
+
 <!-- END Datatables Content -->
 </div>
 <!-- END Page Content -->

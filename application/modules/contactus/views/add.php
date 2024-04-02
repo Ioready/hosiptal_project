@@ -321,7 +321,7 @@
 
             </div>
             <div class="text-right">
-                <button type="submit" id="submit" class="btn btn-sm btn-primary" >Save</button>
+                <button type="submit" id="submit" class="btn btn-sm btn-primary mt-2" style="background:#337ab7;">Save</button>
             </div>
         </form>
         

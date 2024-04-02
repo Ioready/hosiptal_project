@@ -1,5 +1,5 @@
 <style>
-    #message_div{
+#message_div{
         background-color: #ffffff;
         border: 1px solid;
         box-shadow: 10px 10px 5px #888888;
@@ -10,8 +10,9 @@
         top: 20%;
         width: 40%;
         z-index: 1;
-    }
-    #close_button{
+      }
+      
+#close_button{
         right:-15px;
         top:-15px;
         cursor: pointer;
@@ -58,6 +59,106 @@
         </ul>
         <!-- END Datatables Header -->
 
+
+
+
+
+
+        <div class="block full">
+    <div class="block-title">
+        <h2><strong>Bodies</strong> Panel</h2>
+    </div>
+    <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url($formUrl) ?>" enctype="multipart/form-data">
+        <div class="alert alert-danger" id="error-box" style="display: none"></div>
+        <div class="form-body">
+            <select class="form-select" aria-label="Default select example">
+                <option selected>Open this select menu</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+            </select>
+            <h1>placeholder</h1>
+            <div class="row m-4 p-4"  style="background-color: #FFFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="input1">App Name : <strong class="fw-bold">(App Name)</strong></label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="input1">company Name : <strong class="fw-bold">(company Name)</strong></label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="input1">App Url : <strong class="fw-bold">(App_url)</strong></label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="input1">Email : <strong class="fw-bold">(Email)</strong></label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="input1">Password : <strong class="fw-bold">(Password)</strong></label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label class=" control-label">Internal name*</label>
+                    <div class="form-group"> 
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('first_name');?>" />
+                            <span class="help-block">This is used for internal reference and won't be seen by patients.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label class=" control-label">Internal name*</label>
+                    <div class="form-group"> 
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('first_name');?>" />
+                            <span class="help-block">This is used for internal reference and won't be seen by patients.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Create Letter template*</label>
+                    <div class="col-md-10">
+                        <!-- Textarea for CKEditor -->
+                        <textarea id="editor" name="bodies_template"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="text-right">
+                <button type="submit" id="submit"  class="btn btn-sm btn-primary mt-2" style="background:#337ab7;">Save changes</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- CKEditor JS (CDN) -->
+<script src="https://cdn.ckeditor.com/4.17.2/standard/ckeditor.js"></script>
+
+
+<!-- Script to initialize CKEditor -->
+<script>
+    // Initialize CKEditor
+    CKEDITOR.replace('editor');
+</script>
+
+
+
+
+
+
+
+        
+
         <!-- Datatables Content -->
         <div class="block full">
             <div class="block-title">
@@ -69,22 +170,23 @@
 
             <h2><a href="javascript:void(0)" onclick="open_modal('emailTemplate')" class="save-btn btn btn-sm btn-primary">
             <i class="gi gi-circle_plus"></i> Email Template
-            </a></h2>
-            
-       
+            </a></h2>      
         <?php }?>
 
             </div>
+            <h2><a href="javascript:void(0)" onclick="open_modal('emailTemplate')" class="save-btn btn btn-sm btn-primary">
+            <i class="gi gi-circle_plus"></i> Email Template
+            </a></h2>   
             <div class="table-responsive">
-                <table id="common_datatable_cms" class="table table-vcenter table-condensed table-bordered">
+                <table id="common_datatable_cms" class="table table-vcenter table-condensed table-bordered text-center">
                     <thead>
                         <tr>                                            
-                            <th  class="t-head"><?php echo lang('serial_no'); ?></th>
-                            <th class="t-head">Email Type</th>
-                            <th class="t-head" class="t-head">Title</th>
+                            <th  class="t-head text-center"><?php echo lang('serial_no'); ?></th>
+                            <th class="t-head text-center">Email Type</th>
+                            <th class="t-head text-center" class="t-head">Title</th>
 <!--                            <th class="t-head"><?php echo lang('description'); ?></th>
                             <th class="t-head"><?php echo lang('image'); ?></th>-->
-                            <th class="t-head"><?php echo lang('action'); ?></th>
+                            <th class="t-head text-center"><?php echo lang('action'); ?></th>
                         </tr>
                     </thead>
                     <tbody>

@@ -295,45 +295,16 @@
     <div style="background-color:#FFE0B7; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
         <div class="ibox-content">
         <h1 class="no-margins"><?php echo $careUnit; ?></h1>
-  <h5 class="text-primary"><strong>Total Care Unit</strong></h5>
+  <h5 class="text-primary"><strong>Total Earning</strong></h5>
         </div>
         <img src="<?php echo base_url(); ?>uploads/intravenous-therapy.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
     </div>
 </div>
 
 
-<div class="col-lg-4 dashboardBoxes">
-    <div style="background-color:#DAEBFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
-        <div class="ibox-content">
-            <h1 class="no-margins"><?php echo $initial_dx; ?></h1>
-            <h5 class="text-primary"><strong>Total Infections</strong></h5>
-        </div>
-        <img src="<?php echo base_url(); ?>uploads/infected.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
-    </div>
-</div>
-
-<div class="col-lg-4 dashboardBoxes">
-    <div style="background-color:#D0FAE4; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
-        <div class="ibox-content">
-            <h1 class="no-margins"><?php echo $initial_rx; ?></h1>
-            <h5 class="text-primary"><strong>Total Antibiotic</strong></h5>
-        </div>
-        <img src="<?php echo base_url(); ?>uploads/medicine.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
-    </div>
-</div>
-
-<div class="col-lg-4 dashboardBoxes">
-    <div style="background-color:#FDE2E4; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
-        <div class="ibox-content">
-        <h1 class="no-margins"><?php echo $total_patient_today; ?></h1>
-            <h5 class="text-primary"><strong>Total Patient Today</strong></h5>
-        </div>
-        <img src="<?php echo base_url(); ?>uploads/doctor-consultation1.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
-    </div>
-</div>
 
 
-<div class="switch-wrapper">
+<div class="switch-wrapperv m-4">
     <input id="toggle-monthly" type="radio" name="switch" checked>
     <label style="font-size:1.5rem;margin-bottom:10px" for="monthly">Monthly</label>
     <input style="margin-left:2rem" id="toggle-yearly" type="radio" name="switch">
@@ -344,7 +315,7 @@
 
 
     <section>
-        <div class="content">
+        <div class="content m-4">
 
 
             <?php 
@@ -353,9 +324,9 @@
             if($row->DurationInMonths == 'month'){ 
 
             ?>
-            <div class="basic box price monthly">
+            <div class="basic box price monthly"  style="background-color:#FFFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);border-radius:20px " >
                 <h2 style="margin-top:0;margin-bottom:0" class="title"><?php echo $row->PlanName;?></h2>
-                <div class="view">
+                <div class="view"  style="background-color:white; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" >
                     <div class="icon">
                         <img src="https://i.postimg.cc/2jcfMcf4/hot-air-balloon.png" alt="hot-air-balloon">
                     </div>
@@ -388,11 +359,14 @@
                 </div>
 
         <?php } else if($this->ion_auth->is_admin()){ ?>
-                <div class="button plan_button">
+                <div class="button plan_button m-4">
                 
                 <!-- <a href="<?php echo site_url('stripePayments'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "stripePaymentController") ? "active" : "" ?>"> -->
                 <!-- <button >START FREE 7 DAYS TRIAL </button></a> -->
-                <a href="<?php echo base_url('make-stripe-payment?'.'id='.$row->id);?>"><button >START FREE 7 DAYS TRIAL </button></a>
+                <a href="<?php echo base_url('make-stripe-payment?'.'id='.$row->id);?>" style="text-align: center; text-decoration: none; color: white;">
+    <button style="background-color: transparent; border: none; padding: 0; cursor: pointer; margin:10px; margin-left:60px;" class="text-center">START FREE 7 DAYS TRIAL</button>
+</a>
+
                 <!-- <a href="<?php echo base_url('my-stripe?'.'id='.$row->id);?>"><button >START FREE 7 DAYS TRIAL </button></a> -->
                 </div>
                 <?php } ?>
@@ -403,7 +377,7 @@
             <!-- make-stripe-payment -->
             <?php 
             }else if($row->DurationInMonths == 'years'){ ?>
- <div class="basic box price yearly ">
+                   <div class="basic box price yearly ">
                 <h2 style="margin-top:0;margin-bottom:0" class="title"><?php echo $row->PlanName;?></h2>
                 <div class="view">
                     <div class="icon">
@@ -468,85 +442,6 @@
 
 
 
-<div class="col-lg-6 mt-4 m-4" style="background-color: #fff8f8;box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);">
-  <canvas id="myChart"></canvas>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<script>
-  const ctx = document.getElementById('myChart');
-
-  new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-      datasets: [{
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
-        backgroundColor: [
-  'rgba(255, 99, 132, 0.6)', // Red
-  'rgba(54, 162, 235, 0.6)', // Blue
-  'rgba(255, 206, 86, 0.6)', // Yellow
-  'rgba(75, 192, 192, 0.6)', // Green
-  'rgba(153, 102, 255, 0.6)', // Purple
-  'rgba(255, 159, 64, 0.6)' // Orange
-],
-
-        borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)'
-        ],
-        borderWidth: 1
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
-    }
-  });
-</script>
-
-
-
-
-
-
-                            <!-- <div> -->
-  <canvas id="myChart"></canvas>
-<!-- </div> -->
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<script>
-  const ctx = document.getElementById('myChart');
-
-  new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-      datasets: [{
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
-        borderWidth: 1
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
-    }
-  });
-</script>
 
 
                                             <!-- <h5 class="text-primary"><strong>Patient</strong></h5> -->
@@ -559,6 +454,57 @@
                    <div style="background-color:#EDEAFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
                        <div class="ibox-title">
 
+<<<<<<< HEAD
+<div class="col-lg-3 col-md-6 dashboardBoxes">
+    <div style="background-color:<?php echo $total_patient > 0 ? '#EDEAFF' : '#FFFFFF'; ?>;box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
+        <div class="ibox-content">
+        <h1 class="no-margins"><?php echo $total_patient; ?></h1>
+            <h5 class="text-primary"><strong>Total Patient</strong></h5>
+        </div>
+        <img src="<?php echo base_url(); ?>uploads/patient.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+    </div>
+</div>
+
+<div class="col-lg-3 col-md-6  dashboardBoxes">
+    <div style="background-color:<?php echo $careUnit > 0 ? '#FEE2E1' : '#FFFFFF'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
+        <div class="ibox-content">
+            <h1 class="no-margins"><?php echo $careUnit; ?></h1>
+            <h5 class="text-primary"><strong>Total Care Unit</strong></h5>
+        </div>
+        <img src="<?php echo base_url(); ?>uploads/intravenous-therapy.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+    </div>
+</div>
+
+<div class="col-lg-3 col-md-6  dashboardBoxes">
+    <div style="background-color:<?php echo $initial_dx > 0 ? '#DAEBFF' : '#FFFFFF'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
+        <div class="ibox-content">
+            <h1 class="no-margins"><?php echo $initial_dx; ?></h1>
+            <h5 class="text-primary"><strong>Total Infections</strong></h5>
+        </div>
+        <img src="<?php echo base_url(); ?>uploads/respiratory.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+    </div>
+</div>
+
+<div class="col-lg-3 col-md-6  dashboardBoxes">
+    <div style="background-color:<?php echo $initial_rx > 0 ? '#D0FAE4' : '#FFFFFF'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
+        <div class="ibox-content">
+            <h1 class="no-margins"><?php echo $initial_rx; ?></h1>
+            <h5 class="text-primary"><strong>Total Antibiotic</strong></h5>
+        </div>
+        <img src="<?php echo base_url(); ?>uploads/medicine.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+    </div>
+</div>
+
+<div class="col-lg-4 col-md-6 dashboardBoxes">
+    <div style="background-color:<?php echo $total_patient_today > 0 ? '#D0FAE4' : '#FFFFFF'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
+        <div class="ibox-content">
+            <h1 class="no-margins"><?php echo $total_patient_today; ?></h1>
+            <h5 class="text-primary"><strong>Total Patient Today</strong></h5>
+        </div>
+        <img src="<?php echo base_url(); ?>uploads/patient1.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+    </div>
+</div>
+=======
                        <div class="ibox-content">
 
                        <h1 class="no-margins">
@@ -625,8 +571,32 @@
                        <img src="<?php echo base_url(); ?>uploads/form.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
                    </div>
            </div>
+>>>>>>> b91f13e4201e7195f073c3691c5bef7973f4de47
 
 
+
+
+
+<div class="col-lg-4 col-md-6 dashboardBoxes">
+    <div style="background-color:<?php echo $total_patient_today > 0 ? '#F9F5FF' : '#F9F5FF'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
+        <div class="ibox-content">
+            <h1 class="no-margins"><?php echo $total_patient_today; ?></h1>
+            <h5 class="text-primary"><strong>New Patient </strong></h5>
+        </div>
+        <img src="<?php echo base_url(); ?>uploads/user.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+    </div>
+</div>
+
+
+<div class="col-lg-4 col-md-6 dashboardBoxes">
+    <div style="background-color:<?php echo $total_patient_today > 0 ? '#FFFAEC' : '#FFFAEC'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
+        <div class="ibox-content">
+            <h1 class="no-margins"><?php echo $total_patient_today; ?></h1>
+            <h5 class="text-primary"><strong>Opeartion and Injection</strong></h5>
+        </div>
+        <img src="<?php echo base_url(); ?>uploads/syringe.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+    </div>
+</div>
 
 
 <div class="row m-2">

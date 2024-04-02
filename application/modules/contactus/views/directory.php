@@ -76,10 +76,10 @@
                 </div>            
 
                 <div class="input-group" style="border: 1px solid; border-radius: 6px;">
-                    <div class="col-md-3">
+                    <div class="col-md-1">
                         <button class="btn" type="search"><i class="fa fa-search" name="search-outline"></i></button>
                     </div>
-                    <div class="col-md-9">
+                    <div class="col-md-11">
                         <input type="search" class="form-control" name="search" placeholder="Search..">
                     </div>  
                 </div>

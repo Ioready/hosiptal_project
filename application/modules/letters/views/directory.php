@@ -29,54 +29,55 @@
 
                 <div class="table-responsive">          
                     <div>
-                        <div class="col-md-12">
-                            <label for="">
-                                <h2>
-                            <strong> Letter templates </strong> 
-                                </h2>
-                            </label>
-                        </div>
-                        <br>
-                            <div class="col-md-12">
-                                Letter templates are the building blocks of your letter. You can use them in combination when creating a patient letter.
+                    <div>
+    <div class="col-md-12">
+        <label for="">
+            <h2>
+                <strong>Letter templates</strong>
+            </h2>
+        </label>
+    </div>
+    <br>
+    <div class="col-md-12">
+        Letter templates are the building blocks of your letter. You can use them in combination when creating a patient letter.
+        <br><br>
+    </div>
 
-                                <br><br>
-                    </div>   
-
-                    <div class="col-md-12">   
-                        <div class="col-md-11" style="box-shadow: 0px 1px 4px 0px; padding: 16px;">
-                            <strong>Set paragraph spacing</strong>
-                            <label for="">
-                            Changes you make here will affect any new letters and letter templates you create, or any new changes you make to existing ones. 
-                            They will not be applied retrospectively.</label>
-                            
-                                <div class="row">
-                                    <div class="col-md-2">
-                                    <strong>Paragraph</strong>
-                                    </div>
-                                        <div class="col-md-4">
-                                        
-                                            <select class="form-control selectpicker" data-live-search="true" data-container="body">
-                                            <option data-tokens="Single Line Spacing" value="single_line_spacing">Single Line Spacing</option>
-                                            <option data-tokens="Double Line Spacing" value="double_line_spacing">Double Line Spacing</option>
-                                            </select>
-                                        </div>
-                                </div>
-                        </div>  
-                    </div>
+    <div class="col-md-12">
+        <div class="col-md-11" style="box-shadow: 0px 1px 4px 0px; padding: 16px;">
+            <strong>Set paragraph spacing</strong>
+            <label for="">
+                Changes you make here will affect any new letters and letter templates you create, or any new changes you make to existing ones. They will not be applied retrospectively.
+            </label>
+            <div class="row">
+                <div class="col-md-2">
+                    <strong>Paragraph</strong>
+                </div>
+                <div class="col-md-4">
+                    <select class="form-control selectpicker" data-live-search="true" data-container="body">
+                        <option data-tokens="Single Line Spacing" value="single_line_spacing">Single Line Spacing</option>
+                        <option data-tokens="Double Line Spacing" value="double_line_spacing">Double Line Spacing</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
-                    <div class="col-md-12">
-                        <div class="main">
-  
-                            <!-- Actual search box -->
-                            <div class="form-group has-search">
-                                <span class="fa fa-search form-control-feedback"></span>
-                                <input type="text" class="form-control" placeholder="Search">
-                            </div>
-                        </div>
-                    </div> 
-                    
+
+
+
+<div class="col-md-12">
+    <div class="main">
+        <!-- Actual search box -->
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-search"></i></span>
+            <input type="text" class="form-control" placeholder="Search">
+        </div>
+    </div>
+</div> 
+
                     
 
                 </div>  
@@ -85,44 +86,43 @@
         
             </div>
 
-     <div class="block full">
-                <?php 
-                $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
-                ?>
+ 
 
-            <div class="table-responsive">  
-                 <div class="col-md-1">
-                     <img src="<?php echo base_url(); ?>uploads/icons/header_icon.png" style="height: 90px;width:60px;" alt="avatar"> 
-                </div> 
-                <div class="col-md-9">
 
-                    <div>
-                        <div class="col-md-12">
-                            
-                            <label for="">
-                                <h2>
-                            <strong> Headers </strong> 
-                                </h2>
-                            </label>
-                        </div>
-                        <br>
-                            <div class="col-md-12">
-                            Headers appear at the top of every page and usually include addresses and logos.
+            
+            <div class="block full">
+    <?php 
+    $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+    ?>
+    <div class="">  
+        <div class="row">
+            <div class="col-md-1 mt-4">
+                <img src="<?php echo base_url(); ?>uploads/icons/business.png" style="height:50px;width:60px;" alt="avatar"> 
+            </div> 
+            <div class="col-md-8">
+                <div>
+                    <div class="col-md-12">
+                        <label for="">
+                            <h2><strong> Headers </strong></h2>
+                        </label>
+                    </div>
+                    <br>
+                    <div class="col-md-12">
+                        Headers appear at the top of every page and usually include addresses and logos.
                     </div>   
                 </div> 
             </div>
-            <div class="col-md-2">
-           
-                <a href="<?php echo site_url('userSettings/header'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "directory") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">
-                                            
-                <button type="button" class="btn btn-primary save-btn"><i class="fa fa-solid fa-plus"></i> New Header</button>
+            <div class="col-md-3 mt-4">
+                <a href="<?php echo site_url('userSettings/header'); ?>" class="<?php echo (strtolower($this->router->fetch_class()) == "directory") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">
+                    <button type="button" class="btn btn-primary save-btn"><i class="fa fa-solid fa-plus"></i> New Headers</button>
                 </span></a>
-                
-                <div class="header-toggle ">
+                <div class="header-toggle">
                     <span class="arrow"></span>
                 </div>
             </div>
+        </div>
 
+        <div class="row">
             <div class="col-md-12">
                 <div class="header_content">    
                     <table id="common_datatable_menucat" class="table table-vcenter table-condensed table-bordered">
@@ -133,114 +133,100 @@
                                 <th style="background-color:#DBEAFF;font-size:1.3rem;">Created On</th>
                                 <th style="background-color:#DBEAFF;font-size:1.3rem;">Updated On</th>
                                 <th style="background-color:#DBEAFF;font-size:1.3rem;">Status</th>
-                            
                             </tr>
                         </thead>
                         <tbody>
-                    <?php
-                    if (!empty($header_list)) {
-                        $rowCount = 0;
-                        foreach ($header_list as $rows) {
-                            $rowCount++;     
-                    ?>
-                            <tr>
-                                <td><?php echo $rowCount; ?></td>
-                                <td><?php echo $rows->internal_name; ?></td>
-                                <td><?php echo date('m/d/Y', strtotime($rows->created_on)); ?></td>
-                                <td><?php echo date('m/d/Y', strtotime($rows->updated_on)); ?></td>
-                                <td><?php  if($rows->status == 0){
-                                    $active = '<button type="button" class="btn btn-default" style="color:green">Active</button>';
-                                    echo $active;
-                                } else {
-                                    echo 'Inactive';
-                                } ?></td>
-                                <td class="actions">
-                                    <!-- <a href="javascript:void(0)" class="btn btn-default" onclick="editFn('index.php/userSettings/letterTemplate', 'edit_patient', '<?php echo encoding($rows->patient_id) ?>', 'userSettings/letterTemplate');"><i class="fa fa-pencil"></i></a> -->
-                                                    <!-- <a href="<?php echo base_url() . 'userSettings/letterTemplate/edit?id=' . encoding($rows->patient_id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-eye"></i></a> -->
-                                                                       <!-- <a href="<?php echo base_url() . 'userSettings/letterTemplate/edit_parient?id=' . encoding($rows->patient_id); ?>" data-toggle="tooltip" class="btn btn-default" target="_blank"><i class="fa fa-pencil"></i></a> -->
-                                  
-                                    <!-- <a href="<?php echo base_url() . '/userSettings/letterTemplate/existing_list/' . $rows->pid; ?>" target='_blank' data-toggle="tooltip" class="btn btn-default">View History</a> -->
-                                    <!-- <a href="javascript:void(0)" onclick="deletePatient('<?php echo $rows->patient_id; ?>')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a> -->
-
-                                </td>
-                            </tr>
-
-
-                        <?php
-                        }
-                        //}
-                    } else {
-                        $rowCount = 0;
-                        foreach ($header_list as $rows) :
-                            $rowCount++;
-                        ?>
-                            <tr>
-                            <td><?php echo $rowCount; ?></td>
-                                <td><?php echo $rows->internal_name; ?></td>
-                                <td><?php echo date('m/d/Y', strtotime($rows->created_on)); ?></td>
-                                <td><?php echo date('m/d/Y', strtotime($rows->updated_on)); ?></td>
-                                <td><?php echo $rows->status; ?></td>
-
-                                <td class="actions">
-                                    <!-- <a href="javascript:void(0)" class="btn btn-default" onclick="editFn('index.php/patient', 'edit_patient', '<?php echo encoding($rows->patient_id) ?>', 'patient');"><i class="fa fa-pencil"></i></a>
-                                                    <a href="<?php echo base_url() . 'patient/edit?id=' . encoding($rows->patient_id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-eye"></i></a>
-                                                                       <a href="<?php echo base_url() . 'patient/edit_parient?id=' . encoding($rows->patient_id); ?>" data-toggle="tooltip" class="btn btn-default" target="_blank"><i class="fa fa-pencil"></i></a>
-                                    <a href="<?php echo base_url() . 'index.php/patient/existing_list/' . $rows->pid; ?>" target='_blank' data-toggle="tooltip" class="btn btn-default">View History</a>
-                                    <a href="javascript:void(0)" onclick="deletePatient('<?php echo $rows->patient_id; ?>')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a> -->
-
-                                </td>
-                            </tr>
-                    <?php
-                        endforeach;
-                    }
-                    ?>
-
-                </tbody>
-                        <!-- </tbody> -->
-                    </table><br>
+                            <?php
+                            if (!empty($header_list)) {
+                                $rowCount = 0;
+                                foreach ($header_list as $rows) {
+                                    $rowCount++;     
+                            ?>
+                                <tr>
+                                    <td><?php echo $rowCount; ?></td>
+                                    <td><?php echo $rows->internal_name; ?></td>
+                                    <td><?php echo date('m/d/Y', strtotime($rows->created_on)); ?></td>
+                                    <td><?php echo date('m/d/Y', strtotime($rows->updated_on)); ?></td>
+                                    <td>
+                                        <?php if($rows->status == 0): ?>
+                                            <button type="button" class="btn btn-default" style="color:green">Active</button>
+                                        <?php else: ?>
+                                            Inactive
+                                        <?php endif; ?>
+                                    </td>
+                                    <td class="actions">
+                                        <!-- Action buttons -->
+                                    </td>
+                                </tr>
+                            <?php
+                                }
+                            } else {
+                                $rowCount = 0;
+                                foreach ($header_list as $rows) :
+                                    $rowCount++;
+                            ?>
+                                <tr>
+                                    <td><?php echo $rowCount; ?></td>
+                                    <td><?php echo $rows->internal_name; ?></td>
+                                    <td><?php echo date('m/d/Y', strtotime($rows->created_on)); ?></td>
+                                    <td><?php echo date('m/d/Y', strtotime($rows->updated_on)); ?></td>
+                                    <td><?php echo $rows->status; ?></td>
+                                    <td class="actions">
+                                        <!-- Action buttons -->
+                                    </td>
+                                </tr>
+                            <?php
+                                endforeach;
+                            }
+                            ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
 
-    <div class="block full">
-                <?php 
-                $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
-                ?>
 
-            <div class="table-responsive">  
-                 <div class="col-md-1">
-                     <img src="<?php echo base_url(); ?>uploads/icons/bodies.png" style="height: 90px;width:60px;" alt="avatar"> 
-                </div> 
-                <div class="col-md-9">
 
-                    <div>
-                        <div class="col-md-12">
-                            
-                            <label for="">
-                                <h2>
-                            <strong> Bodies </strong> 
-                                </h2>
-                            </label>
-                        </div>
-                        <br>
-                            <div class="col-md-12">
-                            Document content that is often the same. These can be pulled into the main body of the document and edited if required. You can insert as many bodies as you need into your letters.
+
+
+
+
+<div class="block full">
+    <?php 
+    $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+    ?>
+    <div class="">  
+        <div class="row">
+            <div class="col-md-1 mt-4">
+                <img src="<?php echo base_url(); ?>uploads/icons/business.png" style="height:50px;width:60px;" alt="avatar"> 
+            </div> 
+            <div class="col-md-8 ">
+                <div>
+                    <div class="col-md-12">
+                        <label for="">
+                            <h2><strong> Bodies </strong></h2>
+                        </label>
+                    </div>
+                    <br>
+                    <div class="col-md-12">
+                        Document content that is often the same. These can be pulled into the main body of the document and edited if required. You can insert as many bodies as you need into your letters.
                     </div>   
                 </div> 
             </div>
-            <div class="col-md-2">
-                
-                <a href="<?php echo site_url('userSettings/bodies'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "directory") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">
-                        <button type="button" class="btn btn-primary save-btn"><i class="fa fa-solid fa-plus"></i> New Bodies</button>
+            <div class="col-md-3 mt-4">
+                <a href="<?php echo site_url('userSettings/bodies'); ?>" class="<?php echo (strtolower($this->router->fetch_class()) == "directory") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">
+                    <button type="button" class="btn btn-primary save-btn"><i class="fa fa-solid fa-plus"></i> New Bodies</button>
                 </span></a>
-                
                 <div class="body-toggle ">
                     <span class="arrow"></span>
                 </div>
             </div>
+        </div>
 
+        <div class="row">
             <div class="col-md-12">
                 <div class="body_content">    
                     <table id="common_datatable_menucat" class="table table-vcenter table-condensed table-bordered">
@@ -251,114 +237,101 @@
                                 <th style="background-color:#DBEAFF;font-size:1.3rem;">Created On</th>
                                 <th style="background-color:#DBEAFF;font-size:1.3rem;">Updated On</th>
                                 <th style="background-color:#DBEAFF;font-size:1.3rem;">Status</th>
-                            
                             </tr>
                         </thead>
                         <tbody>
-                    <?php
-                    if (!empty($body_list)) {
-                        $rowCount = 0;
-                        foreach ($body_list as $rows) {
-                            $rowCount++;     
-                    ?>
-                            <tr>
-                                <td><?php echo $rowCount; ?></td>
-                                <td><?php echo $rows->internal_name; ?></td>
-                                <td><?php echo date('m/d/Y', strtotime($rows->created_on)); ?></td>
-                                <td><?php echo date('m/d/Y', strtotime($rows->updated_on)); ?></td>
-                                <td><?php  if($rows->status == 0){
-                                    $active = '<button type="button" class="btn btn-default" style="color:green">Active</button>';
-                                    echo $active;
-                                } else {
-                                    echo 'Inactive';
-                                } ?></td>
-                                <td class="actions">
-                                    <!-- <a href="javascript:void(0)" class="btn btn-default" onclick="editFn('index.php/userSettings/letterTemplate', 'edit_patient', '<?php echo encoding($rows->patient_id) ?>', 'userSettings/letterTemplate');"><i class="fa fa-pencil"></i></a> -->
-                                                    <!-- <a href="<?php echo base_url() . 'userSettings/letterTemplate/edit?id=' . encoding($rows->patient_id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-eye"></i></a> -->
-                                                                       <!-- <a href="<?php echo base_url() . 'userSettings/letterTemplate/edit_parient?id=' . encoding($rows->patient_id); ?>" data-toggle="tooltip" class="btn btn-default" target="_blank"><i class="fa fa-pencil"></i></a> -->
-                                  
-                                    <!-- <a href="<?php echo base_url() . '/userSettings/letterTemplate/existing_list/' . $rows->pid; ?>" target='_blank' data-toggle="tooltip" class="btn btn-default">View History</a> -->
-                                    <!-- <a href="javascript:void(0)" onclick="deletePatient('<?php echo $rows->patient_id; ?>')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a> -->
-
-                                </td>
-                            </tr>
-
-
-                        <?php
-                        }
-                        //}
-                    } else {
-                        $rowCount = 0;
-                        foreach ($body_list as $rows) :
-                            $rowCount++;
-                        ?>
-                            <tr>
-                            <td><?php echo $rowCount; ?></td>
-                                <td><?php echo $rows->internal_name; ?></td>
-                                <td><?php echo date('m/d/Y', strtotime($rows->created_on)); ?></td>
-                                <td><?php echo date('m/d/Y', strtotime($rows->updated_on)); ?></td>
-                                <td><?php echo $rows->status; ?></td>
-
-                                <td class="actions">
-                                    <!-- <a href="javascript:void(0)" class="btn btn-default" onclick="editFn('index.php/patient', 'edit_patient', '<?php echo encoding($rows->patient_id) ?>', 'patient');"><i class="fa fa-pencil"></i></a>
-                                                    <a href="<?php echo base_url() . 'patient/edit?id=' . encoding($rows->patient_id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-eye"></i></a>
-                                                                       <a href="<?php echo base_url() . 'patient/edit_parient?id=' . encoding($rows->patient_id); ?>" data-toggle="tooltip" class="btn btn-default" target="_blank"><i class="fa fa-pencil"></i></a>
-                                    <a href="<?php echo base_url() . 'index.php/patient/existing_list/' . $rows->pid; ?>" target='_blank' data-toggle="tooltip" class="btn btn-default">View History</a>
-                                    <a href="javascript:void(0)" onclick="deletePatient('<?php echo $rows->patient_id; ?>')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a> -->
-
-                                </td>
-                            </tr>
-                    <?php
-                        endforeach;
-                    }
-                    ?>
-
-                </tbody>
-                        <!-- </tbody> -->
-                    </table><br>
+                            <?php
+                            if (!empty($body_list)) {
+                                $rowCount = 0;
+                                foreach ($body_list as $rows) {
+                                    $rowCount++;     
+                            ?>
+                                <tr>
+                                    <td><?php echo $rowCount; ?></td>
+                                    <td><?php echo $rows->internal_name; ?></td>
+                                    <td><?php echo date('m/d/Y', strtotime($rows->created_on)); ?></td>
+                                    <td><?php echo date('m/d/Y', strtotime($rows->updated_on)); ?></td>
+                                    <td>
+                                        <?php if($rows->status == 0): ?>
+                                            <button type="button" class="btn btn-default" style="color:green">Active</button>
+                                        <?php else: ?>
+                                            Inactive
+                                        <?php endif; ?>
+                                    </td>
+                                    <td class="actions">
+                                        <!-- Action buttons -->
+                                    </td>
+                                </tr>
+                            <?php
+                                }
+                            } else {
+                                $rowCount = 0;
+                                foreach ($body_list as $rows) :
+                                    $rowCount++;
+                            ?>
+                                <tr>
+                                    <td><?php echo $rowCount; ?></td>
+                                    <td><?php echo $rows->internal_name; ?></td>
+                                    <td><?php echo date('m/d/Y', strtotime($rows->created_on)); ?></td>
+                                    <td><?php echo date('m/d/Y', strtotime($rows->updated_on)); ?></td>
+                                    <td><?php echo $rows->status; ?></td>
+                                    <td class="actions">
+                                        <!-- Action buttons -->
+                                    </td>
+                                </tr>
+                            <?php
+                                endforeach;
+                            }
+                            ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <div class="block full">
-                <?php 
-                $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
-                ?>
 
-            <div class="table-responsive">  
-                 <div class="col-md-1">
-                     <img src="<?php echo base_url(); ?>uploads/icons/recipients.png" style="height: 90px;width:60px;" alt="avatar"> 
-                </div> 
-                <div class="col-md-8">
 
-                    <div>
-                        <div class="col-md-12">
-                            
-                            <label for="">
-                                <h2>
-                            <strong> Recipients block </strong> 
-                                </h2>
-                            </label>
-                        </div>
-                        <br>
-                            <div class="col-md-12">
-                            Set up placeholders to automatically display information for all the recipients that have been copied into your letter.
+
+
+
+
+
+<div class="block full">
+    <?php 
+    $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+    ?>
+
+    <div class="">  
+        <div class="row">
+            <div class="col-md-1 mt-4">
+                <img src="<?php echo base_url(); ?>uploads/icons/business.png" style="height:50px;width:60px;" alt="avatar"> 
+            </div> 
+            <div class="col-md-7">
+                <div>
+                    <div class="col-md-12">
+                        <label for="">
+                            <h2><strong> Recipients block </strong></h2>
+                        </label>
+                    </div>
+                    <br>
+                    <div class="col-md-12">
+                        Set up placeholders to automatically display information for all the recipients that have been copied into your letter.
                     </div>   
                 </div> 
             </div>
-            <div class="col-md-3">
-
-            
-                <a href="<?php echo site_url('userSettings/recipients'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "directory") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">
-                        <button type="button" class="btn btn-primary save-btn"><i class="fa fa-solid fa-plus"></i> New Recipients block</button>
+            <div class="col-md-4 mt-4">
+                <a href="<?php echo site_url('userSettings/recipients'); ?>" class="<?php echo (strtolower($this->router->fetch_class()) == "directory") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">
+                    <button type="button" class="btn btn-sm btn-primary  save-btn"><i class="fa fa-solid fa-plus"></i> New Recipients block</button>
                 </span></a>
-                
                 <div class="rec-toggle">
                     <span class="arrow"></span>
                 </div>
             </div>
+        </div>
 
+        <div class="row">
             <div class="col-md-12">
                 <div class="rec_content">    
                     <table id="common_datatable_menucat" class="table table-vcenter table-condensed table-bordered">
@@ -369,111 +342,95 @@
                                 <th style="background-color:#DBEAFF;font-size:1.3rem;">Created On</th>
                                 <th style="background-color:#DBEAFF;font-size:1.3rem;">Updated On</th>
                                 <th style="background-color:#DBEAFF;font-size:1.3rem;">Status</th>
-                            
                             </tr>
                         </thead>
                         <tbody>
-                    <?php
-                    if (!empty($recipients_list)) {
-                        $rowCount = 0;
-                        foreach ($recipients_list as $rows) {
-                            $rowCount++;     
-                    ?>
-                            <tr>
-                                <td><?php echo $rowCount; ?></td>
-                                <td><?php echo $rows->internal_name; ?></td>
-                                <td><?php echo date('m/d/Y', strtotime($rows->created_on)); ?></td>
-                                <td><?php echo date('m/d/Y', strtotime($rows->updated_on)); ?></td>
-                                <td><?php  if($rows->status == 0){
-                                    $active = '<button type="button" class="btn btn-default" style="color:green">Active</button>';
-                                    echo $active;
-                                } else {
-                                    echo 'Inactive';
-                                } ?></td>
-                                <td class="actions">
-                                    <!-- <a href="javascript:void(0)" class="btn btn-default" onclick="editFn('index.php/userSettings/letterTemplate', 'edit_patient', '<?php echo encoding($rows->patient_id) ?>', 'userSettings/letterTemplate');"><i class="fa fa-pencil"></i></a> -->
-                                                    <!-- <a href="<?php echo base_url() . 'userSettings/letterTemplate/edit?id=' . encoding($rows->patient_id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-eye"></i></a> -->
-                                                                       <!-- <a href="<?php echo base_url() . 'userSettings/letterTemplate/edit_parient?id=' . encoding($rows->patient_id); ?>" data-toggle="tooltip" class="btn btn-default" target="_blank"><i class="fa fa-pencil"></i></a> -->
-                                  
-                                    <!-- <a href="<?php echo base_url() . '/userSettings/letterTemplate/existing_list/' . $rows->pid; ?>" target='_blank' data-toggle="tooltip" class="btn btn-default">View History</a> -->
-                                    <!-- <a href="javascript:void(0)" onclick="deletePatient('<?php echo $rows->patient_id; ?>')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a> -->
-
-                                </td>
-                            </tr>
-
-
-                        <?php
-                        }
-                        //}
-                    } else {
-                        $rowCount = 0;
-                        foreach ($recipients_list as $rows) :
-                            $rowCount++;
-                        ?>
-                            <tr>
-                            <td><?php echo $rowCount; ?></td>
-                                <td><?php echo $rows->internal_name; ?></td>
-                                <td><?php echo date('m/d/Y', strtotime($rows->created_on)); ?></td>
-                                <td><?php echo date('m/d/Y', strtotime($rows->updated_on)); ?></td>
-                                <td><?php echo $rows->status; ?></td>
-
-                                <td class="actions">
-                                    <!-- <a href="javascript:void(0)" class="btn btn-default" onclick="editFn('index.php/patient', 'edit_patient', '<?php echo encoding($rows->patient_id) ?>', 'patient');"><i class="fa fa-pencil"></i></a>
-                                                    <a href="<?php echo base_url() . 'patient/edit?id=' . encoding($rows->patient_id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-eye"></i></a>
-                                                                       <a href="<?php echo base_url() . 'patient/edit_parient?id=' . encoding($rows->patient_id); ?>" data-toggle="tooltip" class="btn btn-default" target="_blank"><i class="fa fa-pencil"></i></a>
-                                    <a href="<?php echo base_url() . 'index.php/patient/existing_list/' . $rows->pid; ?>" target='_blank' data-toggle="tooltip" class="btn btn-default">View History</a>
-                                    <a href="javascript:void(0)" onclick="deletePatient('<?php echo $rows->patient_id; ?>')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a> -->
-
-                                </td>
-                            </tr>
-                    <?php
-                        endforeach;
-                    }
-                    ?>
-
-                </tbody>
-                        <!-- </tbody> -->
-                    </table><br>
+                            <?php
+                            if (!empty($recipients_list)) {
+                                $rowCount = 0;
+                                foreach ($recipients_list as $rows) {
+                                    $rowCount++;     
+                            ?>
+                                <tr>
+                                    <td><?php echo $rowCount; ?></td>
+                                    <td><?php echo $rows->internal_name; ?></td>
+                                    <td><?php echo date('m/d/Y', strtotime($rows->created_on)); ?></td>
+                                    <td><?php echo date('m/d/Y', strtotime($rows->updated_on)); ?></td>
+                                    <td>
+                                        <?php if($rows->status == 0): ?>
+                                            <button type="button" class="btn btn-default" style="color:green">Active</button>
+                                        <?php else: ?>
+                                            Inactive
+                                        <?php endif; ?>
+                                    </td>
+                                    <td class="actions">
+                                        <!-- Action buttons -->
+                                    </td>
+                                </tr>
+                            <?php
+                                }
+                            } else {
+                                $rowCount = 0;
+                                foreach ($recipients_list as $rows) :
+                                    $rowCount++;
+                            ?>
+                                <tr>
+                                    <td><?php echo $rowCount; ?></td>
+                                    <td><?php echo $rows->internal_name; ?></td>
+                                    <td><?php echo date('m/d/Y', strtotime($rows->created_on)); ?></td>
+                                    <td><?php echo date('m/d/Y', strtotime($rows->updated_on)); ?></td>
+                                    <td><?php echo $rows->status; ?></td>
+                                    <td class="actions">
+                                        <!-- Action buttons -->
+                                    </td>
+                                </tr>
+                            <?php
+                                endforeach;
+                            }
+                            ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <div class="block full">
-                <?php 
-                $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
-                ?>
 
-            <div class="table-responsive">  
-                 <div class="col-md-1">
-                     <img src="<?php echo base_url(); ?>uploads/icons/footer_icon.png" style="height: 90px;width:60px;" alt="avatar"> 
-                </div> 
-                <div class="col-md-9">
+<div class="block full">
+    <?php 
+    $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+    ?>
 
-                    <div>
-                        <div class="col-md-12">
-                            
-                            <label for="">
-                                <h2>
-                            <strong> Footers </strong> 
-                                </h2>
-                            </label>
-                        </div>
-                        <br>
-                            <div class="col-md-12">
-                            Footers appear at the bottom of every page. They might have a secondary logo and an address.
+    <div class="">  
+        <div class="row">
+            <div class="col-md-1 mt-4">
+                <img src="<?php echo base_url(); ?>uploads/icons/business.png" style="height:50px;width:60px;"  alt="avatar"> 
+            </div> 
+            <div class="col-md-8">
+                <div>
+                    <div class="col-md-12">
+                        <label for="">
+                            <h2><strong> Footers </strong></h2>
+                        </label>
+                    </div>
+                    <br>
+                    <div class="col-md-12">
+                        Footers appear at the bottom of every page. They might have a secondary logo and an address.
                     </div>   
                 </div> 
             </div>
-            <div class="col-md-2">
-                <a href="<?php echo site_url('userSettings/footer'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "directory") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">
-                     <button type="button" class="btn btn-primary save-btn"><i class="fa fa-solid fa-plus"></i> New Footers</button>
+            <div class="col-md-3 mt-4">
+                <a href="<?php echo site_url('userSettings/footer'); ?>" class="<?php echo (strtolower($this->router->fetch_class()) == "directory") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">
+                    <button type="button" class="btn btn-primary save-btn"><i class="fa fa-solid fa-plus"></i> New Footers</button>
                 </span></a>
-                <div class="footer-toggle ">
+                <div class="footer-toggle">
                     <span class="arrow"></span>
                 </div>
             </div>
+        </div>
 
+        <div class="row">
             <div class="col-md-12">
                 <div class="footer_content">    
                     <table id="common_datatable_menucat" class="table table-vcenter table-condensed table-bordered">
@@ -484,75 +441,60 @@
                                 <th style="background-color:#DBEAFF;font-size:1.3rem;">Created On</th>
                                 <th style="background-color:#DBEAFF;font-size:1.3rem;">Updated On</th>
                                 <th style="background-color:#DBEAFF;font-size:1.3rem;">Status</th>
-                            
                             </tr>
                         </thead>
                         <tbody>
-                    <?php
-                    if (!empty($footer_list)) {
-                        $rowCount = 0;
-                        foreach ($footer_list as $rows) {
-                            $rowCount++;     
-                    ?>
-                            <tr>
-                                <td><?php echo $rowCount; ?></td>
-                                <td><?php echo $rows->internal_name; ?></td>
-                                <td><?php echo date('m/d/Y', strtotime($rows->created_on)); ?></td>
-                                <td><?php echo date('m/d/Y', strtotime($rows->updated_on)); ?></td>
-                                <td><?php  if($rows->status == 0){
-                                    $active = '<button type="button" class="btn btn-default" style="color:green">Active</button>';
-                                    echo $active;
-                                } else {
-                                    echo 'Inactive';
-                                } ?></td>
-                                <td class="actions">
-                                    <!-- <a href="javascript:void(0)" class="btn btn-default" onclick="editFn('index.php/userSettings/letterTemplate', 'edit_patient', '<?php echo encoding($rows->patient_id) ?>', 'userSettings/letterTemplate');"><i class="fa fa-pencil"></i></a> -->
-                                                    <!-- <a href="<?php echo base_url() . 'userSettings/letterTemplate/edit?id=' . encoding($rows->patient_id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-eye"></i></a> -->
-                                                                       <!-- <a href="<?php echo base_url() . 'userSettings/letterTemplate/edit_parient?id=' . encoding($rows->patient_id); ?>" data-toggle="tooltip" class="btn btn-default" target="_blank"><i class="fa fa-pencil"></i></a> -->
-                                  
-                                    <!-- <a href="<?php echo base_url() . '/userSettings/letterTemplate/existing_list/' . $rows->pid; ?>" target='_blank' data-toggle="tooltip" class="btn btn-default">View History</a> -->
-                                    <!-- <a href="javascript:void(0)" onclick="deletePatient('<?php echo $rows->patient_id; ?>')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a> -->
-
-                                </td>
-                            </tr>
-
-
-                        <?php
-                        }
-                        //}
-                    } else {
-                        $rowCount = 0;
-                        foreach ($footer_list as $rows) :
-                            $rowCount++;
-                        ?>
-                            <tr>
-                            <td><?php echo $rowCount; ?></td>
-                                <td><?php echo $rows->internal_name; ?></td>
-                                <td><?php echo date('m/d/Y', strtotime($rows->created_on)); ?></td>
-                                <td><?php echo date('m/d/Y', strtotime($rows->updated_on)); ?></td>
-                                <td><?php echo $rows->status; ?></td>
-
-                                <td class="actions">
-                                    <!-- <a href="javascript:void(0)" class="btn btn-default" onclick="editFn('index.php/patient', 'edit_patient', '<?php echo encoding($rows->patient_id) ?>', 'patient');"><i class="fa fa-pencil"></i></a>
-                                                    <a href="<?php echo base_url() . 'patient/edit?id=' . encoding($rows->patient_id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-eye"></i></a>
-                                                                       <a href="<?php echo base_url() . 'patient/edit_parient?id=' . encoding($rows->patient_id); ?>" data-toggle="tooltip" class="btn btn-default" target="_blank"><i class="fa fa-pencil"></i></a>
-                                    <a href="<?php echo base_url() . 'index.php/patient/existing_list/' . $rows->pid; ?>" target='_blank' data-toggle="tooltip" class="btn btn-default">View History</a>
-                                    <a href="javascript:void(0)" onclick="deletePatient('<?php echo $rows->patient_id; ?>')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a> -->
-
-                                </td>
-                            </tr>
-                    <?php
-                        endforeach;
-                    }
-                    ?>
-
-                </tbody>
-                        <!-- </tbody> -->
-                    </table><br>
+                            <?php
+                            if (!empty($footer_list)) {
+                                $rowCount = 0;
+                                foreach ($footer_list as $rows) {
+                                    $rowCount++;     
+                            ?>
+                                <tr>
+                                    <td><?php echo $rowCount; ?></td>
+                                    <td><?php echo $rows->internal_name; ?></td>
+                                    <td><?php echo date('m/d/Y', strtotime($rows->created_on)); ?></td>
+                                    <td><?php echo date('m/d/Y', strtotime($rows->updated_on)); ?></td>
+                                    <td>
+                                        <?php if($rows->status == 0): ?>
+                                            <button type="button" class="btn btn-default" style="color:green">Active</button>
+                                        <?php else: ?>
+                                            Inactive
+                                        <?php endif; ?>
+                                    </td>
+                                    <td class="actions">
+                                        <!-- Action buttons -->
+                                    </td>
+                                </tr>
+                            <?php
+                                }
+                            } else {
+                                $rowCount = 0;
+                                foreach ($footer_list as $rows) :
+                                    $rowCount++;
+                            ?>
+                                <tr>
+                                    <td><?php echo $rowCount; ?></td>
+                                    <td><?php echo $rows->internal_name; ?></td>
+                                    <td><?php echo date('m/d/Y', strtotime($rows->created_on)); ?></td>
+                                    <td><?php echo date('m/d/Y', strtotime($rows->updated_on)); ?></td>
+                                    <td><?php echo $rows->status; ?></td>
+                                    <td class="actions">
+                                        <!-- Action buttons -->
+                                    </td>
+                                </tr>
+                            <?php
+                                endforeach;
+                            }
+                            ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
 
 
     </div>

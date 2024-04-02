@@ -487,6 +487,8 @@
                                 <!-- <li title="DayTimeSlot">
                                     <a href="<?php echo site_url('dayTimeSlot'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "DayTimeSlot") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/labs.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp;Labs</span></a>
                                 </li> -->
+
+                          
                                 <li title="Labs">
                                  <a href="<?php echo site_url('cultureSource'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "cultureSource") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/labs.svg" height="23px" width="23px"><span class="sidebar-nav-mini-hide text-dark">Labs</span></a>
                                 </li>

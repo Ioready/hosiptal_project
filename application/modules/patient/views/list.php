@@ -64,31 +64,41 @@
                     </div>
                 </div></div> -->
 
-                <div class="col-sm-6 col-lg-12">
-                    <div class="panel panel-default">
-                        <div style="margin: 0px 0px 20px 16px;">
-                            <div class="col-sm-6 col-lg-2">
-                                <div class="text-left">Download File:</div>
-                            </div>
-                            <div class="col-sm-6 col-lg-6">
-                                <div class="text-left text-danger">Note: select care unit to download specific care unit's file or , overall file will be downloaded</div>
-                            </div>
-                            <?php
-                            $message = $this->session->flashdata('success');
-                            if (!empty($message)) :
-                            ?><div class="alert alert-success col-sm-6 col-lg-2" style="margin: 2px 5px 5px 3.5%;">
-                                    <?php echo $message; ?></div><?php endif; ?>
-                            <?php
-                            $error = $this->session->flashdata('error');
-                            if (!empty($error)) :
-                            ?><div class="alert alert-danger col-sm-6 col-lg-2" style="margin: 2px 5px 5px 3.5%;">
-                                    <?php echo $error; ?></div><?php endif; ?>
-                        </div>
+                <div class="row">
+                
+                <div class="col-lg-12 mt-4">
+                <div class="panel panel-default">
+            <div class="p-4">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <div class="text-left fw-bold">Download File:</div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="text-left text-danger">Note: select care unit to download specific care unit's file or, overall file will be downloaded</div>
+                    </div>
+                    <div class="col-lg-2">
+                        <?php
+                        $message = $this->session->flashdata('success');
+                        if (!empty($message)) :
+                        ?>
+                        <div class="alert alert-success"><?php echo $message; ?></div>
+                        <?php endif; ?>
+                    </div>
+                    <div class="col-lg-2">
+                        <?php
+                        $error = $this->session->flashdata('error');
+                        if (!empty($error)) :
+                        ?>
+                        <div class="alert alert-danger"><?php echo $error; ?></div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
 
                         <div class="panel-body">
                             <form action="<?php echo site_url('patient'); ?>" name="patientForm" method="get">
 
-                                <div class="col-sm-12 col-lg-3" style="margin-right: 8px;">
+                            <div class="col-lg-3">
                                     <?php // print_r($careUnitsUser);die;
                                     ?>
                                     <select id="care_unit" name="careUnit" class="form-control select-2" onchange="getPatient()">
@@ -146,7 +156,7 @@
                                 <!-- month year download -->
                                 <!-- <form action="<?php echo site_url('patient/monthYearPatientExport'); ?>" name="patientFormExport" method="get"> -->
                                 <div>
-                                    <div class="col-sm-12 col-lg-2" style="margin-right: 8px;">
+                                <div class="col-lg-2">
                                         <select class="form-control" name="month" id="month">
                                             <option value="">Select Month</option>
                                             <option value="01">January</option>
@@ -163,19 +173,29 @@
                                             <option value="12">December</option>
                                         </select>
                                     </div>
-                                    <div class="col-sm-12 col-lg-2" style="margin-right: 8px;">
+                                    <div class="col-lg-2">
                                         <select class="form-control" name="year" id="year">
                                             <option value="">Select Year</option>
                                             <!-- Your year options here -->
                                         </select>
                                     </div>
 
-                                    <div class="col-sm-6 col-lg-1" style="margin-right: 8px;">
-                                        <input type="submit" name="search" class="save-btn btn btn-primary btn-sm" value="Search" />
-                                    </div>
+                                    <div class="col-lg-1">
+                        <input type="submit" name="search" class="save-btn btn btn-primary btn-sm" value="Search" />
+                    </div>
 
-                                    <div class="col-sm-12 col-lg-3" style="margin-left:-20px;margin-right:-12px;">
-                                        <button type="submit" class="btn btn-success btn-sm" value="Export" name="export">
+                    <form action="<?php echo site_url('patient'); ?>" name="patientFormExport" method="get">
+                                <div class="col-sm-12 col-lg-2">
+                                    <button type="submit" class="btn btn-primary save-btn btn-sm">
+                                        <fa class="fa fa-undo"></fa> Reset
+                                    </button>
+                                </div>
+                            </form>
+
+                       
+
+                                    <div class="col-sm-12 col-lg-12 mt-4" style="margin-left:-20px;margin-right:-12px; ">
+                                        <button type="submit" class="btn btn-success  fw-bold btn-sm" value="Export" name="export">
                                             <fa class="fa fa-file-pdf-o"></fa> Download Monthly Surveillance List
                                         </button>
                                     </div>
@@ -190,16 +210,50 @@
                             </form>
 
 
-                            <form action="<?php echo site_url('patient'); ?>" name="patientFormExport" method="get">
-                                <div class="col-sm-12 col-lg-1">
-                                    <button type="submit" class="btn btn-primary save-btn btn-sm">
-                                        <fa class="fa fa-undo"></fa> Reset
-                                    </button>
-                                </div>
-                            </form>
+                         
                         </div>
                     </div>
                 </div>
+
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             </div>
         </div>
 
@@ -221,7 +275,7 @@
         </div>
 
         <div class="table-responsive">
-            <table id="common_datatable_menucat" class="table table-vcenter table-condensed table-bordered">
+            <table id="common_datatable_menucat" class="table table-vcenter table-condensed table-bordered text-center">
                 <thead>
                     <tr>
                         <th style="background-color:#DBEAFF;font-size:1.3rem;width:40px !important">Sr. No</th>
@@ -301,14 +355,19 @@
 
                                 <td><?php echo $rows->initial_rx_name; ?></td>
                                 <td><?php echo ucfirst($rows->md_stayward); ?></td>
-                                <td class="actions">
-                                    <a href="javascript:void(0)" class="btn btn-default" onclick="editFn('index.php/patient', 'edit_patient', '<?php echo encoding($rows->patient_id) ?>', 'patient');"><i class="fa fa-pencil"></i></a>
-                                    <!--                 <a href="<?php echo base_url() . 'patient/edit?id=' . encoding($rows->patient_id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-eye"></i></a> -->
-                                    <!--                                    <a href="<?php echo base_url() . 'patient/edit_parient?id=' . encoding($rows->patient_id); ?>" data-toggle="tooltip" class="btn btn-default" target="_blank"><i class="fa fa-pencil"></i></a>-->
-                                    <a href="<?php echo base_url() . 'index.php/patient/existing_list/' . $rows->pid; ?>" target='_blank' data-toggle="tooltip" class="btn btn-default">View History</a>
-                                    <a href="javascript:void(0)" onclick="deletePatient('<?php echo $rows->patient_id; ?>')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+                    
+      <td class="actions">
+    <a href="javascript:void(0)" class="btn btn btn-xs  btn-warning" onclick="editFn('index.php/patient', 'edit_patient', '<?php echo encoding($rows->patient_id) ?>', 'patient');">
+      <i class="fa fa-pencil"></i>
+    </a>
+    <!-- <a href="<?php echo base_url() . 'patient/edit?id=' . encoding($rows->patient_id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-eye"></i></a> -->
+    <!-- <a href="<?php echo base_url() . 'patient/edit_parient?id=' . encoding($rows->patient_id); ?>" data-toggle="tooltip" class="btn btn-default" target="_blank"><i class="fa fa-pencil"></i></a> -->
+    <!-- <a href="<?php echo base_url() . 'index.php/patient/existing_list/' . $rows->pid; ?>" target='_blank' data-toggle="tooltip" class="btn btn-default">View History</a> -->
+    <a href="<?php echo base_url() . 'index.php/patient/existing_list/' . $rows->pid; ?>" target='_blank' data-toggle="tooltip" class="btn btn-xs  btn-success"><i class="fa fa-eye"></i></a>
 
-                                </td>
+    <a href="javascript:void(0)" onclick="deletePatient('<?php echo $rows->patient_id; ?>')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+</td>
+
                             </tr>
                     <?php
                         endforeach;
@@ -338,4 +397,27 @@
     /* background-color:#00008B !important; */
     background:#00008B !important;
 }
+
+
+
+    ::-webkit-scrollbar {
+    width: 2px !important;
+    display:none
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1 !important; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888 !important; 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555 !important; 
+  }
+
 </style>
