@@ -304,7 +304,7 @@
 
 
 
-<div class="switch-wrapper">
+<div class="switch-wrapperv m-4">
     <input id="toggle-monthly" type="radio" name="switch" checked>
     <label style="font-size:1.5rem;margin-bottom:10px" for="monthly">Monthly</label>
     <input style="margin-left:2rem" id="toggle-yearly" type="radio" name="switch">
@@ -315,7 +315,7 @@
 
 
     <section>
-        <div class="content">
+        <div class="content m-4">
 
 
             <?php 
@@ -324,9 +324,9 @@
             if($row->DurationInMonths == 'month'){ 
 
             ?>
-            <div class="basic box price monthly">
+            <div class="basic box price monthly"  style="background-color:#FFFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);border-radius:20px " >
                 <h2 style="margin-top:0;margin-bottom:0" class="title"><?php echo $row->PlanName;?></h2>
-                <div class="view">
+                <div class="view"  style="background-color:white; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" >
                     <div class="icon">
                         <img src="https://i.postimg.cc/2jcfMcf4/hot-air-balloon.png" alt="hot-air-balloon">
                     </div>
@@ -359,11 +359,14 @@
                 </div>
 
         <?php } else if($this->ion_auth->is_admin()){ ?>
-                <div class="button plan_button">
+                <div class="button plan_button m-4">
                 
                 <!-- <a href="<?php echo site_url('stripePayments'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "stripePaymentController") ? "active" : "" ?>"> -->
                 <!-- <button >START FREE 7 DAYS TRIAL </button></a> -->
-                <a href="<?php echo base_url('make-stripe-payment?'.'id='.$row->id);?>"><button >START FREE 7 DAYS TRIAL </button></a>
+                <a href="<?php echo base_url('make-stripe-payment?'.'id='.$row->id);?>" style="text-align: center; text-decoration: none; color: white;">
+    <button style="background-color: transparent; border: none; padding: 0; cursor: pointer; margin:10px; margin-left:60px;" class="text-center">START FREE 7 DAYS TRIAL</button>
+</a>
+
                 <!-- <a href="<?php echo base_url('my-stripe?'.'id='.$row->id);?>"><button >START FREE 7 DAYS TRIAL </button></a> -->
                 </div>
                 <?php } ?>
@@ -374,7 +377,7 @@
             <!-- make-stripe-payment -->
             <?php 
             }else if($row->DurationInMonths == 'years'){ ?>
- <div class="basic box price yearly ">
+                   <div class="basic box price yearly ">
                 <h2 style="margin-top:0;margin-bottom:0" class="title"><?php echo $row->PlanName;?></h2>
                 <div class="view">
                     <div class="icon">

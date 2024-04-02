@@ -139,7 +139,7 @@
             if($row->DurationInMonths == 'month'){ 
 
             ?>
-            <div class="basic box price monthly">
+            <div class="basic box price monthly" >
                 <h2 style="margin-top:0;margin-bottom:0" class="title"><?php echo $row->PlanName;?></h2>
                 <div class="view">
                     <div class="icon">
