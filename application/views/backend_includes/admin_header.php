@@ -764,7 +764,7 @@
                     <div class="d-flex  align-items-center">
                         <img src="<?php echo base_url(); ?>uploads/user.png" style="height: 23px;width:23px; filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%)" alt="">
                         <h2 style="font-size:1.5rem;font-weight:600" class="headerFonts ms-2">
-                        <a href="<?php echo site_url('pwfpanel/profile'); ?>" data-toggle="tooltip" data-placement="bottom" title="Profile" style="color:black;">User</a>
+                         <a href="<?php echo site_url('pwfpanel/profile'); ?>" data-toggle="tooltip" data-placement="bottom" title="Profile" style="color:black;">User</a>
                         </h2>
                     </div>
                        <div>
