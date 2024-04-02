@@ -1763,3 +1763,4 @@ ERROR - 2024-04-02 13:59:47 --> Could not find the language line "patient_name_v
 ERROR - 2024-04-02 13:59:47 --> Could not find the language line "doctor_name_validation"
 ERROR - 2024-04-02 13:59:47 --> Could not find the language line "rreason_validation"
 ERROR - 2024-04-02 16:08:29 --> 404 Page Not Found: ../modules/pwfpanel/controllers/Pwfpanel/img
+ERROR - 2024-04-02 16:09:56 --> 404 Page Not Found: ../modules/pwfpanel/controllers/Pwfpanel/img
