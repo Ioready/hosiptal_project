@@ -1711,3 +1711,233 @@ ERROR - 2024-04-02 16:17:32 --> Unable to connect to the database
 ERROR - 2024-04-02 16:17:33 --> Severity: Warning --> mysqli::real_connect(): (HY000/1045): Access denied for user 'ioreyuqp_infoioready_user'@'localhost' (using password: YES) C:\xampp\htdocs\hosiptal_project\system\database\drivers\mysqli\mysqli_driver.php 203
 ERROR - 2024-04-02 16:17:33 --> Unable to connect to the database
 ERROR - 2024-04-02 16:19:03 --> Could not find the language line "description_validation"
+ERROR - 2024-04-02 17:08:23 --> 404 Page Not Found: ../modules/pwfpanel/controllers/Pwfpanel/img
+ERROR - 2024-04-02 17:08:59 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:08:59 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:08:59 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:08:59 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:08:59 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:08:59 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:08:59 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:08:59 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:08:59 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:08:59 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:08:59 --> Severity: error --> Exception: syntax error, unexpected '}', expecting end of file C:\xampp\htdocs\hosiptal_project\application\modules\appointment\views\text.php 58
+ERROR - 2024-04-02 17:20:38 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:20:38 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:20:38 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:20:38 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:20:38 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:20:38 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:20:38 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:20:38 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:20:38 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:20:38 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:20:38 --> Severity: error --> Exception: syntax error, unexpected '}', expecting end of file C:\xampp\htdocs\hosiptal_project\application\modules\appointment\views\text.php 58
+ERROR - 2024-04-02 17:24:04 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:24:04 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:24:04 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:24:04 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:24:04 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:24:04 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:24:04 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:24:04 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:24:04 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:24:04 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:24:04 --> Severity: error --> Exception: syntax error, unexpected '}', expecting end of file C:\xampp\htdocs\hosiptal_project\application\modules\appointment\views\text.php 58
+ERROR - 2024-04-02 17:24:14 --> 404 Page Not Found: /index
+ERROR - 2024-04-02 17:24:19 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:24:19 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:24:19 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:24:19 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:24:19 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:24:19 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:24:19 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:24:19 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:24:19 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:24:19 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:24:19 --> Severity: error --> Exception: syntax error, unexpected '}', expecting end of file C:\xampp\htdocs\hosiptal_project\application\modules\appointment\views\text.php 58
+ERROR - 2024-04-02 17:31:27 --> 404 Page Not Found: /index
+ERROR - 2024-04-02 17:31:31 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:31:31 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:31:31 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:31:31 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:31:31 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:31:31 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:31:31 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:31:31 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:31:31 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:31:31 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:31:31 --> Severity: error --> Exception: syntax error, unexpected '}', expecting end of file C:\xampp\htdocs\hosiptal_project\application\modules\appointment\views\text.php 58
+ERROR - 2024-04-02 17:31:49 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:31:49 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:31:49 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:31:49 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:31:49 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:31:49 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:31:49 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:31:49 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:31:49 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:31:49 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:31:50 --> Severity: error --> Exception: syntax error, unexpected '}', expecting end of file C:\xampp\htdocs\hosiptal_project\application\modules\appointment\views\text.php 58
+ERROR - 2024-04-02 17:31:51 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:31:51 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:31:51 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:31:51 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:31:51 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:31:51 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:31:51 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:31:51 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:31:51 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:31:51 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:31:51 --> Severity: error --> Exception: syntax error, unexpected '}', expecting end of file C:\xampp\htdocs\hosiptal_project\application\modules\appointment\views\text.php 58
+ERROR - 2024-04-02 17:31:52 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:31:52 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:31:52 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:31:52 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:31:52 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:31:52 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:31:52 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:31:52 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:31:52 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:31:52 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:31:52 --> Severity: error --> Exception: syntax error, unexpected '}', expecting end of file C:\xampp\htdocs\hosiptal_project\application\modules\appointment\views\text.php 58
+ERROR - 2024-04-02 17:32:14 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:32:14 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:32:14 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:32:14 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:32:14 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:32:14 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:32:14 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:32:14 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:32:14 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:32:14 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:32:14 --> Severity: error --> Exception: syntax error, unexpected '}', expecting end of file C:\xampp\htdocs\hosiptal_project\application\modules\appointment\views\text.php 58
+ERROR - 2024-04-02 17:32:47 --> 404 Page Not Found: /index
+ERROR - 2024-04-02 17:32:52 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:32:52 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:32:52 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:32:52 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:32:52 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:32:52 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:32:52 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:32:52 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:32:52 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:32:52 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:32:52 --> Severity: error --> Exception: syntax error, unexpected '}', expecting end of file C:\xampp\htdocs\hosiptal_project\application\modules\appointment\views\text.php 58
+ERROR - 2024-04-02 17:38:07 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:38:07 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:38:07 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:38:07 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:38:07 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:38:07 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:38:07 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:38:07 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:38:07 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:38:07 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:38:07 --> Severity: error --> Exception: syntax error, unexpected '}', expecting end of file C:\xampp\htdocs\hosiptal_project\application\modules\appointment\views\text.php 58
+ERROR - 2024-04-02 17:38:41 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:38:41 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:38:41 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:38:41 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:38:41 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:38:41 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:38:41 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:38:41 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:38:41 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:38:41 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:38:41 --> Severity: error --> Exception: syntax error, unexpected '}', expecting end of file C:\xampp\htdocs\hosiptal_project\application\modules\appointment\views\text.php 58
+ERROR - 2024-04-02 17:38:43 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:38:43 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:38:43 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:38:43 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:38:43 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:38:43 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:38:43 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:38:43 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:38:43 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:38:43 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:38:43 --> Severity: error --> Exception: syntax error, unexpected '}', expecting end of file C:\xampp\htdocs\hosiptal_project\application\modules\appointment\views\text.php 58
+ERROR - 2024-04-02 17:38:48 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:38:48 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:38:48 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:38:48 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:38:48 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:38:48 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:38:48 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:38:48 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:38:48 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:38:48 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:38:48 --> Severity: error --> Exception: syntax error, unexpected '}', expecting end of file C:\xampp\htdocs\hosiptal_project\application\modules\appointment\views\text.php 58
+ERROR - 2024-04-02 17:39:13 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:39:13 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:39:13 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:39:13 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:39:13 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:39:13 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:39:13 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:39:13 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:39:13 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:39:13 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:39:13 --> Severity: error --> Exception: syntax error, unexpected '}', expecting end of file C:\xampp\htdocs\hosiptal_project\application\modules\appointment\views\text.php 58
+ERROR - 2024-04-02 17:41:36 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:41:36 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:41:36 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:41:36 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:41:36 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:41:36 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:41:36 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:41:36 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:41:36 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:41:36 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:41:36 --> Severity: error --> Exception: syntax error, unexpected '}', expecting end of file C:\xampp\htdocs\hosiptal_project\application\modules\appointment\views\text.php 58
+ERROR - 2024-04-02 17:41:41 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:41:41 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:41:41 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:41:41 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:41:41 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:41:41 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:41:41 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:41:41 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:41:41 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:41:41 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:41:41 --> Severity: error --> Exception: syntax error, unexpected '}', expecting end of file C:\xampp\htdocs\hosiptal_project\application\modules\appointment\views\text.php 58
+ERROR - 2024-04-02 17:43:43 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:43:43 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:43:43 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:43:43 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:43:43 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:43:43 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:43:43 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:43:43 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:43:43 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:43:43 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:43:46 --> Could not find the language line "date_validation"
+ERROR - 2024-04-02 17:43:46 --> Could not find the language line "time_start_validation"
+ERROR - 2024-04-02 17:43:46 --> Could not find the language line "time_end_validation"
+ERROR - 2024-04-02 17:43:46 --> Could not find the language line "patient_name_validation"
+ERROR - 2024-04-02 17:43:46 --> Could not find the language line "doctor_name_validation"
+ERROR - 2024-04-02 17:43:46 --> Could not find the language line "rreason_validation"
+ERROR - 2024-04-02 17:45:43 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:45:43 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:45:43 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:45:43 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:45:43 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:45:43 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:45:43 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:45:43 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:45:43 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:45:43 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-02 17:45:46 --> Could not find the language line "date_validation"
+ERROR - 2024-04-02 17:45:46 --> Could not find the language line "time_start_validation"
+ERROR - 2024-04-02 17:45:46 --> Could not find the language line "time_end_validation"
+ERROR - 2024-04-02 17:45:46 --> Could not find the language line "patient_name_validation"
+ERROR - 2024-04-02 17:45:46 --> Could not find the language line "doctor_name_validation"
+ERROR - 2024-04-02 17:45:46 --> Could not find the language line "rreason_validation"
+ERROR - 2024-04-02 17:46:45 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-04-02 17:46:47 --> Severity: Warning --> count(): Parameter must be an array or an object that implements Countable C:\xampp\htdocs\hosiptal_project\application\modules\patient\controllers\Patient.php 72
+ERROR - 2024-04-02 17:46:47 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\patient\controllers\Patient.php 75
+ERROR - 2024-04-02 17:46:47 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\patient\controllers\Patient.php 91
+ERROR - 2024-04-02 17:46:49 --> Severity: Warning --> count(): Parameter must be an array or an object that implements Countable C:\xampp\htdocs\hosiptal_project\application\modules\tasks\controllers\Tasks.php 70
+ERROR - 2024-04-02 17:46:49 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\tasks\controllers\Tasks.php 74
+ERROR - 2024-04-02 17:46:49 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\tasks\controllers\Tasks.php 89

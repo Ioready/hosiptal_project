@@ -67,15 +67,9 @@
         <div class="block-title" >
             <h2 class="fw-bold text-dark">Users Panel</h2>
             <?php if ($this->ion_auth->is_admin()) {?>
-<<<<<<< HEAD
-                <h2 style="background-color:#EDEAFF; !important">
-                    <a href="<?php echo base_url() ?>users/open_model"  class="btn btn-sm btn-primary" style="background:#337ab7;" target="_blank">
-                <i class="gi gi-circle_plus"></i> User
-=======
                 <h2>
                     <a href="<?php echo base_url() ?>users/open_model" class="btn btn-sm btn-primary" target="_blank">
                 <i class="gi gi-circle_plus"></i> User 
->>>>>>> b91f13e4201e7195f073c3691c5bef7973f4de47
                 </a></h2>
             <?php }?>
             <?php if ($this->ion_auth->is_subAdmin()) {?>
@@ -93,42 +87,11 @@
         </div>
        
 
-<<<<<<< HEAD
-        <div class="table-responsive" >
-
-
-
-
-
-        <table id="users" class="table table-vcenter table-condensed table-bordered" style="background-color: #F0F8FF !important; text-align: center !important">
-    <thead>
-        <tr>
-            <th style="background-color:#DBEAFF;font-size:1.3rem; text-align: center !important;"><?php echo lang('serial_no');?></th>
-            <th style="background-color:#DBEAFF;font-size:1.3rem; text-align: center;"><?php echo "Name";?></th>
-            <th style="background-color:#DBEAFF;font-size:1.3rem; text-align: center;"><?php echo lang('user_email');?></th>
-            <th style="background-color:#DBEAFF;font-size:1.3rem; text-align: center;"><?php echo lang('user_createdate');?></th>
-            <th style="background-color:#DBEAFF;font-size:1.3rem; text-align: center;"><?php echo lang('action');?></th>
-        </tr>
-    </thead>
-</table>
-
-
-
-
-
-            <!-- <table id="users" class="table table-vcenter table-condensed table-bordered"> -->
-                <!-- <thead > -->
-                    <!-- <tr > -->
-
-                        
-            <!-- <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('serial_no');?></th> -->
-=======
         <div class="table-responsive">
             <table id="users" class="table table-vcenter table-condensed table-bordered">
                 <thead>
                     <tr>     
             <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('serial_no');?></th>
->>>>>>> b91f13e4201e7195f073c3691c5bef7973f4de47
             <!-- <th class="text-center"><?php echo "Team Code";?></th> -->
             <!-- <th style="background-color:#DBEAFF;font-size:1.3rem" class="text-center"><?php echo "Name";?></th> -->
             <!-- <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('user_email');?></th> -->
