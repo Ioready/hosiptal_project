@@ -146,12 +146,9 @@ class Pwfpanel extends Common_Controller
                 );
 
                 $data['total_patient_today'] = $this->common_model->customCount($option);
-
-
                
                 // print_r($this->data['total_order']);die;
                
-
                 $option = array('table' => 'admin_plans', 'where' => array('status' => 0), 'order' => array('id' => 'desc'));
                 $data['all_plan_list'] = $this->common_model->customGet($option);
 
@@ -612,7 +609,8 @@ class Pwfpanel extends Common_Controller
         $this->form_validation->set_rules('password', str_replace(':', '', $this->lang->line('login_password_label')), 'required');
         if (strtolower(getConfig('google_captcha')) == 'on') {
             $this->form_validation->set_rules('g-recaptcha-response', 'Google recaptcha', 'required');
-        }
+        
+}
         
         if ($this->form_validation->run() == true) {
             $is_captcha = true;

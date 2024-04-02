@@ -11,7 +11,7 @@
         width: 40%;
         z-index: 1;
       }
-      
+
 #close_button{
         right:-15px;
         top:-15px;
@@ -60,24 +60,14 @@
         <!-- END Datatables Header -->
 
 
-
-
-
-
-        <div class="block full">
+   <div class="block full">
     <div class="block-title">
-        <h2><strong>Bodies</strong> Panel</h2>
+     <h2><strong>Email</strong> Panel</h2>
     </div>
-    <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url($formUrl) ?>" enctype="multipart/form-data">
+      <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url($formUrl) ?>" enctype="multipart/form-data">
         <div class="alert alert-danger" id="error-box" style="display: none"></div>
         <div class="form-body">
-            <select class="form-select" aria-label="Default select example">
-                <option selected>Open this select menu</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-            </select>
-            <h1>placeholder</h1>
+            <h3 class="m-4 fw-bold">placeholder</h3>
             <div class="row m-4 p-4"  style="background-color: #FFFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);">
                 <div class="col-md-4">
                     <div class="form-group">
@@ -105,37 +95,34 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row m-4">
                 <div class="col-md-6">
-                    <label class=" control-label">Internal name*</label>
+                    <label class=" control-label">Subject*</label>
                     <div class="form-group"> 
                         <div class="col-md-10">
                             <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('first_name');?>" />
-                            <span class="help-block">This is used for internal reference and won't be seen by patients.</span>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <label class=" control-label">Internal name*</label>
+                    <label class=" control-label">From*</label>
                     <div class="form-group"> 
                         <div class="col-md-10">
                             <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('first_name');?>" />
-                            <span class="help-block">This is used for internal reference and won't be seen by patients.</span>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-12">
+            <label class="control-label mb-4">Create Letter template*</label>
                 <div class="form-group">
-                    <label class="col-md-2 control-label">Create Letter template*</label>
-                    <div class="col-md-10">
-                        <!-- Textarea for CKEditor -->
+                    <div class="col-md-12">
                         <textarea id="editor" name="bodies_template"></textarea>
                     </div>
                 </div>
             </div>
             <div class="text-right">
-                <button type="submit" id="submit"  class="btn btn-sm btn-primary mt-2" style="background:#337ab7;">Save changes</button>
+                <button type="submit" id="submit"  class="btn btn-sm btn-primary mt-2" style="background:#337ab7;">Save</button>
             </div>
         </div>
     </form>
@@ -144,13 +131,10 @@
 <!-- CKEditor JS (CDN) -->
 <script src="https://cdn.ckeditor.com/4.17.2/standard/ckeditor.js"></script>
 
-
-<!-- Script to initialize CKEditor -->
 <script>
-    // Initialize CKEditor
     CKEDITOR.replace('editor');
 </script>
-
+<!-- Script to initialize CKEditor -->
 
 
 

@@ -54,7 +54,7 @@
         <div class="form-body">
             
      
-            <h1>placeholder</h1>
+            <h3 class="m-4 fw-bold">placeholder</h3>
             <div class="row m-4 p-4"  style="background-color: #FFFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);">
                 <div class="col-md-4">
                     <div class="form-group">
@@ -82,31 +82,28 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row m-4">
                 <div class="col-md-6">
-                    <label class=" control-label">Internal name*</label>
+                    <label class=" control-label">Subject*</label>
                     <div class="form-group"> 
                         <div class="col-md-10">
                             <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('first_name');?>" />
-                            <span class="help-block">This is used for internal reference and won't be seen by patients.</span>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <label class=" control-label">Internal name*</label>
+                    <label class=" control-label">From*</label>
                     <div class="form-group"> 
                         <div class="col-md-10">
                             <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('first_name');?>" />
-                            <span class="help-block">This is used for internal reference and won't be seen by patients.</span>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-12">
+            <label class="control-label mb-4">Create Letter template*</label>
                 <div class="form-group">
-                    <label class="col-md-2 control-label">Create Letter template*</label>
-                    <div class="col-md-10">
-                        <!-- Textarea for CKEditor -->
+                    <div class="col-md-12">
                         <textarea id="editor" name="bodies_template"></textarea>
                     </div>
                 </div>
