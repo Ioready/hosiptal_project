@@ -4,14 +4,14 @@
         <li>
             <a href="<?php echo site_url('pwfpanel'); ?>">Home</a>
         </li>
-        <li>
+        <li class="fw-bold">
             <a href="<?php echo site_url($parent); ?>"><?php echo $title; ?></a>
         </li>
     </ul>
     <!-- Datatables Content -->
     <div class="block full">
-        <div class="block-title">
-            <h2><strong><?php echo $title; ?></strong> Panel</h2>
+        <div class="block-title ">
+            <h2 class="fw-bold"><strong><?php echo $title; ?></strong> Panel</h2>
             <?php if ($this->ion_auth->is_facilityManager()) { ?>
                 <h2><a href="javascript:void(0)"  onclick="open_modal('<?php echo $model; ?>')" class="btn btn-sm btn-primary">
                         <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
@@ -19,12 +19,12 @@
             <?php } ?>
         </div>
         <div class="table-responsive">
-            <table id="common_datatable_menucat" class="table table-vcenter table-condensed table-bordered">
+            <table id="common_datatable_menucat" class="table table-vcenter table-condensed table-bordered text-center">
                 <thead>
-                    <tr>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem;width:15%;;">Sr. No</th>
-                        <th  style="background-color:#DBEAFF;font-size:1.3rem;width:60%;;">Name</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('action'); ?></th>
+                    <tr >
+                        <th  class="text-center fw-bold" style="background-color:#DBEAFF;font-size:1.3rem;width:15%;;">Sr. No</th>
+                        <th  class="text-center fw-bold"  style="background-color:#DBEAFF;font-size:1.3rem;width:60%;;">Name</th>
+                        <th  class="text-center fw-bold" style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('action'); ?></th>
                     </tr>
                 </thead>
                 <tbody>

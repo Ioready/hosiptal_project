@@ -128,23 +128,24 @@
         </div> -->
 
         <div class="table-responsive">
-            <table id="common_datatable_menucat" class="table table-vcenter table-condensed table-bordered">
+            <table id="common_datatable_menucat"  class="table table-vcenter table-condensed table-bordered text-center">
                 <thead>
-                    <tr>
-                        <th style="width:10px">Sr. No</th>
-                        <th >Date Of Start ABX</th>
-                        <th >Patient ID</th>
-                        <th>Care Unit</th>
-                        <th>Provider MD</th>
-                        <th >Diagnosis</th>
-                        <th >Room Number</th>
-                        <th >Infection Onset</th>
-                        <th >Total Days</th>
-                        <th >Culture Source</th>
-                        <th >Organism</th>
-                        <th >Antibiotic Name</th>
-                        <th>MD Steward</th>
-                        <th><?php echo lang('action'); ?></th>
+                <tr class="text-xs" >
+
+                        <th style="width:10px ;font-size: 1.3rem; !important"  style="">Sr. No</th>
+                        <th  style="font-size: 1.3rem; !important" >Date Of Start ABX</th>
+                        <th  style="font-size: 1.3rem; !important">Patient ID</th>
+                        <th style="font-size: 1.3rem; !important">Care Unit</th>
+                        <th style="font-size: 1.3rem; !important">Provider MD</th>
+                        <th style="font-size: 1.3rem; !important">Diagnosis</th>
+                        <th style="font-size: 1.3rem; !important" >Room Number</th>
+                        <th style="font-size: 1.3rem; !important">Infection Onset</th>
+                        <th style="font-size: 1.3rem; !important">Total Days</th>
+                        <th style="font-size: 1.3rem; !important">Culture Source</th>
+                        <th style="font-size: 1.3rem; !important">Organism</th>
+                        <th style="font-size: 1.3rem; !important">Antibiotic Name</th>
+                        <th style="font-size: 1.3rem; !important">MD Steward</th>
+                        <th style="font-size: 1.4rem; !important"><?php echo lang('action'); ?></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -186,8 +187,8 @@
                                 <td><?php echo $rows->initial_rx_name; ?></td>
                                 <td><?php echo ucfirst($rows->md_stayward); ?></td>
                                 <td class="actions">
-                                    <a href="javascript:void(0)" class="btn btn-default" onclick="editFn('patient', 'edit_patient', '<?php echo encoding($rows->patient_id) ?>', 'patient');"><i class="fa fa-pencil"></i></a>
-                                    <a href="<?php echo base_url() . 'index.php/patient/edit?id=' . encoding($rows->patient_id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-eye"></i></a>
+                                    <a href="javascript:void(0)" class="btn btn-xs btn-warning" onclick="editFn('patient', 'edit_patient', '<?php echo encoding($rows->patient_id) ?>', 'patient');"><i class="fa fa-pencil"></i></a>
+                                    <a href="<?php echo base_url() . 'index.php/patient/edit?id=' . encoding($rows->patient_id); ?>" data-toggle="tooltip" class="btn btn-xs btn-success"><i class="fa fa-eye"></i></a>
         <!--                                    <a href="<?php echo base_url() . 'patient/edit_parient?id=' . encoding($rows->patient_id); ?>" data-toggle="tooltip" class="btn btn-default" target="_blank"><i class="fa fa-pencil"></i></a>-->
                                     <a href="javascript:void(0)" onclick="deletePatient('<?php echo $rows->patient_id; ?>')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
 <!--                                       <a href="<?php echo base_url() . 'patient/existing_list/' . $rows->pid; ?>" target='_blank' data-toggle="tooltip" class="btn btn-default">View List</a> -->

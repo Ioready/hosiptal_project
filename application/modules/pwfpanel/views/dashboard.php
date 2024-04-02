@@ -296,125 +296,17 @@
     <div style="background-color:#FFE0B7; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
         <div class="ibox-content">
         <h1 class="no-margins"><?php echo $careUnit; ?></h1>
-  <h5 class="text-primary"><strong>Total Care Unit</strong></h5>
+  <h5 class="text-primary"><strong>Total Earning</strong></h5>
         </div>
         <img src="<?php echo base_url(); ?>uploads/intravenous-therapy.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
     </div>
 </div>
 
 
-<div class="col-lg-4 dashboardBoxes">
-    <div style="background-color:#DAEBFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
-        <div class="ibox-content">
-            <h1 class="no-margins"><?php echo $initial_dx; ?></h1>
-            <h5 class="text-primary"><strong>Total Infections</strong></h5>
-        </div>
-        <img src="<?php echo base_url(); ?>uploads/infected.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
-    </div>
-</div>
-
-<div class="col-lg-4 dashboardBoxes">
-    <div style="background-color:#D0FAE4; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
-        <div class="ibox-content">
-            <h1 class="no-margins"><?php echo $initial_rx; ?></h1>
-            <h5 class="text-primary"><strong>Total Antibiotic</strong></h5>
-        </div>
-        <img src="<?php echo base_url(); ?>uploads/medicine.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
-    </div>
-</div>
-
-<div class="col-lg-4 dashboardBoxes">
-    <div style="background-color:#FDE2E4; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
-        <div class="ibox-content">
-        <h1 class="no-margins"><?php echo $total_patient_today; ?></h1>
-            <h5 class="text-primary"><strong>Total Patient Today</strong></h5>
-        </div>
-        <img src="<?php echo base_url(); ?>uploads/doctor-consultation1.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
-    </div>
-</div>
 
 
 
 
-<div class="col-lg-6 mt-4 m-4" style="background-color: #fff8f8;box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);">
-  <canvas id="myChart"></canvas>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<script>
-  const ctx = document.getElementById('myChart');
-
-  new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-      datasets: [{
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
-        backgroundColor: [
-  'rgba(255, 99, 132, 0.6)', // Red
-  'rgba(54, 162, 235, 0.6)', // Blue
-  'rgba(255, 206, 86, 0.6)', // Yellow
-  'rgba(75, 192, 192, 0.6)', // Green
-  'rgba(153, 102, 255, 0.6)', // Purple
-  'rgba(255, 159, 64, 0.6)' // Orange
-],
-
-        borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)'
-        ],
-        borderWidth: 1
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
-    }
-  });
-</script>
-
-
-
-
-
-
-                            <!-- <div> -->
-  <canvas id="myChart"></canvas>
-<!-- </div> -->
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<script>
-  const ctx = document.getElementById('myChart');
-
-  new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-      datasets: [{
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
-        borderWidth: 1
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
-    }
-  });
-</script>
 
 
                                             <!-- <h5 class="text-primary"><strong>Patient</strong></h5> -->
@@ -424,17 +316,17 @@
                             
 
 
-<div class="col-lg-4 col-md-6 dashboardBoxes">
+<div class="col-lg-3 col-md-6 dashboardBoxes">
     <div style="background-color:<?php echo $total_patient > 0 ? '#EDEAFF' : '#FFFFFF'; ?>;box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
         <div class="ibox-content">
         <h1 class="no-margins"><?php echo $total_patient; ?></h1>
             <h5 class="text-primary"><strong>Total Patient</strong></h5>
         </div>
-        <img src="<?php echo base_url(); ?>uploads/intravenous-therapy.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+        <img src="<?php echo base_url(); ?>uploads/patient.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
     </div>
 </div>
 
-<div class="col-lg-4 col-md-6  dashboardBoxes">
+<div class="col-lg-3 col-md-6  dashboardBoxes">
     <div style="background-color:<?php echo $careUnit > 0 ? '#FEE2E1' : '#FFFFFF'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
         <div class="ibox-content">
             <h1 class="no-margins"><?php echo $careUnit; ?></h1>
@@ -444,7 +336,7 @@
     </div>
 </div>
 
-<div class="col-lg-4 col-md-6  dashboardBoxes">
+<div class="col-lg-3 col-md-6  dashboardBoxes">
     <div style="background-color:<?php echo $initial_dx > 0 ? '#DAEBFF' : '#FFFFFF'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
         <div class="ibox-content">
             <h1 class="no-margins"><?php echo $initial_dx; ?></h1>
@@ -454,7 +346,7 @@
     </div>
 </div>
 
-<div class="col-lg-4 col-md-6  dashboardBoxes">
+<div class="col-lg-3 col-md-6  dashboardBoxes">
     <div style="background-color:<?php echo $initial_rx > 0 ? '#D0FAE4' : '#FFFFFF'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
         <div class="ibox-content">
             <h1 class="no-margins"><?php echo $initial_rx; ?></h1>
@@ -470,11 +362,34 @@
             <h1 class="no-margins"><?php echo $total_patient_today; ?></h1>
             <h5 class="text-primary"><strong>Total Patient Today</strong></h5>
         </div>
-        <img src="<?php echo base_url(); ?>uploads/patient.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+        <img src="<?php echo base_url(); ?>uploads/patient1.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
     </div>
 </div>
 
 
+
+
+
+<div class="col-lg-4 col-md-6 dashboardBoxes">
+    <div style="background-color:<?php echo $total_patient_today > 0 ? '#F9F5FF' : '#F9F5FF'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
+        <div class="ibox-content">
+            <h1 class="no-margins"><?php echo $total_patient_today; ?></h1>
+            <h5 class="text-primary"><strong>New Patient </strong></h5>
+        </div>
+        <img src="<?php echo base_url(); ?>uploads/user.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+    </div>
+</div>
+
+
+<div class="col-lg-4 col-md-6 dashboardBoxes">
+    <div style="background-color:<?php echo $total_patient_today > 0 ? '#FFFAEC' : '#FFFAEC'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
+        <div class="ibox-content">
+            <h1 class="no-margins"><?php echo $total_patient_today; ?></h1>
+            <h5 class="text-primary"><strong>Opeartion and Injection</strong></h5>
+        </div>
+        <img src="<?php echo base_url(); ?>uploads/syringe.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+    </div>
+</div>
 
 
 <div class="row m-2">

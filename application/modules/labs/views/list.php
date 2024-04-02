@@ -29,15 +29,15 @@
                     <?php } ?>
 
         </div>
-        <div class="table-responsive">
-            <table id="common_datatable_menucat" class="table table-vcenter table-condensed table-bordered">
-                <thead>
+        <div class="table-responsive" style="background-color:red !important">
+            <table id="common_datatable_menucat" class="table table-vcenter table-condensed table-bordered text-center" style="text-align:center">
+                <thead >
                     <tr>
                         <th style="width:10px;">Sr. No</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem">Name</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem ;text-align: center !important">Name</th>
                         <!-- <th style="background-color:#DBEAFF;font-size:1.3rem">Email</th> -->
                         <?php if ($this->ion_auth->is_admin()){?>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('action'); ?></th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem text-align:center"><?php echo lang('action'); ?></th>
                         <?php } else if ($this->ion_auth->is_facilityManager()){?>
                             <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('action'); ?></th>
                             <?php } ?>
@@ -55,7 +55,7 @@
                                 <td><?php echo $rows->name; ?></td>
                                 <!-- <td><?php //echo (!empty($rows->email)) ? $rows->email : ""; ?></td> -->
 
-                                <td class="actions">
+                                <td class="actions text-center">
                                     <a href="javascript:void(0)" class="btn btn-xs btn-default" onclick="editFn('<?php echo $model; ?>', 'edit', '<?php echo encoding($rows->id) ?>', '<?php echo $model; ?>');"><i class="fa fa-pencil"></i></a>
                                     <?php if ($rows->status == 0) { ?>
                                         <a href="javascript:void(0)" class="btn btn-xs btn-success" onclick="editStatusFn('<?php echo $tablePrefix; ?>', 'id', '<?php echo encoding($rows->id); ?>', '<?php echo $rows->status; ?>','<?php echo $rows->name; ?>')" title="Inactive Now"><i class="fa fa-check"></i></a>

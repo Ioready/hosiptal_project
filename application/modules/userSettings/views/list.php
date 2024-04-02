@@ -65,12 +65,12 @@
           <div class="block-title">
             <?php if ($this->ion_auth->is_subAdmin()) { ?>
                 <h2>
-                    <a href="<?php echo base_url().'index.php/' . $this->router->fetch_class(); ?>/open_model" class="btn btn-sm btn-primary">
+                    <a href="<?php echo base_url().'index.php/' . $this->router->fetch_class(); ?>/open_model" class="btn btn-sm btn-primary"  style="background:#337ab7;">
                         <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
                     </a></h2>
             <?php }else if($this->ion_auth->is_facilityManager()){ ?>
                     <h2>
-                    <a href="<?php echo base_url() . $this->router->fetch_class(); ?>/open_model" class="btn btn-sm btn-primary">
+                    <a href="<?php echo base_url() . $this->router->fetch_class(); ?>/open_model" class="btn btn-sm btn-primary"  style="background:#337ab7;">
                         <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
                     </a></h2>
          <?php } ?> 
@@ -81,18 +81,18 @@
                         <div class="row text-center">
                             <div class="col-sm-6 col-lg-3">
                                 <a href="<?php echo base_url()."userSettings/index/No";?>" class="widget widget-hover-effect2">
-                                    <div class="widget-extra themed-background">
+                                    <div class="widget-extra themed-background"  style="background:#337ab7;">
                                         <h4 class="widget-content-light"><strong> Inactivate </strong> Users</h4>
                                     </div>
-                                    <div class="widget-extra-full"><span class="h2 animation-expandOpen"><?php echo $inactive;?></span></div>
+                                    <div class="widget-extra-full"><span class="h2 themed-color-dark animation-expandOpen fw-bold"><?php echo $inactive;?></span></div>
                                 </a>
                             </div>
                             <div class="col-sm-6 col-lg-3">
                                 <a href="<?php echo base_url()."userSettings/index/Yes";?>" class="widget widget-hover-effect2">
-                                    <div class="widget-extra themed-background-dark">
+                                    <div class="widget-extra themed-background-dark"  style="background:#337ab7;">
                                         <h4 class="widget-content-light"><strong> Activated </strong> Users</h4>
                                     </div>
-                                    <div class="widget-extra-full"><span class="h2 themed-color-dark animation-expandOpen"><?php echo $active;?></span></div>
+                                    <div class="widget-extra-full"><span class="h2 themed-color-dark animation-expandOpen fw-bold"><?php echo $active;?></span></div>
                                 </a>
                             </div>
                             <div class="col-sm-6 col-lg-3">
@@ -119,28 +119,17 @@
        
 
         <div class="table-responsive">
-            <table id="users" class="table table-vcenter table-condensed table-bordered">
-                <thead>
-                    <tr>
-
-                        
-            <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('serial_no');?></th>
-            <!-- <th class="text-center"><?php echo "Team Code";?></th> -->
-            <th style="background-color:#DBEAFF;font-size:1.3rem" class="text-center"><?php echo "Name";?></th>
-            <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('user_email');?></th>
-<!--            <th style="background-color:#DBEAFF;font-size:1.3rem" class="text-center"><?php echo "Phone";?></th>-->
-            <!-- <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo "Total purchase amount";?></th>
-            <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo "Total deposit amount";?></th>
-             <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo "Total amount due";?></th> -->
-<!--                                <th><?php echo lang('profile_image');?></th>-->
-<!--             <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('status');?></th>-->
-            <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('user_createdate');?></th>
-            <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('action');?></th>
-        
-                    </tr>
-                </thead>
-              
-            </table>
+        <table id="users" class="table table-vcenter table-condensed table-bordered" style="background-color: #F0F8FF !important; text-align: center !important">
+    <thead>
+        <tr>
+            <th style="background-color:#DBEAFF;font-size:1.3rem; text-align: center !important;"><?php echo lang('serial_no');?></th>
+            <th style="background-color:#DBEAFF;font-size:1.3rem; text-align: center;"><?php echo "Name";?></th>
+            <th style="background-color:#DBEAFF;font-size:1.3rem; text-align: center;"><?php echo lang('user_email');?></th>
+            <th style="background-color:#DBEAFF;font-size:1.3rem; text-align: center;"><?php echo lang('user_createdate');?></th>
+            <th style="background-color:#DBEAFF;font-size:1.3rem; text-align: center;"><?php echo lang('action');?></th>
+        </tr>
+    </thead>
+</table>
         </div>
     </div>
     <!-- END Datatables Content -->

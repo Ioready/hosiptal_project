@@ -56,403 +56,389 @@
             <div class="form-body">
 
 
+                      
                         <div class="row">
-                            
-                            <div class="modal-header text-center"></div>
-                                <div class="col-md-12">
-                                    <div class="vender_title_admin">
-                                        <h3><strong> Basic details</strong></h3>
-                                    </div>
-                                </div>
-    
-                                
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        
-                                        <div class="col-md-12">
-                                        <label class="control-label">First Name</label>
-                                            <input type="text" class="form-control" name="first_name" id="first_name" placeholder="First Name" maxlength="9" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        
-                                        <div class="col-md-12">
-                                        <label class="control-label">Last Name</label>
-                                            <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Last Name" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        
-                                        <div class="col-md-12">
-                                        <label class="control-label">Title (Optional)</label>
-                                            <input type="text" class="form-control" name="title" id="title" placeholder="<?php echo "Title"; ?>" />
-                                        </div>
-                                    </div>
-                                </div>
-    
+    <div class="modal-header text-center">
+        <div class="col-md-12">
+            <div class="vender_title_admin">
+                <h3><strong>Basic details</strong></h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="form-group">
+            <div class="col-md-12">
+                <label class="control-label">First Name</label>
+                <input type="text" class="form-control" name="first_name" id="first_name" placeholder="First Name" maxlength="9" />
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <div class="col-md-12">
+                <label class="control-label">Last Name</label>
+                <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Last Name" />
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <div class="col-md-12">
+                <label class="control-label">Title (Optional)</label>
+                <input type="text" class="form-control" name="title" id="title" placeholder="Title" />
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="form-group">
+            <div class="col-md-12">
+                <label class="control-label">Date Of Birth (Optional)</label>
+                <input type="text" class="form-control" name="day" id="day" placeholder="Day" maxlength="2" />
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2" style="padding-top: 10px;">
+        <div class="form-group">
+            <div class="col-md-12">
+                <label class="control-label"></label>
+                <select class="form-control" name="month" id="month">
+                    <option value="">Select Month</option>
+                    <option value="01">January</option>
+                    <option value="02">February</option>
+                    <option value="03">March</option>
+                    <option value="04">April</option>
+                    <option value="05">May</option>
+                    <option value="06">June</option>
+                    <option value="07">July</option>
+                    <option value="08">August</option>
+                    <option value="09">September</option>
+                    <option value="10">October</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2" style="padding-top: 10px;">
+        <div class="form-group">
+            <div class="col-md-12">
+                <label class="control-label"></label>
+                <input type="text" class="form-control" name="year" id="year" placeholder="Year" />
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-5">
+        <div class="form-group">
+            <div class="col-md-12">
+                <label class="control-label">Gender</label>
+                <select class="form-control" name="gender" id="gender">
+                    <option value="">Select Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Not_Known">Not Known</option>
+                    <option value="Indeterminate">Indeterminate</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            <div class="col-md-12">
+                <label class="control-label">Patient comments(optional)</label>
+                <textarea class="form-control" name="comment" id="comment" rows="10"></textarea>
+            </div>
+        </div>
+    </div>
+</div>
+
+      
+
+      
+
+
+
+<div class="row">
+    <!-- <div class="modal-header ">
+        <h3 class="modal-title text-center"><strong>Contact details</strong></h3>
+    </div> -->
+
+    <div class="modal-header text-center">
+        <div class="col-md-12">
+            <div class="vender_title_admin">
+                <h3><strong>Contact details</strong></h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="form-group">
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <label class="">Phone Type</label>
+                    <select id="phone_code" name="phone_type" class="form-control select2" size="1" placeholder="Choose a phone type">
+                        <option value="" disabled selected>Choose a phone type</option>
+                        <option value="mobile">Mobile</option>
+                        <option value="home">Home</option>
+                        <option value="office">Office</option>
+                        <option value="fax">Fax</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="">Phone Number</label>
+                    <input type="text" class="form-control" name="phone_number" id="phone_number" placeholder="<?php echo lang('Phone Number');?>" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="form-group">
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <label class=""><?php echo lang('user_email');?> (Optional)</label>
+                    <input type="email" class="form-control" name="user_email" id="user_email" placeholder="<?php echo lang('user_email');?>" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="form-group">
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <label class="control-label"><?php echo lang('password'); ?></label>
+                    <input type="text" class="form-control" name="password" id="password" placeholder="<?php echo lang('password'); ?>" value="<?php echo randomPassword(); ?>" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="form-group">
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <label class="">Address Lookup</label>
+                    <input type="text" class="form-control" name="address_lookup" id="address_lookup" placeholder="Address Lookup" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="form-group">
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <label class="">Street address (Optional)</label>
+                    <input type="text" class="form-control" name="streem_address" id="streem_address" placeholder="Street Address" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="form-group">
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <label class="">City (Optional)</label>
+                    <select id="country" name="city" class="form-control select2" size="1">
+                        <option value="" disabled selected>Please select</option>
+                        <?php foreach($states as $state){?>
+                        <option value="<?php echo $state->id;?>"><?php echo $state->name;?></option>
+                        <?php }?>
+                    </select>
+                </div>
+
+                <div class="col-md-4">
+                    <label class="">PostCode (Optional)</label>
+                    <input type="text" class="form-control" name="post_code" id="post_code" placeholder="Post Code" />
+                </div>
+
+                <div class="col-md-4">
+                    <label class="">Country (Optional)</label>
+                    <select id="country" name="country" class="form-control select2" size="1">
+                        <option value="0">Please select</option>
+                        <?php foreach($countries as $country){?>
+                        <option value="<?php echo $country->id;?>"><?php echo $country->name;?></option>
+                        <?php }?>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+                
+                
+                
+ </div>
+
+
+ <div class="row">
+    <!-- <div class="modal-header">
+        <h3 class="modal-title"><strong>More details</strong></h3>
+    </div> -->
+
+    <div class="modal-header text-center">
+        <div class="col-md-12">
+            <div class="vender_title_admin">
+                <h3><strong>More details</strong></h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="form-group">
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <label class="">Occupation (optional)</label>
+                    <input type="text" class="form-control" name="Occupation" id="Occupation" placeholder="<?php echo 'Occupation' ;?>" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="form-group">
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <label class="">Company (optional)</label>
+                    <input type="text" class="form-control" name="Company" id="Company" placeholder="<?php echo 'Company'; ?>" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="form-group">
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <label class="">Religion (optional)</label>
+                    <select id="religion" name="religion" class="form-control select2" size="1">
+                        <option value="" disabled selected>Please select</option>
+                        <option value="Baha'i">Baha'i</option>
+                        <option value="Buddhaist">Buddhaist</option>
+                        <option value="Christian">Christian</option>
+                        <option value="Hindu">Hindu</option>
+                        <option value="Jain">Jain</option>
+                        <option value="Jewish">Jewish</option>
+                        <option value="Muslim">Muslim</option>
+                        <option value="Pagan">Pagan</option>
+                        <option value="Sikh">Sikh</option>
+                        <option value="Zoroastrian">Zoroastrian</option>
+                        <option value="Other">Other</option>
+                        <option value="None">None</option>
+                        <option value="Declines_to_Disclose">Declines to Disclose</option>
+                        <option value="Patient_Religion_Unknown">Patient Religion Unknown</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="form-group">
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <label class="">Ethnicity (optional)</label>
+                    <select id="ethnicity" name="ethnicity" class="form-control select2" size="1">
+                        <option value="0">Please select</option>
+                        <option value="White_British">White - British</option>
+                        <option value="White_Irish">White - Irish</option>
+                        <option value="Any_other_White_background">Any other White background</option>
+                        <option value="Mixed_White_and_Black_Caribbean">Mixed - White and Black Caribbean</option>
+                        <option value="Mixed_White_and_Black_African">Mixed - White and Black African</option>
+                        <option value="Mixed_White_and_Asian">Mixed - White and Asian</option>
+                        <option value="Any_other_mixed_background">Any other mixed background</option>
+                        <option value="Asian_Indian">Asian - Indian</option>
+                        <option value="Asian_Pakistani">Asian - Pakistani</option>
+                        <option value="Asian_Bangladeshi">Asian - Bangladeshi</option>
+                        <option value="Black_Caribbean">Black - Caribbean</option>
+                        <option value="Black_African">Black - African</option>
+                        <option value="Any_other_Black_background">Any other Black background</option>
+                        <option value="Black_or_Black_British">Black or Black British</option>
+                        <option value="Chinese">Chinese</option>
+                        <option value="Any_other_ethnic_group">Any other ethnic group</option>
+                        <option value="Not_stated">Not stated</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="form-group">
+            <div class="col-md-12">
+                <div class="col-md-2">
+                    <input type="checkbox" onclick="checkMe(this.checked);" id="deceased" name="contacts_clinician" class="custom-control-input">
+                    <label class="">Deceased</label>
+                </div>
+                <div class="col-md-10"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12" id="divcheck" style="display:none;">
+        <div class="form-group">
+            <div class="col-md-12">
+                <label class="control-label" style="padding-left:30px;">Date Of Death (Optional)</label><br>
+                <div class="form-group" style="padding-left:20px;">
+                    <div class="row">
+                        <div class="col-md-1" style="padding-right: 0;">
+                            <input type="text" class="form-control" name="death_day" id="death_day" placeholder="Death Day" maxlength="2" />
                         </div>
-                        <div class="row">
-    
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                
-                                                <div class="col-md-12">
-                                                <label class="control-label">Date Of Birth (Optional)</label>
-                                                    <input type="text" class="form-control" name="day" id="day" placeholder="day" maxlength="2" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2" style="padding-top: 10px;">
-                                            <div class="form-group">
-                                                
-                                                <div class="col-md-12">
-                                                <label class="control-label"></label>
-                                                <select class="form-control" name="month" id="month">
-                                                        <option value="">Select Month</option>
-                                                        <option value="01">January</option>
-                                                        <option value="02">February</option>
-                                                        <option value="03">March</option>
-                                                        <option value="04">April</option>
-                                                        <option value="05">May</option>
-                                                        <option value="06">June</option>
-                                                        <option value="07">July</option>
-                                                        <option value="08">August</option>
-                                                        <option value="09">September</option>
-                                                        <option value="10">October</option>
-                                                        <option value="11">November</option>
-                                                        <option value="12">December</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2" style="padding-top: 10px;">
-                                            <div class="form-group">
-                                                <div class="col-md-12">
-                                                <label class="control-label"></label>
-                                                    <input type="text" class="form-control" name="year" id="year" placeholder="Year" />
-                                                </div>
-                                            </div>
-                                        </div>
-    
-                                        <div class="col-md-5">
-                                            <div class="form-group">
-                                                <div class="col-md-12">
-                                                <label class="control-label">Gender</label>
-                                                <select class="form-control" name="gender" id="gender">
-                                                        <option value="">Select Gender</option>
-                                                        <option value="Male">Male</option>
-                                                        <option value="Female">Female</option>
-                                                        <option value="Not_Known">Not Known</option>
-                                                        <option value="Indeterminate">Indeterminate</option>
-                                                        
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                            </div>
-                            <div class="row">
-    
-    
-                                <div class="col-md-12">
-                                            <div class="form-group">
-                                                <div class="col-md-12">
-                                                <label class="control-label">Patient comments(optional)</label>
-                                                <textarea class="form-control" name="comment" id="" rows="10"></textarea>
-                                                </div>
-                                            </div>
-                                        </div>
-                            </div>
-                            <div class="row">
-    
-                                <div class="modal-header">
-                                 <h3 class="modal-title"><strong> Contact details</strong></h3>
-                                </div>
-    
-                        
-                                    <div class="col-md-12" >
-                                        <div class="form-group">
-                                        <!-- <div class="col-md-2">
-                                        </div> -->
-                
-                                        <div class="col-md-12">
-                                                <div class="col-md-6">
-                                                    <label class="">Phone Type</label>
-                                                    <select id="phone_code" name="phone_type" class="form-control select2" size="1" placeholder="Choose a phone type">
-                                                        <option value="" disabled selected>Choose a phone type</option>
-                                                        <option value="mobile">Mobile</option>
-                                                        <option value="home">Home</option>
-                                                        <option value="office">Office</option>
-                                                        <option value="fax">Fax</option>
-                                                        <option value="other">Other</option>      
-                                                    </select>
-                                                </div>
-                                                    <!-- <span class="help-block m-b-none col-md-offset-3"><i class="fa fa-arrow-circle-o-up"></i> <?php echo lang('english_note');?></span> -->
-                                            
-                                                <div class="col-md-6">
-                                                    <label class="">Phone Number</label>
-                                                    <input type="text" class="form-control" name="phone_number" id="phone_number" placeholder="<?php echo lang('Phone Number');?>" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                
-                                    <div class="col-md-12" >
-                                        <div class="form-group">
-                                            
-                
-                                            <div class="col-md-12">
-                                                <div class="col-md-12">
-                                                    <label class=""><?php echo lang('user_email');?> (Optional)</label>
-                                                    <input type="email" class="form-control" name="user_email" id="user_email" placeholder="<?php echo lang('user_email');?>" />
-                                                </div>
-                                            
-                                            </div>
-                                        </div>
-                                    </div>
-                
-                                    <div class="col-md-12" >
-                                        <div class="form-group">
-                                            
-                                            <div class="col-md-12">
-                                                <div class="col-md-12">
-                                                <label class="control-label"><?php echo lang('password'); ?></label>
-                                                    <input type="text" class="form-control" name="password" id="password" placeholder="<?php echo lang('password'); ?>" value="<?php echo randomPassword(); ?>" />
-                                                </div>
-                                            
-                                            </div>
-                                        </div>
-                                    </div>
-                                
-                                    <div class="col-md-12" >
-                                        <div class="form-group">
-                                            
-                                            <div class="col-md-12">
-                                                <div class="col-md-12">
-                                                    <label class="">Address Lookup</label>
-                                                    <input type="text" class="form-control" name="address_lookup" id="address_lookup" placeholder="Address Lookup" />
-                                                </div>
-                                            
-                                            </div>
-                                        </div>
-                                    </div>
-                
-                                    <div class="col-md-12" >
-                                        <div class="form-group">
-                                            
-                                            <div class="col-md-12">
-                                                <div class="col-md-12">
-                                                    <label class="">Street address (Optional)</label>
-                                                    <input type="text" class="form-control" name="streem_address" id="streem_address" placeholder="Streem Address" />
-                                                </div>
-                                            
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                
-                                    <div class="col-md-12" >
-                                        <div class="form-group">
-                                        
-                                        <div class="col-md-12">
-                                            <div class="col-md-4">
-                                            <label class="">City (Optional)</label>
-                                                    <select id="country" name="city" class="form-control select2" size="1">
-                                                        <option value="" disabled selected>Please select</option>
-                                                        <?php foreach($states as $state){?>
-                                                                    
-                                                        <option value="<?php echo $state->id;?>"><?php echo $state->name;?></option>
-                                                                
-                                                        <?php }?>
-                                                    </select>
-                
-                                                <!-- <input type="text" class="form-control" name="first_name" id="first_name" placeholder="<?php echo lang('first_name');?>" /> -->
-                                            </div>
-                                            <!-- <span class="help-block m-b-none col-md-offset-3"><i class="fa fa-arrow-circle-o-up"></i> <?php echo lang('english_note');?></span> -->
-                                            
-                                            <div class="col-md-4">
-                                            <label class="">PostCode (Optional)</label>
-                                                <input type="text" class="form-control" name="post_code" id="post_code" placeholder="Post Code" />
-                                            </div>
-                
-                                            
-                                            <div class="col-md-4">
-                                            <label class="">Country (Optional)</label>
-                                                    <select id="country" name="country" class="form-control select2" size="1">
-                                                        <option value="0">Please select</option>
-                                                        <?php foreach($countries as $country){?>
-                                                                    
-                                                        <option value="<?php echo $country->id;?>"><?php echo $country->name;?></option>
-                                                                
-                                                        <?php }?>
-                                                    </select>
-                                            </div>
-                
-                                            </div>
-                
-                                        </div>
-                                    </div>
-                
-                
-                
-                                    </div>
-                                    <div class="row">
-                
-                                        <div class="modal-header">
-                                            <h3 class="modal-title"><strong> More details</strong></h3>
-                                        </div>
-                    
-                        
-                                    <div class="col-md-12" >
-                                        <div class="form-group">
-                                        <div class="col-md-12">
-                                                <div class="col-md-12">
-                                                    <label class="">Occupation (optional)</label>
-                                                    <input type="text" class="form-control" name="Occupation" id="Occupation" placeholder="<?php echo 'Occupation' ;?>" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                
-                                    <div class="col-md-12" >
-                                        <div class="form-group">
-                                        <div class="col-md-12">
-                                                <div class="col-md-12">
-                                                    <label class="">Company (optional)</label>
-                                                    <input type="text" class="form-control" name="Company" id="Company" placeholder="<?php echo 'Company'; ?>" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                
-                                    <div class="col-md-12" >
-                                        <div class="form-group">
-                                        
-                                        <div class="col-md-12">
-                                            <div class="col-md-12">
-                                            <label class="">Religion (optional)</label>
-                                                    <select id="religion" name="religion" class="form-control select2" size="1">
-                                                        <option value="" disabled selected>Please select</option>
-                                                        <option value="Baha'i">Baha"i</option>
-                                                        <option value="Buddhaist">Buddhaist</option>
-                                                        <option value="Christian">Christian</option>
-                                                        <option value="Hindu">Hindu</option>
-                                                        <option value="Jain">Jain</option>
-                                                        <option value="Jewish">Jewish</option>
-                                                        <option value="Muslim">Muslim</option>
-                                                        <option value="Pagan">Pagan</option>
-                                                        <option value="Sikh">Sikh</option>
-                                                        <option value="Zoroastrian">Zoroastrian</option>
-                                                        <option value="Other">Other</option>
-                                                        <option value="None">None</option>
-                                                        <option value="Declines_to_Disclose">Declines to Disclose</option>
-                                                        <option value="Patient_Religion_Unknown">Patient  Religion Unknown</option>
-                                                    </select>
-                                            </div>
-                                        
-                                            </div>
-                
-                                        </div>
-                                    </div>
-                
-                
-                                    <div class="col-md-12" >
-                                        <div class="form-group">
-                                        
-                                        <div class="col-md-12">
-                                            
-                                            
-                                            <div class="col-md-12">
-                                            <label class="">Ethnicity(optional)</label>
-                                                    <select id="ethnicity" name="ethnicity" class="form-control select2" size="1">
-                                                        <option value="0">Please select</option>
-                                                        <option value="White_British">White - British</option>
-                                                        <option value="White_Irish">White - Irish</option>
-                                                        <option value="Any-_ther_White_background">Any other White background</option>
-                                                        <option value="Mixed_White_and_Black_Caribbean">Mixed - White and Black Caribbean</option>
-                                                        <option value="Mixed_White_and_Black_African">Mixed - White and Black African</option>
-                                                        <option value="Mixed_White_and_Asian">Mixed - White and Asian</option>
-                                                        <option value="Any_other_mixed_background">Any other mixed background</option>
-                                                        <option value="Asian_Indian">Asian - Indian</option>
-                                                        <option value="Asian_Pakistani">Asian - Pakistani</option>
-                                                        <option value="Asian_Bangladeshi">Asian - Bangladeshi</option>
-                                                        <option value="Black_Caribbean">Black - Caribbean</option>
-                                                        <option value="Black_African">Black - African</option>
-                                                        <option value="Any_other_Black_background">Any other Black background</option>
-                                                        <option value="Black_or_Black_British">Black or Black British</option>
-                                                        <option value="Chinese">Chinese</option>
-                                                        <option value="Any_other_ethnic_group">Any other ethnic group</option>
-                                                        <option value="Not_stated">Not stated</option>
-                
-                
-                                                    </select>
-                                            </div>
-                
-                                            </div>
-                
-                                        </div>
-                                    </div>
-                
-                
-                                    <div class="col-md-12" >
-                                        <div class="form-group">
-                                        <div class="col-md-12">
-                                                <div class="col-md-2">
-                                                    <input type="checkbox" onclick="checkMe(this.checked);" id="deceased" name="contacts_clinician" class="custom-control-input">
-                                                    <label class="">Deceased</label>
-                                                    
-                                                </div>
-                                                <div class="col-md-10">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                
-                                    <div class="col-md-12" id="divcheck" style="display:none;">
-                                        <div class="form-group">
-                                            <div class="col-md-12">
-                                                <label class="control-label" style="padding-left:30px;">Date Of Death (Optional)</label><br>
-                                                <div class="form-group" style="padding-left:20px;">
-                                                    <div class="row">
-                                                        <div class="col-md-1" style="padding-right: 0;">
-                                                            <input type="text" class="form-control" name="death_day" id="death_day" placeholder="death day" maxlength="2" />
-                                                        </div>
-                                                        <div class="col-md-2" style="padding-right: 0;">
-                                                            <select class="form-control" name="death_month" id="death_month">
-                                                                <option value="">Select Month</option>
-                                                                <option value="01">January</option>
-                                                                <option value="02">February</option>
-                                                                <option value="03">March</option>
-                                                                <option value="04">April</option>
-                                                                <option value="05">May</option>
-                                                                <option value="06">June</option>
-                                                                <option value="07">July</option>
-                                                                <option value="08">August</option>
-                                                                <option value="09">September</option>
-                                                                <option value="10">October</option>
-                                                                <option value="11">November</option>
-                                                                <option value="12">December</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="col-md-2">
-                                                            <input type="number" class="form-control" name="death_year" id="death_year" placeholder="death year" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                
-                                </div>
+                        <div class="col-md-2" style="padding-right: 0;">
+                            <select class="form-control" name="death_month" id="death_month">
+                                <option value="">Select Month</option>
+                                <option value="01">January</option>
+                                <option value="02">February</option>
+                                <option value="03">March</option>
+                                <option value="04">April</option>
+                                <option value="05">May</option>
+                                <option value="06">June</option>
+                                <option value="07">July</option>
+                                <option value="08">August</option>
+                                <option value="09">September</option>
+                                <option value="10">October</option>
+                                <option value="11">November</option>
+                                <option value="12">December</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="number" class="form-control" name="death_year" id="death_year" placeholder="Death Year" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+             
                 
                 
                                 <div class="row">
-                                    <div class="modal-header">
+                                    <!-- <div class="modal-header">
                                         <h3 class="modal-title"><strong> Relationships and emergency contacts</strong></h3>
-                                    </div>
+                                    </div> -->
+                                    <div class="modal-header text-center">
+        <div class="col-md-12">
+            <div class="vender_title_admin">
+                <h3><strong>Relationships and emergency contacts</strong></h3>
+            </div>
+        </div>
+    </div>
                 
                                     <div class="col-md-12" >
                                         <div class="form-group">
@@ -481,152 +467,147 @@
                                 <input type="hidden" class="form-control" name="policy_number" id="policy_number" readonly>
                                 <input type="hidden" class="form-control" name="authorisation_code" id="authorisation_code" readonly>
                               
-                
                                 <div class="row">
-                                    <div class="modal-header">
-                                        <h3 class="modal-title"><strong> Communication preferences</strong></h3>
-                                    </div>
-                                    
-                                    <div class="col-md-12" >
-                                    <label for="">These settings will override the reminder and confirmation preferences you set for the practice.</label>
-                                        <div class="form-group">
-                                        <div class="col-md-12">
-                                            
+    <!-- <div class="modal-header">
+        <h3 class="modal-title"><strong>Communication preferences</strong></h3>
+    </div> -->
+    <div class="modal-header text-center">
+        <div class="col-md-12">
+            <div class="vender_title_admin">
+                <h3><strong>Communication preferences</strong></h3>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-12">
+        <label for="">These settings will override the reminder and confirmation preferences you set for the practice.</label>
+        <div class="form-group">
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <h4 class=""><strong>Communication preferences</strong></h4>
                 
-                                                <div class="col-md-12">
-                                                    <h4 class=""><strong> Communication preferences</strong></h4>
-                                                
-                                                        <div class="form-group">
-                                                            <div class="col-md-12">
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input type="checkbox" id="receive_emails" name="receive_emails" class="custom-control-input" value="receive_emails">
+                            <label class="custom-control-label check-labels" for="customRadioInline1">Receive emails</label>
+                        </div>
+                        <div class="col-md-12">
+                            <input type="checkbox" id="receive_sms_messages" name="receive_sms_messages" class="custom-control-input" value="receive_sms_messages">
+                            <label class="custom-control-label check-labels" for="customRadioInline2">Receive SMS messages</label>                                      
+                        </div>
+                        <div class="col-md-12">
+                            <input type="checkbox" id="has_consented_to_promotional_marketing" name="has_consented_to_promotional_marketing" class="custom-control-input" value="has_consented_to_promotional_marketing">
+                            <label class="custom-control-label check-labels" for="customRadioInline2">Has consented to promotional marketing</label>                                      
+                        </div>
+                        <div class="col-md-12">
+                            <input type="checkbox" id="receive_payment_reminders" name="receive_payment_reminders" class="custom-control-input" value="receive_payment_reminders">
+                            <label class="custom-control-label check-labels" for="customRadioInline2">Receive payment reminders</label>                                      
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <h4 class=""><strong>Privacy policy</strong></h4>
                 
-                                                                    <input type="checkbox" id="receive_emails" name="receive_emails" class="custom-control-input" value="receive_emails">
-                                                                    <label class="custom-control-label check-labels" for="customRadioInline1">Receive emails</label>
-                                                            
-                                                            </div>
-                                                            <div class="col-md-12">
-                                                                
-                                                                    <input type="checkbox" id="receive_sms_messages" name="receive_sms_messages" class="custom-control-input" value="receive_sms_messages">
-                                                                    <label class="custom-control-label check-labels" for="customRadioInline2">Receive SMS messages</label>                                      
-                                                            </div>
-                                                            <div class="col-md-12">
-                                                                
-                                                                <input type="checkbox" id="has_consented_to_promotional_marketing" name="has_consented_to_promotional_marketing" class="custom-control-input" value="has_consented_to_promotional_marketing">
-                                                                <label class="custom-control-label check-labels" for="customRadioInline2">Has consented to promotional marketing</label>                                      
-                                                            </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input type="radio" id="privacy_policy_no_response" name="privacy_policy" class="custom-control-input" value="no_response">
+                            <label class="custom-control-label check-labels" for="customRadioInline1">No response</label>
+                        </div>
+                        <div class="col-md-12">
+                            <input type="radio" id="privacy_policy_accepted" name="privacy_policy" class="custom-control-input" value="accepted">
+                            <label class="custom-control-label check-labels" for="customRadioInline2">Accepted</label>                                      
+                        </div>
+                        <div class="col-md-12">
+                            <input type="radio" id="privacy_policy_rejected" name="privacy_policy" class="custom-control-input" value="rejected">
+                            <label class="custom-control-label check-labels" for="customRadioInline2">Rejected</label>                                      
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- <div class="modal-header">
+        <h3 class="modal-title"><strong>Billing settings</strong></h3>
+    </div> -->
+    <div class="modal-header text-center">
+        <div class="col-md-12">
+            <div class="vender_title_admin">
+                <h3><strong>Billing settings</strong></h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="form-group">
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <label class="">Billing details (optional)</label>
+                    <input type="text" class="form-control" name="billing_detail" id="billing_detail" placeholder="Choose a billing details" />
+                </div>
                 
-                                                            <div class="col-md-12">
-                                                                
-                                                                <input type="checkbox" id="receive_payment_reminders" name="receive_payment_reminders" class="custom-control-input" value="receive_payment_reminders">
-                                                                <label class="custom-control-label check-labels" for="customRadioInline2">Receive payment reminders</label>                                      
-                                                            </div>
-                                                        </div>
-                                                </div>
-                
-                                                
-                                                <div class="col-md-12">
-                                                    <h4 class=""><strong>Privacy policy</strong></h4>
-                                                
-                                                        <div class="form-group">
-                                                                <div class="col-md-12">
-                
-                                                                    <input type="radio" id="privacy_policy" name="privacy_policy" class="custom-control-input" value="no_response">
-                                                                    <label class="custom-control-label check-labels" for="customRadioInline1">No response</label>
-                                                            
-                                                            </div>
-                                                            <div class="col-md-12">
-                                                                
-                                                                    <input type="radio" id="privacy_policy" name="privacy_policy" class="custom-control-input" value="accepted">
-                                                                    <label class="custom-control-label check-labels" for="customRadioInline2">Accepted</label>                                      
-                                                            </div>
-                                                            <div class="col-md-12">
-                                                                
-                                                                <input type="radio" id="privacy_policy" name="privacy_policy" class="custom-control-input" value="rejected">
-                                                                <label class="custom-control-label check-labels" for="customRadioInline2">Rejected</label>                                      
-                                                            </div>
-                                                        </div>
-                                                </div>
-                                            
-                                            
-                                            </div>
-                                        </div>
-                                    </div>
-                
-                                </div>
-                
-                
-                
-                                <div class="row">
-                                    <div class="modal-header">
-                                        <h3 class="modal-title"><strong> Billing settings</strong></h3>
-                                    </div>
-                
-                                    <div class="col-md-12" >
-                                        <div class="form-group">
-                                        <div class="col-md-12">
-                                                <div class="col-md-6">
-                                                    <label class="">Billing details(optional)</label>
-                                                    
-                                                    <input type="text" class="form-control" name="billing_detail" id="billing_detail" placeholder="Choose a billing details" />
-                                                </div>
-                                                
-                                            
-                                                <div class="col-md-6">
-                                                    <label class="">Payment reference(optional)</label>
-                                                    <input type="text" class="form-control" name="payment_reference" id="payment_reference" placeholder="<?php echo lang('Payment Reference');?>" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                
-                                </div>
+                <div class="col-md-6">
+                    <label class="">Payment reference (optional)</label>
+                    <input type="text" class="form-control" name="payment_reference" id="payment_reference" placeholder="Payment Reference" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
                                 
-                                <div class="row">
-                
-                                <div class="modal-header">
-                                        <h3 class="modal-title"><strong> Card details</strong></h3>
-                                    </div>
-                
-                
-                                    <div class="col-md-12" >
-                                        <div class="form-group">
-                                        
-                                            <div class="col-md-12">
-                                                <div class="col-md-12">
-                
-                                                <input type="text" class="form-control ccFormatMonitor" name="card_number" id="card_number" placeholder="Card Number">
-                                                <input type="text" id="inputExpDate" class="form-control" name="exp_month_year" id="exp_month_year" placeholder="MM / YY" maxlength='7'>
-                                                <input type="password" class="form-control cvv" name="cvv" id="cvv" placeholder="CVV">
-                
-                                                </div>
-                                            
-                                            </div>
-                                        </div>
-                                    </div>
-                
-                                </div>
-                                <div class="row">
-                
-                
-                                <div class="modal-header">
-                                        <h3 class="modal-title"><strong> ID numbers</strong></h3>
-                                    </div>
-                
-                
-                                    <div class="col-md-12" >
-                                        <div class="form-group">
-                                            
-                
-                                            <div class="col-md-12">
-                                                <div class="col-md-12">
-                                                    <label class="">System</label>
-                                                    <input type="text" class="form-control" name="System_id" id="System_id" placeholder="System Id" />
-                                                </div>
-                                            
-                                            </div>
-                                        </div>
-                                    </div>
-                
-                                </div>
+<div class="row">
+    <!-- <div class="modal-header">
+        <h3 class="modal-title"><strong>Card details</strong></h3>
+    </div> -->
+    <div class="modal-header text-center">
+        <div class="col-md-12">
+            <div class="vender_title_admin">
+                <h3><strong>Card details</strong></h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="form-group">
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <input type="text" class="form-control ccFormatMonitor mb-4" name="card_number" id="card_number" placeholder="Card Number">
+                    <input type="text" id="inputExpDate" class="form-control mb-4" name="exp_month_year" id="exp_month_year" placeholder="MM / YY" maxlength='7'>
+                    <input type="password" class="form-control cvv" name="cvv" id="cvv" placeholder="CVV">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- <div class="modal-header">
+        <h3 class="modal-title"><strong>ID numbers</strong></h3>
+    </div> -->
+    <div class="modal-header text-center">
+        <div class="col-md-12">
+            <div class="vender_title_admin">
+                <h3><strong>ID numbers</strong></h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="form-group">
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <label class="">System</label>
+                    <input type="text" class="form-control" name="System_id" id="System_id" placeholder="System Id" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
                 
                                 
                                 <div class="row">
@@ -791,11 +772,18 @@
                 
                 
                                             <div class="modal-header text-center"></div>
-                                            <div class="col-md-12">
+                                            <!-- <div class="col-md-12">
                                                 <div class="vender_title_admin">
                                                     <h3>Initial </h3>
                                                 </div>
-                                            </div>
+                                            </div> -->
+                                            <div class="modal-header text-center">
+        <div class="col-md-12">
+            <div class="vender_title_admin">
+                <h3><strong>Initial</strong></h3>
+            </div>
+        </div>
+    </div>
                 
                                             <div class="col-md-6">
                                                 <div class="form-group">
