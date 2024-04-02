@@ -43,30 +43,17 @@
 
 =======
             
-        <div style=" display:flex;" class="modal-header text-center">
+        <div style=" display:flex; gap:20px" class="modal-header text-center">
          
-            
-            
-            
-            
-        <?php if ($this->ion_auth->is_facilityManager()) { ?>
+            <form action="<?php echo site_url('appointment'); ?>" name="patientForm" method="get">
+            <div class="col-sm-6 col-lg-8 col-md-8" style="margin-right: 10px;">
+            <select id="appointmentType" name="appointment_id" class="form-control" onchange="fetchData()">                 
 
-            
-              <div class="col-sm-4 col-lg-4 col-md-4" style="margin-right: 10px;">
-              <label for="">Select Doctor</label>
-                    <select id="appointmentType" name="appointment_id" class="form-control" onchange="fetchData()">                 
-                    <option value="" disabled>Select Doctor</option>
-                    <?php
-                  if (!empty($doctors)) {
-                      foreach ($doctors as $doctor) { ?>
-                          <option value="<?php echo $doctor->id; ?>"><?php echo $doctor->first_name.' '.$doctor->last_name; ?></option>
-                  <?php }
-                  }
-                  ?>
-
-                    </select>
-
-                  
+                      <option value="clinic_appointment">Clinic Appointment</option>
+                      <option value="theatre_appointment">Theatre Appointment</option>
+                      <option value="availability">Availability</option>
+                      <option value="out_of_office">Out Of Office</option>
+                  </select>
               </div>
               <?php }else if($this->ion_auth->is_subAdmin()){
                 ?>
@@ -85,8 +72,8 @@
                     </select>
                   
               </div>
-            <?php } ?>
-
+            </form>
+            
                 <div class="form-group save-btn">
 >>>>>>> 70227fb0b4f348b6d424d056d5a22e7cf8f25453
 

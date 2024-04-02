@@ -1764,3 +1764,32 @@ ERROR - 2024-04-02 13:59:47 --> Could not find the language line "doctor_name_va
 ERROR - 2024-04-02 13:59:47 --> Could not find the language line "rreason_validation"
 ERROR - 2024-04-02 16:08:29 --> 404 Page Not Found: ../modules/pwfpanel/controllers/Pwfpanel/img
 ERROR - 2024-04-02 16:09:56 --> 404 Page Not Found: ../modules/pwfpanel/controllers/Pwfpanel/img
+ERROR - 2024-04-02 16:13:16 --> Severity: Warning --> mysqli::real_connect(): (HY000/1045): Access denied for user 'ioreyuqp_infoioready_user'@'localhost' (using password: YES) C:\xampp\htdocs\hosiptal_project\system\database\drivers\mysqli\mysqli_driver.php 203
+ERROR - 2024-04-02 16:13:16 --> Unable to connect to the database
+ERROR - 2024-04-02 16:13:19 --> Severity: Warning --> mysqli::real_connect(): (HY000/1045): Access denied for user 'ioreyuqp_infoioready_user'@'localhost' (using password: YES) C:\xampp\htdocs\hosiptal_project\system\database\drivers\mysqli\mysqli_driver.php 203
+ERROR - 2024-04-02 16:13:19 --> Unable to connect to the database
+ERROR - 2024-04-02 16:16:29 --> Severity: Warning --> mysqli::real_connect(): (HY000/1045): Access denied for user 'ioreyuqp_infoioready_user'@'localhost' (using password: YES) C:\xampp\htdocs\hosiptal_project\system\database\drivers\mysqli\mysqli_driver.php 203
+ERROR - 2024-04-02 16:16:29 --> Unable to connect to the database
+ERROR - 2024-04-02 16:17:30 --> Severity: Warning --> mysqli::real_connect(): (HY000/1045): Access denied for user 'ioreyuqp_infoioready_user'@'localhost' (using password: YES) C:\xampp\htdocs\hosiptal_project\system\database\drivers\mysqli\mysqli_driver.php 203
+ERROR - 2024-04-02 16:17:30 --> Unable to connect to the database
+ERROR - 2024-04-02 16:17:31 --> Severity: Warning --> mysqli::real_connect(): (HY000/1045): Access denied for user 'ioreyuqp_infoioready_user'@'localhost' (using password: YES) C:\xampp\htdocs\hosiptal_project\system\database\drivers\mysqli\mysqli_driver.php 203
+ERROR - 2024-04-02 16:17:31 --> Unable to connect to the database
+ERROR - 2024-04-02 16:17:31 --> Severity: Warning --> mysqli::real_connect(): (HY000/1045): Access denied for user 'ioreyuqp_infoioready_user'@'localhost' (using password: YES) C:\xampp\htdocs\hosiptal_project\system\database\drivers\mysqli\mysqli_driver.php 203
+ERROR - 2024-04-02 16:17:31 --> Unable to connect to the database
+ERROR - 2024-04-02 16:17:31 --> Severity: Warning --> mysqli::real_connect(): (HY000/1045): Access denied for user 'ioreyuqp_infoioready_user'@'localhost' (using password: YES) C:\xampp\htdocs\hosiptal_project\system\database\drivers\mysqli\mysqli_driver.php 203
+ERROR - 2024-04-02 16:17:31 --> Unable to connect to the database
+ERROR - 2024-04-02 16:17:31 --> Severity: Warning --> mysqli::real_connect(): (HY000/1045): Access denied for user 'ioreyuqp_infoioready_user'@'localhost' (using password: YES) C:\xampp\htdocs\hosiptal_project\system\database\drivers\mysqli\mysqli_driver.php 203
+ERROR - 2024-04-02 16:17:31 --> Unable to connect to the database
+ERROR - 2024-04-02 16:17:32 --> Severity: Warning --> mysqli::real_connect(): (HY000/1045): Access denied for user 'ioreyuqp_infoioready_user'@'localhost' (using password: YES) C:\xampp\htdocs\hosiptal_project\system\database\drivers\mysqli\mysqli_driver.php 203
+ERROR - 2024-04-02 16:17:32 --> Unable to connect to the database
+ERROR - 2024-04-02 16:17:32 --> Severity: Warning --> mysqli::real_connect(): (HY000/1045): Access denied for user 'ioreyuqp_infoioready_user'@'localhost' (using password: YES) C:\xampp\htdocs\hosiptal_project\system\database\drivers\mysqli\mysqli_driver.php 203
+ERROR - 2024-04-02 16:17:32 --> Unable to connect to the database
+ERROR - 2024-04-02 16:17:32 --> Severity: Warning --> mysqli::real_connect(): (HY000/1045): Access denied for user 'ioreyuqp_infoioready_user'@'localhost' (using password: YES) C:\xampp\htdocs\hosiptal_project\system\database\drivers\mysqli\mysqli_driver.php 203
+ERROR - 2024-04-02 16:17:32 --> Unable to connect to the database
+ERROR - 2024-04-02 16:17:32 --> Severity: Warning --> mysqli::real_connect(): (HY000/1045): Access denied for user 'ioreyuqp_infoioready_user'@'localhost' (using password: YES) C:\xampp\htdocs\hosiptal_project\system\database\drivers\mysqli\mysqli_driver.php 203
+ERROR - 2024-04-02 16:17:32 --> Unable to connect to the database
+ERROR - 2024-04-02 16:17:32 --> Severity: Warning --> mysqli::real_connect(): (HY000/1045): Access denied for user 'ioreyuqp_infoioready_user'@'localhost' (using password: YES) C:\xampp\htdocs\hosiptal_project\system\database\drivers\mysqli\mysqli_driver.php 203
+ERROR - 2024-04-02 16:17:32 --> Unable to connect to the database
+ERROR - 2024-04-02 16:17:33 --> Severity: Warning --> mysqli::real_connect(): (HY000/1045): Access denied for user 'ioreyuqp_infoioready_user'@'localhost' (using password: YES) C:\xampp\htdocs\hosiptal_project\system\database\drivers\mysqli\mysqli_driver.php 203
+ERROR - 2024-04-02 16:17:33 --> Unable to connect to the database
+ERROR - 2024-04-02 16:19:03 --> Could not find the language line "description_validation"
