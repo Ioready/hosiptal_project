@@ -134,12 +134,12 @@
                         </div>
                     </div>
                     <div class="form-group form-actions">
-                        <!--<div class="col-xs-12">
-                            <label class="switch switch-primary" data-toggle="tooltip" title="Remember Me?">
-                                <input type="checkbox" id="remember" name="remember" value="1" checked>
-                                <span></span>
-                            </label>
-                        </div> -->
+                    <div class="col-xs-12">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="gi gi-lock"></i></span>
+                                <input type="text" id="uniq_id" name="uniq_id" class="form-control input-lg" placeholder="Fill the token for doctor and patients">
+                            </div>
+                        </div>
 
                         <div class="col-xs-12">
                             <label  data-toggle="tooltip">
