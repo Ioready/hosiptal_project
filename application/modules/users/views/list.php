@@ -93,8 +93,8 @@
                     <tr>     
             <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('serial_no');?></th>
             <!-- <th class="text-center"><?php echo "Team Code";?></th> -->
-            <!-- <th style="background-color:#DBEAFF;font-size:1.3rem" class="text-center"><?php echo "Name";?></th> -->
-            <!-- <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('user_email');?></th> -->
+            <th style="background-color:#DBEAFF;font-size:1.3rem" class="text-center"><?php echo "Name";?></th>
+            <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('user_email');?></th>
 <!--            <th style="background-color:#DBEAFF;font-size:1.3rem" class="text-center"><?php echo "Phone";?></th>-->
             <!-- <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo "Total purchase amount";?></th>
             <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo "Total deposit amount";?></th>

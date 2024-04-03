@@ -263,7 +263,7 @@
                                     <img src="<?php echo base_url(); ?>uploads/home.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Dashboard</span></a>
                                 </li>
                                  <li title="Plans">
-                                        <a href="<?php echo site_url('allPlans'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "allPlans") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/ham.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Plans</span></a>
+                                        <a href="<?php echo site_url('AllPlans'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "AllPlans") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/ham.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Plans</span></a>
                                 </li>
 
                                 <!--                                     <li title="Reports">
