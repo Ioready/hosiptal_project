@@ -21,11 +21,11 @@
                 <h2 class="modal-title"><i class="fa fa-pencil"></i> <?php echo (isset($title)) ? ucwords($title) : "" ?></h2>
             </div>
             <div class="alert alert-danger" id="error-box" style="display: none"></div>
-            <div class="form-body">
+            <div class="form-body mt-4 fw-bold">
                 <div class="row">
                     <div class="col-md-12" >
                         <div class="form-group">
-                            <label class="col-md-3 control-label">Hospital Name</label>
+                            <label class="col-md-3 control-label fw-bold">Hospital Name</label>
                             <div class="col-md-9">
                                 <input type="text" class="form-control" name="hospital_name" id="hospital_name" placeholder="Hospital Name" />
                             </div>
@@ -34,7 +34,7 @@
                     </div>
                     <div class="col-md-12" >
                         <div class="form-group">
-                            <label class="col-md-3 control-label">First Name</label>
+                            <label class="col-md-3 control-label fw-bold">First Name</label>
                             <div class="col-md-9">
                                 <input type="text" class="form-control" name="first_name" id="first_name" placeholder="First Name" />
                             </div>
@@ -44,7 +44,7 @@
                     
                 <div class="col-md-12" >
                         <div class="form-group">
-                            <label class="col-md-3 control-label">Last Name</label>
+                            <label class="col-md-3 control-label fw-bold">Last Name</label>
                             <div class="col-md-9">
                                 <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Last Name" />
                             </div>
@@ -54,7 +54,7 @@
                     
                      <div class="col-md-12" >
                         <div class="form-group">
-                            <label class="col-md-3 control-label"><?php echo lang('user_email');?></label>
+                            <label class="col-md-3 control-label fw-bold"><?php echo lang('user_email');?></label>
                             <div class="col-md-9">
                                
                                 <input type="email" class="form-control" name="user_email" id="user_email" placeholder="<?php echo lang('user_email');?>"/>
@@ -275,7 +275,7 @@
                     
                     <div class="col-md-12" >
                         <div class="form-group">
-                            <label class="col-md-3 control-label"><?php echo lang('password');?></label>
+                            <label class="col-md-3 control-label fw-bold"><?php echo lang('password');?></label>
                             <div class="col-md-9">
                                 <input type="text" class="form-control" name="password" id="password" placeholder="<?php echo lang('password');?>" value="<?php echo randomPassword();?>"/>
                             </div>
@@ -332,7 +332,7 @@
                 </div>
             </div>
             <div class="text-right">
-                <button type="submit" id="submit" class="btn btn-sm btn-primary" >Save</button>
+                <button type="submit" id="submit" class="btn btn-sm btn-primary mt-2" style="background:#337ab7;">Save</button>
             </div>
         </form>
         

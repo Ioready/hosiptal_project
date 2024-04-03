@@ -78,11 +78,11 @@
 
                     <div class="col-md-12">
                         <br>
-                         <button type="button" id="extend">Add Section </button>
+                         <button type="button" id="extend" class="btn btn-sm btn-primary"  style="background:#337ab7;">Add Section </button>
                     </div>
             </div>
             <div class="text-right">
-                <button type="submit" id="submit" class="btn btn-sm btn-primary" >Save</button>
+                <button type="submit" id="submit" class="btn btn-sm btn-primary"  style="background:#337ab7;">Save</button>
             </div>
         </form>
         
@@ -264,9 +264,9 @@
                         </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-sm btn-primary mt-2" style="background:#337ab7;" data-dismiss="modal">Close</button>
                     <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
-                    <button id="submit" type="submit" class="btn btn-primary" data-toggle="modal" data-target="#modalForm">Submit</button>
+                    <button id="submit" type="submit" class="btn btn-sm btn-primary mt-2" style="background:#337ab7;" data-toggle="modal" data-target="#modalForm">Submit</button>
                 </div>
             </div>
 

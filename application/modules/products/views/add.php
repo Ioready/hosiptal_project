@@ -31,37 +31,33 @@
             <div class="alert alert-danger" id="error-box" style="display: none"></div>
             <div class="form-body">
                 <div class="row">
-                    <p style="padding-left: 60px;">Products are anything you provide that you need to invoice for. They include appointments, labs, medications, and memberships. You must have at least one bookable product set up in order to start booking appointments. 
-                        You can upload product lists from Semble's lab partners from the Lab settings page.</p>
-                        
-                    <div class="col-md-12" >
-                        <div class="form-group">
-                           <div class="col-md-2">
-                           </div>
+                <p style="padding-left: 60px;">Products are anything you provide that you need to invoice for. They include appointments, labs, medications, and memberships. You must have at least one bookable product set up in order to start booking appointments. 
+You can upload product lists from Semble's lab partners from the Lab settings page.</p>
 
-                           <div class="col-md-10">
-                            <h2>
-                            <span for="" style="float:left"><strong>Product</strong></span ></h2> <br><br>
-                                <div class="col-md-4">
-                                    <label class="">Type</label>
-                                    <select id="type" name="type" class="form-control" size="1">
-                                        <option value="Selected">Select</option>
-                                        <option value="Medication">Medication</option>
-                                        <option value="Vaccine">Vaccine</option>
-                                        <option value="Lab">Lab</option>
-                                        <option value="Appointment">Appointment</option>
-                                        <option value="Pathway">Pathway</option>
-                                        <option value="Membership">Membership</option>
-                                        <option value="Procedure">Procedure</option>
-                                        <option value="Other">Other</option>
-                                        </select>
-                                 </div>
-                                    
-                                
+<div class="col-md-12">
+    <div class="form-group">
+        <div class="col-md-2"></div>
 
-                            </div>
-                        </div>
-                    </div>
+        <div class="col-md-10">
+            <h2><span for="" style="float:left"><strong>Product</strong></span></h2><br><br>
+            <div class="col-md-4">
+                <label class="">Type</label>
+                <select id="type" name="type" class="form-control" size="1">
+                    <option value="Selected">Select</option>
+                    <option value="Medication">Medication</option>
+                    <option value="Vaccine">Vaccine</option>
+                    <option value="Lab">Lab</option>
+                    <option value="Appointment">Appointment</option>
+                    <option value="Pathway">Pathway</option>
+                    <option value="Membership">Membership</option>
+                    <option value="Procedure">Procedure</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+
                     
 
                 <div class="show-hide" id="Medication">

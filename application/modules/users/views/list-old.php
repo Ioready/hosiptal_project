@@ -81,6 +81,9 @@
                                  <th><?php echo lang('status');?></th>
                                 <th><?php echo lang('user_createdate');?></th>
                                 <th style="width:50%"><?php echo lang('action');?></th>
+
+                                
+                                
                             </tr>
                         </thead>
                     </table>

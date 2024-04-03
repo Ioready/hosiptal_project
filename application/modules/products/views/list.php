@@ -77,53 +77,43 @@
 
                 
                 </div>
+             
+
+
                 <div class="col-sm-6 col-lg-12">
-                    <div class="panel panel-default">
-                      
-                        <div style="margin: 0px 0px 20px 16px;">
-                            
-                                        <div class="tab-pane-second" role="tabpanel" aria-labelledby="pills-home-tab">
-                                            <ul class="nav nav-pills-second nav-fill nav-tab-appointment active" id="pills-tab" role="tablist" >
-                                                <li class="nav-item-second">
-                                                <a class="btn btn-sm nav-link-second new-contact save-btn"  data-target="#pills-5"  role="tab" href="<?php echo base_url() . $this->router->fetch_class(); ?>/open_model"> New </a>
-                                                </li>
-
-
-                                            <div class="row">
-                                                <div class="input-group" style="padding-left: 120px;">
-                                                    <div class="col-md-4">
-                                                        <div class="form-group"> 
-                                                            
-                                                            <select class="form-control" id="companySelect" style="border: 1px solid;border-radius: 6px;">
-                                                                <!-- <option value="">Select...</option> -->
-                                                                <option value="company1">Company</option>
-                                                                <option value="first_name">First Name</option>
-                                                                <option value="last_name">Last Name</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <div class="input-group" style="border: 1px solid; border-radius: 6px;">
-                                                        <div class="col-md-3">
-                                                                <button class="btn" type="search"><i class="fa fa-search" name="search-outline"></i></button>
-                                                            </div>
-                                                            <div class="col-md-9">
-
-                                                                <input type="search" class="form-control" name="search" placeholder="Search..">
-                                                            </div>
-                                                            
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                        </div>                                       
-                                    </ul>
-                                 </div> 
-                            </div> 
-                            <div class="panel-body">
-                            
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="tab-pane-second" role="tabpanel" aria-labelledby="pills-home-tab">
+                <ul class="nav nav-pills-second nav-fill nav-tab-appointment active" id="pills-tab" role="tablist">
+                    <li class="nav-item-second col-md-4 p-2">
+                        <a  style="background:#337ab7;" class="btn btn-sm btn-primary mt-2 nav-link-second new-contact save-btn" data-target="#pills-5" role="tab" href="<?php echo base_url() . $this->router->fetch_class(); ?>/open_model">New</a>
+                    </li>
+                    <li class="input-group col-md-4 p-2">
+                        <div class="form-group"> 
+                            <select class="form-control" id="companySelect">
+                                <option value="company1">Company</option>
+                                <option value="first_name">First Name</option>
+                                <option value="last_name">Last Name</option>
+                            </select>
                         </div>
-                    </div>
-                </div>
+                    </li>
+                    <li class="input-group col-md-4 p-2">
+                    <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-search"></i></span>
+            <input type="text" class="form-control" placeholder="Search">
+        </div>
+                    </li>
+                </ul>
+            </div>
+        </div> 
+    </div>
+</div>
+
+
+
+
+
+
             </div>
         </div>
 
@@ -439,6 +429,29 @@ a.new-contact:hover{
 .save-btn:hover{
     background:#00008B !important;
 }
+
+
+
+    ::-webkit-scrollbar {
+    width: 2px !important;
+    display:none
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1 !important; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888 !important; 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555 !important; 
+  }
+
 
 
 </style>

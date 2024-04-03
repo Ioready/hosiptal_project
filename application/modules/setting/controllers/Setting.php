@@ -23,6 +23,21 @@ class Setting extends Common_Controller {
         $this->load->admin_render('add', $this->data, 'inner_script');
     }
 
+    public function emailSetting() {
+        $this->data['parent'] = "Settings";
+        $this->data['title'] = "Settings";
+        $this->load->admin_render('email_setting', $this->data, 'inner_script');
+    }
+
+
+    
+    public function paymentSetting() {
+        $this->data['parent'] = "Settings";
+        $this->data['title'] = "Settings";
+        $this->load->admin_render('payment_setting', $this->data, 'inner_script');
+    }
+
+
     public function add_days() {
         $total_patient_days = $this->input->post('total_patient_days');
 

@@ -13,9 +13,10 @@
             /* Prevents line breaks */
         }
 
-        .panel-bodyy {
+        /* .panel-bodyy {
             display: flex;
-        }
+            width: fit-content;
+        } */
 
         .filter-background {
             background-color: #d7cace;
@@ -30,6 +31,9 @@
             .ajay1 {
                 width: 190%;
             }
+            /* .ajay1-btn {
+                width: 103%;
+            } */
         }
 
 
@@ -120,6 +124,11 @@
         #Graph-chart21 {
             height: 540px;
         }
+        .text-truncate {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
     </style>
     <!-- Page content -->
     <div id="page-content">
@@ -167,7 +176,8 @@
                                 <!-- <div></div>
                             <div></div>
                             <div></div> -->
-                                <div class="col-sm-12 col-lg-3">
+                            <div class="row">
+                                <div class="col-12 col-lg-2 col-md-6 mb-3 mb-lg-0">
                                     <select id="careUnit" name="careUnit" class="form-control select-2" onchange="getAntibioticByCareUnit(this.value)">
                                         <option value="">Select Care Unit</option>
                                         <!--  <?php
@@ -217,7 +227,8 @@
                                     </select>
                                 </div>
 
-                                <div class="col-sm-12 col-lg-3" style="margin-left:-10px;">
+                                <div class="col-12 col-lg-2 col-md-6 mb-3 mb-lg-0" >
+                                <!-- <div class="col-12 col-lg-2 col-md-6 mb-3 mb-lg-0" style="margin-left:-10px;"> -->
                                     <select id="symptom_onset" name="symptom_onset" class="form-control select-2" onchange="getAntibioticByCareUnit(this.value)">
                                         <option value="">Infection Onset</option>
                                         <option value="Facility">Facility/HAI</option>
@@ -226,7 +237,7 @@
                                     </select>
                                 </div>
 
-                                <div class="col-sm-12 col-lg-3">
+                                <div class="col-12 col-lg-2 col-md-6 mb-3 mb-lg-0">
                                     <select id="date_of_start_abx" name="date_of_start_abx" class="form-control select-2" onchange="getAntibioticByCareUnit(this.value)">
                                         <option value="">Select Month</option>
                                         <option value="01">January</option>
@@ -244,7 +255,7 @@
                                     </select>
                                 </div>
 
-                                <div class="col-sm-12 col-lg-3" style="margin-left:-10px;">
+                                <div class="col-12 col-lg-2 col-md-6 mb-3 mb-lg-0" >
                                     <select id="date_of_start_abx1" name="date_of_start_abx1" class="form-control select-2" onchange="getAntibioticByCareUnit(this.value)">
                                         <option value="">Select Year</option>
                                         <option value="2023">2023</option>
@@ -253,16 +264,16 @@
                                     </select>
                                 </div>
 
-                                <div class="col-sm-12 col-lg-5">
-                                    <div class="exportbutton">
+                                <div class="col-12 col-lg-2 col-md-6 mb-3 mb-lg-0 ajay1-btn" >
+                                    <div >
                                         <div data-toggle="collapse" data-target="#collapseOne">
                                             <div data-toggle="collapse" data-target="#collapseOne2">
                                                 <div data-toggle="collapse" data-target="#collapseOne5">
                                                     <div data-toggle="collapse" data-target="#collapseOne90">
                                                         <div data-toggle="collapse" data-target="#collapseOne6">
-                                                            <div data-toggle="collapse" data-target="#collapseOne7">
-                                                                <div data-toggle="collapse" data-target="#collapseOne8" class="">
-                                                                    <button type="button" style="color:white;padding-right:15px" data-toggle="tooltip" data-placement="bottom" class="form-control btn btn-success " onclick="setTimeout(downloadPDF23,1000)">Download Monthly reports</button>
+                                                            <div data-toggle="collapse" data-target="#collapseOne7" >
+                                                                <div data-toggle="collapse" data-target="#collapseOne8"  class="">
+                                                                    <button type="button " style="color:white;" data-toggle="tooltip" data-placement="bottom" class="form-control btn btn-success text-truncate" onclick="setTimeout(downloadPDF23,1000)">Download Monthly reports</button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -272,11 +283,13 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-12 col-lg-2 ajay1" style="padding: 0px 16px 0px 9px;">
+                                <div class="col-12 col-lg-2 col-md-6 mb-3 mb-lg-0  ajay1-btn" >
                                     <button type="button" class="btn btn-primary btn-sm form-control" onclick="un_days()"><i class="fa fa-undo"></i> Reset</button>
                                 </div>
                             </div>
+                                    </div>
 
+                                   
                             <div class="panel-body panel-bodyy">
                                 <!-- col-sm-12 col-md-6 col-lg-2 -->
                                 <!-- <div class="col-sm-12 col-lg-3">
@@ -286,8 +299,8 @@
                             <div class="col-sm-12 col-lg-3">
                                 <input type="text" class="form-control" name="todate" id="date2" placeholder="To Date" onchange="getReports()" />
                             </div> -->
-
-                                <div class="col-sm-12 col-lg-6">
+                            <div class="row">
+                                <div class="col-12 col-lg-2 col-md-6 mb-3 mb-lg-0">
                                     <select id="date_of_start_abx2" name="date_of_start_abx2" class="form-control select-2" onchange="getAntibioticByCareUnit(this.value)">
                                         <option value="">Select Quarter/Year</option>
                                         <!-- <?php
@@ -311,7 +324,7 @@
                                     </select>
                                 </div>
 
-                                <div class="col-sm-12 col-lg-6">
+                                <div class="col-12 col-lg-2 col-md-6 mb-3 mb-lg-0">
                                     <select id="date_of_start_abx3" name="date_of_start_abx3" class="form-control select-2" onchange="getAntibioticByCareUnit(this.value)">
                                         <option value="">Select Year</option>
                                         <!-- <?php
@@ -329,8 +342,8 @@
                                     </select>
                                 </div>
                                 <!-- col-sm-12 col-md-6 col-lg-3 ajay1 -->
-                                <div class="col-sm-12 col-lg-5 ajay1">
-                                    <div class="exportbutton">
+                                <div class="col-12 col-lg-2 col-md-6 mb-3 mb-lg-0 ajay1">
+                                    <div class="">
                                         <div data-toggle="collapse" data-target="#collapseOne">
                                             <div data-toggle="collapse" data-target="#collapseOne2">
                                                 <div data-toggle="collapse" data-target="#collapseOne5">
@@ -338,7 +351,7 @@
                                                         <div data-toggle="collapse" data-target="#collapseOne6">
                                                             <div data-toggle="collapse" data-target="#collapseOne7">
                                                                 <div data-toggle="collapse" data-target="#collapseOne8" class="">
-                                                                    <button style="color:white;padding-right:18px" type="button" data-toggle="tooltip" data-placement="bottom" class="form-control btn btn-success" onclick="setTimeout(downloadPDF22,1000)"> Download Quarterly/Yearly reports </button>
+                                                                    <button style="color:white;padding-right:18px" type="button" data-toggle="tooltip" data-placement="bottom" class="form-control btn btn-success text-truncate" onclick="setTimeout(downloadPDF22,1000)"> Download Quarterly/Yearly reports </button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -349,9 +362,10 @@
                                     </div>
                                 </div>
 
-                                <div class="col-sm-12 col-lg-2 ajay1" style="padding-left:10px;">
+                                <div class="col-12 col-lg-2 col-md-6 mb-3 mb-lg-0 ajay1" style="padding-left:10px;">
                                     <button type="button" id="moreFilters" class="btn btn-primary btn-sm form-control" onclick="toggleFilterOptions()" value="More filters">More filters</button>
                                 </div>
+                                            </div>
                             </div>
                         </div>
 
