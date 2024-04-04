@@ -440,57 +440,6 @@
                    <div style="background-color:#EDEAFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
                        <div class="ibox-title">
 
-<<<<<<< HEAD
-<div class="col-lg-3 col-md-6 dashboardBoxes">
-    <div style="background-color:<?php echo $total_patient > 0 ? '#EDEAFF' : '#FFFFFF'; ?>;box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
-        <div class="ibox-content">
-        <h1 class="no-margins"><?php echo $total_patient; ?></h1>
-            <h5 class="text-primary"><strong>Total Patient</strong></h5>
-        </div>
-        <img src="<?php echo base_url(); ?>uploads/patient.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
-    </div>
-</div>
-
-<div class="col-lg-3 col-md-6  dashboardBoxes">
-    <div style="background-color:<?php echo $careUnit > 0 ? '#FEE2E1' : '#FFFFFF'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
-        <div class="ibox-content">
-            <h1 class="no-margins"><?php echo $careUnit; ?></h1>
-            <h5 class="text-primary"><strong>Total Care Unit</strong></h5>
-        </div>
-        <img src="<?php echo base_url(); ?>uploads/intravenous-therapy.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
-    </div>
-</div>
-
-<div class="col-lg-3 col-md-6  dashboardBoxes">
-    <div style="background-color:<?php echo $initial_dx > 0 ? '#DAEBFF' : '#FFFFFF'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
-        <div class="ibox-content">
-            <h1 class="no-margins"><?php echo $initial_dx; ?></h1>
-            <h5 class="text-primary"><strong>Total Infections</strong></h5>
-        </div>
-        <img src="<?php echo base_url(); ?>uploads/respiratory.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
-    </div>
-</div>
-
-<div class="col-lg-3 col-md-6  dashboardBoxes">
-    <div style="background-color:<?php echo $initial_rx > 0 ? '#D0FAE4' : '#FFFFFF'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
-        <div class="ibox-content">
-            <h1 class="no-margins"><?php echo $initial_rx; ?></h1>
-            <h5 class="text-primary"><strong>Total Antibiotic</strong></h5>
-        </div>
-        <img src="<?php echo base_url(); ?>uploads/medicine.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
-    </div>
-</div>
-
-<div class="col-lg-4 col-md-6 dashboardBoxes">
-    <div style="background-color:<?php echo $total_patient_today > 0 ? '#D0FAE4' : '#FFFFFF'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
-        <div class="ibox-content">
-            <h1 class="no-margins"><?php echo $total_patient_today; ?></h1>
-            <h5 class="text-primary"><strong>Total Patient Today</strong></h5>
-        </div>
-        <img src="<?php echo base_url(); ?>uploads/patient1.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
-    </div>
-</div>
-=======
                        <div class="ibox-content">
 
                        <h1 class="no-margins">
@@ -557,7 +506,6 @@
                        <img src="<?php echo base_url(); ?>uploads/form.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
                    </div>
            </div>
->>>>>>> b91f13e4201e7195f073c3691c5bef7973f4de47
 
 
 
