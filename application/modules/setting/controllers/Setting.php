@@ -34,6 +34,15 @@ class Setting extends Common_Controller {
     public function paymentSetting() {
         $this->data['parent'] = "Settings";
         $this->data['title'] = "Settings";
+        $option = array(
+            'table' => 'payment_gateway',
+            'select' => 'payment_gateway.*',
+            'order' => array('payment_gateway.id' => 'DESC'),
+            
+        );
+
+        $this->data['list'] = $this->common_model->customGet($option);
+
         $this->load->admin_render('payment_setting', $this->data, 'inner_script');
     }
 
@@ -46,7 +55,7 @@ class Setting extends Common_Controller {
         $this->form_validation->set_rules('publishable_key', lang('publishable_key'), 'required');
         $allData = $this->input->post();
         $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
-        // print_r($this->input->post());die;
+       
         if ($this->form_validation->run() == true) {
 
         $option = array(
@@ -58,12 +67,16 @@ class Setting extends Common_Controller {
             )
         );
         $insert_id = $this->common_model->customInsert($option);
+        $response = array('status' => 1, 'message' =>  "Successfully added");
+        
     } else {
         $messages = (validation_errors()) ? validation_errors() : '';
         $response = array('status' => 0, 'message' => $messages);
-    }
 
-        $this->load->admin_render('payment_setting', $this->data, 'inner_script');
+    }
+    
+    echo json_encode($response);
+
     }
 
 

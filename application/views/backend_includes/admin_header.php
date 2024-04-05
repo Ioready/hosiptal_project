@@ -566,16 +566,7 @@
                                 </li> -->
 
                                 
-                                <li title="Tutorial">
-                                     <a href="<?php echo site_url('tutorials'); ?>" target="_blank" class=" <?php echo (strtolower($this->router->fetch_class()) == "howItWorks") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/tutorials.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark text-dark">&nbsp;Tutorials</span></a>
-                                 </li>
-                                <!-- <li title="Recommendation">
-                                    <a href="<?php echo site_url('recommendation'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "recommendation") ? "active" : "" ?>"><i class="fa fa-paper-plane sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Steward Communications</span></a>
-                                </li> -->
-                                <li title="FaqQuestion
-                                     '">
-                                    <a href="<?php echo site_url('faqquestion'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "faqquestion") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/faq.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">&nbsp;FAQ</span></a>
-                                </li>
+                                
                                 <!-- <li title="Contact Us">
                                     <a href="<?php echo site_url('contactus'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "contactus") ? "active" : "" ?>"><i class="fa fa-comment sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Contact Us</span></a>
                                 </li> -->
@@ -586,8 +577,58 @@
                                     <li title="Antibiotic Name">
                                         <a href="<?php echo site_url('initialRx'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "initialRx") ? "active" : "" ?>"><i class="gi gi-charts sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Antibiotic Name</span></a>
                                     </li> -->
+                               
+
+                            
+
+                                <li title="Letters">
+                                    <a href="<?php echo site_url('letters'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "Letters") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/letters.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">&nbsp;Letters</span></a>
+                                </li>
+                                <li title="Invoices">
+                                    <a href="<?php echo site_url('invoices'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "invoices") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/invoice.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">&nbsp;Invoices</span></a>
+                                </li>
+
+                                <li title="Diagnosis">
+                                    <a href="<?php echo site_url('initialDx'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "initialDx") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/infection.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">&nbsp; Infections</span></a>
+                                </li>
+                               <li title="Culture Source">
+                                    <a href="<?php echo site_url('cultureSource'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "cultureSource") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/products.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">&nbsp;Culture Source</span></a>
+                                </li>
+                                <li title="Organism">
+                                    <a href="<?php echo site_url('organism'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "organism") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/products.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">&nbsp;Organism</span></a>
+                                </li>
+                                <li title="Precautions">
+                                    <a href="<?php echo site_url('precautions'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "precautions") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/products.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">&nbsp;Precautions</span></a>
+                                </li>
+                                <li title="Antibiotic Name">
+                                    <a href="<?php echo site_url('initialRx'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "initialRx") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/products.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">&nbsp;Antibiotic Name</span></a>
+                                </li> 
+
+                                <li title="Products">
+                                    <a href="<?php echo site_url('products'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "products") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/products.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">&nbsp;Products</span></a>
+                                </li>
+                                <li title="Contact Us">
+                                    <a href="<?php echo site_url('contactus'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "contactus") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/contact.svg" height="23px" width="23px"><span class="sidebar-nav-mini-hide text-dark">Contact Us</span></a>
+                                </li>
+                                <!-- <li title="Contact">
+                                    <a href="<?php echo site_url('contact'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "Contact") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/department.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp;Contacts</span></a>
+                                </li> -->
+                                <li title="Tutorial">
+                                     <a href="<?php echo site_url('tutorials'); ?>" target="_blank" class=" <?php echo (strtolower($this->router->fetch_class()) == "howItWorks") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/tutorials.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark text-dark">&nbsp;Tutorials</span></a>
+                                 </li>
+                                <!-- <li title="Recommendation">
+                                    <a href="<?php echo site_url('recommendation'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "recommendation") ? "active" : "" ?>"><i class="fa fa-paper-plane sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Steward Communications</span></a>
+                                </li> -->
+                                <li title="FaqQuestion
+                                     '">
+                                    <a href="<?php echo site_url('faqquestion'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "faqquestion") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/faq.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">&nbsp;FAQ</span></a>
+                                </li>
                                 <li title="Email Template">
                                     <a href="<?php echo site_url('emailTemplate'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "emailTemplate") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/email.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Email Template</span></a>
+                                </li>
+
+                                <li title="Settings">
+                                    <a href="<?php echo site_url('userSettings'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "userSettings") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/setting.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">&nbsp; Setting</span></a>
                                 </li>
                                 
 

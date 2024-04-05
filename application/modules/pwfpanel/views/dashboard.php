@@ -832,7 +832,7 @@
 
 
 
-                    <!-- <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/style.css">
+                    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/style.css">
     
                     <div class="row m-2">
 
@@ -840,7 +840,7 @@
                         <div class="col-12 col-md-6 col-lg-8 col-xl-8">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title d-inline-block">Upcoming Appointments</h4> <a href="appointments.html" class="btn btn-primary float-right">View all</a>
+                                    <h4 class="card-title d-inline-block">Upcoming Appointments</h4> <a href="#" class="btn save-btn btn-primary float-right">View all</a>
                                 </div>
                                 <div class="card-body p-0">
                                     <div class="table-responsive">
@@ -1033,7 +1033,7 @@
                     <div class="col-12 col-md-6 col-lg-8 col-xl-8">
 						<div class="card">
 							<div class="card-header">
-								<h4 class="card-title d-inline-block">New Patients </h4> <a href="patients.html" class="btn btn-primary float-right">View all</a>
+								<h4 class="card-title d-inline-block">New Patients </h4> <a href="<?php echo site_url('patient'); ?>" class="btn save-btn btn-primary float-right <?php echo (strtolower($this->router->fetch_class()) == "patient") ? "active" : "" ?>">View all</a>
 							</div>
 							<div class="card-block">
 								<div class="table-responsive">
@@ -1131,7 +1131,7 @@
 							</div>
 						</div>
 					 </div>
-                    </div> -->
+                    </div>
 
 
 
