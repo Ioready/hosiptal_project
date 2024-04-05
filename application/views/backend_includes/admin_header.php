@@ -337,9 +337,9 @@
                             <img src="<?php echo base_url(); ?>uploads/hospital.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">&nbsp; Hospital List </span><i class="fa fa-chevron-down"></i>
                             </a>
                         </li>
-                        <ul class="sub-menu collapse" id="new">
+                        <ul class="sub-menu collapse" id="new" style="background: white; color: black; padding-left: revert;">
                             <?php foreach($list as $lists){ ?>
-                                <li><a href="<?php echo site_url('facilityManager/hospitalDetail/'.$lists->id); ?> <?php base_url('facilityManager/hospitalDetail/'.$lists->id); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "facilityManager/hospitalDetail/.$lists->id") ? "active" : "" ?>"><?php echo ucfirst($lists->first_name. ' '.$lists->last_name);?></a></li>
+                                <li ><a href="<?php echo site_url('facilityManager/hospitalDetail/'.$lists->id); ?> <?php base_url('facilityManager/hospitalDetail/'.$lists->id); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "facilityManager/hospitalDetail/.$lists->id") ? "active" : "" ?>" style="color: black; font-weight: bold; "><img src="<?php echo base_url(); ?>uploads/hospital.svg" style="height: 23px;width:23px;">&nbsp;&nbsp;<?php echo ucfirst($lists->first_name. ' '.$lists->last_name);?></a></li>
                             <?php }?>
                         </ul>
 

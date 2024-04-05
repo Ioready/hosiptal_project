@@ -206,7 +206,7 @@
 <script>
     $("#template_list").change(function () {
         var template_id = this.value;
-        alert(template_id);
+        // alert(template_id);
 
         // Assuming you want to send the template_id as a filter parameter
         $.ajax({
@@ -215,7 +215,7 @@
             data: { template_id: template_id },
             success: function(response) {
                 // Update the content of the div with the response
-                $('#template_data').text(response);
+                // $('#template_data').text(response);
             },
             error: function(xhr, status, error) {
                 // Handle any errors
