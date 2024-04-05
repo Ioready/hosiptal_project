@@ -33,6 +33,35 @@
             <div class="alert alert-danger" id="error-box" style="display: none"></div>
             <div class="form-body">
                 <div class="row">
+
+
+				<div class="col-md-12" >
+
+                    
+					<div class="form-group">
+						<div class="col-md-2"></div>
+
+						<div class="col-md-10">
+							<div class="col-md-12">
+							<label class="">Select Recipients*</label><br>
+							<select name="recipient_id" id="recipient_id" class="form-control">
+                                <option value="">Select Recipients</option>
+                                <?php 
+                                foreach($recipient_list as $row){ ?>
+                                     <option value="<?php echo $row->id?>"><?php echo $row->internal_name?></option>
+
+                               <?php }
+                                ?>
+                            </select>
+							</div>
+							<!-- <span class="help-block m-b-none col-md-offset-3"><i class="fa fa-arrow-circle-o-up"></i> <?php echo lang('english_note');?></span> -->
+							
+							
+						</div>
+
+					</div>
+					</div>
+
                     <div class="col-md-12" >
 
                     
@@ -86,7 +115,7 @@
 
                                     <!-- CHANGE THE ACTION TO THE PHP SCRIPT THAT WILL PROCESS THE FILE VIA AJAX -->
 
-                                        <input id="file-upload" type="file" name="image" />
+                                        <input id="file-upload" type="file" name="image" accept="image/jpg,image/gif, image/jpeg, image/png"/>
                                         <label for="file-upload" id="file-drag">
                                             <!-- Select a file to upload
                                             <br />OR

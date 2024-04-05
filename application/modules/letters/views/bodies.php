@@ -23,7 +23,24 @@
     <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url($formUrl) ?>" enctype="multipart/form-data">
         <div class="alert alert-danger" id="error-box" style="display: none"></div>
         <div class="form-body">
-            <div class="row">
+            <div class="row">.
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Select Header*</label>
+                        <div class="col-md-10">
+                            <select name="header_id" id="header_id" class="form-control">
+                                <option value="">Select Header</option>
+                                <?php 
+                                foreach($header_list as $row){ ?>
+                                     <option value="<?php echo $row->id?>"><?php echo $row->internal_name?></option>
+
+                               <?php }
+                                ?>
+                            </select>
+                            
+                        </div>
+                    </div>
+                </div>
                 <div class="col-md-12">
                     <div class="form-group">
                         <label class="col-md-2 control-label">Internal name*</label>

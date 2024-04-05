@@ -33,6 +33,34 @@
             <div class="alert alert-danger" id="error-box" style="display: none"></div>
             <div class="form-body">
                 <div class="row">
+
+                <div class="col-md-12" >
+
+                    
+                        <div class="form-group">
+                           <div class="col-md-2"></div>
+
+                           <div class="col-md-10">
+                            <div class="col-md-12">
+                            <label class="">Select Body*</label>
+                            <select name="body_id" id="body_id" class="form-control">
+                                <option value="">Select Body</option>
+                                <?php 
+                                foreach($body_list as $row){ ?>
+                                     <option value="<?php echo $row->id?>"><?php echo $row->internal_name?></option>
+
+                               <?php }
+                                ?>
+                            </select>
+
+                            </div>
+                            <!-- <span class="help-block m-b-none col-md-offset-3"><i class="fa fa-arrow-circle-o-up"></i> <?php echo lang('english_note');?></span> -->
+                            
+                            
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="col-md-12" >
 
                     
@@ -58,9 +86,9 @@
                              <div class="col-md-10">
                                 <div class="col-md-12">
                                     <label class="">Create Letter template * </label><br>
-                                    <div class="col-md-12 offset-md-2">                                      
+                                    <!-- <div class="col-md-12 offset-md-2">                                       -->
                                     <textarea id="editor" name="bodies_template"></textarea>
-                                    </div>
+                                    <!-- </div> -->
 
                                     <!-- <input type="file" class="form-control" id="comment" name="comment" rows="3"> -->
                                 </div>                         

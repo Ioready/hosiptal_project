@@ -1,4 +1,5 @@
 <!-- Page content -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.js"></script>
 <div id="page-content">
     <!-- Datatables Header -->
     <ul class="breadcrumb breadcrumb-top">
@@ -70,17 +71,20 @@
                                     <?php } ?>
                                     <h2 class="fw-bold" style="float:right;"> Enable:</h2>
                                 </div>
+                                <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('setting/addPaymentSetting') ?>" enctype="multipart/form-data">
+                                
+                               
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="input1">*****************</label>
-                                            <input type="text" class="form-control" id="input1" name="input1">
+                                            <label for="input1">Secret key</label>
+                                            <input type="text" class="form-control" id="secret_key" name="secret_key">
                                         </div>
-                                    </div>
+                                    </div> <br>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="input1">**********</label>
-                                            <input type="text" class="form-control" id="input1" name="input1">
+                                            <label for="input1">Publishable key</label>
+                                            <input type="text" class="form-control" id="publishable_key" name="publishable_key">
                                         </div>
                                     </div>
                                    
@@ -88,8 +92,9 @@
                                     <!-- Add save and cancel buttons -->
                                     <div class="col-md-12 text-right">
                                         <button class="btn btn-danger" type="button">Cancel</button>
-                                        <button class="btn  btn-primary " style="background:#337ab7;" type="button"> Save </button>
+                                        <button class="btn  btn-primary " style="background:#337ab7;" type="submit"> Save </button>
                                     </div>
+                                    </form>
                                 </div>
                             </div>
                             <!-- END Datatables Content -->

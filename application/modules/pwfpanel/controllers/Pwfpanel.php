@@ -248,6 +248,25 @@ class Pwfpanel extends Common_Controller
                  ); */
                 //$data['total_patient_today'] = $this->common_model->customCount($option);
                 // redirect('reportsSummary', 'refresh');
+
+                $option = array(
+                    'table' => USERS . ' as user',
+                    'select' => 'user.id',
+                    'join' => array(
+                        array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                        array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left'),
+                        array('user_profile UP', 'UP.user_id=user.id', 'inner')
+                    ),
+                    'order' => array('user.id' => 'ASC'),
+                    'where' => array(
+                        'user.delete_status' => 0,
+                        'group.id' => 5
+                    ),
+                    'order' => array('user.id' => 'desc'),
+                );
+                $data['total_appointment'] = $this->common_model->customCount($option);
+
+
                 $this->load->admin_render('dashboard', $data);
 
             } else if ($this->ion_auth->is_patient()) {

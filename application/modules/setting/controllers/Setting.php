@@ -38,6 +38,35 @@ class Setting extends Common_Controller {
     }
 
 
+    public function addPaymentSetting() {
+        $this->data['parent'] = "Settings";
+        $this->data['title'] = "Settings";
+
+        $this->form_validation->set_rules('secret_key', lang('secret_key'), 'required');
+        $this->form_validation->set_rules('publishable_key', lang('publishable_key'), 'required');
+        $allData = $this->input->post();
+        $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+        // print_r($this->input->post());die;
+        if ($this->form_validation->run() == true) {
+
+        $option = array(
+            'table' => 'payment_gateway',
+            'data' => array(
+                'user_id' => $LoginID,
+                'secret_key' => $this->input->post('secret_key'),
+                'publishable_key' => $this->input->post('publishable_key'),
+            )
+        );
+        $insert_id = $this->common_model->customInsert($option);
+    } else {
+        $messages = (validation_errors()) ? validation_errors() : '';
+        $response = array('status' => 0, 'message' => $messages);
+    }
+
+        $this->load->admin_render('payment_setting', $this->data, 'inner_script');
+    }
+
+
     public function add_days() {
         $total_patient_days = $this->input->post('total_patient_days');
 

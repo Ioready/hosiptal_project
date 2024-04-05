@@ -86,7 +86,7 @@
 
                                     <!-- CHANGE THE ACTION TO THE PHP SCRIPT THAT WILL PROCESS THE FILE VIA AJAX -->
 
-                                        <input id="file-upload" type="file" name="image" />
+									<input id="file-upload" type="file" name="image" accept="image/jpg,image/gif, image/jpeg, image/png"/>
                                         <label for="file-upload" id="file-drag">
                                             <br /><br /><span id="file-upload-btn" class="button">Browse files</span>
                                         </label>
