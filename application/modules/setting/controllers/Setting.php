@@ -177,4 +177,43 @@ class Setting extends Common_Controller {
         echo json_encode($response);
     }
 
+    public function setting_email_add()
+    {
+       
+        
+            $email = strtolower($this->input->post('email'));
+           
+            $additional_data = array(
+                'mail_driver' => $this->input->post('mail_driver'),
+                'Mail_Host' => $this->input->post('Mail_Host'),
+                'mail_port' =>$this->input->post('mail_port'),
+                'email'=>$email,
+                
+                'password' => $this->input->post('password'),
+                'encryption' => $this->input->post('encryption'),
+                'from_address' => $this->input->post('from_address'),
+                'name' => $this->input->post('name'),
+                'created_on' => date('Y-m-d H:i:s')
+            );
+            
+                $this->db->insert('vendor_sale_email_host', $additional_data);
+                $this->session->set_flashdata('success', "Successfully added");
+                redirect('setting/emailSetting');
+            
+    }
+
+    public function sending_mail_test()
+    {
+        
+        
+        $this->load->library('email'); // Note: no $config param needed
+        $this->email->from('kalpanaofficial94@gmail.com', 'kalpanaofficial94@gmail.com');
+        $this->email->to('vinaysharma8496@gmail.com');
+        $this->email->subject('Test email from CI and Gmail');
+        $this->email->message('This is a test.');
+        $this->email->send();
+      
+    }
+
+
 }

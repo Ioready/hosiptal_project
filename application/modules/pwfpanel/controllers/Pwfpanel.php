@@ -725,7 +725,7 @@ class Pwfpanel extends Common_Controller
 
 
                         $result2 = $this->db->get_where($option1['table'], $option1['where'])->row();
-                        
+                        if($this->input->post('uniq_id')!=null){
                        $tokenid= $result2->token_uniq;
                        if ($tokenid==$this->input->post('uniq_id')) {
                         
@@ -757,6 +757,9 @@ class Pwfpanel extends Common_Controller
                     }else{
                         redirect('pwfpanel/login', 'refresh');
                     }
+                }else {
+                    redirect('pwfpanel/login', 'refresh');
+                }
                     } else if ($this->ion_auth->is_facilityManager()) {
                         $option = array(
                             'table' => 'users',
@@ -783,7 +786,8 @@ class Pwfpanel extends Common_Controller
                         $result2 = $this->db->get_where($option1['table'], $option1['where'])->row();
                         //print_r($result->token_uniq);
                         //$uniqid=$result->token_uniq
-
+                        if($this->input->post('uniq_id')!=null){
+                            
                         if ($result2->token_uniq== $this->input->post('uniq_id')) {                           
                         $isAdmin = $this->common_model->customGet($option);
                         if (!empty($isAdmin)) {
@@ -813,6 +817,9 @@ class Pwfpanel extends Common_Controller
                     }else{
                         redirect('pwfpanel/login', 'refresh');
                     }
+                }else {
+                    redirect('pwfpanel/login', 'refresh');
+                }
                     } else if ($this->ion_auth->is_patient()) {
 
                         $option = array(
