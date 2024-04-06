@@ -193,7 +193,16 @@ class Setting extends Common_Controller {
     public function setting_email_add()
     {
        
-        
+        $this->load->library('form_validation');
+
+    // Set validation rules
+    $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
+
+    if ($this->form_validation->run() == FALSE) {
+        // Form validation failed, redirect back to the form with errors
+        $this->session->set_flashdata('error', validation_errors());
+        redirect('setting/emailSetting');
+    }else{
             $email = strtolower($this->input->post('email'));
            
             $additional_data = array(
@@ -211,8 +220,10 @@ class Setting extends Common_Controller {
             
                 $this->db->insert('vendor_sale_email_host', $additional_data);
                 $this->session->set_flashdata('success', "Successfully added");
-                redirect('setting/emailSetting');
-            
+                
+                $this->session->set_flashdata('success', 'Successfully added');
+        redirect('setting/emailSetting');
+        } 
     }
 
     public function sending_mail_test()
@@ -225,6 +236,7 @@ class Setting extends Common_Controller {
         $this->email->subject('Test email from CI and Gmail');
         $this->email->message('This is a test.');
         $this->email->send();
+        
       
     }
 
