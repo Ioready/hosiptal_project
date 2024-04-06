@@ -21,169 +21,7 @@ class Letters extends Common_Controller {
      * @description listing display
      * @return array
      */
-    // public function index($vendor_profile_activate = "No") {
-    //     $this->data['parent'] = $this->title;
-    //     $this->data['title'] = $this->title;
-    //     $this->data['model'] = $this->router->fetch_class();
-    //     $role_name = $this->input->post('role_name');
-
-    //     $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
-
-    //     if($LoginID != 1 && $LoginID != NULL ){
-    //         $x = $LoginID;
-    //     }
-        
-    //     $this->data['roles'] = array(
-    //         'role_name' => $role_name
-    //     );
-
-
-    //     $AdminCareUnitID = isset($_SESSION['admin_care_unit_id']) ? $_SESSION['admin_care_unit_id'] : '';
-    //     $option = array('table' => 'care_unit', 'where' => array('delete_status' => 0, 'is_active' => 1), 'order' => array('name' => 'ASC'));
-    //     if (!empty($AdminCareUnitID)) {
-
-    //         $option['where']['id'] = $AdminCareUnitID;
-    //     }
-    //     //print_r(json_decode($AdminCareUnitID));die;
-    //     $this->data['careUnit'] = $this->common_model->customGet($option);
-    //     // print_r($this->data['careUnit']);die;
-    //     $this->data['careUnits'] = json_decode($AdminCareUnitID);
-
-    //     $y = $this->data['careUnits'];
-    //     $x = count($y);
-    //     // print_r($x);die;
-
-    //     $careUnitData = array();
-    //     foreach ($this->data['careUnits'] as $value) {
-
-    //         $option = array(
-    //             'table' => 'care_unit',
-    //             'select' => 'care_unit.id,care_unit.name',
-    //             'where' => array('care_unit.id' => $value)
-    //         );
-    //         $careUnitData[] = $this->common_model->customGet($option);
-    //     }
-    //     $arraySingle = call_user_func_array('array_merge', $careUnitData);
-    //     $this->data['careUnitsUser'] = $arraySingle;
-
-    //     //$this->data['careUnits_list'] = json_decode($AdminCareUnitID);
-    //     $careUnitData_list = array();
-                 
-    //     foreach ($this->data['careUnits_list'] as $value) {
-
-    //         $option = array(
-    //             'table' => 'patient',
-    //             'select' => 'patient.patient_id as pid,care_unit.name as care_unit_name,doctors.name as doctor_name,users.first_name as md_stayward,patient.date_of_start_abx',
-    //             'join' => array(
-    //                 array('care_unit', 'care_unit.id=patient.care_unit_id'),
-    //                 array('doctors', 'doctors.id=patient.doctor_id'),
-    //                 array('user', 'user.id=patient.md_steward_id')
-    //             ),
-    //             'where' => array('patient.id' => $value)
-    //         );
-
-    //         $careUnitData_list[] = $this->common_model->customGet($option);
-    //     }
-
-
-
-    //     $UsersCareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
-
-    //     $this->data['careUnitID'] = $careUnitID = (isset($_GET['careUnit'])) ? $_GET['careUnit'] : "";
-
-    //     $careUnitID = (isset($_GET['careUnit'])) ? $_GET['careUnit'] : "";
-    //     $from = (isset($_GET['date']) && !empty($_GET['date'])) ? date('Y-m-d', strtotime($_GET['date'])) : "";
-    //     $to = (isset($_GET['date1']) && !empty($_GET['date1'])) ? date('Y-m-d', strtotime($_GET['date1'])) : "";
-
-
-    //     // $Sql = "SELECT vendor_sale_patient.id as patient_id,vendor_sale_patient.patient_id as pid,vendor_sale_care_unit.name,vendor_sale_doctors.name as doctor_name,vendor_sale_users.first_name as md_stayward,vendor_sale_patient.date_of_start_abx FROM vendor_sale_patient JOIN vendor_sale_care_unit ON vendor_sale_care_unit.id = vendor_sale_patient.care_unit_id JOIN vendor_sale_doctors ON vendor_sale_doctors.id= vendor_sale_patient.doctor_id JOIN vendor_sale_users ON vendor_sale_users.id= vendor_sale_patient.md_steward_id  WHERE vendor_sale_patient.operator_id = $UsersCareUnitID ORDER BY `patient_id` DESC";
-    //     if (!empty($careUnitID) and !empty($from) and !empty($to)) {
-    //         $Sql = "SELECT vendor_sale_patient.id as patient_id,vendor_sale_patient.room_number,vendor_sale_patient.symptom_onset,vendor_sale_patient.total_days_of_patient_stay,vendor_sale_patient_consult.initial_dot,vendor_sale_patient.culture_source as culture_source_name,vendor_sale_patient.organism as organism_name,vendor_sale_patient.patient_id as pid,vendor_sale_care_unit.name,vendor_sale_doctors.name as doctor_name,vendor_sale_initial_dx.name as initial_dx_name,vendor_sale_initial_rx.name as initial_rx_name,vendor_sale_users.first_name as md_stayward,vendor_sale_patient.date_of_start_abx FROM vendor_sale_patient JOIN vendor_sale_care_unit ON vendor_sale_care_unit.id = vendor_sale_patient.care_unit_id JOIN vendor_sale_doctors ON vendor_sale_doctors.id= vendor_sale_patient.doctor_id JOIN vendor_sale_patient_consult ON vendor_sale_patient_consult.patient_id= vendor_sale_patient.id JOIN vendor_sale_initial_dx ON vendor_sale_initial_dx.id= vendor_sale_patient_consult.initial_dx JOIN vendor_sale_initial_rx ON vendor_sale_initial_rx.id= vendor_sale_patient_consult.initial_rx JOIN vendor_sale_users ON vendor_sale_users.id= vendor_sale_patient.md_steward_id  WHERE vendor_sale_patient.operator_id = $UsersCareUnitID AND vendor_sale_patient.care_unit_id = $careUnitID AND vendor_sale_patient.date_of_start_abx  >= '$from'  AND vendor_sale_patient.date_of_start_abx <= '$to' ORDER BY `patient_id` DESC";
-    //     } else if (!empty($from) and !empty($to)) {
-    //         $Sql = "SELECT vendor_sale_patient.id as patient_id,vendor_sale_patient.room_number,vendor_sale_patient.symptom_onset,vendor_sale_patient.total_days_of_patient_stay,vendor_sale_patient_consult.initial_dot,vendor_sale_patient.culture_source as culture_source_name,vendor_sale_patient.organism as organism_name,vendor_sale_patient.patient_id as pid,vendor_sale_care_unit.name,vendor_sale_doctors.name as doctor_name,vendor_sale_initial_dx.name as initial_dx_name,vendor_sale_initial_rx.name as initial_rx_name,vendor_sale_users.first_name as md_stayward,vendor_sale_patient.date_of_start_abx FROM vendor_sale_patient JOIN vendor_sale_care_unit ON vendor_sale_care_unit.id = vendor_sale_patient.care_unit_id JOIN vendor_sale_doctors ON vendor_sale_doctors.id= vendor_sale_patient.doctor_id JOIN vendor_sale_patient_consult ON vendor_sale_patient_consult.patient_id= vendor_sale_patient.id JOIN vendor_sale_initial_dx ON vendor_sale_initial_dx.id= vendor_sale_patient_consult.initial_dx JOIN vendor_sale_initial_rx ON vendor_sale_initial_rx.id= vendor_sale_patient_consult.initial_rx JOIN vendor_sale_users ON vendor_sale_users.id= vendor_sale_patient.md_steward_id  WHERE vendor_sale_patient.operator_id = $UsersCareUnitID AND  vendor_sale_patient.date_of_start_abx  >= '$from'  AND vendor_sale_patient.date_of_start_abx <= '$to' ORDER BY `patient_id` DESC";
-    //     } else if (!empty($careUnitID)) {
-
-
-    //         $Sql = "SELECT vendor_sale_patient.id as patient_id,vendor_sale_patient.room_number,vendor_sale_patient.symptom_onset,vendor_sale_patient.total_days_of_patient_stay,vendor_sale_patient_consult.initial_dot,vendor_sale_patient.culture_source as culture_source_name,vendor_sale_patient.organism as organism_name,vendor_sale_patient.patient_id as pid,vendor_sale_care_unit.name,vendor_sale_doctors.name as doctor_name,vendor_sale_initial_dx.name as initial_dx_name,vendor_sale_initial_rx.name as initial_rx_name,vendor_sale_users.first_name as md_stayward,vendor_sale_patient.date_of_start_abx FROM vendor_sale_patient JOIN vendor_sale_care_unit ON vendor_sale_care_unit.id = vendor_sale_patient.care_unit_id JOIN vendor_sale_doctors ON vendor_sale_doctors.id= vendor_sale_patient.doctor_id JOIN vendor_sale_patient_consult ON vendor_sale_patient_consult.patient_id= vendor_sale_patient.id JOIN vendor_sale_initial_dx ON vendor_sale_initial_dx.id= vendor_sale_patient_consult.initial_dx JOIN vendor_sale_initial_rx ON vendor_sale_initial_rx.id= vendor_sale_patient_consult.initial_rx JOIN vendor_sale_users ON vendor_sale_users.id= vendor_sale_patient.md_steward_id  WHERE vendor_sale_patient.operator_id = $UsersCareUnitID AND vendor_sale_patient.care_unit_id = $careUnitID ORDER BY `patient_id` DESC";
-    //     } else {
-
-    //         $Sql = "SELECT vendor_sale_patient.id as patient_id,vendor_sale_patient.room_number,vendor_sale_patient.symptom_onset,vendor_sale_patient.total_days_of_patient_stay,vendor_sale_patient_consult.initial_dot,vendor_sale_patient.culture_source as culture_source_name,vendor_sale_patient.organism as organism_name,vendor_sale_patient.patient_id as pid,vendor_sale_care_unit.name,vendor_sale_doctors.name as doctor_name,vendor_sale_initial_dx.name as initial_dx_name,vendor_sale_initial_rx.name as initial_rx_name,vendor_sale_users.first_name as md_stayward,vendor_sale_patient.date_of_start_abx FROM vendor_sale_patient JOIN vendor_sale_care_unit ON vendor_sale_care_unit.id = vendor_sale_patient.care_unit_id JOIN vendor_sale_doctors ON vendor_sale_doctors.id= vendor_sale_patient.doctor_id JOIN vendor_sale_patient_consult ON vendor_sale_patient_consult.patient_id= vendor_sale_patient.id JOIN vendor_sale_initial_dx ON vendor_sale_initial_dx.id= vendor_sale_patient_consult.initial_dx JOIN vendor_sale_initial_rx ON vendor_sale_initial_rx.id= vendor_sale_patient_consult.initial_rx JOIN vendor_sale_users ON vendor_sale_users.id= vendor_sale_patient.md_steward_id  WHERE vendor_sale_patient.operator_id = $UsersCareUnitID ORDER BY `patient_id` DESC";
-    //     }
-
-    //     $careunit_facility_counts = $this->common_model->customQuery($Sql);
-
-
-    //     // $arraySingles = call_user_func_array('array_merge', $careUnitData_list);
-    //     $this->data['careUnitsUser_list'] = $careunit_facility_counts;
-
-
-
-    //     // $this->data['careUnitID'] = $careUnitID = (isset($_GET['careUnit'])) ? $_GET['careUnit'] : "";
-
-    //     // $careUnitID = (isset($_GET['careUnit'])) ? $_GET['careUnit'] : "";
-
-    //     // print_r($UsersCareUnitID);die;
-    //     // $from = (isset($_GET['date']) && !empty($_GET['date'])) ? date('Y-m-d', strtotime($_GET['date'])) : "";
-    //     // $to = (isset($_GET['date1']) && !empty($_GET['date1'])) ? date('Y-m-d', strtotime($_GET['date1'])) : "";
-
-    //     // echo $from; echo "<br>";
-    //     // echo $to; echo "<br>";
-    //     // echo $careUnitID; echo "<br>"; die;
-
-
-    //     if ($_GET["export"] == 'Export') {
-
-    //         $this->patientExport($from, $to, $careUnitID);
-    //         return;
-    //     }
-
-    //     $option = array(
-    //         'table' => 'patient P',
-    //         'select' => 'P.id as patient_id,P.patient_id as pid,P.name as patient_name,P.date_of_start_abx,P.address,P.total_days_of_patient_stay,P.room_number,P.symptom_onset,P.md_stayward_consult,P.criteria_met,P.md_stayward_response,P.psa,P.created_date,'
-    //             . 'P.care_unit_id,CI.name as care_unit_name,P.doctor_id,P.culture_source,P.organism,P.precautions,CS.name as culture_source_name,Org.name as organism_name,Pre.name as precautions_name,DOC.name as doctor_name,P.md_steward_id,U.first_name as md_stayward,'
-    //             . 'PC.initial_rx,IRX.name as initial_rx_name,PC.initial_dx,IDX.name as initial_dx_name,PC.initial_dot,'
-    //             . 'PC.new_initial_rx,IRX2.name as new_initial_rx_name,PC.new_initial_dx,IDX2.name as new_initial_dx_name,PC.new_initial_dot,PC.comment',
-    //         'join' => array(
-    //             array('care_unit CI', 'CI.id=P.care_unit_id', 'inner'),
-    //             array('doctors DOC', 'DOC.id=P.doctor_id', 'inner'),
-    //             array('users U', 'U.id=P.md_steward_id', 'left'),
-    //             array('patient_consult PC', 'PC.patient_id=P.id', 'inner'),
-    //             array('initial_rx IRX', 'IRX.id=PC.initial_rx', 'left'),
-    //             array('initial_dx IDX', 'IDX.id=PC.initial_dx', 'left'),
-    //             array('culture_source CS', 'CS.name=P.culture_source', 'left'),
-    //             array('organism Org', 'Org.name=P.organism', 'left'),
-    //             array('precautions Pre', 'Pre.name=P.precautions', 'left'),
-    //             array('initial_rx IRX2', 'IRX2.id=PC.new_initial_rx', 'left'),
-    //             array('initial_dx IDX2', 'IDX2.id=PC.new_initial_dx', 'left')
-    //         ),
-    //         //'group_by' => 'P.patient_id'
-    //         'group_by' => 'pid'
-    //     );
-    //     if (!empty($careUnitID)) {
-    //         $option['where']['P.care_unit_id'] = $careUnitID;
-    //     }
-    //     if (!empty($AdminCareUnitID)) {
-    //         $option['where']['P.care_unit_id']  = $AdminCareUnitID;
-    //     }
-    //     if (!empty($from)) {
-    //         $option['where']['DATE(P.date_of_start_abx) >='] = $from;
-    //     }
-    //     if (!empty($to)) {
-    //         $option['where']['DATE(P.date_of_start_abx) <='] = $to;
-    //     }
-    //     $option['order'] = array('P.id' => 'desc');
-
-    //     /* print_r($option);die; */
-
-    //     $this->data['list'] = $this->common_model->customGet($option);
-
-
-
-    //     $this->load->admin_render('list', $this->data, 'inner_script');
-    // }
-
-
-
+    
     public function index($vendor_profile_activate = "No") {
         $this->data['parent'] = $this->title;
         $this->data['title'] = $this->title;
@@ -250,6 +88,112 @@ class Letters extends Common_Controller {
 
         $this->data['footer_list'] = $this->common_model->customGet($optionfooter);
 
+
+
+        $optionEmailTemplate = array(
+            'table' => 'vendor_sale_lettel_header',
+            // 'select' => 'vendor_sale_lettel_header.*',
+            'select' => 'vendor_sale_lettel_header.*,vendor_sale_lettel_header.logo as header_logo, vendor_sale_lettel_bodies.*,vendor_sale_lettel_recipients.*,vendor_sale_lettel_footer.*',
+            'join' => array(
+                array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_lettel_header.user_id','left'),
+                array('vendor_sale_lettel_bodies', 'vendor_sale_lettel_header.id=vendor_sale_lettel_bodies.header_id','left'),
+                array('vendor_sale_lettel_recipients', 'vendor_sale_lettel_bodies.id=vendor_sale_lettel_recipients.body_id','left'),
+                array('vendor_sale_lettel_footer', 'vendor_sale_lettel_recipients.id=vendor_sale_lettel_footer.recipient_id','left')
+                
+            ),
+            'where' => array('vendor_sale_lettel_header.user_id' => $LoginID)
+        );
+
+        $this->data['template_list'] = $this->common_model->customGet($optionEmailTemplate);
+        // print_r($this->data['template_list']);die;
+        
+        $this->load->admin_render('list', $this->data, 'inner_script');
+    }
+
+    public function add_new_template($vendor_profile_activate = "No") {
+        $this->data['parent'] = $this->title;
+        $this->data['title'] = $this->title;
+        $this->data['model'] = $this->router->fetch_class();
+        $role_name = $this->input->post('role_name');
+
+        $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+
+        if($LoginID != 1 && $LoginID != NULL ){
+            $x = $LoginID;
+        }
+        
+        $this->data['roles'] = array(
+            'role_name' => $role_name
+        );
+        if ($vendor_profile_activate == "No") {
+            $vendor_profile_activate = 0;
+        } else {
+            $vendor_profile_activate = 1;
+        }
+
+     
+        $optionheader = array(
+            'table' => 'vendor_sale_lettel_header',
+            'select' => 'vendor_sale_lettel_header`.*',
+            'join' => array(
+                array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_lettel_header.user_id','left')
+            ),
+            'where' => array('vendor_sale_lettel_header.user_id' => $LoginID)
+        );
+
+        $this->data['header_list'] = $this->common_model->customGet($optionheader);
+
+        $option_body = array(
+            'table' => 'vendor_sale_lettel_bodies',
+            'select' => 'vendor_sale_lettel_bodies`.*',
+            'join' => array(
+                array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_lettel_bodies.user_id','left')
+            ),
+            'where' => array('vendor_sale_lettel_bodies.user_id' => $LoginID)
+        );
+
+        $this->data['body_list'] = $this->common_model->customGet($option_body);
+
+        $optionrecipient = array(
+            'table' => 'vendor_sale_lettel_recipients',
+            'select' => 'vendor_sale_lettel_recipients`.*',
+            'join' => array(
+                array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_lettel_recipients.user_id','left')
+            ),
+            'where' => array('vendor_sale_lettel_recipients.user_id' => $LoginID)
+        );
+
+        $this->data['recipients_list'] = $this->common_model->customGet($optionrecipient);
+
+        $optionfooter = array(
+            'table' => 'vendor_sale_lettel_footer',
+            'select' => 'vendor_sale_lettel_footer`.*',
+            'join' => array(
+                array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_lettel_footer.user_id','left')
+            ),
+            'where' => array('vendor_sale_lettel_footer.user_id' => $LoginID)
+        );
+
+        $this->data['footer_list'] = $this->common_model->customGet($optionfooter);
+
+
+
+        $optionEmailTemplate = array(
+            'table' => 'vendor_sale_lettel_header',
+            // 'select' => 'vendor_sale_lettel_header.*',
+            'select' => 'vendor_sale_lettel_header.*, vendor_sale_lettel_bodies.*,vendor_sale_lettel_recipients.*,vendor_sale_lettel_footer.*',
+            'join' => array(
+                array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_lettel_header.user_id','left'),
+                array('vendor_sale_lettel_bodies', 'vendor_sale_lettel_header.id=vendor_sale_lettel_bodies.header_id','left'),
+                array('vendor_sale_lettel_recipients', 'vendor_sale_lettel_bodies.id=vendor_sale_lettel_recipients.body_id','left'),
+                array('vendor_sale_lettel_footer', 'vendor_sale_lettel_recipients.id=vendor_sale_lettel_footer.recipient_id','left')
+                
+            ),
+            'where' => array('vendor_sale_lettel_header.user_id' => $LoginID)
+        );
+
+        $data['template_list'] = $this->common_model->customGet($optionEmailTemplate);
+        
         
         $this->load->admin_render('directory', $this->data, 'inner_script');
     }
@@ -329,6 +273,16 @@ class Letters extends Common_Controller {
         }
 
        
+        $optionheader = array(
+            'table' => 'vendor_sale_lettel_header',
+            'select' => 'vendor_sale_lettel_header`.*',
+            'join' => array(
+                array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_lettel_header.user_id','left')
+            ),
+            'where' => array('vendor_sale_lettel_header.user_id' => $LoginID)
+        );
+
+        $this->data['header_list'] = $this->common_model->customGet($optionheader);
 
 
         $this->load->admin_render('bodies', $this->data, 'inner_script');
@@ -376,6 +330,18 @@ class Letters extends Common_Controller {
         ORDER BY `vendor_sale_doctors_contactus`.`id` DESC";
         
         $this->data['list'] = $this->common_model->customQuery($option1);
+
+        $optionheader = array(
+            'table' => 'vendor_sale_lettel_bodies',
+            'select' => 'vendor_sale_lettel_bodies`.*',
+            'join' => array(
+                array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_lettel_bodies.user_id','left')
+            ),
+            'where' => array('vendor_sale_lettel_bodies.user_id' => $LoginID)
+        );
+
+        $this->data['body_list'] = $this->common_model->customGet($optionheader);
+
         $this->load->admin_render('recipients', $this->data, 'inner_script');
     }
 
@@ -424,6 +390,16 @@ class Letters extends Common_Controller {
         
         $this->data['list'] = $this->common_model->customQuery($option1);
 
+        $optionheader = array(
+            'table' => 'vendor_sale_lettel_recipients',
+            'select' => 'vendor_sale_lettel_recipients`.*',
+            'join' => array(
+                array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_lettel_recipients.user_id','left')
+            ),
+            'where' => array('vendor_sale_lettel_recipients.user_id' => $LoginID)
+        );
+
+        $this->data['recipient_list'] = $this->common_model->customGet($optionheader);
 
         $this->load->admin_render('footer', $this->data, 'inner_script');
     }
@@ -603,9 +579,18 @@ class Letters extends Common_Controller {
                         } 
                     
 
+            //             $image = "";
+            // if (!empty($_FILES['user_image']['name'])) {
+            //     $this->filedata = $this->commonUploadImage($_POST, 'users', 'user_image');
+            //     if ($this->filedata['status'] == 1) {
+            //         $image = 'uploads/users/' . $this->filedata['upload_data']['file_name'];
+            //     }
+            // }
+
 
                 $options_data = array(
                     'user_id'=> $LoginID,
+                    'recipient_id'=> $this->input->post('recipient_id'),
                     'internal_name' => $this->input->post('internal_name'),
                     'header_checked' => $this->input->post('footer_booked'),
                     'logo' => $image,
@@ -632,7 +617,7 @@ class Letters extends Common_Controller {
 
         // $this->form_validation->set_rules('facility_manager_id', "Facility Manager Name", 'required|xss_clean');
         $this->form_validation->set_rules('internal_name', "internal_name", 'required|trim');
-        // $this->form_validation->set_rules('description', "Description", 'required|trim');
+        $this->form_validation->set_rules('header_id', "header", 'required|trim');
 
         if ($this->form_validation->run() == true) {
             $this->filedata['status'] = 1;
@@ -645,6 +630,7 @@ class Letters extends Common_Controller {
 
                 $options_data = array(
                     'user_id'=> $LoginID,
+                    'header_id'=> $this->input->post('header_id'),
                     'internal_name' => $this->input->post('internal_name'),
                     'bodies_template' => $this->input->post('bodies_template'),
                     
@@ -675,7 +661,7 @@ class Letters extends Common_Controller {
 
         // $this->form_validation->set_rules('facility_manager_id', "Facility Manager Name", 'required|xss_clean');
         $this->form_validation->set_rules('internal_name', "internal_name", 'required|trim');
-        // $this->form_validation->set_rules('description', "Description", 'required|trim');
+        $this->form_validation->set_rules('body_id', "body_id", 'required|trim');
 
         if ($this->form_validation->run() == true) {
             $this->filedata['status'] = 1;
@@ -688,6 +674,7 @@ class Letters extends Common_Controller {
 
                 $options_data = array(
                     'user_id'=> $LoginID,
+                    'body_id'=> $this->input->post('body_id'),
                     'internal_name' => $this->input->post('internal_name'),
                     'recipient_template' => $this->input->post('bodies_template'),
                     

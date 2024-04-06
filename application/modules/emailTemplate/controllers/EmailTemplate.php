@@ -15,22 +15,644 @@ class EmailTemplate extends Common_Controller {
      * @description listing display
      * @return array
      */
-    public function index() {
+    public function indexs() {
         $this->data['parent'] = "emailTemplate";
         $this->data['title'] = "Email Templates";
-         $option = array('table' => $this->_table,'select' => '*',
-            'where' => array('delete_status'=> 0)
-            );
+        //  $option = array('table' => $this->_table,'select' => '*',
+        //     'where' => array('delete_status'=> 0)
+        //     );
         
-        $this->data['list'] = $this->common_model->customGet($option);
+        // $this->data['list'] = $this->common_model->customGet($option);
+
+        $optionEmailTemplate = array(
+            'table' => 'vendor_sale_lettel_header',
+            // 'select' => 'vendor_sale_lettel_header.*',
+            'select' => 'vendor_sale_lettel_header.*,vendor_sale_lettel_header.logo as header_logo, vendor_sale_lettel_bodies.*,vendor_sale_lettel_recipients.*,vendor_sale_lettel_footer.*,vendor_sale_lettel_footer.internal_name as footer_internal_name',
+            'join' => array(
+                array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_lettel_header.user_id','left'),
+                array('vendor_sale_lettel_bodies', 'vendor_sale_lettel_header.id=vendor_sale_lettel_bodies.header_id','left'),
+                array('vendor_sale_lettel_recipients', 'vendor_sale_lettel_bodies.id=vendor_sale_lettel_recipients.body_id','left'),
+                array('vendor_sale_lettel_footer', 'vendor_sale_lettel_recipients.id=vendor_sale_lettel_footer.recipient_id','left')
+                
+            ),
+            
+            // 'where' => array('vendor_sale_lettel_header.internal_name' => 'hospital registration'),
+            // 'single'=>true,
+        );
+
+        $this->data['all_template'] = $this->common_model->customGet($optionEmailTemplate);
+
+        if ($request->filled('template_id')) {
+            $templateId = $request->input('template_id');
+            // Process the $templateId as needed
+            // For example, return a view with filtered data
+            // return view('your-view', ['templateId' => $templateId]);
+
+            $this->load->admin_render('list', $this->data, 'inner_script' ,['templateId' => $templateId]);
+        }
+
+        $optionEmailTemplate = array(
+            'table' => 'vendor_sale_lettel_header',
+            // 'select' => 'vendor_sale_lettel_header.*',
+            'select' => 'vendor_sale_lettel_header.*,vendor_sale_lettel_header.logo as header_logo, vendor_sale_lettel_bodies.*,vendor_sale_lettel_recipients.*,vendor_sale_lettel_footer.*,vendor_sale_lettel_footer.internal_name as footer_internal_name',
+            'join' => array(
+                array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_lettel_header.user_id','left'),
+                array('vendor_sale_lettel_bodies', 'vendor_sale_lettel_header.id=vendor_sale_lettel_bodies.header_id','left'),
+                array('vendor_sale_lettel_recipients', 'vendor_sale_lettel_bodies.id=vendor_sale_lettel_recipients.body_id','left'),
+                array('vendor_sale_lettel_footer', 'vendor_sale_lettel_recipients.id=vendor_sale_lettel_footer.recipient_id','left')
+                
+            ),
+            
+            'where' => array('vendor_sale_lettel_header.internal_name' => 'hospital registration'),
+            'single'=>true,
+        );
+
+        $this->data['EmailTemplates'] = $this->common_model->customGet($optionEmailTemplate);
+
+      
+
         $this->load->admin_render('list', $this->data, 'inner_script');
     }
+
+    public function index($defaultTemplateId = "4") {
+        $this->data['parent'] = "emailTemplate";
+        $this->data['title'] = "Email Templates";
+    
+        // Default template ID (if template_id is empty)
+        $defaultTemplateId = 4;
+    
+        // Fetch all templates
+        $alloptionEmailTemplate = [
+            'table' => 'vendor_sale_lettel_header',
+            'select' => 'vendor_sale_lettel_header.*, vendor_sale_lettel_header.logo as header_logo, vendor_sale_lettel_bodies.*, vendor_sale_lettel_recipients.*, vendor_sale_lettel_footer.*, vendor_sale_lettel_footer.internal_name as footer_internal_name',
+            'join' => [
+                ['vendor_sale_users', 'vendor_sale_users.id=vendor_sale_lettel_header.user_id', 'left'],
+                ['vendor_sale_lettel_bodies', 'vendor_sale_lettel_header.id=vendor_sale_lettel_bodies.header_id', 'left'],
+                ['vendor_sale_lettel_recipients', 'vendor_sale_lettel_bodies.id=vendor_sale_lettel_recipients.body_id', 'left'],
+                ['vendor_sale_lettel_footer', 'vendor_sale_lettel_recipients.id=vendor_sale_lettel_footer.recipient_id', 'left']
+            ],
+        ];
+    
+        // Filter by template ID if provided
+        // if ($request->filled('template_id')) {
+        //     $templateId = $request->input('template_id');
+        //     $alloptionEmailTemplate['where'] = ['vendor_sale_lettel_header.id' => $templateId];
+        // } else {
+        //     // Set default template ID
+        //     $alloptionEmailTemplate['where'] = ['vendor_sale_lettel_header.id' => $defaultTemplateId];
+        // }
+    
+        // Fetch email templates
+        $this->data['all_template'] = $this->common_model->customGet($alloptionEmailTemplate);
+    
+
+        $optionEmailTemplate = array(
+            'table' => 'vendor_sale_lettel_header',
+            // 'select' => 'vendor_sale_lettel_header.*',
+            'select' => 'vendor_sale_lettel_header.*,vendor_sale_lettel_header.logo as header_logo, vendor_sale_lettel_bodies.*,vendor_sale_lettel_recipients.*,vendor_sale_lettel_footer.*,vendor_sale_lettel_footer.internal_name as footer_internal_name',
+            'join' => array(
+                array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_lettel_header.user_id','left'),
+                array('vendor_sale_lettel_bodies', 'vendor_sale_lettel_header.id=vendor_sale_lettel_bodies.header_id','left'),
+                array('vendor_sale_lettel_recipients', 'vendor_sale_lettel_bodies.id=vendor_sale_lettel_recipients.body_id','left'),
+                array('vendor_sale_lettel_footer', 'vendor_sale_lettel_recipients.id=vendor_sale_lettel_footer.recipient_id','left')
+                
+            ),
+            
+            // 'where' => array('vendor_sale_lettel_header.internal_name' => 'hospital registration'),
+            'single'=>true,
+        );
+        if ($defaultTemplateId == "4") {
+
+            // $templateId = $request->input('template_id');
+            // $optionEmailTemplate['where'] = ['vendor_sale_lettel_header.id' => $templateId];
+
+            $optionEmailTemplate['where'] = ['vendor_sale_lettel_header.id' => $defaultTemplateId];
+        } else {
+
+            $templateId = $request->input('template_id');
+            $optionEmailTemplate['where'] = ['vendor_sale_lettel_header.id' => $templateId];
+
+            // $optionEmailTemplate['where'] = ['vendor_sale_lettel_header.id' => $defaultTemplateId];
+            // $templateId = $request->input('template_id');
+            // $optionEmailTemplate['where'] = ['vendor_sale_lettel_header.id' => $templateId];
+        }
+        
+        // if ($request->filled('template_id')) {
+        //     $templateId = $request->input('template_id');
+        //     $optionEmailTemplate['where'] = ['vendor_sale_lettel_header.id' => $templateId];
+        // } else {
+           
+        //     $optionEmailTemplate['where'] = ['vendor_sale_lettel_header.id' => $defaultTemplateId];
+        // }
+    
+
+        $this->data['EmailTemplates'] = $this->common_model->customGet($optionEmailTemplate);
+
+        // Load view with data
+        return $this->load->admin_render('list', $this->data, 'inner_script');
+    }
+    
 
     /**
      * @method open_model
      * @description load model box
      * @return array
      */
+
+     public function letterTemplate($vendor_profile_activate = "No") {
+        $this->data['parent'] = "emailTemplate";
+        $this->data['title'] = "Email Templates";;
+        $this->data['model'] = $this->router->fetch_class();
+        $role_name = $this->input->post('role_name');
+
+        $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+
+        if($LoginID != 1 && $LoginID != NULL ){
+            $x = $LoginID;
+        }
+        
+        $this->data['roles'] = array(
+            'role_name' => $role_name
+        );
+        if ($vendor_profile_activate == "No") {
+            $vendor_profile_activate = 0;
+        } else {
+            $vendor_profile_activate = 1;
+        }
+
+     
+        $optionheader = array(
+            'table' => 'vendor_sale_lettel_header',
+            'select' => 'vendor_sale_lettel_header`.*',
+            'join' => array(
+                array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_lettel_header.user_id','left')
+            ),
+            'where' => array('vendor_sale_lettel_header.user_id' => $LoginID)
+        );
+
+        $this->data['header_list'] = $this->common_model->customGet($optionheader);
+
+        $option_body = array(
+            'table' => 'vendor_sale_lettel_bodies',
+            'select' => 'vendor_sale_lettel_bodies`.*',
+            'join' => array(
+                array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_lettel_bodies.user_id','left')
+            ),
+            'where' => array('vendor_sale_lettel_bodies.user_id' => $LoginID)
+        );
+
+        $this->data['body_list'] = $this->common_model->customGet($option_body);
+
+        $optionrecipient = array(
+            'table' => 'vendor_sale_lettel_recipients',
+            'select' => 'vendor_sale_lettel_recipients`.*',
+            'join' => array(
+                array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_lettel_recipients.user_id','left')
+            ),
+            'where' => array('vendor_sale_lettel_recipients.user_id' => $LoginID)
+        );
+
+        $this->data['recipients_list'] = $this->common_model->customGet($optionrecipient);
+
+        $optionfooter = array(
+            'table' => 'vendor_sale_lettel_footer',
+            'select' => 'vendor_sale_lettel_footer`.*',
+            'join' => array(
+                array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_lettel_footer.user_id','left')
+            ),
+            'where' => array('vendor_sale_lettel_footer.user_id' => $LoginID)
+        );
+
+        $this->data['footer_list'] = $this->common_model->customGet($optionfooter);
+
+        
+        $this->load->admin_render('directory', $this->data, 'inner_script');
+    }
+
+
+
+    public function header($vendor_profile_activate = "No") {
+
+        $this->data['parent'] = $this->title;
+        $this->data['title'] = $this->title;
+        $this->data['model'] = $this->router->fetch_class();
+        // $this->data['title'] = "Add " . $this->title;
+        $this->data['formUrl'] = $this->router->fetch_class() . "/addHeader";
+
+        $role_name = $this->input->post('role_name');
+
+        $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+
+        if($LoginID != 1 && $LoginID != NULL ){
+            $x = $LoginID;
+        }
+        
+        $this->data['roles'] = array(
+            'role_name' => $role_name
+        );
+        if ($vendor_profile_activate == "No") {
+            $vendor_profile_activate = 0;
+        } else {
+            $vendor_profile_activate = 1;
+        }
+
+        $option1 ="SELECT `vendor_sale_doctors_contactus`.`title`,`vendor_sale_doctors_contactus`.`first_name`, `vendor_sale_doctors_contactus`.`last_name`,`vendor_sale_doctors_contactus`.`company`,
+        `vendor_sale_doctors_contactus`.`id`, 
+        `vendor_sale_doctors_contactus`.`contacts_clinician`,
+        `vendor_sale_doctors_contactus`.`comment`,
+        `vendor_sale_doctors_contactus`.`created_at`,
+        -- `vendor_sale_users`.`first_name 'as f_name'`,
+        -- `vendor_sale_users`.`last_name as l_name`,
+        `vendor_sale_doctors_contactus`.`user_id`,`vendor_sale_doctors_contactus`.`phone_type`,`vendor_sale_doctors_contactus`.`phone_number`,`vendor_sale_doctors_contactus`.`user_email`
+        ,`vendor_sale_doctors_contactus`.`address_lookup`,`vendor_sale_doctors_contactus`.`streem_address`,`vendor_sale_doctors_contactus`.`city`,`vendor_sale_doctors_contactus`.`post_code`
+        ,`vendor_sale_doctors_contactus`.`country`,`vendor_sale_doctors_contactus`.`billing_detail`,`vendor_sale_doctors_contactus`.`payment_reference`
+        ,`vendor_sale_doctors_contactus`.`System`,`vendor_sale_doctors_contactus`.`healthcode`
+        FROM `vendor_sale_doctors_contactus` 
+        LEFT JOIN `vendor_sale_users` ON 
+        `vendor_sale_users`.`id` = `vendor_sale_doctors_contactus`.`user_id`
+        WHERE `vendor_sale_doctors_contactus`.`delete_status` = 0  and
+        `vendor_sale_doctors_contactus`.`user_id` =$LoginID
+        ORDER BY `vendor_sale_doctors_contactus`.`id` DESC";
+        
+        $this->data['list'] = $this->common_model->customQuery($option1);
+
+        $this->load->admin_render('header', $this->data, 'inner_script');
+    }
+
+
+    public function bodies($vendor_profile_activate = "No") {
+        
+        $this->data['parent'] = $this->title;
+        $this->data['title'] = $this->title;
+        $this->data['model'] = $this->router->fetch_class();
+        $this->data['formUrl'] = $this->router->fetch_class() . "/addBodies";
+        $role_name = $this->input->post('role_name');
+
+        $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+
+        if($LoginID != 1 && $LoginID != NULL ){
+            $x = $LoginID;
+        }
+        
+        $this->data['roles'] = array(
+            'role_name' => $role_name
+        );
+        if ($vendor_profile_activate == "No") {
+            $vendor_profile_activate = 0;
+        } else {
+            $vendor_profile_activate = 1;
+        }
+
+       
+        $optionheader = array(
+            'table' => 'vendor_sale_lettel_header',
+            'select' => 'vendor_sale_lettel_header`.*',
+            'join' => array(
+                array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_lettel_header.user_id','left')
+            ),
+            // 'where' => array('vendor_sale_lettel_header.user_id' => $LoginID)
+        );
+
+        $this->data['header_list'] = $this->common_model->customGet($optionheader);
+
+
+        $this->load->admin_render('bodies', $this->data, 'inner_script');
+    }
+
+    public function recipients($vendor_profile_activate = "No") {
+        
+        $this->data['parent'] = $this->title;
+        $this->data['title'] = $this->title;
+        $this->data['model'] = $this->router->fetch_class();
+        $this->data['formUrl'] = $this->router->fetch_class() . "/addRecipients";
+        $role_name = $this->input->post('role_name');
+
+        $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+
+        if($LoginID != 1 && $LoginID != NULL ){
+            $x = $LoginID;
+        }
+        
+        $this->data['roles'] = array(
+            'role_name' => $role_name
+        );
+        if ($vendor_profile_activate == "No") {
+            $vendor_profile_activate = 0;
+        } else {
+            $vendor_profile_activate = 1;
+        }
+
+        $option1 ="SELECT `vendor_sale_doctors_contactus`.`title`,`vendor_sale_doctors_contactus`.`first_name`, `vendor_sale_doctors_contactus`.`last_name`,`vendor_sale_doctors_contactus`.`company`,
+        `vendor_sale_doctors_contactus`.`id`, 
+        `vendor_sale_doctors_contactus`.`contacts_clinician`,
+        `vendor_sale_doctors_contactus`.`comment`,
+        `vendor_sale_doctors_contactus`.`created_at`,
+        -- `vendor_sale_users`.`first_name 'as f_name'`,
+        -- `vendor_sale_users`.`last_name as l_name`,
+        `vendor_sale_doctors_contactus`.`user_id`,`vendor_sale_doctors_contactus`.`phone_type`,`vendor_sale_doctors_contactus`.`phone_number`,`vendor_sale_doctors_contactus`.`user_email`
+        ,`vendor_sale_doctors_contactus`.`address_lookup`,`vendor_sale_doctors_contactus`.`streem_address`,`vendor_sale_doctors_contactus`.`city`,`vendor_sale_doctors_contactus`.`post_code`
+        ,`vendor_sale_doctors_contactus`.`country`,`vendor_sale_doctors_contactus`.`billing_detail`,`vendor_sale_doctors_contactus`.`payment_reference`
+        ,`vendor_sale_doctors_contactus`.`System`,`vendor_sale_doctors_contactus`.`healthcode`
+        FROM `vendor_sale_doctors_contactus` 
+        LEFT JOIN `vendor_sale_users` ON 
+        `vendor_sale_users`.`id` = `vendor_sale_doctors_contactus`.`user_id`
+        WHERE `vendor_sale_doctors_contactus`.`delete_status` = 0  and
+        `vendor_sale_doctors_contactus`.`user_id` =$LoginID
+        ORDER BY `vendor_sale_doctors_contactus`.`id` DESC";
+        
+        $this->data['list'] = $this->common_model->customQuery($option1);
+
+        $optionheader = array(
+            'table' => 'vendor_sale_lettel_bodies',
+            'select' => 'vendor_sale_lettel_bodies`.*',
+            'join' => array(
+                array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_lettel_bodies.user_id','left')
+            ),
+            // 'where' => array('vendor_sale_lettel_bodies.user_id' => $LoginID)
+        );
+
+        $this->data['body_list'] = $this->common_model->customGet($optionheader);
+
+        $this->load->admin_render('recipients', $this->data, 'inner_script');
+    }
+
+
+    public function footer($vendor_profile_activate = "No") {
+        
+        $this->data['parent'] = $this->title;
+        $this->data['title'] = $this->title;
+        $this->data['model'] = $this->router->fetch_class();
+        $role_name = $this->input->post('role_name');
+        $this->data['formUrl'] = $this->router->fetch_class() . "/addFooter";
+
+
+        $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+
+        if($LoginID != 1 && $LoginID != NULL ){
+            $x = $LoginID;
+        }
+        
+        $this->data['roles'] = array(
+            'role_name' => $role_name
+        );
+        if ($vendor_profile_activate == "No") {
+            $vendor_profile_activate = 0;
+        } else {
+            $vendor_profile_activate = 1;
+        }
+
+        $option1 ="SELECT `vendor_sale_doctors_contactus`.`title`,`vendor_sale_doctors_contactus`.`first_name`, `vendor_sale_doctors_contactus`.`last_name`,`vendor_sale_doctors_contactus`.`company`,
+        `vendor_sale_doctors_contactus`.`id`, 
+        `vendor_sale_doctors_contactus`.`contacts_clinician`,
+        `vendor_sale_doctors_contactus`.`comment`,
+        `vendor_sale_doctors_contactus`.`created_at`,
+        -- `vendor_sale_users`.`first_name 'as f_name'`,
+        -- `vendor_sale_users`.`last_name as l_name`,
+        `vendor_sale_doctors_contactus`.`user_id`,`vendor_sale_doctors_contactus`.`phone_type`,`vendor_sale_doctors_contactus`.`phone_number`,`vendor_sale_doctors_contactus`.`user_email`
+        ,`vendor_sale_doctors_contactus`.`address_lookup`,`vendor_sale_doctors_contactus`.`streem_address`,`vendor_sale_doctors_contactus`.`city`,`vendor_sale_doctors_contactus`.`post_code`
+        ,`vendor_sale_doctors_contactus`.`country`,`vendor_sale_doctors_contactus`.`billing_detail`,`vendor_sale_doctors_contactus`.`payment_reference`
+        ,`vendor_sale_doctors_contactus`.`System`,`vendor_sale_doctors_contactus`.`healthcode`
+        FROM `vendor_sale_doctors_contactus` 
+        LEFT JOIN `vendor_sale_users` ON 
+        `vendor_sale_users`.`id` = `vendor_sale_doctors_contactus`.`user_id`
+        WHERE `vendor_sale_doctors_contactus`.`delete_status` = 0  and
+        `vendor_sale_doctors_contactus`.`user_id` =$LoginID
+        ORDER BY `vendor_sale_doctors_contactus`.`id` DESC";
+        
+        $this->data['list'] = $this->common_model->customQuery($option1);
+
+        $optionheader = array(
+            'table' => 'vendor_sale_lettel_recipients',
+            'select' => 'vendor_sale_lettel_recipients`.*',
+            'join' => array(
+                array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_lettel_recipients.user_id','left')
+            ),
+            // 'where' => array('vendor_sale_lettel_recipients.user_id' => $LoginID)
+        );
+
+        $this->data['recipient_list'] = $this->common_model->customGet($optionheader);
+
+        $this->load->admin_render('footer', $this->data, 'inner_script');
+    }
+
+
+    public function addHeader() {
+
+        //                 echo "<pre>";
+        // print_r($this->input->post());die;
+        // echo "</pre>";
+        $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+
+        // $this->form_validation->set_rules('facility_manager_id', "Facility Manager Name", 'required|xss_clean');
+        $this->form_validation->set_rules('internal_name', "internal_name", 'required|trim');
+        // $this->form_validation->set_rules('description', "Description", 'required|trim');
+
+        if ($this->form_validation->run() == true) {
+            $this->filedata['status'] = 1;
+            
+            if ($this->filedata['status'] == 0) {
+                $response = array('status' => 0, 'message' => $this->filedata['error']);
+            // }
+            } else {
+             
+
+                    $image = '';
+		
+                        $new_name = time().$_FILES["image"]['name'];
+                        $config['upload_path'] = './uploads/';
+                        $config['allowed_types'] = '*';
+                        $config['file_name'] = $new_name;
+                        $config['overwrite'] = TRUE;
+                        $config['remove_spaces'] = TRUE;
+                        // echo $new_name;die;
+                        $this->upload->initialize($config);
+                        if (!$this->upload->do_upload('image')) {
+                            $error = array('error' => $this->upload->display_errors());
+                            echo $error['error'];
+                            }else{ 
+                            $imageDetailArray = $this->upload->data();
+                            $image =  $imageDetailArray['file_name'];
+                        } 
+                    
+
+
+                $options_data = array(
+                    'user_id'=> $LoginID,
+                    'internal_name' => $this->input->post('internal_name'),
+                    'header_checked' => $this->input->post('header_checked'),
+                    'logo' => $image,
+                                        
+                );
+                // print_r($options_data);die;
+                $option = array('table' => 'vendor_sale_lettel_header', 'data' => $options_data);
+                if ($this->common_model->customInsert($option)) {
+                    $response = array('status' => 1, 'message' => "Successfully added", 'url' => base_url($this->router->fetch_class()));
+                } else {
+                    $response = array('status' => 0, 'message' => "Failed to add");
+                }
+            }
+        } else {
+            $messages = (validation_errors()) ? validation_errors() : '';
+            $response = array('status' => 0, 'message' => $messages);
+        }
+        echo json_encode($response);
+    }
+
+    public function addFooter() {
+
+        // echo "<pre>";
+        // print_r($this->input->post());die;
+        // echo "</pre>";
+
+        $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+
+        // $this->form_validation->set_rules('facility_manager_id', "Facility Manager Name", 'required|xss_clean');
+        $this->form_validation->set_rules('internal_name', "internal_name", 'required|trim');
+        // $this->form_validation->set_rules('description', "Description", 'required|trim');
+
+        if ($this->form_validation->run() == true) {
+            $this->filedata['status'] = 1;
+            
+            if ($this->filedata['status'] == 0) {
+                $response = array('status' => 0, 'message' => $this->filedata['error']);
+            // }
+            } else {
+             
+
+                    $image = '';
+		
+                        $new_name = time().$_FILES["image"]['name'];
+                        $config['upload_path'] = './uploads/';
+                        $config['allowed_types'] = '*';
+                        $config['file_name'] = $new_name;
+                        $config['overwrite'] = TRUE;
+                        $config['remove_spaces'] = TRUE;
+                        // echo $new_name;die;
+                        $this->upload->initialize($config);
+                        if (!$this->upload->do_upload('image')) {
+                            $error = array('error' => $this->upload->display_errors());
+                            echo $error['error'];
+                            }else{ 
+                            $imageDetailArray = $this->upload->data();
+                            $image =  $imageDetailArray['file_name'];
+                        } 
+                    
+
+            //             $image = "";
+            // if (!empty($_FILES['user_image']['name'])) {
+            //     $this->filedata = $this->commonUploadImage($_POST, 'users', 'user_image');
+            //     if ($this->filedata['status'] == 1) {
+            //         $image = 'uploads/users/' . $this->filedata['upload_data']['file_name'];
+            //     }
+            // }
+
+
+                $options_data = array(
+                    'user_id'=> $LoginID,
+                    'recipient_id'=> $this->input->post('recipient_id'),
+                    'internal_name' => $this->input->post('internal_name'),
+                    'header_checked' => $this->input->post('footer_booked'),
+                    'logo' => $image,
+                                        
+                );
+                // print_r($options_data);die;
+                $option = array('table' => 'vendor_sale_lettel_footer', 'data' => $options_data);
+                if ($this->common_model->customInsert($option)) {
+                    $response = array('status' => 1, 'message' => "Successfully added", 'url' => base_url($this->router->fetch_class()));
+                } else {
+                    $response = array('status' => 0, 'message' => "Failed to add");
+                }
+            }
+        } else {
+            $messages = (validation_errors()) ? validation_errors() : '';
+            $response = array('status' => 0, 'message' => $messages);
+        }
+        echo json_encode($response);
+    }
+
+    public function addBodies() {
+
+        $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+
+        // $this->form_validation->set_rules('facility_manager_id', "Facility Manager Name", 'required|xss_clean');
+        $this->form_validation->set_rules('internal_name', "internal_name", 'required|trim');
+        $this->form_validation->set_rules('header_id', "header", 'required|trim');
+
+        if ($this->form_validation->run() == true) {
+            $this->filedata['status'] = 1;
+            
+            if ($this->filedata['status'] == 0) {
+                $response = array('status' => 0, 'message' => $this->filedata['error']);
+            // }
+            } else {
+             
+
+                $options_data = array(
+                    'user_id'=> $LoginID,
+                    'header_id'=> $this->input->post('header_id'),
+                    'internal_name' => $this->input->post('internal_name'),
+                    'bodies_template' => $this->input->post('bodies_template'),
+                    
+                                        
+                );
+                // print_r($options_data);die;
+                $option = array('table' => 'vendor_sale_lettel_bodies', 'data' => $options_data);
+                if ($this->common_model->customInsert($option)) {
+                    $response = array('status' => 1, 'message' => "Successfully added", 'url' => base_url($this->router->fetch_class()));
+                } else {
+                    $response = array('status' => 0, 'message' => "Failed to add");
+                }
+            }
+        } else {
+            $messages = (validation_errors()) ? validation_errors() : '';
+            $response = array('status' => 0, 'message' => $messages);
+        }
+        echo json_encode($response);
+    }
+
+    public function addRecipients() {
+
+        // echo "<pre>";
+        // print_r($this->input->post());die;
+        // echo "</pre>";
+
+        $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+
+        // $this->form_validation->set_rules('facility_manager_id', "Facility Manager Name", 'required|xss_clean');
+        $this->form_validation->set_rules('internal_name', "internal_name", 'required|trim');
+        $this->form_validation->set_rules('body_id', "body_id", 'required|trim');
+
+        if ($this->form_validation->run() == true) {
+            $this->filedata['status'] = 1;
+            
+            if ($this->filedata['status'] == 0) {
+                $response = array('status' => 0, 'message' => $this->filedata['error']);
+            // }
+            } else {
+             
+
+                $options_data = array(
+                    'user_id'=> $LoginID,
+                    'body_id'=> $this->input->post('body_id'),
+                    'internal_name' => $this->input->post('internal_name'),
+                    'recipient_template' => $this->input->post('bodies_template'),
+                    
+                                        
+                );
+                // print_r($options_data);die;
+                $option = array('table' => 'vendor_sale_lettel_recipients', 'data' => $options_data);
+                if ($this->common_model->customInsert($option)) {
+                    $response = array('status' => 1, 'message' => "Successfully added", 'url' => base_url($this->router->fetch_class()));
+                } else {
+                    $response = array('status' => 0, 'message' => "Failed to add");
+                }
+            }
+        } else {
+            $messages = (validation_errors()) ? validation_errors() : '';
+            $response = array('status' => 0, 'message' => $messages);
+        }
+        echo json_encode($response);
+    }
 
     function open_model() {
         $this->data['title'] = lang("add_cms");

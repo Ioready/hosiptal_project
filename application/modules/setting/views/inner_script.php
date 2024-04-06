@@ -8,14 +8,26 @@ jQuery('body').on('click', '#submit', function () {
         if(form_name=='[object HTMLInputElement]')
             form_name='addFormAjax';
         $("#"+form_name).validate({
-            rules: {
-                game_join_time: 
-                {
-                     required: true,
-                     max: 120,
-                     min:  30
-                }
+            // rules: {
+            //     game_join_time: 
+            //     {
+            //          required: true,
+            //          max: 120,
+            //          min:  30
+            //     }
                
+            // },
+            rules: {
+                secret_key: "required",
+                publishable_key: "required",
+                
+                
+            },
+            messages: {
+                secret_key: '<?php echo lang('secret key');?>',
+                publishable_key: '<?php echo lang('publishable key');?>',
+               
+                
             },
             // messages: {
             //     game_join_time: 'Game Join Time field is required',
@@ -28,6 +40,9 @@ jQuery('body').on('click', '#submit', function () {
         });
 
     });
+
+
+  
 
 
     jQuery('body').on('change', '.input_img2', function () {

@@ -48,6 +48,16 @@ class StripePaymentController extends Common_Controller {
 	{
         $user_id = $this->session->userdata('user_id');
 		//check whether stripe token is not empty
+
+		$option = array(
+            'table' => 'payment_gateway',
+            'select' => 'payment_gateway.*',
+            'order' => array('payment_gateway.id' => 'DESC'),
+            'single'=>true,
+        );
+
+        $stripe_payment_gateway = $this->common_model->customGet($option);
+// print_r($stripe_payment_gateway->secret_key);die;
 		if(!empty($_POST['stripeToken']))
 		{
 			//get token, card and user info from the form
@@ -74,10 +84,15 @@ class StripePaymentController extends Common_Controller {
 			require_once APPPATH."third_party/stripe/init.php";
 			
 			//set api key
+			// $stripe = array(
+			//   "secret_key"      => "sk_test_afm5UcS9SFFjYgSs5hTWIG7Y00G5E2b2Zx",
+			//   "publishable_key" => "pk_test_9ec6REkAGDDrUTCf5WqhxOJA00kzzU4vmj"
+			// );
+
 			$stripe = array(
-			  "secret_key"      => "sk_test_afm5UcS9SFFjYgSs5hTWIG7Y00G5E2b2Zx",
-			  "publishable_key" => "pk_test_9ec6REkAGDDrUTCf5WqhxOJA00kzzU4vmj"
-			);
+				"secret_key"      => $stripe_payment_gateway->secret_key,
+				"publishable_key" => $stripe_payment_gateway->publishable_key
+			  );
 			
 			\Stripe\Stripe::setApiKey($stripe['secret_key']);
 			
