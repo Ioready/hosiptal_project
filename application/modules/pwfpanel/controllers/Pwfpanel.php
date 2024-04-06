@@ -736,9 +736,12 @@ class Pwfpanel extends Common_Controller
                         }
                         redirect('pwfpanel', 'refresh');
                     }else{
+                        $this->session->set_flashdata('error', 'Please input  token');
+           
                         redirect('pwfpanel/login', 'refresh');
                     }
                 }else {
+                    $this->session->set_flashdata('error', 'Please input  token');
                     redirect('pwfpanel/login', 'refresh');
                 }
                     } else if ($this->ion_auth->is_facilityManager()) {
@@ -796,9 +799,11 @@ class Pwfpanel extends Common_Controller
                         }
                         redirect('pwfpanel', 'refresh');
                     }else{
+                        $this->session->set_flashdata('error', 'Please input  token');
                         redirect('pwfpanel/login', 'refresh');
                     }
                 }else {
+                    $this->session->set_flashdata('error', 'Please input  token');
                     redirect('pwfpanel/login', 'refresh');
                 }
                     } else if ($this->ion_auth->is_patient()) {

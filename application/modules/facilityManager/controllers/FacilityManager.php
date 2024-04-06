@@ -378,6 +378,7 @@ class FacilityManager extends Common_Controller {
                         $html['user'] = ucwords($name);
                         $html['email'] = $email;
                         $html['password'] = $password;
+                        $html['uniqe_token'] =  $random_id;
                         $html['website'] = base_url();
                         $html['content'] = $EmailTemplate->description;
                         $email_template = $this->load->view('email-template/registration', $html, true);

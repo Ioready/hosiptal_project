@@ -113,6 +113,11 @@
                     <span style="text-align: center"><?php echo $success; ?></span>
                 </div>
             <?php } ?>
+            <?php if ($this->session->flashdata('error')): ?>
+    <div class="alert alert-danger">
+        <?php echo $this->session->flashdata('error'); ?>
+    </div>
+<?php endif; ?>
             <!-- Login Block -->
             <div class="block push-bit bg_color_login">
                 <!-- Login Form -->

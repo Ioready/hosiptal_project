@@ -174,11 +174,12 @@
 <script>
     $(document).ready(function() {
         $('#sendemail').click(function() {
+       
             $.ajax({
                 url: "<?php echo base_url('index.php/setting/sending_mail_test'); ?>",
                 type: 'POST',
                 success: function(response) {
-                    alert(response); // Alert success or error message
+                     // Alert success or error message
                 },
                 error: function(xhr, status, error) {
                     alert('Error sending email: ' + error);
