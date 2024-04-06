@@ -34,7 +34,49 @@ class Setting extends Common_Controller {
     public function paymentSetting() {
         $this->data['parent'] = "Settings";
         $this->data['title'] = "Settings";
+        $option = array(
+            'table' => 'payment_gateway',
+            'select' => 'payment_gateway.*',
+            'order' => array('payment_gateway.id' => 'DESC'),
+            
+        );
+
+        $this->data['list'] = $this->common_model->customGet($option);
+
         $this->load->admin_render('payment_setting', $this->data, 'inner_script');
+    }
+
+
+    public function addPaymentSetting() {
+        $this->data['parent'] = "Settings";
+        $this->data['title'] = "Settings";
+
+        $this->form_validation->set_rules('secret_key', lang('secret_key'), 'required');
+        $this->form_validation->set_rules('publishable_key', lang('publishable_key'), 'required');
+        $allData = $this->input->post();
+        $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+       
+        if ($this->form_validation->run() == true) {
+
+        $option = array(
+            'table' => 'payment_gateway',
+            'data' => array(
+                'user_id' => $LoginID,
+                'secret_key' => $this->input->post('secret_key'),
+                'publishable_key' => $this->input->post('publishable_key'),
+            )
+        );
+        $insert_id = $this->common_model->customInsert($option);
+        $response = array('status' => 1, 'message' =>  "Successfully added");
+        
+    } else {
+        $messages = (validation_errors()) ? validation_errors() : '';
+        $response = array('status' => 0, 'message' => $messages);
+
+    }
+    
+    echo json_encode($response);
+
     }
 
 
@@ -147,5 +189,56 @@ class Setting extends Common_Controller {
         $response = array('status' => 1, 'message' => lang('setting_success_message'), 'url' => "");
         echo json_encode($response);
     }
+
+    public function setting_email_add()
+    {
+       
+        $this->load->library('form_validation');
+
+    // Set validation rules
+    $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
+
+    if ($this->form_validation->run() == FALSE) {
+        // Form validation failed, redirect back to the form with errors
+        $this->session->set_flashdata('error', validation_errors());
+        redirect('setting/emailSetting');
+    }else{
+            $email = strtolower($this->input->post('email'));
+           
+            $additional_data = array(
+                'mail_driver' => $this->input->post('mail_driver'),
+                'Mail_Host' => $this->input->post('Mail_Host'),
+                'mail_port' =>$this->input->post('mail_port'),
+                'email'=>$email,
+                
+                'password' => $this->input->post('password'),
+                'encryption' => $this->input->post('encryption'),
+                'from_address' => $this->input->post('from_address'),
+                'name' => $this->input->post('name'),
+                'created_on' => date('Y-m-d H:i:s')
+            );
+            
+                $this->db->insert('vendor_sale_email_host', $additional_data);
+                $this->session->set_flashdata('success', "Successfully added");
+                
+                $this->session->set_flashdata('success', 'Successfully added');
+        redirect('setting/emailSetting');
+        } 
+    }
+
+    public function sending_mail_test()
+    {
+        
+        
+        $this->load->library('email'); // Note: no $config param needed
+        $this->email->from('kalpanaofficial94@gmail.com', 'kalpanaofficial94@gmail.com');
+        $this->email->to('vinaysharma8496@gmail.com');
+        $this->email->subject('Test email from CI and Gmail');
+        $this->email->message('This is a test.');
+        $this->email->send();
+        
+      
+    }
+
 
 }

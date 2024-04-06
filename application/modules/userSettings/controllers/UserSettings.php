@@ -702,6 +702,16 @@ class UserSettings extends Common_Controller {
         }
 
        
+        $optionheader = array(
+            'table' => 'vendor_sale_lettel_header',
+            'select' => 'vendor_sale_lettel_header`.*',
+            'join' => array(
+                array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_lettel_header.user_id','left')
+            ),
+            // 'where' => array('vendor_sale_lettel_header.user_id' => $LoginID)
+        );
+
+        $this->data['header_list'] = $this->common_model->customGet($optionheader);
 
 
         $this->load->admin_render('bodies', $this->data, 'inner_script');
@@ -749,6 +759,18 @@ class UserSettings extends Common_Controller {
         ORDER BY `vendor_sale_doctors_contactus`.`id` DESC";
         
         $this->data['list'] = $this->common_model->customQuery($option1);
+
+        $optionheader = array(
+            'table' => 'vendor_sale_lettel_bodies',
+            'select' => 'vendor_sale_lettel_bodies`.*',
+            'join' => array(
+                array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_lettel_bodies.user_id','left')
+            ),
+            // 'where' => array('vendor_sale_lettel_bodies.user_id' => $LoginID)
+        );
+
+        $this->data['body_list'] = $this->common_model->customGet($optionheader);
+
         $this->load->admin_render('recipients', $this->data, 'inner_script');
     }
 
@@ -797,9 +819,20 @@ class UserSettings extends Common_Controller {
         
         $this->data['list'] = $this->common_model->customQuery($option1);
 
+        $optionheader = array(
+            'table' => 'vendor_sale_lettel_recipients',
+            'select' => 'vendor_sale_lettel_recipients`.*',
+            'join' => array(
+                array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_lettel_recipients.user_id','left')
+            ),
+            // 'where' => array('vendor_sale_lettel_recipients.user_id' => $LoginID)
+        );
+
+        $this->data['recipient_list'] = $this->common_model->customGet($optionheader);
 
         $this->load->admin_render('footer', $this->data, 'inner_script');
     }
+
 
 
 
@@ -976,9 +1009,18 @@ class UserSettings extends Common_Controller {
                         } 
                     
 
+            //             $image = "";
+            // if (!empty($_FILES['user_image']['name'])) {
+            //     $this->filedata = $this->commonUploadImage($_POST, 'users', 'user_image');
+            //     if ($this->filedata['status'] == 1) {
+            //         $image = 'uploads/users/' . $this->filedata['upload_data']['file_name'];
+            //     }
+            // }
+
 
                 $options_data = array(
                     'user_id'=> $LoginID,
+                    'recipient_id'=> $this->input->post('recipient_id'),
                     'internal_name' => $this->input->post('internal_name'),
                     'header_checked' => $this->input->post('footer_booked'),
                     'logo' => $image,
@@ -1005,7 +1047,7 @@ class UserSettings extends Common_Controller {
 
         // $this->form_validation->set_rules('facility_manager_id', "Facility Manager Name", 'required|xss_clean');
         $this->form_validation->set_rules('internal_name', "internal_name", 'required|trim');
-        // $this->form_validation->set_rules('description', "Description", 'required|trim');
+        $this->form_validation->set_rules('header_id', "header", 'required|trim');
 
         if ($this->form_validation->run() == true) {
             $this->filedata['status'] = 1;
@@ -1018,6 +1060,7 @@ class UserSettings extends Common_Controller {
 
                 $options_data = array(
                     'user_id'=> $LoginID,
+                    'header_id'=> $this->input->post('header_id'),
                     'internal_name' => $this->input->post('internal_name'),
                     'bodies_template' => $this->input->post('bodies_template'),
                     
@@ -1048,7 +1091,7 @@ class UserSettings extends Common_Controller {
 
         // $this->form_validation->set_rules('facility_manager_id', "Facility Manager Name", 'required|xss_clean');
         $this->form_validation->set_rules('internal_name', "internal_name", 'required|trim');
-        // $this->form_validation->set_rules('description', "Description", 'required|trim');
+        $this->form_validation->set_rules('body_id', "body_id", 'required|trim');
 
         if ($this->form_validation->run() == true) {
             $this->filedata['status'] = 1;
@@ -1061,6 +1104,7 @@ class UserSettings extends Common_Controller {
 
                 $options_data = array(
                     'user_id'=> $LoginID,
+                    'body_id'=> $this->input->post('body_id'),
                     'internal_name' => $this->input->post('internal_name'),
                     'recipient_template' => $this->input->post('bodies_template'),
                     
@@ -1080,7 +1124,6 @@ class UserSettings extends Common_Controller {
         }
         echo json_encode($response);
     }
-
     public function add() {
 
         //                 echo "<pre>";

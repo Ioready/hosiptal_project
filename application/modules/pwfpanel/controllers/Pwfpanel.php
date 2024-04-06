@@ -146,12 +146,9 @@ class Pwfpanel extends Common_Controller
                 );
 
                 $data['total_patient_today'] = $this->common_model->customCount($option);
-
-
                
                 // print_r($this->data['total_order']);die;
                
-
                 $option = array('table' => 'admin_plans', 'where' => array('status' => 0), 'order' => array('id' => 'desc'));
                 $data['all_plan_list'] = $this->common_model->customGet($option);
 
@@ -166,7 +163,10 @@ class Pwfpanel extends Common_Controller
                     // print_r($data);die;
                     $this->load->admin_render('dashboard', $data);
                 }
-            } else if ($this->ion_auth->is_vendor()) {
+            
+               
+            }
+             else if ($this->ion_auth->is_vendor()) {
                 $this->load->admin_render('vendorDashboard', $this->data, 'inner_script');
             } else if ($this->ion_auth->is_facilityManager()) {
 
@@ -248,6 +248,25 @@ class Pwfpanel extends Common_Controller
                  ); */
                 //$data['total_patient_today'] = $this->common_model->customCount($option);
                 // redirect('reportsSummary', 'refresh');
+
+                $option = array(
+                    'table' => USERS . ' as user',
+                    'select' => 'user.id',
+                    'join' => array(
+                        array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                        array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left'),
+                        array('user_profile UP', 'UP.user_id=user.id', 'inner')
+                    ),
+                    'order' => array('user.id' => 'ASC'),
+                    'where' => array(
+                        'user.delete_status' => 0,
+                        'group.id' => 5
+                    ),
+                    'order' => array('user.id' => 'desc'),
+                );
+                $data['total_appointment'] = $this->common_model->customCount($option);
+
+
                 $this->load->admin_render('dashboard', $data);
 
             } else if ($this->ion_auth->is_patient()) {
@@ -612,7 +631,8 @@ class Pwfpanel extends Common_Controller
         $this->form_validation->set_rules('password', str_replace(':', '', $this->lang->line('login_password_label')), 'required');
         if (strtolower(getConfig('google_captcha')) == 'on') {
             $this->form_validation->set_rules('g-recaptcha-response', 'Google recaptcha', 'required');
-        }
+        
+}
         
         if ($this->form_validation->run() == true) {
             $is_captcha = true;
@@ -676,7 +696,40 @@ class Pwfpanel extends Common_Controller
                                 'groups.id' => 4
                             ),
                         );
+                        $option = array(
+                            'table' => USERS . ' as user',
+                            'select' => 'user.id,user.first_name,user.last_name,user.email,user.login_id,user.created_on,user.active,group.name as group_name,UP.doc_file,CU.care_unit_code,CU.name,d.facility_user_id',
+                            'join' => array(
+                                array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                                array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left'),
+                                array('user_profile UP', 'UP.user_id=user.id', 'left'),
+                                array('care_unit CU', 'CU.id=user.care_unit_id', 'left'),
+                                array('doctors AS d', 'd.user_id = user.id', 'left')
+                            ),
+                           
+                            'where' => array('user.email' => $this->input->post('identity') )
+                            
+                        );
+                        //print_r($optionds);die;
+                       
                         $isAdmin = $this->common_model->customGet($option);
+                        $doctorfacility=$isAdmin[0]->facility_user_id;
+                        $option1 = array(
+                            'table' => 'vendor_sale_hospital',
+                            'select' => 'token_uniq',
+                            'where' => array('user_id' =>$doctorfacility),
+                            'single' => true,
+                        );
+                        
+
+
+
+                        $result2 = $this->db->get_where($option1['table'], $option1['where'])->row();
+                        if($this->input->post('uniq_id')!=null){
+                       $tokenid= $result2->token_uniq;
+                       if ($tokenid==$this->input->post('uniq_id')) {
+                        
+                       
                         if (!empty($isAdmin)) {
                             $_SESSION['admin_care_unit_id'] = $isAdmin[0]->care_unit_id;
                             $option = array(
@@ -701,6 +754,15 @@ class Pwfpanel extends Common_Controller
                             }
                         }
                         redirect('pwfpanel', 'refresh');
+                    }else{
+                        $this->session->set_flashdata('error', 'Please input  token');
+           
+                        redirect('pwfpanel/login', 'refresh');
+                    }
+                }else {
+                    $this->session->set_flashdata('error', 'Please input  token');
+                    redirect('pwfpanel/login', 'refresh');
+                }
                     } else if ($this->ion_auth->is_facilityManager()) {
                         $option = array(
                             'table' => 'users',
@@ -714,7 +776,22 @@ class Pwfpanel extends Common_Controller
                                 'groups.id' => 5
                             ),
                         );
-                       
+                        $option1 = array(
+                            'table' => 'vendor_sale_hospital',
+                            'select' => 'token_uniq',
+                            'where' => array('email' => $this->input->post('identity')),
+                            'single' => true,
+                        );
+                        
+
+
+
+                        $result2 = $this->db->get_where($option1['table'], $option1['where'])->row();
+                        //print_r($result->token_uniq);
+                        //$uniqid=$result->token_uniq
+                        if($this->input->post('uniq_id')!=null){
+                            
+                        if ($result2->token_uniq== $this->input->post('uniq_id')) {                           
                         $isAdmin = $this->common_model->customGet($option);
                         if (!empty($isAdmin)) {
                             $_SESSION['admin_care_unit_id'] = $isAdmin[0]->care_unit_id;
@@ -740,6 +817,14 @@ class Pwfpanel extends Common_Controller
                             }
                         }
                         redirect('pwfpanel', 'refresh');
+                    }else{
+                        $this->session->set_flashdata('error', 'Please input  token');
+                        redirect('pwfpanel/login', 'refresh');
+                    }
+                }else {
+                    $this->session->set_flashdata('error', 'Please input  token');
+                    redirect('pwfpanel/login', 'refresh');
+                }
                     } else if ($this->ion_auth->is_patient()) {
 
                         $option = array(
@@ -754,6 +839,15 @@ class Pwfpanel extends Common_Controller
                                 'groups.id' => 6
                             ),
                         );
+                        $option1 = array(
+                            'table' => 'vendor_sale_hospital',
+                            'select' => 'token_uniq',
+                            'where' => array('email' => $this->input->post('identity')),
+                            'single' => true,
+                        );
+                       
+                        $result2 = $this->db->get_where($option1['table'], $option1['where'])->row();
+                        if ($result2->token_uniq== $this->input->post('uniq_id')) {
                         
                         $isAdmin = $this->common_model->customGet($option);
                         
@@ -822,7 +916,7 @@ class Pwfpanel extends Common_Controller
                         redirect('pwfpanel/login', 'refresh');
                     }
                     redirect('pwfpanel', 'refresh');
-
+                }
                 } else {
                     $this->session->set_flashdata('message', $this->ion_auth->errors());
                     redirect('pwfpanel/login', 'refresh');

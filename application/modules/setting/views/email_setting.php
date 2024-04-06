@@ -9,6 +9,7 @@
             <a href="<?php echo site_url('setting'); ?>">Setting</a>
         </li>
     </ul>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- END Datatables Header -->
     <!-- Datatables Content -->
     <div class="block full">
@@ -71,61 +72,69 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-4">
+                                    <form class="form-horizontal" role="form" id="" method="post" action="<?php echo base_url('index.php/setting/setting_email_add') ?>" enctype="multipart/form-data">
                                         <div class="form-group">
                                             <label for="input1">Mail Driver</label>
-                                            <input type="text" class="form-control" id="input1" name="input1">
+                                            <input type="text" class="form-control" id="mail_driver" name="mail_driver">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="input1">Mail Host</label>
-                                            <input type="text" class="form-control" id="input1" name="input1">
+                                            <input type="text" class="form-control" id="Mail_Host" name="Mail_Host">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="input1">Mail port</label>
-                                            <input type="text" class="form-control" id="input1" name="input1">
+                                            <input type="text" class="form-control" id="mail_port" name="mail_port">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="input1">Mail Username</label>
-                                            <input type="text" class="form-control" id="input1" name="input1">
+                                            <input type="email" class="form-control" id="email" name="email">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="input1">Mail Password</label>
-                                            <input type="text" class="form-control" id="input1" name="input1">
+                                            <label for="password">Mail Password</label>
+                                            <input type="password" class="form-control" id="password" name="password">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="input1">Mail Encryption</label>
-                                            <input type="text" class="form-control" id="input1" name="input1">
+                                            <input type="text" class="form-control" id="encryption" name="encryption">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="input1">Mail From Address</label>
-                                            <input type="text" class="form-control" id="input1" name="input1">
+                                            <input type="email" class="form-control" id="from_address" name="from_address">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="input1">Mail From Name</label>
-                                            <input type="text" class="form-control" id="input1" name="input1">
+                                            <input type="text" class="form-control" id="name" name="name">
                                         </div>
                                     </div>
                                     <!-- Add 7 more input fields similar to the above -->
 
                                     <!-- Add save and cancel buttons -->
                                     <div class="col-md-12 text-right">
-                                        <button class="btn btn-danger" type="button">Send test mail</button>
-                                        <button class="btn  btn-primary " style="background:#337ab7;" type="button"> Save changes</button>
+                                    <button class="btn btn-danger" type="button" id="sendemail">Send test mail</button>
+                                        
+                                        <button class="btn  btn-primary " style="background:#337ab7;" type="submit"> Save changes</button>
+                                        </form>
+                                        
+                                        
+                                    
                                     </div>
+                                    
                                 </div>
+                                
                             </div>
                             <!-- END Datatables Content -->
                         </div>
@@ -161,3 +170,21 @@
         background-color: #e9967a !important;
     }
 </style>
+
+<script>
+    $(document).ready(function() {
+        $('#sendemail').click(function() {
+       
+            $.ajax({
+                url: "<?php echo base_url('index.php/setting/sending_mail_test'); ?>",
+                type: 'POST',
+                success: function(response) {
+                     // Alert success or error message
+                },
+                error: function(xhr, status, error) {
+                    alert('Error sending email: ' + error);
+                }
+            });
+        });
+    });
+    </script>

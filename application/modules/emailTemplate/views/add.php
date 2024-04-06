@@ -1,15 +1,14 @@
 <!--  <div id="commonModal" class="modal fade" role="dialog"> -->
 <script src="<?php echo base_url() . 'backend_asset/admin/js/' ?>helpers/ckeditor/ckeditor.js"></script> 
-<div id="commonModal" class="modal fade" role="dialog" >
+<div id="commonModal" class="modal fade m-4" role="dialog" >
     <div class="modal-dialog modal-dialog-centered modal-lg" >
- 
         <div class="modal-content modal-lg">
             <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('emailTemplate/template_add') ?>" enctype="multipart/form-data">
                 <div class="modal-header">
                     <button type="button" class="close button_close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title">Add Email Template</h4>
+                    <h4 class="modal-title fw-bold">Add Email Template</h4>
                 </div>
-                <div class="modal-body"> 
+                <div class="modal-body "> 
                     <div class="loaders">
                         <img src="<?php echo base_url().'backend_asset/images/Preloader_2.gif';?>" class="loaders-img" id="loader" class="img-responsive" style="display: none;">
                     </div>
@@ -18,7 +17,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Email Type</label>
+                                    <label class="col-md-2 control-label">Email Type</label>
                                     <div class="col-md-9">
                                         <select class="form-control" name="email_type" id="email_type">
                                             <option value="">Select</option>
@@ -37,7 +36,7 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Title</label>
+                                    <label class="col-md-2 control-label">Title</label>
                                     <div class="col-md-9">
                                         <input type="text" name="title" class="form-control">
                                     </div>
@@ -45,7 +44,7 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label"><?php echo lang('description');?></label>
+                                    <label class="col-md-2 control-label"><?php echo lang('description');?></label>
                                     <div class="col-md-9">
                                         <textarea class="form-control ckeditor" name="description"></textarea>
                                     </div>
@@ -54,7 +53,7 @@
                             </div>                             
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label"><?php echo lang('image'); ?></label>
+                                    <label class="col-md-2 control-label"><?php echo lang('image'); ?></label>
                                     <div class="col-md-9">
                                         <div class="profile_content edit_img">
                                             <div class="file_btn file_btn_logo border_banner_box">
@@ -78,7 +77,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" id="submit" class="btn btn-sm btn-primary">Save</button>
+                    <button type="submit" id="submit" class="btn btn-sm btn-primary mt-2" style="background:#337ab7;">Save</button>
                 </div>
             </form>
         </div> <!-- /.modal-content -->
