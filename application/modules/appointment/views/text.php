@@ -11,8 +11,7 @@
         </li>
     </ul>
     <!-- END Datatables Header -->
-    <!-- Datatables Content -->
-    
+    <!-- Datatables Content --> 
     <div style="border-radius:12px" class="block full">
     <div class="block-title">
             <?php if ($this->ion_auth->is_subAdmin()) { ?>
@@ -39,43 +38,6 @@
         </div>
 
         <!-- <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('index.php/' .$formUrl) ?>" enctype="multipart/form-data"> -->
-<<<<<<< HEAD
-
-=======
-            
-        <div style=" display:flex; gap:20px" class="modal-header text-center">
-         
-            <form action="<?php echo site_url('appointment'); ?>" name="patientForm" method="get">
-            <div class="col-sm-6 col-lg-8 col-md-8" style="margin-right: 10px;">
-            <select id="appointmentType" name="appointment_id" class="form-control" onchange="fetchData()">                 
-
-                      <option value="clinic_appointment">Clinic Appointment</option>
-                      <option value="theatre_appointment">Theatre Appointment</option>
-                      <option value="availability">Availability</option>
-                      <option value="out_of_office">Out Of Office</option>
-                  </select>
-              </div>
-              <?php }else if($this->ion_auth->is_subAdmin()){
-                ?>
-             <div class="col-sm-4 col-lg-4 col-md-4" style="margin-right: 10px;">
-                    <select id="appointmentType" name="appointment_id" class="form-control" onchange="fetchData()">                 
-                    <!-- <option value="" disabled>Select hospital</option> -->
-                    <?php
-                  // if (!empty($hospitals)) {
-                  //     foreach ($hospitals as $hospital) { ?>
-                          <!-- <option value="<?php echo $hospital->id; ?>"><?php echo $hospital->name; ?></option> -->
-                  <?php 
-                 // }
-                  //}
-                  ?>
-
-                    </select>
-                  
-              </div>
-            </form>
-            
-                <div class="form-group save-btn">
->>>>>>> 70227fb0b4f348b6d424d056d5a22e7cf8f25453
 
 
 

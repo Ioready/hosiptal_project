@@ -347,7 +347,7 @@
                 </div>
                  <?php 
                 } else if($this->ion_auth->is_admin()){ ?>
-                <div class="button plan_button m-4">
+                <div class="button plan_button " style="margin-left:25px">
                 <!-- <a href="<?php echo site_url('stripePayments'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "stripePaymentController") ? "active" : "" ?>"> -->
                 <!-- <button >START FREE 7 DAYS TRIAL </button></a> -->
                 <a href="<?php echo base_url('make-stripe-payment?'.'id='.$row->id);?>" style="text-align: center; text-decoration: none; color: white;">
@@ -379,14 +379,14 @@
                     </div>
                 </div>
                 <div class="description">
-                    <!-- <ul>
+                    <ul>
                         <li>Lorem, ipsum dolor.</li>
                         <li>Harum, beatae laudantium.</li>
                         <li>Odit, fugit saepe.</li>
                         <li>Harum, veniam suscipit!</li>
                         <li>A, aut veritatis!</li>
                         <li>Aliquid, quasi repellat!</li>
-                    </ul> -->
+                    </ul>
                     <?php echo $row->plan_description; ?>
                 </div>
                 <?php if($this->ion_auth->is_admin()){ ?>
@@ -395,6 +395,8 @@
                     
                 </div> -->
                 <?php }?>
+
+                
                 <?php if($this->ion_auth->is_superAdmin()){ ?>
                 <div class="button plan_button">
                 
@@ -409,12 +411,14 @@
                 </div>
 
         <?php } else if($this->ion_auth->is_admin()){ ?>
-                <div class="button plan_button">
+                <div class="button plan_button" style="margin-left:25px">
                 
                 <!-- <a href="<?php echo site_url('stripePayments'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "stripePaymentController") ? "active" : "" ?>"> -->
                 <!-- <button >START FREE 7 DAYS TRIAL </button></a> -->
-                <a href="<?php echo base_url('make-stripe-payment?'.'id='.$row->id);?>"><button >START FREE 7 DAYS TRIAL </button></a>
-                <!-- <a href="<?php echo base_url('my-stripe?'.'id='.$row->id);?>"><button >START FREE 7 DAYS TRIAL </button></a> -->
+                <!-- <a href="<?php echo base_url('make-stripe-payment?'.'id='.$row->id);?>"><button >START FREE 7 DAYS TRIAL </button></a> -->
+                <a href="<?php echo base_url('make-stripe-payment?'.'id='.$row->id);?>" style="text-align: center; text-decoration: none; color: white;">
+                 <button style="background-color: transparent; border: none; padding: 0; cursor: pointer; margin:10px; margin-left:60px;" class="text-center">START FREE 7 DAYS TRIAL</button>
+                 </a>
                 </div>
                 <?php } ?>
 
@@ -433,14 +437,8 @@
                                             <!-- <h5 class="text-primary"><strong>Patient</strong></h5> -->
                         <?php } else if ($this->ion_auth->is_subAdmin()) { ?>
 
-                        
-                            <div class="col-lg-3 dashboardBoxes">
-                   
 
-                   <div style="background-color:#EDEAFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
-                       <div class="ibox-title">
 
-<<<<<<< HEAD
 <div class="col-lg-3 col-md-6 dashboardBoxes">
     <div style="background-color:<?php echo $total_patient > 0 ? '#EDEAFF' : '#FFFFFF'; ?>;box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
         <div class="ibox-content">
@@ -490,78 +488,6 @@
         <img src="<?php echo base_url(); ?>uploads/patient1.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
     </div>
 </div>
-=======
-                       <div class="ibox-content">
-
-                       <h1 class="no-margins">
-
-                       <?php echo $total_patient; ?>
-                       </h1>
-                       <h5 class="text-primary"><strong>Total Patient</strong></h5>
-                       </div>
-                    </div>
-                    <img src="<?php echo base_url(); ?>uploads/form.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
-               </div>
-           </div>
-
-           <div class="col-lg-3 dashboardBoxes">
-               <div style="background-color:#FEE2E1; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);"  class="ibox float-e-margins">
-                   <!-- <div class="ibox-title">
-                   </div> -->
-                   <div class="ibox-content">
-                   <h1 class="no-margins">
-
-                   <?php echo $careUnit; ?>
-                   </h1>
-                   <h5 class="text-primary"><strong>Total Care Unit</strong></h5>
-                   </div>
-                   <img src="<?php echo base_url(); ?>uploads/form.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
-               </div>
-           </div>
-
-           <div class="col-lg-3 dashboardBoxes">
-               <div style="background-color:#DAEBFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
-                   <!-- <div class="ibox-title">
-                   </div> -->
-                   <div class="ibox-content">
-                   <h1 class="no-margins">
-
-                   <?php echo $initial_dx; ?>
-                   </h1>
-                   <h5 class="text-primary"><strong>Total Infections</strong></h5>
-                   </div>
-                   <img src="<?php echo base_url(); ?>uploads/form.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
-               </div>
-           </div>
-           
-           <div class="col-lg-3 dashboardBoxes">
-                   <div style="background-color:#D0FAE4; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
-                       <!-- <div class="ibox-title">
-                       </div> -->
-                       <div class="ibox-content">
-                           <h1 class="no-margins"><?php echo $initial_rx; ?></h1>
-                           <h5 class="text-primary"><strong>Total Antibiotic</strong></h5>
-                       </div>
-                       <img src="<?php echo base_url(); ?>uploads/form.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
-                   </div>
-           </div>
-
-           <div class="col-lg-3 dashboardBoxes">
-                   <div style="background-color:#D0FAE4; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
-                       <!-- <div class="ibox-title">
-                       </div> -->
-                       <div class="ibox-content">
-                           <h1 class="no-margins"><?php echo $total_patient_today; ?></h1>
-                           <h5 class="text-primary"><strong>Total Patient Today</strong></h5>
-                       </div>
-                       <img src="<?php echo base_url(); ?>uploads/form.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
-                   </div>
-           </div>
->>>>>>> b91f13e4201e7195f073c3691c5bef7973f4de47
-
-
-
-
 
 <div class="col-lg-4 col-md-6 dashboardBoxes">
     <div style="background-color:<?php echo $total_patient_today > 0 ? '#F9F5FF' : '#F9F5FF'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
@@ -595,10 +521,8 @@
 </div>
                 
 
-
-                                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-                                <script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+ <script>
     document.addEventListener("DOMContentLoaded", function() {
         const ctx = document.getElementById('myChart');
         new Chart(ctx, {
@@ -671,163 +595,186 @@
 
    
 
-                        <?php } else if ($this->ion_auth->is_facilityManager()) { ?>
+<?php } else if ($this->ion_auth->is_facilityManager()) { ?>
 
-                            <div class="col-lg-4">
-                            <div class="ibox float-e-margins">
-                                <div class="ibox-title">
-                                </div>
-                                <div class="ibox-content">
-                                <h1 class="no-margins">
+<div>
+<div>
+<div class="col-lg-4 col-md-6 dashboardBoxes">
+    <div style="background-color:<?php echo $total_patient > 0 ? '#EDEAFF' : '#FFFFFF'; ?>;box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
+        <div class="ibox-content">
+        <h1 class="no-margins"> <?php echo $total_patient; ?> </h1>
+        <h5 class="text-primary"><strong>Total Patient</strong></h5>
+        </div>
+        <img src="<?php echo base_url(); ?>uploads/patient.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+    </div>
+</div>
 
-                                <?php echo $total_patient; ?>
-                                </h1>
-                                <h5 class="text-primary"><strong>Total Patient</strong></h5>
-                                </div>
-                            </div>
-                        </div>
+<div class="col-lg-4 col-md-6  dashboardBoxes">
+    <div style="background-color:<?php echo $careUnit > 0 ? '#FEE2E1' : '#FFFFFF'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
+        <div class="ibox-content">
+        <h1 class="no-margins"><?php echo $doctors; ?></h1>
+       <h5 class="text-primary"><strong>Total Doctor</strong></h5>
+        </div>
+        <img src="<?php echo base_url(); ?>uploads/doctor.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+    </div>
+</div>
+
+<div class="col-lg-4 col-md-6  dashboardBoxes">
+    <div style="background-color:<?php echo $initial_dx > 0 ? '#DAEBFF' : '#FFFFFF'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
+        <div class="ibox-content">
+        <h1 class="no-margins"><?php echo $careUnit; ?></h1>
+         <h5 class="text-primary"><strong>Total Care Unit</strong></h5>
+        </div>
+        <img src="<?php echo base_url(); ?>uploads/patient1.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+    </div>
+</div>
+
+<div class="col-lg-4 col-md-6  dashboardBoxes">
+    <div style="background-color:<?php echo $initial_rx > 0 ? '#D0FAE4' : '#FFFFFF'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
+        <div class="ibox-content">
+        <h1 class="no-margins"><?php echo $initial_dx; ?></h1>
+         <h5 class="text-primary"><strong>Total Infections</strong></h5>
+        </div>
+        <img src="<?php echo base_url(); ?>uploads/respiratory.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+    </div>
+</div>
+
+<div class="col-lg-4 col-md-6 dashboardBoxes">
+    <div style="background-color:<?php echo $total_patient_today > 0 ? '#D0FAE4' : '#FFFFFF'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
+        <div class="ibox-content">
+        <h1 class="no-margins"><?php echo $initial_rx; ?></h1>
+  <h5 class="text-primary"><strong>Total Antibiotic</strong></h5>
+        </div>
+        <img src="<?php echo base_url(); ?>uploads/medicine.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+    </div>
+</div>
+
+<div class="col-lg-4 col-md-6 dashboardBoxes">
+    <div style="background-color:<?php echo $total_patient_today > 0 ? '#F9F5FF' : '#F9F5FF'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
+        <div class="ibox-content">
+        <h1 class="no-margins"><?php echo $total_patient_today; ?></h1>
+       <h5 class="text-primary"><strong>Total Patient Today</strong></h5>
+        </div>
+        <img src="<?php echo base_url(); ?>uploads/user.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+    </div>
+</div>
+
+</div>
+
+
+
+</div>
+
+
+
+
+<div class="row m-2">
+<div class="col-lg-6 mt-4">
+        <canvas id="myChart" style="width: 100%; height: 100%; background-color: #F9F5FF; padding: 15px;  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);"></canvas>
+    </div>
+    <div class="col-lg-6 mt-4">
+        <canvas id="myChart2" style="width: 100%; height: 100%;  background-color: #FFFAEC; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);"></canvas>
+    </div>   
+</div>
+                
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+ <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const ctx = document.getElementById('myChart');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [12, 19, 3, 5, 2, 3],
+                    borderWidth: 2,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.9)',
+                        'rgba(54, 162, 235, 0.9)',
+                        'rgba(255, 205, 86, 0.9)',
+                        'rgba(75, 192, 192, 0.9)',
+                        'rgba(153, 102, 255, 0.9)',
+                        'rgba(255, 159, 64, 0.9)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 205, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                maintainAspectRatio: false, // Allows chart to adjust its size based on the container size
+                responsive: true // Ensures chart responsiveness
+            }
+        });
+
+        const pie = document.getElementById('myChart2');
+        const data = {
+            labels: [
+                'Red',
+                'Blue',
+                'Yellow'
+            ],
+            datasets: [{
+                label: 'My First Dataset',
+                data: [300, 50, 100],
+                backgroundColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(54, 162, 235)',
+                    'rgb(255, 205, 86)'
+                ],
+                hoverOffset: 4
+            }]
+        };
+        const config = {
+            type: 'doughnut',
+            data: data,
+            options: {
+                maintainAspectRatio: false, // Allows chart to adjust its size based on the container size
+                responsive: true // Ensures chart responsiveness
+            }
+        };
+        new Chart(pie, config);
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                      
                         
-                        <div class="col-lg-4">
-                                <div class="ibox float-e-margins">
-                                    <div class="ibox-title">
-                                    </div>
-                                    <div class="ibox-content">
-                                        <h1 class="no-margins"><?php echo $doctors; ?></h1>
-                                        <h5 class="text-primary"><strong>Total Doctor</strong></h5>
-                                    </div>
-                                </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="ibox float-e-margins">
-                                <div class="ibox-title">
-                                        <!-- <div class="stat-percent font-bold text-primary"> <i class="fa fa-plus"></i></div> -->
-                                        <!-- <h5 class="text-primary"><strong>Care Unit</strong></h5> -->
-                                    </div>
-                                    <div class="ibox-content">
-                                        <h1 class="no-margins"><?php echo $careUnit; ?></h1>
-                                        <h5 class="text-primary"><strong>Total Care Unit</strong></h5>
-                                    </div>
-                                </div>
-                        </div>
+                   
 
-                        <div class="col-lg-4">
-                            <div class="ibox float-e-margins">
-                                    <div class="ibox-title">
-                                        <!-- <div class="stat-percent font-bold text-primary"> <i class="fa fa-plus"></i></div> -->
-                                        <!-- <h5 class="text-primary"><strong>Infections</strong></h5> -->
-                                    </div>
-                                    <div class="ibox-content">
-                                        <h1 class="no-margins"><?php echo $initial_dx; ?></h1>
-                                        <!-- <small>Total Infections</small> -->
-                                        <h5 class="text-primary"><strong>Total Infections</strong></h5>
-                                    </div>
-                                </div>
-                         </div>
 
-                        <div class="col-lg-4">
-                                <div class="ibox float-e-margins">
-                                    <div class="ibox-title">
-                                        <!-- <div class="stat-percent font-bold text-primary"> <i class="fa fa-plus"></i></div> -->
-                                        <!-- <h5 class="text-primary"><strong>Total Antibiotic</strong></h5> -->
-                                    </div>
-                                    <div class="ibox-content">
-                                        <h1 class="no-margins"><?php echo $initial_rx; ?></h1>
-                                        <!-- <small>Total Antibiotic</small> -->
-                                        <h5 class="text-primary"><strong>Total Antibiotic</strong></h5>
-                                    </div>
-                                </div>
-                        </div>
-
-                        <div class="col-lg-4">
-                                <div class="ibox float-e-margins">
-                                    <div class="ibox-title">
-                                        <!-- <div class="stat-percent font-bold text-primary"> <i class="fa fa-plus"></i></div> -->
-                                        <!-- <h5 class="text-primary"><strong>Patient Today</strong></h5> -->
-                                    </div>
-                                    <div class="ibox-content">
-                                        <h1 class="no-margins"><?php echo $total_patient_today; ?></h1>
-                                        <!-- <small>Total Patient Today</small> -->
-                                        <h5 class="text-primary"><strong>Total Patient Today</strong></h5>
-                                    </div>
-                                </div>
-                        </div>
-
-                        <div class="col-lg-6">
-                                <canvas id="myChart"></canvas>
-                                </div>
-                                <div class="col-lg-8">
-                                <canvas  id="myChart2"></canvas>
-                                </div>
-
-                                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-                                <script>
-                                const ctx = document.getElementById('myChart');
-
-                                new Chart(ctx, {
-                                type: 'bar',
-                                data: {
-                                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                                datasets: [{
-                                label: '# of Votes',
-                                data: [12, 19, 3, 5, 2, 3],
-                                borderWidth: 1
-                                }]
-                                },
-                                options: {
-                                scales: {
-                                y: {
-                                beginAtZero: true
-                                }
-                                }
-                                }
-                                });
-
-                                const pie = document.getElementById('myChart2');
-                                const data = {
-                                labels: [
-                                'Red',
-                                'Blue',
-                                'Yellow'
-                                ],
-                                datasets: [{
-                                label: 'My First Dataset',
-                                data: [300, 50, 100],
-                                backgroundColor: [
-                                'rgb(255, 99, 132)',
-                                'rgb(54, 162, 235)',
-                                'rgb(255, 205, 86)'
-                                ],
-                                hoverOffset: 4
-                                }]
-                                };
-                                const config = {
-                                type: 'doughnut',
-                                data: data,
-                                };
-                                new Chart(pie, {
-                                type: 'doughnut',
-                                data: {
-                                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                                datasets: [{
-                                label: '# of Votes',
-                                data: [12, 19, 3, 5, 2, 3],
-                                borderWidth: 1
-                                }]
-                                },
-                                options: {
-                                scales: {
-                                y: {
-                                beginAtZero: true
-                                }
-                                },
-                                layout: {
-                                padding: 200
-                                }
-                                }
-                                });
-
-                                </script>
 
 
                         <?php }else if($this->ion_auth->is_patient()){ ?>

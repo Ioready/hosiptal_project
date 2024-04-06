@@ -105,7 +105,7 @@
             <!-- END Alternative Sidebar -->
            
             <!-- Main Sidebar -->
-            <div id="sidebar"  class="bg-light" style="background-color: #FFFF !important; box-shadow: 2px 0px 2px rgba(0, 0, 0, 0.2);">
+            <div id="sidebar"  class="bg-light" >
                 <!-- Wrapper for scrolling functionality -->
                 <div id="sidebar-scroll">
                     <!-- Sidebar Content -->
@@ -508,6 +508,10 @@
                                 <!-- <li title="Contact">
                                     <a href="<?php echo site_url('contact'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "Contact") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/department.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp;Contacts</span></a>
                                 </li> -->
+
+                                <li title="Email Template">
+                <a href="<?php echo site_url('emailTemplate'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "emailTemplate") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/email.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Email Template</span></a>
+            </li>
                                
                                 <li title="Settings">
                                     <a href="<?php echo site_url('userSettings'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "userSettings") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/setting.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">&nbsp; Setting</span></a>
@@ -565,6 +569,10 @@
                                 <li title="Tutorial">
                                      <a href="<?php echo site_url('tutorials'); ?>" target="_blank" class=" <?php echo (strtolower($this->router->fetch_class()) == "howItWorks") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/tutorials.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark text-dark">&nbsp;Tutorials</span></a>
                                  </li>
+
+                                 <li title="Email Template">
+                <a href="<?php echo site_url('emailTemplate'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "emailTemplate") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/email.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Email Template</span></a>
+            </li>
                                 <!-- <li title="Recommendation">
                                     <a href="<?php echo site_url('recommendation'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "recommendation") ? "active" : "" ?>"><i class="fa fa-paper-plane sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Steward Communications</span></a>
                                 </li> -->
@@ -759,9 +767,8 @@
 <!-- </header> -->
 <!-- END Header -->
 
-                        <div id="main-container">                                                                    
-                <header class="navbar navbar-default d-flex justify-content-end" style="background-color: #FFFF; box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.4);">
-
+               <div id="main-container">                                                                    
+                <header class="navbar navbar-default d-flex justify-content-end">
                 <div class="newHeader pt-3 pb-3 ps-2 pe-4 d-flex justify-content-end align-items-center">
                     <div class="d-flex  align-items-center">
                         <img src="<?php echo base_url(); ?>uploads/user.png" style="height: 23px;width:23px; filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%)" alt="">
@@ -775,8 +782,8 @@
                         </h2> -->
                         
                         <h2 style="font-size: 1.5rem; font-weight:600" class="headerFonts ms-5">
-    <a href="javascript:void(0)" onclick="logout()" data-toggle="tooltip" data-placement="bottom" title="Logout" style="color:black;">Logout</a>
-</h2>
+                           <a href="javascript:void(0)" onclick="logout()" data-toggle="tooltip" data-placement="bottom" title="Logout" style="color:black;" >Logout</a>
+                      </h2>
 
                        </div>                                                                                             
                 </div>

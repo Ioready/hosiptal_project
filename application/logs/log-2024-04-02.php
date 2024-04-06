@@ -2046,3 +2046,14 @@ ERROR - 2024-04-02 17:00:30 --> 404 Page Not Found: /index
 ERROR - 2024-04-02 17:00:56 --> Could not find the language line "description_validation"
 ERROR - 2024-04-02 17:01:00 --> 404 Page Not Found: /index
 ERROR - 2024-04-02 17:03:58 --> Could not find the language line "description_validation"
+ERROR - 2024-04-02 17:22:27 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\controllers\FacilityManager.php 69
+ERROR - 2024-04-02 17:22:27 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\controllers\FacilityManager.php 69
+ERROR - 2024-04-02 17:22:27 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\controllers\FacilityManager.php 69
+ERROR - 2024-04-02 17:22:27 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\controllers\FacilityManager.php 69
+ERROR - 2024-04-02 17:22:27 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\facilityManager\controllers\FacilityManager.php 69
+ERROR - 2024-04-02 17:22:27 --> Could not find the language line "hospital_name_validation"
+ERROR - 2024-04-02 17:22:27 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-04-02 17:22:31 --> 404 Page Not Found: /index
+ERROR - 2024-04-02 17:22:38 --> 404 Page Not Found: /index
+ERROR - 2024-04-02 17:23:28 --> Could not find the language line "description_validation"
+ERROR - 2024-04-02 17:24:39 --> 404 Page Not Found: /index

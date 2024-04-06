@@ -68,18 +68,31 @@
                                             </a>
                                         </h2>
                                     <?php } ?>
-                                    <h2 class="fw-bold" style="float:right;"> Enable:</h2>
+                                    <div>
+  <div style="float:right;margin-top:-38px">
+    <label>Enable:</label>
+    <label class="switch">
+      <input type="checkbox" checked>
+      <span class="slider round " style="background-color:#6FD943;"></span>
+    </label>
+    <i class="fa fa-arrow-circle-up text-xl m-2"  style="font-size:20px; " aria-hidden="true"></i>
+
+  </div>
+</div>
+
+
+                                    <!-- <h2 class="fw-bold" style="float:right;"> Enable:</h2> -->
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="input1">*****************</label>
+                                            <label for="input1">Stripe key</label>
                                             <input type="text" class="form-control" id="input1" name="input1">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="input1">**********</label>
+                                            <label for="input1">Stripe Secret</label>
                                             <input type="text" class="form-control" id="input1" name="input1">
                                         </div>
                                     </div>

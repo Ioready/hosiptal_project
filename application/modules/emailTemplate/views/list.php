@@ -157,19 +157,19 @@
         <?php }?>
 
             </div>
-            <h2><a href="javascript:void(0)" onclick="open_modal('emailTemplate')" class="save-btn btn btn-sm btn-primary">
-            <i class="gi gi-circle_plus"></i> Email Template
+            <h2><a href="javascript:void(0)" onclick="open_modal('emailTemplate')" class="btn btn-sm btn-primary" style="background:#337ab7;">
+            <i class="gi gi-circle_plus m-2"></i> Email Template
             </a></h2>   
             <div class="table-responsive">
                 <table id="common_datatable_cms" class="table table-vcenter table-condensed table-bordered text-center">
                     <thead>
                         <tr>                                            
-                            <th  class="t-head text-center"><?php echo lang('serial_no'); ?></th>
-                            <th class="t-head text-center">Email Type</th>
-                            <th class="t-head text-center" class="t-head">Title</th>
+                            <th  class="t-head text-center" style="font-size:14px"><?php echo lang('serial_no'); ?></th>
+                            <th class="t-head text-center" style="font-size:14px">Email Type</th>
+                            <th class="t-head text-center" class="t-head" style="font-size:14px">Title</th>
 <!--                            <th class="t-head"><?php echo lang('description'); ?></th>
                             <th class="t-head"><?php echo lang('image'); ?></th>-->
-                            <th class="t-head text-center"><?php echo lang('action'); ?></th>
+                            <th class="t-head text-center" style="font-size:14px"><?php echo lang('action'); ?></th>
                         </tr>
                     </thead>
                     <tbody>

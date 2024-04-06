@@ -140,7 +140,7 @@ CKEDITOR.replace('editor');
 
 
 
-
+<!-- 
     <div class="wrapper wrapper-content animated fadeIn">
     <div class="row">
         <div class="col-lg-12">
@@ -159,7 +159,6 @@ CKEDITOR.replace('editor');
                                 <?php echo $error; ?></div><?php endif; ?>
                         <div id="message"></div>
                         <div class="col-lg-12" style="overflow-x: auto">
-                            <!-- Datatables Content -->
                             <div class="block full">
                                 <div class="block-title">
                                     <h2 class="fw-bold"><strong><?php echo $title; ?></strong> Panel</h2>
@@ -173,14 +172,13 @@ CKEDITOR.replace('editor');
                                 </div>
                              
                             </div>
-                            <!-- END Datatables Content -->
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 
 
@@ -227,20 +225,20 @@ CKEDITOR.replace('editor');
             <table id="common_datatable_users" class="table table-vcenter table-condensed table-bordered text-center text-sm">
                 <thead>
                     <tr>
-                        <th class="text-center" style="width: 10px;">Sr. No</th>
+                        <th class="text-center" style="font-size:14px;">Sr. No</th>
                         <!--                                <th><?php echo "Referral Code"; ?></th>-->
-                        <th class="text-center"><?php echo "Hospital Name"; ?></th>
-                        <th class="text-center"><?php echo "User Name"; ?></th>
+                        <th class="text-center" style="font-size:14px;"><?php echo "Hospital Name"; ?></th>
+                        <th class="text-center" style="font-size:14px;"><?php echo "User Name"; ?></th>
                         <!-- <th class="text-center"><?php echo "Department"; ?></th> -->
                         <!-- <th class="text-center"><?php echo "Doctor Name"; ?></th> -->
-                        <th class="text-center"><?php echo lang('user_email'); ?></th>
+                        <th class="text-center" style="font-size:14px;"><?php echo lang('user_email'); ?></th>
 <!--                        <th class="text-center"><?php echo "Phone"; ?></th>-->
                         <!--  <th><?php echo "DOB"; ?></th> -->
                         <!--                                <th><?php echo "Current Password"; ?></th>-->
                         <!--                                <th><?php echo lang('profile_image'); ?></th>-->
-                        <th class="text-center">Created Date</th>
+                        <th class="text-center" style="font-size:14px;">Created Date</th>
                         <!--                                <th><?php //echo lang('user_createdate');     ?></th>-->
-                        <th class="text-center"><?php echo lang('action'); ?></th>
+                        <th class="text-center" style="font-size:14px;"><?php echo lang('action'); ?></th>
                     </tr>
                 </thead>
                 <tbody>
