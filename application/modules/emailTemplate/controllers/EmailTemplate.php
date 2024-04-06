@@ -75,8 +75,12 @@ class EmailTemplate extends Common_Controller {
     }
 
     public function index($defaultTemplateId = "4") {
+
         $this->data['parent'] = "emailTemplate";
         $this->data['title'] = "Email Templates";
+        $this->data['formUrl'] = $this->router->fetch_class() . "/sendEmailTemplate";
+
+        
     
         // Default template ID (if template_id is empty)
         $defaultTemplateId = 4;
@@ -148,10 +152,78 @@ class EmailTemplate extends Common_Controller {
 
         $this->data['EmailTemplates'] = $this->common_model->customGet($optionEmailTemplate);
 
-        // Load view with data
         return $this->load->admin_render('list', $this->data, 'inner_script');
+        // Load view with data
+        // return $this->load->admin_render('list', $this->data, 'inner_script');
     }
     
+
+    public function sendEmailTemplate()
+    {
+        
+      
+        $this->form_validation->set_rules('subject', lang('subject'), 'required');
+        
+        $this->form_validation->set_rules('from_mail', lang('from_mail'), 'required');
+        $user_id = $this->session->userdata('user_id');
+        if ($this->form_validation->run() == true) {
+                $from = $this->input->post('from_mail');
+               
+                    $additional_data = array(
+                        'user_id' => $user_id,
+                        'app_name' => $this->input->post('app_name'),
+                        'company_name' => $this->input->post('company_name'),
+                        'app_url' => $this->input->post('app_url'),
+                        'email' => $this->input->post('email'),
+                        'password' => $this->input->post('password'),
+                        'subject' => $this->input->post('subject'),
+                        'from_mail' => $this->input->post('from_mail'),
+                        'description' => $this->input->post('description'),
+                        // 'update_date' => date('Y-m-d H:i:s')
+                    );
+                    $this->db->insert('vendor_sale_send_mail_template', $additional_data);
+
+                    
+                    $password = $this->input->post('password');
+                    $option = array(
+                        'table' => USERS . ' as user',
+                        'select' => 'user.*,group.name as group_name',
+                        'join' => array(
+                            array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                            array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                        ),
+                        'order' => array('user.id' => 'DESC'),
+                        'where' => array('user.id'=>$user_id),
+                        'single'=>true,
+                    );
+            
+                    $authUser = $this->common_model->customGet($option);
+                    $email = $authUser->email;
+                    
+                    $subject = "Hospital Registration Login Credentials";
+                    $title = "Hospital Registration";
+                    $data['name'] = ucwords($this->input->post('app_name'));
+                    $data['content'] = "Hospital account login Credentials"
+                        . "<p>username: " . $from . "</p><p>Password: " . $password . "</p>";
+                    // $template = $this->load->view('user_signup_mail', $data, true);
+                    // print_r($data);die;
+                    // $template = $this->load->view('email-template/registration', $data, true);
+                    $template = $this->load->view('emailTemplate/list', $data, true);
+
+                    // $this->send_email($email, $from, $subject, $template, $title);
+                    
+                    $this->send_email_smtp($email, $from, $subject, $template, $title);
+ 
+                    $response = array('status' => 1, 'message' => lang('user_success'), 'url' => base_url('users'));
+                 
+            
+        } else {
+            $messages = (validation_errors()) ? validation_errors() : '';
+            $response = array('status' => 0, 'message' => $messages);
+        }
+        echo json_encode($response);
+    }
+
 
     /**
      * @method open_model

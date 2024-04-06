@@ -12,14 +12,14 @@
             form_name='addFormAjax';
         $("#"+form_name).validate({
             rules: {
-                page_id: "required",
-                description_en: "required",
-                description_el: "required",
+                subject: "required",
+                from_mail: "required",
+                
                 
             },
             messages: {
-                page_id: '<?php echo lang('page_id_validation');?>',
-                description: '<?php echo lang('description_validation');?>',
+                subject: '<?php echo lang('page_id_validation');?>',
+                from_mail: '<?php echo lang('from_mail_validation');?>',
                
                 
             },
