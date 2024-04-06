@@ -125,7 +125,7 @@
         <!-- END Datatables Content -->
     </div>
 
-    <div class="block full">
+    <!-- <div class="block full">
         
         <?php 
         $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
@@ -162,7 +162,7 @@
                                 <td class=""><?php echo $rows->secret_key; ?></td>
                                 
                                 <td><?php echo $rows->publishable_key ?></td>
-                                <!-- <td><?php echo $rows->status ?></td> -->
+                               
                                 <td class="text-center"><?php echo date('m/d/Y', $rows->created_on); ?></td>
                         
                                
@@ -194,7 +194,7 @@
                 </tbody>
             </table>
         </div>
-    </div>
+    </div> -->
 
 
    
