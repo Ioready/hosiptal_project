@@ -45,7 +45,7 @@
 
 
 
-    <div class="block full">
+    <!-- <div class="block full">
     <div class="block-title">
         <h2><strong>hospital</strong> Panel</h2>
     </div>
@@ -119,13 +119,13 @@
 
 
 
- <!-- CKEditor JS (CDN) -->
+
  <script src="https://cdn.ckeditor.com/4.17.2/standard/ckeditor.js"></script>
 
 <script>
-// Initialize CKEditor
+
 CKEDITOR.replace('editor');
-</script>
+</script> -->
 
 
 

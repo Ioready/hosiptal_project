@@ -38,7 +38,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" id="submit" class="btn btn-sm btn-primary">Save Changes</button>
+                    <button type="submit" id="submit" class="btn btn-sm btn-primary m-2" style="background: #337ab7;">Save Changes</button>
                 </div>
             </form>
         </div> <!-- /.modal-content -->

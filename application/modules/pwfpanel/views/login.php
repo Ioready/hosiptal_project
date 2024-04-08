@@ -113,6 +113,11 @@
                     <span style="text-align: center"><?php echo $success; ?></span>
                 </div>
             <?php } ?>
+            <?php if ($this->session->flashdata('error')): ?>
+    <div class="alert alert-danger">
+        <?php echo $this->session->flashdata('error'); ?>
+    </div>
+<?php endif; ?>
             <!-- Login Block -->
             <div class="block push-bit bg_color_login">
                 <!-- Login Form -->
@@ -134,12 +139,12 @@
                         </div>
                     </div>
                     <div class="form-group form-actions">
-                        <!--<div class="col-xs-12">
-                            <label class="switch switch-primary" data-toggle="tooltip" title="Remember Me?">
-                                <input type="checkbox" id="remember" name="remember" value="1" checked>
-                                <span></span>
-                            </label>
-                        </div> -->
+                    <div class="col-xs-12">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="gi gi-lock"></i></span>
+                                <input type="text" id="uniq_id" name="uniq_id" class="form-control input-lg" placeholder="Fill the token for doctor and patients">
+                            </div>
+                        </div>
 
                         <div class="col-xs-12">
                             <label  data-toggle="tooltip">
@@ -157,7 +162,7 @@
 
 
                         <div class="col-xs-12 text-right-login_admin">
-                            <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-angle-right"></i> Login to Dashboard</button>
+                            <button type="submit" class="btn btn-sm btn-primary m-2" style="background: #337ab7;"><i class="fa fa-angle-right"></i> Login to Dashboard</button>
                         </div>
 
                         <div class="col-xs-12">
@@ -168,7 +173,7 @@
                         </div></div>
 
                         <div class="col-xs-12 text-right-login_admin" style="margin-top:13px;">
-                            <button class="btn btn-sm btn-primary"><a style="color:#ffffff" href="https://buy.stripe.com/test_4gwg1g78y5PHgs86oo">Create new account</a></button>
+                            <button class="btn btn-sm btn-primary m-2" style="background: #337ab7;"><a style="color:#ffffff" href="https://buy.stripe.com/test_4gwg1g78y5PHgs86oo">Create new account</a></button>
                         </div>
 
 

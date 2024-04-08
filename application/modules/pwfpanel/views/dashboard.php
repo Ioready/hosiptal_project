@@ -439,55 +439,76 @@
 
 
 
-<div class="col-lg-3 col-md-6 dashboardBoxes">
-    <div style="background-color:<?php echo $total_patient > 0 ? '#EDEAFF' : '#FFFFFF'; ?>;box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
-        <div class="ibox-content">
-        <h1 class="no-margins"><?php echo $total_patient; ?></h1>
-            <h5 class="text-primary"><strong>Total Patient</strong></h5>
-        </div>
-        <img src="<?php echo base_url(); ?>uploads/patient.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
-    </div>
-</div>
+                       <div class="ibox-content">
 
-<div class="col-lg-3 col-md-6  dashboardBoxes">
-    <div style="background-color:<?php echo $careUnit > 0 ? '#FEE2E1' : '#FFFFFF'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
-        <div class="ibox-content">
-            <h1 class="no-margins"><?php echo $careUnit; ?></h1>
-            <h5 class="text-primary"><strong>Total Care Unit</strong></h5>
-        </div>
-        <img src="<?php echo base_url(); ?>uploads/intravenous-therapy.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
-    </div>
-</div>
+                       <h1 class="no-margins">
 
-<div class="col-lg-3 col-md-6  dashboardBoxes">
-    <div style="background-color:<?php echo $initial_dx > 0 ? '#DAEBFF' : '#FFFFFF'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
-        <div class="ibox-content">
-            <h1 class="no-margins"><?php echo $initial_dx; ?></h1>
-            <h5 class="text-primary"><strong>Total Infections</strong></h5>
-        </div>
-        <img src="<?php echo base_url(); ?>uploads/respiratory.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
-    </div>
-</div>
+                       <?php echo $total_patient; ?>
+                       </h1>
+                       <h5 class="text-primary"><strong>Total Patient</strong></h5>
+                       </div>
+                    </div>
+                    <img src="<?php echo base_url(); ?>uploads/form.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+               </div>
+           </div>
 
-<div class="col-lg-3 col-md-6  dashboardBoxes">
-    <div style="background-color:<?php echo $initial_rx > 0 ? '#D0FAE4' : '#FFFFFF'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
-        <div class="ibox-content">
-            <h1 class="no-margins"><?php echo $initial_rx; ?></h1>
-            <h5 class="text-primary"><strong>Total Antibiotic</strong></h5>
-        </div>
-        <img src="<?php echo base_url(); ?>uploads/medicine.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
-    </div>
-</div>
+           <div class="col-lg-3 dashboardBoxes">
+               <div style="background-color:#FEE2E1; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);"  class="ibox float-e-margins">
+                   <!-- <div class="ibox-title">
+                   </div> -->
+                   <div class="ibox-content">
+                   <h1 class="no-margins">
 
-<div class="col-lg-4 col-md-6 dashboardBoxes">
-    <div style="background-color:<?php echo $total_patient_today > 0 ? '#D0FAE4' : '#FFFFFF'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
-        <div class="ibox-content">
-            <h1 class="no-margins"><?php echo $total_patient_today; ?></h1>
-            <h5 class="text-primary"><strong>Total Patient Today</strong></h5>
-        </div>
-        <img src="<?php echo base_url(); ?>uploads/patient1.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
-    </div>
-</div>
+                   <?php echo $careUnit; ?>
+                   </h1>
+                   <h5 class="text-primary"><strong>Total Care Unit</strong></h5>
+                   </div>
+                   <img src="<?php echo base_url(); ?>uploads/form.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+               </div>
+           </div>
+
+           <div class="col-lg-3 dashboardBoxes">
+               <div style="background-color:#DAEBFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
+                   <!-- <div class="ibox-title">
+                   </div> -->
+                   <div class="ibox-content">
+                   <h1 class="no-margins">
+
+                   <?php echo $initial_dx; ?>
+                   </h1>
+                   <h5 class="text-primary"><strong>Total Infections</strong></h5>
+                   </div>
+                   <img src="<?php echo base_url(); ?>uploads/form.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+               </div>
+           </div>
+           
+           <div class="col-lg-3 dashboardBoxes">
+                   <div style="background-color:#D0FAE4; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
+                       <!-- <div class="ibox-title">
+                       </div> -->
+                       <div class="ibox-content">
+                           <h1 class="no-margins"><?php echo $initial_rx; ?></h1>
+                           <h5 class="text-primary"><strong>Total Antibiotic</strong></h5>
+                       </div>
+                       <img src="<?php echo base_url(); ?>uploads/form.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+                   </div>
+           </div>
+
+           <div class="col-lg-3 dashboardBoxes">
+                   <div style="background-color:#D0FAE4; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
+                       <!-- <div class="ibox-title">
+                       </div> -->
+                       <div class="ibox-content">
+                           <h1 class="no-margins"><?php echo $total_patient_today; ?></h1>
+                           <h5 class="text-primary"><strong>Total Patient Today</strong></h5>
+                       </div>
+                       <img src="<?php echo base_url(); ?>uploads/form.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+                   </div>
+           </div>
+
+
+
+
 
 <div class="col-lg-4 col-md-6 dashboardBoxes">
     <div style="background-color:<?php echo $total_patient_today > 0 ? '#F9F5FF' : '#F9F5FF'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
@@ -597,161 +618,214 @@
 
 <?php } else if ($this->ion_auth->is_facilityManager()) { ?>
 
-<div>
-<div>
-<div class="col-lg-4 col-md-6 dashboardBoxes">
-    <div style="background-color:<?php echo $total_patient > 0 ? '#EDEAFF' : '#FFFFFF'; ?>;box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
-        <div class="ibox-content">
-        <h1 class="no-margins"> <?php echo $total_patient; ?> </h1>
-        <h5 class="text-primary"><strong>Total Patient</strong></h5>
-        </div>
-        <img src="<?php echo base_url(); ?>uploads/patient.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
-    </div>
-</div>
+                        
+                            <div class="col-lg-4 dashboardBoxes">
+                                    <div style="background-color:#D0FAE4; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
+                                        <!-- <div class="ibox-title">
+                                        </div> -->
+                                        <div class="ibox-content">
+                                            <h1 class="no-margins"><?php echo $initial_rx; ?></h1>
+                                            <h5 class="text-primary"><strong>Total Today Appointment</strong></h5>
+                                        </div>
+                                        <img src="<?php echo base_url(); ?>uploads/appointment.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+                                    </div>
+                            </div>
 
-<div class="col-lg-4 col-md-6  dashboardBoxes">
-    <div style="background-color:<?php echo $careUnit > 0 ? '#FEE2E1' : '#FFFFFF'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
-        <div class="ibox-content">
-        <h1 class="no-margins"><?php echo $doctors; ?></h1>
-       <h5 class="text-primary"><strong>Total Doctor</strong></h5>
-        </div>
-        <img src="<?php echo base_url(); ?>uploads/doctor.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
-    </div>
-</div>
+                            <div class="col-lg-4 col-md-6 dashboardBoxes">
+                                <div style="background-color:<?php echo $total_patient > 0 ? '#F9F5FF' : '#F9F5FF'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
+                                    <div class="ibox-content">
+                                        <h1 class="no-margins"><?php echo $total_patient; ?></h1>
+                                        <h5 class="text-primary"><strong>Total Patient </strong></h5>
+                                    </div>
+                                    <img src="<?php echo base_url(); ?>uploads/user.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+                                </div>
+                            </div>
 
-<div class="col-lg-4 col-md-6  dashboardBoxes">
-    <div style="background-color:<?php echo $initial_dx > 0 ? '#DAEBFF' : '#FFFFFF'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
-        <div class="ibox-content">
-        <h1 class="no-margins"><?php echo $careUnit; ?></h1>
-         <h5 class="text-primary"><strong>Total Care Unit</strong></h5>
-        </div>
-        <img src="<?php echo base_url(); ?>uploads/patient1.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
-    </div>
-</div>
-
-<div class="col-lg-4 col-md-6  dashboardBoxes">
-    <div style="background-color:<?php echo $initial_rx > 0 ? '#D0FAE4' : '#FFFFFF'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
-        <div class="ibox-content">
-        <h1 class="no-margins"><?php echo $initial_dx; ?></h1>
-         <h5 class="text-primary"><strong>Total Infections</strong></h5>
-        </div>
-        <img src="<?php echo base_url(); ?>uploads/respiratory.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
-    </div>
-</div>
-
-<div class="col-lg-4 col-md-6 dashboardBoxes">
-    <div style="background-color:<?php echo $total_patient_today > 0 ? '#D0FAE4' : '#FFFFFF'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
-        <div class="ibox-content">
-        <h1 class="no-margins"><?php echo $initial_rx; ?></h1>
-  <h5 class="text-primary"><strong>Total Antibiotic</strong></h5>
-        </div>
-        <img src="<?php echo base_url(); ?>uploads/medicine.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
-    </div>
-</div>
-
-<div class="col-lg-4 col-md-6 dashboardBoxes">
-    <div style="background-color:<?php echo $total_patient_today > 0 ? '#F9F5FF' : '#F9F5FF'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
-        <div class="ibox-content">
-        <h1 class="no-margins"><?php echo $total_patient_today; ?></h1>
-       <h5 class="text-primary"><strong>Total Patient Today</strong></h5>
-        </div>
-        <img src="<?php echo base_url(); ?>uploads/user.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
-    </div>
-</div>
-
-</div>
+                        
 
 
+           <div class="col-lg-4 dashboardBoxes">
+               <div style="background-color:#DAEBFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
+                   <!-- <div class="ibox-title">
+                   </div> -->
+                   <div class="ibox-content">
+                   <h1 class="no-margins">
 
-</div>
+                   <?php echo $doctors; ?>
+                   </h1>
+                   <h5 class="text-primary"><strong>Total Doctor</strong></h5>
+                   </div>
+                   <img src="<?php echo base_url(); ?>uploads/doctor.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+               </div>
+           </div>
+
+           <div class="col-lg-4 dashboardBoxes">
+               <div style="background-color:#FEE2E1; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);"  class="ibox float-e-margins">
+                   <!-- <div class="ibox-title">
+                   </div> -->
+                   <div class="ibox-content">
+                   <h1 class="no-margins">
+
+                   <?php echo $careUnit; ?>
+                   </h1>
+                   <h5 class="text-primary"><strong>Total Care Unit Department</strong></h5>
+                   </div>
+                   <img src="<?php echo base_url(); ?>uploads/department.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+               </div>
+           </div>
+
+           <div class="col-lg-4 dashboardBoxes">
+               <div style="background-color:#BABCC; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
+                   <!-- <div class="ibox-title">
+                   </div> -->
+                   <div class="ibox-content">
+                   <h1 class="no-margins">
+
+                   <?php echo $doctors; ?>
+                   </h1>
+                   <h5 class="text-primary"><strong>Total Operation</strong></h5>
+                   </div>
+                   <img src="<?php echo base_url(); ?>uploads/operation.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+               </div>
+           </div>
+
+           <div class="col-lg-4 dashboardBoxes">
+               <div style="background-color:#DAEBFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
+                   <!-- <div class="ibox-title">
+                   </div> -->
+                   <div class="ibox-content">
+                   <h1 class="no-margins">
+
+                   <?php echo $initial_dx; ?>
+                   </h1>
+                   <h5 class="text-primary"><strong>Total Infections</strong></h5>
+                   </div>
+                   <img src="<?php echo base_url(); ?>uploads/Infections.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+               </div>
+           </div>
 
 
+           <div class="col-lg-4 dashboardBoxes">
+                   <div style="background-color:#D0FAE4; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
+                       <!-- <div class="ibox-title">
+                       </div> -->
+                       <div class="ibox-content">
+                           <h1 class="no-margins"><?php echo $initial_rx; ?></h1>
+                           <h5 class="text-primary"><strong>Total Antibiotic</strong></h5>
+                       </div>
+                       <img src="<?php echo base_url(); ?>uploads/Antibiotic.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+                   </div>
+           </div>
 
+                        
 
-<div class="row m-2">
-<div class="col-lg-6 mt-4">
-        <canvas id="myChart" style="width: 100%; height: 100%; background-color: #F9F5FF; padding: 15px;  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);"></canvas>
-    </div>
-    <div class="col-lg-6 mt-4">
-        <canvas id="myChart2" style="width: 100%; height: 100%;  background-color: #FFFAEC; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);"></canvas>
-    </div>   
-</div>
+           <div class="col-lg-4 col-md-6 dashboardBoxes">
+                                <div style="background-color:<?php echo $total_patient_today > 0 ? '#F9F5FF' : '#F9F5FF'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
+                                    <div class="ibox-content">
+                                        <h1 class="no-margins"><?php echo $total_patient_today; ?></h1>
+                                        <h5 class="text-primary"><strong>Total Patient Today </strong></h5>
+                                    </div>
+                                    <img src="<?php echo base_url(); ?>uploads/user.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+                                </div>
+                            </div>
+
+           <div class="col-lg-4 dashboardBoxes">
+               <div style="background-color:#DAEBFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
+                   <!-- <div class="ibox-title">
+                   </div> -->
+                   <div class="ibox-content">
+                   <h1 class="no-margins">
+
+                   <?php echo $initial_dx; ?>
+                   </h1>
+                   <h5 class="text-primary"><strong>Total Earning</strong></h5>
+                   </div>
+                   <img src="<?php echo base_url(); ?>uploads/earning.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+               </div>
+           </div>
+
+                        <div class="row m-2">
+                    <div class="col-lg-6 mt-4">
+                            <canvas id="myChart" style="width: 100%; height: 100%; background-color: #F9F5FF; padding: 15px;  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);"></canvas>
+                        </div>
+                        <div class="col-lg-6 mt-4">
+                            <canvas id="myChart2" style="width: 100%; height: 100%;  background-color: #FFFAEC; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);"></canvas>
+                        </div>   
+                    </div>
                 
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
- <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const ctx = document.getElementById('myChart');
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                datasets: [{
-                    label: '# of Votes',
-                    data: [12, 19, 3, 5, 2, 3],
-                    borderWidth: 2,
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.9)',
-                        'rgba(54, 162, 235, 0.9)',
-                        'rgba(255, 205, 86, 0.9)',
-                        'rgba(75, 192, 192, 0.9)',
-                        'rgba(153, 102, 255, 0.9)',
-                        'rgba(255, 159, 64, 0.9)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 205, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                },
-                maintainAspectRatio: false, // Allows chart to adjust its size based on the container size
-                responsive: true // Ensures chart responsiveness
-            }
-        });
 
-        const pie = document.getElementById('myChart2');
-        const data = {
-            labels: [
-                'Red',
-                'Blue',
-                'Yellow'
-            ],
-            datasets: [{
-                label: 'My First Dataset',
-                data: [300, 50, 100],
-                backgroundColor: [
-                    'rgb(255, 99, 132)',
-                    'rgb(54, 162, 235)',
-                    'rgb(255, 205, 86)'
-                ],
-                hoverOffset: 4
-            }]
-        };
-        const config = {
-            type: 'doughnut',
-            data: data,
-            options: {
-                maintainAspectRatio: false, // Allows chart to adjust its size based on the container size
-                responsive: true // Ensures chart responsiveness
-            }
-        };
-        new Chart(pie, config);
-    });
-</script>
+                                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+                                                            <script>
+                                document.addEventListener("DOMContentLoaded", function() {
+                                    const ctx = document.getElementById('myChart');
+                                    new Chart(ctx, {
+                                        type: 'bar',
+                                        data: {
+                                            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                                            datasets: [{
+                                                label: '# of Votes',
+                                                data: [12, 19, 3, 5, 2, 3],
+                                                borderWidth: 2,
+                                                backgroundColor: [
+                                                    'rgba(255, 99, 132, 0.9)',
+                                                    'rgba(54, 162, 235, 0.9)',
+                                                    'rgba(255, 205, 86, 0.9)',
+                                                    'rgba(75, 192, 192, 0.9)',
+                                                    'rgba(153, 102, 255, 0.9)',
+                                                    'rgba(255, 159, 64, 0.9)'
+                                                ],
+                                                borderColor: [
+                                                    'rgba(255, 99, 132, 1)',
+                                                    'rgba(54, 162, 235, 1)',
+                                                    'rgba(255, 205, 86, 1)',
+                                                    'rgba(75, 192, 192, 1)',
+                                                    'rgba(153, 102, 255, 1)',
+                                                    'rgba(255, 159, 64, 1)'
+                                                ],
+                                            }]
+                                        },
+                                        options: {
+                                            scales: {
+                                                y: {
+                                                    beginAtZero: true
+                                                }
+                                            },
+                                            maintainAspectRatio: false, // Allows chart to adjust its size based on the container size
+                                            responsive: true // Ensures chart responsiveness
+                                        }
+                                    });
 
-
-
+                                    const pie = document.getElementById('myChart2');
+                                    const data = {
+                                        labels: [
+                                            'Red',
+                                            'Blue',
+                                            'Yellow'
+                                        ],
+                                        datasets: [{
+                                            label: 'My First Dataset',
+                                            data: [300, 50, 100],
+                                            backgroundColor: [
+                                                'rgb(255, 99, 132)',
+                                                'rgb(54, 162, 235)',
+                                                'rgb(255, 205, 86)'
+                                            ],
+                                            hoverOffset: 4
+                                        }]
+                                    };
+                                    const config = {
+                                        type: 'doughnut',
+                                        data: data,
+                                        options: {
+                                            maintainAspectRatio: false, // Allows chart to adjust its size based on the container size
+                                            responsive: true // Ensures chart responsiveness
+                                        }
+                                    };
+                                    new Chart(pie, config);
+                                });
+                            </script>
 
 
 
@@ -763,6 +837,105 @@
 
 
 
+<div>
+<div class="row ">
+    <div class="col-md-8 mt-4">
+        <div class="card recent-sales overflow-auto" style="background-color: #FFFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);">
+            <div class="card-body">
+                <h5 class="card-title fw-bold">Upcoming Appointments <span>| <a href="#" class="btn btn-primary btn-sm" style="background: #337ab7;">View all</a></span></h5>
+                <div class="table-responsive">
+                    <table class="table table-borderless datatable">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">Appointment With</th>
+                                <th scope="col">Time</th>
+                                <th scope="col">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
+                                <td>B Bernardo Galaviz <br> New York, USA</td>
+                                <td>Dr. Cristina Groves</td>
+                                <td>7.00 PM</td>
+                                <td><a href="appointments.html"><span class="badge bg-primary">Take Up</span></a></td>
+                            </tr>
+                            <tr>
+                                <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
+                                <td>B Bernardo Galaviz <br> New York, USA</td>
+                                <td>Dr. Cristina Groves</td>
+                                <td>7.00 PM</td>
+                                <td><a href="appointments.html"><span class="badge bg-primary">Take Up</span></a></td>
+                            </tr>
+                            <tr>
+                                <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
+                                <td>B Bernardo Galaviz <br> New York, USA</td>
+                                <td>Dr. Cristina Groves</td>
+                                <td>7.00 PM</td>
+                                <td><a href="appointments.html"><span class="badge bg-primary">Take Up</span></a></td>
+                            </tr>
+                            <tr>
+                                <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
+                                <td>B Bernardo Galaviz <br> New York, USA</td>
+                                <td>Dr. Cristina Groves</td>
+                                <td>7.00 PM</td>
+                                <td><a href="appointments.html"><span class="badge bg-primary">Take Up</span></a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mt-4">
+        <div class="card recent-sales overflow-auto" style="background-color: #FFFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);">
+            <div class="card-body">
+                <h5 class="card-title fw-bold">Doctors</h5>
+                <div class="table-responsive">
+                    <table class="table table-borderless datatable">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Doctors</th>
+                                <th scope="col">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
+                                <td>John Doe <br>MBBS, MD</td>
+                                <td><span class="badge bg-success">Online</span></td>
+                            </tr>
+                            <tr>
+                                <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
+                                <td>John Doe <br>MBBS, MD</td>
+                                <td><span class="badge bg-danger">Offline</span></td>
+                            </tr>
+
+                            <tr>
+                                <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
+                                <td>John Doe <br>MBBS, MD</td>
+                                <td><span class="badge bg-success">Online</span></td>
+                            </tr>
+                            <tr>
+                                <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
+                                <td>John Doe <br>MBBS, MD</td>
+                                <td><span class="badge bg-success">Online</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer text-center bg-white">
+                    <a href="doctors.html" class="text-muted fw-bold">View all Doctors</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
 
 
 
@@ -770,8 +943,125 @@
 
 
 
-                      
+
+
+
+<div>
+<div class="row">
+    <div class="col-md-8 mt-4">
+        <div class="card recent-sales overflow-auto">
+            <div class="card-body">
+                <h5 class="card-title fw-bold">New Patients <span>|  <a href="<?php echo site_url('patient'); ?>" style="background: #337ab7;" class="btn  btn-primary btn-sm <?php echo (strtolower($this->router->fetch_class()) == "patient") ? "active" : "" ?>">View all</a></span></h5>
+                <table class="table table-borderless datatable">
+                    <thead>
+                        <tr>
+                            <th scope="col">Image</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Gmail</th>
+                            <th scope="col">phone</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                        <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
+                            <td>Fever</td>
+                            <td>Johndoe21@gmail.com</td>
+                            <td>+1-202-555-0125</td>
+                            <td><a href="appointments.html"><span class="badge bg-primary">Cancer</span></a></td>
+                        </tr>
+                        <tr>
+                        <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
+                            <td>Fever</td>
+                            <td>Johndoe21@gmail.com</td>
+                            <td>+1-202-555-0125</td>
+                            <td><a href="appointments.html"><span class="badge bg-primary">Fever</span></a></td>
+                        </tr>
+                        <tr>
+                        <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
+                            <td>Fever</td>
+                            <td>Johndoe21@gmail.com</td>
+                            <td>+1-202-555-0125</td>
+                            <td><a href="appointments.html"><span class="badge bg-primary">Cancer</span></a></td>
+                        </tr>
+                        <tr>
+                        <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
+                            <td>Fever</td>
+                            <td>Johndoe21@gmail.com</td>
+                            <td>+1-202-555-0125</td>
+                            <td><a href="appointments.html"><span class="badge bg-primary">Fever</span></a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mt-4">
+        <div class="card recent-sales overflow-auto">
+            <div class="card-body">
+                <h5 class="card-title fw-bold">Hospital Management</h5>
+                <table class="table table-borderless datatable">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col"> Patient</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row"><a href="#">1</a></th>
+                            <td>OPD Patient</td>
+                            <td><span class="badge bg-warning">16%</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><a href="#">1</a></th>
+                            <td>OPD Patient</td>
+                            <td><span class="badge bg-success">16%</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><a href="#">1</a></th>
+                            <td>OPD Patient</td>
+                            <td><span class="badge bg-success">16%</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><a href="#">1</a></th>
+                            <td>OPD Patient</td>
+                            <td><span class="badge bg-success">16%</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><a href="#">1</a></th>
+                            <td>OPD Patient</td>
+                            <td><span class="badge bg-success">16%</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><a href="#">1</a></th>
+                            <td>OPD Patient</td>
+                            <td><span class="badge bg-success">16%</span></td>
+                        </tr>
                         
+                    </tbody>
+                </table>
+              
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+
+
+
+
+                    <!-- <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/style.css"> -->
+    
+          
+                    
+
+
+                                
                    
 
 
@@ -1285,6 +1575,36 @@ li{
     }
 }
 /* Responsiveness:End */
+
+
+
+
+
+
+
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #8886; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+
+
 </style>
 
   

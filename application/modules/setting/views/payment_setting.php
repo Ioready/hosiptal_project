@@ -1,4 +1,5 @@
 <!-- Page content -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.js"></script>
 <div id="page-content">
     <!-- Datatables Header -->
     <ul class="breadcrumb breadcrumb-top">
@@ -45,19 +46,11 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-content">
                     <div class="row">
-                        <?php
-                        $message = $this->session->flashdata('success');
-                        if (!empty($message)):
-                            ?><div class="alert alert-success">
-                                <?php echo $message; ?></div><?php endif; ?>
-                        <?php
-                        $error = $this->session->flashdata('error');
-                        if (!empty($error)):
-                            ?><div class="alert alert-danger">
-                                <?php echo $error; ?></div><?php endif; ?>
-                        <div id="message"></div>
+                        
                         <div class="col-lg-12" style="overflow-x: auto">
                             <!-- Datatables Content -->
+                            <form role="form" id="addFormAjax" method="post" action="<?php echo base_url('setting/addPaymentSetting') ?>" enctype="multipart/form-data">
+
                             <div class="block full">
                                 <div class="block-title">
                                     <h2 class="fw-bold"><strong><?php echo $title; ?></strong> Panel</h2>
@@ -83,17 +76,48 @@
 
                                     <!-- <h2 class="fw-bold" style="float:right;"> Enable:</h2> -->
                                 </div>
+                               
+                                <div class="alert alert-danger" id="error-box" style="display: none"></div>
+                               
                                 <div class="row">
-                                    <div class="col-md-6">
+                                <?php
+                                $message = $this->session->flashdata('success');
+                                if (!empty($message)):
+                                    ?>
+                                    <div class="alert alert-success">
+                                        <?php echo $message; ?>
+                                    </div>
+                                <?php endif; ?>
+                                <?php
+                                $error = $this->session->flashdata('error');
+                                if (!empty($error)):
+                                    ?>
+                                    <div class="alert alert-danger">
+                                        <?php echo $error; ?>
+                                    </div>
+                                <?php endif; ?>
+                                <div id="message"></div>
+
+                                    <div class="col-md-6" style="">
                                         <div class="form-group">
+<<<<<<< HEAD
                                             <label for="input1">Stripe key</label>
                                             <input type="text" class="form-control" id="input1" name="input1">
+=======
+                                            <label for="input1">Secret key</label>
+                                            <input type="text" class="form-control" id="secret_key" name="secret_key">
+>>>>>>> 9ad44c9b01e15cd66d8f1cf56bd75cf37e958e11
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
+<<<<<<< HEAD
                                             <label for="input1">Stripe Secret</label>
                                             <input type="text" class="form-control" id="input1" name="input1">
+=======
+                                            <label for="input1">Publishable key</label>
+                                            <input type="text" class="form-control" id="publishable_key" name="publishable_key">
+>>>>>>> 9ad44c9b01e15cd66d8f1cf56bd75cf37e958e11
                                         </div>
                                     </div>
                                    
@@ -101,23 +125,105 @@
                                     <!-- Add save and cancel buttons -->
                                     <div class="col-md-12 text-right">
                                         <button class="btn btn-danger" type="button">Cancel</button>
-                                        <button class="btn  btn-primary " style="background:#337ab7;" type="button"> Save </button>
+                                        <button class="btn  btn-primary " style="background:#337ab7;" type="submit"> Save </button>
                                     </div>
+                                   
                                 </div>
                             </div>
+
+                            </form>
                             <!-- END Datatables Content -->
                         </div>
                     </div>
+
+                    
                 </div>
             </div>
+           
         </div>
     </div>
+   
 </div>
 
         <!-- END Datatables Content -->
     </div>
+
+    <div class="block full">
+        
+        <?php 
+        $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+        ?>
+
+        <div class="table-responsive">
+            <table id="common_datatable_users" class="table table-vcenter table-condensed table-bordered">
+                <thead>
+                    <tr>
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 40px;">Sr. No</th>
+                       
+
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 200px;"><?php echo "Secret Key"; ?></th>
+
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 200px;"><?php echo "Publishable Key"; ?></th>
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 200px;"><?php echo "Date"; ?></th>
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width:60px;"><?php echo lang('action'); ?></th>
+                     
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                   
+                    if (isset($list) && !empty($list)):
+                        $rowCount = 0;
+                        foreach ($list as $rows):
+                            $rowCount++;
+                            ?>
+                            
+                            <tr>
+                            
+                                <td class="text-center "><strong><?php echo $rowCount; ?></strong></td> 
+                                
+                                <td class=""><?php echo $rows->secret_key; ?></td>
+                                
+                                <td><?php echo $rows->publishable_key ?></td>
+                                <!-- <td><?php echo $rows->status ?></td> -->
+                                <td class="text-center"><?php echo date('m/d/Y', $rows->created_on); ?></td>
+                        
+                               
+                                <td class="actions text-center" >
+                                    <div class="btn-group btn-group-xs">
+                                        <a href="<?php echo base_url() . 'setting/edit?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-pencil"></i></a>
+                                        
+                                            <?php
+                                            
+                                                if ($rows->status == 1) {
+                                                    ?>
+                                                 <a href="javascript:void(0)" data-toggle="tooltip" class="btn btn-xs btn-success" onclick="statusFn('<?php echo setting; ?>', 'id', '<?php echo encoding($rows->id); ?>', '<?php echo $rows->status; ?>')" title="Inactive Now"><i class="fa fa-check"></i></a>
+                                                <?php } else { ?>
+                                                <a href="javascript:void(0)" data-toggle="tooltip" class="btn btn-xs btn-danger" onclick="statusFn('<?php echo setting; ?>', 'id', '<?php echo encoding($rows->id); ?>', '<?php echo $rows->status; ?>')" title="Active Now"><i class="fa fa-times"></i></a>
+                                                    <?php
+                                                }
+                                                ?>
+                                                <a href="javascript:void(0)" style="margin-left: 10px;" data-toggle="tooltip"   onclick="deleteFn('<?php echo setting; ?>', 'id', '<?php echo encoding($rows->id); ?>', 'contactus', 'contactus/delVendors','<?php echo $rows->first_name . ' ' . $rows->last_name; ?>')" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                           
+                                        </div>
+                                    </td>
+                                </tr>
+                               
+                                <?php
+                            endforeach;
+                    endif;
+                
+                    ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+   
     <!-- END Page Content -->
 </div>
+
 
 <style>
     .save-btn.active {

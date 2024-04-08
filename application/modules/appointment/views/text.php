@@ -6,12 +6,12 @@
         <li>
             <a href="<?php echo site_url('pwfpanel');?>">Home</a>
         </li>
-        <li class="fw-bold">
+        <li>
             <a href="<?php echo site_url('appointment');?>"><?php echo $title;?></a>
         </li>
     </ul>
     <!-- END Datatables Header -->
-    <!-- Datatables Content --> 
+    <!-- Datatables Content -->
     <div style="border-radius:12px" class="block full">
     <div class="block-title">
             <?php if ($this->ion_auth->is_subAdmin()) { ?>
@@ -33,101 +33,65 @@
 
 
         <div class="block-title d-flex justify-content-center">
-            <h2 s tyle="font-size: 2rem !important;
-    font-weight: bold !important; color:black !important;" ><strong><?php echo $title;?></strong> Panel</h2>
+            <h2 style="font-size: 2rem !important;
+    font-weight: 700 !important;" ><strong><?php echo $title;?></strong> Panel</h2>
         </div>
 
         <!-- <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('index.php/' .$formUrl) ?>" enctype="multipart/form-data"> -->
-
-
-
-<!-- 
-        <div class="modal-header text-center">
-    <div class="form-group save-btn fw-bold mb-3">
-        <div class="d-flex justify-content-between">
-            <div id="dateDisplay"></div>
-            <div>
-                <button class="btn btn-sm btn-primary me-4" onclick="filterByPreDate()">Previous Date</button>
-                <button class="btn btn-sm btn-primary me-4" onclick="filterByToday()">Today's Appointments</button>
-                <button class="btn btn-sm btn-primary mt-4" onclick="filterByNextDate()">Next Date Appointments</button>
-            </div>
-        </div>
-    </div>
-    <form action="<?php echo site_url('appointment'); ?>" name="patientForm" method="get" class="d-flex justify-content-between align-items-center flex-wrap">
-        <select id="appointmentType" name="appointment_id" class="form-control mb-3 me-2" onchange="fetchData()">
-            <option value="clinic_appointment">Clinic Appointment</option>
-            <option value="theatre_appointment">Theatre Appointment</option>
-            <option value="availability">Availability</option>
-            <option value="out_of_office">Out Of Office</option>
-        </select>
-        <select id="appointmentType" name="appointment_id" class="form-control mb-3 me-2" onchange="fetchData()">
-            <option value="clinic_appointment">Clinic Appointment</option>
-            <option value="theatre_appointment">Theatre Appointment</option>
-            <option value="availability">Availability</option>
-            <option value="out_of_office">Out Of Office</option>
-        </select>
-        <button type="submit" class="btn btn-primary mb-3">Search</button>
-    </form>
-</div> -->
-
-
-<!-- <div style="display: flex; flex-direction: column; align-items: center;" class="modal-header text-center"> 
-    <div class="form-group save-btn" style="margin-top: 10px;">
-        <div id="dateDisplay" class="text-center"></div>
-    </div>
-    <div class="form-group save-btn" style="display: flex;">
-        <button class="btn btn-sm btn-primary" style="background:#337ab7; margin-right: 15px;" onclick="filterByPreDate()">Previous Date</button>
-        <button class="btn btn-sm btn-primary" style="background:#337ab7; margin-right: 15px;" onclick="filterByToday()">Today's Appointments</button>
-        <button class="btn btn-sm btn-primary" style="background:#337ab7; margin-right: 15px;" onclick="filterByNextDate()">Next Date Appointments</button>
-         <form action="<?php echo site_url('appointment'); ?>" name="patientForm" method="get" style="flex: 1; display: flex; justify-content: space-between;">
-        <select id="appointmentType" name="appointment_id" class="form-control" onchange="fetchData()" style="margin-right: 10px;">
-            <option value="clinic_appointment">Clinic Appointment</option>
-            <option value="theatre_appointment">Theatre Appointment</option>
-            <option value="availability">Availability</option>
-            <option value="out_of_office">Out Of Office</option>
-        </select>
-        <button type="submit" class="btn btn-primary" style="background:#337ab7;  margin-right: 10px;">Search</button>
-    </form>
-    </div>  
-</div> -->
-
-
-
-
-
-<div style="display: flex; flex-direction: column; align-items: center;" class="modal-header text-center">
-    <div class="form-group save-btn mt-4 " style="margin-left: 40px; ">
-        <div class="form-group save-btn fw-bold" id="dateDisplay"></div>
-        <div style="display: flex;">
-            <button class="btn btn-sm btn-primary" style="background:#337ab7; margin-right: 15px;" onclick="filterByPreDate()">Previous Date</button>
-            <button class="btn btn-sm btn-primary" style="background:#337ab7; margin-right: 15px;" onclick="filterByToday()">Today's Appointments</button>
-            <button class="btn btn-sm btn-primary" style="background:#337ab7;" onclick="filterByNextDate()">Next Date Appointments</button>
-        </div>
-    </div>
-    <form action="<?php echo site_url('appointment'); ?>" name="patientForm" method="get">
-        <div class="row justify-content-center">
-            <div class="col-sm-6 col-lg-8 col-md-8" style="margin-right: 10px;">
-                <select id="appointmentType" name="appointment_id" class="form-control" onchange="fetchData()">                 
-                    <option value="clinic_appointment">Clinic Appointment</option>
-                    <option value="theatre_appointment">Theatre Appointment</option>
-                    <option value="availability">Availability</option>
-                    <option value="out_of_office">Out Of Office</option>
-                </select>
-            </div>
-            <div class="col-sm-3 col-lg-3 col-md-3">
-                <button type="submit" style="background:#337ab7" class="btn btn-sm btn-primary">Search</button>
-            </div>
-        </div>
-    </form>
-</div>
-
-
-
-
-
-        
             
-    
+        <div style=" display:flex;" class="modal-header text-center">
+         
+            
+            
+            
+            
+        <?php if ($this->ion_auth->is_facilityManager()) { ?>
+
+            
+              <div class="col-sm-4 col-lg-4 col-md-4" style="margin-right: 10px;">
+              <label for="">Select Doctor</label>
+                    <select id="appointmentType" name="appointment_id" class="form-control" onchange="fetchData()">                 
+                    <option value="" disabled>Select Doctor</option>
+                    <?php
+                  if (!empty($doctors)) {
+                      foreach ($doctors as $doctor) { ?>
+                          <option value="<?php echo $doctor->id; ?>"><?php echo $doctor->first_name.' '.$doctor->last_name; ?></option>
+                  <?php }
+                  }
+                  ?>
+
+                    </select>
+
+                  
+              </div>
+              <?php }else if($this->ion_auth->is_subAdmin()){
+                ?>
+             <div class="col-sm-4 col-lg-4 col-md-4" style="margin-right: 10px;">
+                    <select id="appointmentType" name="appointment_id" class="form-control" onchange="fetchData()">                 
+                    <!-- <option value="" disabled>Select hospital</option> -->
+                    <?php
+                  // if (!empty($hospitals)) {
+                  //     foreach ($hospitals as $hospital) { ?>
+                          <!-- <option value="<?php echo $hospital->id; ?>"><?php echo $hospital->name; ?></option> -->
+                  <?php 
+                 // }
+                  //}
+                  ?>
+
+                    </select>
+                  
+              </div>
+            <?php } ?>
+
+                <div class="form-group save-btn">
+
+                <div class="form-group save-btn" id="dateDisplay"></div>
+
+                <button class="btn btn-sm btn-primary" style="background:#337ab7" onclick="filterByPreDate()">Previous Date</button>
+                <button class="btn btn-sm btn-primary" style="background:#337ab7" onclick="filterByToday()">Today's Appointments</button>
+                <button class="btn btn-sm btn-primary" style="background:#337ab7" onclick="filterByNextDate()">Next Date Appointments</button>
+
+            </div>
 
             </div>
             <!-- <div class="alert alert-danger" id="error-box" style="display: none"></div> -->

@@ -12,41 +12,7 @@
    
     <!-- END Quick Stats -->
     <?php if ($this->ion_auth->is_admin() or $this->ion_auth->is_subAdmin() or $this->ion_auth->is_facilityManager()) { ?>
-        <div class="block full">
-            <div class="row text-center">
-            
-                <div class="col-sm-6 col-lg-12">
-                
-                </div>
-                <div class="col-sm-6 col-lg-12">
-                    <div class="panel panel-default">
-                      
-                        <div style="margin: 0px 0px 20px 16px;">
-                            
-
-                                        <ul class="nav nav-pills nav-fill nav-tabss" id="pills-tab" role="tablist" >
-                                            <li class="nav-item">
-                                            <a  href="<?php echo site_url('userSettings'); ?>" class="save-btn <?php echo (strtolower($this->router->fetch_class()) == "userSettings") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">Users</span></a>
-                                                <!-- <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-1" role="tab">Practice Contacts</a> -->
-                                            </li>
-                                            <li class="nav-item">
-                                            <a href="<?php echo site_url('userSettings/letterTemplate'); ?>" class="save-btn <?php echo (strtolower($this->router->fetch_class()) == "letterTemplate") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">Letter Templates</span></a>
-                                                <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-2" role="tab"></a>
-                                            </li>
-                                            <li class="nav-item">
-                                            <a href="<?php echo site_url('userSettings/consultationTemplates'); ?>" class="save-btn <?php echo (strtolower($this->router->fetch_class()) == "consultationTemplates") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">Consultation Templates</span></a>
-                                                <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-2" role="tab"></a>
-                                            </li>
-                                        </ul>
-                                        
-                            </div> 
-                            <div class="panel-body">
-                            
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
 
     <?php } ?>
     <!-- Datatables Content -->
@@ -54,17 +20,17 @@
     <div class="block full">
 
           <div class="block-title">
-            <!-- <?php if ($this->ion_auth->is_subAdmin()) { ?>
+            <?php if ($this->ion_auth->is_subAdmin()) { ?>
                 <h2>
-                    <a href="<?php echo base_url().'index.php/' . $this->router->fetch_class(); ?>/open_model" class="btn btn-sm btn-primary">
+                    <a href="<?php echo base_url().'index.php/' . $this->router->fetch_class(); ?>/add_new_template" class="btn btn-sm save-btn">
                         <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
                     </a></h2>
             <?php }else if($this->ion_auth->is_facilityManager()){ ?>
                     <h2>
-                    <a href="<?php echo base_url() . $this->router->fetch_class(); ?>/open_model" class="btn btn-sm btn-primary">
+                    <a href="<?php echo base_url() . $this->router->fetch_class(); ?>/add_new_template" class="btn btn-sm save-btn">
                         <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
                     </a></h2>
-                <?php } ?> -->
+                <?php } ?>
           </div>
 
         <div class="block-title">
@@ -81,28 +47,11 @@
                         <div class="form-group">
             
                                 <div class="col-md-12">
-                                <h2>Users</h2>
+                                <h2>Letters Templates List</h2>
                             <form id="timeSlotForm" action="submit.php" method="post">
                                     
-                            <div style="overflow-x: auto; overflow-y: auto; width: auto; height: auto;">
-
-                           <p>Add members of your team to Semble. New users must set up a password to be validated. 
-                            If you want to limit user access so they only see certain patients you need to set up Access groups. 
-                            If you want appointments to be associated with clinicians then you must add at least one user who is a clinician. 
-                            You also need to assign the Products that each clinician provides.</p>
-                        
-                            <div class="table-responsive user-setting">          
-                                <div style="background-color:#b4bdb4;">
-                                    <div class="col-md-1">
-                                        <span class="help-block m-b-none col-md-offset-3"> <i class="fa fa-question-circle" style="font-size:22px;"></i></span>
-                                    </div>
-                                    <div class="col-md-8">
-                                    Before you add a user check your agreement. It is likely you will automatically be charged for adding additional users, or for marking a user as a clinician.
-                                    </div>
-                                </div>
-                            </div><br>
-                                    
-                            </div>
+                            
+                            <!-- </div> -->
                              <!-- <input type="date" id="date" name="date" class="form-control" required> -->
                             </div>
                             
@@ -136,19 +85,12 @@
             <thead>
                     <tr>
                         <th style="background-color:#DBEAFF;font-size:1.3rem;width:10px;" >Sr. No</th>
-                        <th  style="background-color:#DBEAFF;font-size:1.3rem;">Date Of Start ABX</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem;">Patient ID</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem;">Care Unit</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem;">Provider MD</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem;">Diagnosis</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem;">Room Number</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem;">Infection Onset</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem;">Total Days</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem;">Culture Source</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem;">Organism</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem;">Antibiotic Name</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem;">MD Steward</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem;"><?php echo lang('action'); ?></th>
+                        <th  style="background-color:#DBEAFF;font-size:1.3rem;">Header Name</th>
+                        <th  style="background-color:#DBEAFF;font-size:1.3rem;">Header logo</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem;">Bodies</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem;">Recipients</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem;">Footer</th>
+                        <!-- <th style="background-color:#DBEAFF;font-size:1.3rem;"><?php echo lang('action'); ?></th> -->
                     </tr>
                 </thead>
 
@@ -156,113 +98,52 @@
 
 
                     <?php
-                    //if(!empty($careUnitsUser_list)){
-
-
-                    if (!empty($careUnitsUser_list)) {
+                    
+                    if (!empty($template_list)) {
                         $rowCount = 0;
-                        foreach ($careUnitsUser_list as $rows) {
+                        foreach ($template_list as $rows) {
                             $rowCount++;
-                            //print_r($rows);die;
+                            // print_r($rows);die;
+                            if(!empty($rows->internal_name)){
+
+                           
 
                     ?>
-
-
                             <tr>
                                 <td><?php echo $rowCount; ?></td>
-                                <td><?php echo date('m/d/Y', strtotime($rows->date_of_start_abx)); ?></td>
-                                <td><?php echo $rows->pid; ?></td>
-                                <td><?php echo $rows->name; ?></td>
-                                <td><?php echo $rows->doctor_name; ?></td>
-                                <td><?php echo $rows->initial_dx_name; ?></td>
-                                <td><?php echo $rows->room_number; ?></td>
-                                <?php if ($rows->symptom_onset == 'Facility') { ?>
-                                    <td><?php echo 'Facility/HAI'; ?></td>
-                                <?php } else if ($rows->symptom_onset == 'Hospital') { ?>
-                                    <td><?php echo 'Hospital/CAI'; ?></td>
-                                <?php } else { ?>
-                                    <td><?php echo 'NULL'; ?></td>
-                                <?php } ?>
-
-                                <td><?php echo $rows->initial_dot; ?></td>
-
-                                <?php if (!empty($rows->culture_source_name)) { ?>
-                                    <td><?php echo $rows->culture_source_name; ?></td>
-                                <?php } else { ?>
-                                    <td><?php echo 'NULL'; ?></td>
-                                <?php } ?>
-
-                                <?php if (!empty($rows->organism_name)) { ?>
-                                    <td><?php echo $rows->organism_name; ?></td>
-                                <?php } else { ?>
-                                    <td><?php echo 'NULL'; ?></td>
-                                <?php } ?>
-
-                                <td><?php echo $rows->initial_rx_name; ?></td>
-                                <td><?php echo ucfirst($rows->md_stayward); ?></td>
-                                <td class="actions">
-                                    <a href="javascript:void(0)" class="btn btn-default" onclick="editFn('index.php/patient', 'edit_patient', '<?php echo encoding($rows->patient_id) ?>', 'patient');"><i class="fa fa-pencil"></i></a>
-                                    <!--                 <a href="<?php echo base_url() . 'patient/edit?id=' . encoding($rows->patient_id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-eye"></i></a> -->
-                                    <!--                                    <a href="<?php echo base_url() . 'patient/edit_parient?id=' . encoding($rows->patient_id); ?>" data-toggle="tooltip" class="btn btn-default" target="_blank"><i class="fa fa-pencil"></i></a>-->
+                                <td><?php echo $rows->internal_name; ?></td>
+                                <td  ><img width="100px;" src="<?php echo ('http://localhost/hosiptal_project/uploads/'. $rows->header_logo); ?>" alt="header"></td>
+                                <td><?php echo $rows->bodies_template; ?></td>
+                                <td><?php echo $rows->recipient_template; ?></td>
+                                <!-- <td><?php echo $rows->logo; ?></td> -->
+                                <td  ><img width="100px;" src="<?php echo ('http://localhost/hosiptal_project/uploads/'. $rows->logo); ?>" alt="footer"></td>
+                                <!-- <td class="actions"> -->
+                                    <?php
+                                // if($rows->status ==0){
+                                //     echo 'Active'; 
+                                // }else{
+                                //     echo 'Inactive' ; 
+                                // }
+                                 
+                                 ?>
+                                 <!-- </td> -->
+                                <!-- <td class="actions"> -->
+                                    <!-- <a href="javascript:void(0)" class="btn btn-default" onclick="editFn('index.php/patient', 'edit_patient', '<?php echo encoding($rows->id) ?>', 'patient');"><i class="fa fa-pencil"></i></a> -->
+                                    <!--                 <a href="<?php echo base_url() . 'patient/edit?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-eye"></i></a> -->
+                                    <!--                                    <a href="<?php echo base_url() . 'patient/edit_parient?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-default" target="_blank"><i class="fa fa-pencil"></i></a>-->
                                   
-                                    <a href="<?php echo base_url() . '/patient/existing_list/' . $rows->pid; ?>" target='_blank' data-toggle="tooltip" class="btn btn-default">View History</a>
-                                    <a href="javascript:void(0)" onclick="deletePatient('<?php echo $rows->patient_id; ?>')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+                                    <!-- <a href="<?php echo base_url() . '/patient/existing_list/' . $rows->pid; ?>" target='_blank' data-toggle="tooltip" class="btn btn-default">View History</a>
+                                    <a href="javascript:void(0)" onclick="deletePatient('<?php echo $rows->id; ?>')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a> -->
 
-                                </td>
+                                <!-- </td> -->
                             </tr>
 
 
                         <?php
                         }
                         //}
-                    } else {
-                        $rowCount = 0;
-                        foreach ($list as $rows) :
-                            $rowCount++;
-                        ?>
-                            <tr>
-                                <td><?php echo $rowCount; ?></td>
-                                <td><?php echo date('m/d/Y', strtotime($rows->date_of_start_abx)); ?></td>
-                                <td><?php echo $rows->pid; ?></td>
-                                <td><?php echo $rows->care_unit_name; ?></td>
-                                <td><?php echo $rows->doctor_name; ?></td>
-                                <td><?php echo $rows->initial_dx_name; ?></td>
-                                <td><?php echo $rows->room_number; ?></td>
-                                <?php if ($rows->symptom_onset == 'Facility') { ?>
-                                    <td><?php echo 'Facility/HAI'; ?></td>
-                                <?php } else if ($rows->symptom_onset == 'Hospital') { ?>
-                                    <td><?php echo 'Hospital/CAI'; ?></td>
-                                <?php } else { ?>
-                                    <td><?php echo 'NULL'; ?></td>
-                                <?php } ?>
-
-                                <td><?php echo $rows->initial_dot; ?></td>
-
-                                <?php if (!empty($rows->culture_source_name)) { ?>
-                                    <td><?php echo $rows->culture_source_name; ?></td>
-                                <?php } else { ?>
-                                    <td><?php echo 'NULL'; ?></td>
-                                <?php } ?>
-
-                                <?php if (!empty($rows->organism_name)) { ?>
-                                    <td><?php echo $rows->organism_name; ?></td>
-                                <?php } else { ?>
-                                    <td><?php echo 'NULL'; ?></td>
-                                <?php } ?>
-
-                                <td><?php echo $rows->initial_rx_name; ?></td>
-                                <td><?php echo ucfirst($rows->md_stayward); ?></td>
-                                <td class="actions">
-                                    <a href="javascript:void(0)" class="btn btn-default" onclick="editFn('index.php/patient', 'edit_patient', '<?php echo encoding($rows->patient_id) ?>', 'patient');"><i class="fa fa-pencil"></i></a>
-                                    <!--                 <a href="<?php echo base_url() . 'patient/edit?id=' . encoding($rows->patient_id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-eye"></i></a> -->
-                                    <!--                                    <a href="<?php echo base_url() . 'patient/edit_parient?id=' . encoding($rows->patient_id); ?>" data-toggle="tooltip" class="btn btn-default" target="_blank"><i class="fa fa-pencil"></i></a>-->
-                                    <a href="<?php echo base_url() . 'index.php/patient/existing_list/' . $rows->pid; ?>" target='_blank' data-toggle="tooltip" class="btn btn-default">View History</a>
-                                    <a href="javascript:void(0)" onclick="deletePatient('<?php echo $rows->patient_id; ?>')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
-
-                                </td>
-                            </tr>
-                    <?php
-                        endforeach;
+                    }
+                    
                     }
                     ?>
 
@@ -563,6 +444,9 @@ $(document).ready(function() {
 });
 
 </script>
+
+
+
 
 
 
