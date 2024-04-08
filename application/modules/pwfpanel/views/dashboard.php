@@ -347,7 +347,7 @@
                 </div>
                  <?php 
                 } else if($this->ion_auth->is_admin()){ ?>
-                <div class="button plan_button m-4">
+                <div class="button plan_button " style="margin-left:25px">
                 <!-- <a href="<?php echo site_url('stripePayments'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "stripePaymentController") ? "active" : "" ?>"> -->
                 <!-- <button >START FREE 7 DAYS TRIAL </button></a> -->
                 <a href="<?php echo base_url('make-stripe-payment?'.'id='.$row->id);?>" style="text-align: center; text-decoration: none; color: white;">
@@ -379,14 +379,14 @@
                     </div>
                 </div>
                 <div class="description">
-                    <!-- <ul>
+                    <ul>
                         <li>Lorem, ipsum dolor.</li>
                         <li>Harum, beatae laudantium.</li>
                         <li>Odit, fugit saepe.</li>
                         <li>Harum, veniam suscipit!</li>
                         <li>A, aut veritatis!</li>
                         <li>Aliquid, quasi repellat!</li>
-                    </ul> -->
+                    </ul>
                     <?php echo $row->plan_description; ?>
                 </div>
                 <?php if($this->ion_auth->is_admin()){ ?>
@@ -395,6 +395,8 @@
                     
                 </div> -->
                 <?php }?>
+
+                
                 <?php if($this->ion_auth->is_superAdmin()){ ?>
                 <div class="button plan_button">
                 
@@ -409,12 +411,14 @@
                 </div>
 
         <?php } else if($this->ion_auth->is_admin()){ ?>
-                <div class="button plan_button">
+                <div class="button plan_button" style="margin-left:25px">
                 
                 <!-- <a href="<?php echo site_url('stripePayments'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "stripePaymentController") ? "active" : "" ?>"> -->
                 <!-- <button >START FREE 7 DAYS TRIAL </button></a> -->
-                <a href="<?php echo base_url('make-stripe-payment?'.'id='.$row->id);?>"><button >START FREE 7 DAYS TRIAL </button></a>
-                <!-- <a href="<?php echo base_url('my-stripe?'.'id='.$row->id);?>"><button >START FREE 7 DAYS TRIAL </button></a> -->
+                <!-- <a href="<?php echo base_url('make-stripe-payment?'.'id='.$row->id);?>"><button >START FREE 7 DAYS TRIAL </button></a> -->
+                <a href="<?php echo base_url('make-stripe-payment?'.'id='.$row->id);?>" style="text-align: center; text-decoration: none; color: white;">
+                 <button style="background-color: transparent; border: none; padding: 0; cursor: pointer; margin:10px; margin-left:60px;" class="text-center">START FREE 7 DAYS TRIAL</button>
+                 </a>
                 </div>
                 <?php } ?>
 
@@ -433,12 +437,7 @@
                                             <!-- <h5 class="text-primary"><strong>Patient</strong></h5> -->
                         <?php } else if ($this->ion_auth->is_subAdmin()) { ?>
 
-                        
-                            <div class="col-lg-3 dashboardBoxes">
-                   
 
-                   <div style="background-color:#EDEAFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
-                       <div class="ibox-title">
 
                        <div class="ibox-content">
 
@@ -543,10 +542,8 @@
 </div>
                 
 
-
-                                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-                                <script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+ <script>
     document.addEventListener("DOMContentLoaded", function() {
         const ctx = document.getElementById('myChart');
         new Chart(ctx, {
@@ -619,10 +616,10 @@
 
    
 
-                        <?php } else if ($this->ion_auth->is_facilityManager()) { ?>
+<?php } else if ($this->ion_auth->is_facilityManager()) { ?>
 
                         
-                            <div class="col-lg-3 dashboardBoxes">
+                            <div class="col-lg-4 dashboardBoxes">
                                     <div style="background-color:#D0FAE4; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
                                         <!-- <div class="ibox-title">
                                         </div> -->
@@ -634,7 +631,7 @@
                                     </div>
                             </div>
 
-                            <div class="col-lg-3 col-md-6 dashboardBoxes">
+                            <div class="col-lg-4 col-md-6 dashboardBoxes">
                                 <div style="background-color:<?php echo $total_patient > 0 ? '#F9F5FF' : '#F9F5FF'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
                                     <div class="ibox-content">
                                         <h1 class="no-margins"><?php echo $total_patient; ?></h1>
@@ -647,7 +644,7 @@
                         
 
 
-           <div class="col-lg-3 dashboardBoxes">
+           <div class="col-lg-4 dashboardBoxes">
                <div style="background-color:#DAEBFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
                    <!-- <div class="ibox-title">
                    </div> -->
@@ -662,7 +659,7 @@
                </div>
            </div>
 
-           <div class="col-lg-3 dashboardBoxes">
+           <div class="col-lg-4 dashboardBoxes">
                <div style="background-color:#FEE2E1; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);"  class="ibox float-e-margins">
                    <!-- <div class="ibox-title">
                    </div> -->
@@ -677,8 +674,8 @@
                </div>
            </div>
 
-           <div class="col-lg-3 dashboardBoxes">
-               <div style="background-color:#BAABCC; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
+           <div class="col-lg-4 dashboardBoxes">
+               <div style="background-color:#BABCC; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
                    <!-- <div class="ibox-title">
                    </div> -->
                    <div class="ibox-content">
@@ -692,7 +689,7 @@
                </div>
            </div>
 
-           <div class="col-lg-3 dashboardBoxes">
+           <div class="col-lg-4 dashboardBoxes">
                <div style="background-color:#DAEBFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
                    <!-- <div class="ibox-title">
                    </div> -->
@@ -708,7 +705,7 @@
            </div>
 
 
-           <div class="col-lg-3 dashboardBoxes">
+           <div class="col-lg-4 dashboardBoxes">
                    <div style="background-color:#D0FAE4; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
                        <!-- <div class="ibox-title">
                        </div> -->
@@ -722,7 +719,7 @@
 
                         
 
-           <div class="col-lg-3 col-md-6 dashboardBoxes">
+           <div class="col-lg-4 col-md-6 dashboardBoxes">
                                 <div style="background-color:<?php echo $total_patient_today > 0 ? '#F9F5FF' : '#F9F5FF'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
                                     <div class="ibox-content">
                                         <h1 class="no-margins"><?php echo $total_patient_today; ?></h1>
@@ -732,7 +729,7 @@
                                 </div>
                             </div>
 
-           <div class="col-lg-3 dashboardBoxes">
+           <div class="col-lg-4 dashboardBoxes">
                <div style="background-color:#DAEBFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
                    <!-- <div class="ibox-title">
                    </div> -->
@@ -832,11 +829,240 @@
 
 
 
-                    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/style.css">
+
+
+
+
+
+
+
+
+<div>
+<div class="row ">
+    <div class="col-md-8 mt-4">
+        <div class="card recent-sales overflow-auto" style="background-color: #FFFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);">
+            <div class="card-body">
+                <h5 class="card-title fw-bold">Upcoming Appointments <span>| <a href="#" class="btn btn-primary btn-sm" style="background: #337ab7;">View all</a></span></h5>
+                <div class="table-responsive">
+                    <table class="table table-borderless datatable">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">Appointment With</th>
+                                <th scope="col">Time</th>
+                                <th scope="col">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
+                                <td>B Bernardo Galaviz <br> New York, USA</td>
+                                <td>Dr. Cristina Groves</td>
+                                <td>7.00 PM</td>
+                                <td><a href="appointments.html"><span class="badge bg-primary">Take Up</span></a></td>
+                            </tr>
+                            <tr>
+                                <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
+                                <td>B Bernardo Galaviz <br> New York, USA</td>
+                                <td>Dr. Cristina Groves</td>
+                                <td>7.00 PM</td>
+                                <td><a href="appointments.html"><span class="badge bg-primary">Take Up</span></a></td>
+                            </tr>
+                            <tr>
+                                <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
+                                <td>B Bernardo Galaviz <br> New York, USA</td>
+                                <td>Dr. Cristina Groves</td>
+                                <td>7.00 PM</td>
+                                <td><a href="appointments.html"><span class="badge bg-primary">Take Up</span></a></td>
+                            </tr>
+                            <tr>
+                                <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
+                                <td>B Bernardo Galaviz <br> New York, USA</td>
+                                <td>Dr. Cristina Groves</td>
+                                <td>7.00 PM</td>
+                                <td><a href="appointments.html"><span class="badge bg-primary">Take Up</span></a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mt-4">
+        <div class="card recent-sales overflow-auto" style="background-color: #FFFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);">
+            <div class="card-body">
+                <h5 class="card-title fw-bold">Doctors</h5>
+                <div class="table-responsive">
+                    <table class="table table-borderless datatable">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Doctors</th>
+                                <th scope="col">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
+                                <td>John Doe <br>MBBS, MD</td>
+                                <td><span class="badge bg-success">Online</span></td>
+                            </tr>
+                            <tr>
+                                <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
+                                <td>John Doe <br>MBBS, MD</td>
+                                <td><span class="badge bg-danger">Offline</span></td>
+                            </tr>
+
+                            <tr>
+                                <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
+                                <td>John Doe <br>MBBS, MD</td>
+                                <td><span class="badge bg-success">Online</span></td>
+                            </tr>
+                            <tr>
+                                <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
+                                <td>John Doe <br>MBBS, MD</td>
+                                <td><span class="badge bg-success">Online</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer text-center bg-white">
+                    <a href="doctors.html" class="text-muted fw-bold">View all Doctors</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div>
+<div class="row">
+    <div class="col-md-8 mt-4">
+        <div class="card recent-sales overflow-auto">
+            <div class="card-body">
+                <h5 class="card-title fw-bold">New Patients <span>|  <a href="<?php echo site_url('patient'); ?>" style="background: #337ab7;" class="btn  btn-primary btn-sm <?php echo (strtolower($this->router->fetch_class()) == "patient") ? "active" : "" ?>">View all</a></span></h5>
+                <table class="table table-borderless datatable">
+                    <thead>
+                        <tr>
+                            <th scope="col">Image</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Gmail</th>
+                            <th scope="col">phone</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                        <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
+                            <td>Fever</td>
+                            <td>Johndoe21@gmail.com</td>
+                            <td>+1-202-555-0125</td>
+                            <td><a href="appointments.html"><span class="badge bg-primary">Cancer</span></a></td>
+                        </tr>
+                        <tr>
+                        <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
+                            <td>Fever</td>
+                            <td>Johndoe21@gmail.com</td>
+                            <td>+1-202-555-0125</td>
+                            <td><a href="appointments.html"><span class="badge bg-primary">Fever</span></a></td>
+                        </tr>
+                        <tr>
+                        <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
+                            <td>Fever</td>
+                            <td>Johndoe21@gmail.com</td>
+                            <td>+1-202-555-0125</td>
+                            <td><a href="appointments.html"><span class="badge bg-primary">Cancer</span></a></td>
+                        </tr>
+                        <tr>
+                        <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
+                            <td>Fever</td>
+                            <td>Johndoe21@gmail.com</td>
+                            <td>+1-202-555-0125</td>
+                            <td><a href="appointments.html"><span class="badge bg-primary">Fever</span></a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mt-4">
+        <div class="card recent-sales overflow-auto">
+            <div class="card-body">
+                <h5 class="card-title fw-bold">Hospital Management</h5>
+                <table class="table table-borderless datatable">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col"> Patient</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row"><a href="#">1</a></th>
+                            <td>OPD Patient</td>
+                            <td><span class="badge bg-warning">16%</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><a href="#">1</a></th>
+                            <td>OPD Patient</td>
+                            <td><span class="badge bg-success">16%</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><a href="#">1</a></th>
+                            <td>OPD Patient</td>
+                            <td><span class="badge bg-success">16%</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><a href="#">1</a></th>
+                            <td>OPD Patient</td>
+                            <td><span class="badge bg-success">16%</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><a href="#">1</a></th>
+                            <td>OPD Patient</td>
+                            <td><span class="badge bg-success">16%</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><a href="#">1</a></th>
+                            <td>OPD Patient</td>
+                            <td><span class="badge bg-success">16%</span></td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+              
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+
+
+
+
+                    <!-- <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/style.css"> -->
     
-                    <div class="row m-2">
+          
+                    
 
 
+<<<<<<< HEAD
+=======
                         <div class="col-12 col-md-6 col-lg-8 col-xl-8">
                             <div class="card">
                                 <div class="card-header">
@@ -1157,109 +1383,9 @@
 
                     <div class="row m-2">
                             
+>>>>>>> 5f3769f431c62d7712db4f5996f345f8205ea5e4
                                 
-                    <div class="col-12 col-md-6 col-lg-8 col-xl-8">
-						<div class="card">
-							<div class="card-header">
-								<h4 class="card-title d-inline-block">New Patients </h4> <a href="<?php echo site_url('patient'); ?>" class="btn save-btn btn-primary float-right <?php echo (strtolower($this->router->fetch_class()) == "patient") ? "active" : "" ?>">View all</a>
-							</div>
-							<div class="card-block">
-								<div class="table-responsive">
-									<table class="table mb-0 new-patient-table">
-										<tbody>
-											<tr>
-												<td>
-													<img width="28" height="28" class="rounded-circle" src="assets/img/user.jpg" alt=""> 
-													<h2>John Doe</h2>
-												</td>
-												<td>Johndoe21@gmail.com</td>
-												<td>+1-202-555-0125</td>
-												<td><button class="btn btn-primary btn-primary-one float-right">Fever</button></td>
-											</tr>
-											<tr>
-												<td>
-													<img width="28" height="28" class="rounded-circle" src="assets/img/user.jpg" alt=""> 
-													<h2>Richard</h2>
-												</td>
-												<td>Richard123@yahoo.com</td>
-												<td>202-555-0127</td>
-												<td><button class="btn btn-primary btn-primary-two float-right">Cancer</button></td>
-											</tr>
-											<tr>
-												<td>
-													<img width="28" height="28" class="rounded-circle" src="assets/img/user.jpg" alt=""> 
-													<h2>Villiam</h2>
-												</td>
-												<td>Richard123@yahoo.com</td>
-												<td>+1-202-555-0106</td>
-												<td><button class="btn btn-primary btn-primary-three float-right">Eye</button></td>
-											</tr>
-											<tr>
-												<td>
-													<img width="28" height="28" class="rounded-circle" src="assets/img/user.jpg" alt=""> 
-													<h2>Martin</h2>
-												</td>
-												<td>Richard123@yahoo.com</td>
-												<td>776-2323 89562015</td>
-												<td><button class="btn btn-primary btn-primary-four float-right">Fever</button></td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-12 col-md-6 col-lg-4 col-xl-4">
-						<div class="hospital-barchart">
-							<h4 class="card-title d-inline-block">Hospital Management</h4>
-						</div>
-						<div class="bar-chart">
-							
-							<div class="chart clearfix">
-								<div class="item">
-									<div class="bar">
-										<span class="percent">16%</span>
-										<div class="item-progress" data-percent="16">
-											<span class="title">OPD Patient</span>
-										</div>
-									</div>
-								</div>
-								<div class="item">
-									<div class="bar">
-										<span class="percent">71%</span>
-										<div class="item-progress" data-percent="71">
-											<span class="title">New Patient</span>
-										</div>
-									</div>
-								</div>
-								<div class="item">
-									<div class="bar">
-										<span class="percent">82%</span>
-										<div class="item-progress" data-percent="82">
-											<span class="title">Laboratory Test</span>
-										</div>
-									</div>
-								</div>
-								<div class="item">
-									<div class="bar">
-										<span class="percent">67%</span>
-										<div class="item-progress" data-percent="67">
-											<span class="title">Treatment</span>
-										</div>
-									</div>
-								</div>
-								<div class="item">
-									<div class="bar">
-										<span class="percent">30%</span>									
-										<div class="item-progress" data-percent="30">
-											<span class="title">Discharge</span>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					 </div>
-                    </div>
+                   
 
 
 
@@ -1772,6 +1898,36 @@ li{
     }
 }
 /* Responsiveness:End */
+
+
+
+
+
+
+
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #8886; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+
+
 </style>
 
   

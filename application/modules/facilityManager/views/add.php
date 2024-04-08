@@ -18,44 +18,44 @@
         </div>
         <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('index.php/' .$formUrl) ?>" enctype="multipart/form-data">
             <div class="modal-header text-center">
-                <h2 class="modal-title"><i class="fa fa-pencil"></i> <?php echo (isset($title)) ? ucwords($title) : "" ?></h2>
+                <h2 class="modal-title fw-bold"><i class="fa fa-pencil"></i> <?php echo (isset($title)) ? ucwords($title) : "" ?></h2>
             </div>
-            <div class="alert alert-danger" id="error-box" style="display: none"></div>
+            <div class="alert alert-danger" id="error-box" style="display:none"></div>
             <div class="form-body mt-4 fw-bold">
                 <div class="row">
-                    <div class="col-md-12" >
+                    <div class="col-md-6" >
                         <div class="form-group">
-                            <label class="col-md-3 control-label fw-bold">Hospital Name</label>
-                            <div class="col-md-9">
+                            <label class="m-4 control-label fw-bold">Hospital Name</label>
+                            <div class="col-md-12">
                                 <input type="text" class="form-control" name="hospital_name" id="hospital_name" placeholder="Hospital Name" />
                             </div>
                              <!-- <span class="help-block m-b-none col-md-offset-3"><i class="fa fa-arrow-circle-o-up"></i> <?php echo lang('english_note');?></span>  -->
                         </div>
                     </div>
-                    <div class="col-md-12" >
+                    <div class="col-md-6" >
                         <div class="form-group">
-                            <label class="col-md-3 control-label fw-bold">First Name</label>
-                            <div class="col-md-9">
+                            <label class="m-4 control-label fw-bold">First Name</label>
+                            <div class="col-md-12">
                                 <input type="text" class="form-control" name="first_name" id="first_name" placeholder="First Name" />
                             </div>
                             <!-- <span class="help-block m-b-none col-md-offset-3"><i class="fa fa-arrow-circle-o-up"></i> <?php echo lang('english_note');?></span> -->
                         </div>
                     </div>
                     
-                <div class="col-md-12" >
+                <div class="col-md-6" >
                         <div class="form-group">
-                            <label class="col-md-3 control-label fw-bold">Last Name</label>
-                            <div class="col-md-9">
+                            <label class="m-4 control-label fw-bold">Last Name</label>
+                            <div class="col-md-12">
                                 <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Last Name" />
                             </div>
                              <!-- <span class="help-block m-b-none col-md-offset-3"><i class="fa fa-arrow-circle-o-up"></i> <?php echo lang('english_note');?></span>  -->
                         </div>
                     </div>
                     
-                     <div class="col-md-12" >
+                     <div class="col-md-6" >
                         <div class="form-group">
-                            <label class="col-md-3 control-label fw-bold"><?php echo lang('user_email');?></label>
-                            <div class="col-md-9">
+                            <label class="m-4 control-label fw-bold"><?php echo lang('user_email');?></label>
+                            <div class="col-md-12">
                                
                                 <input type="email" class="form-control" name="user_email" id="user_email" placeholder="<?php echo lang('user_email');?>"/>
                                 <?php $user_id = $this->session->userdata('user_id');?>
@@ -230,7 +230,7 @@
                                 
                                     <select id="country" name="country" class="form-control select2" size="1">
                                         <option value="0">Please select</option>
-<?php foreach ($countries as $country) { ?>
+                        <?php foreach ($countries as $country) { ?>
                                                         
                                             <option value="<?php echo $country->id; ?>"><?php echo $country->name; ?></option>
                                                     
@@ -273,10 +273,10 @@
                         </div>
                     </div>-->
                     
-                    <div class="col-md-12" >
+                    <div class="col-md-6" >
                         <div class="form-group">
-                            <label class="col-md-3 control-label fw-bold"><?php echo lang('password');?></label>
-                            <div class="col-md-9">
+                            <label class="m-4 control-label fw-bold"><?php echo lang('password');?></label>
+                            <div class="col-md-12">
                                 <input type="text" class="form-control" name="password" id="password" placeholder="<?php echo lang('password');?>" value="<?php echo randomPassword();?>"/>
                             </div>
                         </div>

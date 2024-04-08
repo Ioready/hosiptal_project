@@ -33,7 +33,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-sm btn-default" data-dismiss="modal"><?php echo lang('reset_btn');?></button>
-                    <button type="submit" id="submit" class="btn btn-sm btn-primary" ><?php echo lang('submit_btn');?></button>
+                    <button type="submit" id="submit" class="btn btn-sm btn-primary m-2" style="background: #337ab7;" ><?php echo lang('submit_btn');?></button>
                 </div>
             </form>
         </div> <!-- /.modal-content -->

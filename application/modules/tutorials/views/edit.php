@@ -25,8 +25,8 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Category</label>
-                                    <div class="col-md-9">
+                                    <label class="m-4 control-label">Category</label>
+                                    <div class="col-md-12">
                                         <select class="form-control" name="category_id" id="category_id">
 
                                             <?php foreach ($category as $cat) { ?>
@@ -40,8 +40,8 @@
 
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Tutorial</label>
-                                    <div class="col-md-9">
+                                    <label class="m-4 control-label">Tutorial</label>
+                                    <div class="col-md-12">
                                         <input type="text" class="form-control" name="tutorial" id="tutorial" value="<?php echo $results->tutorial; ?>" />
                                     </div>
                                 </div>
@@ -49,8 +49,8 @@
 
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Description</label>
-                                    <div class="col-md-9">
+                                    <label class="m-4 control-label">Description</label>
+                                    <div class="col-md-12">
                                         <textarea type="text" class="form-control ckeditor summernote" name="description" id="description"><?php echo $results->description; ?></textarea>
                                     </div>
                                 </div>
@@ -63,7 +63,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                    <button type="submit" id="submit" class="<?php echo THEME_BUTTON; ?>">Update</button>
+                    <button style="background: #337ab7;" class="btn btn-primary m-2"  type="submit" id="submit" class="<?php echo THEME_BUTTON; ?>">Update</button>
                 </div>
             </form>
         </div> <!-- /.modal-content -->

@@ -284,7 +284,7 @@
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-2 col-md-6 mb-3 mb-lg-0  ajay1-btn" >
-                                    <button type="button" class="btn btn-primary btn-sm form-control" onclick="un_days()"><i class="fa fa-undo"></i> Reset</button>
+                                    <button type="button"  class="btn btn-sm btn-danger  fw-bold"  onclick="un_days()"><i class="fa fa-undo"></i> Reset</button>
                                 </div>
                             </div>
                                     </div>
@@ -363,7 +363,7 @@
                                 </div>
 
                                 <div class="col-12 col-lg-2 col-md-6 mb-3 mb-lg-0 ajay1" style="padding-left:10px;">
-                                    <button type="button" id="moreFilters" class="btn btn-primary btn-sm form-control" onclick="toggleFilterOptions()" value="More filters">More filters</button>
+                                    <button type="button" id="moreFilters"  class="btn btn-md btn-primary  fw-bold" style="background:#337ab7;" onclick="toggleFilterOptions()" value="More filters">More filters</button>
                                 </div>
                                             </div>
                             </div>
@@ -434,135 +434,99 @@
                 </div> -->
 
 
-                        <div class="panel panel-default" id="filterOptions" style="display:none;">
-                            <div class="panel-body panel-bodyy">
+                <div class="panel panel-default" id="filterOptions" style="display:none;">
+    <div class="panel-body panel-bodyy">
+        <div class="row">
+            <div class="col-sm-12 col-lg-3">
+                <select id="provider_doctor" name="provider_doctor" class="form-control select-2" onchange="getAntibioticByCareUnit()">
+                    <option value="">Select Provider MD</option>
+                    <?php if (isset($doctors) && !empty($doctors)) {
+                        foreach ($doctors as $row) { ?>
+                            <option value="<?php echo $row->id; ?>"><?php echo $row->name; ?></option>
+                    <?php }
+                    } ?>
+                </select>
+            </div>
+            <?php if ($this->ion_auth->is_admin()) { ?>
+                <div class="col-sm-12 col-lg-3">
+                    <select id="md_steward_id" name="md_steward_id" class="form-control select-2" size="1">
+                        <option value="">Select MD Steward</option>
+                        <?php foreach ($staward as $row) { ?>
+                            <option value="<?php echo $row->id; ?>"><?php echo $row->first_name . ' ' . $row->last_name; ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+            <?php } else if ($this->ion_auth->is_facilityManager()) { ?>
+                <div class="col-sm-12 col-lg-3">
+                    <select id="steward" name="steward" class="form-control select-2" onchange="getAntibioticByCareUnit()">
+                        <option value="">Select MD Steward</option>
+                        <?php if (!empty($staward)) {
+                            $care = json_decode($staward[0]->md_steward_id);
+                            foreach ($care as $car) {
+                                $this->db->select('*');
+                                $this->db->from('vendor_sale_users');
+                                $this->db->where('id', $car);
+                                $query = $this->db->get();
+                                $row = $query->row();
+                        ?>
+                                <option value="<?php echo $row->id; ?>"><?php echo $row->first_name . ' ' . $row->last_name; ?></option>
+                        <?php }
+                        } ?>
+                    </select>
+                </div>
+            <?php } ?>
+            <div class="col-sm-12 col-lg-3">
+                <select id="RX" name="RX" class="form-control select-2" onchange="getAntibioticByCareUnit();">
+                    <option value="">Select Antibiotic</option>
+                    <?php if (!empty($initial_rx)) {
+                        foreach ($initial_rx as $row) { ?>
+                            <option value="<?php echo $row->id; ?>"><?php echo $row->name; ?></option>
+                    <?php }
+                    } ?>
+                </select>
+            </div>
+            <div class="col-sm-12 col-lg-3 ">
+                <select id="criteria_met" name="criteria_met" class="form-control select-2 " onchange="getAntibioticByCareUnit(this.value)">
+                    <option value="">Criteria Met</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                    <option value="N/A">N/A</option>
+                </select>
+            </div>
+            <div class="col-sm-12 col-lg-3 mt-4">
+                <select id="culture_source" name="culture_source" class="form-control select-2 cultur_source" onchange="getAntibioticByCareUnit()">
+                    <option value="">Select Culture Source</option>
+                    <?php if (isset($culture_source) && !empty($culture_source)) {
+                        foreach ($culture_source as $row) { ?>
+                            <option value="<?php echo $row->name; ?>"><?php echo $row->name; ?></option>
+                    <?php }
+                    } ?>
+                </select>
+            </div>
+            <div class="col-sm-12 col-lg-3 mt-4">
+                <select id="organism" name="organism" class="form-control select-2" onchange="getAntibioticByCareUnit()">
+                    <option value="">Select Organism</option>
+                    <?php if (isset($organism) && !empty($organism)) {
+                        foreach ($organism as $row) { ?>
+                            <option value="<?php echo $row->name; ?>"><?php echo $row->name; ?></option>
+                    <?php }
+                    } ?>
+                </select>
+            </div>
+            <div class="col-sm-12 col-lg-3 mt-4">
+                <select id="precautions" name="precautions" class="form-control select-2" onchange="getAntibioticByCareUnit(this.value)">
+                    <option value="">Select Precautions</option>
+                    <?php if (isset($precautions) && !empty($precautions)) {
+                        foreach ($precautions as $row) { ?>
+                            <option value="<?php echo $row->name; ?>"><?php echo $row->name; ?></option>
+                    <?php }
+                    } ?>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
 
-                                <div class="col-sm-12 col-lg-3">
-                                    <select id="provider_doctor" name="provider_doctor" class="form-control select-2" onchange="getAntibioticByCareUnit()">
-                                        <option value="">Select Provider MD</option>
-                                        <?php
-                                        if (isset($doctors) && !empty($doctors)) {
-                                            foreach ($doctors as $row) {
-                                        ?>
-                                                <option value="<?php echo $row->id; ?>"><?php echo $row->name; ?></option>
-                                        <?php
-                                            }
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-
-                                <?php if ($this->ion_auth->is_admin()) { ?>
-                                    <div class="col-sm-12 col-lg-3">
-                                        <select id="md_steward_id" name="md_steward_id" class="form-control select-2" size="1">
-                                            <option value="">Select MD Steward</option>
-                                            <?php foreach ($staward as $row) { ?>
-
-                                                <option value="<?php echo $row->id; ?>"><?php echo $row->first_name . ' ' . $row->last_name; ?></option>
-
-                                            <?php } ?>
-                                        </select>
-                                    </div>
-                                <?php } else if ($this->ion_auth->is_facilityManager()) { ?>
-
-                                    <div class="col-sm-12 col-lg-3">
-                                        <select id="steward" name="steward" class="form-control select-2" onchange="getAntibioticByCareUnit()">
-                                            <option value="">Select MD Steward</option>
-                                            <?php
-                                            if (!empty($staward)) {
-
-                                                $care = json_decode($staward[0]->md_steward_id);
-
-                                                foreach ($care as $car) {
-
-                                                    $this->db->select('*');
-                                                    $this->db->from('vendor_sale_users');
-                                                    $this->db->where('id', $car);
-                                                    $query = $this->db->get();
-                                                    $row = $query->row();
-
-                                            ?>
-                                                    <option value="<?php echo $row->id; ?>"><?php echo $row->first_name . ' ' . $row->last_name; ?></option>
-
-                                                <?php  } ?>
-                                            <?php
-
-                                            }
-                                            ?>
-                                        </select>
-                                    </div>
-                                <?php } ?>
-
-                                <div class="col-sm-12 col-lg-3">
-                                    <select id="RX" name="RX" class="form-control select-2" onchange="getAntibioticByCareUnit();">
-                                        <option value="">Select Antibiotic</option>
-                                        <?php
-                                        if (!empty($initial_rx)) {
-                                            foreach ($initial_rx as $row) {
-                                        ?>
-                                                <option value="<?php echo $row->id; ?>"><?php echo $row->name; ?></option>
-                                        <?php
-                                            }
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-
-                                <div class="col-sm-12 col-lg-3">
-                                    <select id="criteria_met" name="criteria_met" class="form-control select-2" onchange="getAntibioticByCareUnit(this.value)">
-                                        <option value=""><!-- Infection Checklist -->Criteria Met</option>
-                                        <option value="Yes">Yes</option>
-                                        <option value="No">No</option>
-                                        <option value="N/A">N/A</option>
-                                    </select>
-                                </div>
-
-                                <div class="col-sm-12 col-lg-3">
-                                    <select id="culture_source" name="culture_source" class="form-control select-2 cultur_source" onchange="getAntibioticByCareUnit()">
-                                        <option value="">Select Culture Source</option>
-                                        <?php
-                                        if (isset($culture_source) && !empty($culture_source)) {
-                                            foreach ($culture_source as $row) {
-                                        ?>
-                                                <option value="<?php echo $row->name; ?>"><?php echo $row->name; ?></option>
-                                        <?php
-                                            }
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-
-                                <div class="col-sm-12 col-lg-3">
-                                    <select id="organism" name="organism" class="form-control select-2" onchange="getAntibioticByCareUnit()">
-                                        <option value="">Select Organism</option>
-                                        <?php
-                                        if (isset($organism) && !empty($organism)) {
-                                            foreach ($organism as $row) {
-                                        ?>
-                                                <option value="<?php echo $row->name; ?>"><?php echo $row->name; ?></option>
-                                        <?php
-                                            }
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-
-                                <div class="col-sm-12 col-lg-3">
-                                    <select id="precautions" name="precautions" class="form-control select-2" onchange="getAntibioticByCareUnit(this.value)">
-                                        <option value="">Select Precautions</option>
-                                        <?php
-                                        if (isset($precautions) && !empty($precautions)) {
-                                            foreach ($precautions as $row) {
-                                        ?>
-                                                <option value="<?php echo $row->name; ?>"><?php echo $row->name; ?></option>
-                                        <?php
-                                            }
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>

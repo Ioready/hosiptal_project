@@ -87,11 +87,34 @@
         </div>
        
 
-        <div class="table-responsive">
-            <table id="users" class="table table-vcenter table-condensed table-bordered">
-                <thead>
-                    <tr>     
-            <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('serial_no');?></th>
+        <div class="table-responsive" >
+
+
+
+
+
+        <table id="users" class="table table-vcenter table-condensed table-bordered" style="background-color: #F0F8FF !important; text-align: center !important">
+    <thead>
+        <tr>
+            <th style="background-color:#DBEAFF;font-size:1.3rem; text-align: center !important;"><?php echo lang('serial_no');?></th>
+            <th style="background-color:#DBEAFF;font-size:1.3rem; text-align: center;"><?php echo "Name";?></th>
+            <th style="background-color:#DBEAFF;font-size:1.3rem; text-align: center;"><?php echo lang('user_email');?></th>
+            <th style="background-color:#DBEAFF;font-size:1.3rem; text-align: center;"><?php echo lang('user_createdate');?></th>
+            <th style="background-color:#DBEAFF;font-size:1.3rem; text-align: center;"><?php echo lang('action');?></th>
+        </tr>
+    </thead>
+</table>
+
+
+
+
+
+            <!-- <table id="users" class="table table-vcenter table-condensed table-bordered"> -->
+                <!-- <thead > -->
+                    <!-- <tr > -->
+
+                        
+            <!-- <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('serial_no');?></th> -->
             <!-- <th class="text-center"><?php echo "Team Code";?></th> -->
             <th style="background-color:#DBEAFF;font-size:1.3rem" class="text-center"><?php echo "Name";?></th>
             <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('user_email');?></th>

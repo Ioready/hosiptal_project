@@ -23,27 +23,26 @@
                       
                         <div style="margin: 0px 0px 20px 16px;">
                             
-                        <ul class="nav nav-pills nav-fill nav-tabss" id="pills-tab" role="tablist" >
+                        <ul class="nav nav-pills nav-fill nav-tabss mt-4" id="pills-tab" role="tablist" >
                                             <li class="nav-item">
-                                            <a href="<?php echo site_url('patient'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "patient") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">Patient</span></a>
+                                            <a href="<?php echo site_url('patient'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "patient") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide text-dark">Patient</span></a>
                                                 <!-- <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-1" role="tab">Practice Contacts</a> -->
                                             </li>
                                             <li class="nav-item">
                                             
-                                            <a href="<?php echo base_url() . 'index.php/patient/summary?id=' . encoding($results->id); ?>" data-toggle="tooltip"><span class="sidebar-nav-mini-hide">Summary</span></a>
+                                            <a href="<?php echo base_url() . 'index.php/patient/summary?id=' . encoding($results->id); ?>" data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark">Summary</span></a>
 
-                                            <!-- <a href="<?php echo site_url('patient/summary'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "letterTemplate") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">Summary</span></a> -->
-                                                <!-- <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-2" role="tab"></a> -->
                                             </li>
                                             <li class="nav-item">
-                                            <a href="<?php echo site_url('patient/consultationTemplates'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "consultationTemplates") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">Consultation Templates</span></a>
+                                            <a href="<?php echo site_url('patient/consultationTemplates'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "consultationTemplates") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide text-dark">Consultation Templates</span></a>
                                                 <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-2" role="tab"></a>
                                             </li>
 
                                             <li class="nav-item">
                                             
-                                            <a href="<?php echo base_url() . 'index.php/patient/communication?id=' . encoding($results->id); ?>" data-toggle="tooltip"><span class="sidebar-nav-mini-hide">Communication</span></a>
+                                            <a href="<?php echo base_url() . 'index.php/patient/communication?id=' . encoding($results->id); ?>" data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark">Communication</span></a>
                                             </li>
+                                            
                                         </ul>
                                         
                             </div> 
@@ -63,12 +62,12 @@
           <div class="block-title">
             <?php if ($this->ion_auth->is_subAdmin()) { ?>
                 <h2>
-                    <a href="<?php echo base_url().'index.php/' . $this->router->fetch_class(); ?>/open_consult" class="btn btn-sm btn-primary">
+                    <a href="<?php echo base_url().'index.php/' . $this->router->fetch_class(); ?>/open_consult" class="btn btn-sm btn-primary" style="background: #337ab7">
                         <i class="gi gi-circle_plus"></i> <?php echo 'New'; ?>
                     </a></h2>
             <?php }else if($this->ion_auth->is_facilityManager()){ ?>
                     <h2>
-                    <a href="<?php echo base_url() . $this->router->fetch_class(); ?>/open_consult" class="btn btn-sm btn-primary">
+                    <a href="<?php echo base_url() . $this->router->fetch_class(); ?>/open_consult" class="btn btn-sm btn-primary" style="background: #337ab7">
                         <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
                     </a></h2>
                 <?php } ?>
@@ -126,13 +125,13 @@
     
 
     <div class="table-responsive">
-            <table id="common_datatable_users" class="table table-vcenter table-condensed table-bordered">
+            <table id="common_datatable_users" class="table table-vcenter table-condensed table-bordered text-center">
                 <thead>
                     <tr>
-                        <th style="width:10px">Sr. No</th>
-                        <th>Internal Name</th>
-                        <th>Created date</th>
-                        <th><?php echo lang('action'); ?></th>
+                        <th class="text-center" style="font-size:14px;">Sr. No</th>
+                        <th class="text-center" style="font-size:14px;">Internal Name</th>
+                        <th class="text-center" style="font-size:14px;">Created date</th>
+                        <th class="text-center" style="font-size:14px;"><?php echo lang('action'); ?></th>
                     </tr>
                 </thead>
 

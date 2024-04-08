@@ -572,6 +572,12 @@ a.new-contact:hover{
     /* background-color:#00008B !important; */
     background:#00008B !important;
 }
+
+
+::-webkit-scrollbar {
+ display:none;
+}
+
 </style>
 <script>
 

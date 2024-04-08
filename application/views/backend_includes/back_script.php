@@ -180,11 +180,8 @@
             type: 'POST',
             data: {'<?php echo $this->security->get_csrf_token_name(); ?>': '<?php echo $this->security->get_csrf_hash(); ?>'},
             success: function (data, textStatus, jqXHR) {
-
                 $('#form-modal-box').html(data);
                 $("#commonModal").modal('show');
-
-
             }
         });
     }
@@ -195,11 +192,8 @@
             type: 'POST',
             data: {'<?php echo $this->security->get_csrf_token_name(); ?>': '<?php echo $this->security->get_csrf_hash(); ?>'},
             success: function (data, textStatus, jqXHR) {
-
                 $('#form-modal-box').html(data);
                 $("#commonModal").modal('show');
-
-
             }
         });
     }
@@ -299,7 +293,6 @@ bootbox.confirm({
 }
 
     var deleteRole = function (table, field, id, ctrl) {
-
         bootbox.confirm({
             message: "<?php echo lang('delete'); ?>",
             buttons: {
@@ -341,10 +334,8 @@ bootbox.confirm({
                 }
             }
         });
-
     }
-
-    var statusFn = function (table, field, id, status) {
+   var statusFn = function (table, field, id, status) {
         var message = "";
         if (status == 1) {
             message = "<?php echo lang('deactive'); ?>";
