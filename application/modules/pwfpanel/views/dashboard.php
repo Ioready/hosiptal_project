@@ -938,10 +938,10 @@
                                                    <td style="min-width: 200px;">
                                                         <a class="avatar" href="profile.html">B</a>
                                                         <h2><a href="profile.html">Bernardo Galaviz <span>New York, USA</span></a></h2>
-                                                    </td>  
+                                                    <!-- </td>   -->
 
 
-                                                  <td class="day-cell appointment-row" data-date="<?php echo $appointment_date; ?>" data-day="<?php echo $department->id; ?>">
+                                                  <!-- <td class="day-cell appointment-row" data-date="<?php echo $appointment_date; ?>" data-day="<?php echo $department->id; ?>"> -->
                                                         <?php 
                                                             $current_date = date('Y-m-d');
             
@@ -950,6 +950,19 @@
                                                                 echo '<span style="background-color: green; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong>' .$address1.'<br>'.$city.'<br>'.$comment_appointment.'<br>'.$appointmentTime.' - '.$end_date_appointment.'</span>';
                                                                 echo '</label>';
             
+
+                                                                echo '<label style="background-color:pink; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;">';
+                                                                echo '<span style="background-color: pink; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong>' .$address1.'<br>'.$city.'<br>'.$out_of_office_comment.'<br>'.$out_start_time_at.' - '.$out_end_time_at.'</span>';
+                                                                echo '</label>';
+
+                                                                echo '<label style="background-color:#40E0D0; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;">';
+                                                          echo '<span style="background-color: #40E0D0; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong>' .$address1.'<br>'.$city.'<br>Available<br>'.$start_date_availability.' - '.$out_end_time_at.'</span>';
+                                                          echo '</label>';
+
+
+                                                          echo '<label style="background-color:#800080; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;">';
+                                                          echo '<span style="background-color: #800080; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong>' .$address1.'<br>'.$city.'<br>theatre_comment<br>'.$theatre_date_time.' - '.$theatre_end_time.'</span>';
+                                                          echo '</label>';
                                                                 
                                                             //   } 
                                                             // elseif ($appointment_date == date('Y-m-d', strtotime('+1 day'))) {

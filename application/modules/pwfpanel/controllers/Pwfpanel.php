@@ -298,7 +298,7 @@ class Pwfpanel extends Common_Controller
                 LEFT JOIN vendor_sale_out_of_office_doctor as od ON od.doctor_name = vendor_sale_clinic_appointment.doctor_name 
                 LEFT JOIN vendor_sale_doctor_availability as da ON da.doctor_name = vendor_sale_clinic_appointment.doctor_name 
                 LEFT JOIN vendor_sale_theatre_appointment as ta ON ta.doctor_name = vendor_sale_clinic_appointment.doctor_name 
-                WHERE DATE(vendor_sale_clinic_appointment.start_date_appointment) >= '$currentDate'";
+                WHERE DATE(vendor_sale_clinic_appointment.start_date_appointment) >= '$currentDate' AND DATE(od.out_start_time_at) >= '$currentDate' AND DATE(da.start_date_availability) >= '$currentDate' AND DATE(ta.theatre_date_time) >= '$currentDate'";
 
 
                 $data['clinic_appointment'] = $this->common_model->customQuery($sql);
