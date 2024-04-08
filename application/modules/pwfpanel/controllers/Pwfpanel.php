@@ -265,7 +265,44 @@ class Pwfpanel extends Common_Controller
                     'order' => array('user.id' => 'desc'),
                 );
                 $data['total_appointment'] = $this->common_model->customCount($option);
+                
+                // $date = date('Y/m/d H:i:s');
+                $currentDate = date('Y-m-d');
+                // print_r($currentdate);die;
+                // $option = array(
+                //     'table' => 'clinic_appointment',
+                //     'select' => 'clinic_appointment.*,od.*,da.*,ta.*, U.first_name, U.last_name, UP.address1,UP.city,UP.state',
+                //     'join' => array(
+                //         array('users as U', 'clinic_appointment.location_appointment=U.id', 'left'),
+                //         array('user_profile as UP', 'UP.user_id=clinic_appointment.doctor_name', 'left'),
+                //         array('out_of_office_doctor as od', 'od.doctor_name=clinic_appointment.doctor_name', 'left'),
+                //         array('doctor_availability as da', 'da.doctor_name=clinic_appointment.doctor_name', 'left'),
+                //         array('theatre_appointment as ta', 'ta.doctor_name=clinic_appointment.doctor_name', 'left')),
 
+                //     'where' => array('clinic_appointment.status' => 0),
+                   
+                //         'where'=>array(date('clinic_appointment.start_date_appointment'), '>=', $currentdate),
+                //         'where'=> array(date('od.out_start_time_at'), '>=', $currentdate),
+                //         'where'=> array(date('da.start_date_availability'), '>=', $currentdate),
+                //         'where'=>array(date('ta.theatre_date_time'), '>=', $currentdate),
+                        // array('clinic_appointment.start_date_appointment', '<=', $next15days)
+                    // )
+
+                   
+                // );
+
+                $sql = "SELECT vendor_sale_clinic_appointment.*, od.*, da.*, ta.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state 
+                FROM vendor_sale_clinic_appointment
+                LEFT JOIN vendor_sale_users as U ON vendor_sale_clinic_appointment.location_appointment = U.id 
+                LEFT JOIN vendor_sale_user_profile as UP ON UP.user_id = vendor_sale_clinic_appointment.doctor_name 
+                LEFT JOIN vendor_sale_out_of_office_doctor as od ON od.doctor_name = vendor_sale_clinic_appointment.doctor_name 
+                LEFT JOIN vendor_sale_doctor_availability as da ON da.doctor_name = vendor_sale_clinic_appointment.doctor_name 
+                LEFT JOIN vendor_sale_theatre_appointment as ta ON ta.doctor_name = vendor_sale_clinic_appointment.doctor_name 
+                WHERE DATE(vendor_sale_clinic_appointment.start_date_appointment) >= '$currentDate'";
+
+
+                $data['clinic_appointment'] = $this->common_model->customQuery($sql);
+                // print_r($data['clinic_appointment']);die;
 
                 $this->load->admin_render('dashboard', $data);
 

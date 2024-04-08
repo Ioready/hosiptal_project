@@ -854,6 +854,121 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                <?php 
+                                                 foreach($clinic_appointment as $appointment) {
+                                        
+                                                    // Clinic Appointment
+                                                    // print_r($appointment);die;
+                                                    ?>
+                                                    <tr>
+                                                        <?php
+                                                      $appointmentTime = date('H:i', strtotime($appointment->start_date_appointment));
+                                                    //   print_r($appointmentTime);die;
+                                                      $end_date_appointment = date('H:i', strtotime($appointment->end_date_appointment));
+                                                      $comment_appointment = $appointment->comment_appointment;
+                                                      $address1 = $appointment->address1;
+                                                      $city = $appointment->city;
+                                                      $first_name = $appointment->first_name;
+                                                      $last_name = $appointment->last_name;
+            
+                                                    // Out Of Office
+            
+                                                      $out_start_time_at = date('H:i', strtotime($appointment->out_start_time_at));
+                                                      $out_end_time_at = date('H:i', strtotime($appointment->out_end_time_at));
+                                                      $out_of_office_comment = $appointment->out_of_office_comment;
+            
+                                                    // Availability
+            
+                                                      $start_date_availability = date('H:i', strtotime($appointment->start_date_availability));
+                                                      $end_time_date_availability = date('H:i', strtotime($appointment->end_time_date_availability));
+                                                      $out_of_office_comment = $appointment->out_of_office_comment;
+            
+                                                     // theatre Appointment
+            
+                                                     $theatre_date_time = date('H:i', strtotime($appointment->theatre_date_time));
+                                                     $theatre_time_duration = $appointment->theatre_time_duration;
+                                                    //  $theatre_end_time = $appointment->theatre_time_duration + $theatre_date_time;
+                                                    // Convert theatre_time_duration to seconds
+                                                    $durationInSeconds = $theatre_time_duration * 60;
+            
+                                                    // Add duration to theatre_date_time
+                                                    $theatre_end_time = date('H:i', strtotime($theatre_date_time . " +$durationInSeconds seconds"));
+            
+                                                     $theatre_comment = $appointment->theatre_comment;
+                                                     $theatre_clinician = $appointment->theatre_clinician;
+            
+                                                    //  print_r($theatre_end_time);
+                                                      $appointment_date = date('Y-m-d', strtotime($appointment->start_date_appointment));
+            
+                                                      $out_start_timeAt = date('Y-m-d', strtotime($appointment->out_start_time_at));
+            
+                                                      $start_dateAvailability = date('Y-m-d', strtotime($appointment->start_date_availability));
+            
+                                                      $theatre_dateTime = date('Y-m-d', strtotime($appointment->theatre_date_time));
+            
+                                                    
+                                                      if ($formatted_time >= $appointmentTime && $formatted_time <= $end_date_appointment && $department->id == $appointment->clinician_appointment) {
+                                                        $appointment_found = true;
+                                                        break;
+                                                    }
+            
+            
+                                                    if ($formatted_time >= $out_start_time_at && $formatted_time <= $out_end_time_at && $department->id == $appointment->out_of_office_practitioner) {
+                                                      $appointment_found = true;
+                                                      break;
+                                                  }
+            
+                                                  if ($formatted_time >= $start_date_availability && $formatted_time <= $end_time_date_availability && $department->id == $appointment->availability_practitioner) {
+                                                    $appointment_found = true;
+                                                    break;
+                                                }
+            
+            
+                                                if ($formatted_time >= $theatre_date_time && $formatted_time <= $theatre_end_time && $department->id == $appointment->theatre_clinician) {
+                                                  $appointment_found = true;
+                                                  break;
+                                              }
+            
+                                                //   } 
+                                                
+                                                  // Clinic Appointment
+            
+                                                //   if ($formatted_time >= $appointmentTime && $formatted_time <= $end_date_appointment && $department->id == $appointment->clinician_appointment) {
+                                                  ?>
+                                                   <td style="min-width: 200px;">
+                                                        <a class="avatar" href="profile.html">B</a>
+                                                        <h2><a href="profile.html">Bernardo Galaviz <span>New York, USA</span></a></h2>
+                                                    </td>  
+
+
+                                                  <td class="day-cell appointment-row" data-date="<?php echo $appointment_date; ?>" data-day="<?php echo $department->id; ?>">
+                                                        <?php 
+                                                            $current_date = date('Y-m-d');
+            
+                                                            // if ($appointment_date == $current_date) {
+                                                                echo '<label style="background-color:green; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;">';
+                                                                echo '<span style="background-color: green; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong>' .$address1.'<br>'.$city.'<br>'.$comment_appointment.'<br>'.$appointmentTime.' - '.$end_date_appointment.'</span>';
+                                                                echo '</label>';
+            
+                                                                
+                                                            //   } 
+                                                            // elseif ($appointment_date == date('Y-m-d', strtotime('+1 day'))) {
+                                                            //   echo '<label style="background-color:blue; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;">';
+                                                            //     echo '<span style="background-color: blue; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong>'.$address1.'<br>'.$city.'<br>'.$comment_appointment.'<br>'.$appointmentTime.' - '.$end_date_appointment.'</span>';
+                                                            //     echo '</label>';
+            
+                                                            //   } elseif ($appointment_date == date('Y-m-d', strtotime('-1 day'))) {
+                                                            //     echo '<label style="background-color:red; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;">';
+                                                            //     echo '<span style="background-color: red; color: white;">'.$first_name.' '.$last_name.'<br>'.$address1.'<br>'.$city.'<br>'.$comment_appointment.'<br>'.$appointmentTime.' - '.$end_date_appointment.'</span>';
+                                                            //     echo '</label>';
+                                                            //   }
+                                                              
+                                                        ?>
+                                                    </td>
+            
+                                                     </tr>
+                                               <?php }
+                                                ?>
                                                 <tr>
                                                     <td style="min-width: 200px;">
                                                         <a class="avatar" href="profile.html">B</a>
