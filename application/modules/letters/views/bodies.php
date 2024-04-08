@@ -14,8 +14,6 @@
 
     <!-- Datatables Content -->
     
-    
- 
     <div class="block full">
     <div class="block-title">
         <h2><strong>Bodies</strong> Panel</h2>
