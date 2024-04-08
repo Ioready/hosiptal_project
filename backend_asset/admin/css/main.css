@@ -89,7 +89,8 @@ body {
     font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #394263;
     font-size: 13px;
-    background-color: #222222;
+   background-color: whitesmoke !important;
+
 }
 
 #page-container,
@@ -107,6 +108,14 @@ body {
     transition: background-color 0.2s ease-out, opacity 0.3s ease-out;
 }
 
+/* #page-container{
+    height: 580px !important;
+}
+
+#sidebar{
+    height:580px !important;
+} */
+
 #page-container,
 #sidebar,
 #sidebar-alt {
@@ -121,6 +130,7 @@ body {
 }
 
 #sidebar-alt {
+    
     right: 0;
 }
 
@@ -158,6 +168,7 @@ body {
 /* Sidebar + Static Header */
 .sidebar-visible-xs #sidebar {
     width: 200px;
+
 }
 
 .sidebar-visible-xs #main-container {
@@ -168,6 +179,7 @@ body {
 /* Sidebar + Fixed Header */
 .header-fixed-top #sidebar,
 .header-fixed-bottom #sidebar {
+    
     position: fixed;
     left: 0;
     top: 0;
@@ -245,6 +257,7 @@ body {
 
 header.navbar-default,
 header.navbar-inverse {
+   
     padding: 0;
     margin: 0;
     min-width: 320px;
@@ -741,11 +754,17 @@ width: 100%;
     background: linear-gradient(141.55deg, #6FD943 3.46%, #6FD943 99.86%), #6FD943;
 }
 
-
+.sidebar-nav a span{
+    color: #000000  !important;
+}
 .sidebar-nav a:hover span{
     color: #ffffff  !important;
 
 }
+.sidebar-nav a.active span{
+    color: #ffffff  !important;
+}
+
 .sidebar-nav a span{
     transition:color 0.3s;
 }

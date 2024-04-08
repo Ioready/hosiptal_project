@@ -91,10 +91,9 @@
            
 
     </div>
-      <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url($formUrl) ?>" enctype="multipart/form-data">
-        <div class="alert alert-danger" id="error-box" style="display: none"></div>
+      <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('/emailTemplate/sendEmailTemplate') ?>" enctype="multipart/form-data">
+      <div class="alert alert-danger" id="error-box" style="display: none"></div>
         
-   
         <div class="form-body" id="template_data">
 
             <div class="row">
@@ -118,27 +117,30 @@
             
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="input1">App Name : <strong class="fw-bold"><?php echo $EmailTemplates->internal_name;?></strong></label>
+                        <label for="input1">App Name : <strong class="fw-bold"><input type="text" class="form-control" name="app_name" id="app_name" value="<?php echo $EmailTemplates->internal_name;?>" placeholder="<?php echo lang('password');?>" /></strong></label>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="input1">company Name : <strong class="fw-bold">(company Name)</strong></label>
+                        <label for="input1">Company Name : <strong class="fw-bold"><input type="text" class="form-control" name="company_name" id="company_name" placeholder="<?php echo lang('Company name');?>" /></strong></label>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="input1">App Url : <strong class="fw-bold">(App_url)</strong></label>
+                        <label for="input1">App Url : <strong class="fw-bold"><input type="text" class="form-control" name="app_url" id="app_url" placeholder="<?php echo lang('app url');?>" /></strong></label>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="input1">Email : <strong class="fw-bold">(Email)</strong></label>
+                        <label for="input1">Email : <strong class="fw-bold"><input type="email" class="form-control" name="email" id="email" placeholder="<?php echo lang('Email');?>" /></strong></label>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="input1">Password : <strong class="fw-bold">(Password)</strong></label>
+                        <label for="input1">Password : <strong class="fw-bold">
+                        <input type="password" class="form-control" name="password" id="password" placeholder="<?php echo lang('password');?>" />
+                           
+                        </strong></label>
                     </div>
                 </div>
             </div>
@@ -147,7 +149,7 @@
                     <label class=" control-label">Subject*</label>
                     <div class="form-group"> 
                         <div class="col-md-10">
-                            <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('first_name');?>" />
+                            <input type="text" class="form-control" name="subject" id="subject" placeholder="<?php echo lang('subject');?>" />
                         </div>
                     </div>
                 </div>
@@ -155,7 +157,7 @@
                     <label class=" control-label">From*</label>
                     <div class="form-group"> 
                         <div class="col-md-10">
-                            <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('first_name');?>" />
+                            <input type="text" class="form-control" name="from_mail" id="from_mail" placeholder="<?php echo lang('from_mail');?>" />
                         </div>
                     </div>
                 </div>
@@ -164,7 +166,7 @@
             <label class="control-label mb-4">Create Letter template*</label>
                 <div class="form-group">
                     <div class="col-md-12">
-                        <textarea id="editor" name="bodies_template"><?php echo $EmailTemplates->bodies_template;?></textarea>
+                        <textarea id="editor" name="description"><?php echo $EmailTemplates->bodies_template;?></textarea>
                     </div>
                 </div>
             </div>
@@ -203,26 +205,125 @@
     });
 </script> -->
 
+<<<<<<< HEAD
 <script>
+    // $("#template_list").change(function () {
+    //     var template_id = this.value;
+    //     // alert(template_id);
+
+    //     // Assuming you want to send the template_id as a filter parameter
+    //     $.ajax({
+    //         url: '<?php echo base_url(); ?>' + "/emailTemplate/index", // Replace with your controller endpoint URL
+    //         method: 'GET', // Or 'POST' depending on your preference
+    //         data: { template_id: template_id },
+    //         success: function(response) {
+    //             // Update the content of the div with the response
+    //             // $('#template_data').text(response);
+    //         },
+    //         error: function(xhr, status, error) {
+    //             // Handle any errors
+    //             console.error(xhr.responseText);
+    //         }
+    //     });
+    // });
+
+
+    $(document).ready(function () {
     $("#template_list").change(function () {
         var template_id = this.value;
-        // alert(template_id);
 
-        // Assuming you want to send the template_id as a filter parameter
         $.ajax({
-            url: '<?php echo base_url(); ?>' + "/emailTemplate/index", // Replace with your controller endpoint URL
-            method: 'GET', // Or 'POST' depending on your preference
+            url: '<?php echo base_url(); ?>' + "/emailTemplate/index",
+            method: 'GET', 
             data: { template_id: template_id },
             success: function(response) {
-                // Update the content of the div with the response
-                // $('#template_data').text(response);
+              
+                document.write(response);
             },
             error: function(xhr, status, error) {
-                // Handle any errors
+                
+=======
+<!-- <script>
+    $("#template_list").change(function () {
+        var template_id = this.value;
+        
+        $.ajax({
+            url: '<?php echo base_url(); ?>' + "/emailTemplate/index", 
+            method: 'GET', 
+            data: { template_id: template_id },
+            success: function(response) {
+               
+                $('#template_data').html(response);
+            },
+            error: function(xhr, status, error) {
+               
+>>>>>>> 5f3769f431c62d7712db4f5996f345f8205ea5e4
                 console.error(xhr.responseText);
             }
         });
     });
+<<<<<<< HEAD
+});
+
+
+
+    // $(document).ready(function(){
+    // $("#template_list").change(function () {
+    //     var template_id = this.value;
+    //     $.ajax({
+    //         url: '<?php echo base_url(); ?>' + "/emailTemplate/index", // Replace with your controller endpoint URL
+    //         method: 'GET', // Or 'POST' depending on your preference
+    //         data: { template_id: template_id },
+    //         success: function(response) {
+    //             // Update the content of the div with the main content area
+    //             $('#template_data').html($(response).find('#main-content').html());
+    //         },
+    //         error: function(xhr, status, error) {
+    //             // Handle any errors
+    //             console.error(xhr.responseText);
+    //         }
+    //     });
+    // });
+})
+=======
+</script> -->
+
+<script>
+    $("#template_list").change(function () {
+    var template_id = this.value;
+
+    // Hide side menu and header
+    $('.sidebar-section sidebar-user clearfix sidebar-nav-mini-hide m-0').hide();
+    $('.navbar navbar-default d-flex justify-content-end').hide();
+
+    // Assuming you want to send the template_id as a filter parameter
+    $.ajax({
+        url: '<?php echo base_url(); ?>' + "/emailTemplate/index", // Replace with your controller endpoint URL
+        method: 'GET', // Or 'POST' depending on your preference
+        data: { template_id: template_id },
+        success: function(response) {
+            // Update the content of the div with the response
+
+            // alert(response['']);
+            // $('#template_data').value(response);
+
+            // Scroll to the top of the form
+            // $('html, body').animate({ scrollTop: $('#template_data').offset().top }, 'slow');
+        },
+        error: function(xhr, status, error) {
+            // Handle any errors
+            console.error(xhr.responseText);
+        },
+        // complete: function() {
+        //     // Show side menu and header after AJAX request is complete
+        //     $('.sidebar').show();
+        //     $('.navbar').show();
+        // }
+    });
+});
+
+
+>>>>>>> 5f3769f431c62d7712db4f5996f345f8205ea5e4
 </script>
 
 
@@ -243,6 +344,7 @@
 
         
 
+<<<<<<< HEAD
         <!-- Datatables Content -->
         <!-- <div class="block full">
             <div class="block-title">
@@ -258,8 +360,8 @@
         <?php }?>
 
             </div>
-            <h2><a href="javascript:void(0)" onclick="open_modal('emailTemplate')" class="save-btn btn btn-sm btn-primary">
-            <i class="gi gi-circle_plus"></i> Email Template
+            <h2><a href="javascript:void(0)" onclick="open_modal('emailTemplate')" class="btn btn-sm btn-primary" style="background:#337ab7;">
+            <i class="gi gi-circle_plus m-2"></i> Email Template
             </a></h2>   
             <div class="table-responsive">
                 <table id="common_datatable_cms" class="table table-vcenter table-condensed table-bordered text-center">
@@ -326,3 +428,6 @@
     <div id="message_container"></div>
 </div>  -->
                     
+=======
+      
+>>>>>>> 5f3769f431c62d7712db4f5996f345f8205ea5e4

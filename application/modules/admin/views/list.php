@@ -13,12 +13,11 @@
 
     <!-- Quick Stats -->
     <div class="block_list full">
-
-        <!--        <div class="row text-center">
-                    <div class="col-sm-6 col-lg-3">
+        <!-- <div class="row text-center">
+              <div class="col-sm-6 col-lg-3">
                         <a href="<?php echo base_url() ?>vendors/index/No" class="widget widget-hover-effect2">
                             <div class="widget-extra themed-background">
-                                <h4 class="widget-content-light"><strong> Inactivate </strong> Vendors</h4>
+                          <h4 class="widget-content-light"><strong> Inactivate </strong> Vendors</h4>
                             </div>
                             <div class="widget-extra-full">
                                 <span class="h2 animation-expandOpen"><?php echo $inactive_vendors; ?></span></div>

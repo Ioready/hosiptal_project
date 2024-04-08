@@ -175,6 +175,7 @@ class Appointment extends Common_Controller {
                 );
 
                 $this->data['clinic_appointment'] = $this->common_model->customGet($option);
+                
 
                 $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
                 $option = array(

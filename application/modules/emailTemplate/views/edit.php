@@ -1,6 +1,6 @@
 <script src="<?php echo base_url() . 'backend_asset/admin/js/' ?>helpers/ckeditor/ckeditor.js"></script> 
 <style> 
-    .modal-footer .btn + .btn {
+ .modal-footer .btn + .btn {
     margin-bottom: 5px !important;
     margin-left: 5px;
 }

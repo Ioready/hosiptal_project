@@ -24,42 +24,34 @@
         <div class="block full">
             <div class="row text-center">
             
-                <div class="col-sm-6 col-lg-12">
-                
-                </div>
-                <div class="col-sm-6 col-lg-12">
-                    <div class="panel panel-default">
-                      
-                        <div style="margin: 0px 0px 20px 16px;">
-                            
+            <div class="col-sm-6 col-lg-12">
+    <ul class="nav nav-pills nav-fill nav-tabss" id="pills-tab" role="tablist">
+        <li class="nav-item">
+            <a href="<?php echo site_url('userSettings'); ?>" class="save-btn <?php echo (strtolower($this->router->fetch_class()) == "userSettings") ? "active" : "" ?>">
+                <span class="sidebar-nav-mini-hide">Users</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="<?php echo site_url('userSettings/letterTemplate'); ?>" class="save-btn <?php echo (strtolower($this->router->fetch_class()) == "letterTemplate") ? "active" : "" ?>">
+                <span class="sidebar-nav-mini-hide">Letter Templates</span>
+            </a>
+            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-2" role="tab"></a>
+        </li>
+        <!-- <li class="nav-item">
+            <a href="<?php echo site_url('userSettings/letterTemplate'); ?>" class="save-btn <?php echo (strtolower($this->router->fetch_class()) == "letterTemplate") ? "active" : "" ?>">
+                <span class="sidebar-nav-mini-hide">Email Templates</span>
+            </a>
+            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-2" role="tab"></a>
+        </li> -->
+        <li class="nav-item">
+            <a href="<?php echo site_url('userSettings/consultationTemplates'); ?>" class="save-btn <?php echo (strtolower($this->router->fetch_class()) == "consultationTemplates") ? "active" : "" ?>">
+                <span class="sidebar-nav-mini-hide">Consultation Templates</span>
+            </a>
+            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-2" role="tab"></a>
+        </li>
+    </ul>
+</div>
 
-                                        <ul class="nav nav-pills nav-fill nav-tabss" id="pills-tab" role="tablist" >
-                                            <li class="nav-item">
-                                            <a  href="<?php echo site_url('userSettings'); ?>" class="save-btn <?php echo (strtolower($this->router->fetch_class()) == "userSettings") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">Users</span></a>
-                                                <!-- <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-1" role="tab">Practice Contacts</a> -->
-                                            </li>
-                                            <li class="nav-item">
-                                            <a href="<?php echo site_url('userSettings/letterTemplate'); ?>" class="save-btn <?php echo (strtolower($this->router->fetch_class()) == "letterTemplate") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">Letter Templates</span></a>
-                                                <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-2" role="tab"></a>
-                                            </li>
-                                            <li class="nav-item">
-                                            <a href="<?php echo site_url('userSettings/letterTemplate'); ?>" class="save-btn <?php echo (strtolower($this->router->fetch_class()) == "letterTemplate") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">Email Templates</span></a>
-                                                <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-2" role="tab"></a>
-                                            </li>
-
-                                            <li class="nav-item">
-                                            <a href="<?php echo site_url('userSettings/consultationTemplates'); ?>" class="save-btn <?php echo (strtolower($this->router->fetch_class()) == "consultationTemplates") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">Consultation Templates</span></a>
-                                                <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-2" role="tab"></a>
-                                            </li>
-                                        </ul>
-                                        
-                            </div> 
-                            <div class="panel-body">
-                            
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
 
     <?php } ?>
@@ -124,14 +116,14 @@
        
 
         <div class="table-responsive">
-        <table id="users" class="table table-vcenter table-condensed table-bordered" style="background-color: #F0F8FF !important; text-align: center !important">
+        <table id="users" class="table table-vcenter table-condensed table-bordered text-cneter" style="text-align:center !important">
     <thead>
         <tr>
-            <th style="background-color:#DBEAFF;font-size:1.3rem; text-align: center !important;"><?php echo lang('serial_no');?></th>
-            <th style="background-color:#DBEAFF;font-size:1.3rem; text-align: center;"><?php echo "Name";?></th>
-            <th style="background-color:#DBEAFF;font-size:1.3rem; text-align: center;"><?php echo lang('user_email');?></th>
-            <th style="background-color:#DBEAFF;font-size:1.3rem; text-align: center;"><?php echo lang('user_createdate');?></th>
-            <th style="background-color:#DBEAFF;font-size:1.3rem; text-align: center;"><?php echo lang('action');?></th>
+            <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem; "><?php echo lang('serial_no');?></th>
+            <th style="background-color:#DBEAFF;font-size:1.3rem; "><?php echo "Name";?></th>
+            <th style="background-color:#DBEAFF;font-size:1.3rem; "><?php echo lang('user_email');?></th>
+            <th style="background-color:#DBEAFF;font-size:1.3rem; "><?php echo lang('user_createdate');?></th>
+            <th style="background-color:#DBEAFF;font-size:1.3rem; "><?php echo lang('action');?></th>
         </tr>
     </thead>
 </table>

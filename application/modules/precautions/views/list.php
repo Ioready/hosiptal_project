@@ -13,18 +13,18 @@
         <div class="block-title">
             <h2><strong><?php echo $title; ?></strong> Panel</h2>
             <?php //if ($this->ion_auth->is_admin()) { ?>
-                <h2><a href="javascript:void(0)"  onclick="open_modal('<?php echo $model; ?>')" class="btn btn-sm btn-primary">
+                <h2><a href="javascript:void(0)"  onclick="open_modal('<?php echo $model; ?>')" class="btn btn-sm btn-primary"  style="background: #337ab7">
                         <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
                     </a></h2>
             <?php //} ?>
         </div>
         <div class="table-responsive">
-            <table id="common_datatable_menucat" class="table table-vcenter table-condensed table-bordered">
+            <table id="common_datatable_menucat" class="table table-vcenter table-condensed table-bordered text-center">
                 <thead>
                     <tr>
-                        <th style="width: 15%;">Sr. No</th>
-                        <th style="width: 60%;">Name</th>
-                        <th><?php echo lang('action'); ?></th>
+                        <th class="text-center" style="font-size:14px">Sr. No</th>
+                        <th class="text-center" style="font-size:14px">Name</th>
+                        <th class="text-center" style="font-size:14px"><?php echo lang('action'); ?></th>
                     </tr>
                 </thead>
                 <tbody>

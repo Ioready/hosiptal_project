@@ -61,7 +61,20 @@
                                             </a>
                                         </h2>
                                     <?php } ?>
-                                    <h2 class="fw-bold" style="float:right;"> Enable:</h2>
+                                    <div>
+  <div style="float:right;margin-top:-38px">
+    <label>Enable:</label>
+    <label class="switch">
+      <input type="checkbox" checked>
+      <span class="slider round " style="background-color:#6FD943;"></span>
+    </label>
+    <i class="fa fa-arrow-circle-up text-xl m-2"  style="font-size:20px; " aria-hidden="true"></i>
+
+  </div>
+</div>
+
+
+                                    <!-- <h2 class="fw-bold" style="float:right;"> Enable:</h2> -->
                                 </div>
                                
                                 <div class="alert alert-danger" id="error-box" style="display: none"></div>
@@ -87,14 +100,24 @@
 
                                     <div class="col-md-6" style="">
                                         <div class="form-group">
+<<<<<<< HEAD
+                                            <label for="input1">Stripe key</label>
+                                            <input type="text" class="form-control" id="input1" name="input1">
+=======
                                             <label for="input1">Secret key</label>
                                             <input type="text" class="form-control" id="secret_key" name="secret_key">
+>>>>>>> 9ad44c9b01e15cd66d8f1cf56bd75cf37e958e11
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
+<<<<<<< HEAD
+                                            <label for="input1">Stripe Secret</label>
+                                            <input type="text" class="form-control" id="input1" name="input1">
+=======
                                             <label for="input1">Publishable key</label>
                                             <input type="text" class="form-control" id="publishable_key" name="publishable_key">
+>>>>>>> 9ad44c9b01e15cd66d8f1cf56bd75cf37e958e11
                                         </div>
                                     </div>
                                    

@@ -50,8 +50,8 @@
             <?php if ($this->ion_auth->is_admin() OR $this->ion_auth->is_facilityManager()) { ?>
                 <h2>
                     
-                    <a href="<?php echo base_url() .'index.php/'. $this->router->fetch_class(); ?>/open_model" class="btn btn-sm btn-primary">
-                        <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
+                    <a href="<?php echo base_url() .'index.php/'. $this->router->fetch_class(); ?>/open_model"  class="btn btn-sm btn-primary  fw-bold" style="background:#337ab7;">
+                        <i class="gi gi-circle_plus M-2"></i> <?php echo $title; ?>
                     </a></h2>
             <?php }else if($this->ion_auth->is_facilityManager()) { ?>
                 <h2>
@@ -71,14 +71,14 @@
             </ul>
         </div> -->
         <div class="table-responsive">
-            <table id="common_datatable_users" class="table table-vcenter table-condensed table-bordered">
+            <table id="common_datatable_users" class="table table-vcenter table-condensed table-bordered text-center">
                 <thead>
                     <tr>
-                        <th class="text-center" style="width: 10px;">Sr. No</th>
+                        <th class="text-center" style="font-size:13px;">Sr. No</th>
                         <!--                                <th><?php echo "Referral Code"; ?></th>-->
-                        <th class="text-center"><?php echo "Name"; ?></th>
-                        <th class="text-center"><?php echo "Care Unit"; ?></th>
-                        <th class="text-center"><?php echo lang('user_email'); ?></th>
+                        <th class="text-center" style="font-size:13px;"><?php echo "Name"; ?></th>
+                        <th class="text-center" style="font-size:13px;"><?php echo "Care Unit"; ?></th>
+                        <th class="text-center" style="font-size:13px;"><?php echo lang('user_email'); ?></th>
 <!--                        <th class="text-center"><?php echo "Phone"; ?></th>-->
                         <!--  <th><?php echo "DOB"; ?></th> -->
                         <!--                                <th><?php echo "Current Password"; ?></th>-->
@@ -96,10 +96,10 @@
                             $rowCount++;
                             ?>
                             <tr>
-                                <td class="text-center text-primary"><strong><?php echo $rowCount; ?></strong></td>        
+                                <td ><strong><?php echo $rowCount; ?></strong></td>        
                                 <!--                            <td><?php echo $rows->team_code; ?></td>-->
-                                <td class="text-primary"><?php echo $rows->first_name . ' ' . $rows->last_name; ?></td>
-                                <td class="text-primary"><?php echo (!empty($rows->name)) ?  $rows->name . '(' . $rows->care_unit_code.')' : ''; ?></td>
+                                <td ><?php echo $rows->first_name . ' ' . $rows->last_name; ?></td>
+                                <td ><?php echo (!empty($rows->name)) ?  $rows->name . '(' . $rows->care_unit_code.')' : ''; ?></td>
                                 <td><?php echo $rows->email ?></td>
         <!--                                <td class="text-center"><?php echo $rows->phone ?></td>-->
                                 <!-- <td><?php echo ($rows->date_of_birth != null) ? date('d-m-Y', strtotime($rows->date_of_birth)) : ""; ?></td> -->

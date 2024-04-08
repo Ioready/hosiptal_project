@@ -64,27 +64,27 @@
                 <div class="col-sm-6 col-lg-12">
                     <div class="panel panel-default">
                       
-                        <div style="margin: 0px 0px 20px 16px;">
+                        <div >
                             
 
-                                        <ul class="nav nav-pills nav-fill nav-tabss" id="pills-tab" role="tablist" >
+                                        <ul class="nav nav-pills nav-fill nav-tabss mt-4" id="pills-tab" role="tablist" >
                                             <li class="nav-item">
-                                            <a href="<?php echo site_url('patient'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "patient") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">Patient</span></a>
+                                            <a href="<?php echo site_url('patient'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "patient") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide text-dark">Patient</span></a>
                                                 <!-- <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-1" role="tab">Practice Contacts</a> -->
                                             </li>
                                             <li class="nav-item">
                                             
-                                            <a href="<?php echo base_url() . 'index.php/patient/summary?id=' . encoding($results->id); ?>" data-toggle="tooltip"><span class="sidebar-nav-mini-hide">Summary</span></a>
+                                            <a href="<?php echo base_url() . 'index.php/patient/summary?id=' . encoding($results->id); ?>" data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark">Summary</span></a>
 
                                             </li>
                                             <li class="nav-item">
-                                            <a href="<?php echo site_url('patient/consultationTemplates'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "consultationTemplates") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">Consultation Templates</span></a>
+                                            <a href="<?php echo site_url('patient/consultationTemplates'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "consultationTemplates") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide text-dark">Consultation Templates</span></a>
                                                 <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-2" role="tab"></a>
                                             </li>
 
                                             <li class="nav-item">
                                             
-                                            <a href="<?php echo base_url() . 'index.php/patient/communication?id=' . encoding($results->id); ?>" data-toggle="tooltip"><span class="sidebar-nav-mini-hide">Communication</span></a>
+                                            <a href="<?php echo base_url() . 'index.php/patient/communication?id=' . encoding($results->id); ?>" data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark">Communication</span></a>
                                             </li>
                                             
                                         </ul>
@@ -105,14 +105,16 @@
         
         <div class="col-md-12" >
         <div style="margin-bottom:20px;">
-        <button type="button" class="btn btn-primary sendmail" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" >Send Patient Details on Mail</button>
+      
         </div>
-            <div class="block">
+            <div class="block" style=" background-color: #FFFF; padding: 15px;  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);">
            
                 <!-- Customer Info Title -->
-                <div class="block-title">
+                <div class="block-title p-2">
                     <h2><i class="fa fa-file-o"></i> <strong><?php echo $title; ?></strong> Info</h2>
+                    <button type="button" class="btn btn-sm btn-primary sendmail mt-2" style="background: #337ab7" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" >Send Patient Details on Mail</button>
                 </div>
+                
                 <!-- END Customer Info Title -->
                 <!-- Customer Info -->
                 <div class="block-section text-center">
@@ -193,10 +195,10 @@
             </div>
         </div>
         <div class="col-md-6" >
-            <div class="block">
+            <div class="block" style=" background-color: #FFFF; padding: 15px;  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);">
                 <!-- Customer Info Title -->
                 <div class="block-title">
-                    <h2><i class="fa fa-file-o"></i> <strong>Initial</strong> Info</h2>
+                    <h2><i class="fa fa-file-o fw-bold"></i> <strong>Initial</strong> Info</h2>
                 </div>
                 <!-- END Customer Info Title -->
                 <table class="table table-borderless table-striped table-vcenter">
@@ -239,10 +241,10 @@
             </div>
         </div>
         <div class="col-md-6" >
-            <div class="block">
+            <div class="block" style=" background-color: #FFFF; padding: 15px;  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);">
                 <!-- Customer Info Title -->
                 <div class="block-title">
-                    <h2><i class="fa fa-file-o"></i> <strong>MD Steward</strong> Recommendation</h2>
+                    <h2><i class="fa fa-file-o fw-bold"></i> <strong>MD Steward</strong> Recommendation</h2>
                 </div>
                 <!-- END Customer Info Title -->
                 <table class="table table-borderless table-striped table-vcenter">
@@ -300,10 +302,11 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 class="modal-title" style="text-align:center;" id="exampleModalLabel">Mail Complete Information of Patient </h3>
-        <button type="button" class="close" style="margin-top:-40px;" data-dismiss="modal" aria-label="Close">
+      <button type="button" class="close" style="margin-top:-40px;" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
+        <h3 class="modal-title fw-bold" style="text-align:center;" id="exampleModalLabel">Mail Complete Information of Patient </h3>
+        
       </div>
       <div class="modal-body1">
         <form  method="post" id="contact-form" data-toggle="validator" role="form" action="" enctype="multipart/form-data">
@@ -349,7 +352,7 @@
           <br>
           <div class="modal-footer mailmodel">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" name="submit"  id="submit1"   class="btn btn-primary">Send Mail</button>
+        <button type="submit" name="submit"  id="submit1"  class="btn btn-primary" style="background: #337ab7">Send Mail</button>
       </div>
 
         </form>

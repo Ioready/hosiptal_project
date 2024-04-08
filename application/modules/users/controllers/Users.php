@@ -39,7 +39,7 @@ class Users extends Common_Controller
             'order' => array('user.id' => 'DESC'),
             'where' => array('user.email_verify' => 1),
             'where_not_in' => array(
-                'group.id' => array(1, 3, 4)
+                'group.id' => array(1, 2, 4, 5, 6, 7)
             )
         );
 
@@ -55,7 +55,7 @@ class Users extends Common_Controller
             'order' => array('user.id' => 'DESC'),
             'where' => array('user.email_verify' => 0),
             'where_not_in' => array(
-                'group.id' => array(1, 3, 4)
+                'group.id' => array(1, 2, 4, 5, 6, 7)
             )
         );
 
@@ -80,7 +80,7 @@ class Users extends Common_Controller
             ),
             'order' => array('user.id' => 'DESC'),
             'where' => array('user.id' => $user_id),
-            'where_not_in' => array('group.id' => array(1, 3, 4))
+            'where_not_in' => array('group.id' => array(1, 2, 4,5,6,7))
         );
 
         $this->data['list'] = $this->common_model->customGet($option);
@@ -162,7 +162,7 @@ class Users extends Common_Controller
             ),
             'order' => array('user.id' => 'DESC'),
             'where' => $where,
-            'where_not_in' => array('group.id' => array(1, 3, 4)),
+            'where_not_in' => array('group.id' => array(1, 2, 4, 5, 6, 7)),
             'order' => array('user.id' => "DESC")
         );
         // }
@@ -189,7 +189,7 @@ class Users extends Common_Controller
                     'order' => array('user.id' => 'DESC'),
                     'limit' => array($limit => $start),
                     'where' => $where,
-                    'where_not_in' => array('group.id' => array(1, 3, 4)),
+                    'where_not_in' => array('group.id' => array(1, 2, 4, 5, 6, 7)),
                     'order' => array('user.id' => "DESC")
                 );
             } else {
@@ -203,7 +203,7 @@ class Users extends Common_Controller
                     'order' => array('user.id' => 'DESC'),
                     'limit' => array($limit => $start),
                     'where' => $where,
-                    'where_not_in' => array('group.id' => array(1, 3, 4)),
+                    'where_not_in' => array('group.id' => array(1, 2, 4, 5, 6, 7)),
                     'order' => array('user.id' => "DESC")
                 );
             }
@@ -463,12 +463,12 @@ class Users extends Common_Controller
                 );
                 if ($this->ion_auth->is_vendor()) {
 
-                    $insert_id = $this->ion_auth->register($identity, $password, $email, $additional_data, array(3));
+                    $insert_id = $this->ion_auth->register($identity, $password, $email, $additional_data, array(4));
 
                     $user_id = $this->session->userdata('user_id');
                 } else {
 
-                    $insert_id = $this->ion_auth->register($identity, $password, $email, $additional_data, array(2));
+                    $insert_id = $this->ion_auth->register($identity, $password, $email, $additional_data, array(3));
                 }
 
                 if ($insert_id) {
