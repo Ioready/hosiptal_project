@@ -662,3 +662,24 @@ ERROR - 2024-04-08 12:33:27 --> Could not find the language line "description_va
 ERROR - 2024-04-08 12:41:53 --> Could not find the language line "description_validation"
 ERROR - 2024-04-08 12:42:10 --> Could not find the language line "description_validation"
 ERROR - 2024-04-08 14:04:59 --> Could not find the language line "description_validation"
+ERROR - 2024-04-08 14:46:25 --> 404 Page Not Found: /index
+ERROR - 2024-04-08 14:46:26 --> 404 Page Not Found: /index
+ERROR - 2024-04-08 14:47:13 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\reportsSummary\controllers\ReportsSummary.php 122
+ERROR - 2024-04-08 14:47:13 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\reportsSummary\views\dashboards.php 222
+ERROR - 2024-04-08 14:47:14 --> Severity: Warning --> Division by zero C:\xampp\htdocs\hosiptal_project\application\modules\reportsSummary\controllers\ReportsSummary.php 3120
+ERROR - 2024-04-08 14:47:20 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-08 14:47:20 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-08 14:47:20 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-08 14:47:20 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-08 14:47:20 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-08 14:47:20 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-08 14:47:20 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-08 14:47:20 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-08 14:47:20 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-08 14:47:20 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\appointment\controllers\Appointment.php 59
+ERROR - 2024-04-08 14:47:27 --> Could not find the language line "date_validation"
+ERROR - 2024-04-08 14:47:27 --> Could not find the language line "time_start_validation"
+ERROR - 2024-04-08 14:47:27 --> Could not find the language line "time_end_validation"
+ERROR - 2024-04-08 14:47:27 --> Could not find the language line "patient_name_validation"
+ERROR - 2024-04-08 14:47:27 --> Could not find the language line "doctor_name_validation"
+ERROR - 2024-04-08 14:47:27 --> Could not find the language line "rreason_validation"
