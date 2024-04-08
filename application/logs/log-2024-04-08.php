@@ -1234,3 +1234,115 @@ ERROR - 2024-04-08 16:37:06 --> Could not find the language line "Email"
 ERROR - 2024-04-08 16:37:06 --> Could not find the language line "subject"
 ERROR - 2024-04-08 16:37:06 --> Could not find the language line "from_mail"
 ERROR - 2024-04-08 16:37:06 --> Could not find the language line "from_mail_validation"
+ERROR - 2024-04-08 16:37:56 --> 404 Page Not Found: ../modules/pwfpanel/controllers/Pwfpanel/img
+ERROR - 2024-04-08 16:42:15 --> 404 Page Not Found: ../modules/pwfpanel/controllers/Pwfpanel/img
+ERROR - 2024-04-08 16:42:26 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:26 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:26 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:26 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:26 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:26 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:26 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:26 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:26 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:26 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:26 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:26 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:26 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:26 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:26 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:26 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:26 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:26 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:26 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:26 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:26 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:26 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:26 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:26 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:26 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:26 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:26 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:26 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:26 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:26 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:26 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:26 --> Could not find the language line "hospital_name_validation"
+ERROR - 2024-04-08 16:42:26 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-04-08 16:42:30 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\views\add.php 154
+ERROR - 2024-04-08 16:42:30 --> Could not find the language line "hospital_name_validation"
+ERROR - 2024-04-08 16:42:30 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-04-08 16:42:46 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:46 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:46 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:46 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:46 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:46 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:46 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:46 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:46 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:46 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:46 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:46 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:46 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:46 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:46 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:46 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:46 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:46 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:46 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:46 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:46 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:46 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:46 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:46 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:46 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:46 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:46 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:46 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:46 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:46 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:46 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:46 --> Could not find the language line "hospital_name_validation"
+ERROR - 2024-04-08 16:42:46 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-04-08 16:42:47 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\views\add.php 154
+ERROR - 2024-04-08 16:42:47 --> Could not find the language line "hospital_name_validation"
+ERROR - 2024-04-08 16:42:47 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-04-08 16:42:55 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:55 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:55 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:55 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:55 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:55 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:55 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:55 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:55 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:55 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:55 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:55 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:55 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:55 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:55 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:55 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:55 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:55 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:55 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:55 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:55 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:55 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:55 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:55 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:55 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:55 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:55 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:55 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:55 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:55 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:55 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\hosiptal_project\application\modules\admin\controllers\Admin.php 58
+ERROR - 2024-04-08 16:42:55 --> Could not find the language line "hospital_name_validation"
+ERROR - 2024-04-08 16:42:55 --> Could not find the language line "user_email_field_validation"
+ERROR - 2024-04-08 16:43:16 --> Could not find the language line "secret key"
+ERROR - 2024-04-08 16:43:16 --> Could not find the language line "publishable key"
+ERROR - 2024-04-08 16:43:16 --> 404 Page Not Found: /index
+ERROR - 2024-04-08 16:43:19 --> Could not find the language line "secret key"
+ERROR - 2024-04-08 16:43:19 --> Could not find the language line "publishable key"

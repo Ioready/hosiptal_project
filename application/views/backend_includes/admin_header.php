@@ -351,12 +351,12 @@
                         ?>
                         <li data-toggle="collapse" data-target="#new" class="collapsed" data-parent="#menu-content" onclick="toggleDropdown(event)">
                             <a href="#">
-                            <img src="<?php echo base_url(); ?>uploads/hospital.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">&nbsp; Hospital List </span><i class="fa fa-chevron-down"></i>
+                            <img src="<?php echo base_url(); ?>uploads/hospital.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark"> Hospital List </span><i class="fa fa-chevron-down"></i>
                             </a>
                         </li>
                         <ul class="sub-menu collapse" id="new" style="background: white; color: black; padding-left: revert;">
                             <?php foreach($list as $lists){ ?>
-                                <li ><a href="<?php echo site_url('facilityManager/hospitalDetail/'.$lists->id); ?> <?php base_url('facilityManager/hospitalDetail/'.$lists->id); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "facilityManager/hospitalDetail/.$lists->id") ? "active" : "" ?>" style="color: black; font-weight: bold; "><img src="<?php echo base_url(); ?>uploads/hospital.svg" style="height: 23px;width:23px;">&nbsp;&nbsp;<?php echo ucfirst($lists->first_name. ' '.$lists->last_name);?></a></li>
+                                <li ><a href="<?php echo site_url('facilityManager/hospitalDetail/'.$lists->id); ?> <?php base_url('facilityManager/hospitalDetail/'.$lists->id); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "facilityManager/hospitalDetail/.$lists->id") ? "active" : "" ?>" style="color: black; font-weight: bold; "><img src="<?php echo base_url(); ?>uploads/hospital.svg" style="height: 23px;width:23px;"><?php echo ucfirst($lists->first_name. ' '.$lists->last_name);?></a></li>
                             <?php }?>
                         </ul>
 
@@ -472,7 +472,7 @@
                                     <a href="<?php echo site_url('contactus'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "contactus") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/contact.svg" height="23px" width="23px"><span class="sidebar-nav-mini-hide text-dark">Contact Us</span></a>
                                 </li> -->
                                 <li title="setting">
-                                    <a href="<?php echo site_url('setting'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "setting") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/setting.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">&nbsp;Admin Setting</span></a>
+                                    <a href="<?php echo site_url('setting'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "setting") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/setting.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Admin Setting</span></a>
                                 </li>
                             <?php } elseif ($this->ion_auth->is_subAdmin()) { ?>
 
