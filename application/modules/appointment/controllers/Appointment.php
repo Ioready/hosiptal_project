@@ -273,9 +273,29 @@ class Appointment extends Common_Controller {
             // 'where' => array('user.id' => $user_id),
             // 'single' => true
         );
+        
         $this->data['userlocation'] = $this->common_model->customGet($option);
 
-        // print_r($this->data['userlocation']);die;
+        $option = array(
+            'table' => USERS . ' as user',
+            'select' => 'user.id,user.first_name,user.last_name,user.email,user.login_id,user.created_on,user.active,group.name as group_name,UP.doc_file,CU.care_unit_code,CU.name',
+            'join' => array(
+                array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left'),
+                array('user_profile UP', 'UP.user_id=user.id', 'left'),
+                array('care_unit CU', 'CU.id=user.care_unit_id', 'left'),
+                array('doctors AS d', 'd.user_id = user.id', 'left')
+            ),
+           
+            'where' => array('user.delete_status' => 0, 'group.id' => 5, 'user.login_id' => $user_id ),
+            'order' => array('user.id' => 'desc')
+        );
+
+        $this->data['doctorsname'] = $this->common_model->customGet($option);
+
+
+
+         //print_r($this->data['userlocation']);die;
         $option = array('table' => 'countries',
         'select' => '*'
     );
@@ -321,6 +341,28 @@ class Appointment extends Common_Controller {
         if ($this->form_validation->run() == true) {
 
          $doctor_id =    $this->input->post('doctor_name');
+         
+
+         $query = $this->db->get_where('users', array('id' => $doctor_id));
+                    $result = $query->row();
+                    $doctoremail = $result->username;
+
+                    $from =  getConfig('admin_email');
+                 //$mail= "vinay55@mailinator.com";
+                    // $from = getConfig('admin_email');
+                    $subject = "Appointment for Patient";
+                    $password = "test";
+                    $title = "Appointment doctor";
+                     $data['name'] = ucwords($this->input->post('patient'));
+                    $data['content'] = "Appointment"
+                        . "<p>username: " . $doctoremail . "</p><p>Password: " . $password . "</p>";
+                    // $template = $this->load->view('user_signup_mail', $data, true);
+                    // print_r($data);die;
+                    $template = $this->load->view('email-template/registration', $data, true);
+
+                    // $this->send_email($email, $from, $subject, $template, $title);
+                    
+                    $this->send_email_smtp($email, $from, $subject, $template, $title);
         //  $date = $this->input->post('date');
         //  $start_time_range = $this->input->post('time_start'); // Example start time
         //  $end_time_range = $this->input->post('time_end');
@@ -364,9 +406,10 @@ class Appointment extends Common_Controller {
                         // 'created_at' => ,                 
                   
                     );
+                    // print_r($this->input->post('doctor_name'));
 
                     $insert_id =$this->db->insert('clinic_appointment', $additional_data_profile); 
-
+                
                 }else if($this->input->post('theatre_patient') != ""){
 
                     $additional_data_theatre = array(

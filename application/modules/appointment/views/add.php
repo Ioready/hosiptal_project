@@ -192,6 +192,21 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label class="col-md-3 control-label">Location</label>
+                            <?php 
+                        if ($this->ion_auth->is_subAdmin()) { ?>
+
+                                <div class="col-md-9">
+                                <select id="country" name="location_appointment" class="form-control select2" size="1">
+                                    <option value="0">Please select</option>
+                                    <?php foreach ($doctorsname as $country) { ?>
+                                        <option value="<?php echo $country->id; ?>"><?php echo $country->user_email; ?></option>
+                                    <?php } ?>
+                                </select>
+                               
+                            </div>
+                        <?php }else { ?>
+                        
+                        
                             <div class="col-md-9">
                                 <select id="country" name="location_appointment" class="form-control select2" size="1">
                                     <option value="0">Please select</option>
@@ -199,7 +214,9 @@
                                         <option value="<?php echo $country->id; ?>"><?php echo $country->address1.' '.$country->city.' '.$country->first_name.' '.$country->last_name ; ?></option>
                                     <?php } ?>
                                 </select>
+                               
                             </div>
+                            <?php } ?>
                         </div>
                     </div>
                     <div class="col-md-12">
