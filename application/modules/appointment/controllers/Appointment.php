@@ -409,7 +409,24 @@ class Appointment extends Common_Controller {
                     );
                     // print_r($this->input->post('doctor_name'));
 
-                    $insert_id =$this->db->insert('clinic_appointment', $additional_data_profile); 
+                    $this->db->insert('clinic_appointment', $additional_data_profile); 
+                    $insert_id = $this->db->insert_id();
+
+                    $query = $this->db->get_where('users', array('email' => $this->input->post('location_appointment')));
+                    $receiver = $query->row();
+                    $receiver_id = $receiver->id;
+
+                    $additional_notification = array(
+                        
+                        'care_unit_id' => $this->input->post('clinician_appointment'),
+                        'clinic_appointment_id' => $insert_id,
+                        'user_id' => $receiver_id,
+                        'sender_id' => $this->input->post('doctor_name'),
+                    );
+                    // print_r($additional_notification);die;
+
+                    $this->db->insert('notifications', $additional_notification); 
+
                 
                 }else if($this->input->post('theatre_patient') != ""){
 

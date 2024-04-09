@@ -157,9 +157,11 @@ class Pwfpanel extends Common_Controller
                     // redirect('patient', 'refresh');
                 }
                 /* else if ($this->ion_auth->is_facilityManager()) {
-                    //redirect('patient', 'refresh');
+                    
+               
                     $this->load->admin_render('dashboard', $data);
                 } */ else {
+                   
                     // print_r($data);die;
                     $this->load->admin_render('dashboard', $data);
                 }
@@ -288,36 +290,37 @@ class Pwfpanel extends Common_Controller
                 //$data['total_patient_today'] = $this->common_model->customCount($option);
                 // redirect('reportsSummary', 'refresh');
 
-                // $option = array(
-                //     'table' => USERS . ' as user',
-                //     'select' => 'user.id',
-                //     'join' => array(
-                //         array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
-                //         array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left'),
-                //         array('user_profile UP', 'UP.user_id=user.id', 'inner')
-                //     ),
-                //     'order' => array('user.id' => 'ASC'),
-                //     'where' => array(
-                //         'user.delete_status' => 0,
-                //         'group.id' => 5
-                //     ),
-                //     'order' => array('user.id' => 'desc'),
-                // );
-                $currentDate = date('Y-m-d');
+                $option = array('table' =>vendor_sale_clinic_appointment . ' as appointment_clinic',
+                'select' => 'appointment_clinic .*, user.username',
+                'join' => array(
+                    array( USERS . ' as user', 'user.id = appointment_clinic.doctor_name', 'left'),
+                   
+                ),
+                'where' => array(
+                    'appointment_clinic.status' => 0,
+                    
+                    // 'h.admin_id' => $user_id
+                ),
+                'order' => array('appointment_clinic.id' => 'desc'));
+                
+                $data['appointment_list'] = $this->common_model->customGet($option);
 
-                $sql = "SELECT vendor_sale_clinic_appointment.*, od.*, da.*, ta.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state 
-                FROM vendor_sale_clinic_appointment
-                LEFT JOIN vendor_sale_users as U ON vendor_sale_clinic_appointment.location_appointment = U.id 
-                LEFT JOIN vendor_sale_user_profile as UP ON UP.user_id = vendor_sale_clinic_appointment.doctor_name 
-                LEFT JOIN vendor_sale_out_of_office_doctor as od ON od.doctor_name = vendor_sale_clinic_appointment.doctor_name 
-                LEFT JOIN vendor_sale_doctor_availability as da ON da.doctor_name = vendor_sale_clinic_appointment.doctor_name 
-                LEFT JOIN vendor_sale_theatre_appointment as ta ON ta.doctor_name = vendor_sale_clinic_appointment.doctor_name 
-                WHERE DATE(vendor_sale_clinic_appointment.start_date_appointment) = '$currentDate'
-                   OR DATE(od.out_start_time_at) = '$currentDate'
-                   OR DATE(da.start_date_availability) = '$currentDate'
-                   OR DATE(ta.theatre_date_time) = '$currentDate'
-                ORDER BY vendor_sale_clinic_appointment.start_date_appointment DESC, od.out_start_time_at DESC, da.start_date_availability DESC, ta.theatre_date_time DESC"; 
-                $data['total_appointment'] = $this->common_model->customCount($sql);
+                $option = array(
+                    'table' => USERS . ' as user',
+                    'select' => 'user.id',
+                    'join' => array(
+                        array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                        array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left'),
+                        array('user_profile UP', 'UP.user_id=user.id', 'inner')
+                    ),
+                    'order' => array('user.id' => 'ASC'),
+                    'where' => array(
+                        'user.delete_status' => 0,
+                        'group.id' => 5
+                    ),
+                    'order' => array('user.id' => 'desc'),
+                );
+                $data['total_appointment'] = $this->common_model->customCount($option);
                 
                 // $date = date('Y/m/d H:i:s');
                 
@@ -343,6 +346,7 @@ class Pwfpanel extends Common_Controller
 
                    
                 // );
+               // print_r('hii');die;
 
                 // $sql = "SELECT vendor_sale_clinic_appointment.*, od.*, da.*, ta.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state 
                 // FROM vendor_sale_clinic_appointment

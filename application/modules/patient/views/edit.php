@@ -243,8 +243,8 @@
         <div class="col-md-6" >
             <div class="block" style=" background-color: #FFFF; padding: 15px;  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);">
                 <!-- Customer Info Title -->
-                <div class="block-title">
-                    <h2><i class="fa fa-file-o fw-bold"></i> <strong>MD Steward</strong> Recommendation</h2>
+                <div class="block-title" >
+                    <h2 ><i class="fa fa-file-o fw-bold"></i> <strong >MD Steward</strong> Recommendation</h2>
                 </div>
                 <!-- END Customer Info Title -->
                 <table class="table table-borderless table-striped table-vcenter">

@@ -118,7 +118,7 @@
     
 
     <div class="table-responsive">
-            <table id="common_datatable_users" class="table table-vcenter table-condensed table-bordered">
+            <table id="common_datatable_users" class="table table-vcenter table-condensed table-bordered text-center" style="text-align: center;">
                 <thead>
                     <tr>
                         <th style="background-color:#DBEAFF;font-size:1.3rem;width:10px;">Sr. No</th>
@@ -142,9 +142,9 @@
 
 
                             <tr>
-                                <td><?php echo $rowCount; ?></td>
-                                <td><?php echo $rows->internal_name; ?></td>
-                                <td><?php echo date('m/d/Y', strtotime($rows->created_on)); ?></td>
+                                <td class="text-center" style="font-size:14px;"><?php echo $rowCount; ?></td>
+                                <td class="text-center" style="font-size:14px;"><?php echo $rows->internal_name; ?></td>
+                                <td class="text-center" style="font-size:14px;"><?php echo date('m/d/Y', strtotime($rows->created_on)); ?></td>
                                
                                 <td class="actions">
                                 <td class="actions">
