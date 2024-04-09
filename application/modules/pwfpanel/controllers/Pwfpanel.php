@@ -157,9 +157,11 @@ class Pwfpanel extends Common_Controller
                     // redirect('patient', 'refresh');
                 }
                 /* else if ($this->ion_auth->is_facilityManager()) {
-                    //redirect('patient', 'refresh');
+                    
+               
                     $this->load->admin_render('dashboard', $data);
                 } */ else {
+                   
                     // print_r($data);die;
                     $this->load->admin_render('dashboard', $data);
                 }
@@ -249,6 +251,21 @@ class Pwfpanel extends Common_Controller
                 //$data['total_patient_today'] = $this->common_model->customCount($option);
                 // redirect('reportsSummary', 'refresh');
 
+                $option = array('table' =>vendor_sale_clinic_appointment . ' as appointment_clinic',
+                'select' => 'appointment_clinic .*, user.username',
+                'join' => array(
+                    array( USERS . ' as user', 'user.id = appointment_clinic.doctor_name', 'left'),
+                   
+                ),
+                'where' => array(
+                    'appointment_clinic.status' => 0,
+                    
+                    // 'h.admin_id' => $user_id
+                ),
+                'order' => array('appointment_clinic.id' => 'desc'));
+                
+                $data['appointment_list'] = $this->common_model->customGet($option);
+
                 $option = array(
                     'table' => USERS . ' as user',
                     'select' => 'user.id',
@@ -290,6 +307,7 @@ class Pwfpanel extends Common_Controller
 
                    
                 // );
+               // print_r('hii');die;
 
                 $sql = "SELECT vendor_sale_clinic_appointment.*, od.*, da.*, ta.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state 
                 FROM vendor_sale_clinic_appointment

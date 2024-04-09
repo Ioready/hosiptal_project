@@ -856,11 +856,13 @@
                         </thead>
                         <tbody>
                             <tr>
+                            
                                 <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
-                                <td>B Bernardo Galaviz <br> New York, USA</td>
-                                <td>Dr. Cristina Groves</td>
+                                <td><?php echo $list->patient; ?><br> New York, USA</td>
+                                <td></td>
                                 <td>7.00 PM</td>
                                 <td><a href="appointments.html"><span class="badge bg-primary">Take Up</span></a></td>
+                               
                             </tr>
                             <tr>
                                 <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
@@ -963,34 +965,25 @@
                         </tr>
                     </thead>
                     <tbody>
+                        
+                    
+                    <?php
+                    $count = 0;
+                    foreach ($appointment_list as $list) {
+                        if ($count >= 5) break;
+                                ?>
                         <tr>
+                        
                         <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
-                            <td>Fever</td>
-                            <td>Johndoe21@gmail.com</td>
+                            <td><?php echo $list->patient; ?></td>
+                            <td><?php echo $list->username; ?></td>
                             <td>+1-202-555-0125</td>
-                            <td><a href="appointments.html"><span class="badge bg-primary">Cancer</span></a></td>
+                            <td><a href="appointments.html"><span class="badge bg-primary"><?php echo $list->status; ?></span></a></td>
+                           
                         </tr>
-                        <tr>
-                        <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
-                            <td>Fever</td>
-                            <td>Johndoe21@gmail.com</td>
-                            <td>+1-202-555-0125</td>
-                            <td><a href="appointments.html"><span class="badge bg-primary">Fever</span></a></td>
-                        </tr>
-                        <tr>
-                        <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
-                            <td>Fever</td>
-                            <td>Johndoe21@gmail.com</td>
-                            <td>+1-202-555-0125</td>
-                            <td><a href="appointments.html"><span class="badge bg-primary">Cancer</span></a></td>
-                        </tr>
-                        <tr>
-                        <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
-                            <td>Fever</td>
-                            <td>Johndoe21@gmail.com</td>
-                            <td>+1-202-555-0125</td>
-                            <td><a href="appointments.html"><span class="badge bg-primary">Fever</span></a></td>
-                        </tr>
+                        <?php
+                    $count++;
+                    } ?>
                     </tbody>
                 </table>
             </div>
