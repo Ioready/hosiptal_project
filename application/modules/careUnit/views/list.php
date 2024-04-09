@@ -22,29 +22,29 @@
         ?>
             <h2><strong><?php echo $title; ?></strong> Panel</h2>
             <?php if ($this->ion_auth->is_admin()) { ?>
-                <h2><a href="javascript:void(0)"  onclick="open_modal('<?php echo $model; ?>')" class="btn btn-sm btn-primary">
+                <h2><a href="javascript:void(0)"  onclick="open_modal('<?php echo $model; ?>')"  class="btn btn-sm btn-primary  fw-bold" style="background:#337ab7;">
                         <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
                     </a></h2>
             <?php }else if(($this->ion_auth->is_facilityManager()) &&  $user_idddd =='') { ?>
                
-                <h2><a href="javascript:void(0)" onclick="open_modal('<?php echo $model; ?>')" class="btn btn-sm btn-primary">
+                <h2><a href="javascript:void(0)" onclick="open_modal('<?php echo $model; ?>')"  class="btn btn-sm btn-primary  fw-bold" style="background:#337ab7;">
                         <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
               </a></h2>
 
                 <?php }else if(($this->ion_auth->is_facilityManager()) && $user_idddd!=''){ ?>
-                <h2><a href="javascript:void(0)"  onclick="open_modal('<?php echo $model; ?>')" class="btn btn-sm btn-primary">
-                        <i class="gi gi-circle_plus"></i><?php echo $title; ?>
+                <h2><a href="javascript:void(0)"  onclick="open_modal('<?php echo $model; ?>')"  class="btn btn-sm btn-primary  fw-bold" style="background:#337ab7;">
+                        <i class="gi gi-circle_plus m-2"></i><?php echo $title; ?>
               </a></h2>
 <?php } ?>
         </div>
         <div class="table-responsive">
-            <table id="common_datatable_menucat" class="table table-vcenter table-condensed table-bordered">
+            <table id="common_datatable_menucat" class="table table-vcenter table-condensed table-bordered text-center">
                 <thead>
                     <tr>
-                        <th style="width: 10px;">Sr. No</th>
-                        <th>Care Unit Code</th>
-                        <th>Name</th>
-                        <th>Email</th>
+                        <th class="text-center"  style="font-size:13px;">Sr. No</th>
+                        <th class="text-center" style="font-size:13px;">Care Unit Code</th>
+                        <th class="text-center" style="font-size:13px;">Name</th>
+                        <th class="text-center" style="font-size:13px;">Email</th>
                       <?php if($this->ion_auth->is_admin()){?>
                         <th><?php echo lang('action'); ?></th>
                         <?php } ?>

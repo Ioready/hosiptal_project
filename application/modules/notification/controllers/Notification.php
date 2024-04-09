@@ -130,4 +130,17 @@ class Notification extends Common_Controller {
         redirect('notification');
     }
 
+    function Notification_list()
+    {
+        $userID = $this->ion_auth->get_user_id();
+
+
+        $query = $this->db->get_where('vendor_sale_clinic_appointment', array('doctor_name' => $userID));
+                    $result = $query->row();
+
+                   // print_r($result);die;
+
+                    $this->load->view('list', $data);
+    }
+
 }

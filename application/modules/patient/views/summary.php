@@ -23,26 +23,26 @@
                       
                         <div style="margin: 0px 0px 20px 16px;">
                             
-
-                        <ul class="nav nav-pills nav-fill nav-tabss" id="pills-tab" role="tablist" >
+                        <ul class="nav nav-pills nav-fill nav-tabss mt-4" id="pills-tab" role="tablist" >
                                             <li class="nav-item">
-                                            <a href="<?php echo site_url('patient'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "patient") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">Patient</span></a>
+                                            <a href="<?php echo site_url('patient'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "patient") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide text-dark">Patient</span></a>
                                                 <!-- <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-1" role="tab">Practice Contacts</a> -->
                                             </li>
                                             <li class="nav-item">
                                             
-                                            <a href="<?php echo base_url() . 'index.php/patient/summary?id=' . encoding($results->id); ?>" data-toggle="tooltip"><span class="sidebar-nav-mini-hide">Summary</span></a>
+                                            <a href="<?php echo base_url() . 'index.php/patient/summary?id=' . encoding($results->id); ?>" data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark">Summary</span></a>
+
                                             </li>
                                             <li class="nav-item">
-                                            <a href="<?php echo site_url('patient/consultationTemplates'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "consultationTemplates") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">Consultation Templates</span></a>
+                                            <a href="<?php echo site_url('patient/consultationTemplates'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "consultationTemplates") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide text-dark">Consultation Templates</span></a>
                                                 <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-2" role="tab"></a>
                                             </li>
 
                                             <li class="nav-item">
                                             
-                                            <a href="<?php echo base_url() . 'index.php/patient/communication?id=' . encoding($results->id); ?>" data-toggle="tooltip"><span class="sidebar-nav-mini-hide">Communication</span></a>
+                                            <a href="<?php echo base_url() . 'index.php/patient/communication?id=' . encoding($results->id); ?>" data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark">Communication</span></a>
                                             </li>
-
+                                            
                                         </ul>
                                         
                             </div> 
@@ -57,7 +57,7 @@
     <?php } ?>
     <!-- Datatables Content -->
     <!-- Datatables Content -->
-    <div class="block full">
+    <div class="block full" style=" background-color: #FFFF; padding: 15px;  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);">
 
           <div class="block-title">
             
@@ -69,13 +69,13 @@
              <!-- <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('index.php/' .$formUrl) ?>" enctype="multipart/form-data"> -->
           
             <div class="alert alert-danger" id="error-box" style="display: none"></div>
-            <div class="form-body">
-                <div class="row">
-                    <div class="col-md-12" >
+            <div class="form-body" >
+                <div class="row" >
+                    <div class="col-md-12"  >
                         <div class="form-group">
                         <?php //print_r($results);die; ?>
                                 <div class="col-md-12">
-                                <h2><strong><?php echo $results->patient_name; ?></strong></h2>
+                                <h3><strong><?php echo $results->patient_name; ?></strong></h3>
                             
                                     
                             <div style="overflow-x: auto; overflow-y: auto; width: auto; height: auto;">
@@ -135,8 +135,8 @@
     <section style="background-color: #eee;">
 
     <div class="row">
-      <div class="col-md-4 col-lg-4 mb-4 mb-lg-0">
-        <div class="card">
+      <div class="col-md-4 col-lg-4 mb-4 mb-lg-0" >
+        <div class="card" style=" background-color: #FFFF;   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);">
           <div class="d-flex justify-content-between p-3">
           <p class="lead mb-0"><strong>Problem</strong></p>
             <!-- <div
@@ -167,7 +167,7 @@
         </div>
       </div>
       <div class="col-md-4 col-lg-4 mb-4 mb-md-0">
-        <div class="card">
+        <div class="card" style=" background-color: #FFFF;   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);">
           <div class="d-flex justify-content-between p-3">
           <p class="lead mb-0"><strong>Medical History</strong></p>
             <!-- <div
@@ -203,7 +203,7 @@
         </div>
       </div>
       <div class="col-md-4 col-lg-4 mb-4 mb-md-0">
-        <div class="card">
+        <div class="card" style=" background-color: #FFFF;   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);">
           <div class="d-flex justify-content-between p-3">
             <p class="lead mb-0"><strong>Medication</strong></p>
             <!-- <div

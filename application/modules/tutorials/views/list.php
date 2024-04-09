@@ -102,19 +102,31 @@
         <div class="block-title">
             <h2><strong><?php echo $title; ?></strong> Panel</h2>
 
-            <h2 > <a href="javascript:void(0)" onclick="open_modal('index.php/tutorials/open_model')" class="<?php echo THEME_BUTTON;?> save-btn">
+            <h2 > <a href="javascript:void(0)" class="btn btn-md btn-primary  fw-bold" style="background:#337ab7;"  onclick="open_modal('index.php/tutorials/open_model')" class="<?php echo THEME_BUTTON;?> ">
                     Tutorials
                     <i class="fa fa-plus"></i>
                 </a>
                 </a></h2>
 
                 <h2>
-                <a href="javascript:void(0)" onclick="open_category_modal('index.php/tutorials')" class="<?php echo THEME_BUTTON; ?> save-btn">
+                <a href="javascript:void(0)"   class="btn btn-md btn-primary  fw-bold" style="background:#337ab7;" onclick="open_category_modal('index.php/tutorials')" class="<?php echo THEME_BUTTON; ?>">
                     Category
                     <i class="fa fa-plus"></i>
                 </a>
             </h2>
         </div>
+
+
+
+
+
+
+
+
+
+
+
+        
         <div class="table-responsive">
             <div class="row">
                 <div class="col-lg-12">
@@ -131,15 +143,15 @@
                                         <?php echo $error; ?></div><?php endif; ?>
                                 <div id="message"></div>
                                 <div class="col-lg-12" style="overflow-x: auto">
-                                    <table class="table table-bordered table-responsive" id="common_datatable_cms">
+                                    <table class="table table-bordered table-responsive text-center" id="common_datatable_cms">
                                         <thead>
-                                            <tr>
-                                                <th  class="t-head"><?php echo lang('serial_no'); ?></th>
-                                                <th class="t-head">Category</th>
-                                                <th class="t-head">Tutorial</th>
-                                                <th class="t-head">Description</th>
-                                                <th class="t-head">File</th>
-                                                <th class="t-head"><?php echo lang('action'); ?></th>
+                                            <tr >
+                                                <th  class="t-head text-center" style="font-size:14px;"><?php echo lang('serial_no'); ?></th>
+                                                <th class="t-head text-center" style="font-size:14px;">Category</th>
+                                                <th class="t-head text-center" style="font-size:14px;">Tutorial</th>
+                                                <th class="t-head text-center" style="font-size:14px;">Description</th>
+                                                <th class="t-head text-center" style="font-size:14px;">File</th>
+                                                <th class="t-head text-center" style="font-size:14px;"><?php echo lang('action'); ?></th>
                                             </tr>
                                         </thead>
 
@@ -156,7 +168,7 @@
                                                         <td><?php echo $rows->tutorial; ?></td>
                                                         <td><?php echo $rows->description; ?></td>
                                                         <td>
-                                                            <a class="save-btn btn btn-primary" href="<?php echo base_url() . 'index.php/tutorials/show?tutorial_id=' . ($rows->id); ?>" data-toggle="tooltip" class=" btn btn-default"></i>View Attachments</a>
+                                                            <a  class="btn btn-sm btn-primary" style="background:#337ab7;" href="<?php echo base_url() . 'index.php/tutorials/show?tutorial_id=' . ($rows->id); ?>" data-toggle="tooltip" ></i>View Attachments</a>
                                                         </td>
                                                         <td class="actions">
                                                             <a href="javascript:void(0)" class="btn btn-xs btn-default" onclick="editFn('index.php/tutorials', 'tutorial_edit', '<?php echo encoding($rows->id) ?>');"><i class="fa fa-pencil"></i></a>
@@ -181,3 +193,21 @@
         </div>
     </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

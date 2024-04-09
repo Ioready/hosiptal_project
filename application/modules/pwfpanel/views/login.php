@@ -162,7 +162,7 @@
 
 
                         <div class="col-xs-12 text-right-login_admin">
-                            <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-angle-right"></i> Login to Dashboard</button>
+                            <button type="submit" class="btn btn-sm btn-primary m-2" style="background: #337ab7;"><i class="fa fa-angle-right"></i> Login to Dashboard</button>
                         </div>
 
                         <div class="col-xs-12">
@@ -173,7 +173,7 @@
                         </div></div>
 
                         <div class="col-xs-12 text-right-login_admin" style="margin-top:13px;">
-                            <button class="btn btn-sm btn-primary"><a style="color:#ffffff" href="https://buy.stripe.com/test_4gwg1g78y5PHgs86oo">Create new account</a></button>
+                            <button class="btn btn-sm btn-primary m-2" style="background: #337ab7;"><a style="color:#ffffff" href="https://buy.stripe.com/test_4gwg1g78y5PHgs86oo">Create new account</a></button>
                         </div>
 
 

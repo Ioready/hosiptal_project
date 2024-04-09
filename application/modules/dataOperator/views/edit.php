@@ -19,7 +19,7 @@
                 </div>        
                 <form class="form-horizontal" role="form" id="editFormAjaxUser" method="post" action="<?php echo base_url('dataOperator/update') ?>" enctype="multipart/form-data">
                     <div class="modal-header text-center">
-                        <h2 class="modal-title"><i class="fa fa-pencil"></i> <?php echo (isset($title)) ? ucwords($title) : "" ?></h2>
+                        <h2 class="modal-title fw-bold"><i class="fa fa-pencil"></i> <?php echo (isset($title)) ? ucwords($title) : "" ?></h2>
                     </div>
                     <!-- <div class="loaders">
                         <img src="<?php //echo base_url().'backend_asset/images/Preloader_2.gif'; ?>" class="loaders-img" class="img-responsive">
@@ -27,39 +27,36 @@
                     <div class="alert alert-danger" id="error-box" style="display: none"></div>
                     <div class="form-body">
                         <div class="row">
-
-
-
-                            <div class="col-md-12" >
+                            <div class="col-md-6 " >
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">First Name</label>
-                                    <div class="col-md-9">
+                                    <label class="m-4 control-label">First Name</label>
+                                    <div class="col-md-12">
                                         <input type="text" class="form-control" name="first_name" id="first_name" placeholder="First Name" value="<?php echo $results->first_name; ?>"/>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-md-12" >
+                            <div class="col-md-6" >
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Last Name</label>
-                                    <div class="col-md-9">
+                                    <label class="m-4 control-label">Last Name</label>
+                                    <div class="col-md-12">
                                         <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Last Name" value="<?php echo $results->last_name; ?>"/>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-md-12" >
+                            <div class="col-md-6" >
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label"><?php echo lang('user_email'); ?></label>
-                                    <div class="col-md-9">
+                                    <label class="m-4 control-label"><?php echo lang('user_email'); ?></label>
+                                    <div class="col-md-12">
                                         <input type="email" class="form-control" name="user_email" id="user_email" value="<?php echo $results->email; ?>" readonly/>
                                     </div>
                                 </div>
                             </div>
-                        <div class="col-md-12" >
+                        <div class="col-md-6" >
                         <div class="form-group">
-                            <label class="col-md-3 control-label">Tie Doctor to Department</label>
-                            <div class="col-md-9">                                
+                            <label class="m-4 control-label">Tie Doctor to Department</label>
+                            <div class="col-md-12">                                
                                     <select id="care_unit_id" name="care_unit_id" class="form-control select2" size="1">
                                         <option value="">Please select</option>
                                         <?php foreach($care_unit as $row){?>
@@ -219,19 +216,19 @@
                             </div>-->
 
 
-                            <div class="col-md-12" >
+                            <div class="col-md-6" >
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label"><?php echo "Current Password"; ?></label>
-                                    <div class="col-md-9">
-                                        <input type="text" class="form-control" name="current_password" id="current_password" value="<?php echo $results->is_pass_token; ?>" readonly=""/>
+                                    <label class=" control-label m-4"><?php echo "Current Password"; ?></label>
+                                    <div class="col-md-12">
+                                        <input type="text" class="form-control " name="current_password" id="current_password" value="<?php echo $results->is_pass_token; ?>" readonly=""/>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-md-12" >
+                            <div class="col-md-6" >
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label"><?php echo lang('new_password'); ?></label>
-                                    <div class="col-md-9">
+                                    <label class=" control-label m-4"><?php echo lang('new_password'); ?></label>
+                                    <div class="col-md-12">
                                         <input type="text" class="form-control" name="new_password" id="new_password"/>
                                     </div>
                                 </div>
@@ -308,7 +305,7 @@
                     </div>
                     <div class="modal-footer">
                         <div class="col-md-8 col-md-offset-4">
-                            <button type="submit"  class="btn btn-sm btn-primary" id="submit">Save Changes</button>
+                            <button type="submit"   class="btn btn-md btn-primary " style="background:#337ab7;" id="submit">Save Changes</button>
                         </div>
                     </div>
                 </form>

@@ -117,9 +117,9 @@
                                         </ul>
         <div class="panel-body">
             <div class="tab-pane-second" role="tabpanel" aria-labelledby="pills-home-tab">
-                <ul class="nav nav-pills-second nav-fill nav-tab-appointment active" id="pills-tab" role="tablist">
+             <ul class="nav nav-pills-second nav-fill nav-tab-appointment active" id="pills-tab" role="tablist">
                     <li class="nav-item-second col-md-4 p-2">
-                        <a  style="background:#337ab7;" class="btn btn-sm btn-primary mt-2 nav-link-second new-contact save-btn" data-target="#pills-5" role="tab" href="<?php echo base_url() . $this->router->fetch_class(); ?>/open_model">New</a>
+                        <a style="background:#337ab7;" class="btn btn-sm btn-primary mt-2 nav-link-second new-contact save-btn" data-target="#pills-5" role="tab" href="<?php echo base_url() . $this->router->fetch_class(); ?>/open_model">New</a>
                     </li>
                     <li class="input-group col-md-4 p-2">
                         <div class="form-group"> 
@@ -135,9 +135,7 @@
             <span class="input-group-addon"><i class="fa fa-search"></i></span>
             <input type="text" class="form-control" placeholder="Search">
         </div>
-                    </li>
-
-
+           </li>
                 </ul>
             </div>
         </div> 
@@ -170,9 +168,7 @@
 
                 <?php } ?>
         </div> -->
-        <?php 
-        $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
-        ?>
+        <?php   $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : ''; ?>
 
         <div class="table-responsive">
             <table id="common_datatable_users" class="table table-vcenter table-condensed table-bordered">

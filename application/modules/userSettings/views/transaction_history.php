@@ -10,10 +10,12 @@
             </li>
         </ol>
     </div>
+
     <div class="col-lg-4 text-right">
      <div class="col-md-12">
          <h3 class="text-success">Total Deposite: Rs. <?php echo (!empty($totalAmountReports)) ? $totalAmountReports->total_debit_cash : 0;?></h3>
     </div>
+    
      <div class="col-md-12">
          <h3 class="text-info">Total Winning: Rs. <?php echo (!empty($totalAmountReports)) ? $totalAmountReports->total_winning_cash : 0;?></h3>
     </div>
@@ -229,8 +231,7 @@
                                             <th><?php echo "Transactions Message";?></th>
                                             <th><?php echo "Team vs Team";?></th>
                                             <th><?php echo "Match type";?></th>
-                                            <th><?php echo "Created Date";?></th>
-                                            
+                                            <th><?php echo "Created Date";?></th>   
                                         </tr>
                                     </thead>
                                     <tbody>

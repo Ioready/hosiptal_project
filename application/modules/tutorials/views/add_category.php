@@ -33,7 +33,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal"><?php echo lang('close_btn'); ?></button>
-                    <button type="submit" id="submit" class="<?php echo THEME_BUTTON; ?>"><?php echo lang('submit_btn'); ?></button>
+                    <button  style="background: #337ab7;" type="submit" id="submit" class="<?php echo THEME_BUTTON; ?>"><?php echo lang('submit_btn'); ?></button>
                 </div>
             </form>
         </div> <!-- /.modal-content -->
