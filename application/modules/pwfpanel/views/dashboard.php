@@ -622,7 +622,7 @@
                                         <!-- <div class="ibox-title">
                                         </div> -->
                                         <div class="ibox-content">
-                                            <h1 class="no-margins"><?php echo $initial_rx; ?></h1>
+                                            <h1 class="no-margins"><?php echo $total_appointment; ?></h1>
                                             <h5 class="text-primary"><strong>Total Today Appointment</strong></h5>
                                         </div>
                                         <img src="<?php echo base_url(); ?>uploads/appointment.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
@@ -1054,17 +1054,18 @@
                         
                             <tr>
                                 <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
-                                <td><?php //echo $row->?>John Doe <br>MBBS, MD</td>
+                                <td><?php echo $row->first_name. ''. $row->last_name;?><br><?php echo $row->qualification;?> </td>
                                 <td><span class="badge bg-success">Online</span></td>
                             </tr>
                             <?php }?>
-                            <tr>
+
+                            <!-- <tr>
                                 <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
                                 <td>John Doe <br>MBBS, MD</td>
                                 <td><span class="badge bg-danger">Offline</span></td>
-                            </tr>
+                            </tr> -->
 
-                            <tr>
+                            <!-- <tr>
                                 <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
                                 <td>John Doe <br>MBBS, MD</td>
                                 <td><span class="badge bg-success">Online</span></td>
@@ -1073,7 +1074,7 @@
                                 <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
                                 <td>John Doe <br>MBBS, MD</td>
                                 <td><span class="badge bg-success">Online</span></td>
-                            </tr>
+                            </tr> -->
                         </tbody>
                     </table>
                 </div>
