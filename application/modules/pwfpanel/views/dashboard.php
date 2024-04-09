@@ -451,7 +451,7 @@
 
 
            <div class="col-lg-3 dashboardBoxes">
-               <div style="background-color:#FEE2E1; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);"  class="ibox float-e-margins">
+               <div style="background-color:#FEE2E1; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);"  class="ibox float-e-margins">
                    <!-- <div class="ibox-title">
                    </div> -->
                    <div class="ibox-content">
@@ -461,12 +461,12 @@
                    </h1>
                    <h5 class="text-primary"><strong>Total Care Unit</strong></h5>
                    </div>
-                   <img src="<?php echo base_url(); ?>uploads/form.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+                   <img src="<?php echo base_url(); ?>uploads/intravenous-therapy.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
                </div>
            </div>
 
            <div class="col-lg-3 dashboardBoxes">
-               <div style="background-color:#DAEBFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
+               <div style="background-color:#DAEBFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
                    <!-- <div class="ibox-title">
                    </div> -->
                    <div class="ibox-content">
@@ -476,31 +476,30 @@
                    </h1>
                    <h5 class="text-primary"><strong>Total Infections</strong></h5>
                    </div>
-                   <img src="<?php echo base_url(); ?>uploads/form.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+                   <img src="<?php echo base_url(); ?>uploads/infected.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
                </div>
            </div>
            
            <div class="col-lg-3 dashboardBoxes">
-                   <div style="background-color:#D0FAE4; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
+                   <div style="background-color:#D0FAE4; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
                        <!-- <div class="ibox-title">
                        </div> -->
                        <div class="ibox-content">
                            <h1 class="no-margins"><?php echo $initial_rx; ?></h1>
                            <h5 class="text-primary"><strong>Total Antibiotic</strong></h5>
                        </div>
-                       <img src="<?php echo base_url(); ?>uploads/form.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+                       <img src="<?php echo base_url(); ?>uploads/medicine.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
                    </div>
            </div>
 
-           <div class="col-lg-3 dashboardBoxes">
-                   <div style="background-color:#D0FAE4; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
-                       <!-- <div class="ibox-title">
-                       </div> -->
+           <div class="col-lg-4 dashboardBoxes">
+                   <div style="background-color:#D0FAE4; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
+                      
                        <div class="ibox-content">
                            <h1 class="no-margins"><?php echo $total_patient_today; ?></h1>
                            <h5 class="text-primary"><strong>Total Patient Today</strong></h5>
                        </div>
-                       <img src="<?php echo base_url(); ?>uploads/form.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+                       <img src="<?php echo base_url(); ?>uploads/patient.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
                    </div>
            </div>
 
