@@ -439,18 +439,16 @@
 
 
 
-                       <div class="ibox-content">
+    <div class="col-lg-3 col-md-6 dashboardBoxes">
+    <div style="background-color:<?php echo $total_patient > 0 ? '#F9F5FF' : '#F9F5FF'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
+        <div class="ibox-content">
+            <h1 class="no-margins"><?php echo $total_patient; ?></h1>
+            <h5 class="text-primary"><strong>Total Patient </strong></h5>
+        </div>
+        <img src="<?php echo base_url(); ?>uploads/user.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+    </div>
+</div>
 
-                       <h1 class="no-margins">
-
-                       <?php echo $total_patient; ?>
-                       </h1>
-                       <h5 class="text-primary"><strong>Total Patient</strong></h5>
-                       </div>
-                    </div>
-                    <img src="<?php echo base_url(); ?>uploads/form.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
-               </div>
-           </div>
 
            <div class="col-lg-3 dashboardBoxes">
                <div style="background-color:#FEE2E1; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);"  class="ibox float-e-margins">
@@ -850,12 +848,158 @@
                                 <th scope="col">#</th>
                                 <th scope="col">Address</th>
                                 <th scope="col">Appointment With</th>
+                                <th scope="col">Description</th>
                                 <th scope="col">Time</th>
                                 <th scope="col">Status</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+
+
+
+                        <?php $formatted_time = date('Y-m-d');
+
+                            $appointment_found = false;
+                                                 foreach($clinic_appointment as $appointment) {
+                                        
+                                                    // Clinic Appointment
+                                                    // print_r($appointment);die;
+                                                    ?>
+                                                    
+                                                        <?php
+                                                      $appointmentTime = date('g:i A', strtotime($appointment->start_date_appointment));
+                                                    //   print_r($appointmentTime);die;
+                                                      $end_date_appointment = date('g:i A', strtotime($appointment->end_date_appointment));
+                                                      $comment_appointment = $appointment->comment_appointment;
+                                                      $address1 = $appointment->address1;
+                                                      $city = $appointment->city;
+                                                      $first_name = $appointment->first_name;
+                                                      $last_name = $appointment->last_name;
+            
+                                                    // Out Of Office
+            
+                                                      $out_start_time_at = date('g:i A', strtotime($appointment->out_start_time_at));
+                                                      $out_end_time_at = date('g:i A', strtotime($appointment->out_end_time_at));
+                                                      $out_of_office_comment = $appointment->out_of_office_comment;
+            
+                                                    // Availability
+            
+                                                      $start_date_availability = date('g:i A', strtotime($appointment->start_date_availability));
+                                                      $end_time_date_availability = date('g:i A', strtotime($appointment->end_time_date_availability));
+                                                      $out_of_office_comment = $appointment->out_of_office_comment;
+            
+                                                     // theatre Appointment
+            
+                                                     $theatre_date_time = date('g:i A', strtotime($appointment->theatre_date_time));
+                                                     $theatre_time_duration = $appointment->theatre_time_duration;
+                                                    //  $theatre_end_time = $appointment->theatre_time_duration + $theatre_date_time;
+                                                    // Convert theatre_time_duration to seconds
+                                                    $durationInSeconds = $theatre_time_duration * 60;
+            
+                                                    // Add duration to theatre_date_time
+                                                    $theatre_end_time = date('g:i A', strtotime($theatre_date_time . " +$durationInSeconds seconds"));
+            
+                                                     $theatre_comment = $appointment->theatre_comment;
+                                                     $theatre_clinician = $appointment->theatre_clinician;
+            
+                                                    //  print_r($theatre_end_time);
+                                                      $appointment_date = date('Y-m-d', strtotime($appointment->start_date_appointment));
+            
+                                                      $out_start_timeAt = date('Y-m-d', strtotime($appointment->out_start_time_at));
+            
+                                                      $start_dateAvailability = date('Y-m-d', strtotime($appointment->start_date_availability));
+            
+                                                      $theatre_dateTime = date('Y-m-d', strtotime($appointment->theatre_date_time));
+            
+                                                    
+                                                      if ($formatted_time >= $appointmentTime && $formatted_time <= $end_date_appointment && $department->id == $appointment->clinician_appointment) {
+                                                        $appointment_found = true;
+                                                        break;
+                                                    }
+            
+            
+                                                    if ($formatted_time >= $out_start_time_at && $formatted_time <= $out_end_time_at && $department->id == $appointment->out_of_office_practitioner) {
+                                                      $appointment_found = true;
+                                                      break;
+                                                  }
+            
+                                                  if ($formatted_time >= $start_date_availability && $formatted_time <= $end_time_date_availability && $department->id == $appointment->availability_practitioner) {
+                                                    $appointment_found = true;
+                                                    break;
+                                                }
+            
+            
+                                                if ($formatted_time >= $theatre_date_time && $formatted_time <= $theatre_end_time && $department->id == $appointment->theatre_clinician) {
+                                                  $appointment_found = true;
+                                                  break;
+                                              }
+            
+                                                //   } 
+                                                
+                                                  // Clinic Appointment
+            
+                                                //   if ($formatted_time >= $appointmentTime && $formatted_time <= $end_date_appointment && $department->id == $appointment->clinician_appointment) {
+                                                  ?>
+                                                   
+
+                                                   <tr>
+                                                  <!-- <td class="day-cell appointment-row" data-date="<?php echo $appointment_date; ?>" data-day="<?php echo $department->id; ?>"> -->
+                                                  <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
+                                                        <?php 
+                                                            $current_date = date('Y-m-d');
+            
+                                                            // if ($appointment_date == $current_date) {
+                                                                
+                                                                // echo '<label style="background-color:green; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;">';
+                                                                // echo '<span style="background-color: green; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong>' .$address1.'<br>'.$city.'<br>'.$comment_appointment.'<br>'.$appointmentTime.' - '.$end_date_appointment.'</span>';
+                                                                // echo '</label>';
+            
+
+                                                        //         echo '<label style="background-color:pink; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;">';
+                                                        //         echo '<span style="background-color: pink; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong>' .$address1.'<br>'.$city.'<br>'.$out_of_office_comment.'<br>'.$out_start_time_at.' - '.$out_end_time_at.'</span>';
+                                                        //         echo '</label>';
+
+                                                        //         echo '<label style="background-color:#40E0D0; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;">';
+                                                        //   echo '<span style="background-color: #40E0D0; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong>' .$address1.'<br>'.$city.'<br>Available<br>'.$start_date_availability.' - '.$out_end_time_at.'</span>';
+                                                        //   echo '</label>';
+
+
+                                                        //   echo '<label style="background-color:#800080; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;">';
+                                                        //   echo '<span style="background-color: #800080; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong>' .$address1.'<br>'.$city.'<br>theatre_comment<br>'.$theatre_date_time.' - '.$theatre_end_time.'</span>';
+                                                        //   echo '</label>';
+                                                                
+
+                                                            
+                                                        // $time_12_appointmentTime = date('g:i A', strtotime($time_24_appointmentTime)); 
+                                                        // $time_12_hour_format = date('g:i A', strtotime($time_24_hour_format));
+                                                        ?>
+                                                    </td>
+
+                                                    <td><?php echo $address1; ?><br> <?php echo $city; ?></td>
+                                                    <td><?php echo $first_name.' '.$last_name; ?></td>
+                                                    <td><?php echo $comment_appointment; ?></td>
+
+                                                    <td>
+                                                        <?php 
+                                                        if ($formatted_time == $appointment_date) {
+                                                            echo $appointmentTime . ' To ' . $end_date_appointment;
+                                                        } elseif ($formatted_time == $out_start_timeAt) {
+                                                            echo $out_start_time_at . ' To ' .  $out_end_time_at;
+                                                        } elseif ($formatted_time == $start_dateAvailability) {
+                                                            echo $start_date_availability . ' To ' .  $end_time_date_availability;
+                                                        } elseif ($formatted_time == $theatre_dateTime) {
+                                                            echo $theatre_date_time . ' To ' .  $theatre_end_time;
+                                                        }
+                                                        ?>
+                                                    </td>
+
+
+                                                    <td><a href="#"><span class="badge bg-primary">Take Up</span></a></td>
+                                                     </tr>
+                                               <?php }
+                                                ?>
+
+                            <!-- <tr>
                                 <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
                                 <td>B Bernardo Galaviz <br> New York, USA</td>
                                 <td>Dr. Cristina Groves</td>
@@ -868,8 +1012,8 @@
                                 <td>Dr. Cristina Groves</td>
                                 <td>7.00 PM</td>
                                 <td><a href="appointments.html"><span class="badge bg-primary">Take Up</span></a></td>
-                            </tr>
-                            <tr>
+                            </tr> -->
+                            <!-- <tr>
                                 <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
                                 <td>B Bernardo Galaviz <br> New York, USA</td>
                                 <td>Dr. Cristina Groves</td>
@@ -882,7 +1026,7 @@
                                 <td>Dr. Cristina Groves</td>
                                 <td>7.00 PM</td>
                                 <td><a href="appointments.html"><span class="badge bg-primary">Take Up</span></a></td>
-                            </tr>
+                            </tr> -->
                         </tbody>
                     </table>
                 </div>
@@ -904,11 +1048,16 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <?php foreach($doctors_list as $row){
+                                // print_r($row);die;
+                                ?>
+                        
                             <tr>
                                 <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
-                                <td>John Doe <br>MBBS, MD</td>
+                                <td><?php //echo $row->?>John Doe <br>MBBS, MD</td>
                                 <td><span class="badge bg-success">Online</span></td>
                             </tr>
+                            <?php }?>
                             <tr>
                                 <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
                                 <td>John Doe <br>MBBS, MD</td>
@@ -1061,329 +1210,6 @@
                     
 
 
-<<<<<<< HEAD
-=======
-                        <div class="col-12 col-md-6 col-lg-8 col-xl-8">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title d-inline-block">Upcoming Appointments</h4> <a href="#" class="btn save-btn btn-primary float-right">View all</a>
-                                </div>
-                                <div class="card-body p-0">
-                                    <div class="table-responsive">
-                                        <table class="table mb-0">
-                                            <thead class="d-none">
-                                                <tr>
-                                                    <th>Patient Name</th>
-                                                    <th>Doctor Name</th>
-                                                    <th>Timing</th>
-                                                    <th class="text-right">Status</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php 
-                                                 foreach($clinic_appointment as $appointment) {
-                                        
-                                                    // Clinic Appointment
-                                                    // print_r($appointment);die;
-                                                    ?>
-                                                    <tr>
-                                                        <?php
-                                                      $appointmentTime = date('H:i', strtotime($appointment->start_date_appointment));
-                                                    //   print_r($appointmentTime);die;
-                                                      $end_date_appointment = date('H:i', strtotime($appointment->end_date_appointment));
-                                                      $comment_appointment = $appointment->comment_appointment;
-                                                      $address1 = $appointment->address1;
-                                                      $city = $appointment->city;
-                                                      $first_name = $appointment->first_name;
-                                                      $last_name = $appointment->last_name;
-            
-                                                    // Out Of Office
-            
-                                                      $out_start_time_at = date('H:i', strtotime($appointment->out_start_time_at));
-                                                      $out_end_time_at = date('H:i', strtotime($appointment->out_end_time_at));
-                                                      $out_of_office_comment = $appointment->out_of_office_comment;
-            
-                                                    // Availability
-            
-                                                      $start_date_availability = date('H:i', strtotime($appointment->start_date_availability));
-                                                      $end_time_date_availability = date('H:i', strtotime($appointment->end_time_date_availability));
-                                                      $out_of_office_comment = $appointment->out_of_office_comment;
-            
-                                                     // theatre Appointment
-            
-                                                     $theatre_date_time = date('H:i', strtotime($appointment->theatre_date_time));
-                                                     $theatre_time_duration = $appointment->theatre_time_duration;
-                                                    //  $theatre_end_time = $appointment->theatre_time_duration + $theatre_date_time;
-                                                    // Convert theatre_time_duration to seconds
-                                                    $durationInSeconds = $theatre_time_duration * 60;
-            
-                                                    // Add duration to theatre_date_time
-                                                    $theatre_end_time = date('H:i', strtotime($theatre_date_time . " +$durationInSeconds seconds"));
-            
-                                                     $theatre_comment = $appointment->theatre_comment;
-                                                     $theatre_clinician = $appointment->theatre_clinician;
-            
-                                                    //  print_r($theatre_end_time);
-                                                      $appointment_date = date('Y-m-d', strtotime($appointment->start_date_appointment));
-            
-                                                      $out_start_timeAt = date('Y-m-d', strtotime($appointment->out_start_time_at));
-            
-                                                      $start_dateAvailability = date('Y-m-d', strtotime($appointment->start_date_availability));
-            
-                                                      $theatre_dateTime = date('Y-m-d', strtotime($appointment->theatre_date_time));
-            
-                                                    
-                                                      if ($formatted_time >= $appointmentTime && $formatted_time <= $end_date_appointment && $department->id == $appointment->clinician_appointment) {
-                                                        $appointment_found = true;
-                                                        break;
-                                                    }
-            
-            
-                                                    if ($formatted_time >= $out_start_time_at && $formatted_time <= $out_end_time_at && $department->id == $appointment->out_of_office_practitioner) {
-                                                      $appointment_found = true;
-                                                      break;
-                                                  }
-            
-                                                  if ($formatted_time >= $start_date_availability && $formatted_time <= $end_time_date_availability && $department->id == $appointment->availability_practitioner) {
-                                                    $appointment_found = true;
-                                                    break;
-                                                }
-            
-            
-                                                if ($formatted_time >= $theatre_date_time && $formatted_time <= $theatre_end_time && $department->id == $appointment->theatre_clinician) {
-                                                  $appointment_found = true;
-                                                  break;
-                                              }
-            
-                                                //   } 
-                                                
-                                                  // Clinic Appointment
-            
-                                                //   if ($formatted_time >= $appointmentTime && $formatted_time <= $end_date_appointment && $department->id == $appointment->clinician_appointment) {
-                                                  ?>
-                                                   <td style="min-width: 200px;">
-                                                        <a class="avatar" href="profile.html">B</a>
-                                                        <h2><a href="profile.html">Bernardo Galaviz <span>New York, USA</span></a></h2>
-                                                    <!-- </td>   -->
-
-
-                                                  <!-- <td class="day-cell appointment-row" data-date="<?php echo $appointment_date; ?>" data-day="<?php echo $department->id; ?>"> -->
-                                                        <?php 
-                                                            $current_date = date('Y-m-d');
-            
-                                                            // if ($appointment_date == $current_date) {
-                                                                echo '<label style="background-color:green; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;">';
-                                                                echo '<span style="background-color: green; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong>' .$address1.'<br>'.$city.'<br>'.$comment_appointment.'<br>'.$appointmentTime.' - '.$end_date_appointment.'</span>';
-                                                                echo '</label>';
-            
-
-                                                                echo '<label style="background-color:pink; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;">';
-                                                                echo '<span style="background-color: pink; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong>' .$address1.'<br>'.$city.'<br>'.$out_of_office_comment.'<br>'.$out_start_time_at.' - '.$out_end_time_at.'</span>';
-                                                                echo '</label>';
-
-                                                                echo '<label style="background-color:#40E0D0; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;">';
-                                                          echo '<span style="background-color: #40E0D0; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong>' .$address1.'<br>'.$city.'<br>Available<br>'.$start_date_availability.' - '.$out_end_time_at.'</span>';
-                                                          echo '</label>';
-
-
-                                                          echo '<label style="background-color:#800080; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;">';
-                                                          echo '<span style="background-color: #800080; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong>' .$address1.'<br>'.$city.'<br>theatre_comment<br>'.$theatre_date_time.' - '.$theatre_end_time.'</span>';
-                                                          echo '</label>';
-                                                                
-                                                            //   } 
-                                                            // elseif ($appointment_date == date('Y-m-d', strtotime('+1 day'))) {
-                                                            //   echo '<label style="background-color:blue; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;">';
-                                                            //     echo '<span style="background-color: blue; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong>'.$address1.'<br>'.$city.'<br>'.$comment_appointment.'<br>'.$appointmentTime.' - '.$end_date_appointment.'</span>';
-                                                            //     echo '</label>';
-            
-                                                            //   } elseif ($appointment_date == date('Y-m-d', strtotime('-1 day'))) {
-                                                            //     echo '<label style="background-color:red; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;">';
-                                                            //     echo '<span style="background-color: red; color: white;">'.$first_name.' '.$last_name.'<br>'.$address1.'<br>'.$city.'<br>'.$comment_appointment.'<br>'.$appointmentTime.' - '.$end_date_appointment.'</span>';
-                                                            //     echo '</label>';
-                                                            //   }
-                                                              
-                                                        ?>
-                                                    </td>
-            
-                                                     </tr>
-                                               <?php }
-                                                ?>
-                                                <tr>
-                                                    <td style="min-width: 200px;">
-                                                        <a class="avatar" href="profile.html">B</a>
-                                                        <h2><a href="profile.html">Bernardo Galaviz <span>New York, USA</span></a></h2>
-                                                    </td>                 
-                                                    <td>
-                                                        <h5 class="time-title p-0">Appointment With</h5>
-                                                        <p>Dr. Cristina Groves</p>
-                                                    </td>
-                                                    <td>
-                                                        <h5 class="time-title p-0">Timing</h5>
-                                                        <p>7.00 PM</p>
-                                                    </td>
-                                                    <td class="text-right">
-                                                        <a href="appointments.html" class="btn btn-outline-primary take-btn">Take up</a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="min-width: 200px;">
-                                                        <a class="avatar" href="profile.html">B</a>
-                                                        <h2><a href="profile.html">Bernardo Galaviz <span>New York, USA</span></a></h2>
-                                                    </td>                 
-                                                    <td>
-                                                        <h5 class="time-title p-0">Appointment With</h5>
-                                                        <p>Dr. Cristina Groves</p>
-                                                    </td>
-                                                    <td>
-                                                        <h5 class="time-title p-0">Timing</h5>
-                                                        <p>7.00 PM</p>
-                                                    </td>
-                                                    <td class="text-right">
-                                                        <a href="appointments.html" class="btn btn-outline-primary take-btn">Take up</a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="min-width: 200px;">
-                                                        <a class="avatar" href="profile.html">B</a>
-                                                        <h2><a href="profile.html">Bernardo Galaviz <span>New York, USA</span></a></h2>
-                                                    </td>                 
-                                                    <td>
-                                                        <h5 class="time-title p-0">Appointment With</h5>
-                                                        <p>Dr. Cristina Groves</p>
-                                                    </td>
-                                                    <td>
-                                                        <h5 class="time-title p-0">Timing</h5>
-                                                        <p>7.00 PM</p>
-                                                    </td>
-                                                    <td class="text-right">
-                                                        <a href="appointments.html" class="btn btn-outline-primary take-btn">Take up</a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="min-width: 200px;">
-                                                        <a class="avatar" href="profile.html">B</a>
-                                                        <h2><a href="profile.html">Bernardo Galaviz <span>New York, USA</span></a></h2>
-                                                    </td>                 
-                                                    <td>
-                                                        <h5 class="time-title p-0">Appointment With</h5>
-                                                        <p>Dr. Cristina Groves</p>
-                                                    </td>
-                                                    <td>
-                                                        <h5 class="time-title p-0">Timing</h5>
-                                                        <p>7.00 PM</p>
-                                                    </td>
-                                                    <td class="text-right">
-                                                        <a href="appointments.html" class="btn btn-outline-primary take-btn">Take up</a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="min-width: 200px;">
-                                                        <a class="avatar" href="profile.html">B</a>
-                                                        <h2><a href="profile.html">Bernardo Galaviz <span>New York, USA</span></a></h2>
-                                                    </td>                 
-                                                    <td>
-                                                        <h5 class="time-title p-0">Appointment With</h5>
-                                                        <p>Dr. Cristina Groves</p>
-                                                    </td>
-                                                    <td>
-                                                        <h5 class="time-title p-0">Timing</h5>
-                                                        <p>7.00 PM</p>
-                                                    </td>
-                                                    <td class="text-right">
-                                                        <a href="appointments.html" class="btn btn-outline-primary take-btn">Take up</a>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-4 col-xl-4">
-                            <div class="card member-panel">
-                                <div class="card-header bg-white">
-                                    <h4 class="card-title mb-0">Doctors</h4>
-                                </div>
-                                <div class="card-body">
-                                    <ul class="contact-list">
-                                        <li>
-                                            <div class="contact-cont">
-                                                <div class="float-left user-img m-r-10">
-                                                    <a href="profile.html" title="John Doe"><img src="assets/img/user.jpg" alt="" class="w-40 rounded-circle"><span class="status online"></span></a>
-                                                </div>
-                                                <div class="contact-info">
-                                                    <span class="contact-name text-ellipsis">John Doe</span>
-                                                    <span class="contact-date">MBBS, MD</span>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="contact-cont">
-                                                <div class="float-left user-img m-r-10">
-                                                    <a href="profile.html" title="Richard Miles"><img src="assets/img/user.jpg" alt="" class="w-40 rounded-circle"><span class="status offline"></span></a>
-                                                </div>
-                                                <div class="contact-info">
-                                                    <span class="contact-name text-ellipsis">Richard Miles</span>
-                                                    <span class="contact-date">MD</span>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="contact-cont">
-                                                <div class="float-left user-img m-r-10">
-                                                    <a href="profile.html" title="John Doe"><img src="assets/img/user.jpg" alt="" class="w-40 rounded-circle"><span class="status away"></span></a>
-                                                </div>
-                                                <div class="contact-info">
-                                                    <span class="contact-name text-ellipsis">John Doe</span>
-                                                    <span class="contact-date">BMBS</span>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="contact-cont">
-                                                <div class="float-left user-img m-r-10">
-                                                    <a href="profile.html" title="Richard Miles"><img src="assets/img/user.jpg" alt="" class="w-40 rounded-circle"><span class="status online"></span></a>
-                                                </div>
-                                                <div class="contact-info">
-                                                    <span class="contact-name text-ellipsis">Richard Miles</span>
-                                                    <span class="contact-date">MS, MD</span>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="contact-cont">
-                                                <div class="float-left user-img m-r-10">
-                                                    <a href="profile.html" title="John Doe"><img src="assets/img/user.jpg" alt="" class="w-40 rounded-circle"><span class="status offline"></span></a>
-                                                </div>
-                                                <div class="contact-info">
-                                                    <span class="contact-name text-ellipsis">John Doe</span>
-                                                    <span class="contact-date">MBBS</span>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="contact-cont">
-                                                <div class="float-left user-img m-r-10">
-                                                    <a href="profile.html" title="Richard Miles"><img src="assets/img/user.jpg" alt="" class="w-40 rounded-circle"><span class="status away"></span></a>
-                                                </div>
-                                                <div class="contact-info">
-                                                    <span class="contact-name text-ellipsis">Richard Miles</span>
-                                                    <span class="contact-date">MBBS, MD</span>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="card-footer text-center bg-white">
-                                    <a href="doctors.html" class="text-muted">View all Doctors</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row m-2">
-                            
->>>>>>> 5f3769f431c62d7712db4f5996f345f8205ea5e4
                                 
                    
 

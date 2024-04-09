@@ -196,7 +196,45 @@ class Pwfpanel extends Common_Controller
 
                 $data['initial_dx'] = $this->common_model->customCount(array('table' => 'initial_dx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0)));
                 $data['initial_rx'] = $this->common_model->customCount(array('table' => 'initial_rx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0)));
-                $data['doctors'] = $this->common_model->customCount(array('table' => 'doctors', 'select' => 'id,name', 'where' => array('is_active' => 1, 'facility_user_id'=>$user_id, 'delete_status' => 0)));
+                // $data['doctors'] = $this->common_model->customCount(array('table' => 'doctors', 'select' => 'id,name', 'where' => array('is_active' => 1, 'doctors.facility_user_id'=>$user_id, 'delete_status' => 0)));
+
+                $option = array(
+                    'table' => USERS . ' as user',
+                    'select' => 'user.id',
+                    'join' => array(
+                        array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                        array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left'),
+                        array('user_profile UP', 'UP.user_id=user.id', 'inner'),
+                        array('doctors D', 'D.facility_user_id=user.id', 'left')
+                    ),
+                    // 'order' => array('user.id' => 'ASC'),
+                    'where' => array(
+                        'user.delete_status' => 0,
+                        // 'group.id' => 5,
+                        'user.id'=>$CareUnitID
+                    ),
+                    'order' => array('user.id' => 'desc'),
+                );
+                $data['doctors'] = $this->common_model->customCount($option);
+                $option = array(
+                    'table' => USERS . ' as user',
+                    'select' => 'user.*',
+                    'join' => array(
+                        array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                        array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left'),
+                        array('user_profile UP', 'UP.user_id=user.id', 'inner'),
+                        array('doctors D', 'D.facility_user_id=user.id', 'left')
+                    ),
+                    // 'order' => array('user.id' => 'ASC'),
+                    'where' => array(
+                        'user.delete_status' => 0,
+                        // 'group.id' => 5,
+                        'user.id'=>$CareUnitID
+                    ),
+                    'order' => array('user.id' => 'desc'),
+                );
+                $data['doctors_list'] = $this->common_model->customGet($option);
+
                 $option = array(
                     'table' => USERS . ' as user',
                     'select' => 'user.id',
@@ -291,6 +329,24 @@ class Pwfpanel extends Common_Controller
                    
                 // );
 
+                // $sql = "SELECT vendor_sale_clinic_appointment.*, od.*, da.*, ta.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state 
+                // FROM vendor_sale_clinic_appointment
+                // LEFT JOIN vendor_sale_users as U ON vendor_sale_clinic_appointment.location_appointment = U.id 
+                // LEFT JOIN vendor_sale_user_profile as UP ON UP.user_id = vendor_sale_clinic_appointment.doctor_name 
+                // LEFT JOIN vendor_sale_out_of_office_doctor as od ON od.doctor_name = vendor_sale_clinic_appointment.doctor_name 
+                // LEFT JOIN vendor_sale_doctor_availability as da ON da.doctor_name = vendor_sale_clinic_appointment.doctor_name 
+                // LEFT JOIN vendor_sale_theatre_appointment as ta ON ta.doctor_name = vendor_sale_clinic_appointment.doctor_name 
+                // WHERE DATE(vendor_sale_clinic_appointment.start_date_appointment) >= '$currentDate' OR WHERE DATE(od.out_start_time_at) >= '$currentDate' OR WHERE DATE(da.start_date_availability) >= '$currentDate' OR WHERE DATE(ta.theatre_date_time) >= '$currentDate'";
+
+                // $sql = "SELECT vendor_sale_clinic_appointment.*, od.*, da.*, ta.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state 
+                // FROM vendor_sale_clinic_appointment
+                // LEFT JOIN vendor_sale_users as U ON vendor_sale_clinic_appointment.location_appointment = U.id 
+                // LEFT JOIN vendor_sale_user_profile as UP ON UP.user_id = vendor_sale_clinic_appointment.doctor_name 
+                // LEFT JOIN vendor_sale_out_of_office_doctor as od ON od.doctor_name = vendor_sale_clinic_appointment.doctor_name 
+                // LEFT JOIN vendor_sale_doctor_availability as da ON da.doctor_name = vendor_sale_clinic_appointment.doctor_name 
+                // LEFT JOIN vendor_sale_theatre_appointment as ta ON ta.doctor_name = vendor_sale_clinic_appointment.doctor_name 
+                // WHERE DATE(vendor_sale_clinic_appointment.start_date_appointment) = '$currentDate'
+                // OR DATE(od.out_start_time_at) = '$currentDate'";
                 $sql = "SELECT vendor_sale_clinic_appointment.*, od.*, da.*, ta.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state 
                 FROM vendor_sale_clinic_appointment
                 LEFT JOIN vendor_sale_users as U ON vendor_sale_clinic_appointment.location_appointment = U.id 
@@ -298,11 +354,15 @@ class Pwfpanel extends Common_Controller
                 LEFT JOIN vendor_sale_out_of_office_doctor as od ON od.doctor_name = vendor_sale_clinic_appointment.doctor_name 
                 LEFT JOIN vendor_sale_doctor_availability as da ON da.doctor_name = vendor_sale_clinic_appointment.doctor_name 
                 LEFT JOIN vendor_sale_theatre_appointment as ta ON ta.doctor_name = vendor_sale_clinic_appointment.doctor_name 
-                WHERE DATE(vendor_sale_clinic_appointment.start_date_appointment) >= '$currentDate' AND DATE(od.out_start_time_at) >= '$currentDate' AND DATE(da.start_date_availability) >= '$currentDate' AND DATE(ta.theatre_date_time) >= '$currentDate'";
-
-
+                WHERE DATE(vendor_sale_clinic_appointment.start_date_appointment) = '$currentDate'
+                   OR DATE(od.out_start_time_at) = '$currentDate'
+                   OR DATE(da.start_date_availability) = '$currentDate'
+                   OR DATE(ta.theatre_date_time) = '$currentDate'
+                ORDER BY vendor_sale_clinic_appointment.start_date_appointment DESC, od.out_start_time_at DESC, da.start_date_availability DESC, ta.theatre_date_time DESC
+                LIMIT 6"; // Example limit value of 10
+        
                 $data['clinic_appointment'] = $this->common_model->customQuery($sql);
-                // print_r($data['clinic_appointment']);die;
+                
 
                 $this->load->admin_render('dashboard', $data);
 
