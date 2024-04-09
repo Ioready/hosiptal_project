@@ -173,7 +173,7 @@
 <!--                                     <li title="Reports">
         <a href="<?php echo site_url('reports'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "reports") ? "active" : "" ?>"><i class="gi gi-charts sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Reports Details</span></a>
     </li> -->
-
+hh
 <!--<li title="Reports">-->
 <!--    <a href="<?php echo site_url('reportsSummary'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "reportsSummary") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/report.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp;Report Summary</span></a>-->
 <!--</li>-->
@@ -351,12 +351,12 @@
                         ?>
                         <li data-toggle="collapse" data-target="#new" class="collapsed" data-parent="#menu-content" onclick="toggleDropdown(event)">
                             <a href="#">
-                            <img src="<?php echo base_url(); ?>uploads/hospital.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">&nbsp; Hospital List </span><i class="fa fa-chevron-down"></i>
+                            <img src="<?php echo base_url(); ?>uploads/hospital.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark"> Hospital List </span><i class="fa fa-chevron-down"></i>
                             </a>
                         </li>
                         <ul class="sub-menu collapse" id="new" style="background: white; color: black; padding-left: revert;">
                             <?php foreach($list as $lists){ ?>
-                                <li ><a href="<?php echo site_url('facilityManager/hospitalDetail/'.$lists->id); ?> <?php base_url('facilityManager/hospitalDetail/'.$lists->id); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "facilityManager/hospitalDetail/.$lists->id") ? "active" : "" ?>" style="color: black; font-weight: bold; "><img src="<?php echo base_url(); ?>uploads/hospital.svg" style="height: 23px;width:23px;">&nbsp;&nbsp;<?php echo ucfirst($lists->first_name. ' '.$lists->last_name);?></a></li>
+                                <li ><a href="<?php echo site_url('facilityManager/hospitalDetail/'.$lists->id); ?> <?php base_url('facilityManager/hospitalDetail/'.$lists->id); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "facilityManager/hospitalDetail/.$lists->id") ? "active" : "" ?>" style="color: black; font-weight: bold; "><img src="<?php echo base_url(); ?>uploads/hospital.svg" style="height: 23px;width:23px;"><?php echo ucfirst($lists->first_name. ' '.$lists->last_name);?></a></li>
                             <?php }?>
                         </ul>
 
@@ -472,7 +472,7 @@
                                     <a href="<?php echo site_url('contactus'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "contactus") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/contact.svg" height="23px" width="23px"><span class="sidebar-nav-mini-hide text-dark">Contact Us</span></a>
                                 </li> -->
                                 <li title="setting">
-                                    <a href="<?php echo site_url('setting'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "setting") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/setting.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">&nbsp;Admin Setting</span></a>
+                                    <a href="<?php echo site_url('setting'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "setting") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/setting.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Admin Setting</span></a>
                                 </li>
                             <?php } elseif ($this->ion_auth->is_subAdmin()) { ?>
 
@@ -501,6 +501,10 @@
                                     <a href="<?php echo site_url('tasks'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "tasks") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/tasks.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">&nbsp;Tasks</span></a>
                                 </li>
 
+                                <li title="Aprove">
+                                    <a href="<?php echo site_url('notification'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "notification") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/tasks.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">&nbsp;Aprove Appointment</span></a>
+                                </li>
+
                                 <!-- <li title="DayTimeSlot">
                                     <a href="<?php echo site_url('dayTimeSlot'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "DayTimeSlot") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/labs.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp;Labs</span></a>
                                 </li> -->
@@ -526,9 +530,9 @@
                                     <a href="<?php echo site_url('contact'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "Contact") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/department.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp;Contacts</span></a>
                                 </li> -->
 
-                                <li title="Email Template">
+                                <!-- <li title="Email Template">
                 <a href="<?php echo site_url('emailTemplate'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "emailTemplate") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/email.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Email Template</span></a>
-            </li>
+            </li> -->
                                
                                 <li title="Email Template">
                                     <a href="<?php echo site_url('emailTemplate'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "emailTemplate") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/email.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Email Template</span></a>
