@@ -439,21 +439,19 @@
 
 
 
-                       <div class="ibox-content">
+    <div class="col-lg-3 col-md-6 dashboardBoxes">
+    <div style="background-color:<?php echo $total_patient > 0 ? '#F9F5FF' : '#F9F5FF'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
+        <div class="ibox-content">
+            <h1 class="no-margins"><?php echo $total_patient; ?></h1>
+            <h5 class="text-primary"><strong>Total Patient </strong></h5>
+        </div>
+        <img src="<?php echo base_url(); ?>uploads/user.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+    </div>
+</div>
 
-                       <h1 class="no-margins">
-
-                       <?php echo $total_patient; ?>
-                       </h1>
-                       <h5 class="text-primary"><strong>Total Patient</strong></h5>
-                       </div>
-                    </div>
-                    <img src="<?php echo base_url(); ?>uploads/form.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
-               </div>
-           </div>
 
            <div class="col-lg-3 dashboardBoxes">
-               <div style="background-color:#FEE2E1; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);"  class="ibox float-e-margins">
+               <div style="background-color:#FEE2E1; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);"  class="ibox float-e-margins">
                    <!-- <div class="ibox-title">
                    </div> -->
                    <div class="ibox-content">
@@ -463,12 +461,12 @@
                    </h1>
                    <h5 class="text-primary"><strong>Total Care Unit</strong></h5>
                    </div>
-                   <img src="<?php echo base_url(); ?>uploads/form.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+                   <img src="<?php echo base_url(); ?>uploads/intravenous-therapy.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
                </div>
            </div>
 
            <div class="col-lg-3 dashboardBoxes">
-               <div style="background-color:#DAEBFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
+               <div style="background-color:#DAEBFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
                    <!-- <div class="ibox-title">
                    </div> -->
                    <div class="ibox-content">
@@ -478,31 +476,30 @@
                    </h1>
                    <h5 class="text-primary"><strong>Total Infections</strong></h5>
                    </div>
-                   <img src="<?php echo base_url(); ?>uploads/form.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+                   <img src="<?php echo base_url(); ?>uploads/infected.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
                </div>
            </div>
            
            <div class="col-lg-3 dashboardBoxes">
-                   <div style="background-color:#D0FAE4; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
+                   <div style="background-color:#D0FAE4; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
                        <!-- <div class="ibox-title">
                        </div> -->
                        <div class="ibox-content">
                            <h1 class="no-margins"><?php echo $initial_rx; ?></h1>
                            <h5 class="text-primary"><strong>Total Antibiotic</strong></h5>
                        </div>
-                       <img src="<?php echo base_url(); ?>uploads/form.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+                       <img src="<?php echo base_url(); ?>uploads/medicine.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
                    </div>
            </div>
 
-           <div class="col-lg-3 dashboardBoxes">
-                   <div style="background-color:#D0FAE4; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
-                       <!-- <div class="ibox-title">
-                       </div> -->
+           <div class="col-lg-4 dashboardBoxes">
+                   <div style="background-color:#D0FAE4; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
+                      
                        <div class="ibox-content">
                            <h1 class="no-margins"><?php echo $total_patient_today; ?></h1>
                            <h5 class="text-primary"><strong>Total Patient Today</strong></h5>
                        </div>
-                       <img src="<?php echo base_url(); ?>uploads/form.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+                       <img src="<?php echo base_url(); ?>uploads/patient.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
                    </div>
            </div>
 
@@ -624,7 +621,7 @@
                                         <!-- <div class="ibox-title">
                                         </div> -->
                                         <div class="ibox-content">
-                                            <h1 class="no-margins"><?php echo $initial_rx; ?></h1>
+                                            <h1 class="no-margins"><?php echo $total_appointment; ?></h1>
                                             <h5 class="text-primary"><strong>Total Today Appointment</strong></h5>
                                         </div>
                                         <img src="<?php echo base_url(); ?>uploads/appointment.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
@@ -850,13 +847,158 @@
                                 <th scope="col">#</th>
                                 <th scope="col">Address</th>
                                 <th scope="col">Appointment With</th>
+                                <th scope="col">Description</th>
                                 <th scope="col">Time</th>
                                 <th scope="col">Status</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                            
+
+
+
+                        <?php $formatted_time = date('Y-m-d');
+
+                            $appointment_found = false;
+                                                 foreach($clinic_appointment as $appointment) {
+                                        
+                                                    // Clinic Appointment
+                                                    // print_r($appointment);die;
+                                                    ?>
+                                                    
+                                                        <?php
+                                                      $appointmentTime = date('g:i A', strtotime($appointment->start_date_appointment));
+                                                    //   print_r($appointmentTime);die;
+                                                      $end_date_appointment = date('g:i A', strtotime($appointment->end_date_appointment));
+                                                      $comment_appointment = $appointment->comment_appointment;
+                                                      $address1 = $appointment->address1;
+                                                      $city = $appointment->city;
+                                                      $first_name = $appointment->first_name;
+                                                      $last_name = $appointment->last_name;
+            
+                                                    // Out Of Office
+            
+                                                      $out_start_time_at = date('g:i A', strtotime($appointment->out_start_time_at));
+                                                      $out_end_time_at = date('g:i A', strtotime($appointment->out_end_time_at));
+                                                      $out_of_office_comment = $appointment->out_of_office_comment;
+            
+                                                    // Availability
+            
+                                                      $start_date_availability = date('g:i A', strtotime($appointment->start_date_availability));
+                                                      $end_time_date_availability = date('g:i A', strtotime($appointment->end_time_date_availability));
+                                                      $out_of_office_comment = $appointment->out_of_office_comment;
+            
+                                                     // theatre Appointment
+            
+                                                     $theatre_date_time = date('g:i A', strtotime($appointment->theatre_date_time));
+                                                     $theatre_time_duration = $appointment->theatre_time_duration;
+                                                    //  $theatre_end_time = $appointment->theatre_time_duration + $theatre_date_time;
+                                                    // Convert theatre_time_duration to seconds
+                                                    $durationInSeconds = $theatre_time_duration * 60;
+            
+                                                    // Add duration to theatre_date_time
+                                                    $theatre_end_time = date('g:i A', strtotime($theatre_date_time . " +$durationInSeconds seconds"));
+            
+                                                     $theatre_comment = $appointment->theatre_comment;
+                                                     $theatre_clinician = $appointment->theatre_clinician;
+            
+                                                    //  print_r($theatre_end_time);
+                                                      $appointment_date = date('Y-m-d', strtotime($appointment->start_date_appointment));
+            
+                                                      $out_start_timeAt = date('Y-m-d', strtotime($appointment->out_start_time_at));
+            
+                                                      $start_dateAvailability = date('Y-m-d', strtotime($appointment->start_date_availability));
+            
+                                                      $theatre_dateTime = date('Y-m-d', strtotime($appointment->theatre_date_time));
+            
+                                                    
+                                                      if ($formatted_time >= $appointmentTime && $formatted_time <= $end_date_appointment && $department->id == $appointment->clinician_appointment) {
+                                                        $appointment_found = true;
+                                                        break;
+                                                    }
+            
+            
+                                                    if ($formatted_time >= $out_start_time_at && $formatted_time <= $out_end_time_at && $department->id == $appointment->out_of_office_practitioner) {
+                                                      $appointment_found = true;
+                                                      break;
+                                                  }
+            
+                                                  if ($formatted_time >= $start_date_availability && $formatted_time <= $end_time_date_availability && $department->id == $appointment->availability_practitioner) {
+                                                    $appointment_found = true;
+                                                    break;
+                                                }
+            
+            
+                                                if ($formatted_time >= $theatre_date_time && $formatted_time <= $theatre_end_time && $department->id == $appointment->theatre_clinician) {
+                                                  $appointment_found = true;
+                                                  break;
+                                              }
+            
+                                                //   } 
+                                                
+                                                  // Clinic Appointment
+            
+                                                //   if ($formatted_time >= $appointmentTime && $formatted_time <= $end_date_appointment && $department->id == $appointment->clinician_appointment) {
+                                                  ?>
+                                                   
+
+                                                   <tr>
+                                                  <!-- <td class="day-cell appointment-row" data-date="<?php echo $appointment_date; ?>" data-day="<?php echo $department->id; ?>"> -->
+                                                  <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
+                                                        <?php 
+                                                            $current_date = date('Y-m-d');
+            
+                                                            // if ($appointment_date == $current_date) {
+                                                                
+                                                                // echo '<label style="background-color:green; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;">';
+                                                                // echo '<span style="background-color: green; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong>' .$address1.'<br>'.$city.'<br>'.$comment_appointment.'<br>'.$appointmentTime.' - '.$end_date_appointment.'</span>';
+                                                                // echo '</label>';
+            
+
+                                                        //         echo '<label style="background-color:pink; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;">';
+                                                        //         echo '<span style="background-color: pink; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong>' .$address1.'<br>'.$city.'<br>'.$out_of_office_comment.'<br>'.$out_start_time_at.' - '.$out_end_time_at.'</span>';
+                                                        //         echo '</label>';
+
+                                                        //         echo '<label style="background-color:#40E0D0; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;">';
+                                                        //   echo '<span style="background-color: #40E0D0; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong>' .$address1.'<br>'.$city.'<br>Available<br>'.$start_date_availability.' - '.$out_end_time_at.'</span>';
+                                                        //   echo '</label>';
+
+
+                                                        //   echo '<label style="background-color:#800080; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;">';
+                                                        //   echo '<span style="background-color: #800080; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong>' .$address1.'<br>'.$city.'<br>theatre_comment<br>'.$theatre_date_time.' - '.$theatre_end_time.'</span>';
+                                                        //   echo '</label>';
+                                                                
+
+                                                            
+                                                        // $time_12_appointmentTime = date('g:i A', strtotime($time_24_appointmentTime)); 
+                                                        // $time_12_hour_format = date('g:i A', strtotime($time_24_hour_format));
+                                                        ?>
+                                                    </td>
+
+                                                    <td><?php echo $address1; ?><br> <?php echo $city; ?></td>
+                                                    <td><?php echo $first_name.' '.$last_name; ?></td>
+                                                    <td><?php echo $comment_appointment; ?></td>
+
+                                                    <td>
+                                                        <?php 
+                                                        if ($formatted_time == $appointment_date) {
+                                                            echo $appointmentTime . ' To ' . $end_date_appointment;
+                                                        } elseif ($formatted_time == $out_start_timeAt) {
+                                                            echo $out_start_time_at . ' To ' .  $out_end_time_at;
+                                                        } elseif ($formatted_time == $start_dateAvailability) {
+                                                            echo $start_date_availability . ' To ' .  $end_time_date_availability;
+                                                        } elseif ($formatted_time == $theatre_dateTime) {
+                                                            echo $theatre_date_time . ' To ' .  $theatre_end_time;
+                                                        }
+                                                        ?>
+                                                    </td>
+
+
+                                                    <td><a href="#"><span class="badge bg-primary">Take Up</span></a></td>
+                                                     </tr>
+                                               <?php }
+                                                ?>
+
+                            <!-- <tr>
                                 <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
                                 <td><?php echo $list->patient; ?><br> New York, USA</td>
                                 <td></td>
@@ -870,8 +1012,8 @@
                                 <td>Dr. Cristina Groves</td>
                                 <td>7.00 PM</td>
                                 <td><a href="appointments.html"><span class="badge bg-primary">Take Up</span></a></td>
-                            </tr>
-                            <tr>
+                            </tr> -->
+                            <!-- <tr>
                                 <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
                                 <td>B Bernardo Galaviz <br> New York, USA</td>
                                 <td>Dr. Cristina Groves</td>
@@ -884,7 +1026,7 @@
                                 <td>Dr. Cristina Groves</td>
                                 <td>7.00 PM</td>
                                 <td><a href="appointments.html"><span class="badge bg-primary">Take Up</span></a></td>
-                            </tr>
+                            </tr> -->
                         </tbody>
                     </table>
                 </div>
@@ -906,18 +1048,24 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <?php foreach($doctors_list as $row){
+                                // print_r($row);die;
+                                ?>
+                        
                             <tr>
                                 <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
-                                <td>John Doe <br>MBBS, MD</td>
+                                <td><?php echo $row->first_name. ''. $row->last_name;?><br><?php echo $row->qualification;?> </td>
                                 <td><span class="badge bg-success">Online</span></td>
                             </tr>
-                            <tr>
+                            <?php }?>
+
+                            <!-- <tr>
                                 <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
                                 <td>John Doe <br>MBBS, MD</td>
                                 <td><span class="badge bg-danger">Offline</span></td>
-                            </tr>
+                            </tr> -->
 
-                            <tr>
+                            <!-- <tr>
                                 <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
                                 <td>John Doe <br>MBBS, MD</td>
                                 <td><span class="badge bg-success">Online</span></td>
@@ -926,7 +1074,7 @@
                                 <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
                                 <td>John Doe <br>MBBS, MD</td>
                                 <td><span class="badge bg-success">Online</span></td>
-                            </tr>
+                            </tr> -->
                         </tbody>
                     </table>
                 </div>
