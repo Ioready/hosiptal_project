@@ -3,6 +3,26 @@
     width: 290px !important;
 }
 
+.dataTables_wrapper {
+            margin-top: 20px;
+        }
+
+        .dataTables_paginate {
+            margin-top: 10px;
+        }
+
+        .dataTables_length {
+            margin-bottom: 10px;
+        }
+
+        .dataTables_info {
+            margin-bottom: 10px;
+        }
+
+        .dataTables_filter {
+            margin-top: 10px;
+        }
+
 
 .custom-badge {
 	border-radius: 4px;

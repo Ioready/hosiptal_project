@@ -199,3 +199,7 @@ ERROR - 2024-04-10 11:59:35 --> 404 Page Not Found: ../modules/notification/cont
 ERROR - 2024-04-10 11:59:57 --> 404 Page Not Found: ../modules/notification/controllers/Notification/assets
 ERROR - 2024-04-10 12:00:08 --> 404 Page Not Found: ../modules/notification/controllers/Notification/assets
 ERROR - 2024-04-10 12:00:22 --> 404 Page Not Found: ../modules/notification/controllers/Notification/assets
+ERROR - 2024-04-10 12:02:19 --> 404 Page Not Found: ../modules/notification/controllers/Notification/assets
+ERROR - 2024-04-10 12:03:47 --> 404 Page Not Found: ../modules/notification/controllers/Notification/assets
+ERROR - 2024-04-10 12:03:47 --> 404 Page Not Found: ../modules/notification/controllers/Notification/search-icon.png
+ERROR - 2024-04-10 12:03:54 --> 404 Page Not Found: ../modules/notification/controllers/Notification/assets
