@@ -305,8 +305,7 @@
       <button type="button" class="close" style="margin-top:-40px;" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h3 class="modal-title fw-bold" style="text-align:center;" id="exampleModalLabel">Mail Complete Information of Patient </h3>
-        
+        <h3 class="modal-title fw-bold" style="text-align:center;" id="exampleModalLabel">Mail Complete Information of Patient </h3>        
       </div>
       <div class="modal-body1">
         <form  method="post" id="contact-form" data-toggle="validator" role="form" action="" enctype="multipart/form-data">
