@@ -573,7 +573,9 @@ hh
                                  <li title="Labs">
                                  <a href="<?php echo site_url('cultureSource'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "cultureSource") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/labs.svg" height="23px" width="23px"><span class="sidebar-nav-mini-hide text-dark">Labs</span></a>
                                 </li>
-
+                                <li title="Tasks">
+                                    <a href="<?php echo site_url('tasks'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "tasks") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/tasks.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Tasks</span></a>
+                                </li>
                                 <!-- <li title="Provider MD">
                                     <a href="<?php echo site_url('doctor'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "doctor") ? "active" : "" ?>"><i class="fa fa-user-md sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Provider MD</span></a>
                                 </li> -->

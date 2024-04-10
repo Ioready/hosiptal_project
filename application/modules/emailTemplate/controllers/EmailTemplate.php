@@ -149,8 +149,8 @@ class EmailTemplate extends Common_Controller {
         //     $optionEmailTemplate['where'] = ['vendor_sale_lettel_header.id' => $defaultTemplateId];
         // }
     
-
-        $this->data['EmailTemplates'] = $this->common_model->customGet($optionEmailTemplate);
+        $this->data['EmailTemplatess'] = $this->common_model->customGet($optionEmailTemplate);
+        // $this->data['EmailTemplates'] = $this->common_model->customGet($optionEmailTemplate);
 
         return $this->load->admin_render('list', $this->data, 'inner_script');
         // Load view with data
