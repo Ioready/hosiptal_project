@@ -346,24 +346,21 @@ class Appointment extends Common_Controller {
 
          $query = $this->db->get_where('users', array('id' => $doctor_id));
                     $result = $query->row();
-                    $doctoremail = $result->username;
-
-                    $from =  getConfig('admin_email');
-                 //$mail= "vinay55@mailinator.com";
-                    // $from = getConfig('admin_email');
+                    $email = $result->username;
+                    $from = getConfig('admin_email');
                     $subject = "Appointment for Patient";
                     $password = "test";
                     $title = "Appointment doctor";
-                     $data['name'] = ucwords($this->input->post('patient'));
-                    $data['content'] = "Appointment"
-                        . "<p>username: " . $doctoremail . "</p><p>Password: " . $password . "</p>";
-                    // $template = $this->load->view('user_signup_mail', $data, true);
-                    // print_r($data);die;
+                    $data['name'] = ucwords($this->input->post('patient'));
+                    $data['content'] = "Appointment" . "<p>username: " . $email . "</p><p>Password: " . $password . "</p>";
                     $template = $this->load->view('email-template/registration', $data, true);
 
-                    // $this->send_email($email, $from, $subject, $template, $title);
                     
+                    // echo "Email Template: ";
+                    // echo $template;
                     $this->send_email_smtp($email, $from, $subject, $template, $title);
+                    // Try sending email
+                    
         //  $date = $this->input->post('date');
         //  $start_time_range = $this->input->post('time_start'); // Example start time
         //  $end_time_range = $this->input->post('time_end');

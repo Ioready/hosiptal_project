@@ -1123,10 +1123,10 @@
                         <tr>
                         
                         <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
-                            <td><?php echo $list->patient; ?></td>
-                            <td><?php echo $list->username; ?></td>
-                            <td>+1-202-555-0125</td>
-                            <td><a href="appointments.html"><span class="badge bg-primary"><?php echo $list->status; ?></span></a></td>
+                            <td><?php echo $list->name; ?></td>
+                            <td></td>
+                            <td></td>
+                            <td><a href="appointments.html"><span class="badge bg-primary"><?php echo $list->md_patient_status; ?></span></a></td>
                            
                         </tr>
                         <?php
