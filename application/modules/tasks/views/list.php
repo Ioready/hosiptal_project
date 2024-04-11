@@ -438,8 +438,6 @@
                             // print_r($rows);die;
 
                     ?>
-
-
                             <tr>
                                 <td><?php echo $rowCount; ?></td>
                                 <td><?php if($rows->priority =="High"){ 
