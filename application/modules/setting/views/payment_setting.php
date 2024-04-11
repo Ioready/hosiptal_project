@@ -100,24 +100,14 @@
 
                                     <div class="col-md-6" style="">
                                         <div class="form-group">
-<<<<<<< HEAD
-                                            <label for="input1">Stripe key</label>
-                                            <input type="text" class="form-control" id="input1" name="input1">
-=======
                                             <label for="input1">Secret key</label>
                                             <input type="text" class="form-control" id="secret_key" name="secret_key">
->>>>>>> 9ad44c9b01e15cd66d8f1cf56bd75cf37e958e11
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-<<<<<<< HEAD
-                                            <label for="input1">Stripe Secret</label>
-                                            <input type="text" class="form-control" id="input1" name="input1">
-=======
                                             <label for="input1">Publishable key</label>
                                             <input type="text" class="form-control" id="publishable_key" name="publishable_key">
->>>>>>> 9ad44c9b01e15cd66d8f1cf56bd75cf37e958e11
                                         </div>
                                     </div>
                                    
