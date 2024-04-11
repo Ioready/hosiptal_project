@@ -115,7 +115,7 @@
 
 
                         <div class="panel-body">
-                            <form action="<?php echo site_url('task'); ?>" name="patientForm" method="get">
+                            <form action="<?php echo site_url('tasks'); ?>" name="patientForm" method="get">
 
                             <div class="col-lg-3">
                                     <?php // print_r($careUnitsUser);die;
