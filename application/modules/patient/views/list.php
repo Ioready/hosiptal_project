@@ -175,8 +175,19 @@
                                     </div>
                                     <div class="col-lg-2">
                                         <select class="form-control" name="year" id="year">
-                                            <option value="">Select Year</option>
-                                            <!-- Your year options here -->
+                                        <?php
+                                            // Get the current year
+                                            $current_year = date("Y");
+
+                                            // Loop through years from 10 years ago to 10 years in the future
+                                            for ($i = $current_year - 10; $i <= $current_year + 10; $i++) {
+                                                // Check if the current iteration is the current year
+                                                $selected = ($i == $current_year) ? 'selected' : '';
+
+                                                // Output each year as an option
+                                                echo "<option value='$i' $selected>$i</option>";
+                                            }
+                                            ?>
                                         </select>
                                     </div>
 

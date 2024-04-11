@@ -19,17 +19,6 @@
     <!-- END Quick Stats -->
     <?php if ($this->ion_auth->is_admin() or $this->ion_auth->is_subAdmin() or $this->ion_auth->is_facilityManager()) { ?>
        
-    
-
-
-
-
-
-
-
-
-
-
 
           <div class="block full">
             <div class="row text-center">
@@ -195,10 +184,25 @@
                                         </select>
                                     </div>
                                     <div class="col-lg-2">
-                                        <select class="form-control" name="year" id="year">
+                                        <!-- <select class="form-control" name="year" id="year">
                                             <option value="">Select Year</option>
-                                            <!-- Your year options here -->
+                                            
+                                        </select> -->
+
+                                        <select class="form-control" name="year" id="year">
+                                            <?php
+                                           
+                                            $current_year = date("Y");
+                                            for ($i = $current_year - 10; $i <= $current_year + 10; $i++) {
+                                                $selected = ($i == $current_year) ? 'selected' : '';
+
+                                                echo "<option value='$i' $selected>$i</option>";
+                                            }
+                                            ?>
                                         </select>
+
+
+
                                     </div>
 
                                     <!-- <div class="col-lg-2">
@@ -238,43 +242,6 @@
 
                 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             </div>
         </div>
 
@@ -283,7 +250,7 @@
     <?php } ?>
     
     <div class="block full">
-        <?php if($this->ion_auth->is_subAdmin()){?>
+        <?php if($this->ion_auth->is_admin() or $this->ion_auth->is_subAdmin() or $this->ion_auth->is_facilityManager()){?>
                 <h2>
                     
                     <a href="<?php echo base_url() . $this->router->fetch_class(); ?>/open_model" class="btn btn-sm btn-primary mt-2" style="background:#337ab7;">

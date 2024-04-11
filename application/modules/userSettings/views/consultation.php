@@ -140,7 +140,6 @@
                            
                     ?>
 
-
                             <tr>
                                 <td class="text-center" style="font-size:14px;"><?php echo $rowCount; ?></td>
                                 <td class="text-center" style="font-size:14px;"><?php echo $rows->internal_name; ?></td>

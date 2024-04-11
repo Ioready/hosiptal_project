@@ -193,16 +193,20 @@
                                         </select>
                                     </div>
                                     <div class="col-lg-2">
-                                        <select class="form-control" name="year" id="year">
-                                            <option value="">Select Year</option>
-                                            <option value="2020">2020</option>
-                                            <option value="2021">2021</option>
-                                            <option value="2022">2022</option>
-                                            <option value="2023">2023</option>
-                                            <option value="2024">2024</option>
-                                            <option value="2025">2025</option>
-                                            <option value="2026">2026</option>
-                                            
+                                    <select class="form-control" name="year" id="year">
+                                            <?php
+                                            // Get the current year
+                                            $current_year = date("Y");
+
+                                            // Loop through years from 10 years ago to 10 years in the future
+                                            for ($i = $current_year - 10; $i <= $current_year + 10; $i++) {
+                                                // Check if the current iteration is the current year
+                                                $selected = ($i == $current_year) ? 'selected' : '';
+
+                                                // Output each year as an option
+                                                echo "<option value='$i' $selected>$i</option>";
+                                            }
+                                            ?>
                                         </select>
                                     </div>
 

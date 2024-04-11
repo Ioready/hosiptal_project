@@ -99,7 +99,7 @@
     <div class="col-md-3">
         <div class="form-group">
             <div class="col-md-12">
-                <label class="control-label">Date Of Birth (Optional)</label>
+                <label class="control-label">Date Of Birth</label>
                 <input type="text" class="form-control" name="day" id="day" placeholder="Day" maxlength="2" />
             </div>
         </div>
@@ -130,6 +130,21 @@
         <div class="form-group">
             <div class="col-md-12">
                 <label class="control-label"></label>
+                <!-- <select class="form-control" name="year" id="year"> -->
+                                            <?php
+                                            // Get the current year
+                                            // $current_year = date("Y");
+
+                                            // // Loop through years from 10 years ago to 10 years in the future
+                                            // for ($i = $current_year - 10; $i <= $current_year + 10; $i++) {
+                                                // Check if the current iteration is the current year
+                                                // $selected = ($i == $current_year) ? 'selected' : '';
+
+                                                // Output each year as an option
+                                                // echo "<option value='$i' $selected>$i</option>";
+                                            // }
+                                            ?>
+                                        <!-- </select> -->
                 <input type="text" class="form-control" name="year" id="year" placeholder="Year" />
             </div>
         </div>
@@ -208,7 +223,7 @@
         <div class="form-group">
             <div class="col-md-12">
                 <div class="col-md-12">
-                    <label class=""><?php echo lang('user_email');?> (Optional)</label>
+                    <label class=""><?php echo lang('user_email');?></label>
                     <input type="email" class="form-control" name="user_email" id="user_email" placeholder="<?php echo lang('user_email');?>" />
                 </div>
             </div>
@@ -252,7 +267,7 @@
         <div class="form-group">
             <div class="col-md-12">
                 <div class="col-md-4">
-                    <label class="">City (Optional)</label>
+                    <label class="">City</label>
                     <select id="country" name="city" class="form-control select2" size="1">
                         <option value="" disabled selected>Please select</option>
                         <?php foreach($states as $state){?>
@@ -262,12 +277,12 @@
                 </div>
 
                 <div class="col-md-4">
-                    <label class="">PostCode (Optional)</label>
+                    <label class="">PostCode</label>
                     <input type="text" class="form-control" name="post_code" id="post_code" placeholder="Post Code" />
                 </div>
 
                 <div class="col-md-4">
-                    <label class="">Country (Optional)</label>
+                    <label class="">Country</label>
                     <select id="country" name="country" class="form-control select2" size="1">
                         <option value="0">Please select</option>
                         <?php foreach($countries as $country){?>
@@ -679,7 +694,8 @@
                                                                 if (!empty($doctors)) {
                                                                     foreach ($doctors as $doctor) {
                                                                 ?>
-                                                                        <option value="<?php echo $doctor->id; ?>"><?php echo $doctor->doctor_name; ?></option>
+                                                                <option value="<?php echo $doctor->id; ?>"><?php echo $doctor->first_name. ' '.$doctor->last_name; ?></option>
+
                                                                 <?php
                                                                     }
                                                                 }
@@ -690,7 +706,7 @@
                                                     </div>
                                                 </div>
                                                 <?php $md_steward_id = $this->session->userdata('user_id');?>
-                                                <input type="text" class="form-control" name="md_steward_id" id="name" placeholder="Patient Id" maxlength="9" value="<?php echo $md_steward_id?>"/>
+                                                <input type="hidden" class="form-control" name="md_steward_id" id="name" placeholder="Patient Id" maxlength="9" value="<?php echo $md_steward_id?>"/>
                                                 
                 
                 

@@ -2,6 +2,83 @@
 .select2-container, .select2-drop, .select2-search, .select2-search input {
     width: 290px !important;
 }
+
+.dataTables_wrapper {
+            margin-top: 20px;
+        }
+
+        .dataTables_paginate {
+            margin-top: 10px;
+        }
+
+        .dataTables_length {
+            margin-bottom: 10px;
+        }
+
+        .dataTables_info {
+            margin-bottom: 10px;
+        }
+
+        .dataTables_filter {
+            margin-top: 10px;
+        }
+
+
+.custom-badge {
+	border-radius: 4px;
+	display: inline-block;
+	font-size: 12px;
+	min-width: 95px;
+	padding: 1px 10px;
+	text-align: center;
+}
+
+    .status-red,
+a.status-red {
+	background-color: red;
+	border: 1px solid #fe0000;
+	color: white;
+    border-radius:10px;
+    padding:2px;
+}
+.status-green,
+a.status-green {
+	background-color: green;
+	border: 1px solid #00ce7c;
+    border-radius:10px;
+    padding:2px;
+	color: white;
+}
+
+.status-yellow,
+a.status-yellow {
+	background-color: red;
+	border: 1px solid #fe0000;
+	color: white;
+}
+
+    /* Center table data */
+    #appointmentTable {
+        margin: 20px auto;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    #appointmentTable th,
+    #appointmentTable td {
+        font-size:14px;
+        text-align: center;
+        vertical-align: middle;
+        border: 1px solid #dddddd;
+        padding: 8px;
+    }
+
+    #appointmentTable th {
+        background-color: #f2f2f2;
+    }
+
+
+
 </style>
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
@@ -24,7 +101,7 @@ if ($this->ion_auth->is_subAdmin()) {
 
 
 ?>
-<div class="wrapper wrapper-content animated fadeIn">
+<div class="wrapper wrapper-content animated fadeIn m-4">
 
     <div class="row">
         <div class="col-lg-12">
@@ -72,7 +149,7 @@ if ($this->ion_auth->is_subAdmin()) {
         
                                     </table> -->
 
-                                    <table class="table table-striped custom-table">
+                                    <table id="appointmentTable" class="table table-striped custom-table">
 								<thead>
 									<tr>
 										<th>Appointment ID</th>
@@ -163,7 +240,7 @@ if ($this->ion_auth->is_subAdmin()) {
                                             <?php else: ?>
                                                 <input type="hidden" class="notification-id" value="<?php echo $notification->notification_id;?>">
                                                 <select class="statusDropdown custom-badge <?php echo ($notification->appointment_status == 'pending') ? 'status-red' : 'status-green'; ?>">
-                                                    <option disabled selected><strong> Pending</strong></option>
+                                                    <option disabled selected><strong  > Pending</strong></option>
                                                     <option value="Active"><strong>Active</strong></option>
                                                     <option value="Inactive"><strong>Inactive</strong></option>
                                                 </select>
@@ -257,8 +334,15 @@ if ($this->ion_auth->is_subAdmin()) {
 <?php } ?>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Include DataTables CSS -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+<!-- Include jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Include DataTables -->
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script>
 $(document).ready(function() {
+    $('#appointmentTable').DataTable();
     $('.statusDropdown').on('change', function() {
         var selectedStatus = $(this).val();
         var notificationId = $(this).prev('.notification-id').val(); 
@@ -283,28 +367,51 @@ $(document).ready(function() {
 
 
 
-<style>
-    .custom-badge {
-	border-radius: 4px;
-	display: inline-block;
-	font-size: 12px;
-	min-width: 95px;
-	padding: 1px 10px;
-	text-align: center;
-}
 
-    .status-red,
-a.status-red {
-	background-color: #ffe5e6;
-	border: 1px solid #fe0000;
-	color: #fe0000;
-}
-.status-green,
-a.status-green {
-	background-color: #e5faf3;
-	border: 1px solid #00ce7c;
-	color: #00ce7c;
-}
-</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

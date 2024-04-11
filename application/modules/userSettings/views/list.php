@@ -76,14 +76,7 @@
 
      
                         <div class="row text-center">
-                            <div class="col-sm-6 col-lg-3">
-                                <a href="<?php echo base_url()."userSettings/index/No";?>" class="widget widget-hover-effect2">
-                                    <div class="widget-extra themed-background"  style="background:#337ab7;">
-                                        <h4 class="widget-content-light"><strong> Inactivate </strong> Users</h4>
-                                    </div>
-                                    <div class="widget-extra-full"><span class="h2 themed-color-dark animation-expandOpen fw-bold"><?php echo $inactive;?></span></div>
-                                </a>
-                            </div>
+                            
                             <div class="col-sm-6 col-lg-3">
                                 <a href="<?php echo base_url()."userSettings/index/Yes";?>" class="widget widget-hover-effect2">
                                     <div class="widget-extra themed-background-dark"  style="background:#337ab7;">
@@ -92,6 +85,15 @@
                                     <div class="widget-extra-full"><span class="h2 themed-color-dark animation-expandOpen fw-bold"><?php echo $active;?></span></div>
                                 </a>
                             </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <a href="<?php echo base_url()."userSettings/index/No";?>" class="widget widget-hover-effect2">
+                                    <div class="widget-extra themed-background"  style="background:#337ab7;">
+                                        <h4 class="widget-content-light"><strong> Inactivate </strong> Users</h4>
+                                    </div>
+                                    <div class="widget-extra-full"><span class="h2 themed-color-dark animation-expandOpen fw-bold"><?php echo $inactive;?></span></div>
+                                </a>
+                            </div>
+                            
                             <div class="col-sm-6 col-lg-3">
                                
                             </div>
