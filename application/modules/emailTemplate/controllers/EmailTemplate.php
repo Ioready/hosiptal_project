@@ -123,23 +123,23 @@ class EmailTemplate extends Common_Controller {
             ),
             
             // 'where' => array('vendor_sale_lettel_header.internal_name' => 'hospital registration'),
-            'single'=>true,
+            // 'single'=>true,
         );
-        if ($defaultTemplateId == "4") {
+        // if ($defaultTemplateId == "4") {
 
-            // $templateId = $request->input('template_id');
-            // $optionEmailTemplate['where'] = ['vendor_sale_lettel_header.id' => $templateId];
+        //     // $templateId = $request->input('template_id');
+        //     // $optionEmailTemplate['where'] = ['vendor_sale_lettel_header.id' => $templateId];
 
-            $optionEmailTemplate['where'] = ['vendor_sale_lettel_header.id' => $defaultTemplateId];
-        } else {
+        //     $optionEmailTemplate['where'] = ['vendor_sale_lettel_header.id' => $defaultTemplateId];
+        // } else {
 
-            $templateId = $request->input('template_id');
-            $optionEmailTemplate['where'] = ['vendor_sale_lettel_header.id' => $templateId];
+        //     $templateId = $request->input('template_id');
+        //     $optionEmailTemplate['where'] = ['vendor_sale_lettel_header.id' => $templateId];
 
-            // $optionEmailTemplate['where'] = ['vendor_sale_lettel_header.id' => $defaultTemplateId];
-            // $templateId = $request->input('template_id');
-            // $optionEmailTemplate['where'] = ['vendor_sale_lettel_header.id' => $templateId];
-        }
+        //     // $optionEmailTemplate['where'] = ['vendor_sale_lettel_header.id' => $defaultTemplateId];
+        //     // $templateId = $request->input('template_id');
+        //     // $optionEmailTemplate['where'] = ['vendor_sale_lettel_header.id' => $templateId];
+        // }
         
         // if ($request->filled('template_id')) {
         //     $templateId = $request->input('template_id');
