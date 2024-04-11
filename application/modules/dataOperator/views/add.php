@@ -203,7 +203,9 @@
                        <div class="form-group">
                          <label class="m-4 control-label">Zipcode Access</label>
                             <div class="col-md-12">
-                                 <select class="" name="zipcode[]" id="zipcode" multiple="" style="width:100%;" placeholder="Select Zipcode">
+                            <input type="text" class="form-control" name="zipcode" id="zipcode" placeholder="<?php echo lang('Zipcode'); ?>"/>
+
+                                 <!-- <select class="" name="zipcode[]" id="zipcode" multiple="" style="width:100%;" placeholder="Select Zipcode">
                                      <option value="">Select Zipcode</option>
                                     <?php foreach($zipcode_list as $key=>$val){
                                     ?>
@@ -212,7 +214,7 @@
                                                             ?></option>
                                     <?php }
                                     ?>
-                                </select>
+                                </select> -->
                             </div>
                            
                         </div>

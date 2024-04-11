@@ -18,11 +18,30 @@ class EmailTemplate extends Common_Controller {
     public function indexs() {
         $this->data['parent'] = "emailTemplate";
         $this->data['title'] = "Email Templates";
-        //  $option = array('table' => $this->_table,'select' => '*',
-        //     'where' => array('delete_status'=> 0)
-        //     );
         
-        // $this->data['list'] = $this->common_model->customGet($option);
+
+        $optionEmailTemplate = array(
+            'table' => 'vendor_sale_lettel_header',
+            // 'select' => 'vendor_sale_lettel_header.*',
+            'select' => 'vendor_sale_lettel_header.*,vendor_sale_lettel_header.logo as header_logo, vendor_sale_lettel_bodies.*,vendor_sale_lettel_recipients.*,vendor_sale_lettel_footer.*,vendor_sale_lettel_footer.internal_name as footer_internal_name',
+            'join' => array(
+                array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_lettel_header.user_id','left'),
+                array('vendor_sale_lettel_bodies', 'vendor_sale_lettel_header.id=vendor_sale_lettel_bodies.header_id','left'),
+                array('vendor_sale_lettel_recipients', 'vendor_sale_lettel_bodies.id=vendor_sale_lettel_recipients.body_id','left'),
+                array('vendor_sale_lettel_footer', 'vendor_sale_lettel_recipients.id=vendor_sale_lettel_footer.recipient_id','left')
+                
+            ),
+            
+        );
+
+        $this->data['all_template'] = $this->common_model->customGet($optionEmailTemplate);
+
+        if ($request->filled('template_id')) {
+            $templateId = $request->input('template_id');
+            
+
+            $this->load->admin_render('list', $this->data, 'inner_script' ,['templateId' => $templateId]);
+        }
 
         $optionEmailTemplate = array(
             'table' => 'vendor_sale_lettel_header',
@@ -40,36 +59,9 @@ class EmailTemplate extends Common_Controller {
             // 'single'=>true,
         );
 
-        $this->data['all_template'] = $this->common_model->customGet($optionEmailTemplate);
-
-        if ($request->filled('template_id')) {
-            $templateId = $request->input('template_id');
-            // Process the $templateId as needed
-            // For example, return a view with filtered data
-            // return view('your-view', ['templateId' => $templateId]);
-
-            $this->load->admin_render('list', $this->data, 'inner_script' ,['templateId' => $templateId]);
-        }
-
-        $optionEmailTemplate = array(
-            'table' => 'vendor_sale_lettel_header',
-            // 'select' => 'vendor_sale_lettel_header.*',
-            'select' => 'vendor_sale_lettel_header.*,vendor_sale_lettel_header.logo as header_logo, vendor_sale_lettel_bodies.*,vendor_sale_lettel_recipients.*,vendor_sale_lettel_footer.*,vendor_sale_lettel_footer.internal_name as footer_internal_name',
-            'join' => array(
-                array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_lettel_header.user_id','left'),
-                array('vendor_sale_lettel_bodies', 'vendor_sale_lettel_header.id=vendor_sale_lettel_bodies.header_id','left'),
-                array('vendor_sale_lettel_recipients', 'vendor_sale_lettel_bodies.id=vendor_sale_lettel_recipients.body_id','left'),
-                array('vendor_sale_lettel_footer', 'vendor_sale_lettel_recipients.id=vendor_sale_lettel_footer.recipient_id','left')
-                
-            ),
-            
-            'where' => array('vendor_sale_lettel_header.internal_name' => 'hospital registration'),
-            'single'=>true,
-        );
-
         $this->data['EmailTemplates'] = $this->common_model->customGet($optionEmailTemplate);
 
-      
+    //   print_r($this->data['EmailTemplates']);die;
 
         $this->load->admin_render('list', $this->data, 'inner_script');
     }
@@ -79,13 +71,8 @@ class EmailTemplate extends Common_Controller {
         $this->data['parent'] = "emailTemplate";
         $this->data['title'] = "Email Templates";
         $this->data['formUrl'] = $this->router->fetch_class() . "/sendEmailTemplate";
-
-        
-    
-        // Default template ID (if template_id is empty)
         $defaultTemplateId = 4;
     
-        // Fetch all templates
         $alloptionEmailTemplate = [
             'table' => 'vendor_sale_lettel_header',
             'select' => 'vendor_sale_lettel_header.*, vendor_sale_lettel_header.logo as header_logo, vendor_sale_lettel_bodies.*, vendor_sale_lettel_recipients.*, vendor_sale_lettel_footer.*, vendor_sale_lettel_footer.internal_name as footer_internal_name',
@@ -97,22 +84,11 @@ class EmailTemplate extends Common_Controller {
             ],
         ];
     
-        // Filter by template ID if provided
-        // if ($request->filled('template_id')) {
-        //     $templateId = $request->input('template_id');
-        //     $alloptionEmailTemplate['where'] = ['vendor_sale_lettel_header.id' => $templateId];
-        // } else {
-        //     // Set default template ID
-        //     $alloptionEmailTemplate['where'] = ['vendor_sale_lettel_header.id' => $defaultTemplateId];
-        // }
-    
-        // Fetch email templates
         $this->data['all_template'] = $this->common_model->customGet($alloptionEmailTemplate);
     
 
         $optionEmailTemplate = array(
             'table' => 'vendor_sale_lettel_header',
-            // 'select' => 'vendor_sale_lettel_header.*',
             'select' => 'vendor_sale_lettel_header.*,vendor_sale_lettel_header.logo as header_logo, vendor_sale_lettel_bodies.*,vendor_sale_lettel_recipients.*,vendor_sale_lettel_footer.*,vendor_sale_lettel_footer.internal_name as footer_internal_name',
             'join' => array(
                 array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_lettel_header.user_id','left'),
@@ -121,40 +97,22 @@ class EmailTemplate extends Common_Controller {
                 array('vendor_sale_lettel_footer', 'vendor_sale_lettel_recipients.id=vendor_sale_lettel_footer.recipient_id','left')
                 
             ),
-            
-            // 'where' => array('vendor_sale_lettel_header.internal_name' => 'hospital registration'),
-            'single'=>true,
+            // 'single'=>true,
         );
-        if ($defaultTemplateId == "4") {
+        // if ($defaultTemplateId == "4") {
 
-            // $templateId = $request->input('template_id');
-            // $optionEmailTemplate['where'] = ['vendor_sale_lettel_header.id' => $templateId];
+        //     $optionEmailTemplate['where'] = ['vendor_sale_lettel_header.id' => $defaultTemplateId];
+        // } else {
 
-            $optionEmailTemplate['where'] = ['vendor_sale_lettel_header.id' => $defaultTemplateId];
-        } else {
-
-            $templateId = $request->input('template_id');
-            $optionEmailTemplate['where'] = ['vendor_sale_lettel_header.id' => $templateId];
-
-            // $optionEmailTemplate['where'] = ['vendor_sale_lettel_header.id' => $defaultTemplateId];
-            // $templateId = $request->input('template_id');
-            // $optionEmailTemplate['where'] = ['vendor_sale_lettel_header.id' => $templateId];
-        }
-        
-        // if ($request->filled('template_id')) {
         //     $templateId = $request->input('template_id');
         //     $optionEmailTemplate['where'] = ['vendor_sale_lettel_header.id' => $templateId];
-        // } else {
-           
-        //     $optionEmailTemplate['where'] = ['vendor_sale_lettel_header.id' => $defaultTemplateId];
         // }
-    
-        $this->data['EmailTemplatess'] = $this->common_model->customGet($optionEmailTemplate);
-        // $this->data['EmailTemplates'] = $this->common_model->customGet($optionEmailTemplate);
+        
+        $this->data['EmailTemplates'] = $this->common_model->customGet($optionEmailTemplate);
+        // print_r($this->data['EmailTemplates']);die;
 
         return $this->load->admin_render('list', $this->data, 'inner_script');
-        // Load view with data
-        // return $this->load->admin_render('list', $this->data, 'inner_script');
+       
     }
     
 

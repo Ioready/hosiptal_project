@@ -309,6 +309,18 @@ class Appointment extends Common_Controller {
     );
     $this->data['care_unit'] = $this->common_model->customGet($option);
 
+    $option = array(
+        'table' => 'appointment_type',
+        'select' => '*', 'where' => array('delete_status' => 0), 'order' => array('name' => 'ASC')
+    );
+    $this->data['appointment_type'] = $this->common_model->customGet($option);
+
+    $option = array(
+        'table' => 'type_of_stay',
+        'select' => '*', 'where' => array('delete_status' => 0), 'order' => array('name' => 'ASC')
+    );
+    $this->data['type_of_stay'] = $this->common_model->customGet($option);
+
 
     
         $this->load->admin_render('add', $this->data, 'inner_script');
@@ -410,6 +422,7 @@ class Appointment extends Common_Controller {
                     // print_r($this->input->post('doctor_name'));
 
                     $this->db->insert('clinic_appointment', $additional_data_profile); 
+
                     $insert_id = $this->db->insert_id();
 
                     $query = $this->db->get_where('users', array('email' => $this->input->post('location_appointment')));
@@ -452,6 +465,8 @@ class Appointment extends Common_Controller {
 
                     $insert_id =$this->db->insert('theatre_appointment', $additional_data_theatre); 
 
+
+                    
                 }else if($this->input->post('availability_location') != ""){ 
 
                     $additional_data_theatre = array(
@@ -468,6 +483,7 @@ class Appointment extends Common_Controller {
                     );
 
                     $insert_id =$this->db->insert('doctor_availability', $additional_data_theatre); 
+
 
                 }else if($this->input->post('out_of_office_location') != ""){ 
                     $additional_data_out = array(
@@ -486,6 +502,7 @@ class Appointment extends Common_Controller {
                     );
 
                     $insert_id =$this->db->insert('out_of_office_doctor', $additional_data_out); 
+
 
                 }
                     // print_r($additional_data_profile);die;

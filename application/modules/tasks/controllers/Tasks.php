@@ -129,7 +129,7 @@ class Tasks extends Common_Controller
         //     $Sql = "SELECT vendor_sale_patient.id as patient_id,vendor_sale_patient.room_number,vendor_sale_patient.symptom_onset,vendor_sale_patient.total_days_of_patient_stay,vendor_sale_patient_consult.initial_dot,vendor_sale_patient.culture_source as culture_source_name,vendor_sale_patient.organism as organism_name,vendor_sale_patient.patient_id as pid,vendor_sale_care_unit.name,vendor_sale_doctors.name as doctor_name,vendor_sale_initial_dx.name as initial_dx_name,vendor_sale_initial_rx.name as initial_rx_name,vendor_sale_users.first_name as md_stayward,vendor_sale_patient.date_of_start_abx FROM vendor_sale_patient JOIN vendor_sale_care_unit ON vendor_sale_care_unit.id = vendor_sale_patient.care_unit_id JOIN vendor_sale_doctors ON vendor_sale_doctors.id= vendor_sale_patient.doctor_id JOIN vendor_sale_patient_consult ON vendor_sale_patient_consult.patient_id= vendor_sale_patient.id JOIN vendor_sale_initial_dx ON vendor_sale_initial_dx.id= vendor_sale_patient_consult.initial_dx JOIN vendor_sale_initial_rx ON vendor_sale_initial_rx.id= vendor_sale_patient_consult.initial_rx JOIN vendor_sale_users ON vendor_sale_users.id= vendor_sale_patient.md_steward_id  WHERE vendor_sale_patient.operator_id = $UsersCareUnitID AND vendor_sale_patient.care_unit_id = $careUnitID ORDER BY `patient_id` DESC";
         // } else {
 
-            $Sql = "SELECT vendor_sale_task.id as patient_id,vendor_sale_task.task_name,vendor_sale_task.patient_name,vendor_sale_task.task_comment,vendor_sale_task.type,vendor_sale_task.due_date as culture_source_name,vendor_sale_users.first_name as f_name, vendor_sale_users.last_name as l_name, vendor_sale_care_unit.name as type_name, vendor_sale_task.priority FROM vendor_sale_task  LEFT JOIN vendor_sale_users ON vendor_sale_users.id= vendor_sale_task.assign_to LEFT JOIN vendor_sale_care_unit ON vendor_sale_care_unit.id = vendor_sale_task.type  WHERE vendor_sale_task.user_id = $UsersCareUnitID";
+            $Sql = "SELECT vendor_sale_task.id as patient_id,vendor_sale_task.task_name,vendor_sale_task.patient_name,vendor_sale_task.task_comment,vendor_sale_task.type,vendor_sale_task.due_date as culture_source_name,vendor_sale_users.first_name as f_name, vendor_sale_users.last_name as l_name, vendor_sale_care_unit.name as type_name, vendor_sale_task.priority FROM vendor_sale_task  LEFT JOIN vendor_sale_users ON vendor_sale_users.id= vendor_sale_task.assign_to LEFT JOIN vendor_sale_care_unit ON vendor_sale_care_unit.id = vendor_sale_task.type  WHERE vendor_sale_task.user_id = $UsersCareUnitID ORDER BY vendor_sale_task.id desc";
         // }
         
 
@@ -168,7 +168,7 @@ class Tasks extends Common_Controller
                 
             ),
             //'group_by' => 't.patient_id'
-            // 'group_by' => 'p.id'
+             'order' => array('t.id' => 'desc'),
         );
         if (!empty($careUnitID)) {
             $option['where']['P.care_unit_id'] = $careUnitID;
@@ -1207,12 +1207,12 @@ class Tasks extends Common_Controller
         $this->form_validation->set_rules('task_comment', 'task_comment Id', 'trim|required');
         
         if ($this->form_validation->run() == true) {
-           
+            $UsersCareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
             // print_r($this->input->post());die;
                     $option = array(
                         'table' => 'task',
                         'data' => array(
-                            'user_id'=> $this->input->post('user_id'),
+                            'user_id'=> $UsersCareUnitID,
                             'task_name' => $this->input->post('task_name'),
                             'assign_to' => $this->input->post('assign_to'),
                             'patient_name' => $this->input->post('patient_name'),

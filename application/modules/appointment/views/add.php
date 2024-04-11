@@ -185,16 +185,16 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label">Patient</label>
                             <div class="col-md-9">
-                                <input type="text" id="patient" name="patient" class="form-control" placeholder="New Patient" required>
+                                <input type="text" id="patient" name="patient" class="form-control" placeholder="New Patient" style="text-align: justify;" required>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label class="col-md-3 control-label">Location</label>
+                            
                             <?php 
                         if ($this->ion_auth->is_facilityManager()) { ?>
-
+                            <label class="col-md-3 control-label">Doctor</label>
                                 <div class="col-md-9">
                                 <select id="country" name="location_appointment" class="form-control select2" size="1">
                                     <option value="0">Please select</option>
@@ -206,7 +206,7 @@
                             </div>
                         <?php }else { ?>
                         
-                        
+                            <label class="col-md-3 control-label">Hospital Location</label>
                             <div class="col-md-9">
                                 <select id="country" name="location_appointment" class="form-control select2" size="1">
                                     <option value="0">Please select</option>
@@ -236,13 +236,18 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label">Appointment type</label>
                             <div class="col-md-9">
+                            
                                 <select id="country" name="appointment_type" class="form-control select2" size="1">
                                     <option value="0">Please select</option>
-                                    <option value="Admin">Admin</option>
+                                    <!-- <option value="Admin">Admin</option>
                                     <option value="Arthrocopic-Rotator-Cuff-Repair-great-than-2cm-(T7915)">Arthrocopic Rotator Cuff Repair great than 2cm (T7915)</option>
                                     <option value="Hyaluronic-acid-injection-knee">Hyaluronic acid injection knee</option>
                                     <option value="Hyaluronic-acid-injection-shoulder">Hyaluronic acid injection shoulder</option>
-                                    <option value="Initial-Consultation-(E0000610)-Mr-Moholkar-@BMI">Initial Consultation (E0000610) Mr Moholkar @BMI</option>
+                                    <option value="Initial-Consultation-(E0000610)-Mr-Moholkar-@BMI">Initial Consultation (E0000610) Mr Moholkar @BMI</option> -->
+
+                                    <?php foreach ($appointment_type as $appointment_types) { ?>
+                                        <option value="<?php echo $appointment_types->id; ?>"><?php echo $appointment_types->name; ?></option>
+                                    <?php } ?>
                                 </select>
                             </div>
                         </div>
@@ -312,7 +317,7 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label">Patient</label>
                             <div class="col-md-9">
-                                <input type="text" id="patient" name="theatre_patient" class="form-control" placeholder="New Patient" required>
+                                <input type="text" id="patient" name="theatre_patient" class="form-control" placeholder="New Patient" style="text-align: justify;" required>
                             </div>
                         </div>
                     </div>
@@ -348,8 +353,8 @@
                             <div class="col-md-9">
                                 <select id="country" name="theatre_appointment_type" class="form-control select2" size="1">
                                     <option value="0">Please select</option>
-                                    <?php foreach ($countries as $country) { ?>
-                                        <option value="<?php echo $country->id; ?>"><?php echo $country->name; ?></option>
+                                    <?php foreach ($appointment_type as $appointment_types) { ?>
+                                        <option value="<?php echo $appointment_types->id; ?>"><?php echo $appointment_types->name; ?></option>
                                     <?php } ?>
                                 </select>
                             </div>
@@ -364,12 +369,13 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label">Anaesthetist</label>
                             <div class="col-md-9">
-                                <select id="country" name="theatre_anaesthetist" class="form-control select2" size="1">
+                            <input type="text" id="theatre_anaesthetist" name="theatre_anaesthetist" class="form-control" placeholder="Anaesthetist" style="text-align: justify;" required>
+                                <!-- <select id="country" name="theatre_anaesthetist" class="form-control select2" size="1">
                                     <option value="0">Please select</option>
                                     <?php foreach ($countries as $country) { ?>
                                         <option value="<?php echo $country->id; ?>"><?php echo $country->name; ?></option>
                                     <?php } ?>
-                                </select>
+                                </select> -->
                             </div>
                         </div>
                     </div>
@@ -379,8 +385,8 @@
                             <div class="col-md-9">
                                 <select id="country" name="theatre_type_of_stay" class="form-control select2" size="1">
                                     <option value="0">Please select</option>
-                                    <?php foreach ($countries as $country) { ?>
-                                        <option value="<?php echo $country->id; ?>"><?php echo $country->name; ?></option>
+                                    <?php foreach ($type_of_stay as $type_of_stays) { ?>
+                                        <option value="<?php echo $type_of_stays->id; ?>"><?php echo $type_of_stays->name; ?></option>
                                     <?php } ?>
                                 </select>
                             </div>

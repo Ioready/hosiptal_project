@@ -41,7 +41,7 @@ class UserSettings extends Common_Controller {
             'order' => array('user.id' => 'DESC'),
             'where' => array('user.email_verify' => 1),
             'where_not_in' => array(
-                'group.id' => array(1, 3, 4)
+                'group.id' => array(1, 2, 4,5,6,7)
             )
         );
 
@@ -57,7 +57,7 @@ class UserSettings extends Common_Controller {
             'order' => array('user.id' => 'DESC'),
             'where' => array('user.email_verify' => 0),
             'where_not_in' => array(
-                'group.id' => array(1, 3, 4)
+                'group.id' => array(1, 2, 4,5,6,7)
             )
         );
 
@@ -83,7 +83,7 @@ class UserSettings extends Common_Controller {
             ),
             'order' => array('user.id' => 'DESC'),
             'where' => array('user.id' => $user_id),
-            'where_not_in' => array('group.id' => array(1, 3, 4))
+            'where_not_in' => array('group.id' => array(1, 2, 4,5,6,7))
         );
 
         $this->data['list'] = $this->common_model->customGet($option);
@@ -165,7 +165,7 @@ class UserSettings extends Common_Controller {
             ),
             'order' => array('user.id' => 'DESC'),
             'where' => $where,
-            'where_not_in' => array('group.id' => array(1, 3, 4)),
+            'where_not_in' => array('group.id' => array(1, 2, 4,5,6,7)),
             'order' => array('user.id' => "DESC")
         );
         // }
@@ -192,7 +192,7 @@ class UserSettings extends Common_Controller {
                     'order' => array('user.id' => 'DESC'),
                     'limit' => array($limit => $start),
                     'where' => $where,
-                    'where_not_in' => array('group.id' => array(1, 3, 4)),
+                    'where_not_in' => array('group.id' => array(1, 2, 4,5,6,7)),
                     'order' => array('user.id' => "DESC")
                 );
             } else {
@@ -206,7 +206,7 @@ class UserSettings extends Common_Controller {
                     'order' => array('user.id' => 'DESC'),
                     'limit' => array($limit => $start),
                     'where' => $where,
-                    'where_not_in' => array('group.id' => array(1, 3, 4)),
+                    'where_not_in' => array('group.id' => array(1, 2, 4,5,6,7)),
                     'order' => array('user.id' => "DESC")
                 );
             }
