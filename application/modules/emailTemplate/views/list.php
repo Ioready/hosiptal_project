@@ -91,7 +91,6 @@
            
 
     </div>
-
     <?php //print_r($EmailTemplates);die; ?>
       <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('/emailTemplate/sendEmailTemplate') ?>" enctype="multipart/form-data">
       <div class="alert alert-danger" id="error-box" style="display: none"></div>
