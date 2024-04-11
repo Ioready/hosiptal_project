@@ -180,8 +180,8 @@
                                 <div class="col-12 col-lg-2 col-md-6 mb-3 mb-lg-0">
                                     <select id="careUnit" name="careUnit" class="form-control select-2" onchange="getAntibioticByCareUnit(this.value)">
                                         <option value="">Select Care Unit</option>
-                                        <!--  <?php
-                                                if (isset($careUnit) && !empty($careUnit)) {
+                                         <?php
+                                                if (isset($care_unit) && !empty($careUnit)) {
                                                     foreach ($careUnit as $row) {
                                                         $select = "";
                                                         if (isset($careUnitID)) {
@@ -194,7 +194,7 @@
                                     <?php
                                                     }
                                                 }
-                                    ?> -->
+                                    ?>
                                         <?php
                                         if (!empty($careUnitsUser)) {
 
@@ -219,7 +219,7 @@
 
 
 
-                                            foreach ($careUnit as $category) { ?>
+                                            foreach ($care_unit as $category) { ?>
 
                                                 <option value="<?php echo $category->id; ?>"><?php echo $category->name; ?></option>
                                         <?php }
@@ -442,7 +442,7 @@
                     <option value="">Select Provider MD</option>
                     <?php if (isset($doctors) && !empty($doctors)) {
                         foreach ($doctors as $row) { ?>
-                            <option value="<?php echo $row->id; ?>"><?php echo $row->name; ?></option>
+                            <option value="<?php echo $row->id; ?>"><?php echo $row->first_name.''.$row->last_name; ?></option>
                     <?php }
                     } ?>
                 </select>
@@ -460,7 +460,7 @@
                 <div class="col-sm-12 col-lg-3">
                     <select id="steward" name="steward" class="form-control select-2" onchange="getAntibioticByCareUnit()">
                         <option value="">Select MD Steward</option>
-                        <?php if (!empty($staward)) {
+                        <!-- <?php if (!empty($staward)) {
                             $care = json_decode($staward[0]->md_steward_id);
                             foreach ($care as $car) {
                                 $this->db->select('*');
@@ -471,7 +471,15 @@
                         ?>
                                 <option value="<?php echo $row->id; ?>"><?php echo $row->first_name . ' ' . $row->last_name; ?></option>
                         <?php }
-                        } ?>
+                        } ?> -->
+
+
+                    <?php if (isset($staward) && !empty($staward)) {
+                        foreach ($staward as $row) { ?>
+                            <option value="<?php echo $row->id; ?>"><?php echo $row->first_name.''.$row->last_name; ?></option>
+                    <?php }
+                    } ?>
+
                     </select>
                 </div>
             <?php } ?>

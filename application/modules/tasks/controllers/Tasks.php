@@ -129,17 +129,54 @@ class Tasks extends Common_Controller
         //     $Sql = "SELECT vendor_sale_patient.id as patient_id,vendor_sale_patient.room_number,vendor_sale_patient.symptom_onset,vendor_sale_patient.total_days_of_patient_stay,vendor_sale_patient_consult.initial_dot,vendor_sale_patient.culture_source as culture_source_name,vendor_sale_patient.organism as organism_name,vendor_sale_patient.patient_id as pid,vendor_sale_care_unit.name,vendor_sale_doctors.name as doctor_name,vendor_sale_initial_dx.name as initial_dx_name,vendor_sale_initial_rx.name as initial_rx_name,vendor_sale_users.first_name as md_stayward,vendor_sale_patient.date_of_start_abx FROM vendor_sale_patient JOIN vendor_sale_care_unit ON vendor_sale_care_unit.id = vendor_sale_patient.care_unit_id JOIN vendor_sale_doctors ON vendor_sale_doctors.id= vendor_sale_patient.doctor_id JOIN vendor_sale_patient_consult ON vendor_sale_patient_consult.patient_id= vendor_sale_patient.id JOIN vendor_sale_initial_dx ON vendor_sale_initial_dx.id= vendor_sale_patient_consult.initial_dx JOIN vendor_sale_initial_rx ON vendor_sale_initial_rx.id= vendor_sale_patient_consult.initial_rx JOIN vendor_sale_users ON vendor_sale_users.id= vendor_sale_patient.md_steward_id  WHERE vendor_sale_patient.operator_id = $UsersCareUnitID AND vendor_sale_patient.care_unit_id = $careUnitID ORDER BY `patient_id` DESC";
         // } else {
 
-            $Sql = "SELECT vendor_sale_task.id as patient_id,vendor_sale_task.task_name,vendor_sale_task.patient_name,vendor_sale_task.task_comment,vendor_sale_task.type,vendor_sale_task.due_date as culture_source_name,vendor_sale_users.first_name as f_name, vendor_sale_users.last_name as l_name, vendor_sale_care_unit.name as type_name, vendor_sale_task.priority FROM vendor_sale_task  LEFT JOIN vendor_sale_users ON vendor_sale_users.id= vendor_sale_task.assign_to LEFT JOIN vendor_sale_care_unit ON vendor_sale_care_unit.id = vendor_sale_task.type  WHERE vendor_sale_task.user_id = $UsersCareUnitID";
+
+            // $Sql = "SELECT vendor_sale_task.id as patient_id,vendor_sale_task.task_name,vendor_sale_task.patient_name,vendor_sale_task.task_comment,vendor_sale_task.type,vendor_sale_task.due_date as culture_source_name,vendor_sale_users.first_name as f_name, vendor_sale_users.last_name as l_name, vendor_sale_care_unit.name as type_name, vendor_sale_task.priority FROM vendor_sale_task  LEFT JOIN vendor_sale_users ON vendor_sale_users.id= vendor_sale_task.assign_to LEFT JOIN vendor_sale_care_unit ON vendor_sale_care_unit.id = vendor_sale_task.type  WHERE vendor_sale_task.user_id = $UsersCareUnitID ORDER BY vendor_sale_task.id desc";
         // }
-        
+
+
+
+
+
+     $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+
+    if($this->ion_auth->is_subAdmin()){
+
+        $option = array(
+            'table' => ' doctors',
+            'select' => 'doctors.*',
+            'join' => array(
+                array('users', 'doctors.user_id=users.id', 'left'),
+            ),
+            
+            'where' => array(
+                'users.delete_status' => 0,
+                'doctors.user_id'=>$CareUnitID
+            ),
+            'single' => true,
+        );
+
+        $datadoctors = $this->common_model->customGet($option);
+
+       $facility_id= $datadoctors->facility_user_id;
+    
+
+        $Sql = "SELECT vendor_sale_task.id as patient_id,vendor_sale_task.task_name,vendor_sale_task.patient_name,vendor_sale_task.task_comment,vendor_sale_task.type,vendor_sale_task.due_date as culture_source_name,vendor_sale_users.first_name as f_name, vendor_sale_users.last_name as l_name, vendor_sale_care_unit.name as type_name, vendor_sale_task.priority FROM vendor_sale_task  LEFT JOIN vendor_sale_users ON vendor_sale_users.id= vendor_sale_task.assign_to LEFT JOIN vendor_sale_care_unit ON vendor_sale_care_unit.id = vendor_sale_task.type  WHERE vendor_sale_task.facility_user_id= $facility_id ORDER BY vendor_sale_task.id desc";
+
 
         $careunit_facility_counts = $this->common_model->customQuery($Sql);
 
-        // print_r($careunit_facility_counts);die;
-        // $arraySingles = call_user_func_array('array_merge', $careUnitData_list);
         $this->data['careUnitsUser_list'] = $careunit_facility_counts;
 
 
+    } else if ($this->ion_auth->is_facilityManager()) {
+        
+        $Sql = "SELECT vendor_sale_task.id as patient_id,vendor_sale_task.task_name,vendor_sale_task.patient_name,vendor_sale_task.task_comment,vendor_sale_task.type,vendor_sale_task.due_date as culture_source_name,vendor_sale_users.first_name as f_name, vendor_sale_users.last_name as l_name, vendor_sale_care_unit.name as type_name, vendor_sale_task.priority FROM vendor_sale_task  LEFT JOIN vendor_sale_users ON vendor_sale_users.id= vendor_sale_task.assign_to LEFT JOIN vendor_sale_care_unit ON vendor_sale_care_unit.id = vendor_sale_task.type  WHERE vendor_sale_task.facility_user_id= $CareUnitID ORDER BY vendor_sale_task.id desc";
+   
+
+        $careunit_facility_counts = $this->common_model->customQuery($Sql);
+        $this->data['careUnitsUser_list'] = $careunit_facility_counts;
+
+    }
 
         // $this->data['careUnitID'] = $careUnitID = (isset($_GET['careUnit'])) ? $_GET['careUnit'] : "";
 
@@ -152,11 +189,38 @@ class Tasks extends Common_Controller
         // echo $from; echo "<br>";
         // echo $to; echo "<br>";
         // echo $careUnitID; echo "<br>"; die;
+
+
         if ($_GET["export"] == 'Export') {
 
             $this->patientExport($from, $to, $careUnitID);
             return;
         }
+
+
+
+    $userAuthID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+
+    if($this->ion_auth->is_subAdmin()){
+
+        $option = array(
+            'table' => ' doctors',
+            'select' => 'doctors.*',
+            'join' => array(
+                array('users', 'doctors.user_id=users.id', 'left'),
+            ),
+            
+            'where' => array(
+                'users.delete_status' => 0,
+                'doctors.user_id'=>$userAuthID
+            ),
+            'single' => true,
+        );
+
+        $datadoctors = $this->common_model->customGet($option);
+
+       $facility_id= $datadoctors->facility_user_id;
+    
 
         $option = array(
             'table' => 'task t',
@@ -168,39 +232,153 @@ class Tasks extends Common_Controller
                 
             ),
             //'group_by' => 't.patient_id'
-            // 'group_by' => 'p.id'
+            'where'=> array('t.facility_user_id'=> $facility_id),
+             'order' => array('t.id' => 'desc'),
+             
         );
+
         if (!empty($careUnitID)) {
-            $option['where']['P.care_unit_id'] = $careUnitID;
+            $option['where']['cu.id'] = $careUnitID;
         }
         if (!empty($AdminCareUnitID)) {
-            $option['where']['P.care_unit_id']  = $AdminCareUnitID;
+            $option['where']['cu.id']  = $AdminCareUnitID;
         }
         if (!empty($from)) {
-            $option['where']['DATE(P.date_of_start_abx) >='] = $from;
+            $option['where']['DATE(t.date_of_start_abx) >='] = $from;
         }
         if (!empty($to)) {
-            $option['where']['DATE(P.date_of_start_abx) <='] = $to;
+            $option['where']['DATE(t.date_of_start_abx) <='] = $to;
         }
         $option['order'] = array('t.id' => 'desc');
-
-        /* print_r($option);die; */
         $this->data['list'] = $this->common_model->customGet($option);
+
+
+    } else if ($this->ion_auth->is_facilityManager()) {
+        
+        $option = array(
+            'table' => 'task t',
+            'select' => 't.id as task_id,t.task_name,t.patient_name,t.due_date as culture_source_name,t.type,t.priority,'
+                . 't.task_comment, cu.name as type_name, U.first_name as f_name, U.last_name as l_name',
+            'join' => array(
+                array('vendor_sale_care_unit cu', 'cu.id=t.type', 'left'),
+                array('users U', 'U.id=t.assign_to', 'left'),
+                
+            ),
+            //'group_by' => 't.patient_id'
+            'where'=> array('t.facility_user_id'=> $userAuthID),
+            'order' => array('t.id' => 'desc'),
+
+        );
+             if (!empty($careUnitID)) {
+                $option['where']['t.type'] = $careUnitID;
+            }
+            if (!empty($AdminCareUnitID)) {
+                $option['where']['cu.id']  = $AdminCareUnitID;
+            }
+            if (!empty($from)) {
+                $option['where']['DATE(t.date_of_start_abx) >='] = $from;
+            }
+            if (!empty($to)) {
+                $option['where']['DATE(t.date_of_start_abx) <='] = $to;
+            }
+            $option['order'] = array('t.id' => 'desc');
+            $this->data['list'] = $this->common_model->customGet($option);
+             
+        // );
+
+    }
+
+        // $option = array(
+        //     'table' => 'task t',
+        //     'select' => 't.id as task_id,t.task_name,t.patient_name,t.due_date as culture_source_name,t.type,t.priority,'
+        //         . 't.task_comment, cu.name as type_name, U.first_name as f_name, U.last_name as l_name',
+        //     'join' => array(
+        //         array('vendor_sale_care_unit cu', 'cu.id=t.type', 'left'),
+        //         array('users U', 'U.id=t.assign_to', 'left'),
+                
+        //     ),
+        //     //'group_by' => 't.patient_id'
+        //      'order' => array('t.id' => 'desc'),
+        // );
+
+
         
 
-        $option = array(
+        // $option = array(
 
-            'table' => 'users',
-            'select' => 'users.*', 
+        //     'table' => 'users',
+        //     'select' => 'users.*', 
+            
+        //     'where' => array(
+        //         'users.delete_status' => 0,
+                
+        //     ),
+        // );
+        
+
+        // $this->data['doctors'] = $this->common_model->customGet($option);
+
+
+    $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+
+    if($this->ion_auth->is_subAdmin()){
+
+        $option = array(
+            'table' => ' doctors',
+            'select' => 'doctors.*',
+            'join' => array(
+                array('users', 'doctors.user_id=users.id', 'left'),
+            ),
             
             'where' => array(
                 'users.delete_status' => 0,
-                // 'doctors.facility_user_id' => $user_id
+                'doctors.user_id'=>$CareUnitID
             ),
+            'single' => true,
         );
-        
 
+        $datadoctors = $this->common_model->customGet($option);
+
+
+    $option = array(
+            'table' => ' doctors',
+            'select' => 'users.*,',
+            'join' => array(
+                array('users', 'doctors.user_id=users.id', 'left'),
+                array('user_profile UP', 'UP.user_id=users.id', 'left'),
+                array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
+                
+            ),
+            
+            'where' => array(
+                'users.delete_status' => 0,
+                'doctors.facility_user_id'=>$datadoctors->facility_user_id
+            ),
+            'order' => array('users.id' => 'desc'),
+        );
         $this->data['doctors'] = $this->common_model->customGet($option);
+        // print_r($datadoctors->facility_user_id);die;
+
+    } else if ($this->ion_auth->is_facilityManager()) {
+        
+        $option = array(
+            'table' => ' doctors',
+            'select' => 'users.*',
+            'join' => array(
+                array('users', 'doctors.user_id=users.id', 'left'),
+                array('user_profile UP', 'UP.user_id=users.id', 'left'),
+                array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
+                
+            ),
+            
+            'where' => array(
+                'users.delete_status' => 0,
+                'doctors.facility_user_id'=>$CareUnitID
+            ),
+            'order' => array('users.id' => 'desc'),
+        );
+        $this->data['doctors'] = $this->common_model->customGet($option);
+    }
 
         $AdminCareUnitID = isset($_SESSION['admin_care_unit_id']) ? $_SESSION['admin_care_unit_id'] : '';
 
@@ -283,27 +461,46 @@ class Tasks extends Common_Controller
         $this->data['list'] = $this->common_model->customGet($option);
 
 
-        $option = array(
+        // $option = array(
 
-            // 'table' => 'users',
-            // 'select' => 'users.id, CONCAT(first_name," ",last_name) as doctor_name, doctors.facility_user_id', 
-            // 'join' => array(
-            //     array('doctors', 'doctors.user_id = users.id', 'inner'),
-            // ),
-            // 'where' => array(
-            //     'users.delete_status' => 0,
-            //     'doctors.facility_user_id' => $user_id
-            // ),
-            'table' => 'users',
-            'select' => 'users.*', 
+        //     // 'table' => 'users',
+        //     // 'select' => 'users.id, CONCAT(first_name," ",last_name) as doctor_name, doctors.facility_user_id', 
+        //     // 'join' => array(
+        //     //     array('doctors', 'doctors.user_id = users.id', 'inner'),
+        //     // ),
+        //     // 'where' => array(
+        //     //     'users.delete_status' => 0,
+        //     //     'doctors.facility_user_id' => $user_id
+        //     // ),
+        //     'table' => 'users',
+        //     'select' => 'users.*', 
+            
+        //     'where' => array(
+        //         'users.delete_status' => 0,
+        //         // 'doctors.facility_user_id' => $user_id
+        //     ),
+        // );
+        
+
+        // $this->data['doctors'] = $this->common_model->customGet($option);
+
+        $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+        $option = array(
+            'table' => ' doctors',
+            'select' => 'users.*,doctors_qualification.*',
+            'join' => array(
+                array('users', 'doctors.user_id=users.id', 'left'),
+                array('user_profile UP', 'UP.user_id=users.id', 'left'),
+                array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
+                
+            ),
             
             'where' => array(
                 'users.delete_status' => 0,
-                // 'doctors.facility_user_id' => $user_id
+                // 'doctors.facility_user_id'=>$CareUnitID
             ),
+            'order' => array('users.id' => 'desc'),
         );
-        
-
         $this->data['doctors'] = $this->common_model->customGet($option);
 
 
@@ -352,7 +549,90 @@ class Tasks extends Common_Controller
         $this->data['organism'] = $this->common_model->customGet(array('table' => 'organism', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
         $this->data['precautions'] = $this->common_model->customGet(array('table' => 'precautions', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
         $this->data['initial_rx'] = $this->common_model->customGet(array('table' => 'initial_rx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
-        $this->data['doctors'] = $this->common_model->customGet(array('table' => 'doctors', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
+        // $this->data['doctors'] = $this->common_model->customGet(array('table' => 'doctors', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
+        // $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+        // $option = array(
+        //     'table' => ' doctors',
+        //     'select' => 'users.*,doctors_qualification.*',
+        //     'join' => array(
+        //         array('users', 'doctors.user_id=users.id', 'left'),
+        //         array('user_profile UP', 'UP.user_id=users.id', 'left'),
+        //         array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
+                
+        //     ),
+            
+        //     'where' => array(
+        //         'users.delete_status' => 0,
+        //         'doctors.facility_user_id'=>$CareUnitID
+        //     ),
+        //     'order' => array('users.id' => 'desc'),
+        // );
+        // $data['doctors'] = $this->common_model->customGet($option);
+       
+
+        $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+
+        if($this->ion_auth->is_subAdmin()){
+    
+            $option = array(
+                'table' => ' doctors',
+                'select' => 'doctors.*',
+                'join' => array(
+                    array('users', 'doctors.user_id=users.id', 'left'),
+                    
+                    
+                ),
+                
+                'where' => array(
+                    'users.delete_status' => 0,
+                    'doctors.user_id'=>$CareUnitID
+                ),
+                'single' => true,
+            );
+    
+            $datadoctors = $this->common_model->customGet($option);
+    
+    
+        $option = array(
+                'table' => ' doctors',
+                'select' => 'users.*',
+                'join' => array(
+                    array('users', 'doctors.user_id=users.id', 'left'),
+                    array('user_profile UP', 'UP.user_id=users.id', 'left'),
+                    array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
+                    
+                ),
+                
+                'where' => array(
+                    'users.delete_status' => 0,
+                    // 'doctors.facility_user_id'=>$datadoctors->facility_user_id
+                ),
+                'order' => array('users.id' => 'desc'),
+            );
+            $this->data['doctors'] = $this->common_model->customGet($option);
+    
+    
+        } else if ($this->ion_auth->is_facilityManager()) {
+            
+            $option = array(
+                'table' => ' doctors',
+                'select' => 'users.*',
+                'join' => array(
+                    array('users', 'doctors.user_id=users.id', 'left'),
+                    array('user_profile UP', 'UP.user_id=users.id', 'left'),
+                    array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
+                    
+                ),
+                
+                'where' => array(
+                    'users.delete_status' => 0,
+                    'doctors.facility_user_id'=>$CareUnitID
+                ),
+                'order' => array('users.id' => 'desc'),
+            );
+            $this->data['doctors'] = $this->common_model->customGet($option);
+        }
+       
         // $option = array(
         //     'table' => 'users U',
         //     'select' => 'U.id,CONCAT(first_name," ",last_name) name',
@@ -398,7 +678,7 @@ class Tasks extends Common_Controller
         );
         
 
-        $this->data['doctors'] = $this->common_model->customGet($option);
+        $this->data['doctorsss'] = $this->common_model->customGet($option);
         // echo "<pre>";
         // print_r($this->data['staward']);
         // die;
@@ -1043,12 +1323,36 @@ class Tasks extends Common_Controller
         $this->form_validation->set_rules('task_comment', 'task_comment Id', 'trim|required');
         
         if ($this->form_validation->run() == true) {
-           
+            $UsersCareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
             // print_r($this->input->post());die;
-                    $option = array(
+
+                    $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+
+                    if($this->ion_auth->is_subAdmin()){
+                
+                        $option = array(
+                            'table' => ' doctors',
+                            'select' => 'doctors.*',
+                            'join' => array(
+                                array('users', 'doctors.user_id=users.id', 'left'),
+                            ),
+                            
+                            'where' => array(
+                                'users.delete_status' => 0,
+                                'doctors.user_id'=>$CareUnitID
+                            ),
+                            'single' => true,
+                        );
+                
+                        $datadoctors = $this->common_model->customGet($option);
+                
+                       $facility_id= $datadoctors->facility_user_id;
+                
+                       $option = array(
                         'table' => 'task',
                         'data' => array(
-                            'user_id'=> $this->input->post('user_id'),
+                            'user_id'=> $UsersCareUnitID,
+                            'facility_user_id'=>$facility_id,
                             'task_name' => $this->input->post('task_name'),
                             'assign_to' => $this->input->post('assign_to'),
                             'patient_name' => $this->input->post('patient_name'),
@@ -1060,6 +1364,28 @@ class Tasks extends Common_Controller
                         )
                     );
                     $insert_id = $this->common_model->customInsert($option);
+                
+                    } else if ($this->ion_auth->is_facilityManager()) {
+
+                        $option = array(
+                            'table' => 'task',
+                            'data' => array(
+                                'user_id'=> $UsersCareUnitID,
+                                'facility_user_id'=>$CareUnitID,
+                                'task_name' => $this->input->post('task_name'),
+                                'assign_to' => $this->input->post('assign_to'),
+                                'patient_name' => $this->input->post('patient_name'),
+                                'due_date' => $this->input->post('due_date'),
+                                'type' => $this->input->post('type'),
+                                'priority' =>$this->input->post('priority'),
+                                'task_comment' =>$this->input->post('task_comment'),
+    
+                            )
+                        );
+                        $insert_id = $this->common_model->customInsert($option);
+                    }
+
+
                 
                     if ($insert_id) {
                         // $redirect_to = base_url() . 'application/modules/tasks/views/form5.html';

@@ -153,6 +153,25 @@ class Pwfpanel extends Common_Controller
                 $data['all_plan_list'] = $this->common_model->customGet($option);
 
                 if ($this->ion_auth->is_subAdmin()) {
+                    $date = date("Y-m-d");
+                    $AdminCareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+                $Sql = "SELECT vendor_sale_patient.operator_id FROM vendor_sale_patient WHERE vendor_sale_patient.doctor_id = $AdminCareUnitID";
+                $careunit_facility_counts = $this->common_model->customQuery($Sql);
+                $user_facility_counts = count($careunit_facility_counts);
+                $data['total_patient_doctors'] = $user_facility_counts;
+
+
+                $AdminCareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+                $Sql = "SELECT vendor_sale_patient.operator_id FROM vendor_sale_patient WHERE vendor_sale_patient.doctor_id = $AdminCareUnitID AND  DATE(created_date) = '$date'";
+                $careunit_facility_counts = $this->common_model->customQuery($Sql);
+                $user_facility_counts = count($careunit_facility_counts);
+                $data['total_today_patient_doctors'] = $user_facility_counts;
+
+
+                $data['initial_dx_doctor'] = $this->common_model->customCount(array('table' => 'initial_dx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0)));
+                $data['initial_rx_doctor'] = $this->common_model->customCount(array('table' => 'initial_rx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0)));
+
+
                     $this->load->admin_render('dashboard', $data);
                     // redirect('patient', 'refresh');
                 }
@@ -266,6 +285,26 @@ class Pwfpanel extends Common_Controller
                 //     'select' => 'P.operator_id',
                 //     'where' => array('DATE(created_date)' => date('Y-m-d'))
                 // );
+
+                $datadoctors = $this->common_model->customGet($option);
+                $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+                $option = array(
+                    'table' => ' doctors',
+                    'select' => 'doctors.*',
+                    'join' => array(
+                        array('users', 'doctors.user_id=users.id', 'left'),  
+                    ),
+                    
+                    'where' => array(
+                        'users.delete_status' => 0,
+                        'doctors.facility_user_id'=>$CareUnitID
+                    ),
+                    'single' => true,
+                );
+
+            $datadoctorsss = $this->common_model->customGet($option);
+                
+
 
                 $AdminCareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
                 $Sql = "SELECT vendor_sale_patient.operator_id FROM vendor_sale_patient WHERE vendor_sale_patient.operator_id = $AdminCareUnitID";

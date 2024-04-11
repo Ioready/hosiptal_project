@@ -200,7 +200,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label"><?php echo lang('user_email'); ?></label>
+                                    <label class="col-md-3 control-label"><?php echo 'user_email'; ?></label>
                                     <div class="col-md-9">
                                         <input type="email" class="form-control" name="user_email" id="user_email" placeholder="<?php echo lang('user_email'); ?>" />
                                     </div>

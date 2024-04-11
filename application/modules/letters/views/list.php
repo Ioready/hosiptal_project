@@ -112,11 +112,14 @@
                             <tr>
                                 <td><?php echo $rowCount; ?></td>
                                 <td><?php echo $rows->internal_name; ?></td>
-                                <td  ><img width="100px;" src="<?php echo ('http://localhost/hosiptal_project/uploads/'. $rows->header_logo); ?>" alt="header"></td>
+                                <?php $image_url = base_url('/uploads/');
+                                $image_url_footer = base_url('/uploads/');  
+                                ?>
+                                <td  ><img width="100px;" src="<?php echo $image_url.$rows->header_logo; ?>" alt="header"></td>
                                 <td><?php echo $rows->bodies_template; ?></td>
                                 <td><?php echo $rows->recipient_template; ?></td>
                                 <!-- <td><?php echo $rows->logo; ?></td> -->
-                                <td  ><img width="100px;" src="<?php echo ('http://localhost/hosiptal_project/uploads/'. $rows->logo); ?>" alt="footer"></td>
+                                <td  ><img width="100px;" src="<?php echo $image_url_footer.$rows->logo; ?>" alt="footer"></td>
                                 <!-- <td class="actions"> -->
                                     <?php
                                 // if($rows->status ==0){

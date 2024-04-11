@@ -91,6 +91,10 @@
            
 
     </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 350d915ec27db96b879dce33f717b8e1a824c8e0
     <?php //print_r($EmailTemplates);die; ?>
       <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('/emailTemplate/sendEmailTemplate') ?>" enctype="multipart/form-data">
       <div class="alert alert-danger" id="error-box" style="display: none"></div>
@@ -206,61 +210,70 @@
     });
 </script> -->
 
-<!-- <script>
+<script>
+    // $("#template_list").change(function () {
+    //     var template_id = this.value;
+    //     // alert(template_id);
+
+    //     // Assuming you want to send the template_id as a filter parameter
+    //     $.ajax({
+    //         url: '<?php echo base_url(); ?>' + "/emailTemplate/index", // Replace with your controller endpoint URL
+    //         method: 'GET', // Or 'POST' depending on your preference
+    //         data: { template_id: template_id },
+    //         success: function(response) {
+    //             // Update the content of the div with the response
+    //             // $('#template_data').text(response);
+    //         },
+    //         error: function(xhr, status, error) {
+    //             // Handle any errors
+    //             console.error(xhr.responseText);
+    //         }
+    //     });
+    // });
+
+
+    $(document).ready(function () {
     $("#template_list").change(function () {
         var template_id = this.value;
-        
+
+        <?php //echo $EmailTemplates;?>
+
         $.ajax({
-            url: '<?php echo base_url(); ?>' + "/emailTemplate/index", 
+            url: '<?php echo base_url(); ?>' + "/emailTemplate/index",
             method: 'GET', 
             data: { template_id: template_id },
             success: function(response) {
-               
-                $('#template_data').html(response);
+              
+                document.write(response);
             },
             error: function(xhr, status, error) {
-               
+                
                 console.error(xhr.responseText);
             }
         });
     });
-</script> -->
-
-<script>
-    $("#template_list").change(function () {
-    var template_id = this.value;
-
-    // Hide side menu and header
-    $('.sidebar-section sidebar-user clearfix sidebar-nav-mini-hide m-0').hide();
-    $('.navbar navbar-default d-flex justify-content-end').hide();
-
-    // Assuming you want to send the template_id as a filter parameter
-    $.ajax({
-        url: '<?php echo base_url(); ?>' + "/emailTemplate/index", // Replace with your controller endpoint URL
-        method: 'GET', // Or 'POST' depending on your preference
-        data: { template_id: template_id },
-        success: function(response) {
-            // Update the content of the div with the response
-
-            // alert(response['']);
-            // $('#template_data').value(response);
-
-            // Scroll to the top of the form
-            // $('html, body').animate({ scrollTop: $('#template_data').offset().top }, 'slow');
-        },
-        error: function(xhr, status, error) {
-            // Handle any errors
-            console.error(xhr.responseText);
-        },
-        // complete: function() {
-        //     // Show side menu and header after AJAX request is complete
-        //     $('.sidebar').show();
-        //     $('.navbar').show();
-        // }
-    });
 });
 
 
+
+    // $(document).ready(function(){
+    // $("#template_list").change(function () {
+    //     var template_id = this.value;
+    //     $.ajax({
+    //         url: '<?php echo base_url(); ?>' + "/emailTemplate/index", // Replace with your controller endpoint URL
+    //         method: 'GET', // Or 'POST' depending on your preference
+    //         data: { template_id: template_id },
+    //         success: function(response) {
+    //             // Update the content of the div with the main content area
+    //             $('#template_data').html($(response).find('#main-content').html());
+    //         },
+    //         error: function(xhr, status, error) {
+    //             // Handle any errors
+    //             console.error(xhr.responseText);
+    //         }
+    //     });
+    // });
+// })
 </script>
 
 
@@ -281,4 +294,87 @@
 
         
 
-      
+        <!-- Datatables Content -->
+        <!-- <div class="block full">
+            <div class="block-title">
+            
+            <h2><strong>Email Template</strong> Panel</h2>
+           
+              
+        <?php if ($this->ion_auth->is_superAdmin()) {?>
+
+            <h2><a href="javascript:void(0)" onclick="open_modal('emailTemplate')" class="save-btn btn btn-sm btn-primary">
+            <i class="gi gi-circle_plus"></i> Email Template
+            </a></h2>      
+        <?php }?>
+
+            </div>
+            <h2><a href="javascript:void(0)" onclick="open_modal('emailTemplate')" class="btn btn-sm btn-primary" style="background:#337ab7;">
+            <i class="gi gi-circle_plus m-2"></i> Email Template
+            </a></h2>   
+            <div class="table-responsive">
+                <table id="common_datatable_cms" class="table table-vcenter table-condensed table-bordered text-center">
+                    <thead>
+                        <tr>                                            
+                            <th  class="t-head text-center"><?php echo lang('serial_no'); ?></th>
+                            <th class="t-head text-center">Email Type</th>
+                            <th class="t-head text-center" class="t-head">Title</th>
+                            <th class="t-head"><?php echo lang('description'); ?></th>
+                            <th class="t-head"><?php echo lang('image'); ?></th>-->
+                            <!-- <th class="t-head text-center"><?php echo lang('action'); ?></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    if (isset($list) && !empty($list)):
+                        $rowCount = 0;
+                        foreach ($list as $rows):
+                            $rowCount++;
+                            ?>
+                            <tr>
+                                <td><?php echo $rowCount; ?></td>            
+                                <td><?php echo $rows->email_type; ?></td>
+                                <td><?php echo $rows->title; ?></td> -->
+<!--                                <td style="width:25%;"><?php
+                                    if (strlen($rows->description) > 400) {
+                                        $content = $rows->description;
+                                        echo mb_substr($rows->description, 0, 400, 'UTF-8') . '...<br>';
+                                        ?>
+                                        <a style="cursor:pointer" onclick="show_message('<?php echo base64_encode($content); ?>')"><?php echo lang('view'); ?></a>
+                                        <?php
+                                    } else if (strlen($rows->description) > 0) {
+                                        echo $rows->description;
+                                    }
+                                    ?></td>
+                                <td><img width="100" src="<?php if (!empty($rows->image)) {
+                                echo base_Url() ?>uploads/emailTemplate/<?php echo $rows->image;
+                            } else {
+                                echo base_url() . DEFAULT_NO_IMG_PATH;
+                            } ?>" /></td>-->
+
+                                <!-- <td class="actions">
+                                    <a href="javascript:void(0)" class="btn btn-xs btn-default" onclick="editFn('emailTemplate','template_edit','<?php echo encoding($rows->id) ?>');"><i class="fa fa-pencil"></i></a>
+                                    <?php if($rows->is_active == 1) {?>
+                                    <a href="javascript:void(0)" class="btn btn-xs btn-success" onclick="editStatusFn('vendor_sale_email_template','id','<?php echo encoding($rows->id);?>','<?php echo $rows->is_active;?>')" title="Inactive Now"><i class="fa fa-check"></i></a>
+                                    <?php } else { ?>
+                                    <a href="javascript:void(0)" class="btn btn-xs btn-danger" onclick="editStatusFn('vendor_sale_email_template','id','<?php echo encoding($rows->id); ?>','<?php echo $rows->is_active;?>')" title="Active Now"><i class="fa fa-times"></i></a>
+                                    <?php } ?>
+                                    <a href="javascript:void(0)" onclick="deleteFn('vendor_sale_email_template','id','<?php echo encoding($rows->id); ?>','emailTemplate')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+                                </td>
+                            </tr>
+                        <?php endforeach;
+                    endif; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div> -->
+        <!-- END Datatables Content -->
+    <!-- </div> -->
+    <!-- END Page Content -->
+<!-- <div id="form-modal-box"></div>
+<div id="message_div">
+    <span id="close_button"><img src="<?php echo base_url(); ?>backend_asset/images/close.png" onclick="close_message();"></span>
+    <div id="message_container"></div>
+</div>  -->
+                    
+

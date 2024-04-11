@@ -459,21 +459,85 @@ class Patient extends Common_Controller
 
 
         
-        $option = array(
+        // $option = array(
 
-            'table' => 'users',
-            'select' => 'users.id, CONCAT(first_name," ",last_name) as doctor_name, doctors.facility_user_id', 
-            'join' => array(
-                array('doctors', 'doctors.user_id = users.id', 'inner'),
-            ),
-            'where' => array(
-                'users.delete_status' => 0,
-                'doctors.facility_user_id' => $this->hospital->facility_user_id
-            ),
-        );
+        //     'table' => 'users',
+        //     'select' => 'users.id, CONCAT(first_name," ",last_name) as doctor_name, doctors.facility_user_id', 
+        //     'join' => array(
+        //         array('doctors', 'doctors.user_id = users.id', 'inner'),
+        //     ),
+        //     'where' => array(
+        //         'users.delete_status' => 0,
+        //         'doctors.facility_user_id' => $this->hospital->facility_user_id
+        //     ),
+        // );
         
 
+        // $this->data['doctors'] = $this->common_model->customGet($option);
+
+
+        $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+
+    if($this->ion_auth->is_subAdmin()){
+
+        $option = array(
+            'table' => ' doctors',
+            'select' => 'doctors.*',
+            'join' => array(
+                array('users', 'doctors.user_id=users.id', 'left'),
+            ),
+            
+            'where' => array(
+                'users.delete_status' => 0,
+                'doctors.user_id'=>$CareUnitID
+            ),
+            'single' => true,
+        );
+
+        $datadoctors = $this->common_model->customGet($option);
+
+
+    $option = array(
+            'table' => ' doctors',
+            'select' => 'users.*.*',
+            'join' => array(
+                array('users', 'doctors.user_id=users.id', 'left'),
+                array('user_profile UP', 'UP.user_id=users.id', 'left'),
+                array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
+                
+            ),
+            
+            'where' => array(
+                'users.delete_status' => 0,
+                'doctors.facility_user_id'=>$datadoctors->facility_user_id
+            ),
+            'order' => array('users.id' => 'desc'),
+        );
         $this->data['doctors'] = $this->common_model->customGet($option);
+        // print_r($datadoctors->facility_user_id);die;
+
+    } else if ($this->ion_auth->is_facilityManager()) {
+        
+        $option = array(
+            'table' => ' doctors',
+            'select' => 'users.*',
+            'join' => array(
+                array('users', 'doctors.user_id=users.id', 'left'),
+                array('user_profile UP', 'UP.user_id=users.id', 'left'),
+                array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
+                
+            ),
+            
+            'where' => array(
+                'users.delete_status' => 0,
+                'doctors.facility_user_id'=>$CareUnitID
+            ),
+            'order' => array('users.id' => 'desc'),
+        );
+        $this->data['doctors'] = $this->common_model->customGet($option);
+    }
+
+
         // echo "<pre>";
         // print_r($this->data['staward']);
         // die;
@@ -1465,12 +1529,12 @@ class Patient extends Common_Controller
     
         $this->form_validation->set_rules('first_name', 'first_name', 'trim');
         $this->form_validation->set_rules('last_name', 'last_name', 'trim');
-        $this->form_validation->set_rules('title', 'title', 'trim');
+        // $this->form_validation->set_rules('title', 'title', 'trim');
         $this->form_validation->set_rules('day', 'day', 'trim|required');
         $this->form_validation->set_rules('month', 'month', 'trim|required');
         $this->form_validation->set_rules('year', 'year', 'trim|required');
         $this->form_validation->set_rules('gender', 'gender', 'trim|required');
-         $this->form_validation->set_rules('comment', 'comment', 'trim|required');
+        //  $this->form_validation->set_rules('comment', 'comment', 'trim|required');
         $this->form_validation->set_rules('phone_type', 'phone_type', 'trim|required');
         // if ($this->input->post('infection_surveillance_checklist') != 'N/A') {
             $this->form_validation->set_rules('phone_number', 'phone_number', 'trim|required');
@@ -1478,32 +1542,32 @@ class Patient extends Common_Controller
         $this->form_validation->set_rules('user_email', 'user_email', 'trim|required');
         $this->form_validation->set_rules('password', 'password', 'trim|required');
         $this->form_validation->set_rules('address_lookup', 'address_lookup', 'trim|required');
-        $this->form_validation->set_rules('streem_address', 'streem_address', 'trim|required');
+        // $this->form_validation->set_rules('streem_address', 'streem_address', 'trim|required');
         $this->form_validation->set_rules('city', 'city', 'trim');
         $this->form_validation->set_rules('post_code', 'post_code', 'trim');
         $this->form_validation->set_rules('country', 'country', 'trim');
-        $this->form_validation->set_rules('Occupation', 'Occupation', 'trim');
-        $this->form_validation->set_rules('Company', 'Company', 'trim');
-        $this->form_validation->set_rules('religion', 'religion', 'trim|required');
-        $this->form_validation->set_rules('ethnicity', 'ethnicity', 'trim|required');
+        // $this->form_validation->set_rules('Occupation', 'Occupation', 'trim');
+        // $this->form_validation->set_rules('Company', 'Company', 'trim');
+        // $this->form_validation->set_rules('religion', 'religion', 'trim|required');
+        // $this->form_validation->set_rules('ethnicity', 'ethnicity', 'trim|required');
         // $this->form_validation->set_rules('contacts_clinician', 'contacts_clinician', 'trim|required');
-        $this->form_validation->set_rules('death_day', 'death_day', 'trim|required');
-        $this->form_validation->set_rules('death_month', 'death_month', 'trim|required');
+        // $this->form_validation->set_rules('death_day', 'death_day', 'trim|required');
+        // $this->form_validation->set_rules('death_month', 'death_month', 'trim|required');
 
-        $this->form_validation->set_rules('death_year', 'death_year', 'trim');
+        // $this->form_validation->set_rules('death_year', 'death_year', 'trim');
         $this->form_validation->set_rules('relation', 'relation', 'trim');
         $this->form_validation->set_rules('storedDataType', 'Relation Type', 'trim|required');
 
 
         $this->form_validation->set_rules('storedData', 'storedData', 'trim|required');
-        $this->form_validation->set_rules('receive_emails', 'receive_emails', 'trim|required');
-        $this->form_validation->set_rules('receive_sms_messages', 'receive_sms_messages', 'trim|required');
-        $this->form_validation->set_rules('has_consented_to_promotional_marketing', 'has_consented_to_promotional_marketing', 'trim|required');
-        $this->form_validation->set_rules('receive_payment_reminders', 'receive_payment_reminders', 'trim|required');
+        // $this->form_validation->set_rules('receive_emails', 'receive_emails', 'trim|required');
+        // $this->form_validation->set_rules('receive_sms_messages', 'receive_sms_messages', 'trim|required');
+        // $this->form_validation->set_rules('has_consented_to_promotional_marketing', 'has_consented_to_promotional_marketing', 'trim|required');
+        // $this->form_validation->set_rules('receive_payment_reminders', 'receive_payment_reminders', 'trim|required');
         $this->form_validation->set_rules('privacy_policy', 'privacy_policy', 'trim|required');
 
-        $this->form_validation->set_rules('billing_detail', 'billing_detail', 'trim|required');
-        $this->form_validation->set_rules('payment_reference', 'payment_reference', 'trim|required');
+        // $this->form_validation->set_rules('billing_detail', 'billing_detail', 'trim|required');
+        // $this->form_validation->set_rules('payment_reference', 'payment_reference', 'trim|required');
         $this->form_validation->set_rules('card_number', 'card_number', 'trim|required');
         $this->form_validation->set_rules('exp_month_year', 'exp_month_year', 'trim|required');
         $this->form_validation->set_rules('cvv', 'cvv', 'trim|required');
@@ -1564,10 +1628,12 @@ class Patient extends Common_Controller
                         'created_on' => strtotime(datetime())
                     );
                     $insert_user_id = $this->ion_auth->register($identity, $password, $email, $additional_data, array(7));
+                    // $insert_id = $this->db->insert_id();
 
+                    
                 }
 
-
+                
             // if ($this->input->post('patient_mode') == 'New') {
             $option = array(
                 'table' => 'care_unit',
@@ -1638,7 +1704,7 @@ class Patient extends Common_Controller
             $option = array(
                 'table' => 'patient',
                 'data' => array(
-                    'name' => ucwords($this->input->post('first_name').' '.$this->input->post('first_name')),
+                    'name' => ucwords($this->input->post('first_name').' '.$this->input->post('last_name')),
                     'operator_id' => $operator_id,
                     'patient_id' => $patient_unique,
                     
@@ -1687,7 +1753,7 @@ class Patient extends Common_Controller
                 );
                 $insert_id = $this->common_model->customInsert($option);
 
-
+                // print_r($insert_user_id);die;
                 $option2 = array(
                     'table' => 'user_address',
                     'data' => array(

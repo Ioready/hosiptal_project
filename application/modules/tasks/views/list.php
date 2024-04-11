@@ -115,7 +115,7 @@
 
 
                         <div class="panel-body">
-                            <form action="<?php echo site_url('task'); ?>" name="patientForm" method="get">
+                            <form action="<?php echo site_url('tasks'); ?>" name="patientForm" method="get">
 
                             <div class="col-lg-3">
                                     <?php // print_r($careUnitsUser);die;
@@ -193,16 +193,20 @@
                                         </select>
                                     </div>
                                     <div class="col-lg-2">
-                                        <select class="form-control" name="year" id="year">
-                                            <option value="">Select Year</option>
-                                            <option value="2020">2020</option>
-                                            <option value="2021">2021</option>
-                                            <option value="2022">2022</option>
-                                            <option value="2023">2023</option>
-                                            <option value="2024">2024</option>
-                                            <option value="2025">2025</option>
-                                            <option value="2026">2026</option>
-                                            
+                                    <select class="form-control" name="year" id="year">
+                                            <?php
+                                            // Get the current year
+                                            $current_year = date("Y");
+
+                                            // Loop through years from 10 years ago to 10 years in the future
+                                            for ($i = $current_year - 10; $i <= $current_year + 10; $i++) {
+                                                // Check if the current iteration is the current year
+                                                $selected = ($i == $current_year) ? 'selected' : '';
+
+                                                // Output each year as an option
+                                                echo "<option value='$i' $selected>$i</option>";
+                                            }
+                                            ?>
                                         </select>
                                     </div>
 
@@ -431,11 +435,9 @@
                         $rowCount = 0;
                         foreach ($careUnitsUser_list as $rows) {
                             $rowCount++;
-                            // print_r($rows);die;
+                           // print_r($rows);die;
 
                     ?>
-
-
                             <tr>
                                 <td><?php echo $rowCount; ?></td>
                                 <td><?php if($rows->priority =="High"){ 
