@@ -66,7 +66,7 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Assign to</label>
                                     <div class="col-md-9">
-                                        <select id="assign_to" name="assign_to" class="form-control select-chosen" size="1" onchange='getPatientId(this.value)'>
+                                        <select id="assign_to" name="assign_to" class="form-control" size="1">
                                             <option value="">Please select</option>
                                             <?php
                                                 if (!empty($doctors)) {
