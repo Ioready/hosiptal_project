@@ -425,8 +425,6 @@
                     </tr>
                 </thead>
                 <tbody>
-
-
                     <?php
                     //if(!empty($careUnitsUser_list)){
 
