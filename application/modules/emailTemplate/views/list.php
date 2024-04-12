@@ -91,6 +91,7 @@
            
 
     </div>
+    <?php //print_r($EmailTemplates);die; ?>
       <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('/emailTemplate/sendEmailTemplate') ?>" enctype="multipart/form-data">
       <div class="alert alert-danger" id="error-box" style="display: none"></div>
         
@@ -205,7 +206,6 @@
     });
 </script> -->
 
-<<<<<<< HEAD
 <script>
     // $("#template_list").change(function () {
     //     var template_id = this.value;
@@ -232,6 +232,8 @@
     $("#template_list").change(function () {
         var template_id = this.value;
 
+        <?php //echo $EmailTemplates;?>
+
         $.ajax({
             url: '<?php echo base_url(); ?>' + "/emailTemplate/index",
             method: 'GET', 
@@ -242,27 +244,10 @@
             },
             error: function(xhr, status, error) {
                 
-=======
-<!-- <script>
-    $("#template_list").change(function () {
-        var template_id = this.value;
-        
-        $.ajax({
-            url: '<?php echo base_url(); ?>' + "/emailTemplate/index", 
-            method: 'GET', 
-            data: { template_id: template_id },
-            success: function(response) {
-               
-                $('#template_data').html(response);
-            },
-            error: function(xhr, status, error) {
-               
->>>>>>> 5f3769f431c62d7712db4f5996f345f8205ea5e4
                 console.error(xhr.responseText);
             }
         });
     });
-<<<<<<< HEAD
 });
 
 
@@ -284,46 +269,7 @@
     //         }
     //     });
     // });
-})
-=======
-</script> -->
-
-<script>
-    $("#template_list").change(function () {
-    var template_id = this.value;
-
-    // Hide side menu and header
-    $('.sidebar-section sidebar-user clearfix sidebar-nav-mini-hide m-0').hide();
-    $('.navbar navbar-default d-flex justify-content-end').hide();
-
-    // Assuming you want to send the template_id as a filter parameter
-    $.ajax({
-        url: '<?php echo base_url(); ?>' + "/emailTemplate/index", // Replace with your controller endpoint URL
-        method: 'GET', // Or 'POST' depending on your preference
-        data: { template_id: template_id },
-        success: function(response) {
-            // Update the content of the div with the response
-
-            // alert(response['']);
-            // $('#template_data').value(response);
-
-            // Scroll to the top of the form
-            // $('html, body').animate({ scrollTop: $('#template_data').offset().top }, 'slow');
-        },
-        error: function(xhr, status, error) {
-            // Handle any errors
-            console.error(xhr.responseText);
-        },
-        // complete: function() {
-        //     // Show side menu and header after AJAX request is complete
-        //     $('.sidebar').show();
-        //     $('.navbar').show();
-        // }
-    });
-});
-
-
->>>>>>> 5f3769f431c62d7712db4f5996f345f8205ea5e4
+// })
 </script>
 
 
@@ -344,7 +290,6 @@
 
         
 
-<<<<<<< HEAD
         <!-- Datatables Content -->
         <!-- <div class="block full">
             <div class="block-title">
@@ -428,6 +373,4 @@
     <div id="message_container"></div>
 </div>  -->
                     
-=======
-      
->>>>>>> 5f3769f431c62d7712db4f5996f345f8205ea5e4
+

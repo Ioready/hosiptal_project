@@ -33,20 +33,21 @@
 
     <div class="block_list full">
     <div class="row text-center">
-        <div class="col-sm-6 col-lg-3 mb-4">
-            <a href="<?php echo base_url()."users/index/No";?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
-                <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
-                    <h4 style="font-size:16px; font-weight:600; color:white;">Inactive Users</h4>
-                </div>
-                <div class="widget-extra-full"><span class="h2 animation-expandOpen fw-bold text-dark"><?php echo $inactive;?></span></div>
-            </a>
-        </div>
+        
         <div class="col-sm-6 col-lg-3 mb-4">
             <a href="<?php echo base_url()."users/index/Yes";?>" class="widget widget-hover-effect2 rounded" style="border-radius: 10px; ">
                 <div class="widget-extra themed-background-dark"   style="background:#337ab7;">
                     <h4 style="font-size:14px; font-weight:600; color:white;">Activated Users</h4>
                 </div>
                 <div class="widget-extra-full"><span class="h2 themed-color-dark animation-expandOpen fw-bold"><?php echo $active;?></span></div>
+            </a>
+        </div>
+        <div class="col-sm-6 col-lg-3 mb-4">
+            <a href="<?php echo base_url()."users/index/No";?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
+                <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
+                    <h4 style="font-size:16px; font-weight:600; color:white;">Inactive Users</h4>
+                </div>
+                <div class="widget-extra-full"><span class="h2 animation-expandOpen fw-bold text-dark"><?php echo $inactive;?></span></div>
             </a>
         </div>
         <div class="col-sm-6 col-lg-3 mb-4">

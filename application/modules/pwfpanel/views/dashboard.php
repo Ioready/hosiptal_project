@@ -440,9 +440,9 @@
 
 
     <div class="col-lg-3 col-md-6 dashboardBoxes">
-    <div style="background-color:<?php echo $total_patient > 0 ? '#F9F5FF' : '#F9F5FF'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
+    <div style="background-color:<?php echo $total_patient_doctors > 0 ? '#F9F5FF' : '#F9F5FF'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
         <div class="ibox-content">
-            <h1 class="no-margins"><?php echo $total_patient; ?></h1>
+            <h1 class="no-margins"><?php echo $total_patient_doctors; ?></h1>
             <h5 class="text-primary"><strong>Total Patient </strong></h5>
         </div>
         <img src="<?php echo base_url(); ?>uploads/user.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
@@ -496,7 +496,7 @@
                    <div style="background-color:#D0FAE4; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
                       
                        <div class="ibox-content">
-                           <h1 class="no-margins"><?php echo $total_patient_today; ?></h1>
+                           <h1 class="no-margins"><?php echo $total_today_patient_doctors; ?></h1>
                            <h5 class="text-primary"><strong>Total Patient Today</strong></h5>
                        </div>
                        <img src="<?php echo base_url(); ?>uploads/patient.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
@@ -508,9 +508,9 @@
 
 
 <div class="col-lg-4 col-md-6 dashboardBoxes">
-    <div style="background-color:<?php echo $total_patient_today > 0 ? '#F9F5FF' : '#F9F5FF'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
+    <div style="background-color:<?php echo $total_today_patient_doctors > 0 ? '#F9F5FF' : '#F9F5FF'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
         <div class="ibox-content">
-            <h1 class="no-margins"><?php echo $total_patient_today; ?></h1>
+            <h1 class="no-margins"><?php echo $total_today_patient_doctors; ?></h1>
             <h5 class="text-primary"><strong>New Patient </strong></h5>
         </div>
         <img src="<?php echo base_url(); ?>uploads/user.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
@@ -839,7 +839,7 @@
     <div class="col-md-8 mt-4">
         <div class="card recent-sales overflow-auto" style="background-color: #FFFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);">
             <div class="card-body">
-                <h5 class="card-title fw-bold">Upcoming Appointments <span>| <a href="#" class="btn btn-primary btn-sm" style="background: #337ab7;">View all</a></span></h5>
+                <h5 class="card-title fw-bold">Upcoming Appointments <span>| <a href="<?php echo site_url('appointment'); ?>" class="btn btn-primary btn-sm" style="background: #337ab7;">View all</a></span></h5>
                 <div class="table-responsive">
                     <table class="table table-borderless datatable">
                         <thead>
@@ -1079,7 +1079,7 @@
                     </table>
                 </div>
                 <div class="card-footer text-center bg-white">
-                    <a href="doctors.html" class="text-muted fw-bold">View all Doctors</a>
+                    <a href="<?php echo site_url('dataOperator'); ?>" class="text-muted fw-bold">View all Doctors</a>
                 </div>
             </div>
         </div>
