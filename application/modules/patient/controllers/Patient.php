@@ -154,7 +154,7 @@ class Patient extends Common_Controller
                 . 'PC.new_initial_rx,IRX2.name as new_initial_rx_name,PC.new_initial_dx,IDX2.name as new_initial_dx_name,PC.new_initial_dot,PC.comment',
             'join' => array(
                 array('care_unit CI', 'CI.id=P.care_unit_id', 'inner'),
-                array('doctors DOC', 'DOC.id=P.doctor_id', 'inner'),
+                array('doctors DOC', 'DOC.user_id=P.doctor_id', 'inner'),
                 array('users U', 'U.id=P.md_steward_id', 'inner'),
                 array('patient_consult PC', 'PC.patient_id=P.id', 'inner'),
                 array('initial_rx IRX', 'IRX.id=PC.initial_rx', 'left'),
@@ -454,7 +454,7 @@ class Patient extends Common_Controller
         $this->data['organism'] = $this->common_model->customGet(array('table' => 'organism', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
         $this->data['precautions'] = $this->common_model->customGet(array('table' => 'precautions', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
         $this->data['initial_rx'] = $this->common_model->customGet(array('table' => 'initial_rx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
-        $this->data['doctors'] = $this->common_model->customGet(array('table' => 'doctors', 'select' => 'id,name', 'where' => array('is_active' => 1, 'facility_user_id'=>$this->hospital->facility_user_id, 'delete_status' => 0), 'order' => array('name' => 'asc')));
+        // $this->data['doctors'] = $this->common_model->customGet(array('table' => 'doctors', 'select' => 'id,name', 'where' => array('is_active' => 1, 'facility_user_id'=>$this->hospital->facility_user_id, 'delete_status' => 0), 'order' => array('name' => 'asc')));
         
 
 
@@ -503,7 +503,7 @@ class Patient extends Common_Controller
             'join' => array(
                 array('users', 'doctors.user_id=users.id', 'left'),
                 array('user_profile UP', 'UP.user_id=users.id', 'left'),
-                array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
+                // array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
                 
             ),
             
@@ -1717,7 +1717,7 @@ class Patient extends Common_Controller
                     'organism' => $this->input->post('organism'),
                     'precautions' => $this->input->post('precautions'),
                     'care_unit_id' => $this->input->post('care_unit_id'),
-                    'doctor_id' => $this->input->post('doctor_id'),
+                    'doctor_id' => $this->input->post('doctor_id')? $this->input->post('doctor_id') : null,
                     'md_steward_id' => (!empty($this->input->post('md_steward_id'))) ? $this->input->post('md_steward_id') : null,
                     // 'md_stayward_consult' => $this->input->post('md_stayward_consult'),
                     'criteria_met' => $this->input->post('criteria_met'),
@@ -2618,5 +2618,134 @@ class Patient extends Common_Controller
         $template2 = $this->send_mail_smtp1($template3, $to_email);
 
         return $template2;
+    }
+
+    function open_consult() {
+        $this->data['parent'] = $this->title;
+        $this->data['title'] = "Add " . $this->title;
+        $this->data['formUrlConsult'] = $this->router->fetch_class() . "/addConsult";
+        $this->data['formUrlModel'] = $this->router->fetch_class() . "/addQuestion";
+
+        
+        $option = "SELECT `vendor_sale_users`.`id`,`vendor_sale_users`.`first_name`, 
+        `vendor_sale_users`.`last_name`
+        FROM `vendor_sale_users` 
+        LEFT JOIN `vendor_sale_users_groups` ON `vendor_sale_users_groups`.`user_id` = `vendor_sale_users`.`id`
+        LEFT JOIN `vendor_sale_groups` ON `vendor_sale_groups`.`id` = `vendor_sale_users_groups`.`group_id`
+        WHERE `vendor_sale_users`.`delete_status` = 0 and `vendor_sale_users_groups`.`group_id` = 5
+        ORDER BY `vendor_sale_users`.`first_name` ASC";
+        
+        $this->data['users'] = $this->common_model->customQuery($option);
+
+        $option = array('table' => 'countries',
+            'select' => '*'
+        );
+        $this->data['countries'] = $this->common_model->customGet($option);
+        $option = array('table' => 'states',
+                    'select' => '*');
+                $this->data['states'] = $this->common_model->customGet($option);
+
+                // print_r($this->data['users']);die;
+
+        $this->load->admin_render('add_consultation', $this->data, 'inner_script');
+    }
+
+    public function addConsult() {
+
+        // echo "<pre>";
+        
+
+        // print_r($this->input->post());die;
+        // echo "</pre>";
+
+
+        $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+        $this->form_validation->set_rules('internal_name', "internal_name", 'required|trim');
+
+        if ($this->form_validation->run() == true) {
+            $this->filedata['status'] = 1;
+            
+            if ($this->filedata['status'] == 0) {
+                $response = array('status' => 0, 'message' => $this->filedata['error']);
+            // }
+            } else {
+            
+                $options_data = array(
+                    'user_id'=> $LoginID,
+                    'internal_name' => $this->input->post('internal_name'),
+                    'name' => $this->input->post('name'),
+                    'question' => json_encode($this->input->post('question')),  
+                    'diagram_url' => $this->input->post('diagram_url'),                
+                );
+                $option = array('table' => 'vendor_sale_user_consultation_setting', 'data' => $options_data);
+                $this->common_model->customInsert($option);
+
+               $consultation_id = $this->db->insert_id();
+
+
+               $custome_name = $this->input->post('custome_name');
+               $response_type = $this->input->post('response_type');
+
+                $options_data = array(
+                    'custome_name' => $custome_name,
+                    'response_type' => $response_type
+                );
+
+                $options_data1 = array(
+                    'consultation_id' => $consultation_id,
+                    'question_name' => json_encode($options_data),
+                    'question' => json_encode($this->input->post('question')),                    
+                );
+                $option1 = array('table' => 'vendor_sale_consultation_question', 'data' => $options_data1);
+
+                if ($this->common_model->customInsert($option1)) {
+                    
+                   
+
+                    $response = array('status' => 1, 'message' => "Successfully added", 'url' => base_url($this->router->fetch_class()));
+                } else {
+                    $response = array('status' => 0, 'message' => "Failed to add");
+                }
+            }
+        } else {
+            $messages = (validation_errors()) ? validation_errors() : '';
+            $response = array('status' => 0, 'message' => $messages);
+        }
+        echo json_encode($response);
+    }
+
+    public function addQuestion() {
+
+    
+        $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+        $this->form_validation->set_rules('question', "question", 'required|trim');
+       
+        if ($this->form_validation->run() == true) {
+            $this->filedata['status'] = 1;
+            
+            if ($this->filedata['status'] == 0) {
+                $response = array('status' => 0, 'message' => $this->filedata['error']);
+            // }
+            } else {
+             
+
+                $options_data = array(
+                    'user_id'=> $LoginID,
+                    'question' => $this->input->post('diagram'),
+                    'recipient_template' => $this->input->post('bodies_template'),                         
+                );
+                // print_r($options_data);die;
+                $option = array('table' => 'vendor_sale_consultation_question', 'data' => $options_data);
+                if ($this->common_model->customInsert($option)) {
+                    $response = array('status' => 1, 'message' => "Successfully added", 'url' => base_url($this->router->fetch_class()));
+                } else {
+                    $response = array('status' => 0, 'message' => "Failed to add");
+                }
+            }
+        } else {
+            $messages = (validation_errors()) ? validation_errors() : '';
+            $response = array('status' => 0, 'message' => $messages);
+        }
+        echo json_encode($response);
     }
 }

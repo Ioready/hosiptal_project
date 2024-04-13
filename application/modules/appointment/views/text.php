@@ -136,6 +136,7 @@
                                           $appointmentTime = date('H:i', strtotime($appointment->start_date_appointment));
                                           $end_date_appointment = date('H:i', strtotime($appointment->end_date_appointment));
                                           $comment_appointment = $appointment->comment_appointment;
+                                          
                                           $address1 = $appointment->address1;
                                           $city = $appointment->city;
                                           $first_name = $appointment->first_name;
