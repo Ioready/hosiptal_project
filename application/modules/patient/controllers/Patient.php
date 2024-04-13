@@ -57,23 +57,23 @@ class Patient extends Common_Controller
         $this->data['model'] = 'patient/open_model';
         $this->data['table'] = $this->_table;
         $AdminCareUnitID = isset($_SESSION['admin_care_unit_id']) ? $_SESSION['admin_care_unit_id'] : '';
-
+        
         $option = array('table' => 'care_unit', 'where' => array('delete_status' => 0, 'is_active' => 1), 'order' => array('name' => 'ASC'));
         // print_r($option);
         if (!empty($AdminCareUnitID)) {
-
+            
             $option['where']['id'] = $AdminCareUnitID;
         }
         
         $this->data['careUnit'] = $this->common_model->customGet($option);
         $this->data['careUnits'] = json_decode($AdminCareUnitID);
-
+        
         $y = $this->data['careUnits'];
         $x = count($y);
         
         $careUnitData = array();
         foreach ($this->data['careUnits'] as $value) {
-
+            
             $option = array(
                 'table' => 'care_unit',
                 'select' => 'care_unit.id,care_unit.name',
@@ -81,9 +81,10 @@ class Patient extends Common_Controller
             );
             $careUnitData[] = $this->common_model->customGet($option);
         }
+        
         $arraySingle = call_user_func_array('array_merge', $careUnitData);
         $this->data['careUnitsUser'] = $arraySingle;
-
+        
         $this->data['careUnits_list'] = json_decode($AdminCareUnitID);
 // print_r($this->data['careUnits_list']);die;
         $careUnitData_list = array();
@@ -96,7 +97,7 @@ class Patient extends Common_Controller
                 'join' => array(
                     array('care_unit', 'care_unit.id=patient.care_unit_id'),
                     array('doctors', 'doctors.id=patient.doctor_id'),
-                    array('user', 'user.id=patient.md_steward_id')
+                    array('users', 'users.id=patient.md_steward_id')
                 ),
                 'where' => array('patient.id' => $value)
             );
@@ -117,6 +118,7 @@ class Patient extends Common_Controller
 
         // $Sql = "SELECT vendor_sale_patient.id as patient_id,vendor_sale_patient.patient_id as pid,vendor_sale_care_unit.name,vendor_sale_doctors.name as doctor_name,vendor_sale_users.first_name as md_stayward,vendor_sale_patient.date_of_start_abx FROM vendor_sale_patient JOIN vendor_sale_care_unit ON vendor_sale_care_unit.id = vendor_sale_patient.care_unit_id JOIN vendor_sale_doctors ON vendor_sale_doctors.id= vendor_sale_patient.doctor_id JOIN vendor_sale_users ON vendor_sale_users.id= vendor_sale_patient.md_steward_id  WHERE vendor_sale_patient.operator_id = $UsersCareUnitID ORDER BY `patient_id` DESC";
         
+       
         if (!empty($careUnitID) and !empty($from) and !empty($to)) {
 
             $Sql = "SELECT vendor_sale_patient.id as patient_id,vendor_sale_patient.room_number,vendor_sale_patient.symptom_onset,vendor_sale_patient.total_days_of_patient_stay,vendor_sale_patient_consult.initial_dot,vendor_sale_patient.culture_source as culture_source_name,vendor_sale_patient.organism as organism_name,vendor_sale_patient.patient_id as pid,vendor_sale_care_unit.name,vendor_sale_doctors.name as doctor_name,vendor_sale_initial_dx.name as initial_dx_name,vendor_sale_initial_rx.name as initial_rx_name,vendor_sale_users.first_name as md_stayward,vendor_sale_patient.date_of_start_abx FROM vendor_sale_patient JOIN vendor_sale_care_unit ON vendor_sale_care_unit.id = vendor_sale_patient.care_unit_id JOIN vendor_sale_doctors ON vendor_sale_doctors.id= vendor_sale_patient.doctor_id JOIN vendor_sale_patient_consult ON vendor_sale_patient_consult.patient_id= vendor_sale_patient.id JOIN vendor_sale_initial_dx ON vendor_sale_initial_dx.id= vendor_sale_patient_consult.initial_dx JOIN vendor_sale_initial_rx ON vendor_sale_initial_rx.id= vendor_sale_patient_consult.initial_rx JOIN vendor_sale_users ON vendor_sale_users.id= vendor_sale_patient.md_steward_id  WHERE vendor_sale_patient.operator_id = $UsersCareUnitID AND vendor_sale_patient.care_unit_id = $careUnitID AND vendor_sale_patient.date_of_start_abx  >= '$from'  AND vendor_sale_patient.date_of_start_abx <= '$to' ORDER BY `patient_id` DESC";
@@ -131,6 +133,8 @@ class Patient extends Common_Controller
             $Sql = "SELECT vendor_sale_patient.id as patient_id,vendor_sale_patient.room_number,vendor_sale_patient.symptom_onset,vendor_sale_patient.total_days_of_patient_stay,vendor_sale_patient_consult.initial_dot,vendor_sale_patient.culture_source as culture_source_name,vendor_sale_patient.organism as organism_name,vendor_sale_patient.patient_id as pid,vendor_sale_care_unit.name,vendor_sale_doctors.name as doctor_name,vendor_sale_initial_dx.name as initial_dx_name,vendor_sale_initial_rx.name as initial_rx_name,vendor_sale_users.first_name as md_stayward,vendor_sale_patient.date_of_start_abx FROM vendor_sale_patient JOIN vendor_sale_care_unit ON vendor_sale_care_unit.id = vendor_sale_patient.care_unit_id JOIN vendor_sale_doctors ON vendor_sale_doctors.id= vendor_sale_patient.doctor_id JOIN vendor_sale_patient_consult ON vendor_sale_patient_consult.patient_id= vendor_sale_patient.id JOIN vendor_sale_initial_dx ON vendor_sale_initial_dx.id= vendor_sale_patient_consult.initial_dx JOIN vendor_sale_initial_rx ON vendor_sale_initial_rx.id= vendor_sale_patient_consult.initial_rx JOIN vendor_sale_users ON vendor_sale_users.id= vendor_sale_patient.md_steward_id  WHERE vendor_sale_patient.operator_id = $UsersCareUnitID ORDER BY `patient_id` DESC";
         }
 
+
+        
         $careunit_facility_counts = $this->common_model->customQuery($Sql);
 
         $arraySingles = call_user_func_array('array_merge', $careUnitData_list);
