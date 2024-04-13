@@ -81,7 +81,6 @@ class Patient extends Common_Controller
             );
             $careUnitData[] = $this->common_model->customGet($option);
         }
-        
         $arraySingle = call_user_func_array('array_merge', $careUnitData);
         $this->data['careUnitsUser'] = $arraySingle;
         
