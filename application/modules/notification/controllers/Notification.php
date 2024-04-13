@@ -177,8 +177,8 @@ class Notification extends Common_Controller {
                         ),
                         'where' => array(
                             'notifications.user_id' => $userID,
-                            'DATE(notifications.sent_time)' => date('Y-m-d'), 
-                            'TIME(notifications.sent_time) >=' => date('H:i:s'), 
+                            'DATE(sent_time)' => date('Y-m-d'), 
+                            'TIME(sent_time) >=' => date('H:i:s'), 
                         ),
                         'order' => array('notifications.user_id' => 'desc'),
                        
