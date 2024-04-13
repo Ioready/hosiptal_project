@@ -108,13 +108,13 @@ body {
     transition: background-color 0.2s ease-out, opacity 0.3s ease-out;
 }
 
-/* #page-container{
+#page-container{
     height: 580px !important;
 }
 
 #sidebar{
     height:580px !important;
-} */
+}
 
 #page-container,
 #sidebar,

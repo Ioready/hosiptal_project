@@ -4,6 +4,11 @@
     display: none;
    
 }
+
+::-webkit-scrollbar {
+display:none;
+}
+
 </style>
 
 <!-- <script src="https://js.stripe.com/v3"></script> -->
@@ -21,7 +26,7 @@
         <div class="block-title">
             <h2><strong><?php echo $title; ?></strong></h2>
             <?php if ($this->ion_auth->is_superAdmin()) { ?>
-                <h2><a href="javascript:void(0)"  onclick="open_modal('<?php echo $model; ?>')" class="save-btn btn btn-sm btn-primary">
+                <h2><a href="javascript:void(0)"  onclick="open_modal('<?php echo $model; ?>')"  style="background-color:#337ab7;" class=" btn btn-sm  text-white">
                         <i class="gi gi-circle_plus"></i> <?php echo "New Plan"; ?>
                     </a></h2>
             <?php }
