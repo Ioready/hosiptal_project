@@ -499,7 +499,7 @@ class Patient extends Common_Controller
 
     $option = array(
             'table' => ' doctors',
-            'select' => 'users.*.*',
+            'select' => 'users.*',
             'join' => array(
                 array('users', 'doctors.user_id=users.id', 'left'),
                 array('user_profile UP', 'UP.user_id=users.id', 'left'),

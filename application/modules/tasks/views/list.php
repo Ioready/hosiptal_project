@@ -288,16 +288,16 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label class="col-md-3 control-label">Task Name</label>
-                        <div class="col-md-9">
+                        <label class="m-4 control-label">Task Name</label>
+                        <div class="col-md-12">
                             <input type="text" class="form-control" name="task_name" id="task_name" placeholder="Task Name" />
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label class="col-md-3 control-label">Assign to</label>
-                        <div class="col-md-9">
+                        <label class="m-4 control-label">Assign to</label>
+                        <div class="col-md-12">
                             <select id="assign_to" name="assign_to" class="form-control select-chosen" size="1" onchange='getPatientId(this.value)'>
                                 <option value="">Please select</option>
                                 <?php
@@ -315,24 +315,24 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label class="col-md-3 control-label">Patient</label>
-                        <div class="col-md-9">
+                        <label class="m-4 control-label">Patient</label>
+                        <div class="col-md-12">
                             <input type="text" class="form-control" name="patient_name" id="patient_name" placeholder="Patient Name" />
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label class="col-md-3 control-label"><?php echo 'Due Date'; ?></label>
-                        <div class="col-md-9">
+                        <label class="m-4 control-label"><?php echo 'Due Date'; ?></label>
+                        <div class="col-md-12">
                             <input type="datetime-local" class="form-control" name="due_date" id="due_date" placeholder="<?php echo 'due date'; ?>" />
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label class="col-md-3 control-label">Type</label>
-                        <div class="col-md-9">
+                        <label class="m-4 control-label">Type</label>
+                        <div class="col-md-12">
                             <select id="type" name="type" class="form-control select-chosen" size="1">
                                 <?php
                                 if (!empty($care_unit)) {
@@ -360,8 +360,8 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label class="col-md-3 control-label" style="padding-left: 40px;">Priority</label>
-                        <div class="col-md-9">
+                        <label class="m-4 control-label" >Priority</label>
+                        <div class="col-md-12">
                             <label class="priority-label" data-priority="High">
                                 <input type="radio" class="form-control priority" name="priority" value="High" style="height: 1px; border: aliceblue;" />
                                 <i class="fa fa-flag-o fa_custom"></i> High
@@ -383,8 +383,8 @@
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label class="col-md-1 control-label" style="padding-left: 40px;">Comment</label>
-                        <div class="col-md-11" style="padding-left: 51px;">
+                        <label class="m-4 control-label">Comment</label>
+                        <div class="col-md-12" >
                             <textarea class="form-control" name="task_comment" id="task_comment" placeholder="0000" row="5" cols="100"> </textarea>
                         </div>
                     </div>
@@ -691,4 +691,47 @@
 });
 
 
+
 </script>
+
+
+<script>
+    // Function to handle the priority selection
+function handlePriorityChange(event) {
+    // Remove 'highlighted' class from all labels
+    const labels = document.querySelectorAll('.priority-label');
+    labels.forEach(label => {
+        label.classList.remove('highlighted');
+    });
+    
+    // Get the selected input element
+    const selectedInput = event.target;
+    
+    // Add 'highlighted' class to the label corresponding to the selected input
+    const selectedLabel = selectedInput.parentNode;
+    selectedLabel.classList.add('highlighted');
+}
+
+// Add event listeners to the radio buttons
+const priorityInputs = document.querySelectorAll('input.priority');
+priorityInputs.forEach(input => {
+    input.addEventListener('change', handlePriorityChange);
+});
+
+</script>
+
+<style>
+    /* Highlight classes */
+.priority-label.highlighted {
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);
+    background-color: #FFFF; /* Example color, change as desired */
+    padding:5px;
+    border-radius:10px;
+    margin:5px;
+
+    
+    
+
+}
+
+</style>

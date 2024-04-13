@@ -53,19 +53,17 @@
                         </div>
                     </div>
                     
-                    <div class="col-md-12" >
+                    <div class="col-md-12 " >
                         <div class="form-group">
                             <div class="col-md-2">
 
                             </div>
 
-                            <div class="col-md-10" style="padding-left: 32px;">
+                            <div class="col-md-10">
                                 
-                            <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="header_checked" value="1" id="flexCheckIndeterminate">
-                            <label class="form-check-label" for="flexCheckIndeterminate">
-                            Set this as the primary header and select it by default
-                            </label>
+                            <div class="form-check" style="background-color:#FFFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);border-radius:10px; padding:10px">
+                            <input class="form-check-input fw-bold  p-2" type="checkbox" name="header_checked" value="1" id="flexCheckIndeterminate" style="margin:5px;border:2px solid black" required >
+                            <label class="form-check-label mt-2" for="flexCheckIndeterminate"  > Set this as the primary header and select it by default </label>
                             </div>
                             
                             </div>
