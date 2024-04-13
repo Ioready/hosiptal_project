@@ -446,8 +446,8 @@ class Appointment extends Common_Controller {
                     $this->db->insert('vendor_sale_theatre_appointment', $additional_data_theatre); 
                     
                     $insert_id = $this->db->insert_id();
-                    
-                    $receiver_id= 222;
+                    $user_id = $this->session->userdata('user_id');
+                    $receiver_id=$user_id;
                     //print_r($receiver_id);die;
                     $additional_notification = array(
                         
@@ -480,7 +480,8 @@ class Appointment extends Common_Controller {
                     
                     $insert_id = $this->db->insert_id();
                     
-                    $receiver_id= 222;
+                    $user_id = $this->session->userdata('user_id');
+                    $receiver_id=$user_id;
                     //print_r($receiver_id);die;
                     $additional_notification = array(
                         
@@ -512,7 +513,8 @@ class Appointment extends Common_Controller {
                     $this->db->insert('out_of_office_doctor', $additional_data_out); 
                     $insert_id = $this->db->insert_id();
                     
-                    $receiver_id= 222;
+                    $user_id = $this->session->userdata('user_id');
+                    $receiver_id=$user_id;
                     //print_r($receiver_id);die;
                     $additional_notification = array(
                         
