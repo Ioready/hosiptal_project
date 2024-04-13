@@ -68,7 +68,7 @@
             <?php }else if($this->ion_auth->is_facilityManager()){ ?>
                     <h2>
                     <a href="<?php echo base_url() . $this->router->fetch_class(); ?>/open_consult" class="btn btn-sm btn-primary" style="background: #337ab7">
-                        <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
+                        <i class="gi gi-circle_plus"></i> <?php echo 'New'; ?>
                     </a></h2>
                 <?php } ?>
           </div>

@@ -405,10 +405,14 @@ class Appointment extends Common_Controller {
                     if($this->input->post('patient') != ""){
 
                     
+                        $query = $this->db->get_where('users', array('email' => $this->input->post('location_appointment')));
+                    $receiver = $query->row();
+                    $receiver_id = $receiver->id;
+
                     $additional_data_profile = array(
                         
                         'patient' => $this->input->post('patient'),
-                        'location_appointment' => $this->input->post('location_appointment'),
+                        'location_appointment' => $receiver_id,
                         'clinician_appointment' => $this->input->post('clinician_appointment'),
                         'appointment_type' => $this->input->post('appointment_type'),
                         'start_date_appointment' => $this->input->post('start_date_appointment'),
@@ -425,9 +429,7 @@ class Appointment extends Common_Controller {
 
                     $insert_id = $this->db->insert_id();
 
-                    $query = $this->db->get_where('users', array('email' => $this->input->post('location_appointment')));
-                    $receiver = $query->row();
-                    $receiver_id = $receiver->id;
+                    
 
                     $additional_notification = array(
                         

@@ -199,7 +199,7 @@
                                 <select id="country" name="location_appointment" class="form-control select2" size="1">
                                     <option value="0">Please select</option>
                                     <?php foreach ($doctorsname as $country) { ?>
-                                        <option value="<?php echo $country->email; ?>"><?php echo $country->email; ?></option>
+                                        <option value="<?php echo $country->email; ?>"><?php echo $country->first_name.' '.$country->last_name; ?></option>
                                     <?php } ?>
                                 </select>
                                
@@ -211,7 +211,7 @@
                                 <select id="country" name="location_appointment" class="form-control select2" size="1">
                                     <option value="0">Please select</option>
                                     <?php foreach ($userlocation as $country) { ?>
-                                        <option value="<?php echo $country->id; ?>"><?php echo $country->address1.' '.$country->city.' '.$country->first_name.' '.$country->last_name ; ?></option>
+                                        <option value="<?php echo $country->email; ?>"><?php echo $country->address1.' '.$country->city.' '.$country->first_name.' '.$country->last_name ; ?></option>
                                     <?php } ?>
                                 </select>
                                

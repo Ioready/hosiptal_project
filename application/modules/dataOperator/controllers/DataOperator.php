@@ -289,6 +289,7 @@ class DataOperator extends Common_Controller
                     if ($LoginID !== 1) {
                     $doctors_table = array(
                         'user_id' => $a,
+                        'name' => $this->input->post('first_name').' '. $this->input->post('last_name'),
                         'facility_user_id' => $LoginID,
                         'is_active' => 1,
                         'create_date' => date('Y-m-d H:i:s'),

@@ -25,7 +25,7 @@
                                     <label class="col-md-3 control-label">Plan Name</label>
                                     <div class="col-md-9">
                                         <input type="text" class="form-control" name="plan_name" id="plan_name" placeholder="Plan Name"  value="<?php echo $results->PlanName;?>"/>
-                                        <input type="text" class="form-control" name="id" id="id" placeholder="Plan Name"  value="<?php echo $results->id;?>"/>
+                                        <input type="hidden" class="form-control" name="id" id="id" placeholder="Plan Name"  value="<?php echo $results->id;?>"/>
                                     </div>
                                 </div>
                             </div>
