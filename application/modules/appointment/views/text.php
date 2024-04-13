@@ -361,7 +361,7 @@
                                             </td>
                                           <?php }else{ ?>
     
-                                          <td class="day-cell" data-time="<?php //echo $formatted_time; ?>" data-day="<?php echo $department->id; ?>"> 
+                                          <!-- <td class="day-cell" data-time="<?php //echo $formatted_time; ?>" data-day="<?php echo $department->id; ?>">  -->
                                          
                                               
                                           </td>

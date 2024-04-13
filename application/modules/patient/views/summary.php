@@ -57,7 +57,7 @@
     <?php } ?>
     <!-- Datatables Content -->
     <!-- Datatables Content -->
-    <div class="block full" style=" background-color: #FFFF; padding: 15px;  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);">
+    <div class="block full" style=" background-color: #FFFF; padding: 15px;  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);border-radius:10px;">
 
           <div class="block-title">
             
@@ -136,7 +136,7 @@
 
     <div class="row">
       <div class="col-md-4 col-lg-4 mb-4 mb-lg-0" >
-        <div class="card" style=" background-color: #FFFF;   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);">
+        <div class="card" style=" background-color: #FFFF;   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);border-radius:10px;">
           <div class="d-flex justify-content-between p-3">
           <p class="lead mb-0"><strong>Problem</strong></p>
             <!-- <div
@@ -166,10 +166,12 @@
           </div>
         </div>
       </div>
-      <div class="col-md-4 col-lg-4 mb-4 mb-md-0">
-        <div class="card" style=" background-color: #FFFF;   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);">
-          <div class="d-flex justify-content-between p-3">
-          <p class="lead mb-0"><strong>Medical History</strong></p>
+
+      
+      <div class="col-md-4 col-lg-4 mb-4 mb-md-0 ">
+        <div class="card" style=" background-color: #FFFF;box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5); border-radius:10px;">
+          <div class="d-flex justify-content-between tr">
+          <p class="lead mt-4 text-center"><strong>Medical History</strong></p>
             <!-- <div
               class="bg-info rounded-circle d-flex align-items-center justify-content-center shadow-1-strong"
               style="width: 35px; height: 35px;">
@@ -203,8 +205,8 @@
         </div>
       </div>
       <div class="col-md-4 col-lg-4 mb-4 mb-md-0">
-        <div class="card" style=" background-color: #FFFF;   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);">
-          <div class="d-flex justify-content-between p-3">
+        <div class="card" style=" background-color: #FFFF;   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);border-radius:10px;">
+          <div class="d-flex justify-content-between p-3 text-center">
             <p class="lead mb-0"><strong>Medication</strong></p>
             <!-- <div
               class="bg-info rounded-circle d-flex align-items-center justify-content-center shadow-1-strong"

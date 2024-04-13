@@ -105,12 +105,12 @@
 
                     <div class="col-md-12">
                         <br>
-                         <button type="button" id="extend">Add Section </button>
+                         <button type="button" id="extend"  style="background-color:#337ab7;" class="btn btn-sm m-2 text-white">Add Section </button>
                     </div>
             </div>
             <div class="modal-footer">
                 <div class="col-md-8 col-md-offset-4">
-                    <button type="submit"  class="btn btn-sm btn-primary" id="submit">Save Changes</button>
+                    <button type="submit"   style="background-color:#337ab7;" class="btn btn-sm m-2 text-white" id="submit">Save Changes</button>
                 </div>
             </div>
         </form>
