@@ -309,18 +309,6 @@ class Appointment extends Common_Controller {
     );
     $this->data['care_unit'] = $this->common_model->customGet($option);
 
-    $option = array(
-        'table' => 'appointment_type',
-        'select' => '*', 'where' => array('delete_status' => 0), 'order' => array('name' => 'ASC')
-    );
-    $this->data['appointment_type'] = $this->common_model->customGet($option);
-
-    $option = array(
-        'table' => 'type_of_stay',
-        'select' => '*', 'where' => array('delete_status' => 0), 'order' => array('name' => 'ASC')
-    );
-    $this->data['type_of_stay'] = $this->common_model->customGet($option);
-
 
     
         $this->load->admin_render('add', $this->data, 'inner_script');
@@ -358,24 +346,21 @@ class Appointment extends Common_Controller {
 
          $query = $this->db->get_where('users', array('id' => $doctor_id));
                     $result = $query->row();
-                    $doctoremail = $result->username;
-
-                    $from =  getConfig('admin_email');
-                 //$mail= "vinay55@mailinator.com";
-                    // $from = getConfig('admin_email');
+                    $email = $result->username;
+                    $from = getConfig('admin_email');
                     $subject = "Appointment for Patient";
                     $password = "test";
                     $title = "Appointment doctor";
-                     $data['name'] = ucwords($this->input->post('patient'));
-                    $data['content'] = "Appointment"
-                        . "<p>username: " . $doctoremail . "</p><p>Password: " . $password . "</p>";
-                    // $template = $this->load->view('user_signup_mail', $data, true);
-                    // print_r($data);die;
+                    $data['name'] = ucwords($this->input->post('patient'));
+                    $data['content'] = "Appointment" . "<p>username: " . $email . "</p><p>Password: " . $password . "</p>";
                     $template = $this->load->view('email-template/registration', $data, true);
 
-                    // $this->send_email($email, $from, $subject, $template, $title);
                     
+                    // echo "Email Template: ";
+                    // echo $template;
                     $this->send_email_smtp($email, $from, $subject, $template, $title);
+                    // Try sending email
+                    
         //  $date = $this->input->post('date');
         //  $start_time_range = $this->input->post('time_start'); // Example start time
         //  $end_time_range = $this->input->post('time_end');
@@ -426,7 +411,6 @@ class Appointment extends Common_Controller {
                     // print_r($this->input->post('doctor_name'));
 
                     $this->db->insert('clinic_appointment', $additional_data_profile); 
-
                     $insert_id = $this->db->insert_id();
 
                     
@@ -438,7 +422,7 @@ class Appointment extends Common_Controller {
                         'user_id' => $receiver_id,
                         'sender_id' => $this->input->post('doctor_name'),
                     );
-                    // print_r($additional_notification);die;
+                    
 
                     $this->db->insert('notifications', $additional_notification); 
 
@@ -446,7 +430,6 @@ class Appointment extends Common_Controller {
                 }else if($this->input->post('theatre_patient') != ""){
 
                     $additional_data_theatre = array(
-                        
                         'theatre_patient' => $this->input->post('theatre_patient'),
                         'theatre_location' => $this->input->post('theatre_location'),
                         'theatre_clinician' => $this->input->post('theatre_clinician'),
@@ -454,21 +437,32 @@ class Appointment extends Common_Controller {
                         'theatre_anaesthetist' => $this->input->post('theatre_anaesthetist'),
                         'theatre_type_of_stay' => $this->input->post('theatre_type_of_stay'),
                         'theatre_date_time' => $this->input->post('theatre_date_time'),
-
                         'theatre_time_duration' => $this->input->post('theatre_time_duration'),
                         'theatre_admission_date_time' => $this->input->post('theatre_admission_date_time'),
                         'theatre_anaesthetic_type' => $this->input->post('theatre_anaesthetic_type'),
                         'theatre_comment' => $this->input->post('theatre_comment'),
                         'doctor_name' => $this->input->post('doctor_name'),
-                        'status' => '0',
-                        // 'created_at' => ,                 
-                  
+                        'status' => '0'
                     );
-
-                    $insert_id =$this->db->insert('theatre_appointment', $additional_data_theatre); 
-
-
                     
+                    $this->db->insert('vendor_sale_theatre_appointment', $additional_data_theatre); 
+                    
+                    $insert_id = $this->db->insert_id();
+                    $user_id = $this->session->userdata('user_id');
+                    $receiver_id=$user_id;
+                    //print_r($receiver_id);die;
+                    $additional_notification = array(
+                        
+                        'care_unit_id' => $this->input->post('theatre_location'),
+                        'theatre_appointment_id	' => $insert_id,
+                        'user_id' => $receiver_id,
+                        'sender_id' => $this->input->post('doctor_name'),
+                    );
+                    
+
+                    $this->db->insert('notifications', $additional_notification); 
+
+
                 }else if($this->input->post('availability_location') != ""){ 
 
                     $additional_data_theatre = array(
@@ -484,8 +478,23 @@ class Appointment extends Common_Controller {
                   
                     );
 
-                    $insert_id =$this->db->insert('doctor_availability', $additional_data_theatre); 
+                    $insert_id =$this->db->insert('doctor_availability', $additional_data_theatre);
+                    
+                    $insert_id = $this->db->insert_id();
+                    
+                    $user_id = $this->session->userdata('user_id');
+                    $receiver_id=$user_id;
+                    //print_r($receiver_id);die;
+                    $additional_notification = array(
+                        
+                        'care_unit_id' => $this->input->post('theatre_location'),
+                        'availability_id	' => $insert_id,
+                        'user_id' => $receiver_id,
+                        'sender_id' => $this->input->post('doctor_name'),
+                    );
+                    
 
+                    $this->db->insert('notifications', $additional_notification); 
 
                 }else if($this->input->post('out_of_office_location') != ""){ 
                     $additional_data_out = array(
@@ -503,8 +512,22 @@ class Appointment extends Common_Controller {
                   
                     );
 
-                    $insert_id =$this->db->insert('out_of_office_doctor', $additional_data_out); 
+                    $this->db->insert('out_of_office_doctor', $additional_data_out); 
+                    $insert_id = $this->db->insert_id();
+                    
+                    $user_id = $this->session->userdata('user_id');
+                    $receiver_id=$user_id;
+                    //print_r($receiver_id);die;
+                    $additional_notification = array(
+                        
+                        'care_unit_id' => $this->input->post('theatre_location'),
+                        'out_of_office_id	' => $insert_id,
+                        'user_id' => $receiver_id,
+                        'sender_id' => $this->input->post('doctor_name'),
+                    );
+                    
 
+                    $this->db->insert('notifications', $additional_notification);
 
                 }
                     // print_r($additional_data_profile);die;

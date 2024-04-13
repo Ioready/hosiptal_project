@@ -118,13 +118,13 @@
     
 
     <div class="table-responsive">
-            <table id="common_datatable_users" class="table table-vcenter table-condensed table-bordered text-center" style="text-align: center;">
+            <table id="common_datatable_users" class="table table-vcenter table-condensed table-bordered text-center" style="text-align:center;">
                 <thead>
                     <tr>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem;width:10px;">Sr. No</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem;">Internal Name</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem;">Created date</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem;"><?php echo lang('action'); ?></th>
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width:10px;">Sr. No</th>
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;">Internal Name</th>
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;">Created date</th>
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;"><?php echo lang('action'); ?></th>
                     </tr>
                 </thead>
 

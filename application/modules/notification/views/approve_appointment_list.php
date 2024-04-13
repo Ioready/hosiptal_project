@@ -154,7 +154,7 @@ if ($this->ion_auth->is_subAdmin()) {
 									<tr>
 										<th>Appointment ID</th>
 										<th>Patient Name</th>
-										<th>Age</th>
+										<!-- <th>Age</th> -->
 										<th>Doctor Name</th>
 										<th>Department</th>
 										<th>Appointment Date</th>
@@ -164,9 +164,12 @@ if ($this->ion_auth->is_subAdmin()) {
 									</tr>
 								</thead>
 								<tbody>
-                                <?php $formatted_time = date('Y-m-d');
+                                <?php 
+                                
+                                $formatted_time = date('Y-m-d');
                                 foreach ($notifications as $notification)
                 : 
+                            
                 $appointmentTime = date('g:i A', strtotime($notification->start_date_appointment));
                 
                   $end_date_appointment = date('g:i A', strtotime($notification->end_date_appointment));
@@ -211,7 +214,7 @@ if ($this->ion_auth->is_subAdmin()) {
                                     <td><?php echo $notification->clinic_appointment_id;?></td>
 										<!-- <td>APT0001</td> -->
 										<td><img width="28" height="28" src="assets/img/user.jpg" class="rounded-circle m-r-5" alt=""> <?php echo $notification->patient;?></td>
-										<td>35</td>
+										<!-- <td>35</td> -->
 										<td><?php echo $notification->first_name;?></td>
 										<td><?php echo $notification->name;?></td>
 										<td><?php echo $appointment_date;?></td>
