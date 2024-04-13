@@ -97,7 +97,7 @@
                     </div>
             </div>
             <div class="text-right">
-                <button type="submit" id="submit" class="btn btn-sm btn-primary" >Save</button>
+                <button type="submit" id="submit" class="btn btn-sm btn-primary"   style="background: #337ab7;">Save</button>
             </div>
         </form>
         

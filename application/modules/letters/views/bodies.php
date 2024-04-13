@@ -22,10 +22,10 @@
         <div class="alert alert-danger" id="error-box" style="display: none"></div>
         <div class="form-body">
             <div class="row">.
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <div class="form-group">
-                        <label class="col-md-2 control-label">Select Header*</label>
-                        <div class="col-md-10">
+                        <label class="m-4 control-label">Select Header*</label>
+                        <div class="col-md-12">
                             <select name="header_id" id="header_id" class="form-control">
                                 <option value="">Select Header</option>
                                 <?php 
@@ -39,27 +39,27 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-4">
                     <div class="form-group">
-                        <label class="col-md-2 control-label">Internal name*</label>
-                        <div class="col-md-10">
+                        <label class="m-4 control-label">Internal name*</label>
+                        <div class="col-md-12">
                             <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('first_name');?>" />
-                            <span class="help-block">This is used for internal reference and won't be seen by patients.</span>
+                            <span class="help-block fw-bold text-dark">This is used for internal reference and won't be seen by patients.</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-md-12" >
                     <div class="form-group">
-                        <label class="col-md-2 control-label">Create Letter template*</label>
-                        <div class="col-md-10">
+                        <label class="m-4 control-label">Create Letter template*</label>
+                        <div class="col-md-12">
                             <textarea id="editor" name="bodies_template"></textarea>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="text-right">
-                <button type="submit" id="submit" class="btn btn-sm btn-primary">Save</button>
+                <button type="submit" id="submit" class="btn btn-sm btn-primary" style="background: #337ab7;">Save</button>
             </div>
         </div>
     </form>
