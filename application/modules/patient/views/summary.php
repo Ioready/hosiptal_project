@@ -75,6 +75,7 @@
           
             <div class="alert alert-danger" id="error-box" style="display: none"></div>
             <div class="form-body" >
+
                 <div class="row" >
                     <div class="col-md-12"  >
                         <div class="form-group">
@@ -125,14 +126,13 @@
 
     <div class="block full" style="background: center;">
 
-        <div class="block-title">
+        <!-- <div class="block-title">
         
-        </div>
+        </div> -->
 
-        <div class="block-title">
+        <!-- <div class="block-title">
         
-        </div>
-
+        </div> -->
 
 
        
@@ -143,7 +143,7 @@
       <div class="col-md-4 col-lg-4 mb-4 mb-lg-0" >
         <div class="card" style=" background-color: #FFFF;   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);border-radius:10px;">
           <div class="d-flex justify-content-between p-3">
-          <p class="lead mb-0"><strong>Problem</strong></p>
+          <p class="lead mb-0" style="margin-left:50px"><strong>Problem</strong></p>
             <!-- <div
               class="bg-info rounded-circle d-flex align-items-center justify-content-center shadow-1-strong"
               style="width: 35px; height: 35px;">
@@ -153,7 +153,7 @@
           <!-- <img src="#"
             class="card-img-top" alt="Laptop" /> -->
             
-          <div class="card-body">
+          <div class="card-body" style="margin-left:50px">
             <div class="d-flex justify-content-between">
             <?php echo $results->initial_dx_name; ?>
               <p class="small"><a href="#!" class="text-muted"></a></p>
@@ -176,7 +176,7 @@
       <div class="col-md-4 col-lg-4 mb-4 mb-md-0 ">
         <div class="card" style=" background-color: #FFFF;box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5); border-radius:10px;">
           <div class="d-flex justify-content-between tr">
-          <p class="lead mt-4 text-center"><strong>Medical History</strong></p>
+          <p class="lead mt-4 text-center p-2" style="margin-left:50px"><strong>Medical History</strong></p>
             <!-- <div
               class="bg-info rounded-circle d-flex align-items-center justify-content-center shadow-1-strong"
               style="width: 35px; height: 35px;">
@@ -184,7 +184,7 @@
             </div> -->
           </div>
           
-          <div class="card-body">
+          <div class="card-body" style="margin-left:50px">
             <div class="d-flex justify-content-between">
             <?php echo $results->initial_rx_name; ?>
               <!-- <p class="small"><a href="#!" class="text-muted">Laptops</a></p>
@@ -212,7 +212,7 @@
       <div class="col-md-4 col-lg-4 mb-4 mb-md-0">
         <div class="card" style=" background-color: #FFFF;   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);border-radius:10px;">
           <div class="d-flex justify-content-between p-3 text-center">
-            <p class="lead mb-0"><strong>Medication</strong></p>
+            <p class="lead mb-0" style="margin-left:50px"><strong>Medication</strong></p>
             <!-- <div
               class="bg-info rounded-circle d-flex align-items-center justify-content-center shadow-1-strong"
               style="width: 35px; height: 35px;">
@@ -220,7 +220,7 @@
             </div> -->
           </div>
          
-          <div class="card-body">
+          <div class="card-body" style="margin-left:50px">
             <div class="d-flex justify-content-between">
             <?php echo $results->organism_name; ?>
               <!-- <p class="small"><a href="#!" class="text-muted">Laptops</a></p>
@@ -246,6 +246,80 @@
         </div>
       </div>
     </div>
+
+
+
+
+
+
+
+
+
+    <div class="row mt-4">
+    <div class="col-md-12">
+        <div class="">
+            <div class="card-body p-4" style="background-color:#FFFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);border-radius:20px">
+                <div class="row">
+                    <div class="col-md-11">
+                        <h5 class="no-margins fw-bold"><?php echo $results->patient_name; ?></h5>
+                        <h5 class="text-dark fw-bold"><i class="fa fa-home" > </i> <?php echo $results->address;?></h5>
+                        <h5 class="text-dark fw-bold"><i class="fa fa-phone" > </i> <?php echo $results->patient_phone_number;?></h5>
+                    </div>
+                    <div class="col-md-1">
+                        <img src="<?php echo base_url(); ?>uploads/user.png" style="height: 65px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
+        <div class="row p-4 mt-4">
+    <div class="col-md-4 ">
+        <div class=" mb-3">
+            <div class="card-body p-4" style="background-color:#EDEAFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);border-radius:20px">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h4 class="no-margins fw-bold"><strong>Problem</strong></h4> 
+                        <p class="text-dark fw-bold"><?php echo $results->initial_dx_name; ?></p>
+                    </div>
+                    <div class="col-md-4">
+                        <img src="<?php echo base_url(); ?>uploads/doctor.png" style="height: 65px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class=" mb-3">
+            <div class="card-body p-4" style="background-color:#DAEBFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5); border-radius:20px">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h4 class="no-margins fw-bold">Medical History</h4>
+                        <p class="text-dark fw-bold"><strong>  <?php echo $results->initial_rx_name; ?></strong></p>
+                    </div>
+                    <div class="col-md-4">
+                        <img src="<?php echo base_url(); ?>uploads/planning.png" style="height:65px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class=" mb-3">
+            <div class="card-body p-4" style="background-color:#FFE0B7; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);border-radius:20px;">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h4 class="no-margins fw-bold">Medication</h4>
+                        <p class="text-dark fw-bold"><strong>   <?php echo $results->organism_name; ?></strong></p>
+                    </div>
+                    <div class="col-md-4">
+                        <img src="<?php echo base_url(); ?>uploads/medicine.png" style="height:65px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
   
 </section>
 
