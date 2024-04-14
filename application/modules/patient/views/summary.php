@@ -38,6 +38,7 @@
                                                 <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-2" role="tab"></a>
                                             </li> -->
 
+                                            
                                             <li class="nav-item">
                                             <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($results->id); ?>"data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark"> Consultation Templates</span></a>
                                                 <!-- <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-2" role="tab"></a> -->
