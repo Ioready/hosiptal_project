@@ -1,5 +1,10 @@
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.js"></script>
+
+
+
+ 
+
 <style>
 
 .btn {
@@ -41,6 +46,70 @@
                  }  
        
         }
+
+
+        .card {
+    background-color: #fff;
+    border-radius: 10px;
+    border: none;
+    position: relative;
+    /* margin-bottom: 30px; */
+    box-shadow: 0 0.46875rem 2.1875rem rgba(90,97,105,0.1), 0 0.9375rem 1.40625rem rgba(90,97,105,0.1), 0 0.25rem 0.53125rem rgba(90,97,105,0.12), 0 0.125rem 0.1875rem rgba(90,97,105,0.1);
+}
+.l-bg-cherry {
+    background: linear-gradient(to right, #337a, #337a) !important;
+    color: #fff;
+}
+
+.l-bg-blue-dark {
+    background: linear-gradient(to right, #337a, #337a) !important;
+    color: #fff;
+}
+
+.l-bg-green-dark {
+    background: linear-gradient(to right, #337a, #337a) !important;
+    color: #fff;
+}
+
+.l-bg-orange-dark {
+    background: linear-gradient(to right, #337a, #337a) !important;
+    color: #fff;
+}
+
+.card .card-statistic-3 .card-icon-large .fas, .card .card-statistic-3 .card-icon-large .far, .card .card-statistic-3 .card-icon-large .fab, .card .card-statistic-3 .card-icon-large .fal {
+    font-size: 110px;
+}
+
+.card .card-statistic-3 .card-icon {
+    /* text-align: center;
+    line-height: 50px;
+    margin-left: 15px;
+    color: #000;
+    position: absolute;
+    right: -5px;
+    top: 20px;
+    opacity: 0.1; */
+}
+
+.l-bg-cyan {
+    background: linear-gradient(135deg, #289cf5, #84c0ec) !important;
+    color: #fff;
+}
+
+.l-bg-green {
+    background: linear-gradient(135deg, #23bdb8 0%, #43e794 100%) !important;
+    color: #fff;
+}
+
+.l-bg-orange {
+    background: linear-gradient(to right, #f9900e, #ffba56) !important;
+    color: #fff;
+}
+
+.l-bg-cyan {
+    background: linear-gradient(135deg, #289cf5, #84c0ec) !important;
+    color: #fff;
+}
 </style>
 <!-- Page content -->
 <div id="page-content">
@@ -77,11 +146,14 @@
                                             <a href="<?php echo base_url() . 'index.php/patient/summary?id=' . encoding($results->id); ?>" data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark">Summary</span></a>
 
                                             </li>
-                                            <li class="nav-item">
+                                            <!-- <li class="nav-item">
                                             <a href="<?php echo site_url('patient/consultationTemplates'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "consultationTemplates") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide text-dark">Consultation Templates</span></a>
                                                 <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-2" role="tab"></a>
+                                            </li> -->
+                                            <li class="nav-item">
+                                            <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($results->id); ?>"data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark"> Consultation Templates</span></a>
+                                                <!-- <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-2" role="tab"></a> -->
                                             </li>
-
                                             <li class="nav-item">
                                             
                                             <a href="<?php echo base_url() . 'index.php/patient/communication?id=' . encoding($results->id); ?>" data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark">Communication</span></a>
@@ -90,6 +162,78 @@
                                         </ul>
                                         
                             </div> 
+
+          
+
+
+
+
+
+
+
+  
+                            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="=" crossorigin="anonymous" />
+ <div class="m-4">
+    <div class="row">
+        <div class="col-md-3 col-lg-3">
+            <div class="card l-bg-cherry">
+                <div class="card-statistic-3 m-4">
+               
+                    <div class="card-icon card-icon-large"><i class="fas fa-tint" style="font-size:3em;"></i></div> <!-- Using fa-tint icon -->
+<div class="mb-4">
+    <h4 class="card-title mb-0">Blood Group</h4>
+    <h4 class="text-center fw-bold m-2">A+</h4>
+</div>
+
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3 col-lg-3">
+            <div class="card l-bg-blue-dark">
+                <div class="card-statistic-3 m-4">
+                <div class="card-icon card-icon-large"><i class="fas fa-heartbeat" style="font-size:3em;"></i></div> <!-- Using fa-heartbeat icon -->
+<div class="mb-4">
+    <h4 class="card-title mb-0">Blood Pressure</h4>
+    <h4 class="text-center fw-bold m-2">120/80</h4>
+</div>
+
+
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3 col-lg-3">
+            <div class="card l-bg-green-dark">
+                <div class="card-statistic-3 m-4">
+                <div class="card-icon card-icon-large"><i class="fas fa-heartbeat" style="font-size:3em;"></i></div> <!-- Using fa-heartbeat icon -->
+<div class="mb-4">
+    <h4 class="card-title mb-0">Hert rate</h4>
+    <h4 class="text-center fw-bold m-2">120/80</h4>
+</div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-lg-3">
+            <div class="card l-bg-orange-dark">
+                <div class="card-statistic-3 m-4">
+                <div class="card-icon card-icon-large"><i class="fas fa-thermometer-half" style="font-size:3em;"></i></div> <!-- Using fa-thermometer-half icon -->
+<div class="mb-4">
+    <h4 class="card-title mb-0">Temperature</h4>
+    <h4 class="text-center fw-bold m-2">98.6°F</h4> <!-- Example temperature value in Fahrenheit -->
+</div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+                            
                             <div class="panel-body">
                             
                         </div>
@@ -112,7 +256,7 @@
                 <!-- Customer Info Title -->
                 <div class="block-title p-2">
                     <h2><i class="fa fa-file-o"></i> <strong><?php echo $title; ?></strong> Info</h2>
-                    <button type="button" class="btn btn-sm btn-primary sendmail mt-2" style="background: #337ab7" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" >Send Patient Details on Mail</button>
+                    <button type="button" class="btn btn-md btn-primary sendmail mt-2 fw-bold" style="background: #337ab7" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" >Send Patient Details on Mail</button>
                 </div>
                 
                 <!-- END Customer Info Title -->
@@ -125,7 +269,7 @@
                         <strong><?php echo $results->patient_name; ?></strong><br><small></small>
                     </h3>-->
                 </div>
-                <table class="table table-borderless table-striped table-vcenter">
+                <table class="table table-borderless table-striped table-vcenter"  style=" background-color: #FFFF; padding: 15px;  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);">
                     <tbody>
                         <tr>
                             <td class="text-center"><strong>Patient ID</strong></td>

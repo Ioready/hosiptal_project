@@ -8,9 +8,9 @@
     <div class="modal-dialog">
         <div class="modal-content" style="width: inherit;">
             <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url($formUrl) ?>" enctype="multipart/form-data">
-            <div class="modal-header text-center">
+            <div class="modal-header ">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <h2 class="modal-title"><i class="fa fa-pencil"></i> New Plan</h2>
+                        <h2 class="modal-title fw-bold"><i class="fa fa-pencil"></i> New Plan</h2>
                     </div>
                 <div class="modal-body">
                     <!-- <div class="loaders">
@@ -19,26 +19,26 @@
                     <div class="alert alert-danger" id="error-box" style="display: none"></div>
                     <div class="form-body">
                         <div class="row">
-                            <div class="col-md-12" >
+                            <div class="col-md-6" >
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Plan Name</label>
-                                    <div class="col-md-9">
+                                    <label class="m-4 control-label">Plan Name</label>
+                                    <div class="col-md-12">
                                         <input type="text" class="form-control" name="plan_name" id="plan_name" placeholder="Plan Name" />
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-12" >
+                            <div class="col-md-6" >
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Price</label>
-                                    <div class="col-md-9">
+                                    <label class="m-4 control-label">Price</label>
+                                    <div class="col-md-12">
                                         <input type="text" class="form-control" name="price" id="price" placeholder="Price" />
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-12" >
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Duration</label>
-                                    <div class="col-md-9">
+                                    <label class="m-4 control-label">Duration</label>
+                                    <div class="col-md-12">
                                     <div class="switch-wrapper">
                                         <input id="toggle-monthly" type="radio" name="Duration" value="month" checked>
                                         <label for="monthly">Monthly</label>
@@ -56,8 +56,8 @@
 
                             <div class="col-md-12" >
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Description</label>
-                                    <div class="col-md-9">
+                                    <label class="m-4 control-label">Description</label>
+                                    <div class="col-md-12">
                                         <textarea name="plan_description" id="editor" cols="30" rows="10"></textarea>
                                     </div>
                                 </div>
@@ -78,7 +78,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-sm btn-default" data-dismiss="modal"><?php echo lang('reset_btn');?></button>
-                    <button type="submit" id="submit" class="btn btn-sm btn-primary" ><?php echo lang('submit_btn');?></button>
+                    <button type="submit" id="submit" style="background-color:#337ab7;" class="btn btn-sm m-2 text-white" ><?php echo lang('submit_btn');?></button>
                 </div>
             </form>
         </div> <!-- /.modal-content -->

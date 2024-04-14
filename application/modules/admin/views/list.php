@@ -68,7 +68,7 @@
             </ul>
         </div> -->
         <div class="table-responsive">
-            <table id="common_datatable_users" class="table table-vcenter table-condensed table-bordered">
+            <table id="common_datatable_users" class="table table-vcenter table-condensed table-bordered text-center">
                 <thead>
                     <tr >
                         <th  class="text-center" style="width: 40px;background-color:#DBEAFF;font-size:1.3rem">Sr No.</th>
@@ -140,7 +140,7 @@
                                                 }
                                                 if ($rows->active == 1) {
                                                     ?>
-                                                    <a style="border-radius:12px;margin-left:10px;margin-right:10px;padding:2px 8px;" href="javascript:void(0)" data-toggle="tooltip" class="btn btn-xs btn-success" onclick="changeVendorStatus('<?php echo encoding($rows->id); ?>', 'No','<?php echo $rows->first_name . ' ' . $rows->last_name; ?>')" title="Inactive Now"><i class="fa fa-check"></i> </a>
+                                                    <a style="" href="javascript:void(0)" data-toggle="tooltip" class="btn btn-sm btn-success" onclick="changeVendorStatus('<?php echo encoding($rows->id); ?>', 'No','<?php echo $rows->first_name . ' ' . $rows->last_name; ?>')" title="Inactive Now"><i class="fa fa-check"></i> </a>
                                                 <?php } else { ?>
                                                     <a href="javascript:void(0)" data-toggle="tooltip" class="btn btn-xs btn-danger" onclick="changeVendorStatus('<?php echo encoding($rows->id); ?>', 'Yes','<?php echo $rows->first_name . ' ' . $rows->last_name; ?>')" title="Active Now"><i class="fa fa-times"></i> Inactive</a>
                                                 <?php } ?>

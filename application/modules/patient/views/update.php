@@ -38,24 +38,24 @@
                         <div class="row">
                                                         <div class="col-md-6" >
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Patient</label>
-                                    <div class="col-md-9">
+                                    <label class="m-4 control-label">Patient</label>
+                                    <div class="col-md-12">
                                         <input type="text" class="form-control" name="name" id="name" placeholder="Patient Name" value="<?php echo $results->patient_name; ?>"/>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6" >
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Email</label>
-                                    <div class="col-md-9">
+                                    <label class="m-4 control-label">Email</label>
+                                    <div class="col-md-12">
                                         <input type="text" class="form-control" name="address" id="address" placeholder="Address" value="<?php echo $results->email; ?>" readOnly/>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6" >
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Password</label>
-                                    <div class="col-md-9">
+                                    <label class="m-4 control-label">Password</label>
+                                    <div class="col-md-12">
                                         <input type="text" class="form-control" name="address" id="address" placeholder="Address" value="<?php echo $results->is_pass_token; ?>" readOnly/>
                                     </div>
                                 </div>
@@ -63,8 +63,8 @@
 
                             <div class="col-md-6" >
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Address</label>
-                                    <div class="col-md-9">
+                                    <label class="m-4 control-label">Address</label>
+                                    <div class="col-md-12">
                                         <input type="text" class="form-control" name="address" id="address" placeholder="Address" value="<?php echo $results->address; ?>"/>
                                     </div>
                                 </div>
@@ -73,8 +73,8 @@
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Care Unit</label>
-                                    <div class="col-md-9">
+                                    <label class="m-4 control-label">Care Unit</label>
+                                    <div class="col-md-12">
                                         <select id="care_unit" name="care_unit_id" class="form-control select-chosen" size="1">
                                             <option value="">Please select</option>
                                             <?php
@@ -111,8 +111,8 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Provider MD</label>
-                                    <div class="col-md-9">
+                                    <label class="m-4 control-label">Provider MD</label>
+                                    <div class="col-md-12">
                                         <select id="doctor_id" name="doctor_id" class="form-control select-chosen" size="1">
                                             <option value="">Please select</option>
                                             <?php foreach ($doctors as $category) { ?>
@@ -124,8 +124,8 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Infection Onset</label>
-                                    <div class="col-md-9">
+                                    <label class="m-4 control-label">Infection Onset</label>
+                                    <div class="col-md-12">
                                         <select id="symptom_onset" name="symptom_onset" class="form-control select-chosen" size="1">
                                             <option value="">Please select</option>
                                             <option value="Hospital" <?php echo ($results->symptom_onset == "Hospital") ? "selected" : ""; ?>>Hospital/CAI</option>
@@ -159,8 +159,8 @@
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Date of start abx</label>
-                                    <div class="col-md-9">
+                                    <label class="m-4 control-label">Date of start abx</label>
+                                    <div class="col-md-12">
                                         <input type="text" class="form-control" name="date_of_start_abx" id="date_of_start_abx" value="<?php echo date('m/d/Y', strtotime($results->date_of_start_abx)); ?>" />
                                     </div>
                                 </div>
@@ -169,8 +169,8 @@
                             <?php if ($this->ion_auth->is_admin()) { ?>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label">MD Steward</label>
-                                        <div class="col-md-9">
+                                        <label class="m-4 control-label">MD Steward</label>
+                                        <div class="col-md-12">
                                             <select id="md_steward_id" name="md_steward_id" class="form-control select-chosen">
                                                 <option value="">Please select</option>
                                                 <?php foreach ($md_steward as $category) { ?>
@@ -183,8 +183,8 @@
                             <?php } else if ($this->ion_auth->is_facilityManager()) { ?>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label">MD Steward</label>
-                                        <div class="col-md-9">
+                                        <label class="m-4 control-label">MD Steward</label>
+                                        <div class="col-md-12">
                                             <select id="md_steward_id" name="md_steward_id" class="form-control select-chosen">
                                                 <option value="">Please select</option>
                                                 <?php
@@ -215,8 +215,8 @@
                             <?php } ?>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Room Number</label>
-                                    <div class="col-md-9">
+                                    <label class="m-4 control-label">Room Number</label>
+                                    <div class="col-md-12">
                                         <?php if (empty($results->room_number)) { ?>
                                             <input type="text" class="form-control" name="room_number" id="room_number" placeholder="0000" maxlength="4" value="" />
                                             <p><b>Note :</b> Room Number can be 3 digit or 4 digit <br> number,if you dont know then write '<b>NA</b>'.</p>
@@ -237,8 +237,8 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Diagnosis</label>
-                                    <div class="col-md-9">
+                                    <label class="m-4 control-label">Diagnosis</label>
+                                    <div class="col-md-12">
                                         <select id="initial_dx" name="initial_dx" class="form-control select-chosen" size="1">
                                             <option value="">Please select</option>
                                             <?php foreach ($initial_dx as $category) { ?>
@@ -250,8 +250,8 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Antibiotic Name</label>
-                                    <div class="col-md-9">
+                                    <label class="m-4 control-label">Antibiotic Name</label>
+                                    <div class="col-md-12">
                                         <select id="initial_rx" name="initial_rx" class="form-control select-chosen" size="1">
                                             <option value="">Please select</option>
                                             <?php foreach ($initial_rx as $category) { ?>
@@ -263,8 +263,8 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Days of Therapy</label>
-                                    <div class="col-md-9">
+                                    <label class="m-4 control-label">Days of Therapy</label>
+                                    <div class="col-md-12">
                                         <input type="number" onkeyup="myFunction2()" class="form-control" name="initial_dot" id="initial_dot" placeholder="0" value="<?php echo $results->initial_dot; ?>" />
                                         <b style="color:red"><span id="test2"></span></b>
                                         <script>
@@ -282,8 +282,8 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">ABX Checklist</label>
-                                    <div class="col-md-9">
+                                    <label class="m-4 control-label">ABX Checklist</label>
+                                    <div class="col-md-12">
                                         <select id="infection_surveillance_checklist" name="infection_surveillance_checklist" class="form-control select-chosen" onchange="showDiv(this)" size="1">
                                             <option value="N/A" <?php echo ($results->infection_surveillance_checklist == "N/A") ? "selected" : ""; ?>>N/A</option>
                                             <option value="Loeb" <?php echo ($results->infection_surveillance_checklist == "Loeb") ? "selected" : ""; ?>>Loeb</option>
@@ -333,8 +333,8 @@
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Culture Source</label>
-                                    <div class="col-md-9">
+                                    <label class="m-4 control-label">Culture Source</label>
+                                    <div class="col-md-12">
                                         <select id="culture_source" name="culture_source" class="form-control select-chosen" size="1">
                                             <option value="">Please select</option>
                                             <?php foreach ($culture_source as $category) { ?>
@@ -380,8 +380,8 @@
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Organism</label>
-                                    <div class="col-md-9">
+                                    <label class="m-4 control-label">Organism</label>
+                                    <div class="col-md-12">
                                         <select id="organism" name="organism" class="form-control select-chosen" size="1">
                                             <option value="">Please select</option>
                                             <?php foreach ($organism as $category) { ?>
@@ -394,8 +394,8 @@
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Precautions</label>
-                                    <div class="col-md-9">
+                                    <label class="m-4 control-label">Precautions</label>
+                                    <div class="col-md-12">
                                         <select id="precautions" name="precautions" class="form-control select-chosen" size="1">
                                             <option value="">Please select</option>
                                             <?php foreach ($precautions as $category) { ?>
@@ -412,7 +412,7 @@
                             <div class="col-md-12">
                                 <div class="vender_title_admin">
                                     <h3>
-                                        <button type="button" onclick="myFunction()" class="btn btn-primary" data-toggle="collapse" data-target="#demo">MD Steward Recommendation <i class="gi gi-circle_plus"></i></button>
+                                        <button type="button" onclick="myFunction()" class="btn btn-primary" style="background: #337ab7;" data-toggle="collapse" data-target="#demo">MD Steward Recommendation <i class="gi gi-circle_plus"></i></button>
                                     </h3>
                                 </div>
                             </div>
@@ -569,7 +569,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" id="submit" class="btn btn-sm btn-primary">Save Changes</button>
+                    <button type="submit" id="submit" class="btn btn-sm btn-primary m-2" style="background: #337ab7;">Save Changes</button>
                 </div>
             </form>
         </div> <!-- /.modal-content -->

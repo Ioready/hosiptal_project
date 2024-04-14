@@ -118,13 +118,13 @@
     
 
     <div class="table-responsive">
-            <table id="common_datatable_users" class="table table-vcenter table-condensed table-bordered text-center" style="text-align: center;">
+            <table id="common_datatable_users" class="table table-vcenter table-condensed table-bordered text-center" style="text-align:center;">
                 <thead>
                     <tr>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem;width:10px;">Sr. No</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem;">Internal Name</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem;">Created date</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem;"><?php echo lang('action'); ?></th>
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width:10px;">Sr. No</th>
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;">Internal Name</th>
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;">Created date</th>
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;"><?php echo lang('action'); ?></th>
                     </tr>
                 </thead>
 
@@ -148,7 +148,7 @@
                                 <td class="actions">
                                 <td class="actions">
                                     <!-- <a href="javascript:void(0)" class="btn btn-default" onclick="editFn('index.php/userSettings/open_consult/edit?id=', '<?php echo encoding($rows->id) ?>', 'userSettings/open_consult');"><i class="fa fa-pencil"></i></a> -->
-                                                    <a href="<?php echo base_url() . 'userSettings/edit?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-eye"></i></a>
+                                                    <a href="<?php echo base_url() . 'userSettings/edit?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-sm btn-default"><i class="fa fa-eye"></i></a>
                                                                         
                                     <!-- <a href="<?php echo base_url() . 'index.php/userSettings/existing_list/' . $rows->pid; ?>" target='_blank' data-toggle="tooltip" class="btn btn-default">View History</a> -->
                                     <a href="javascript:void(0)" onclick="deletePatient('<?php echo $rows->id; ?>')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>

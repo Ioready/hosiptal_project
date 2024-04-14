@@ -130,22 +130,22 @@
         <div class="form-group">
             <div class="col-md-12">
                 <label class="control-label"></label>
-                <!-- <select class="form-control" name="year" id="year"> -->
+                <select class="form-control" name="year" id="year">
                                             <?php
                                             // Get the current year
-                                            // $current_year = date("Y");
+                                            $current_year = date("Y");
 
                                             // // Loop through years from 10 years ago to 10 years in the future
-                                            // for ($i = $current_year - 10; $i <= $current_year + 10; $i++) {
+                                            for ($i = $current_year - 90; $i <= $current_year + 1; $i++) {
                                                 // Check if the current iteration is the current year
-                                                // $selected = ($i == $current_year) ? 'selected' : '';
+                                                $selected = ($i == $current_year) ? 'selected' : '';
 
                                                 // Output each year as an option
-                                                // echo "<option value='$i' $selected>$i</option>";
-                                            // }
+                                                echo "<option value='$i' $selected>$i</option>";
+                                            }
                                             ?>
-                                        <!-- </select> -->
-                <input type="text" class="form-control" name="year" id="year" placeholder="Year" />
+                                        </select>
+                <!-- <input type="text" class="form-control" name="year" placeholder="Year" /> -->
             </div>
         </div>
     </div>
@@ -768,7 +768,7 @@
                                                 <div class="form-group">
                                                     <label class="col-md-3 control-label">Date of start abx</label>
                                                     <div class="col-md-9">
-                                                        <input type="text" class="form-control" name="date_of_start_abx" id="date_of_start_abx" />
+                                                        <input type="date" class="form-control" name="date_of_start_abx" id="date_of_start_abx" />
                                                     </div>
                                                 </div>
                                             </div>

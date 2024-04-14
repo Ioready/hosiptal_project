@@ -39,7 +39,7 @@
 
         <!-- <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('index.php/' .$formUrl) ?>" enctype="multipart/form-data"> -->
             
-        <div style=" display:flex;" class="modal-header text-center">
+        <div style="display:flex;border-radius:10px; background-color:#FFFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);"  class="modal-header text-center" >
          
             
             
@@ -48,7 +48,7 @@
         <?php if ($this->ion_auth->is_facilityManager()) { ?>
 
             
-              <div class="col-sm-4 col-lg-4 col-md-4" style="margin-right: 10px;">
+              <div class="col-sm-4 col-lg-4 col-md-4 m-4" style="margin-right: 10px;">
               <label for="">Select Doctor</label>
                     <select id="appointmentType" name="appointment_id" class="form-control" onchange="fetchData()">                 
                     <option value="" disabled>Select Doctor</option>
@@ -59,14 +59,14 @@
                   <?php }
                   }
                   ?>
-
                     </select>
 
                   
               </div>
               <?php }else if($this->ion_auth->is_subAdmin()){
                 ?>
-             <div class="col-sm-4 col-lg-4 col-md-4" style="margin-right: 10px;">
+                
+             <div class="col-sm-4 col-lg-4 col-md-4" style="margin-top:20px;margin-right:100px;">
                     <select id="appointmentType" name="appointment_id" class="form-control" onchange="fetchData()">                 
                     <!-- <option value="" disabled>Select hospital</option> -->
                     <?php
@@ -83,9 +83,9 @@
               </div>
             <?php } ?>
 
-                <div class="form-group save-btn">
+                <div class="form-group save-btn" >
 
-                <div class="form-group save-btn" id="dateDisplay"></div>
+                <div class="form-group save-btn fw-bold" id="dateDisplay"></div>
 
                 <button class="btn btn-sm btn-primary" style="background:#337ab7" onclick="filterByPreDate()">Previous Date</button>
                 <button class="btn btn-sm btn-primary" style="background:#337ab7" onclick="filterByToday()">Today's Appointments</button>
@@ -104,12 +104,12 @@
                         <div class="col-md-12">
                 <div style="overflow-x: auto; overflow-y: auto; width: auto; height: 500px;">
 
-                  <table class="table table-bordered" id="datatable">
+                  <table class="table table-bordered text-center" id="datatable">
                       <thead>
                           <tr>
-                              <th>Time</th>
+                              <th class="text-center fw-bold" style="font-size:16px; background-color:#337ab7;color:white;">Time</th>
                               <?php foreach($care_unit as $department) { ?>
-                                  <th class="day-cell"><?php echo $department->name; ?></th>
+                                  <th class="day-cell text-center "  style="font-size:14px;background-color:#337ab7;color:white;"><?php echo $department->name; ?></th>
                               <?php } ?>
                           </tr>
                       </thead>
@@ -136,6 +136,7 @@
                                           $appointmentTime = date('H:i', strtotime($appointment->start_date_appointment));
                                           $end_date_appointment = date('H:i', strtotime($appointment->end_date_appointment));
                                           $comment_appointment = $appointment->comment_appointment;
+                                          
                                           $address1 = $appointment->address1;
                                           $city = $appointment->city;
                                           $first_name = $appointment->first_name;
@@ -360,7 +361,7 @@
                                             </td>
                                           <?php }else{ ?>
     
-                                          <td class="day-cell" data-time="<?php //echo $formatted_time; ?>" data-day="<?php echo $department->id; ?>"> 
+                                          <!-- <td class="day-cell" data-time="<?php //echo $formatted_time; ?>" data-day="<?php echo $department->id; ?>">  -->
                                          
                                               
                                           </td>

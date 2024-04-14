@@ -258,9 +258,23 @@
                                 <div class="col-12 col-lg-2 col-md-6 mb-3 mb-lg-0" >
                                     <select id="date_of_start_abx1" name="date_of_start_abx1" class="form-control select-2" onchange="getAntibioticByCareUnit(this.value)">
                                         <option value="">Select Year</option>
-                                        <option value="2023">2023</option>
+                                        <!-- <option value="2023">2023</option>
                                         <option value="2022">2022</option>
-                                        <option value="2021">2021</option>
+                                        <option value="2021">2021</option> -->
+                                        <?php
+                                            // Get the current year
+                                            $current_year = date("Y");
+
+                                            // // Loop through years from 10 years ago to 10 years in the future
+                                            for ($i = $current_year - 40; $i <= $current_year + 6; $i++) {
+                                                // Check if the current iteration is the current year
+                                                $selected = ($i == $current_year) ? 'selected' : '';
+
+                                                // Output each year as an option
+                                                echo "<option value='$i' $selected>$i</option>";
+                                            }
+                                            ?>
+
                                     </select>
                                 </div>
 

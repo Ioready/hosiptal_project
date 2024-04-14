@@ -4,6 +4,11 @@
     display: none;
    
 }
+
+::-webkit-scrollbar {
+display:none;
+}
+
 </style>
 
 <!-- <script src="https://js.stripe.com/v3"></script> -->
@@ -21,7 +26,7 @@
         <div class="block-title">
             <h2><strong><?php echo $title; ?></strong></h2>
             <?php if ($this->ion_auth->is_superAdmin()) { ?>
-                <h2><a href="javascript:void(0)"  onclick="open_modal('<?php echo $model; ?>')" class="save-btn btn btn-sm btn-primary">
+                <h2><a href="javascript:void(0)"  onclick="open_modal('<?php echo $model; ?>')"  style="background-color:#337ab7;" class=" btn btn-sm  text-white">
                         <i class="gi gi-circle_plus"></i> <?php echo "New Plan"; ?>
                     </a></h2>
             <?php }
@@ -161,24 +166,24 @@
 
                 </div>
                 <?php if($this->ion_auth->is_superAdmin()){ ?>
-                <div class="button">
+                <div class="plan_button">
                 
                
                 
                 <!--<a href="<?php echo base_url('make-stripe-payment?'.'id='.$row->id);?>"><button >START FREE 7 DAYS TRIAL </button></a>-->
                 <h2>
-                    <a href="javascript:void(0)" onclick="open_modal_edit('<?php echo $model; ?>', '<?php echo $row->id; ?>')" class="save-btn btn btn-sm btn-primary">
+                    <a href="javascript:void(0)" onclick="open_modal_edit('<?php echo $model; ?>', '<?php echo $row->id; ?>')" class="plan_button save-btn btn btn-sm btn-primary">
                         <i class="gi gi-circle_plus"></i> Edit Plan
                     </a>
                 </h2>
                 </div>
 
         <?php } else if($this->ion_auth->is_admin()){ ?>
-                <div class="button">
+                <div class="plan_button">
                 
                 <!-- <a href="<?php echo site_url('stripePayments'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "stripePaymentController") ? "active" : "" ?>"> -->
                 <!-- <button >START FREE 7 DAYS TRIAL </button></a> -->
-                <a href="<?php echo base_url('make-stripe-payment?'.'id='.$row->id);?>"><button >START FREE 7 DAYS TRIAL </button></a>
+                <a href="<?php echo base_url('make-stripe-payment?'.'id='.$row->id);?>" class="plan_button save-btn btn btn-sm btn-primary">START FREE 7 DAYS TRIAL </a>
                 <!-- <a href="<?php echo base_url('my-stripe?'.'id='.$row->id);?>"><button >START FREE 7 DAYS TRIAL </button></a> -->
                 </div>
                 <?php } ?>
@@ -222,24 +227,24 @@
                 </div> -->
                 <?php }?>
                 <?php if($this->ion_auth->is_superAdmin()){ ?>
-                <div class="button">
+                <div class="plan_button">
                 
                
                 
                 <!--<a href="<?php echo base_url('make-stripe-payment?'.'id='.$row->id);?>"><button >START FREE 7 DAYS TRIAL </button></a>-->
-                <h2>
-                    <a href="javascript:void(0)" onclick="open_modal_edit('<?php echo $model; ?>', '<?php echo $row->id; ?>')" class="save-btn btn btn-sm btn-primary">
+                <h2 class="">
+                    <a href="javascript:void(0)" onclick="open_modal_edit('<?php echo $model; ?>', '<?php echo $row->id; ?>')" class="plan_button save-btn btn btn-sm btn-primary">
                         <i class="gi gi-circle_plus"></i> Edit Plan
                     </a>
                 </h2>
                 </div>
 
         <?php } else if($this->ion_auth->is_admin()){ ?>
-                <div class="button">
+                <div class="plan_button">
                 
                 <!-- <a href="<?php echo site_url('stripePayments'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "stripePaymentController") ? "active" : "" ?>"> -->
                 <!-- <button >START FREE 7 DAYS TRIAL </button></a> -->
-                <a href="<?php echo base_url('make-stripe-payment?'.'id='.$row->id);?>"><button >START FREE 7 DAYS TRIAL </button></a>
+                <a href="<?php echo base_url('make-stripe-payment?'.'id='.$row->id);?>" class="plan_button save-btn btn btn-sm btn-primary">START FREE 7 DAYS TRIAL </a>
                 <!-- <a href="<?php echo base_url('my-stripe?'.'id='.$row->id);?>"><button >START FREE 7 DAYS TRIAL </button></a> -->
                 </div>
                 <?php } ?>
@@ -482,11 +487,11 @@ li{
     margin-right: 10px;
 }
 
-.button{
+.plan_button{
     margin: 0 auto 30px;
 }
 
-button{
+.plan_button{
     /* height: 40px;
     width: 250px;
     font-size: 0.7em;
@@ -499,22 +504,22 @@ button{
     background: transparent; */
     height: 40px;
     width: 250px;
-    font-size: 0.7em;
+    /* font-size: 0.7em; */
     font-weight: bold;
     letter-spacing: 0.5px;
     color: #f7f3f3;
-    border: 2px solid #d9416c;
+    /* border: 2px solid #d9416c; */
     border-radius: 50px;
-    background: #d90a4b;
+    /* background: #d90a4b; */
     
 }
 
-button:hover{
+.plan_button:hover{
     color: var(--white-smoke);
     transition: 0.5s;
     border: none;
 
-    background: var(--bright-orange);
+    /* background: var(--bright-orange); */
 }
 
 /* Responsiveness:Start */

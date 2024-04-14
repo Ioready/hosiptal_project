@@ -22,6 +22,10 @@
     display: none;
    
 }
+::-webkit-scrollbar {
+display:none;
+}
+
 </style>
 <div id="page-content">
     <ul class="breadcrumb breadcrumb-top">
@@ -37,7 +41,7 @@
         <div class="block-title">
             <h2><strong><?php echo $title; ?></strong> Panel</h2>
             <?php if ($this->ion_auth->is_superAdmin()) { ?>
-                <h2><a href="javascript:void(0)"  onclick="open_modal('<?php echo $model; ?>')" class="save-btn btn btn-sm btn-primary">
+                <h2><a href="javascript:void(0)"  onclick="open_modal('<?php echo $model; ?>')"  style="background-color:#337ab7;" class="btn btn-sm m-2 text-white">
                         <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
                     </a></h2>
             <?php }else if($this->ion_auth->is_facilityManager()){ ?>

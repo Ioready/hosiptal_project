@@ -22,8 +22,8 @@
 
                             <div class="col-md-12" >
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">User Name</label>
-                                    <div class="col-md-9">
+                                    <label class="m-4 control-label">User Name</label>
+                                    <div class="col-md-12">
                                         <input type="text" class="form-control" name="name" id="name" value="<?php echo $results->name; ?>" />
                                     </div>
 <!--                                    <span class="help-block m-b-none col-md-offset-3"><i class="fa fa-arrow-circle-o-up"></i>Name</span>-->
@@ -45,7 +45,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" id="submit" class="btn btn-sm btn-primary">Save Changes</button>
+                    <button type="submit" id="submit"  style="background-color:#337ab7;" class="btn btn-sm m-2 text-white">Save Changes</button>
                 </div>
             </form>
         </div> <!-- /.modal-content -->

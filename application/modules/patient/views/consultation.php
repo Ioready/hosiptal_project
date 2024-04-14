@@ -24,9 +24,10 @@
                         <div style="margin: 0px 0px 20px 16px;">
                             
                         <ul class="nav nav-pills nav-fill nav-tabss mt-4" id="pills-tab" role="tablist" >
-                                            <li class="nav-item">
+                            <?php //print_r($results->id);die;?>
+                                            <!-- <li class="nav-item">
                                             <a href="<?php echo site_url('patient'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "patient") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide text-dark">Patient</span></a>
-                                                <!-- <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-1" role="tab">Practice Contacts</a> -->
+                                               
                                             </li>
                                             <li class="nav-item">
                                             
@@ -41,7 +42,28 @@
                                             <li class="nav-item">
                                             
                                             <a href="<?php echo base_url() . 'index.php/patient/communication?id=' . encoding($results->id); ?>" data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark">Communication</span></a>
+                                            </li> -->
+
+                                            <li class="nav-item">
+                                            <a href="<?php echo site_url('patient'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "patient") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide text-dark">Patient</span></a>
+                                                <!-- <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-1" role="tab">Practice Contacts</a> -->
                                             </li>
+                                            <li class="nav-item">
+                                            
+                                            <a href="<?php echo base_url() . 'index.php/patient/summary?id=' . encoding($results->id); ?>" data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark">Summary</span></a>
+
+                                            </li>
+                                            <li class="nav-item">
+                                            <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($results->id); ?>"data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark"> Consultation Templates</span></a>
+                                                <!-- <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-2" role="tab"></a> -->
+                                            </li>
+
+                                            <li class="nav-item">
+                                            
+                                            <a href="<?php echo base_url() . 'index.php/patient/communication?id=' . encoding($results->id); ?>" data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark">Communication</span></a>
+                                            </li>
+                                            
+                                        </ul>
                                             
                                         </ul>
                                         
@@ -68,7 +90,7 @@
             <?php }else if($this->ion_auth->is_facilityManager()){ ?>
                     <h2>
                     <a href="<?php echo base_url() . $this->router->fetch_class(); ?>/open_consult" class="btn btn-sm btn-primary" style="background: #337ab7">
-                        <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
+                        <i class="gi gi-circle_plus"></i> <?php echo 'New'; ?>
                     </a></h2>
                 <?php } ?>
           </div>
@@ -156,7 +178,7 @@
                                 <td class="actions">
                                 <td class="actions">
                                     <!-- <a href="javascript:void(0)" class="btn btn-default" onclick="editFn('index.php/userSettings/open_consult/edit?id=', '<?php echo encoding($rows->id) ?>', 'userSettings/open_consult');"><i class="fa fa-pencil"></i></a> -->
-                                                    <a href="<?php echo base_url() . 'userSettings/edit?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-eye"></i></a>
+                                                    <a href="<?php echo base_url() . 'userSettings/edit?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-sm  btn-default"><i class="fa fa-eye"></i></a>
                                                                         
                                     <!-- <a href="<?php echo base_url() . 'index.php/userSettings/existing_list/' . $rows->pid; ?>" target='_blank' data-toggle="tooltip" class="btn btn-default">View History</a> -->
                                     <a href="javascript:void(0)" onclick="deletePatient('<?php echo $rows->id; ?>')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
@@ -177,11 +199,11 @@
                         ?>
                             <tr>
                             <td><?php echo $rowCount; ?></td>
-                                <td><?php echo $rows->internal_name; ?></td>
-                                <td><?php echo date('m/d/Y', strtotime($rows->created_on)); ?></td>
-                                    <td class="actions">
+                                <td class="text-center"><?php echo $rows->internal_name; ?></td>
+                                <td class="text-center"><?php echo date('m/d/Y', strtotime($rows->created_on)); ?></td>
+                                    <td class="actions text-center">
                                     <!-- <a href="javascript:void(0)" class="btn btn-default" onclick="editFn('index.php/userSettings/open_consult/edit?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-pencil"></i></a> -->
-                                                    <a href="<?php echo base_url() . 'userSettings/consultEdit?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-pencil"></i></a>
+                                                    <a href="<?php echo base_url() . 'userSettings/consultEdit?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-xs btn-default"><i class="fa fa-pencil"></i></a>
                                                                         
                                     <!-- <a href="<?php echo base_url() . 'index.php/userSettings/open_consult/existing_list/' . $rows->pid; ?>" target='_blank' data-toggle="tooltip" class="btn btn-default">View History</a> -->
                                     <a href="javascript:void(0)" onclick="deleteConsult('<?php echo $rows->id; ?>')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>

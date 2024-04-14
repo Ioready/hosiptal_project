@@ -20,27 +20,27 @@
                     <div class="form-body">
                         <div class="row">
                             
-                            <div class="col-md-12" >
+                            <div class="col-md-6" >
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Plan Name</label>
-                                    <div class="col-md-9">
+                                    <label class="m-4 control-label">Plan Name</label>
+                                    <div class="col-md-12">
                                         <input type="text" class="form-control" name="plan_name" id="plan_name" placeholder="Plan Name"  value="<?php echo $results->PlanName;?>"/>
-                                        <input type="text" class="form-control" name="id" id="id" placeholder="Plan Name"  value="<?php echo $results->id;?>"/>
+                                        <input type="hidden" class="form-control" name="id" id="id" placeholder="Plan Name"  value="<?php echo $results->id;?>"/>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-12" >
+                            <div class="col-md-6" >
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Price</label>
-                                    <div class="col-md-9">
+                                    <label class="m-4 control-label">Price</label>
+                                    <div class="col-md-12">
                                         <input type="text" class="form-control" name="price" id="price" placeholder="Price" value="<?php echo $results->Price;?>"/>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-12" >
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Duration</label>
-                                    <div class="col-md-9">
+                                    <label class="m-4 control-label">Duration</label>
+                                    <div class="col-md-12">
                                     <div class="switch-wrapper">
                                         <input id="toggle-monthly" type="radio" name="Duration" value="month" checked>
                                         <label for="monthly">Monthly</label>
@@ -58,8 +58,8 @@
                             <!-- <?php echo $results->plan_description;?> -->
                             <div class="col-md-12" >
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Description</label>
-                                    <div class="col-md-9">
+                                    <label class="m-4 control-label">Description</label>
+                                    <div class="col-md-12">
                                         <textarea name="plan_description" id="editor" cols="30" rows="10"><?php echo $results->plan_description;?></textarea>
                                     </div>
                                 </div>
@@ -72,7 +72,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-sm btn-default" data-dismiss="modal"><?php echo lang('reset_btn');?></button>
-                    <button type="submit" id="submit" class="btn btn-sm btn-primary" ><?php echo lang('submit_btn');?></button>
+                    <button type="submit" id="submit"  style="background-color:#337ab7;" class="btn btn-sm m-2 text-white" ><?php echo lang('submit_btn');?></button>
                 </div>
             </form>
         </div> <!-- /.modal-content -->
