@@ -336,7 +336,6 @@ class Patient extends Common_Controller
             'where' => array('vendor_sale_user_consultation_setting.user_id' => $LoginID)
         );
 
-
         $this->data['list'] = $this->common_model->customGet($optionheader);
 
         $id = decoding($_GET['id']);
