@@ -298,6 +298,7 @@ class Patient extends Common_Controller
             } else {
                 $this->session->set_flashdata('error', lang('not_found'));
                 redirect('patient');
+                
             }
 
         // $this->load->admin_render('summary', $this->data, 'inner_script');
