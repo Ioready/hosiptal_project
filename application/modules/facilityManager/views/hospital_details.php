@@ -74,7 +74,7 @@
                         </div> -->
 
                     
-                        <div class="row p-4 m-2">
+     <div class="row p-4 m-2">
     <div class="col-md-4 ">
         <div class=" mb-3">
             <div class="card-body p-4" style="background-color:#EDEAFF; box-shadow: 0px 2px 2px rgba(0, 0, 0, 1);border-radius:20px">
