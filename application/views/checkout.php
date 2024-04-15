@@ -43,7 +43,7 @@
 
 	<div class="container">
 		<div class="row">
-			<div class="col-md-6 col-md-offset-3">
+			<div class="col-md-6 col-md-offset-2">
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<?php if($this->session->flashdata('success')){ ?>
@@ -68,14 +68,20 @@
 							</div>
 							<div class='form-row row'>
 								<div class='col-xs-12 form-group required'>
+								<label class='control-label'>Name on Card</label>
+									<input class='form-control' size='4' type='text' name="name">
+								</div>
+							</div>
+							<div class='form-row row'>
+								<div class='col-xs-12 form-group required'>
 									<label class='control-label'>Email</label>
 									<input class='form-control' size='4' type='text' name="email">
 								</div>
 							</div>
-							<div class='form-row row'>
-								<div class='col-xs-12 form-group card required'>
-									<label class='control-label'>Card Number</label>
-									<input autocomplete='off' class='form-control card-number' size='20' type='text' name="card_num">
+							<div class='form-row row '>
+								<div class='col-xs-12 form-group card required '>
+									<label class='control-label mt-2'>Card Number</label>
+									<input autocomplete='off' class='form-control card-number mb-4' size='20' type='text' name="card_num">
 								</div>
 							</div>
 							<div class='form-row row'>
