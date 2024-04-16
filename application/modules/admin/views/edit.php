@@ -29,45 +29,45 @@
                         <div class="row">
 
 
-                            <div class="col-md-12" >
+                            <div class="col-md-6" >
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Admin Name</label>
-                                    <div class="col-md-9">
+                                    <label class="m-4 control-label">Admin Name</label>
+                                    <div class="col-md-12">
                                         <input type="text" class="form-control" name="admin_name" id="admin_name" placeholder="Admin Name" value="<?php echo $results->hospital_name; ?>"/>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-12" >
+                            <div class="col-md-6" >
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">First Name</label>
-                                    <div class="col-md-9">
+                                    <label class="m-4 control-label">First Name</label>
+                                    <div class="col-md-12">
                                         <input type="text" class="form-control" name="first_name" id="first_name" placeholder="First Name" value="<?php echo $results->first_name; ?>"/>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-md-12" >
+                            <div class="col-md-6" >
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Last Name</label>
-                                    <div class="col-md-9">
+                                    <label class="m-4 control-label">Last Name</label>
+                                    <div class="col-md-12">
                                         <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Last Name" value="<?php echo $results->last_name; ?>"/>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-md-12" >
+                            <div class="col-md-6" >
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label"><?php echo lang('user_email'); ?></label>
-                                    <div class="col-md-9">
+                                    <label class="m-4 control-label"><?php echo lang('user_email'); ?></label>
+                                    <div class="col-md-12">
                                         <input type="email" class="form-control" name="user_email" id="user_email" value="<?php echo $results->email; ?>" readonly/>
                                     </div>
                                 </div>
                             </div>
 
-                    <div class="col-md-12" >
+                    <div class="col-md-6" >
                         <div class="form-group">
-                            <label class="col-md-3 control-label"><?php echo lang('user_gender');?></label>
-                            <div class="col-md-9">
+                            <label class="m-4 control-label"><?php echo lang('user_gender');?></label>
+                            <div class="col-md-12">
                             
                                 <label class="checkbox-inline"><input type="radio" name="user_gender" id="user_gender" <?php echo ($results->gender == "MALE") ? 'checked' : ''; ?> value="MALE">MALE</label>
                                 <label class="checkbox-inline"><input type="radio" name="user_gender" id="user_gender" <?php echo ($results->gender == "FEMALE") ? 'checked' : ''; ?> value="FEMALE">FEMALE</label>
@@ -75,10 +75,10 @@
                         </div>
                     </div>
 
-                    <div class="col-md-12" >
+                    <div class="col-md-6" >
                        <div class="form-group">
-                            <label class="col-md-3 control-label"><?php echo lang('date_of_birth');?></label>
-                            <div class="col-md-9">
+                            <label class="m-4 control-label"><?php echo lang('date_of_birth');?></label>
+                            <div class="col-md-12">
                             <input type="text" class="form-control readonly" name="date_of_birth" id="date_of_birth" placeholder="<?php echo lang('date_of_birth');?>" value="<?php echo $results->date_of_birth; ?>" readonly/>
 
                                 <!-- <input type="text" class="form-control" name="date_of_birth" id="date_of_birth" placeholder="<?php echo lang('date_of_birth');?>" value="<?php echo $results->date_of_birth; ?>" readonly=""/> -->
@@ -124,10 +124,10 @@
                             </div>
                         </div>
                     </div> -->
-                           <div class="col-md-12" >
+                           <div class="col-md-6" >
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Country Phone Code</label>
-                                    <div class="col-md-9">                                
+                                    <label class="m-4 control-label">Country Phone Code</label>
+                                    <div class="col-md-12">                                
                                         <select id="phone_code" name="phone_code" class="form-control select2" size="1">
                                             <option value="0">Please select</option>
                                             <?php foreach ($countries as $country) { ?>
@@ -138,13 +138,13 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-12" >
+                            <div class="col-md-6" >
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label"><?php echo lang('phone_no'); ?></label>
-                                    <div class="col-md-9">
+                                    <label class="m-4 control-label"><?php echo lang('phone_no'); ?></label>
+                                    <div class="col-md-12">
                                         <input type="text" class="form-control" name="phone_no" id="phone_no" placeholder="<?php echo lang('phone_no'); ?>" value="<?php echo $results->phone; ?>"/>
                                     </div>
-                                     <span class="help-block m-b-none col-md-offset-3"><i class="fa fa-arrow-circle-o-up"></i> <?php echo lang('english_note'); ?></span> 
+                                     <span class="help-block m-b-none col-md-offset-1"><i class="fa fa-arrow-circle-o-up"></i> <?php echo lang('english_note'); ?></span> 
                                 </div>
                             </div>
 
@@ -219,10 +219,10 @@
                                 </div>
                             </div> -->
 
-                           <div class="col-md-12" >
+                           <div class="col-md-6" >
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Country</label>
-                                    <div class="col-md-9">
+                                    <label class="m-4 control-label">Country</label>
+                                    <div class="col-md-12">
                                          <input type="text" class="form-control" name="country" id="country" placeholder="Country"/> 
 
                                         <select id="country" name="country" class="form-control select2" size="1">
@@ -237,10 +237,10 @@
                                     </div>
                                 </div>
                             </div>
-                           <div class="col-md-12" >
+                           <div class="col-md-6" >
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">State</label>
-                                    <div class="col-md-9">
+                                    <label class="m-4 control-label">State</label>
+                                    <div class="col-md-12">
                                         <select id="country" name="state" class="form-control select2" size="1">
                                             <option value="" disabled selected>Please select</option>
 <?php foreach ($states as $state) { ?>
@@ -253,37 +253,37 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-12" >
+                            <div class="col-md-6" >
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">City</label>
-                                    <div class="col-md-9">
+                                    <label class="m-4 control-label">City</label>
+                                    <div class="col-md-12">
                                         <input type="text" class="form-control" name="city" placeholder="City Name" value="<?php echo $results->city; ?>"/>
                                     </div>
                                 </div>
                             </div>
-                           <div class="col-md-12" >
+                           <div class="col-md-6" >
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Address</label>
-                                    <div class="col-md-9">
+                                    <label class="m-4 control-label">Address</label>
+                                    <div class="col-md-12">
                                         <input type="text" class="form-control" name="address1" value="<?php echo $results->address1; ?>"/>
                                     </div>
                                 </div>
                             </div>
 
 
-                            <div class="col-md-12" >
+                            <div class="col-md-6" >
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label"><?php echo "Current Password"; ?></label>
-                                    <div class="col-md-9">
+                                    <label class="m-4 control-label"><?php echo "Current Password"; ?></label>
+                                    <div class="col-md-12">
                                         <input type="text" class="form-control" name="current_password" id="current_password" value="<?php echo $results->is_pass_token; ?>" readonly=""/>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-md-12" >
+                            <div class="col-md-6" >
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label"><?php echo lang('new_password'); ?></label>
-                                    <div class="col-md-9">
+                                    <label class="m-4 control-label"><?php echo lang('new_password'); ?></label>
+                                    <div class="col-md-12">
                                         <input type="text" class="form-control" name="new_password" id="new_password"/>
                                     </div>
                                 </div>
@@ -360,7 +360,7 @@
                     </div>
                     <div class="modal-footer">
                         <div class="col-md-8 col-md-offset-4">
-                            <button type="submit"  class="btn btn-sm btn-primary" id="submit">Save Changes</button>
+                            <button type="submit"  class="btn btn-sm btn-primary" style="background: #337ab7;" id="submit">Save Changes</button>
                         </div>
                     </div>
                 </form>
