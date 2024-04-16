@@ -401,10 +401,6 @@
         </div> <!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
                     </div>
-
-
-
-
         </div>
 
         <div class="table-responsive">
@@ -435,9 +431,6 @@
                             $rowCount++;
                         
                             // print_r($rows);die;
-
-
-
                             
                     ?>
                             <tr>
@@ -470,15 +463,35 @@
                                 <td><?php echo $rows->task_comment; ?></td>
                                 <td><?php echo $rows->culture_source_name; ?></td>
 
-                                <td class="actions">
-                                    <!-- <a href="javascript:void(0)" class="btn btn-default" onclick="editFn('index.php/Tasks', 'edit_patient', '<?php echo encoding($rows->task_id) ?>', 'tasks');"><i class="fa fa-pencil"></i></a> -->
-                                    <!--                 <a href="<?php echo base_url() . 'tasks/edit?id=' . encoding($rows->task_id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-eye"></i></a> -->
-                                    <!--      <a href="<?php echo base_url() . 'tasks/edit_parient?id=' . encoding($rows->task_id); ?>" data-toggle="tooltip" class="btn btn-default" target="_blank"><i class="fa fa-pencil"></i></a>-->
-                                  
-                                    <!-- <a href="<?php echo base_url() . '/tasks/existing_list/' . $rows->pid; ?>" target='_blank' data-toggle="tooltip" class="btn btn-default">View History</a> -->
-                                    <!-- <a href="javascript:void(0)" onclick="deletePatient('<?php echo $rows->task_id; ?>')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a> -->
+                                <td>
+                                
+                                            <?php 
+                                            if ($this->ion_auth->is_subAdmin()){
+                    
+                                                if ($rows->task_status == 'Done'): ?>
+                                                    <input type="hidden" class="notification-id" value="<?php echo $rows->patient_id; ?>">
+                                                    <select class="statusDropdown custom-badge <?php echo ($rows->task_status == 'Done') ? 'status-green' : 'status-red'; ?>">
+                                                        <option value="Done" selected><strong>Done</strong></option>
+                                                        <option value="Pending"><strong>Pending</strong></option>
+                                                    </select>
+                                                <?php else: ?>
+                                                    <input type="hidden" class="notification-id" value="<?php echo $rows->patient_id; ?>">
+                                                    <select class="statusDropdown custom-badge <?php echo ($rows->task_status == 'Pending') ? 'status-red' : 'status-green'; ?>">
+                                                        <option value="Done"><strong>Done</strong></option>
+                                                        <option value="Pending" selected><strong>Pending</strong></option>
+                                                    </select>
+                                                <?php endif; 
+                                                
 
-                                </td>
+                                             }else if($this->ion_auth->is_facilityManager()){ 
+                                                if($rows->task_status == 'Done'): ?>
+                                                <span class="custom-badge status-green"><?php echo $rows->task_status; ?></span> 
+                                                
+                                            <?php else: ?>
+                                                <span class="custom-badge status-red"><?php echo $rows->task_status; ?></span> 
+                                
+                                             <?php endif; } ?>
+                                        </td>
                             </tr>
 
                         <?php
@@ -734,6 +747,65 @@ priorityInputs.forEach(input => {
     
     
 
+}
+
+</style>
+
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+<!-- Include DataTables CSS -->
+<!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css"> -->
+<!-- Include jQuery -->
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+<!-- Include DataTables -->
+<!-- <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script> -->
+<script>
+$(document).ready(function() {
+    $('#appointmentTable').DataTable();
+    $('.statusDropdown').on('change', function() {
+        var selectedStatus = $(this).val();
+        var notificationId = $(this).prev('.notification-id').val(); 
+        
+        $.ajax({
+            url: '<?php echo base_url('tasks/update_task_doctor'); ?>',
+            method: 'POST',
+            data: { notificationId: notificationId, status: selectedStatus },
+            success: function(response) {
+                // Handle success response, if needed
+                console.log(response);
+                window.location.reload();
+            },
+            error: function(xhr, status, error) {
+                // Handle error response, if needed
+                console.error(xhr.responseText);
+            }
+        });
+    });
+});
+</script>
+<style>
+    .custom-badge {
+	border-radius: 4px;
+	display: inline-block;
+	font-size: 12px;
+	min-width: 95px;
+	padding: 1px 10px;
+	text-align: center;
+}
+.status-red,
+a.status-red {
+	background-color: red;
+	border: 1px solid #fe0000;
+	color: white;
+    border-radius:10px;
+    padding:2px;
+}
+.status-green,
+a.status-green {
+	background-color: green;
+	border: 1px solid #00ce7c;
+    border-radius:10px;
+    padding:2px;
+	color: white;
 }
 
 </style>

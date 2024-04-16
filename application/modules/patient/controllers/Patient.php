@@ -520,7 +520,7 @@ class Patient extends Common_Controller
         // $this->data['doctors'] = $this->common_model->customGet($option);
 
 
-        $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+$CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 
     if($this->ion_auth->is_subAdmin()){
 
