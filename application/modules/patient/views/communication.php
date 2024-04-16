@@ -79,122 +79,103 @@
     <?php } ?>
     <!-- Datatables Content -->
     <!-- Datatables Content -->
+
+
+   
+
+
+
+
+
+
     <div class="block full">
-
-          <div class="block-title">
-            
-          </div>
-
-            <div class="block-title">
-           
-            </div>
-             <!-- <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('index.php/' .$formUrl) ?>" enctype="multipart/form-data"> -->
+ <!-- <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('index.php/' .$formUrl) ?>" enctype="multipart/form-data"> -->
           
-            <div class="alert alert-danger" id="error-box" style="display: none"></div>
-            <div class="form-body">
+    
+   
+
+
+ <div class="row mt-4">
+    <div class="col-md-12">
+        <div class="">
+            <div class="card-body p-4" style="background-color:#FFFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);border-radius:20px">
                 <div class="row">
-                    <div class="col-md-12" >
-                        <div class="form-group">
-                        <?php //print_r($results);die; ?>
-                                <div class="col-md-12">
-                                <h2><strong><?php echo $results->patient_name; ?></strong></h2>
-                            
-                                    
-                            <div style="overflow-x: auto; overflow-y: auto; width: auto; height: auto;">
-
-                           
-                           <label for=""><i class="fa fa-home" > </i> <?php echo $results->address;?></label><br>
-                           <label for=""><i class="fa fa-phone" > </i> <?php echo $results->patient_phone_number;?></label>
-
-                            <br>
-                                    
-                            </div>
-                            
-                            </div>
-                            
-                        </div>
+                    <div class="col-md-11">
+                        <h5 class="no-margins fw-bold"><?php echo $results->patient_name; ?></h5>
+                        <h5 class="text-dark fw-bold"><i class="fa fa-home" > </i> <?php echo $results->address;?></h5>
+                        <h5 class="text-dark fw-bold"><i class="fa fa-phone" > </i> <?php echo $results->patient_phone_number;?></h5>
                     </div>
-
-
-                     <div class="col-md-12" >
-                        <div class="form-group">
-                            
-                            <div class="col-md-9">
-                           
-                        <input type="hidden" id="doctor_name" name="doctor_name" class="form-control" value="<?php echo $userData->id; ?>">
-                            </div>
-                        </div>
+                    <div class="col-md-1">
+                        <img src="<?php echo base_url(); ?>uploads/user.png" style="height: 65px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);" alt="">
                     </div>
-                    <div class="col-md-12" >
-                   
-                    <div class="space-22"></div>
                 </div>
-
-                </div>
-                <div class="text-right">
-                
-                </div>
-            
-                </form> 
-    </div>
-    </div>
-
-    <div class="block full">
-            <div class="block-title">
             </div>
-            <div class="row">
-                <div class="col-md-10">
-                <button class="btn btn-success" style="background:#0e5670;" type="button">SMS</button> 
+        </div>
+    </div> 
+</div>
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="">
+            <div class="card-body p-4" style="background-color:#FFFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);border-radius:20px">
+                <div class="row">
+                    <div class="col-md-10 mt-4">
+                    <button class="btn btn-success" style="background:#0e5670;" type="button">SMS</button> 
                 <button class="btn btn-default" type="button">Email</button>
-                </div>
-
-                <div class="col-md-2" style="float:right;">
-                <button  type="button" style="background:white; border: 1px solid green;">All</button>
-                <button type="button" style="background:white; border: 1px solid green;"><i class="fa fa-calendar" ></i>
-                </div>
-                
-            </div>
-    </div>
-
-
-
-    <div class="block full" style="height:auto;">
-            <div class="block-title">
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                <label for="">Schedule</label>
-                </div>
-
-                
-            </div>
-    </div>
-    <div class="block full" style="height:auto;">
-            <div class="block-title">
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                
-                <h3><strong>Sent</strong></h3>
-                    <div class="row">
-                        <div class="col-md-11">
-                        <label for="">Sms Message</label>
-                        </div>
-                        <div class="col-md-1" style="float:right;">
-                        <button  type="button" style="background: #726b6b;border: 1px solid #808780;color: white;">SMS</button>
-                        </div>
-                    </div><br>
-                    <div class="row">
-                        <div class="col-md-11">
-                        <label for="">Sms Message</label>
-                        </div>
-                        <div class="col-md-1" style="float:right;">
-                        <button  type="button" style="background: #726b6b;border: 1px solid #808780;color: white;">SMS</button>
-                        </div>
+                                        </div>
+                    <div class="col-md-2">
+                <button  type="button" class="btn btn-md fw-bold bg-white m-4" style=" border: 1px solid green;">All</button>
+                <button type="button" class="btn btn-md fw-bold " style="background:white; border: 1px solid green;"><i class="fa fa-calendar" ></i>
                     </div>
                 </div>
             </div>
-    </div>
+        </div>
+    </div> 
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="">
+            <div class="card-body p-4" style="background-color:#FFFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);border-radius:20px">
+                <div class="row">
+                    <div class="col-md-10 ">
+                <button class="btn btn-default fw-bold" type="button">Schedule</button>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="">
+            <div class="card-body p-4" style="background-color:#FFFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);border-radius:20px">
+                <div class="row">
+                <h2 class="no-margins fw-bold m-4">Sent</h2>
+                    <div class="col-md-11">                      
+                        <h5 class="text-dark fw-bold">Sms Message</h5>           
+                    </div>
+                    <div class="col-md-1">
+                <button  type="button" class="btn btn-md fw-bold bg-dark text-white" style=" border: 1px solid green;">Sent</button>
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col-md-11">
+                        <h5 class="no-margins fw-bold">Sms Message</h5>            
+                    </div>
+                    <div class="col-md-1">
+                <button  type="button" class="btn btn-md fw-bold bg-white" style=" border: 1px solid green;">Sent</button> 
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div> 
+</div>
+
+
+
 
     <!-- </div> -->
 

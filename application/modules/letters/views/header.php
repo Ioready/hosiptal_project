@@ -110,7 +110,7 @@
 
             </div>
             <div class="text-right">
-                <button type="submit" id="submit" class="btn btn-sm btn-primary" >Save</button>
+                <button type="submit" id="submit" class="btn btn-sm btn-primary" style="background: #005f95;" >Save</button>
             </div>
         </form>
         

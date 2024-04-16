@@ -194,24 +194,32 @@
                             
                             <?php 
                         if ($this->ion_auth->is_facilityManager()) { ?>
-                            <label class="col-md-3 control-label">Doctor</label>
+                            <label class="col-md-3 control-label">Location</label>
                                 <div class="col-md-9">
                                 <select id="country" name="location_appointment" class="form-control select2" size="1">
                                     <option value="0">Please select</option>
-                                    <?php foreach ($doctorsname as $country) { ?>
-                                        <option value="<?php echo $country->email; ?>"><?php echo $country->first_name.' '.$country->last_name; ?></option>
+
+                                    <?php foreach ($care_unit as $care_units) { ?>
+                                        <option value="<?php echo $care_units->id; ?>"><?php echo $care_units->name; ?></option>
                                     <?php } ?>
+                                    <!-- <?php foreach ($doctorsname as $country) { ?>
+                                        <option value="<?php echo $country->email; ?>"><?php echo $country->first_name.' '.$country->last_name; ?></option>
+                                    <?php } ?> -->
                                 </select>
                                
                             </div>
                         <?php }else { ?>
                         
-                            <label class="col-md-3 control-label">Hospital Location</label>
+                            <label class="col-md-3 control-label">Location</label>
                             <div class="col-md-9">
                                 <select id="country" name="location_appointment" class="form-control select2" size="1">
                                     <option value="0">Please select</option>
-                                    <?php foreach ($userlocation as $country) { ?>
+                                    <!-- <?php foreach ($userlocation as $country) { ?>
                                         <option value="<?php echo $country->email; ?>"><?php echo $country->address1.' '.$country->city.' '.$country->first_name.' '.$country->last_name ; ?></option>
+                                    <?php } ?> -->
+                                    
+                                    <?php foreach ($care_unit as $care_units) { ?>
+                                        <option value="<?php echo $care_units->id; ?>"><?php echo $care_units->name; ?></option>
                                     <?php } ?>
                                 </select>
                                
@@ -225,9 +233,12 @@
                             <div class="col-md-9">
                                 <select id="country" name="clinician_appointment" class="form-control select2" size="1">
                                     <option value="0">Please select</option>
-                                    <?php foreach ($care_unit as $care_units) { ?>
-                                        <option value="<?php echo $care_units->id; ?>"><?php echo $care_units->name; ?></option>
+                                    <?php foreach ($doctorsname as $country) { ?>
+                                        <option value="<?php echo $country->email; ?>"><?php echo $country->first_name.' '.$country->last_name; ?></option>
                                     <?php } ?>
+                                    <!-- <?php foreach ($care_unit as $care_units) { ?>
+                                        <option value="<?php echo $care_units->id; ?>"><?php echo $care_units->name; ?></option>
+                                    <?php } ?> -->
                                 </select>
                             </div>
                         </div>
@@ -237,8 +248,8 @@
                             <label class="col-md-3 control-label">Appointment type</label>
                             <div class="col-md-9">
                             
-                                <select id="country" name="appointment_type" class="form-control select2" size="1">
-                                    <option value="0">Please select</option>
+                                <select id="country" name="appointment_type" class="form-control select2" size="1" required>
+                                    <!-- <option value="0">Please select</option> -->
                                     <!-- <option value="Admin">Admin</option>
                                     <option value="Arthrocopic-Rotator-Cuff-Repair-great-than-2cm-(T7915)">Arthrocopic Rotator Cuff Repair great than 2cm (T7915)</option>
                                     <option value="Hyaluronic-acid-injection-knee">Hyaluronic acid injection knee</option>
@@ -327,25 +338,30 @@
                             <div class="col-md-9">
                                 <select id="country" name="theatre_location" class="form-control select2" size="1">
                                     <option value="0">Please select</option>
-                                    <?php foreach ($countries as $country) { ?>
+                                    <!-- <?php foreach ($countries as $country) { ?>
                                         <option value="<?php echo $country->id; ?>"><?php echo $country->name; ?></option>
-                                    <?php } ?>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label class="col-md-3 control-label">Clinician</label>
-                            <div class="col-md-9">
-                                <select id="country" name="theatre_clinician" class="form-control select2" size="1">
-                                    <option value="0">Please select</option>
+                                    <?php } ?> -->
                                     <?php foreach ($care_unit as $care_units) { ?>
                                         <option value="<?php echo $care_units->id; ?>"><?php echo $care_units->name; ?></option>
                                     <?php } ?>
                                 </select>
                             </div>
                         </div>
+                    </div>
+                    <div class="col-md-12">
+
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Clinician</label>
+                            <div class="col-md-9">
+                                <select id="country" name="theatre_clinician" class="form-control select2" size="1">
+                                    <option value="0">Please select</option>
+                                    <?php foreach ($doctorsname as $country) { ?>
+                                        <option value="<?php echo $country->email; ?>"><?php echo $country->first_name.' '.$country->last_name; ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
@@ -526,8 +542,11 @@
                             <div class="col-md-9">
                                 <select id="country" name="availability_location" class="form-control select2" size="1">
                                     <option value="0">Please select</option>
-                                    <?php foreach ($countries as $country) { ?>
+                                    <!-- <?php foreach ($countries as $country) { ?>
                                         <option value="<?php echo $country->id; ?>"><?php echo $country->name; ?></option>
+                                    <?php } ?> -->
+                                    <?php foreach ($care_unit as $care_units) { ?>
+                                        <option value="<?php echo $care_units->id; ?>"><?php echo $care_units->name; ?></option>
                                     <?php } ?>
                                 </select>
                             </div>
@@ -539,9 +558,11 @@
                             <div class="col-md-9">
                                 <select id="country" name="availability_practitioner" class="form-control select2" size="1">
                                     <option value="0">Please select</option>
-                                    <?php foreach ($care_unit as $care_units) { ?>
-                                        <option value="<?php echo $care_units->id; ?>"><?php echo $care_units->name; ?></option>
+                                    <?php foreach ($doctorsname as $country) { ?>
+                                        <option value="<?php echo $country->email; ?>"><?php echo $country->first_name.' '.$country->last_name; ?></option>
                                     <?php } ?>
+
+                                    
                                 </select>
                             </div>
                         </div>
@@ -606,8 +627,12 @@
                             <div class="col-md-9">
                                 <select id="country" name="out_of_office_location" class="form-control select2" size="1">
                                     <option value="0">Please select</option>
-                                    <?php foreach ($countries as $country) { ?>
+                                    <!-- <?php foreach ($countries as $country) { ?>
                                         <option value="<?php echo $country->id; ?>"><?php echo $country->name; ?></option>
+                                    <?php } ?> -->
+
+                                    <?php foreach ($care_unit as $care_units) { ?>
+                                        <option value="<?php echo $care_units->id; ?>"><?php echo $care_units->name; ?></option>
                                     <?php } ?>
                                 </select>
                             </div>
@@ -619,8 +644,10 @@
                             <div class="col-md-9">
                                 <select id="country" name="out_of_office_practitioner" class="form-control select2" size="1">
                                     <option value="0">Please select</option>
-                                    <?php foreach ($care_unit as $care_units) { ?>
-                                        <option value="<?php echo $care_units->id; ?>"><?php echo $care_units->name; ?></option>
+                                    
+
+                                    <?php foreach ($doctorsname as $country) { ?>
+                                        <option value="<?php echo $country->email; ?>"><?php echo $country->first_name.' '.$country->last_name; ?></option>
                                     <?php } ?>
                                 </select>
                             </div>

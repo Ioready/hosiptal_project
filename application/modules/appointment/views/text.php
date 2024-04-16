@@ -130,7 +130,7 @@
 
                                       $appointment_found = false;
                                       foreach($clinic_appointment as $appointment) {
-                                        
+                                        // print_r($appointment);die;
                                         // Clinic Appointment
 
                                           $appointmentTime = date('H:i', strtotime($appointment->start_date_appointment));
@@ -141,7 +141,7 @@
                                           $city = $appointment->city;
                                           $first_name = $appointment->first_name;
                                           $last_name = $appointment->last_name;
-
+                                          
                                         // Out Of Office
 
                                           $out_start_time_at = date('H:i', strtotime($appointment->out_start_time_at));
@@ -182,7 +182,7 @@
                                             $appointment_found = true;
                                             break;
                                         }
-
+                                        
 
                                         if ($formatted_time >= $out_start_time_at && $formatted_time <= $out_end_time_at && $department->id == $appointment->out_of_office_practitioner) {
                                           $appointment_found = true;
@@ -199,37 +199,64 @@
                                       $appointment_found = true;
                                       break;
                                   }
-
-                                      } 
+                                  
+                                  
+                                      // } 
                                     
                                       // Clinic Appointment
-
-                                      if ($formatted_time >= $appointmentTime && $formatted_time <= $end_date_appointment && $department->id == $appointment->clinician_appointment) {
                                       ?>
-                                      <td class="day-cell appointment-row" data-date="<?php echo $appointment_date; ?>" data-day="<?php echo $department->id; ?>">
+                                     
+                                      <?php
+                                      // print_r($appointment_date);die;
+                                      if ($formatted_time >= $appointmentTime && $formatted_time <= $end_date_appointment) {
+                                     ?>
+                                      
                                             <?php 
+                                            
                                                 $current_date = date('Y-m-d');
-
+                                                
                                                 if ($appointment_date == $current_date) {
-                                                    echo '<label style="background-color:green; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;">';
-                                                    echo '<span style="background-color: green; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong>' .$address1.'<br>'.$city.'<br>'.$comment_appointment.'<br>'.$appointmentTime.' - '.$end_date_appointment.'</span>';
-                                                    echo '</label>';
+                                                  if(!empty($department->id == $appointment->location_appointment)){
 
+                                                 
+                                                  ?>
+                                                  <td class="day-cell appointment-row" data-date="<?php echo $appointment_date; ?>" data-day="<?php if($department->id == $appointment->location_appointment){ echo $appointment->location_appointment; } ?>">
+                                                  <?php 
+                                                    echo '<label style="background-color:green; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;">';
+                                                    echo '<span style="background-color: green; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong><br>'.$comment_appointment.'<br>'.$appointmentTime.' - '.$end_date_appointment.'</span>';
+                                                    echo '</label>';
+                                                    ?>
+                                                    </td>
+                                                      
+<?php }
                                                     
                                                   } 
-                                                elseif ($appointment_date == date('Y-m-d', strtotime('+1 day'))) {
+                                                elseif ($appointment_date == date('Y-m-d', strtotime('+1 day')) && $department->id == $appointment->location_appointment) {
+                                                  ?>
+                                                  <td class="day-cell appointment-row" data-date="<?php echo $appointment_date; ?>" data-day="<?php echo $department->id; ?>">
+                                                  <?php 
                                                   echo '<label style="background-color:blue; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;">';
-                                                    echo '<span style="background-color: blue; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong>'.$address1.'<br>'.$city.'<br>'.$comment_appointment.'<br>'.$appointmentTime.' - '.$end_date_appointment.'</span>';
+                                                    echo '<span style="background-color: blue; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong><br>'.$comment_appointment.'<br>'.$appointmentTime.' - '.$end_date_appointment.'</span>';
                                                     echo '</label>';
 
-                                                  } elseif ($appointment_date == date('Y-m-d', strtotime('-1 day'))) {
+                                                    ?>
+                                                    </td>
+                                                    <?php
+
+                                                  } elseif ($appointment_date == date('Y-m-d', strtotime('-1 day')) && $department->id == $appointment->location_appointment) {
+                                                    ?>
+                                                  <td class="day-cell appointment-row" data-date="<?php echo $appointment_date; ?>" data-day="<?php echo $department->id; ?>">
+                                                  <?php 
                                                     echo '<label style="background-color:red; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;">';
-                                                    echo '<span style="background-color: red; color: white;">'.$first_name.' '.$last_name.'<br>'.$address1.'<br>'.$city.'<br>'.$comment_appointment.'<br>'.$appointmentTime.' - '.$end_date_appointment.'</span>';
+                                                    echo '<span style="background-color: red; color: white;">'.$first_name.' '.$last_name.'<br>'.$comment_appointment.'<br>'.$appointmentTime.' - '.$end_date_appointment.'</span>';
                                                     echo '</label>';
+                                                    ?>
+                                                    </td>
+                                                    <?php
                                                   }
                                                   
                                             ?>
-                                        </td>
+                                        <!-- </td> -->
                                       <?php }else{ ?>
 
                                       <!-- <td class="day-cell" data-time="<?php //echo $formatted_time; ?>" data-day="<?php echo $department->id; ?>">
@@ -240,38 +267,51 @@
                                       }
                                       // out of office
 
-                                  if ($formatted_time >= $out_start_time_at && $formatted_time <= $out_end_time_at && $department->id == $appointment->out_of_office_practitioner) {
+                                  if ($formatted_time >= $out_start_time_at && $formatted_time <= $out_end_time_at) {
                                       ?>
-                                      <td class="day-cell appointment-row" data-date="<?php echo $out_start_timeAt; ?>" data-day="<?php echo $department->id; ?>">
-                                            <?php 
+                                      
+                                       <?php 
                                                 $current_date = date('Y-m-d');
 
                                               
-                                                  if ($out_start_timeAt == $current_date) {
-                                                    
+                                                  if ($out_start_timeAt == $current_date && $department->id == $appointment->out_of_office_location) {
+                                                    ?>
+                                          <td class="day-cell appointment-row" data-date="<?php echo $out_start_timeAt; ?>" data-day="<?php if($department->id == $appointment->out_of_office_location){ echo $appointment->out_of_office_location; } ?>">
+                                                    <?php
                                                      
                                                       echo '<label style="background-color:pink; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;">';
-                                                      echo '<span style="background-color: pink; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong>' .$address1.'<br>'.$city.'<br>'.$out_of_office_comment.'<br>'.$out_start_time_at.' - '.$out_end_time_at.'</span>';
+                                                      echo '<span style="background-color: pink; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong><br>'.$out_of_office_comment.'<br>'.$out_start_time_at.' - '.$out_end_time_at.'</span>';
                                                       echo '</label>';
                                                     
-  
+  ?>
+  </td>
+  <?php
                                                     } 
-                                                  elseif ($out_start_timeAt == date('Y-m-d', strtotime('+1 day'))) {
-                                                   
+                                                  elseif ($out_start_timeAt == date('Y-m-d', strtotime('+1 day')) && $department->id == $appointment->out_of_office_location) {
+                                                   ?>
+                                                   <td class="day-cell appointment-row" data-date="<?php echo $out_start_timeAt; ?>" data-day="<?php echo $department->id; ?>">
+                                                   <?php
                                                       echo '<label style="background-color:#FFBF00; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;">';
-                                                      echo '<span style="background-color: #FFBF00; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong>' .$address1.'<br>'.$city.'<br>'.$out_of_office_comment.'<br>'.$out_start_time_at.' - '.$out_end_time_at.'</span>';
+                                                      echo '<span style="background-color: #FFBF00; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong><br>'.$out_of_office_comment.'<br>'.$out_start_time_at.' - '.$out_end_time_at.'</span>';
                                                       echo '</label>';
                                                       
-  
-                                                    } elseif ($out_start_timeAt == date('Y-m-d', strtotime('-1 day'))) {
-                                                     
+  ?>
+  </td>
+
+  <?php
+                                                    } elseif ($out_start_timeAt == date('Y-m-d', strtotime('-1 day')) && $department->id == $appointment->out_of_office_location) {
+                                                     ?>
+                                                     <td class="day-cell appointment-row" data-date="<?php echo $out_start_timeAt; ?>" data-day="<?php echo $department->id; ?>">
+                                                     <?php
                                                       echo '<label style="background-color:#FF7F50; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;">';
-                                                      echo '<span style="background-color: #FF7F50; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong>' .$address1.'<br>'.$city.'<br>'.$out_of_office_comment.'<br>'.$out_start_time_at.' - '.$out_end_time_at.'</span>';
+                                                      echo '<span style="background-color: #FF7F50; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong><br>'.$out_of_office_comment.'<br>'.$out_start_time_at.' - '.$out_end_time_at.'</span>';
                                                       echo '</label>';
-                                                      
+                                                      ?>
+                                                      </td>
+                                                      <?php
                                                     }
                                             ?>
-                                        </td>
+                                        <!-- </td> -->
                                       <?php }else{ ?>
 
                                       <!-- <td class="day-cell" data-time="<?php //echo $formatted_time; ?>" data-day="<?php echo $department->id; ?>"> 
@@ -283,38 +323,50 @@
                                      
                                       // start_date_availability
                                       
-                                      if ($formatted_time >= $start_date_availability && $formatted_time <= $end_time_date_availability && $department->id == $appointment->availability_practitioner) {
+                                      if ($formatted_time >= $start_date_availability && $formatted_time <= $end_time_date_availability) {
                                           ?>
-                                          <td class="day-cell appointment-row" data-date="<?php echo $start_dateAvailability; ?>" data-day="<?php echo $department->id; ?>">
+                                          
                                                 <?php 
                                                     $current_date = date('Y-m-d');
     
                                                   
-                                                      if ($start_dateAvailability == $current_date) {
-                                                        
+                                                      if ($start_dateAvailability == $current_date || $department->id == $appointment->availability_location) {
+                                                        ?>
+                                                      <td class="day-cell appointment-row" data-date="<?php echo $start_dateAvailability; ?>" data-day="<?php echo $department->id; ?>">
+                                                        <?php
                                                          
                                                           echo '<label style="background-color:#40E0D0; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;">';
-                                                          echo '<span style="background-color: #40E0D0; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong>' .$address1.'<br>'.$city.'<br>Available<br>'.$start_date_availability.' - '.$out_end_time_at.'</span>';
+                                                          echo '<span style="background-color: #40E0D0; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong><br>Available<br>'.$start_date_availability.' - '.$out_end_time_at.'</span>';
                                                           echo '</label>';
-                                                        
+                                                        ?>
+                                                        </td>
+                                                        <?php
       
                                                         } 
-                                                      elseif ($start_dateAvailability == date('Y-m-d', strtotime('+1 day'))) {
-                                                       
+                                                      elseif ($start_dateAvailability == date('Y-m-d', strtotime('+1 day')) && $department->id == $appointment->availability_location) {
+                                                        ?>
+                                                      <td class="day-cell appointment-row" data-date="<?php echo $start_dateAvailability; ?>" data-day="<?php echo $department->id; ?>">
+                                                        <?php
                                                           echo '<label style="background-color:#6495ED; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;">';
-                                                          echo '<span style="background-color: #6495ED; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong>' .$address1.'<br>'.$city.'<br>Available<br>'.$start_date_availability.' - '.$out_end_time_at.'</span>';
+                                                          echo '<span style="background-color: #6495ED; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong><br>Available<br>'.$start_date_availability.' - '.$out_end_time_at.'</span>';
                                                           echo '</label>';
-                                                          
+                                                          ?>
+                                                          </td>
+                                                          <?php
       
-                                                        } elseif ($start_dateAvailability == date('Y-m-d', strtotime('-1 day'))) {
-                                                         
+                                                        } elseif ($start_dateAvailability == date('Y-m-d', strtotime('-1 day')) && $department->id == $appointment->availability_location) {
+                                                          ?>
+                                                      <td class="day-cell appointment-row" data-date="<?php echo $start_dateAvailability; ?>" data-day="<?php echo $department->id; ?>">
+                                                        <?php
                                                           echo '<label style="background-color:#CCCCFF; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;">';
-                                                          echo '<span style="background-color: #CCCCFF; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong>' .$address1.'<br>'.$city.'<br>Available<br>'.$start_date_availability.' - '.$out_end_time_at.'</span>';
+                                                          echo '<span style="background-color: #CCCCFF; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong><br>Available<br>'.$start_date_availability.' - '.$out_end_time_at.'</span>';
                                                           echo '</label>';
-                                                          
+                                                          ?>
+                                                          </td>
+                                                          <?php
                                                         }
                                                 ?>
-                                            </td>
+                                            <!-- </td> -->
                                           <?php }else{ ?>
     
                                           <!-- <td class="day-cell" data-time="<?php //echo $formatted_time; ?>" data-day="<?php echo $department->id; ?>"> 
@@ -327,52 +379,60 @@
 
                                 // theatre_appointment
                                       
-                                      if ($formatted_time >= $theatre_date_time && $formatted_time <= $theatre_end_time && $department->id === $appointment->theatre_clinician) {
-                                          ?>
-                                          <td class="day-cell appointment-row" data-date="<?php echo $theatre_dateTime; ?>" data-day="<?php echo $department->id; ?>">
-                                                <?php 
+                                      if ($formatted_time >= $theatre_date_time && $formatted_time <= $theatre_end_time) {
+                                         
                                                     $current_date = date('Y-m-d');
     
                                                   
-                                                      if ($theatre_dateTime == $current_date) {
-                                                        
+                                                      if ($theatre_dateTime == $current_date && $department->id == $appointment->theatre_location) {
+                                                        ?>
+                                                        <td class="day-cell appointment-row" data-date="<?php echo $theatre_dateTime; ?>" data-day="<?php echo $department->id; ?>">
+                                                              <?php 
                                                          
                                                           echo '<label style="background-color:#800080; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;">';
-                                                          echo '<span style="background-color: #800080; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong>' .$address1.'<br>'.$city.'<br>theatre_comment<br>'.$theatre_date_time.' - '.$theatre_end_time.'</span>';
+                                                          echo '<span style="background-color: #800080; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong><br>theatre_comment<br>'.$theatre_date_time.' - '.$theatre_end_time.'</span>';
                                                           echo '</label>';
-                                                        
+                                                        ?>
+                                                        </td>
+                                                        <?php
       
                                                         } 
-                                                      elseif ($theatre_dateTime == date('Y-m-d', strtotime('+1 day'))) {
-                                                       
+                                                      elseif ($theatre_dateTime == date('Y-m-d', strtotime('+1 day')) && $department->id == $appointment->theatre_location) {
+                                                        ?>
+                                          <td class="day-cell appointment-row" data-date="<?php echo $theatre_dateTime; ?>" data-day="<?php echo $department->id; ?>">
+                                                <?php 
                                                           echo '<label style="background-color:#FF00FF; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;">';
-                                                          echo '<span style="background-color: #FF00FF; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong>' .$address1.'<br>'.$city.'<br>'.$theatre_comment.'<br>'.$theatre_date_time.' - '.$theatre_end_time.'</span>';
+                                                          echo '<span style="background-color: #FF00FF; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong><br>'.$theatre_comment.'<br>'.$theatre_date_time.' - '.$theatre_end_time.'</span>';
                                                           echo '</label>';
-                                                          
+                                                          ?>
+                                                          </td>
+                                                          <?php
       
-                                                        } elseif ($theatre_dateTime == date('Y-m-d', strtotime('-1 day'))) {
-                                                         
+                                                        } elseif ($theatre_dateTime == date('Y-m-d', strtotime('-1 day')) && $department->id == $appointment->theatre_location) {
+                                                          ?>
+                                          <td class="day-cell appointment-row" data-date="<?php echo $theatre_dateTime; ?>" data-day="<?php echo $department->id; ?>">
+                                                <?php 
                                                           echo '<label style="background-color:#00FF00; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;">';
-                                                          echo '<span style="background-color: #00FF00; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong>' .$address1.'<br>'.$city.'<br>'.$theatre_comment.'<br>'.$theatre_date_time.' - '.$theatre_end_time.'</span>';
+                                                          echo '<span style="background-color: #00FF00; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong><br>'.$theatre_comment.'<br>'.$theatre_date_time.' - '.$theatre_end_time.'</span>';
                                                           echo '</label>';
-                                                          
+                                                          ?>
+                                                          </td>
+                                                          <?php
                                                         }
                                                 ?>
-                                            </td>
+                                            <!-- </td> -->
                                           <?php }else{ ?>
     
-                                          <!-- <td class="day-cell" data-time="<?php //echo $formatted_time; ?>" data-day="<?php echo $department->id; ?>">  -->
+                                          <!-- <td class="day-cell" data-time="<?php //echo $formatted_time; ?>" data-day="<?php echo $department->id; ?>"> 
                                          
                                               
-                                          </td>
+                                          </td> -->
                                           <?php 
-                                          }
-                                          ?>
-    
-    
-                                 
-    
-    
+                                          } 
+                                        } 
+                                        
+                                 ?>
+                             
                                   <?php  } ?>
 
 
