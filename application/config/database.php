@@ -62,13 +62,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $active_group = 'default';
 $query_builder = TRUE;
 
-
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => '',
-	'database' => 'hospital_management',
+	'username' => 'ioreyuqp_infoioready_user',
+	'password' => '3ow(;b}b4=kT',
+	'database' => 'ioreyuqp_infoioready',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => 'vendor_sale_',
 	'pconnect' => FALSE,
