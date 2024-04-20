@@ -546,10 +546,11 @@
         new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                labels: ['Total Patient', 'Total Care Unit'
+, 'Total Patient Today', 'Total Infections', 'New Patient', 'Total Antibiotic'],
                 datasets: [{
                     label: '# of Votes',
-                    data: [12, 19, 3, 5, 2, 3],
+                    data: [<?php echo $total_patient_doctors; ?>, <?php echo $careUnit; ?>, <?php echo $total_today_patient_doctors; ?>, <?php echo $initial_dx; ?>, <?php echo $total_today_patient_doctors; ?>, <?php echo $initial_rx; ?>],
                     borderWidth: 2,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.9)',

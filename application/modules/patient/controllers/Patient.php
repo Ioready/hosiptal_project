@@ -69,7 +69,8 @@ class Patient extends Common_Controller
         $this->data['careUnits'] = json_decode($AdminCareUnitID);
         
         $y = $this->data['careUnits'];
-        $x = count($y);
+        //print_r($y);die;
+       // $x = count($y);
         
         $careUnitData = array();
         foreach ($this->data['careUnits'] as $value) {
