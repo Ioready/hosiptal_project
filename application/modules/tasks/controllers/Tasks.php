@@ -160,7 +160,7 @@ class Tasks extends Common_Controller
        $facility_id= $datadoctors->facility_user_id;
     
 
-        $Sql = "SELECT vendor_sale_task.id as patient_id,vendor_sale_task.task_name,vendor_sale_task.patient_name,vendor_sale_task.task_comment,vendor_sale_task.type,vendor_sale_task.due_date as culture_source_name,vendor_sale_users.first_name as f_name, vendor_sale_users.last_name as l_name, vendor_sale_care_unit.name as type_name, vendor_sale_task.priority FROM vendor_sale_task  LEFT JOIN vendor_sale_users ON vendor_sale_users.id= vendor_sale_task.assign_to LEFT JOIN vendor_sale_care_unit ON vendor_sale_care_unit.id = vendor_sale_task.type  WHERE vendor_sale_task.facility_user_id= $facility_id ORDER BY vendor_sale_task.id desc";
+        $Sql = "SELECT vendor_sale_task.id as patient_id, vendor_sale_task.status as task_status ,vendor_sale_task.task_name,vendor_sale_task.patient_name,vendor_sale_task.task_comment,vendor_sale_task.type,vendor_sale_task.due_date as culture_source_name,vendor_sale_users.first_name as f_name, vendor_sale_users.last_name as l_name, vendor_sale_care_unit.name as type_name, vendor_sale_task.priority FROM vendor_sale_task  LEFT JOIN vendor_sale_users ON vendor_sale_users.id= vendor_sale_task.assign_to LEFT JOIN vendor_sale_care_unit ON vendor_sale_care_unit.id = vendor_sale_task.type  WHERE vendor_sale_task.facility_user_id= $facility_id ORDER BY vendor_sale_task.id desc";
 
 
         $careunit_facility_counts = $this->common_model->customQuery($Sql);
@@ -170,7 +170,7 @@ class Tasks extends Common_Controller
 
     } else if ($this->ion_auth->is_facilityManager()) {
         
-        $Sql = "SELECT vendor_sale_task.id as patient_id,vendor_sale_task.task_name,vendor_sale_task.patient_name,vendor_sale_task.task_comment,vendor_sale_task.type,vendor_sale_task.due_date as culture_source_name,vendor_sale_users.first_name as f_name, vendor_sale_users.last_name as l_name, vendor_sale_care_unit.name as type_name, vendor_sale_task.priority FROM vendor_sale_task  LEFT JOIN vendor_sale_users ON vendor_sale_users.id= vendor_sale_task.assign_to LEFT JOIN vendor_sale_care_unit ON vendor_sale_care_unit.id = vendor_sale_task.type  WHERE vendor_sale_task.facility_user_id= $CareUnitID ORDER BY vendor_sale_task.id desc";
+        $Sql = "SELECT vendor_sale_task.id as patient_id, vendor_sale_task.status as task_status,vendor_sale_task.task_name,vendor_sale_task.patient_name,vendor_sale_task.task_comment,vendor_sale_task.type,vendor_sale_task.due_date as culture_source_name,vendor_sale_users.first_name as f_name, vendor_sale_users.last_name as l_name, vendor_sale_care_unit.name as type_name, vendor_sale_task.priority FROM vendor_sale_task  LEFT JOIN vendor_sale_users ON vendor_sale_users.id= vendor_sale_task.assign_to LEFT JOIN vendor_sale_care_unit ON vendor_sale_care_unit.id = vendor_sale_task.type  WHERE vendor_sale_task.facility_user_id= $CareUnitID ORDER BY vendor_sale_task.id desc";
    
 
         $careunit_facility_counts = $this->common_model->customQuery($Sql);
@@ -2111,5 +2111,27 @@ class Tasks extends Common_Controller
         $template2 = $this->send_mail_smtp1($template3, $to_email);
 
         return $template2;
+    }
+
+    function update_task_doctor() {
+        $delId = decoding($_GET['q']);
+        $notificationId = $this->input->post('notificationId');
+        $status = $this->input->post('status');
+       
+                $options = array(
+                    'table' => 'task',
+                    'data' => array('status' => $status),
+                    'where' => array(
+                        'id' => $notificationId
+                    )
+                );
+                $result = $this->common_model->customUpdate($options);
+          
+        if ($result) {
+            echo "Status updated successfully.";
+        } else {
+            echo "Failed to update status.";
+        }
+        // redirect('notification/notification_list');
     }
 }

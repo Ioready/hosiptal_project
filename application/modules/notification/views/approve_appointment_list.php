@@ -551,6 +551,7 @@ $(document).ready(function() {
             success: function(response) {
                 // Handle success response, if needed
                 console.log(response);
+                window.location.reload();
             },
             error: function(xhr, status, error) {
                 // Handle error response, if needed

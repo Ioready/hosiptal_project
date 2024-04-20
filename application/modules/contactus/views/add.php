@@ -24,20 +24,20 @@
         <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url($formUrl) ?>" enctype="multipart/form-data">
 
         <!-- <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('business/vendors_add') ?>" enctype="multipart/form-data"> -->
-            <div class="modal-header">
-                <h3 class="modal-title"><strong> Basic Details</strong></h3>
+            <div class="text-center">
+                <h3 class="modal-title text-center"><strong> Basic Details</strong></h3>
             </div>
             <!-- <div class="loaders">
                 <img src="<?php //echo base_url().'backend_asset/images/Preloader_2.gif';?>" class="loaders-img" class="img-responsive">
             </div> -->
             <div class="alert alert-danger" id="error-box" style="display: none"></div>
-            <div class="form-body">
+            <div class="form- mt-4">
                 <div class="row">
                     <div class="col-md-12" >
                         <div class="form-group">
-                           <div class="col-md-2"></div>
+                           <!-- <div class="col-md-2"></div>
 
-                           <div class="col-md-10">
+                           <div class="col-md-10"> -->
                             <div class="col-md-4">
                             <label class="">First Name</label>
                                 <input type="text" class="form-control" name="first_name" id="first_name" placeholder="<?php echo lang('first_name');?>" />
@@ -62,27 +62,27 @@
                     
                     <div class="col-md-12" >
                         <div class="form-group">
-                            <div class="col-md-2">
+                            <!-- <div class="col-md-2">
 
-                            </div>
+                            </div> -->
 
-                            <div class="col-md-10">
-                                <div class="col-md-12">
+                            <!-- <div class="col-md-12"> -->
+                                <!-- <div class="col-md-12"> -->
                                     <label class="">Company (Optional)</label>
                                     <input type="text" class="form-control" name="company" id="company" placeholder="<?php echo lang('company');?>" />
-                                </div>
+                                <!-- </div> -->
                             
-                            </div>
+                            <!-- </div> -->
                         </div>
                     </div>
 
 
                     <div class="col-md-12" >
                         <div class="form-group">
-                            <div class="col-md-2"></div>
+                            <!-- <div class="col-md-2"></div> -->
 
-                            <div class="col-md-10">
-                                <div class="col-md-12">
+                            <!-- <div class="col-md-10"> -->
+                                <!-- <div class="col-md-12"> -->
                                  <label class="">This Contacts is a clinician</label> <br>
                                  
                                     <div class="form-group">
@@ -98,40 +98,40 @@
                                             <label class="custom-control-label" for="customRadioInline2">Yes</label>                                      
                                     </div>
                                     </div>
-                             </div>
-                            </div>
+                             <!-- </div>
+                            </div> -->
                         </div>
                     </div>
 
                     
                     <div class="col-md-12" >
                         <div class="form-group">
-                            <div class="col-md-2">
+                            <!-- <div class="col-md-2">
 
-                            </div>
+                            </div> -->
 
-                             <div class="col-md-10">
-                                <div class="col-md-12">
+                             <!-- <div class="col-md-10">
+                                <div class="col-md-12"> -->
                                     <label class="">Comments (Optional)</label>
                                     <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
-                                </div>
+                                <!-- </div>
                             
-                            </div>
+                            </div> -->
                         </div>
                     </div>
 
 
-                    <div class="modal-header">
+                    <div class="text-center">
                         <h3 class="modal-title"><strong> Contact details</strong></h3>
                     </div>
 
                     
                     <div class="col-md-12" >
                         <div class="form-group">
-                           <div class="col-md-2">
-                           </div>
+                           <!-- <div class="col-md-2">
+                           </div> -->
 
-                           <div class="col-md-10">
+                           <!-- <div class="col-md-10"> -->
                                 <div class="col-md-6">
                                     <label class="">Phone Type</label>
                                     <select id="phone_code" name="phone_type" class="form-control select2" size="1" placeholder="Choose a phone type">
@@ -149,7 +149,7 @@
                                     <label class="">Phone Number</label>
                                     <input type="text" class="form-control" name="phone_number" id="phone_number" placeholder="<?php echo lang('Phone Number');?>" />
                                 </div>
-                            </div>
+                            <!-- </div> -->
                         </div>
                     </div>
 
@@ -157,50 +157,50 @@
 
                     <div class="col-md-12" >
                         <div class="form-group">
-                            <div class="col-md-2">
+                            <!-- <div class="col-md-2">
 
-                            </div>
+                            </div> -->
 
-                            <div class="col-md-10">
-                                <div class="col-md-12">
+                            <!-- <div class="col-md-10">
+                                <div class="col-md-12"> -->
                                     <label class=""><?php echo lang('user_email');?> (Optional)</label>
                                     <input type="email" class="form-control" name="user_email" id="user_email" placeholder="<?php echo lang('user_email');?>" />
-                                </div>
+                                <!-- </div>
                             
-                            </div>
+                            </div> -->
                         </div>
                     </div>
 
                 
                     <div class="col-md-12" >
                         <div class="form-group">
-                            <div class="col-md-2">
+                            <!-- <div class="col-md-2">
 
-                            </div>
+                            </div> -->
 
-                            <div class="col-md-10">
-                                <div class="col-md-12">
+                            <!-- <div class="col-md-10">
+                                <div class="col-md-12"> -->
                                     <label class="">Address Lookup</label>
                                     <input type="text" class="form-control" name="address_lookup" id="address_lookup" placeholder="Address Lookup" />
-                                </div>
+                                <!-- </div>
                             
-                            </div>
+                            </div> -->
                         </div>
                     </div>
 
                     <div class="col-md-12" >
                         <div class="form-group">
-                            <div class="col-md-2">
+                            <!-- <div class="col-md-2">
 
-                            </div>
+                            </div> -->
 
-                            <div class="col-md-10">
-                                <div class="col-md-12">
+                            <!-- <div class="col-md-10">
+                                <div class="col-md-12"> -->
                                     <label class="">Street address (Optional)</label>
                                     <input type="text" class="form-control" name="streem_address" id="streem_address" placeholder="Streem Address" />
-                                </div>
+                                <!-- </div>
                             
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                      
@@ -208,9 +208,9 @@
 
                     <div class="col-md-12" >
                         <div class="form-group">
-                           <div class="col-md-2"></div>
+                          <!-- <div class="col-md-2"></div> -->
 
-                           <div class="col-md-10">
+                           <!-- <div class="col-md-10"> -->
                             <div class="col-md-4">
                             <label class="">City (Optional)</label>
                                     <select id="country" name="city" class="form-control select2" size="1">
@@ -244,21 +244,21 @@
                                     </select>
                             </div>
 
-                            </div>
+                            <!-- </div> -->
 
                         </div>
                     </div>
 
-                    <div class="modal-header">
+                    <div class="text-center">
                         <h3 class="modal-title"><strong> Billing settings</strong></h3>
                     </div>
 
-                    <div class="col-md-12" >
+                    <div class="col-md-12 mt-4" >
                         <div class="form-group">
-                           <div class="col-md-2">
-                           </div>
+                           <!-- <div class="col-md-2">
+                           </div> -->
 
-                           <div class="col-md-10">
+                           <!-- <div class="col-md-10"> -->
                                 <div class="col-md-6">
                                     <label class="">Billing details(optional)</label>
                                     
@@ -270,46 +270,46 @@
                                     <label class="">Payment reference(optional)</label>
                                     <input type="text" class="form-control" name="payment_reference" id="payment_reference" placeholder="<?php echo lang('Payment Reference');?>" />
                                 </div>
-                            </div>
+                            <!-- </div> -->
                         </div>
                     </div>
 
 
                     
-                    <div class="modal-header">
+                    <div class="text-center">
                         <h3 class="modal-title"><strong> ID numbers</strong></h3>
                     </div>
 
 
-                    <div class="col-md-12" >
+                    <div class="col-md-12 mt-4" >
                         <div class="form-group">
-                            <div class="col-md-2">
+                            <!-- <div class="col-md-2">
 
-                            </div>
+                            </div> -->
 
-                            <div class="col-md-10">
+                            <!-- <div class="col-md-10"> -->
                                 <div class="col-md-12">
                                     <label class="">System</label>
                                     <input type="text" class="form-control" name="System" id="System" placeholder="System Id" />
                                 </div>
                             
-                            </div>
+                            <!-- </div> -->
                         </div>
                     </div>
 
 
-                    <div class="modal-header">
+                    <div class="text-center">
                         <h3 class="modal-title"><strong> Healthcode</strong></h3>
                     </div>
 
 
-                    <div class="col-md-12" >
+                    <div class="col-md-12 mt-4" >
                         <div class="form-group">
-                            <div class="col-md-2">
+                            <!-- <div class="col-md-2">
 
-                            </div>
+                            </div> -->
 
-                            <div class="col-md-10">
+                            <div class="col-md-12">
                                 <div class="col-md-12">
                                     <label class="">Healthcode identifier (insurance)(optional)</label>
                                     <input type="text" class="form-control" name="healthcode" id="healthcode" placeholder="Health Code" />
