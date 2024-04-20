@@ -556,7 +556,7 @@
                         'rgba(255, 99, 132, 0.9)',
                         'rgba(54, 162, 235, 0.9)',
                         'rgba(255, 205, 86, 0.9)',
-                        'rgba(75, 192, 192, 0.9)',
+                        'rgba(61, 0, 78, 25)',
                         'rgba(153, 102, 255, 0.9)',
                         'rgba(255, 159, 64, 0.9)'
                     ],
@@ -564,7 +564,7 @@
                         'rgba(255, 99, 132, 1)',
                         'rgba(54, 162, 235, 1)',
                         'rgba(255, 205, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
+                        'rgba(61, 0, 78, 25)',
                         'rgba(153, 102, 255, 1)',
                         'rgba(255, 159, 64, 1)'
                     ],
@@ -584,13 +584,13 @@
         const pie = document.getElementById('myChart2');
         const data = {
             labels: [
-                'Red',
-                'Blue',
-                'Yellow'
+                'Total Patient:<?php echo $total_patient_doctors; ?>',
+                'Total Care Unit:<?php echo $careUnit; ?>',
+                'Total Patient Today:<?php echo $total_today_patient_doctors; ?>'
             ],
             datasets: [{
-                label: 'My First Dataset',
-                data: [300, 50, 100],
+                label: '',
+                data: [<?php echo $total_patient_doctors; ?>, <?php echo $careUnit; ?>,<?php echo $total_today_patient_doctors; ?>],
                 backgroundColor: [
                     'rgb(255, 99, 132)',
                     'rgb(54, 162, 235)',
