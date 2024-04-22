@@ -329,7 +329,7 @@ class Pwfpanel extends Common_Controller
                 //$data['total_patient_today'] = $this->common_model->customCount($option);
                 // redirect('reportsSummary', 'refresh');
 
-                $option = array('table' =>vendor_sale_patient . ' as appointment_clinic',
+                $option = array('table' => 'vendor_sale_patient' . ' as appointment_clinic',
                 'select' => 'appointment_clinic .*',
                 'join' => array(
                     array( USERS . ' as user', 'user.id = appointment_clinic.doctor_id', 'left'),
