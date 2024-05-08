@@ -438,34 +438,112 @@
                         <?php } else if ($this->ion_auth->is_subAdmin()) { ?>
 
 
+                    <div class="panel-body">
+                            <form action="<?php echo site_url('pwfpanel'); ?>" name="patientForm" method="get">
 
-    <div class="col-lg-3 col-md-6 dashboardBoxes">
-    <div style="background-color:<?php echo $total_patient_doctors > 0 ? '#F9F5FF' : '#F9F5FF'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
-        <div class="ibox-content">
-            <h1 class="no-margins"><?php echo $total_patient_doctors; ?></h1>
-            <h5 class="text-primary"><strong>Total Patient </strong></h5>
-        </div>
-        <img src="<?php echo base_url(); ?>uploads/user.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
-    </div>
-</div>
+                            <div class="col-lg-3">
+                                    <?php // print_r($careUnitsUser);die;
+                                    ?>
+                                    <select id="weeks" name="weeks" class="form-control select-2">
+                                       
+                                        <option value="">Select Week</option>
+                                            <option value="01">1 Week</option>
+                                            <option value="02">2 Week</option>
+                                            <option value="03">3 Week</option>
+                                            <option value="04">4 Week</option>
+                                            <option value="05">5 Week</option>
+                                           
+                                    </select>
+                                </div>
+                                <div>
+                                <div class="col-lg-3">
+                                        <select class="form-control" name="month" id="month">
+                                            <option value="">Select Month</option>
+                                            <option value="01">January</option>
+                                            <option value="02">February</option>
+                                            <option value="03">March</option>
+                                            <option value="04">April</option>
+                                            <option value="05">May</option>
+                                            <option value="06">June</option>
+                                            <option value="07">July</option>
+                                            <option value="08">August</option>
+                                            <option value="09">September</option>
+                                            <option value="10">October</option>
+                                            <option value="11">November</option>
+                                            <option value="12">December</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-2">
+                                    <select class="form-control" name="year" id="year">
+                                            <?php
+                                            // Get the current year
+                                            $current_year = date("Y");
+
+                                            // Loop through years from 10 years ago to 10 years in the future
+                                            for ($i = $current_year - 10; $i <= $current_year + 10; $i++) {
+                                                // Check if the current iteration is the current year
+                                                $selected = ($i == $current_year) ? 'selected' : '';
+
+                                                // Output each year as an option
+                                                echo "<option value='$i' $selected>$i</option>";
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-sm-6 col-lg-1" style="margin-right: 8px;">
+                                        <input type="submit" name="search" class="btn btn-primary btn-sm save-btn" value="Search" />
+                                    </div>
+                                    
+
+                                    <!-- <form action="<?php echo site_url('task'); ?>" name="patientFormExport" method="get"> -->
+                                <div class="col-sm-12 col-lg-2">
+                                    <button type="submit" class="btn btn-primary btn-sm save-btn">
+                                        <fa class="fa fa-undo"></fa> Reset
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
 
 
-           <div class="col-lg-3 dashboardBoxes">
+                    <div class="col-lg-4 col-md-6 dashboardBoxes">
+                        <div style="background-color:<?php echo $total_today_patient_doctors > 0 ? '#F9F5FF' : '#F9F5FF'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
+                            <div class="ibox-content">
+                                <h1 class="no-margins"><?php echo $total_today_patient_doctors; ?></h1>
+                                <h5 class="text-primary"><strong>New Review  </strong></h5>
+                            </div>
+                            <img src="<?php echo base_url(); ?>uploads/user.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+                        </div>
+                    </div>
+
+            <!-- <div class="col-lg-3 col-md-6 dashboardBoxes">
+                <div style="background-color:<?php echo $total_patient_doctors > 0 ? '#F9F5FF' : '#F9F5FF'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <h1 class="no-margins"><?php echo $total_patient_doctors; ?></h1>
+                        <h5 class="text-primary"><strong>New Review </strong></h5>
+                    </div>
+                    <img src="<?php echo base_url(); ?>uploads/user.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+                </div>
+            </div> -->
+
+
+           <div class="col-lg-4 dashboardBoxes">
                <div style="background-color:#FEE2E1; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);"  class="ibox float-e-margins">
                    <!-- <div class="ibox-title">
                    </div> -->
                    <div class="ibox-content">
                    <h1 class="no-margins">
 
-                   <?php echo $careUnit; ?>
+                   <?php echo $total_patient_doctors; ?>
                    </h1>
-                   <h5 class="text-primary"><strong>Total Care Unit</strong></h5>
+                   <h5 class="text-primary"><strong>Total Review Patient</strong></h5>
                    </div>
-                   <img src="<?php echo base_url(); ?>uploads/intravenous-therapy.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
-               </div>
+                   <img src="<?php echo base_url(); ?>uploads/user.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
            </div>
+            </div>
 
-           <div class="col-lg-3 dashboardBoxes">
+           <div class="col-lg-4 dashboardBoxes">
                <div style="background-color:#DAEBFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
                    <!-- <div class="ibox-title">
                    </div> -->
@@ -474,19 +552,19 @@
 
                    <?php echo $initial_dx; ?>
                    </h1>
-                   <h5 class="text-primary"><strong>Total Infections</strong></h5>
+                   <h5 class="text-primary"><strong>Infections should be complication</strong></h5>
                    </div>
                    <img src="<?php echo base_url(); ?>uploads/infected.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
                </div>
            </div>
            
-           <div class="col-lg-3 dashboardBoxes">
+           <div class="col-lg-4 dashboardBoxes">
                    <div style="background-color:#D0FAE4; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
                        <!-- <div class="ibox-title">
                        </div> -->
                        <div class="ibox-content">
                            <h1 class="no-margins"><?php echo $initial_rx; ?></h1>
-                           <h5 class="text-primary"><strong>Total Antibiotic</strong></h5>
+                           <h5 class="text-primary"><strong>Task to complete</strong></h5>
                        </div>
                        <img src="<?php echo base_url(); ?>uploads/medicine.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
                    </div>
@@ -497,7 +575,7 @@
                       
                        <div class="ibox-content">
                            <h1 class="no-margins"><?php echo $total_today_patient_doctors; ?></h1>
-                           <h5 class="text-primary"><strong>Total Patient Today</strong></h5>
+                           <h5 class="text-primary"><strong>Total Revenue</strong></h5>
                        </div>
                        <img src="<?php echo base_url(); ?>uploads/patient.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
                    </div>
@@ -511,14 +589,14 @@
     <div style="background-color:<?php echo $total_today_patient_doctors > 0 ? '#F9F5FF' : '#F9F5FF'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
         <div class="ibox-content">
             <h1 class="no-margins"><?php echo $total_today_patient_doctors; ?></h1>
-            <h5 class="text-primary"><strong>New Patient </strong></h5>
+            <h5 class="text-primary"><strong>Diary- Integration with google icloud microsoft diaries  </strong></h5>
         </div>
         <img src="<?php echo base_url(); ?>uploads/user.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
     </div>
 </div>
 
 
-<div class="col-lg-4 col-md-6 dashboardBoxes">
+<!-- <div class="col-lg-4 col-md-6 dashboardBoxes">
     <div style="background-color:<?php echo $total_patient_today > 0 ? '#FFFAEC' : '#FFFAEC'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
         <div class="ibox-content">
             <h1 class="no-margins"><?php echo $total_patient_today; ?></h1>
@@ -526,7 +604,7 @@
         </div>
         <img src="<?php echo base_url(); ?>uploads/syringe.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
     </div>
-</div>
+</div> -->
 
 
 <div class="row m-2">
@@ -546,16 +624,17 @@
         new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                labels: ['Total Patient', 'Total Care Unit'
+, 'Total Patient Today', 'Total Infections', 'New Patient', 'Total Antibiotic'],
                 datasets: [{
                     label: '# of Votes',
-                    data: [12, 19, 3, 5, 2, 3],
+                    data: [<?php echo $total_patient_doctors; ?>, <?php echo $careUnit; ?>, <?php echo $total_today_patient_doctors; ?>, <?php echo $initial_dx; ?>, <?php echo $total_today_patient_doctors; ?>, <?php echo $initial_rx; ?>],
                     borderWidth: 2,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.9)',
                         'rgba(54, 162, 235, 0.9)',
                         'rgba(255, 205, 86, 0.9)',
-                        'rgba(75, 192, 192, 0.9)',
+                        'rgba(61, 0, 78, 25)',
                         'rgba(153, 102, 255, 0.9)',
                         'rgba(255, 159, 64, 0.9)'
                     ],
@@ -563,7 +642,7 @@
                         'rgba(255, 99, 132, 1)',
                         'rgba(54, 162, 235, 1)',
                         'rgba(255, 205, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
+                        'rgba(61, 0, 78, 25)',
                         'rgba(153, 102, 255, 1)',
                         'rgba(255, 159, 64, 1)'
                     ],
@@ -583,13 +662,13 @@
         const pie = document.getElementById('myChart2');
         const data = {
             labels: [
-                'Red',
-                'Blue',
-                'Yellow'
+                'Total Patient:<?php echo $total_patient_doctors; ?>',
+                'Total Care Unit:<?php echo $careUnit; ?>',
+                'Total Patient Today:<?php echo $total_today_patient_doctors; ?>'
             ],
             datasets: [{
-                label: 'My First Dataset',
-                data: [300, 50, 100],
+                label: '',
+                data: [<?php echo $total_patient_doctors; ?>, <?php echo $careUnit; ?>,<?php echo $total_today_patient_doctors; ?>],
                 backgroundColor: [
                     'rgb(255, 99, 132)',
                     'rgb(54, 162, 235)',
@@ -616,27 +695,29 @@
 <?php } else if ($this->ion_auth->is_facilityManager()) { ?>
 
                         
-                            <div class="col-lg-4 dashboardBoxes">
-                                    <div style="background-color:#D0FAE4; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
-                                        <!-- <div class="ibox-title">
-                                        </div> -->
-                                        <div class="ibox-content">
-                                            <h1 class="no-margins"><?php echo $total_appointment; ?></h1>
-                                            <h5 class="text-primary"><strong>Total Today Appointment</strong></h5>
-                                        </div>
-                                        <img src="<?php echo base_url(); ?>uploads/appointment.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
-                                    </div>
-                            </div>
 
-                            <div class="col-lg-4 col-md-6 dashboardBoxes">
-                                <div style="background-color:<?php echo $total_patient > 0 ? '#F9F5FF' : '#F9F5FF'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
-                                    <div class="ibox-content">
-                                        <h1 class="no-margins"><?php echo $total_patient; ?></h1>
-                                        <h5 class="text-primary"><strong>Total Patient </strong></h5>
-                                    </div>
-                                    <img src="<?php echo base_url(); ?>uploads/user.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
-                                </div>
-                            </div>
+    
+            <div class="col-lg-4 dashboardBoxes">
+                    <div style="background-color:#D0FAE4; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
+                        <!-- <div class="ibox-title">
+                        </div> -->
+                        <div class="ibox-content">
+                            <h1 class="no-margins"><?php echo $total_appointment; ?></h1>
+                            <h5 class="text-primary"><strong>Total Today Appointment</strong></h5>
+                        </div>
+                        <img src="<?php echo base_url(); ?>uploads/appointment.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+                    </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 dashboardBoxes">
+                <div style="background-color:<?php echo $total_patient > 0 ? '#F9F5FF' : '#F9F5FF'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <h1 class="no-margins"><?php echo $total_patient; ?></h1>
+                        <h5 class="text-primary"><strong>Total Patient </strong></h5>
+                    </div>
+                    <img src="<?php echo base_url(); ?>uploads/user.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+                </div>
+            </div>
 
                         
 

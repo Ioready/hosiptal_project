@@ -67,7 +67,7 @@ class Tasks extends Common_Controller
         $this->data['careUnits'] = json_decode($AdminCareUnitID);
 
         $y = $this->data['careUnits'];
-        $x = count($y);
+       // $x = count($y);
         // print_r($x);die;
 
         $careUnitData = array();

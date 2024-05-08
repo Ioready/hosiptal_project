@@ -183,9 +183,9 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label class="col-md-3 control-label">Patient</label>
+                            <label class="col-md-3 control-label"> Today Patient</label>
                             <div class="col-md-9">
-                                <input type="text" id="patient" name="patient" class="form-control" placeholder="New Patient" style="text-align: justify;" required>
+                                <input type="text" id="patient" name="patient" class="form-control" placeholder="Today Patient" style="text-align: justify;" required>
                             </div>
                         </div>
                     </div>
@@ -194,10 +194,10 @@
                             
                             <?php 
                         if ($this->ion_auth->is_facilityManager()) { ?>
-                            <label class="col-md-3 control-label">Location</label>
+                            <label class="col-md-3 control-label">Hospital Location</label>
                                 <div class="col-md-9">
                                 <select id="country" name="location_appointment" class="form-control select2" size="1">
-                                    <option value="0">Please select</option>
+                                    <option value="0">This is The Hospital Location</option>
 
                                     <?php foreach ($care_unit as $care_units) { ?>
                                         <option value="<?php echo $care_units->id; ?>"><?php echo $care_units->name; ?></option>
@@ -210,7 +210,7 @@
                             </div>
                         <?php }else { ?>
                         
-                            <label class="col-md-3 control-label">Location</label>
+                            <label class="col-md-3 control-label">Hospital Location</label>
                             <div class="col-md-9">
                                 <select id="country" name="location_appointment" class="form-control select2" size="1">
                                     <option value="0">Please select</option>
@@ -232,7 +232,7 @@
                             <label class="col-md-3 control-label">Clinician</label>
                             <div class="col-md-9">
                                 <select id="country" name="clinician_appointment" class="form-control select2" size="1">
-                                    <option value="0">Please select</option>
+                                    <option value="0">Please Sellect Doctor who is doing the appointment</option>
                                     <?php foreach ($doctorsname as $country) { ?>
                                         <option value="<?php echo $country->email; ?>"><?php echo $country->first_name.' '.$country->last_name; ?></option>
                                     <?php } ?>
