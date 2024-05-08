@@ -290,21 +290,21 @@
                 <thead>
                     <tr>
                         <th style="background-color:#DBEAFF;font-size:1.3rem;width:40px !important">Sr. No</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem">Date Of Start ABX</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem">Date Of Start patient frist seen</th>
                         <th style="background-color:#DBEAFF;font-size:1.3rem">Patient ID</th>
                         <th style="background-color:#DBEAFF;font-size:1.3rem">Patient Name</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem">Care Unit</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem">Specility</th>
                         <th style="background-color:#DBEAFF;font-size:1.3rem">Provider MD</th>
                         <th style="background-color:#DBEAFF;font-size:1.3rem">Diagnosis</th>
                         <th style="background-color:#DBEAFF;font-size:1.3rem">Room Number</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem">Infection Onset</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem">Total Days</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem">Labs</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem">Complication</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem">Nect appointment</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem">Investigation</th>
                         <!-- <th style="background-color:#DBEAFF;font-size:1.3rem">Culture Source</th> -->
-                        <th style="background-color:#DBEAFF;font-size:1.3rem">Organism</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem">Antibiotic Name</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem">Lettercomplete/Notcomplete</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem">Invoice</th>
                         <!-- <th style="background-color:#DBEAFF;font-size:1.3rem">MD Steward</th> -->
-                        <th style="background-color:#DBEAFF;font-size:1.3rem">Hospital Name</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem">Pending task</th>
                         <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('action'); ?></th>
                     </tr>
                 </thead>
@@ -350,7 +350,7 @@
                                     <td><?php echo 'NULL'; ?></td>
                                 <?php } ?>
 
-                                <td><?php echo $rows->initial_dot; ?></td>
+                                <td><?php echo $rows->total_days_of_patient_stay; ?></td>
 
                                 <?php if (!empty($rows->culture_source_name)) { ?>
                                     <td><?php echo $rows->culture_source_name; ?></td>
@@ -365,7 +365,7 @@
                                 <?php } ?>
 
                                 <td><?php echo $rows->initial_rx_name; ?></td>
-                                <td><?php echo ucfirst($rows->md_stayward); ?></td>
+                                <td><?php echo ucfirst($rows->md_patient_status); ?></td>
                     
       <td class="actions">
     <a href="javascript:void(0)" class="btn btn btn-xs  btn-warning" onclick="editFn('index.php/patient', 'edit_patient', '<?php echo encoding($rows->patient_id) ?>', 'patient');">
