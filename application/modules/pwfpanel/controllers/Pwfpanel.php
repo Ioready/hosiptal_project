@@ -153,12 +153,56 @@ class Pwfpanel extends Common_Controller
                 $data['all_plan_list'] = $this->common_model->customGet($option);
 
                 if ($this->ion_auth->is_subAdmin()) {
-                    $date = date("Y-m-d");
-                    $AdminCareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
-                $Sql = "SELECT vendor_sale_patient.operator_id FROM vendor_sale_patient WHERE vendor_sale_patient.doctor_id = $AdminCareUnitID";
-                $careunit_facility_counts = $this->common_model->customQuery($Sql);
-                $user_facility_counts = count($careunit_facility_counts);
-                $data['total_patient_doctors'] = $user_facility_counts;
+
+
+$date = date("Y-m-d");
+
+$AdminCareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+
+
+$week = $this->input->get('weeks');
+$month = $this->input->get('month');
+$year = $this->input->get('year');
+
+// Build the WHERE clause based on the selected date range
+$whereClause = '';
+if (!empty($week)) {
+    // Calculate the start and end dates for the selected week
+    $startDate = date("Y-m-d", strtotime("last monday", strtotime("+$week week")));
+    $endDate = date("Y-m-d", strtotime("next sunday", strtotime("+$week week")));
+    $whereClause = "AND created_date BETWEEN '$startDate' AND '$endDate'";
+} elseif (!empty($month) && !empty($year)) {
+    // Create the date range for the selected month and year
+    $startDate = "$year-$month-01";
+    $endDate = date("Y-m-t", strtotime($startDate)); // Last day of the month
+    $whereClause = "AND created_date BETWEEN '$startDate' AND '$endDate'";
+   
+} elseif (!empty($year)) {
+    // Filter by the selected year
+    $whereClause = "AND YEAR(created_date) = '$year'";
+
+    
+}
+
+
+// Construct the SQL query
+$AdminCareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+$sql = "SELECT vendor_sale_patient.operator_id 
+        FROM vendor_sale_patient 
+        WHERE vendor_sale_patient.doctor_id = $AdminCareUnitID $whereClause";
+        //  $sql .= $whereClause;
+$careunit_facility_counts = $this->common_model->customQuery($sql);
+$user_facility_counts = count($careunit_facility_counts);
+$data['total_patient_doctors'] = $user_facility_counts;
+
+
+
+                //     $date = date("Y-m-d");
+                //     $AdminCareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+                // $Sql = "SELECT vendor_sale_patient.operator_id FROM vendor_sale_patient WHERE vendor_sale_patient.doctor_id = $AdminCareUnitID";
+                // $careunit_facility_counts = $this->common_model->customQuery($Sql);
+                // $user_facility_counts = count($careunit_facility_counts);
+                // $data['total_patient_doctors'] = $user_facility_counts;
 
 
                 $AdminCareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
@@ -171,6 +215,7 @@ class Pwfpanel extends Common_Controller
                 $data['initial_dx_doctor'] = $this->common_model->customCount(array('table' => 'initial_dx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0)));
                 $data['initial_rx_doctor'] = $this->common_model->customCount(array('table' => 'initial_rx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0)));
 
+                
 
                     $this->load->admin_render('dashboard', $data);
                     // redirect('patient', 'refresh');
