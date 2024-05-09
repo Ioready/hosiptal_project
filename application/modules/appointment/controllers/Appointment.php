@@ -22,6 +22,7 @@ class Appointment extends Common_Controller {
     public function index($vendor_profile_activate = "No") {
 
        
+        // print_r($this->data['results']);die;
         $this->data['parent'] = $this->title;
        
         $this->data['title'] = $this->title;
@@ -247,7 +248,20 @@ class Appointment extends Common_Controller {
      * @description get profile
      * @return array
      */
-  
+  function search(){
+
+    // $query = $this->input->get('query');
+    $paramValue = $this->input->get('search');
+    // print_r($paramValue);die;
+$this->db->like('patient_id', $paramValue); 
+$results = $this->db->get('vendor_sale_patient')->result_array();
+// print_r($results);die;
+$data['results'] = $results;
+
+    // Load the view and pass the data to it
+    $this->load->view('add', $data);
+
+  }
     
     /**
      * @method open_model

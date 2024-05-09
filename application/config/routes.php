@@ -78,6 +78,7 @@ $route['default_controller'] = 'pwfpanel';
 //$route['fantasy-account/(:any)/(:any)'] = 'frontPrediction/myAccount/$1/$2';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+$route['search'] = 'AppointmentController';
 $route['make-stripe-payment'] = "StripePaymentController";
 // $route['handleStripePayment']['post'] = "StripePaymentController/handlePayment";
 $route['check']['post'] = "StripePaymentController/check";
