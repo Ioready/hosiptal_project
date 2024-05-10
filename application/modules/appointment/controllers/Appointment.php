@@ -271,7 +271,8 @@ class Appointment extends Common_Controller {
 
         $paramValue = $this->input->get('search');
         
-        $this->db->like('patient_id', $paramValue); 
+        $this->db->like('patient_id', $paramValue);
+        $this->db->limit(1); 
 $results = $this->db->get('vendor_sale_patient')->result_array();
 // print_r($results);die;
 $this->data['results'] = $results;

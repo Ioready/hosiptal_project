@@ -172,13 +172,16 @@
     <div class="block full" style="width: 100%; max-width:900px;">
         <div class="block-title">
             <h2 class="form-head"><strong>Clinic Appointment</strong> Panel</h2>
-        </div>
-        <div class="modal-header text-center">
+        
+        
+        
+    </div>
+    <div class="modal-header text-center">
                 <h2 class="modal-title"><img src="<?php echo base_url(); ?>uploads/form.svg" style="height: 30px; width: 30px; filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%); margin-bottom: 5px;" alt=""> Clinic Appointment</h2>
                 
             </div>
-        <form action="<?php echo site_url('appointment/open_model'); ?>" method="get">
-  <label for="gsearch">Search patient id:</label>
+    <form action="<?php echo site_url('appointment/open_model'); ?>" method="get">
+  <label for="gsearch">Search patient:</label>
   <input type="search" id="search" name="search">
   <input type="submit">
 </form>
@@ -197,10 +200,20 @@
                                 // print_r($result['name']);
                                 ?>
                                 <input type="text" id="patient" name="patient" class="form-control" placeholder="Today Patient" style="text-align: justify;" value="<?php echo $result['name']; ?>">
-                                <?php endforeach; ?>
+                                
 
                             </div>
                         </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Patient id</label>
+                            <div class="col-md-3">
+                            <p><?php echo $result['patient_id']; ?></p>
+
+                            </div>
+                        </div>
+                        <?php endforeach; ?>
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
@@ -328,12 +341,12 @@
     <div class="block full" style="width: 100%; max-width:900px;">
         <div class="block-title">
             <h2 class="form-head"><strong>Theatre Appointment</strong> Panel</h2>
-            </div>
-            <div class="modal-header text-center">
+        </div>
+        <div class="modal-header text-center">
                 <h2 class="modal-title"><img src="<?php echo base_url(); ?>uploads/form.svg" style="height: 30px; width: 30px; filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%); margin-bottom: 5px;" alt=""> Theatre Appointment</h2>
             </div>
             <form action="<?php echo site_url('appointment/open_model'); ?>" method="get">
-  <label for="gsearch">Search patient id:</label>
+  <label for="gsearch">Search patient:</label>
   <input type="search" id="search" name="search">
   <input type="submit">
 </form>
@@ -359,6 +372,16 @@
     <p>No results found.</p>
 <?php endif; ?>
                         </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Patient id</label>
+                            <div class="col-md-3">
+                            <p><?php echo $result['patient_id']; ?></p>
+
+                            </div>
+                        </div>
+                        
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
