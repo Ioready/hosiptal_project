@@ -173,18 +173,18 @@
         <div class="block-title">
             <h2 class="form-head"><strong>Clinic Appointment</strong> Panel</h2>
         </div>
-        
-        <form action="<?php echo site_url('appointment/search'); ?>" method="get">
-  <label for="gsearch">Search patient:</label>
+        <div class="modal-header text-center">
+                <h2 class="modal-title"><img src="<?php echo base_url(); ?>uploads/form.svg" style="height: 30px; width: 30px; filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%); margin-bottom: 5px;" alt=""> Clinic Appointment</h2>
+                
+            </div>
+        <form action="<?php echo site_url('appointment/open_model'); ?>" method="get">
+  <label for="gsearch">Search patient id:</label>
   <input type="search" id="search" name="search">
   <input type="submit">
 </form>
 
         <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('index.php/' .$formUrl) ?>" enctype="multipart/form-data">
-            <div class="modal-header text-center">
-                <h2 class="modal-title"><img src="<?php echo base_url(); ?>uploads/form.svg" style="height: 30px; width: 30px; filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%); margin-bottom: 5px;" alt=""> Clinic Appointment</h2>
-                
-            </div>
+            
             <div class="alert alert-danger" id="error-box" style="display: none;"></div>
             <div class="form-body">
                 <br>
@@ -328,16 +328,18 @@
     <div class="block full" style="width: 100%; max-width:900px;">
         <div class="block-title">
             <h2 class="form-head"><strong>Theatre Appointment</strong> Panel</h2>
-            <form action="<?php echo site_url('appointment/search'); ?>" method="get">
-  <label for="gsearch">Search patient:</label>
-  <input type="search" id="search" name="search">
-  <input type="submit">
-</form>
-        </div>
-        <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('index.php/' .$formUrl) ?>" enctype="multipart/form-data">
+            </div>
             <div class="modal-header text-center">
                 <h2 class="modal-title"><img src="<?php echo base_url(); ?>uploads/form.svg" style="height: 30px; width: 30px; filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%); margin-bottom: 5px;" alt=""> Theatre Appointment</h2>
             </div>
+            <form action="<?php echo site_url('appointment/open_model'); ?>" method="get">
+  <label for="gsearch">Search patient id:</label>
+  <input type="search" id="search" name="search">
+  <input type="submit">
+</form>
+        
+        <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('index.php/' .$formUrl) ?>" enctype="multipart/form-data">
+            
             <div class="alert alert-danger" id="error-box" style="display: none;"></div>
             <div class="form-body">
                 <br>

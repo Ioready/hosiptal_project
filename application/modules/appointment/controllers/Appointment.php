@@ -248,20 +248,19 @@ class Appointment extends Common_Controller {
      * @description get profile
      * @return array
      */
-  function search(){
+//   function search(){
 
-    // $query = $this->input->get('query');
-    $paramValue = $this->input->get('search');
-    // print_r($paramValue);die;
-$this->db->like('patient_id', $paramValue); 
-$results = $this->db->get('vendor_sale_patient')->result_array();
-// print_r($results);die;
-$data['results'] = $results;
+//     // $query = $this->input->get('query');
+//     $paramValue = $this->input->get('search');
+//     // print_r($paramValue);die;
+// $this->db->like('patient_id', $paramValue); 
+// $results = $this->db->get('vendor_sale_patient')->result_array();
+// // print_r($results);die;
+// $this->data['results'] = $results;
+// $this->load->admin_render('add', $this->data, 'inner_script');
+    
 
-    // Load the view and pass the data to it
-    $this->load->view('add', $data);
-
-  }
+//   }
     
     /**
      * @method open_model
@@ -269,6 +268,13 @@ $data['results'] = $results;
      * @return array
      */
     function open_model() {
+
+        $paramValue = $this->input->get('search');
+        
+        $this->db->like('patient_id', $paramValue); 
+$results = $this->db->get('vendor_sale_patient')->result_array();
+// print_r($results);die;
+$this->data['results'] = $results;
       $this->data['parent'] = $this->title;
         $this->data['title'] = "Add " . $this->title;
         $this->data['formUrl'] = $this->router->fetch_class() . "/add";
