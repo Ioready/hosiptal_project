@@ -31,5 +31,13 @@ class Appointment_model extends CI_Model {
         $this->db->where('id', $id);
         $this->db->delete('appointments');
     }
+    public function search($query)
+    {
+        // print_r($query);die;
+        // Perform the search query using Active Record or Query Builder
+        $this->db->like('patient_id', $query); // Replace 'column_name' with the actual column you want to search against
+        $results = $this->db->get('vendor_sale_patient')->result_array(); // Replace 'table_name' with your database table name
+        return $results;
+    }
 }
 ?>

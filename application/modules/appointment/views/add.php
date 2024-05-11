@@ -172,11 +172,22 @@
     <div class="block full" style="width: 100%; max-width:900px;">
         <div class="block-title">
             <h2 class="form-head"><strong>Clinic Appointment</strong> Panel</h2>
-        </div>
-        <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('index.php/' .$formUrl) ?>" enctype="multipart/form-data">
-            <div class="modal-header text-center">
+        
+        
+        
+    </div>
+    <div class="modal-header text-center">
                 <h2 class="modal-title"><img src="<?php echo base_url(); ?>uploads/form.svg" style="height: 30px; width: 30px; filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%); margin-bottom: 5px;" alt=""> Clinic Appointment</h2>
+                
             </div>
+    <form action="<?php echo site_url('appointment/open_model'); ?>" method="get">
+  <label for="gsearch">Search patient:</label>
+  <input type="search" id="search" name="search">
+  <input type="submit">
+</form>
+
+        <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('index.php/' .$formUrl) ?>" enctype="multipart/form-data">
+            
             <div class="alert alert-danger" id="error-box" style="display: none;"></div>
             <div class="form-body">
                 <br>
@@ -185,9 +196,24 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label"> Today Patient</label>
                             <div class="col-md-9">
-                                <input type="text" id="patient" name="patient" class="form-control" placeholder="Today Patient" style="text-align: justify;" required>
+                            <?php foreach ($results as $result):
+                                // print_r($result['name']);
+                                ?>
+                                <input type="text" id="patient" name="patient" class="form-control" placeholder="Today Patient" style="text-align: justify;" value="<?php echo $result['name']; ?>">
+                                
+
                             </div>
                         </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Patient id</label>
+                            <div class="col-md-3">
+                            <p><?php echo $result['patient_id']; ?></p>
+
+                            </div>
+                        </div>
+                        <?php endforeach; ?>
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
@@ -316,25 +342,50 @@
         <div class="block-title">
             <h2 class="form-head"><strong>Theatre Appointment</strong> Panel</h2>
         </div>
-        <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('index.php/' .$formUrl) ?>" enctype="multipart/form-data">
-            <div class="modal-header text-center">
+        <div class="modal-header text-center">
                 <h2 class="modal-title"><img src="<?php echo base_url(); ?>uploads/form.svg" style="height: 30px; width: 30px; filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%); margin-bottom: 5px;" alt=""> Theatre Appointment</h2>
             </div>
+            <form action="<?php echo site_url('appointment/open_model'); ?>" method="get">
+  <label for="gsearch">Search patient:</label>
+  <input type="search" id="search" name="search">
+  <input type="submit">
+</form>
+        
+        <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('index.php/' .$formUrl) ?>" enctype="multipart/form-data">
+            
             <div class="alert alert-danger" id="error-box" style="display: none;"></div>
             <div class="form-body">
                 <br>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label class="col-md-3 control-label">Patient</label>
+                            <label class="col-md-3 control-label"> Today Patient</label>
+                            <?php if (!empty($results)) : ?>
+                            <?php foreach ($results as $result) {?>
                             <div class="col-md-9">
-                                <input type="text" id="patient" name="theatre_patient" class="form-control" placeholder="New Patient" style="text-align: justify;" required>
-                            </div>
+                            
+                                <input type="text" id="patient" name="theatre_patient" class="form-control" placeholder="New Patient" style="text-align: justify;" value="<?php echo $result['name']; ?>">
+                                
+                                </div>
+                                <?php } ?>
+                                <?php else : ?>
+    <p>No results found.</p>
+<?php endif; ?>
                         </div>
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label class="col-md-3 control-label">Location</label>
+                            <label class="col-md-3 control-label">Patient id</label>
+                            <div class="col-md-3">
+                            <p><?php echo $result['patient_id']; ?></p>
+
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="col-md-3 control-label"> Hospital Location</label>
                             <div class="col-md-9">
                                 <select id="country" name="theatre_location" class="form-control select2" size="1">
                                     <option value="0">Please select</option>
@@ -996,6 +1047,7 @@ $(document).ready(function() {
 
 
 </style>
+
 <script>
     
 $('.btnNext').click(function() {
