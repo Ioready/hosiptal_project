@@ -575,6 +575,7 @@
                </div>
            </div>
            
+           
            <div class="col-lg-4 dashboardBoxes">
                    <div style="background-color:#D0FAE4; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
                        <!-- <div class="ibox-title">
