@@ -431,7 +431,7 @@ class Users extends Common_Controller
         }
         if ($this->form_validation->run() == true) {
 
-            $this->filedata['status'] = 1;
+            // $this->filedata['status'] = 1;
             $image = "";
             if (!empty($_FILES['user_image']['name'])) {
                 $this->filedata = $this->commonUploadImage($_POST, 'users', 'user_image');
@@ -497,23 +497,34 @@ class Users extends Common_Controller
             
                     $authUser = $this->common_model->customGet($option);
 
-                    // print_r($authUser->email);die;
-                    $from = $authUser->email;
-                    
+                    $this->load->library('email');
 
-                    // $from = getConfig('admin_email');
-                    $subject = "Hospital Registration Login Credentials";
-                    $title = "Hospital Registration";
-                    $data['name'] = ucwords($this->input->post('first_name'));
-                    $data['content'] = "Hospital account login Credentials"
-                        . "<p>username: " . $email . "</p><p>Password: " . $password . "</p>";
-                    // $template = $this->load->view('user_signup_mail', $data, true);
-                    // print_r($data);die;
-                    $template = $this->load->view('email-template/registration', $data, true);
+$config = array(
+    'protocol' => 'smtp',  
+    'smtp_host' => 'localhost',  
+    'smtp_port' => '465',  
+    'smtp_user' => 'vinaykumar857461@gmail.com',  
+    'smtp_pass' => '79858574615320',  
+    'charset' => 'utf-8',  
+    'mailtype' => 'html',  
+    'wordwrap' => TRUE  
+);
 
-                    // $this->send_email($email, $from, $subject, $template, $title);
-                    
-                    $this->send_email_smtp($email, $from, $subject, $template, $title);
+$this->email->initialize($config);
+
+$from = $authUser->email;
+$to = $email;  // Assuming $email contains the recipient's email address
+$subject = "Hospital Registration Login Credentials";
+$message = "Hospital account login Credentials" . "<p>username: " . $email . "</p><p>Password: " . $password . "</p>";
+
+$this->email->from($from);
+$this->email->to($to);
+$this->email->subject($subject);
+$this->email->message($message);
+
+$this->email->send();
+// print_r($this->email->send());die;
+
 
                     // $this->sent_mail($email, $from, $subject, $template, $title);
 

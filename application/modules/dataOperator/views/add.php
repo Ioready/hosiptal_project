@@ -246,11 +246,7 @@
                                     <div class="col-md-9">
                                           <select id="category_id" name="category_id[]" multiple class="form-control select-chosen" size="1">
                                               <option value="">Please select</option>
-                                                <?php foreach ($categorys as $category) { ?>
-                                                            
-                                                <option value="<?php echo $category->id; ?>"><?php echo $category->category_name; ?></option>
-                                                        
-                                                <?php } ?>
+                                               
                                             </select>
                                         <input type="text" class="form-control" name="state" placeholder="State" value="<?php //echo $results->state; 
                                                                                                                         ?>"/>

@@ -218,7 +218,7 @@ class DataOperator extends Common_Controller
         }
         if ($this->form_validation->run() == true) {
 
-            $this->filedata['status'] = 1;
+            // $this->filedata['status'] = 1;
             $image = "";
             if (!empty($_FILES['user_image']['name'])) {
                 $this->filedata = $this->commonUploadImage($_POST, 'users', 'user_image');
@@ -226,9 +226,7 @@ class DataOperator extends Common_Controller
                     $image = 'uploads/users/' . $this->filedata['upload_data']['file_name'];
                 }
             }
-            if ($this->filedata['status'] == 0) {
-                $response = array('status' => 0, 'message' => $this->filedata['error']);
-            } else {
+           
                 $email = strtolower($this->input->post('user_email'));
                 $identity = ($identity_column === 'email') ? $email : $this->input->post('user_email');
                 $password = $this->input->post('password');
@@ -311,23 +309,46 @@ class DataOperator extends Common_Controller
                 }
 
                     /** info email * */
-                    $EmailTemplate = getEmailTemplate("welcome");
-                    if (!empty($EmailTemplate)) {
-                        $html = array();
-                        $html['logo'] = base_url() . getConfig('site_logo');
-                        $html['site'] = getConfig('site_name');
-                        $html['site_meta_title'] = getConfig('site_meta_title');
-                        $name = $this->input->post('first_name') . " " . $this->input->post('last_name');
-                        $login_id = $this->input->post($x);
-                        $html['user'] = ucwords($name);
-                        $html['email'] = $email;
-                        $html['password'] = $password;
-                        $html['website'] = base_url();
-                        $html['content'] = $EmailTemplate->description;
-                        $email_template = $this->load->view('email-template/registration', $html, true);
-                        $title = '[' . getConfig('site_name') . '] ' . $EmailTemplate->title;
-                        send_mail_new($email_template, $title, $email, getConfig('admin_email'));
+                    $this->load->library('email');
+
+                    // Assuming $config is populated from somewhere
+                    if (!empty($config) && is_array($config)) {
+                        $this->email->initialize($config);
+                    } else {
+                        // Handle the case where $config is null or not an array
+                        // You can log an error, provide a default configuration, or take appropriate action
                     }
+                    
+
+    $EmailTemplate = getEmailTemplate("welcome");
+    if (!empty($EmailTemplate)) {
+        $html = array();
+        $html['logo'] = base_url() . getConfig('site_logo');
+        $html['site'] = getConfig('site_name');
+        $html['site_meta_title'] = getConfig('site_meta_title');
+        $name = $this->input->post('first_name') . " " . $this->input->post('last_name');
+        $login_id = $this->input->post($x);
+        $html['user'] = ucwords($name);
+        $html['email'] = $email;
+        $html['password'] = $password;
+        $html['website'] = base_url();
+        $html['content'] = $EmailTemplate->description;
+        $email_template = $this->load->view('email-template/registration', $html, true);
+        $title = '[' . getConfig('site_name') . '] ' . $EmailTemplate->title;
+
+        // Set email parameters
+        $this->email->from('aditya_urmaliya@ioready.io', 'Your Name');
+        $this->email->to($email);
+        $this->email->subject($title);
+        $this->email->message($email_template);
+
+        // Send email
+        if ($this->email->send()) {
+            echo 'Email sent successfully.';
+        } else {
+            echo 'Email sending failed.';
+        }
+    }
                 } else {
                     $where_id = $email_exist->id;
                     $options_data = array(
@@ -369,7 +390,7 @@ class DataOperator extends Common_Controller
                 } else {
                     $response = array('status' => 0, 'message' => lang('user_failed'));
                 }
-            }
+            
         } else {
             $messages = (validation_errors()) ? validation_errors() : '';
             $response = array('status' => 0, 'message' => $messages);
