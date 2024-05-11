@@ -158,30 +158,24 @@ class Pwfpanel extends Common_Controller
 $date = date("Y-m-d");
 
 $AdminCareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
-
-
 $week = $this->input->get('weeks');
 $month = $this->input->get('month');
 $year = $this->input->get('year');
 
-// Build the WHERE clause based on the selected date range
 $whereClause = '';
 if (!empty($week)) {
-    // Calculate the start and end dates for the selected week
     $startDate = date("Y-m-d", strtotime("last monday", strtotime("+$week week")));
     $endDate = date("Y-m-d", strtotime("next sunday", strtotime("+$week week")));
     $whereClause = "AND created_date BETWEEN '$startDate' AND '$endDate'";
+
 } elseif (!empty($month) && !empty($year)) {
-    // Create the date range for the selected month and year
     $startDate = "$year-$month-01";
     $endDate = date("Y-m-t", strtotime($startDate)); // Last day of the month
     $whereClause = "AND created_date BETWEEN '$startDate' AND '$endDate'";
    
 } elseif (!empty($year)) {
-    // Filter by the selected year
     $whereClause = "AND YEAR(created_date) = '$year'";
-
-    
+ 
 }
 
 
@@ -217,7 +211,7 @@ $data['total_patient_doctors'] = $user_facility_counts;
 
                 
 
-                    $this->load->admin_render('dashboard', $data);
+                $this->load->admin_render('dashboard', $data);
                     // redirect('patient', 'refresh');
                 }
                 /* else if ($this->ion_auth->is_facilityManager()) {
@@ -238,6 +232,7 @@ $data['total_patient_doctors'] = $user_facility_counts;
 
 
                 $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+                
                 $Sql = "SELECT vendor_sale_users.care_unit_id FROM vendor_sale_users WHERE vendor_sale_users.id = '$CareUnitID'";
                 $careUnit_list_id = $this->common_model->customQuery($Sql);
                 $care_unit_ids = [];
