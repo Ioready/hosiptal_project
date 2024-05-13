@@ -1781,6 +1781,29 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
             );
 
             $patient_id = $this->common_model->customInsert($option);
+            $query = $this->db->order_by('created_on', 'desc')->limit(1)->get('vendor_sale_email_host');
+        $result = $query->row();
+                    $this->load->library('email');
+                    $fromName="ioready";
+                    $to= $email;
+                    $subject="Patient Registration Login Credentials";
+                    $message= "Patient account login Credentials" . "<p>username: " . $email . "</p><p>Password: " . $password . "</p>";
+                    $from = $result->email;
+                    $this->email->from($from, $fromName);
+                    $this->email->to($to);
+            
+                    $this->email->subject($subject);
+                    $this->email->message($message);
+            
+                    if($this->email->send())
+                    {
+                        echo "Mail Sent Successfully";
+                    }
+                    else
+                    {
+                        echo "Failed to send email";
+                        show_error($this->email->print_debugger());             
+                            }
             if ($patient_id) {
                 $option = array(
                     'table' => 'patient_consult',

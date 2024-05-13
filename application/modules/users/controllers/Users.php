@@ -496,33 +496,30 @@ class Users extends Common_Controller
                     );
             
                     $authUser = $this->common_model->customGet($option);
-
+                    
+        $query = $this->db->order_by('created_on', 'desc')->limit(1)->get('vendor_sale_email_host');
+        $result = $query->row();
                     $this->load->library('email');
-
-$config = array(
-    'protocol' => 'smtp',  
-    'smtp_host' => 'localhost',  
-    'smtp_port' => '465',  
-    'smtp_user' => 'vinaykumar857461@gmail.com',  
-    'smtp_pass' => '79858574615320',  
-    'charset' => 'utf-8',  
-    'mailtype' => 'html',  
-    'wordwrap' => TRUE  
-);
-
-$this->email->initialize($config);
-
-$from = $authUser->email;
-$to = $email;  // Assuming $email contains the recipient's email address
-$subject = "Hospital Registration Login Credentials";
-$message = "Hospital account login Credentials" . "<p>username: " . $email . "</p><p>Password: " . $password . "</p>";
-
-$this->email->from($from);
-$this->email->to($to);
-$this->email->subject($subject);
-$this->email->message($message);
-
-$this->email->send();
+                    $fromName="ioready";
+                    $to= $email;
+                    $subject="Hospital Registration Login Credentials";
+                    $message= "Hospital account login Credentials" . "<p>username: " . $email . "</p><p>Password: " . $password . "</p>";
+                    $from = $result->email;
+                    $this->email->from($from, $fromName);
+                    $this->email->to($to);
+            
+                    $this->email->subject($subject);
+                    $this->email->message($message);
+            
+                    if($this->email->send())
+                    {
+                        echo "Mail Sent Successfully";
+                    }
+                    else
+                    {
+                        echo "Failed to send email";
+                        show_error($this->email->print_debugger());             
+                            }
 // print_r($this->email->send());die;
 
 
