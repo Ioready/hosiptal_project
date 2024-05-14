@@ -149,11 +149,8 @@ class DataOperator extends Common_Controller
             'select' => '*'
         );
         $this->data['countries'] = $this->common_model->customGet($option);
-        $option = array(
-            'table' => 'states',
-            'select' => '*'
-        );
-        $this->data['states'] = $this->common_model->customGet($option);
+       
+
         $option = array(
             'table' => 'care_unit',
             'select' => '*', 'where' => array('delete_status' => 0), 'order' => array('name' => 'ASC')
@@ -218,17 +215,17 @@ class DataOperator extends Common_Controller
         }
         if ($this->form_validation->run() == true) {
 
-            $this->filedata['status'] = 1;
-            $image = "";
-            if (!empty($_FILES['user_image']['name'])) {
-                $this->filedata = $this->commonUploadImage($_POST, 'users', 'user_image');
-                if ($this->filedata['status'] == 1) {
-                    $image = 'uploads/users/' . $this->filedata['upload_data']['file_name'];
-                }
-            }
-            if ($this->filedata['status'] == 0) {
-                $response = array('status' => 0, 'message' => $this->filedata['error']);
-            } else {
+            // $this->filedata['status'] = 1;
+            // $image = "";
+            // if (!empty($_FILES['user_image']['name'])) {
+            //     $this->filedata = $this->commonUploadImage($_POST, 'users', 'user_image');
+            //     if ($this->filedata['status'] == 1) {
+            //         $image = 'uploads/users/' . $this->filedata['upload_data']['file_name'];
+            //     }
+            // }
+            // if ($this->filedata['status'] == 0) {
+            //     $response = array('status' => 0, 'message' => $this->filedata['error']);
+            // } else {
                 $email = strtolower($this->input->post('user_email'));
                 $identity = ($identity_column === 'email') ? $email : $this->input->post('user_email');
                 $password = $this->input->post('password');
@@ -369,7 +366,7 @@ class DataOperator extends Common_Controller
                 } else {
                     $response = array('status' => 0, 'message' => lang('user_failed'));
                 }
-            }
+            // }
         } else {
             $messages = (validation_errors()) ? validation_errors() : '';
             $response = array('status' => 0, 'message' => $messages);
@@ -668,4 +665,109 @@ class DataOperator extends Common_Controller
         }
         echo $response;
     }
+
+
+
+    public function getStates()
+    {
+        $response = array();
+        $id = $this->input->post('id');
+       
+        if (!empty($id)) {
+            // $options = array(
+            //     'table' => 'states',
+            //     'select' => 'states.*',
+            //     'where' => array('country_id' => $id),
+            // );
+            // $states = $this->common_model->customGet($options);
+            // $stateData = '';
+            // foreach ($states as $state_list) {
+                
+            //     $stateData .= '<option value="' . $state_list->id_state . '">' . $state_list->state . '</option>';
+            // }
+            
+            
+        
+            // if($states){
+            //     $response['success'] = true;
+            //     $response['status'] = 200;
+            //     $response['data'] = $stateData;
+            // } else {
+            //     $response['success'] = false;
+            //     $response['message'] = 'No states found';
+            // }
+
+            $options = array(
+                'table' => 'states',
+                'select' => 'states.*',
+                'where' => array('country_id' => $id),
+            );
+            $states = $this->common_model->customGet($options);
+            
+            $data.= '<select id="state" onchange="getCities(this.value)" name="state" class="form-control" size="1">';
+            $data.= '<option value="" disabled selected>Please select</option>';
+            
+            
+            foreach ($states as $state_list) {
+               
+                $data.= '<option value="' . $state_list->id_state . '">' . $state_list->state . '</option>';
+            }
+            
+            
+             $data.= '</select>';
+            
+            // echo $response;
+
+            
+        // } else {
+        //     $response['success'] = false;
+        //     $response['message'] = 'Invalid request';
+        }
+
+        
+        echo json_encode($data);
+
+    //    return  json_encode($response);
+    }
+    
+    public function getCity()
+    {
+        $response = array();
+        $id = $this->input->post('id');
+        if (!empty($id)) {
+            $options = array(
+                'table' => 'cities',
+                'select' => 'cities.*',
+                'where' => array('state_id' => $id),
+            );
+            $cities = $this->common_model->customGet($options);
+    
+            // if($cities){
+            //     $response['success'] = true;
+            //     $response['data'] = $cities;
+            // } else {
+            //     $response['success'] = false;
+            //     $response['message'] = 'No cities found';
+            // }
+
+            $data.= '<select id="city" name="city" class="form-control" size="1">';
+            $data.= '<option value="" disabled selected>Please select</option>';
+            
+            
+            foreach ($cities as $cities_list) {
+               
+                $data.= '<option value="' . $cities_list->id_city . '">' . $cities_list->city . '</option>';
+            }
+            
+             $data.= '</select>';
+        }
+        echo json_encode($data);
+    }
+    
+
+   
+
+    
+
+
 }

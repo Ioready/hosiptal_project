@@ -118,20 +118,6 @@
 <!-- END Datatables Content -->
 </div>
 <!-- END Page Content -->
-<script type="text/javascript">
-    $('#date_of_birth').datepicker({
-        startView: 2,
-        todayBtn: "linked",
-        keyboardNavigation: false,
-        forceParse: false,
-        calendarWeeks: true,
-        autoclose: true,
-        endDate:'today'       
-    });
-/*    $("#zipcode").select2({
-        allowClear: true
-    });*/
-</script>
 <style>
     body {
 	font-family : sans-serif;

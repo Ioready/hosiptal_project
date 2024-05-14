@@ -63,6 +63,8 @@ class EmailTemplate extends Common_Controller {
 
     //   print_r($this->data['EmailTemplates']);die;
 
+
+
         $this->load->admin_render('list', $this->data, 'inner_script');
     }
 
@@ -99,17 +101,39 @@ class EmailTemplate extends Common_Controller {
             ),
             // 'single'=>true,
         );
-        // if ($defaultTemplateId == "4") {
+        if ($defaultTemplateId == "4") {
 
-        //     $optionEmailTemplate['where'] = ['vendor_sale_lettel_header.id' => $defaultTemplateId];
-        // } else {
+            $optionEmailTemplate['where'] = ['vendor_sale_lettel_header.id' => $defaultTemplateId];
+        } else {
 
-        //     $templateId = $request->input('template_id');
-        //     $optionEmailTemplate['where'] = ['vendor_sale_lettel_header.id' => $templateId];
-        // }
+            $templateId = $request->input('template_id');
+            $optionEmailTemplate['where'] = ['vendor_sale_lettel_header.id' => $templateId];
+        }
         
         $this->data['EmailTemplates'] = $this->common_model->customGet($optionEmailTemplate);
         // print_r($this->data['EmailTemplates']);die;
+       
+    
+            $optionEmailTem = array(
+                'table' => 'vendor_sale_email_template',
+                'select' => 'vendor_sale_email_template.*',
+                'where' => array('active_template' => '1'), 
+                'single'=>true,
+            );
+        // }
+                
+        $this->data['useTemplate'] = $this->common_model->customGet($optionEmailTem);
+        
+
+        $optionEmailTem = array(
+            'table' => 'vendor_sale_email_template',
+            'select' => 'vendor_sale_email_template.*',
+        );
+        
+        
+        $this->data['list'] = $this->common_model->customGet($optionEmailTem);
+       
+
 
         return $this->load->admin_render('list', $this->data, 'inner_script');
        
@@ -828,5 +852,41 @@ class EmailTemplate extends Common_Controller {
         endif;
 
         echo json_encode($response);
+    }
+
+    public function usedTemplate(){
+
+        $id = $this->input->post('id');
+        if (!empty($id)) {
+            
+            $other_update_data = array('active_template' => 0);
+            $other_update_option = array(
+                'table' => 'vendor_sale_email_template',
+                'data' => $other_update_data,
+                'where_not_in' => array('id' => $id) // Exclude the requested ID
+            );
+            $this->common_model->customUpdate($other_update_option);
+
+            $update_data = array('active_template' => 1);
+            
+            $update_option = array(
+                'table' => 'vendor_sale_email_template',
+                'data' => $update_data,
+                'where' => array('id' => $id)
+            );
+            // print_r($update_option);die;
+        //    $this->common_model->customUpdate($update_option);
+           if (!$this->common_model->customUpdate($update_option)) {
+            $response = array('status' => 0, 'message' => 'Failed to Update');
+        }else{
+            $response = array('status' => 1, 'message' => 'Successfully Updated', 'url' => base_url('emailTemplate'));
+            
+        }
+        
+
+            
+        }
+        echo json_encode($response);
+        
     }
 }

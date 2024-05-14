@@ -7,7 +7,7 @@
             <a href="<?php echo site_url('pwfpanel');?>">Home</a>
         </li>
         <li>
-            <a href="<?php echo site_url('patient/consultationTemplates');?>">Consultation template</a>
+            <a href="<?php echo site_url('userSettings/consultationTemplates');?>">Consultation template</a>
         </li>
     </ul>
     <!-- END Datatables Header -->

@@ -503,111 +503,81 @@
 
 
 
-<div class="block full">
-        <div class="block-title">
-            <h2><strong><?php echo $title; ?></strong> Panel</h2>
-                <h2>
-                    
-                    <a href="<?php echo base_url() . $this->router->fetch_class(); ?>/open_model" class="btn btn-sm btn-primary save-btn">
-                        <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
-                    </a></h2>
-
-        </div>
-
-        <div class="table-responsive">
-            <table id="common_datatable_menucat" class="table table-vcenter table-condensed table-bordered text-center">
-                <thead>
+    <div class="table-responsive">
+            <table id="common_datatable_users" class="table table-vcenter table-condensed table-bordered">
+            <thead>
                     <tr>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem;width:40px !important">Sr. No</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem">Date Of Start ABX</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem">Patient ID</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem">Patient Name</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem">Care Unit</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem">Provider MD</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem">Diagnosis</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem">Room Number</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem">Infection Onset</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem">Total Days</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem">Labs</th>
-                        <!-- <th style="background-color:#DBEAFF;font-size:1.3rem">Culture Source</th> -->
-                        <th style="background-color:#DBEAFF;font-size:1.3rem">Organism</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem">Antibiotic Name</th>
-                        <!-- <th style="background-color:#DBEAFF;font-size:1.3rem">MD Steward</th> -->
-                        <th style="background-color:#DBEAFF;font-size:1.3rem">Hospital Name</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('action'); ?></th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem;width:10px;" >Sr. No</th>
+                        <th  style="background-color:#DBEAFF;font-size:1.3rem;">Header Name</th>
+                        <th  style="background-color:#DBEAFF;font-size:1.3rem;">Header logo</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem;">Bodies</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem;">Recipients</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem;">Footer</th>
+                        <!-- <th style="background-color:#DBEAFF;font-size:1.3rem;"><?php echo lang('action'); ?></th> -->
                     </tr>
                 </thead>
+
                 <tbody>
 
 
-                   
-
-                        <?php
-                        // }
-                        //}
-                    // } else {
+                    <?php
+                    
+                    if (!empty($template_list)) {
                         $rowCount = 0;
-                        foreach ($list as $rows) :
+                        foreach ($template_list as $rows) {
                             $rowCount++;
-                        ?>
+                            // print_r($rows);die;
+                            if(!empty($rows->internal_name)){
+
+                           
+
+                    ?>
                             <tr>
                                 <td><?php echo $rowCount; ?></td>
-                                <td><?php echo date('m/d/Y', strtotime($rows->date_of_start_abx)); ?></td>
-                                <td><?php echo $rows->pid; ?></td>
-                                <td><?php echo $rows->patient_name; ?></td>
-                                <td><?php echo $rows->care_unit_name; ?></td>
-                                <td><?php echo $rows->doctor_name; ?></td>
-                                <td><?php echo $rows->initial_dx_name; ?></td>
-                                <td><?php echo $rows->room_number; ?></td>
-                                <?php if ($rows->symptom_onset == 'Facility') { ?>
-                                    <td><?php echo 'Facility/HAI'; ?></td>
-                                <?php } else if ($rows->symptom_onset == 'Hospital') { ?>
-                                    <td><?php echo 'Hospital/CAI'; ?></td>
-                                <?php } else { ?>
-                                    <td><?php echo 'NULL'; ?></td>
-                                <?php } ?>
+                                <td><?php echo $rows->internal_name; ?></td>
+                                <?php $image_url = base_url('/uploads/');
+                                $image_url_footer = base_url('/uploads/');  
+                                
+                                ?>
+                                <td  ><img width="100px;" src="<?php echo $image_url.$rows->header_logo; ?>" alt="header"></td>
+                                <td><?php echo $rows->bodies_template; ?></td>
+                                <td><?php echo $rows->recipient_template; ?></td>
+                                <!-- <td><?php echo $rows->logo; ?></td> -->
+                                <td  ><img width="100px;" src="<?php echo $image_url_footer.$rows->logo; ?>" alt="footer"></td>
+                                <!-- <td class="actions"> -->
+                                    <?php
+                                // if($rows->status ==0){
+                                //     echo 'Active'; 
+                                // }else{
+                                //     echo 'Inactive' ; 
+                                // }
+                                 
+                                 ?>
+                                 <!-- </td> -->
+                                <!-- <td class="actions">
+                                    <a href="javascript:void(0)" class="btn btn-default" onclick="editFn('index.php/patient', 'edit_patient', '<?php echo encoding($rows->id) ?>', 'patient');"><i class="fa fa-pencil"></i></a>
+                                                    <a href="<?php echo base_url() . 'patient/edit?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-eye"></i></a>
+                                                                       <a href="<?php echo base_url() . 'patient/edit_parient?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-default" target="_blank"><i class="fa fa-pencil"></i></a>
+                                  
+                                    <a href="<?php echo base_url() . '/patient/existing_list/' . $rows->pid; ?>" target='_blank' data-toggle="tooltip" class="btn btn-default">View History</a>
+                                    <a href="javascript:void(0)" onclick="deletePatient('<?php echo $rows->id; ?>')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
 
-                                <td><?php echo $rows->initial_dot; ?></td>
-
-                                <?php if (!empty($rows->culture_source_name)) { ?>
-                                    <td><?php echo $rows->culture_source_name; ?></td>
-                                <?php } else { ?>
-                                    <td><?php echo 'NULL'; ?></td>
-                                <?php } ?>
-
-                                <?php if (!empty($rows->organism_name)) { ?>
-                                    <td><?php echo $rows->organism_name; ?></td>
-                                <?php } else { ?>
-                                    <td><?php echo 'NULL'; ?></td>
-                                <?php } ?>
-
-                                <td><?php echo $rows->initial_rx_name; ?></td>
-                                <td><?php echo ucfirst($rows->md_stayward); ?></td>
-                    
-                                <td class="actions">
-                                <a href="javascript:void(0)" class="btn btn btn-xs  btn-warning" onclick="editFn('index.php/patient', 'edit_patient', '<?php echo encoding($rows->patient_id) ?>', 'patient');">
-                                <i class="fa fa-pencil"></i>
-                                </a>
-                                <!-- <a href="<?php echo base_url() . 'patient/edit?id=' . encoding($rows->patient_id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-eye"></i></a> -->
-                                <!-- <a href="<?php echo base_url() . 'patient/edit_parient?id=' . encoding($rows->patient_id); ?>" data-toggle="tooltip" class="btn btn-default" target="_blank"><i class="fa fa-pencil"></i></a> -->
-                                <!-- <a href="<?php echo base_url() . 'index.php/patient/existing_list/' . $rows->pid; ?>" target='_blank' data-toggle="tooltip" class="btn btn-default">View History</a> -->
-                                <a href="<?php echo base_url() . 'index.php/patient/existing_list/' . $rows->pid; ?>" target='_blank' data-toggle="tooltip" class="btn btn-xs  btn-success"><i class="fa fa-eye"></i></a>
-
-                                <a href="javascript:void(0)" onclick="deletePatient('<?php echo $rows->patient_id; ?>')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
-                            </td>
-
+                                </td> -->
                             </tr>
-                    <?php
-                        endforeach;
-                    // }
+
+
+                        <?php
+                        }
+                        //}
+                    }
+                    
+                    }
                     ?>
 
                 </tbody>
             </table>
+            </div>
         </div>
-
-</div>
-
 
 
     </div>

@@ -80,7 +80,7 @@
 
     
 
-    <div class="table-responsive">
+        <div class="table-responsive">
             <table id="common_datatable_users" class="table table-vcenter table-condensed table-bordered">
             <thead>
                     <tr>
@@ -90,7 +90,7 @@
                         <th style="background-color:#DBEAFF;font-size:1.3rem;">Bodies</th>
                         <th style="background-color:#DBEAFF;font-size:1.3rem;">Recipients</th>
                         <th style="background-color:#DBEAFF;font-size:1.3rem;">Footer</th>
-                        <!-- <th style="background-color:#DBEAFF;font-size:1.3rem;"><?php echo lang('action'); ?></th> -->
+                        <th style="background-color:#DBEAFF;font-size:1.3rem;"><?php echo lang('action'); ?></th>
                     </tr>
                 </thead>
 
@@ -103,49 +103,46 @@
                         $rowCount = 0;
                         foreach ($template_list as $rows) {
                             $rowCount++;
-                            // print_r($rows);die;
-                            if(!empty($rows->internal_name)){
-
+                            // print_r($rows->bodies_template);
+                            if(!empty($rows->header_internal_name)){
+                    ?>
                            
 
-                    ?>
                             <tr>
                                 <td><?php echo $rowCount; ?></td>
-                                <td><?php echo $rows->internal_name; ?></td>
-                                <?php $image_url = base_url('/uploads/');
-                                $image_url_footer = base_url('/uploads/');  
-                                ?>
-                                <td  ><img width="100px;" src="<?php echo $image_url.$rows->header_logo; ?>" alt="header"></td>
+                                <td><?php echo $rows->header_internal_name; ?></td>
+                                <?php $image_url = base_url('/uploads/'); ?>
+                                <td><img width="100px;" src="<?php echo $image_url.$rows->header_logo; ?>" alt="header"></td>
                                 <td><?php echo $rows->bodies_template; ?></td>
                                 <td><?php echo $rows->recipient_template; ?></td>
-                                <!-- <td><?php echo $rows->logo; ?></td> -->
-                                <td  ><img width="100px;" src="<?php echo $image_url_footer.$rows->logo; ?>" alt="footer"></td>
-                                <!-- <td class="actions"> -->
-                                    <?php
-                                // if($rows->status ==0){
-                                //     echo 'Active'; 
-                                // }else{
-                                //     echo 'Inactive' ; 
-                                // }
-                                 
-                                 ?>
-                                 <!-- </td> -->
-                                <!-- <td class="actions"> -->
-                                    <!-- <a href="javascript:void(0)" class="btn btn-default" onclick="editFn('index.php/patient', 'edit_patient', '<?php echo encoding($rows->id) ?>', 'patient');"><i class="fa fa-pencil"></i></a> -->
-                                    <!--                 <a href="<?php echo base_url() . 'patient/edit?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-eye"></i></a> -->
-                                    <!--                                    <a href="<?php echo base_url() . 'patient/edit_parient?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-default" target="_blank"><i class="fa fa-pencil"></i></a>-->
-                                  
-                                    <!-- <a href="<?php echo base_url() . '/patient/existing_list/' . $rows->pid; ?>" target='_blank' data-toggle="tooltip" class="btn btn-default">View History</a>
-                                    <a href="javascript:void(0)" onclick="deletePatient('<?php echo $rows->id; ?>')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a> -->
-
-                                <!-- </td> -->
+                               
+                                
+                                <td><?php echo $rows->footer_internal_name; ?><img width="100px;" src="<?php echo $image_url.$rows->logo; ?>" alt="footer"></td>
+                                <td class="actions">
+                                    <h3>
+                                        <a href="javascript:void(0)" onclick="generateTemplate('<?php echo $rows->id; ?>')" class="btn btn-sm save-btn">Generate Template</a>
+                                    </h3>
+                                    <?php  //print_r($rows->bodies_template);?>
+                                    <!-- Hidden form -->
+                                    <form id="templateForm_<?php echo $rows->id; ?>" style="display: none;">
+                                        <input type="hidden" name="id" value="<?php echo $rows->id; ?>">
+                                        <input type="hidden" name="internal_name" value="<?php echo $rows->header_internal_name; ?>">
+                                        <input type="hidden" name="header_logo" value="<?php echo $rows->header_logo; ?>">
+                                        <textarea name="bodies_templatess" id="bodies_templatess" value="<?php echo $rows->bodies_template; ?>"></textarea>
+                                        <textarea name="recipient_template" id="recipient_template" value="<?php echo $rows->recipient_template; ?>"></textarea>
+                                        <!-- <input type="text" name="bodies_templatess" value="<?php echo $rows->bodies_template; ?>"> -->
+                                        <!-- <input type="hidden" name="recipient_template" value="<?php echo $rows->recipient_template; ?>"> -->
+                                        <input type="hidden" name="logo" value="<?php echo $rows->logo; ?>">
+                                        <!-- Add other hidden fields if needed -->
+                                    </form>
+                                </td>
                             </tr>
-
 
                         <?php
                         }
-                        //}
+                        
                     }
+                   
                     
                     }
                     ?>
@@ -161,6 +158,33 @@
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+function generateTemplate(id) {
+    // Populate hidden form with data
+    var form = document.getElementById('templateForm_' + id);
+    form.action = '<?php echo base_url('letters/generate_template'); ?>';
+    // Add any additional data to be sent
+    // form.append('key', 'value');
+
+    // Submit form via AJAX
+    $.ajax({
+        type: 'POST',
+        url: form.action,
+        data: $(form).serialize(), // Serialize form data
+        success: function(response) {
+            // Handle success response
+            alert('Template generated successfully!');
+        },
+        error: function(xhr, status, error) {
+            // Handle error
+            console.error(xhr.responseText);
+        }
+    });
+}
+
+</script>
+
 <script>
 $(document).ready(function(){
   // Add click event listener to all td elements with class 'day-cell'
@@ -176,23 +200,7 @@ $(document).ready(function(){
   });
 });
 </script>
-<script>
-$(document).ready(function(){
-  // Add click event listener to all td elements with class 'time-cell'
-  $('.time-cell').click(function(){
-    // Toggle 'highlight' class on click
-    $(this).toggleClass('highlight');
-  });
 
-  // Add click event listener to all td elements with class 'day-cell'
-  $('.day-cell').click(function(){
-    // Toggle 'highlight' class on click
-    $(this).toggleClass('highlight');
-  });
-
-  
-});
-</script>
 
 <style>
 .highlight {

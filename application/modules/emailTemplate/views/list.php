@@ -74,7 +74,7 @@
     
 
         
-                <label for="" style="padding-left:50%;" class="flex"> <label> Template list </label>
+                <!-- <label for="" style="padding-left:50%;" class="flex"> <label> Template list </label>
                     <select name="template_id" id="template_list" class="form-control">
                     <option value="">Select template</option>
                                 <?php 
@@ -83,15 +83,12 @@
 
                                <?php }
                                 ?>
-
-                    
-                        <!-- <option value="">new</option> -->
                     </select>
-                </label>  
+                </label>   -->
            
 
     </div>
-    <?php //print_r($EmailTemplates);die; ?>
+    <?php if(!empty($useTemplate)){ ?>
       <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('/emailTemplate/sendEmailTemplate') ?>" enctype="multipart/form-data">
       <div class="alert alert-danger" id="error-box" style="display: none"></div>
         
@@ -99,26 +96,27 @@
 
             <div class="row">
                 <div class="col-md-5">
-                <img width="100px;" src="<?php echo ('http://localhost/hosiptal_project/uploads/'. $EmailTemplates->header_logo); ?>" alt="Header">
+                <?php $image_url = base_url('/uploads/'); ?>
+                <img width="100px;" src="<?php echo $image_url. $useTemplate->image; ?>" alt="Header">
                 </div>
 
                 <div class="col-md-4">
                         <div class="form-group">
-                        <h3 class="m-4 fw-bold"> <label for="input1"><strong class="fw-bold"><?php echo ucwords($EmailTemplates->internal_name);?></strong></label> </h3>
+                        <h3 class="m-4 fw-bold"> <label for="input1"><strong class="fw-bold"><?php echo ucwords($useTemplate->title);?></strong></label> </h3>
                         </div>
                     </div>
                 </div>
 
         
 
-            <!-- <h3 class="m-4 fw-bold"><?php echo $EmailTemplates->internal_name;?></h3> -->
+            <!-- <h3 class="m-4 fw-bold"><?php echo $useTemplate->internal_name;?></h3> -->
             <div class="row m-4 p-4"  style="background-color: #FFFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);">
 
             
             
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="input1">App Name : <strong class="fw-bold"><input type="text" class="form-control" name="app_name" id="app_name" value="<?php echo $EmailTemplates->internal_name;?>" placeholder="<?php echo lang('password');?>" /></strong></label>
+                        <label for="input1">App Name : <strong class="fw-bold"><input type="text" class="form-control" name="app_name" id="app_name" value="<?php echo $useTemplate->title;?>" placeholder="<?php echo lang('password');?>" /></strong></label>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -167,18 +165,26 @@
             <label class="control-label mb-4">Create Letter template*</label>
                 <div class="form-group">
                     <div class="col-md-12">
-                        <textarea id="editor" name="description"><?php echo $EmailTemplates->bodies_template;?></textarea>
+                        <textarea id="editor" name="description"><?php echo $useTemplate->bodies_template;?></textarea>
+                    </div>
+                </div>
+            </div>
+            <label class="control-label mb-4">Create Recipient*</label>
+                <div class="form-group">
+                    <div class="col-md-12">
+                    <textarea id="recipient_template" name="description"><?php echo $useTemplate->recipient_template;?></textarea>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-5">
-                <img width="100px;" src="<?php echo ('http://localhost/hosiptal_project/uploads/'. $EmailTemplates->logo); ?>" alt="footer">
+                <img width="100px;" src="<?php echo $image_url. $useTemplate->footer_logo; ?>" alt="footer">
                 </div>
 
                 <div class="col-md-4">
                         <div class="form-group">
-                        <h3 class="m-4 fw-bold"> <label for="input1"><strong class="fw-bold"><?php echo ucwords($EmailTemplates->footer_internal_name);?></strong></label> </h3>
+                        <!-- <textarea id="recipient_template" name="description"><?php echo $useTemplate->recipient_template;?></textarea> -->
+                        <!-- <h3 class="m-4 fw-bold"> <label for="input1"><strong class="fw-bold"><?php echo ucwords($useTemplate->recipient_template);?></strong></label> </h3> -->
                         </div>
                 </div>
             </div>
@@ -190,6 +196,7 @@
             <?php //}?>
         </div>
     </form>
+    <?php  }?>
 </div>
 <div id="form-modal-box"></div>
 <!-- CKEditor JS (CDN) -->
@@ -197,6 +204,9 @@
 
 <script>
     CKEDITOR.replace('editor');
+    CKEDITOR.replace('recipient_template');
+
+    
 </script>
 <!-- <script>
      $("#template_list").change(function () {
@@ -207,48 +217,48 @@
 </script> -->
 
 <script>
-    // $("#template_list").change(function () {
-    //     var template_id = this.value;
-    //     // alert(template_id);
-
-    //     // Assuming you want to send the template_id as a filter parameter
-    //     $.ajax({
-    //         url: '<?php echo base_url(); ?>' + "/emailTemplate/index", // Replace with your controller endpoint URL
-    //         method: 'GET', // Or 'POST' depending on your preference
-    //         data: { template_id: template_id },
-    //         success: function(response) {
-    //             // Update the content of the div with the response
-    //             // $('#template_data').text(response);
-    //         },
-    //         error: function(xhr, status, error) {
-    //             // Handle any errors
-    //             console.error(xhr.responseText);
-    //         }
-    //     });
-    // });
-
-
-    $(document).ready(function () {
     $("#template_list").change(function () {
         var template_id = this.value;
+        // alert(template_id);
 
-        <?php //echo $EmailTemplates;?>
-
+        // Assuming you want to send the template_id as a filter parameter
         $.ajax({
-            url: '<?php echo base_url(); ?>' + "/emailTemplate/index",
-            method: 'GET', 
+            url: '<?php echo base_url(); ?>' + "/emailTemplate/index", // Replace with your controller endpoint URL
+            method: 'GET', // Or 'POST' depending on your preference
             data: { template_id: template_id },
             success: function(response) {
-              
-                document.write(response);
+                // Update the content of the div with the response
+                // $('#template_data').text(response);
             },
             error: function(xhr, status, error) {
-                
+                // Handle any errors
                 console.error(xhr.responseText);
             }
         });
     });
-});
+
+
+    // $(document).ready(function () {
+    // $("#template_list").change(function () {
+    //     var template_id = this.value;
+
+    //     <?php //echo $EmailTemplates;?>
+
+    //     $.ajax({
+    //         url: '<?php echo base_url(); ?>' + "/emailTemplate/index",
+    //         method: 'GET', 
+    //         data: { template_id: template_id },
+    //         success: function(response) {
+              
+    //             document.write(response);
+    //         },
+    //         error: function(xhr, status, error) {
+                
+    //             console.error(xhr.responseText);
+    //         }
+    //     });
+    // });
+// });
 
 
 
@@ -291,7 +301,7 @@
         
 
         <!-- Datatables Content -->
-        <!-- <div class="block full">
+    <div class="block full">
             <div class="block-title">
             
             <h2><strong>Email Template</strong> Panel</h2>
@@ -299,25 +309,26 @@
               
         <?php if ($this->ion_auth->is_superAdmin()) {?>
 
-            <h2><a href="javascript:void(0)" onclick="open_modal('emailTemplate')" class="save-btn btn btn-sm btn-primary">
+            <!-- <h2><a href="javascript:void(0)" onclick="open_modal('emailTemplate')" class="save-btn btn btn-sm btn-primary">
             <i class="gi gi-circle_plus"></i> Email Template
-            </a></h2>      
+            </a></h2>       -->
         <?php }?>
 
             </div>
-            <h2><a href="javascript:void(0)" onclick="open_modal('emailTemplate')" class="btn btn-sm btn-primary" style="background:#337ab7;">
+            <!-- <h2><a href="javascript:void(0)" onclick="open_modal('emailTemplate')" class="btn btn-sm btn-primary" style="background:#337ab7;">
             <i class="gi gi-circle_plus m-2"></i> Email Template
-            </a></h2>   
+            </a></h2>    -->
             <div class="table-responsive">
                 <table id="common_datatable_cms" class="table table-vcenter table-condensed table-bordered text-center">
                     <thead>
                         <tr>                                            
                             <th  class="t-head text-center"><?php echo lang('serial_no'); ?></th>
-                            <th class="t-head text-center">Email Type</th>
-                            <th class="t-head text-center" class="t-head">Title</th>
-                            <th class="t-head"><?php echo lang('description'); ?></th>
-                            <th class="t-head"><?php echo lang('image'); ?></th>-->
-                            <!-- <th class="t-head text-center"><?php echo lang('action'); ?></th>
+                            <!-- <th class="t-head text-center">Email Type</th> -->
+                            <th class="t-head text-center" class="t-head">Header</th>
+                            <th class="t-head">Body</th>
+                            <th class="t-head">Recipients</th>
+                            <th class="t-head">Footer</th>
+                            <th class="t-head text-center"><?php echo lang('action'); ?></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -329,33 +340,72 @@
                             ?>
                             <tr>
                                 <td><?php echo $rowCount; ?></td>            
-                                <td><?php echo $rows->email_type; ?></td>
-                                <td><?php echo $rows->title; ?></td> -->
-<!--                                <td style="width:25%;"><?php
-                                    if (strlen($rows->description) > 400) {
-                                        $content = $rows->description;
-                                        echo mb_substr($rows->description, 0, 400, 'UTF-8') . '...<br>';
+                                <!-- <td><?php echo $rows->email_type; ?></td> -->
+                                <td><?php echo $rows->title; ?>
+                            
+                                <?php $image_url = base_url('/uploads/'); ?>
+                                
+
+                               <img width="100" src="<?php if (!empty($rows->image)) {
+                                    echo $image_url.$rows->image;
+                                
+                            } else {
+                                echo base_url() . DEFAULT_NO_IMG_PATH;
+                            } ?>" />
+
+                            </td>
+                               <td style="width:25%;"><?php
+                                    if (strlen($rows->bodies_template) > 400) {
+                                        $content = $rows->bodies_template;
+                                        echo mb_substr($rows->bodies_template, 0, 400, 'UTF-8') . '...<br>';
                                         ?>
                                         <a style="cursor:pointer" onclick="show_message('<?php echo base64_encode($content); ?>')"><?php echo lang('view'); ?></a>
                                         <?php
-                                    } else if (strlen($rows->description) > 0) {
-                                        echo $rows->description;
+                                    } else if (strlen($rows->bodies_template) > 0) {
+                                        echo $rows->bodies_template;
                                     }
                                     ?></td>
-                                <td><img width="100" src="<?php if (!empty($rows->image)) {
-                                echo base_Url() ?>uploads/emailTemplate/<?php echo $rows->image;
+                                    <td style="width:25%;"><?php
+                                    if (strlen($rows->recipient_template) > 400) {
+                                        $content = $rows->recipient_template;
+                                        echo mb_substr($rows->recipient_template, 0, 400, 'UTF-8') . '...<br>';
+                                        ?>
+                                        <a style="cursor:pointer" onclick="show_message('<?php echo base64_encode($content); ?>')"><?php echo lang('view'); ?></a>
+                                        <?php
+                                    } else if (strlen($rows->recipient_template) > 0) {
+                                        echo $rows->recipient_template;
+                                    }
+                                    ?></td>
+
+                                    <?php $image_url = base_url('/uploads/'); ?>
+                                
+
+                                <td><img width="100" src="<?php if (!empty($rows->footer_logo)) {
+                                    echo $image_url.$rows->footer_logo;
+                                
                             } else {
                                 echo base_url() . DEFAULT_NO_IMG_PATH;
-                            } ?>" /></td>-->
+                            } ?>" /></td>
 
-                                <!-- <td class="actions">
-                                    <a href="javascript:void(0)" class="btn btn-xs btn-default" onclick="editFn('emailTemplate','template_edit','<?php echo encoding($rows->id) ?>');"><i class="fa fa-pencil"></i></a>
-                                    <?php if($rows->is_active == 1) {?>
-                                    <a href="javascript:void(0)" class="btn btn-xs btn-success" onclick="editStatusFn('vendor_sale_email_template','id','<?php echo encoding($rows->id);?>','<?php echo $rows->is_active;?>')" title="Inactive Now"><i class="fa fa-check"></i></a>
+                                <td class="actions">
+                                <?php if($rows->active_template != 1 && $rows->is_active == 1) {?>
+                                    <a href="javascript:void(0)" onclick="useTemplate('<?php echo $rows->id; ?>')" class="btn save-btn" style="color:white;">Use template</a>
                                     <?php } else { ?>
-                                    <a href="javascript:void(0)" class="btn btn-xs btn-danger" onclick="editStatusFn('vendor_sale_email_template','id','<?php echo encoding($rows->id); ?>','<?php echo $rows->is_active;?>')" title="Active Now"><i class="fa fa-times"></i></a>
+                                        <button type="button" class="btn btn-success" style="background:green;">Active template</button> 
+                                    <?php }  ?>
+                                    <!-- <a href="javascript:void(0)" class="btn btn-xs btn-default" onclick="editFn('emailTemplate','template_edit','<?php echo encoding($rows->id) ?>');"><i class="fa fa-pencil"></i></a> -->
+                                    <?php if($rows->is_active == 1) {?>
+                                    <!-- <a href="javascript:void(0)" class="btn btn-xs btn-success" onclick="editStatusFn('vendor_sale_email_template','id','<?php echo encoding($rows->id);?>','<?php echo $rows->is_active;?>')" title="Inactive Now"><i class="fa fa-check"></i></a> -->
+                                    <?php } else { ?>
+                                    <!-- <a href="javascript:void(0)" class="btn btn-xs btn-danger" onclick="editStatusFn('vendor_sale_email_template','id','<?php echo encoding($rows->id); ?>','<?php echo $rows->is_active;?>')" title="Active Now"><i class="fa fa-times"></i></a> -->
                                     <?php } ?>
                                     <a href="javascript:void(0)" onclick="deleteFn('vendor_sale_email_template','id','<?php echo encoding($rows->id); ?>','emailTemplate')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+                                
+                                    <form id="templateForm_<?php echo $rows->id; ?>" style="display: none;">
+                                        <input type="hidden" name="id" value="<?php echo $rows->id; ?>">
+                                       
+                                    </form>
+
                                 </td>
                             </tr>
                         <?php endforeach;
@@ -363,14 +413,74 @@
                     </tbody>
                 </table>
             </div>
-        </div> -->
+        </div>
         <!-- END Datatables Content -->
-    <!-- </div> -->
+    </div>
     <!-- END Page Content -->
-<!-- <div id="form-modal-box"></div>
+<div id="form-modal-box"></div>
 <div id="message_div">
     <span id="close_button"><img src="<?php echo base_url(); ?>backend_asset/images/close.png" onclick="close_message();"></span>
     <div id="message_container"></div>
-</div>  -->
+</div> 
+
+<script>
+// function useTemplate(id) {
+//     // Populate hidden form with data
+//     var form = document.getElementById('templateForm_' + id);
+//     form.action = '<?php echo base_url('emailTemplate/usedTemplate'); ?>';
+   
+//     $.ajax({
+//         type: 'POST',
+//         url: form.action,
+//         data: $(form).serialize(), // Serialize form data
+//         success: function(response) {
+//             // Handle success response
+//             alert(status);
+//             if (response.status === 1) {
+//             alert(response.message); // Show success message
+//             if (response.reload) {
+//                 location.reload(); // Reload the window
+//             }
+//         } else {
+//             alert(response.message); // Show error message
+//         }
+//         },
+//         error: function(xhr, status, error) {
+//             // Handle error
+//             console.error(xhr.responseText);
+//         }
+//     });
+// }
+
+function useTemplate(id) {
+    // Populate hidden form with data
+    var form = document.getElementById('templateForm_' + id);
+    form.action = '<?php echo base_url('emailTemplate/usedTemplate'); ?>';
+   
+    $.ajax({
+        type: 'POST',
+        url: form.action,
+        data: $(form).serialize(), // Serialize form data
+        success: function(response) {
+            // Handle success response
+            // alert(JSON.stringify(response['status'])); // Alert the entire response object as a string
+            // if (response.status === 1) {
+                // alert(response.message); // Show success message
+                // if (response.reload) {
+                    location.reload(); // Reload the window
+                // }
+            // } else {
+            //     alert(response.message); // Show error message
+            // }
+        },
+        error: function(xhr, status, error) {
+            // Handle error
+            console.error(xhr.responseText);
+        }
+    });
+}
+
+
+</script>
                     
 
