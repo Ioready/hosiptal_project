@@ -229,10 +229,11 @@ class Setting extends Common_Controller {
     public function sending_mail_test()
     {
         
-        
+        // print_r('hello');die;
         $this->load->library('email'); // Note: no $config param needed
-        $this->email->from('kalpanaofficial94@gmail.com', 'kalpanaofficial94@gmail.com');
-        $this->email->to('vinaysharma8496@gmail.com');
+       
+        $this->email->from('aditya_urmaliya@ioready.io');
+        $this->email->to('vinaydci8496@gmail.com');
         $this->email->subject('Test email from CI and Gmail');
         $this->email->message('This is a test.');
         $this->email->send();

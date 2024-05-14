@@ -207,13 +207,7 @@
 
                                  <!-- <select class="" name="zipcode[]" id="zipcode" multiple="" style="width:100%;" placeholder="Select Zipcode">
                                      <option value="">Select Zipcode</option>
-                                    <?php foreach($zipcode_list as $key=>$val){
-                                    ?>
-                                        <option value="<?php echo $val->zipcode;
-                                                        ?>"><?php echo $val->zipcode;
-                                                            ?></option>
-                                    <?php }
-                                    ?>
+                                    
                                 </select> -->
                             </div>
                            

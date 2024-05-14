@@ -70,54 +70,57 @@
                                         </h2>
                                     <?php } ?>
                                 </div>
+
+                               <?php $query = $this->db->order_by('created_on', 'desc')->limit(1)->get('vendor_sale_email_host');
+                                     $result = $query->row(); ?>
                                 <div class="row">
                                     <div class="col-md-4">
                                     <form class="form-horizontal" role="form" id="" method="post" action="<?php echo base_url('index.php/setting/setting_email_add') ?>" enctype="multipart/form-data">
                                         <div class="form-group">
                                             <label for="input1">Mail Driver</label>
-                                            <input type="text" class="form-control" id="mail_driver" name="mail_driver">
+                                            <input type="text" class="form-control" id="mail_driver" name="mail_driver" value="<?php echo $result->mail_driver;?>">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="input1">Mail Host</label>
-                                            <input type="text" class="form-control" id="Mail_Host" name="Mail_Host">
+                                            <input type="text" class="form-control" id="Mail_Host" name="Mail_Host" value="<?php echo $result->Mail_Host;?>">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="input1">Mail port</label>
-                                            <input type="text" class="form-control" id="mail_port" name="mail_port">
+                                            <input type="text" class="form-control" id="mail_port" name="mail_port" value="<?php echo $result->mail_port;?>">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="input1">Mail Username</label>
-                                            <input type="email" class="form-control" id="email" name="email">
+                                            <input type="email" class="form-control" id="email" name="email" value="<?php echo $result->email;?>">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="password">Mail Password</label>
-                                            <input type="password" class="form-control" id="password" name="password">
+                                            <input type="password" class="form-control" id="password" name="password" value="<?php echo $result->password;?>">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="input1">Mail Encryption</label>
-                                            <input type="text" class="form-control" id="encryption" name="encryption">
+                                            <input type="text" class="form-control" id="encryption" name="encryption" value="<?php echo $result->encryption;?>">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="input1">Mail From Address</label>
-                                            <input type="email" class="form-control" id="from_address" name="from_address">
+                                            <input type="email" class="form-control" id="from_address" name="from_address" value="<?php echo $result->from_address;?>">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="input1">Mail From Name</label>
-                                            <input type="text" class="form-control" id="name" name="name">
+                                            <input type="text" class="form-control" id="name" name="name" value="<?php echo $result->name;?>">
                                         </div>
                                     </div>
                                     <!-- Add 7 more input fields similar to the above -->
