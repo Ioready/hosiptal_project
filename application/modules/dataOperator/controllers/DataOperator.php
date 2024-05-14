@@ -220,12 +220,12 @@ class DataOperator extends Common_Controller
 
             // $this->filedata['status'] = 1;
             $image = "";
-            if (!empty($_FILES['user_image']['name'])) {
-                $this->filedata = $this->commonUploadImage($_POST, 'users', 'user_image');
-                if ($this->filedata['status'] == 1) {
-                    $image = 'uploads/users/' . $this->filedata['upload_data']['file_name'];
-                }
-            }
+            // if (!empty($_FILES['user_image']['name'])) {
+            //     $this->filedata = $this->commonUploadImage($_POST, 'users', 'user_image');
+            //     if ($this->filedata['status'] == 1) {
+            //         $image = 'uploads/users/' . $this->filedata['upload_data']['file_name'];
+            //     }
+            // }
            
                 $email = strtolower($this->input->post('user_email'));
                 $identity = ($identity_column === 'email') ? $email : $this->input->post('user_email');
@@ -304,28 +304,30 @@ class DataOperator extends Common_Controller
                     );
                     $this->db->insert('vendor_sale_doctors_qualification', $doctors_table);
                     $query = $this->db->order_by('created_on', 'desc')->limit(1)->get('vendor_sale_email_host');
-        $result = $query->row();
+                    $result = $query->row();
                     $this->load->library('email');
-                    $fromName="ioready";
-                    $to= $email;
-                    $subject='Test Mail Subject';
-                    $message='Test Content';
-                    $from = $result->email;
-                    $this->email->from($from, $fromName);
-                    $this->email->to($to);
+                    // $fromName="ioready";
+                    // $to= $email;
+                    // $subject='Test Mail Subject';
+                    // $message='Test Content';
+                    // $from = $result->email;
+                    // $this->email->from($from, $fromName);
+                    // $this->email->to($to);
             
-                    $this->email->subject($subject);
-                    $this->email->message($message);
+                    // $this->email->subject($subject);
+                    // $this->email->message($message);
             
-                    if($this->email->send())
-                    {
-                        echo "Mail Sent Successfully";
-                    }
-                    else
-                    {
-                        echo "Failed to send email";
-                        show_error($this->email->print_debugger());             
-                            }
+                    // if($this->email->send())
+                    // {
+                    //     echo "Mail Sent Successfully";
+                    // }
+                    // else
+                    // {
+                    //     echo "Failed to send email";
+                    //     show_error($this->email->print_debugger());             
+                    //         }
+
+                    
 
                     // Assuming $config is populated from somewhere
                     // if (!empty($config) && is_array($config)) {
@@ -415,7 +417,7 @@ class DataOperator extends Common_Controller
                 } else {
                     $response = array('status' => 0, 'message' => lang('user_failed'));
                 }
-            
+            // }
         } else {
             $messages = (validation_errors()) ? validation_errors() : '';
             $response = array('status' => 0, 'message' => $messages);
