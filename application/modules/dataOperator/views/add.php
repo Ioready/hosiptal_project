@@ -207,107 +207,55 @@
 
                                  <!-- <select class="" name="zipcode[]" id="zipcode" multiple="" style="width:100%;" placeholder="Select Zipcode">
                                      <option value="">Select Zipcode</option>
-                                    <?php foreach($zipcode_list as $key=>$val){
-                                    ?>
-                                        <option value="<?php echo $val->zipcode;
-                                                        ?>"><?php echo $val->zipcode;
-                                                            ?></option>
-                                    <?php }
-                                    ?>
+                                    
                                 </select> -->
                             </div>
                            
                         </div>
                     </div>
 
-                    <!--                      <div class="col-md-12" >
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">Company Name</label>
-                                    <div class="col-md-9">
-                                        <input type="text" class="form-control" name="company_name" value="" />
-                                    </div>
-                                </div>
-                            </div>
-                    <div class="col-md-12" >
-                        <div class="form-group">
-                            <label class="col-md-3 control-label">Company Website</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" name="website" placeholder=""/>
-                            </div>
-                        </div>
-                    </div>-->
-
-
-
-
-                    <!--                     <div class="col-md-12" >
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">Software Category</label>
-                                    <div class="col-md-9">
-                                          <select id="category_id" name="category_id[]" multiple class="form-control select-chosen" size="1">
-                                              <option value="">Please select</option>
-                                                <?php foreach ($categorys as $category) { ?>
-                                                            
-                                                <option value="<?php echo $category->id; ?>"><?php echo $category->category_name; ?></option>
-                                                        
-                                                <?php } ?>
-                                            </select>
-                                        <input type="text" class="form-control" name="state" placeholder="State" value="<?php //echo $results->state; 
-                                                                                                                        ?>"/>
-                                    </div>
-                                </div>
-                            </div>-->
-
-                    <!--                             <div class="col-md-12" >
-                        <div class="form-group">
-                            <label class="col-md-3 control-label">Description</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" name="description" id="description" placeholder=""/>
-                            </div>
-                        </div>
-                    </div>-->
-
-
-                                       <div class="col-md-6" >
+                    <div class="col-md-6" >
                         <div class="form-group">
                             <label class="m-4 control-label">Country</label>
                             <div class="col-md-12">
-                                 <input type="text" class="form-control" name="country" id="country" placeholder="Country"/> 
+                                 <!-- <input type="text" class="form-control" name="country" id="country" placeholder="Country"/>  -->
                                 
-                                    <select id="country" name="country" class="form-control select2" size="1">
+                                    <select id="country" onchange="getStates(this.value)" name="country" class="form-control select2" size="1">
                                         <option value="0">Please select</option>
-<?php foreach ($countries as $country) { ?>
+                                            <?php foreach ($countries as $country) { ?>
                                                         
                                             <option value="<?php echo $country->id; ?>"><?php echo $country->name; ?></option>
                                                     
-<?php } ?>
+                                            <?php } ?>
                                     </select>
                                
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6" >
-                                <div class="form-group">
-                                    <label class="m-4 control-label">State</label>
-                                    <div class="col-md-12">
-                                          <select id="country" name="state" class="form-control select2" size="1">
-                                                <option value="" disabled selected>Please select</option>
-<?php foreach ($states as $state) { ?>
-                                                                
-                                                    <option value="<?php echo $state->id; ?>"><?php echo $state->name; ?></option>
-                                                            
-<?php } ?>
-                                            </select>
-                                        <input type="text" class="form-control" name="state" placeholder="State" value="<?php //echo $results->state;  
-                                                                                                                        ?>"/>
-                                    </div>
-                                </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="m-4 control-label">State</label>
+                            <div class="col-md-12" id="state_div">
+                                <!-- <select id="state" onchange="getCities(this.value)" name="state" class="form-control" size="1">
+                                    <option value="" disabled selected>Please select</option>
+                                </select> -->
                             </div>
+                        </div>
+
+                        <!-- <div class="col-md-12" id="state_div">
+
+                        </div> -->
+
+                    </div>
+
                     <div class="col-md-6" >
                         <div class="form-group">
                             <label class="m-4 control-label">City</label>
-                            <div class="col-md-12">
-                                <input type="text" class="form-control" name="city" placeholder="City Name"/>
+                            <div class="col-md-12" id="city">
+                                <!-- <select id="city" name="city" class="form-control select2" size="1"> -->
+                                     <!-- <option value="" disabled selected>Please select</option> -->
+                                 <!-- </select> -->
+                               
                             </div>
                         </div>
                     </div>
@@ -320,61 +268,7 @@
                         </div>
                     </div>
 
-                    <!-- <div class="col-md-12">
-                        <div class="form-group">
-                            <label class="col-md-3 control-label"><?php echo lang('password'); ?></label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" name="password" id="password" placeholder="<?php echo lang('password'); ?>" value="<?php echo randomPassword(); ?>" />
-                            </div>
-                        </div>
-                    </div> -->
-                    <!--                   <div class="col-md-12" >
-                        <div class="form-group">
-                            <label class="col-md-3 control-label"><?php echo lang('profile_image'); ?></label>
-                            <div class="col-md-9">
-                                
-                                <div class="group_filed">
-                                            <div class="img_back_prieview_Academic">
-                                                <div class="images_box_upload_ven_addvendore_vendore">
-                                                    <div id="image-preview-addvendore-vendore">
-                                                         <input type="file" name="user_image" id="image-upload-addvendore-vendore" />
-                                                    </div>
-                                                </div>
-                                                    <div id="image-preview-addvendore">
-                                                         <label for="image-upload-addvendore-vendore" id="image-label-addvendore-vendore">Upload Logo</label>
-                                                    </div>
-                                            </div>
-                           </div>
-                                
-                                
-                                
-                                    <div class="profile_content edit_img">
-                                    <div class="file_btn file_btn_logo">
-                                      <input type="file"  class="input_img2" id="user_image" name="user_image" style="display: inline-block;">
-                                      <span class="glyphicon input_img2 logo_btn" style="display: block;">
-                                          <div id="show_company_img"></div>
-                                        <span class="ceo_logo row push">
-                             
-                                        <a href="<?php echo base_url() . 'backend_asset/images/default.jpg'; ?>" data-toggle="lightbox-image">
-                                                        <img src="<?php echo base_url() . 'backend_asset/images/default.jpg'; ?>" alt="image">
-                                                    </a>
-                                          
-                                            
-                                        </span>
-                                        
-                                      </span>
-                                      <img class="show_company_img2" style="display:none" alt="img" src="<?php echo base_url() ?>/backend_asset/images/logo.png">
-                                      <span style="display:none" class="fa fa-close remove_img"></span>
-                                    </div>
-                                  </div> 
-                                  
-                                  
-                                  
-                                  
-                                  <div class="ceo_file_error file_error text-danger"></div>
-                            </div>
-                        </div>
-                    </div>-->
+                 
                     <div class="space-22"></div>
                 </div>
             </div>
@@ -397,7 +291,81 @@
         autoclose: true,
         endDate: 'today'
     });
-    /*    $("#zipcode").select2({
-            allowClear: true
-        });*/
+   
+
+
+</script>
+
+<script>
+
+
+function getStates(countryId) {
+    $.ajax({
+        url: 'dataOperator/getStates',
+        type: 'POST',
+        dataType: "json",
+        data: { id: countryId },
+        success: function(response) {
+            // console.log('state list', response);
+            
+            $('#state_div').html(response);
+            
+        },
+        error: function(xhr, status, error) {
+            // console.error(xhr.responseText);
+        }
+    });
+}
+
+
+
+
+
+
+// Function to fetch cities based on selected state
+// Function to fetch cities based on selected state
+function getCities(stateId) {
+    $.ajax({
+        url: 'dataOperator/getCity',
+        type: 'POST',
+        dataType: "json",
+        data: { id: stateId },
+        success: function(response) {
+    //        var stateData= JSON.stringify(response);
+    //        console.log(stateData);
+    // var statesDropdown = $('#state'); // Corrected the target element ID
+    
+    // statesDropdown.empty(); // Clear existing options
+    
+    // Append new options for each state in the response
+    // $.each(response.data, function(index, state) {
+    //     statesDropdown.append($('<option>', {
+    //         value: state.id_state,
+    //         text: state.state
+    //     }));
+    // });
+    $('#city').html(response);
+},
+        error: function(xhr, status, error) {
+            console.error(xhr.responseText);
+        }
+    });
+}
+
+// Event listener for state selection change
+// $('#country').change(function() {
+//     var countryId = $(this).val();
+//     if (countryId) {
+//         getStates(countryId);
+//     }
+// });
+
+$('#state').change(function() {
+    var stateId = $(this).val();
+    if (stateId) {
+        getCities(stateId); // Call the getCities function with the selected state ID
+    }
+});
+
+
 </script>

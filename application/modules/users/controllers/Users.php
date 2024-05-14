@@ -431,7 +431,7 @@ class Users extends Common_Controller
         }
         if ($this->form_validation->run() == true) {
 
-            $this->filedata['status'] = 1;
+            // $this->filedata['status'] = 1;
             $image = "";
             if (!empty($_FILES['user_image']['name'])) {
                 $this->filedata = $this->commonUploadImage($_POST, 'users', 'user_image');
@@ -496,24 +496,32 @@ class Users extends Common_Controller
                     );
             
                     $authUser = $this->common_model->customGet($option);
-
-                    // print_r($authUser->email);die;
-                    $from = $authUser->email;
                     
+        $query = $this->db->order_by('created_on', 'desc')->limit(1)->get('vendor_sale_email_host');
+        $result = $query->row();
+                    $this->load->library('email');
+                    $fromName="ioready";
+                    $to= $email;
+                    $subject="Hospital Registration Login Credentials";
+                    $message= "Hospital account login Credentials" . "<p>username: " . $email . "</p><p>Password: " . $password . "</p>";
+                    $from = $result->email;
+                    $this->email->from($from, $fromName);
+                    $this->email->to($to);
+            
+                    $this->email->subject($subject);
+                    $this->email->message($message);
+            
+                    if($this->email->send())
+                    {
+                        echo "Mail Sent Successfully";
+                    }
+                    else
+                    {
+                        echo "Failed to send email";
+                        show_error($this->email->print_debugger());             
+                            }
+// print_r($this->email->send());die;
 
-                    // $from = getConfig('admin_email');
-                    $subject = "Hospital Registration Login Credentials";
-                    $title = "Hospital Registration";
-                    $data['name'] = ucwords($this->input->post('first_name'));
-                    $data['content'] = "Hospital account login Credentials"
-                        . "<p>username: " . $email . "</p><p>Password: " . $password . "</p>";
-                    // $template = $this->load->view('user_signup_mail', $data, true);
-                    // print_r($data);die;
-                    $template = $this->load->view('email-template/registration', $data, true);
-
-                    // $this->send_email($email, $from, $subject, $template, $title);
-                    
-                    $this->send_email_smtp($email, $from, $subject, $template, $title);
 
                     // $this->sent_mail($email, $from, $subject, $template, $title);
 

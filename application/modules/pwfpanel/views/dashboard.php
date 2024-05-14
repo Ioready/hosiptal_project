@@ -457,21 +457,38 @@
                                 </div>
                                 <div>
                                 <div class="col-lg-3">
-                                        <select class="form-control" name="month" id="month">
-                                            <option value="">Select Month</option>
-                                            <option value="01">January</option>
-                                            <option value="02">February</option>
-                                            <option value="03">March</option>
-                                            <option value="04">April</option>
-                                            <option value="05">May</option>
-                                            <option value="06">June</option>
-                                            <option value="07">July</option>
-                                            <option value="08">August</option>
-                                            <option value="09">September</option>
-                                            <option value="10">October</option>
-                                            <option value="11">November</option>
-                                            <option value="12">December</option>
-                                        </select>
+                                <select class="form-control" name="month" id="month">
+    <option value="">Select Month</option>
+    <?php
+    // Get the selected month from the form data
+    $selected_month = $_POST['month'] ?? '';
+
+    // Array to map month numbers to month names
+    $months = [
+        '01' => 'January',
+        '02' => 'February',
+        '03' => 'March',
+        '04' => 'April',
+        '05' => 'May',
+        '06' => 'June',
+        '07' => 'July',
+        '08' => 'August',
+        '09' => 'September',
+        '10' => 'October',
+        '11' => 'November',
+        '12' => 'December',
+    ];
+
+    // Loop through the months array to create options
+    foreach ($months as $month_num => $month_name) {
+        // Check if the current month is the selected month
+        $selected = ($month_num == $selected_month) ? 'selected' : '';
+
+        // Output each month as an option
+        echo "<option value='$month_num' $selected>$month_name</option>";
+    }
+    ?>
+</select>
                                     </div>
                                     <div class="col-lg-2">
                                     <select class="form-control" name="year" id="year">
@@ -564,7 +581,7 @@
                        <!-- <div class="ibox-title">
                        </div> -->
                        <div class="ibox-content">
-                           <h1 class="no-margins"><?php echo $initial_rx; ?></h1>
+                           <h1 class="no-margins"><?php echo $total_task; ?></h1>
                            <h5 class="text-primary"><strong>Task to complete</strong></h5>
                        </div>
                        <img src="<?php echo base_url(); ?>uploads/medicine.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
@@ -696,7 +713,89 @@
 <?php } else if ($this->ion_auth->is_facilityManager()) { ?>
 
                         
+    <div class="panel-body">
+                            <form action="<?php echo site_url('pwfpanel'); ?>" name="patientForm" method="get">
 
+                            <div class="col-lg-3">
+                                    <?php // print_r($careUnitsUser);die;
+                                    ?>
+                                    <select id="weeks" name="weeks" class="form-control select-2">
+                                       
+                                        <option value="">Select Week</option>
+                                            <option value="01">1 Week</option>
+                                            <option value="02">2 Week</option>
+                                            <option value="03">3 Week</option>
+                                            <option value="04">4 Week</option>
+                                            <option value="05">5 Week</option>
+                                           
+                                    </select>
+                                </div>
+                                <div>
+                                <div class="col-lg-3">
+                                <select class="form-control" name="month" id="month">
+    <option value="">Select Month</option>
+    <?php
+    // Get the selected month from the form data
+    $selected_month = $_POST['month'] ?? '';
+
+    // Array to map month numbers to month names
+    $months = [
+        '01' => 'January',
+        '02' => 'February',
+        '03' => 'March',
+        '04' => 'April',
+        '05' => 'May',
+        '06' => 'June',
+        '07' => 'July',
+        '08' => 'August',
+        '09' => 'September',
+        '10' => 'October',
+        '11' => 'November',
+        '12' => 'December',
+    ];
+
+    // Loop through the months array to create options
+    foreach ($months as $month_num => $month_name) {
+        // Check if the current month is the selected month
+        $selected = ($month_num == $selected_month) ? 'selected' : '';
+
+        // Output each month as an option
+        echo "<option value='$month_num' $selected>$month_name</option>";
+    }
+    ?>
+</select>
+                                    </div>
+                                    <div class="col-lg-2">
+                                    <select class="form-control" name="year" id="year">
+                                            <?php
+                                            // Get the current year
+                                            $current_year = date("Y");
+
+                                            // Loop through years from 10 years ago to 10 years in the future
+                                            for ($i = $current_year - 10; $i <= $current_year + 10; $i++) {
+                                                // Check if the current iteration is the current year
+                                                $selected = ($i == $current_year) ? 'selected' : '';
+
+                                                // Output each year as an option
+                                                echo "<option value='$i' $selected>$i</option>";
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-sm-6 col-lg-1" style="margin-right: 8px;">
+                                        <input type="submit" name="search" class="btn btn-primary btn-sm save-btn" value="Search" />
+                                    </div>
+                                    
+
+                                    <!-- <form action="<?php echo site_url('task'); ?>" name="patientFormExport" method="get"> -->
+                                <div class="col-sm-12 col-lg-2">
+                                    <button type="submit" class="btn btn-primary btn-sm save-btn">
+                                        <fa class="fa fa-undo"></fa> Reset
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
     
             <div class="col-lg-4 dashboardBoxes">
                     <div style="background-color:#D0FAE4; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">

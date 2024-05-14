@@ -232,7 +232,7 @@ class Admin extends Common_Controller {
         }
         if ($this->form_validation->run() == true) {
 
-            $this->filedata['status'] = 1;
+            // $this->filedata['status'] = 1;
             $image = "";
             if (!empty($_FILES['user_image']['name'])) {
                 $this->filedata = $this->commonUploadImage($_POST, 'users', 'user_image');
@@ -318,6 +318,29 @@ class Admin extends Common_Controller {
                         $html['content'] = $EmailTemplate->description;
                         $email_template = $this->load->view('email-template/registration', $html, true);
                         $title = '[' . getConfig('site_name') . '] ' . $EmailTemplate->title;
+
+                        $patient_id = $this->common_model->customInsert($option);
+            $query = $this->db->order_by('created_on', 'desc')->limit(1)->get('vendor_sale_email_host');
+        $result = $query->row();
+                    $this->load->library('email');
+                    $fromName="ioready";
+                    $to= $email;
+                    $from = $result->email;
+                    $this->email->from($from, $fromName);
+                    $this->email->to($to);
+            
+                    $this->email->subject($title);
+                    $this->email->message($email_template);
+            
+                    if($this->email->send())
+                    {
+                        echo "Mail Sent Successfully";
+                    }
+                    else
+                    {
+                        echo "Failed to send email";
+                        show_error($this->email->print_debugger());             
+                            }
                         send_mail_new($email_template, $title, $email, getConfig('admin_email'));
                     }
                 } else {

@@ -22,6 +22,7 @@ class Appointment extends Common_Controller {
     public function index($vendor_profile_activate = "No") {
 
        
+        // print_r($this->data['results']);die;
         $this->data['parent'] = $this->title;
        
         $this->data['title'] = $this->title;
@@ -247,7 +248,19 @@ class Appointment extends Common_Controller {
      * @description get profile
      * @return array
      */
-  
+//   function search(){
+
+//     // $query = $this->input->get('query');
+//     $paramValue = $this->input->get('search');
+//     // print_r($paramValue);die;
+// $this->db->like('patient_id', $paramValue); 
+// $results = $this->db->get('vendor_sale_patient')->result_array();
+// // print_r($results);die;
+// $this->data['results'] = $results;
+// $this->load->admin_render('add', $this->data, 'inner_script');
+    
+
+//   }
     
     /**
      * @method open_model
@@ -255,6 +268,14 @@ class Appointment extends Common_Controller {
      * @return array
      */
     function open_model() {
+
+        $paramValue = $this->input->get('search');
+        
+        $this->db->like('patient_id', $paramValue);
+        $this->db->limit(1); 
+$results = $this->db->get('vendor_sale_patient')->result_array();
+// print_r($results);die;
+$this->data['results'] = $results;
       $this->data['parent'] = $this->title;
         $this->data['title'] = "Add " . $this->title;
         $this->data['formUrl'] = $this->router->fetch_class() . "/add";

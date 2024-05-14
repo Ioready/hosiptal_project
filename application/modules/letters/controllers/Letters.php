@@ -93,7 +93,7 @@ class Letters extends Common_Controller {
         $optionEmailTemplate = array(
             'table' => 'vendor_sale_lettel_header',
             // 'select' => 'vendor_sale_lettel_header.*',
-            'select' => 'vendor_sale_lettel_header.*,vendor_sale_lettel_header.logo as header_logo, vendor_sale_lettel_bodies.*,vendor_sale_lettel_recipients.*,vendor_sale_lettel_footer.*',
+            'select' => 'vendor_sale_lettel_header.*, vendor_sale_lettel_header.internal_name as header_internal_name ,vendor_sale_lettel_header.logo as header_logo, vendor_sale_lettel_bodies.*,vendor_sale_lettel_recipients.*,vendor_sale_lettel_footer.* ,vendor_sale_lettel_footer.internal_name as footer_internal_name',
             'join' => array(
                 array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_lettel_header.user_id','left'),
                 array('vendor_sale_lettel_bodies', 'vendor_sale_lettel_header.id=vendor_sale_lettel_bodies.header_id','left'),
@@ -177,11 +177,11 @@ class Letters extends Common_Controller {
         $this->data['footer_list'] = $this->common_model->customGet($optionfooter);
 
 
-
+        
         $optionEmailTemplate = array(
             'table' => 'vendor_sale_lettel_header',
             // 'select' => 'vendor_sale_lettel_header.*',
-            'select' => 'vendor_sale_lettel_header.*, vendor_sale_lettel_bodies.*,vendor_sale_lettel_recipients.*,vendor_sale_lettel_footer.*',
+            'select' => 'vendor_sale_lettel_header.*,vendor_sale_lettel_header.logo as header_logo, vendor_sale_lettel_bodies.*,vendor_sale_lettel_recipients.*,vendor_sale_lettel_footer.*',
             'join' => array(
                 array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_lettel_header.user_id','left'),
                 array('vendor_sale_lettel_bodies', 'vendor_sale_lettel_header.id=vendor_sale_lettel_bodies.header_id','left'),
@@ -192,8 +192,8 @@ class Letters extends Common_Controller {
             'where' => array('vendor_sale_lettel_header.user_id' => $LoginID)
         );
 
-        $data['template_list'] = $this->common_model->customGet($optionEmailTemplate);
-        
+        $this->data['template_list'] = $this->common_model->customGet($optionEmailTemplate);
+        // print_r($this->data['template_list']);die;
         
         $this->load->admin_render('directory', $this->data, 'inner_script');
     }
@@ -483,18 +483,16 @@ class Letters extends Common_Controller {
         // print_r($this->input->post());die;
         // echo "</pre>";
         $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
-
-        // $this->form_validation->set_rules('facility_manager_id', "Facility Manager Name", 'required|xss_clean');
         $this->form_validation->set_rules('internal_name', "internal_name", 'required|trim');
-        // $this->form_validation->set_rules('description', "Description", 'required|trim');
+       
 
         if ($this->form_validation->run() == true) {
-            $this->filedata['status'] = 1;
-            
-            if ($this->filedata['status'] == 0) {
-                $response = array('status' => 0, 'message' => $this->filedata['error']);
-            // }
-            } else {
+            // $this->filedata['status'] = 1;
+            // print_r($this->input->post());die;
+            // if ($this->filedata['status'] == 0) {
+            //     $response = array('status' => 0, 'message' => $this->filedata['error']);
+            // // }
+            // } else {
              
 
                     $image = '';
@@ -531,7 +529,7 @@ class Letters extends Common_Controller {
                 } else {
                     $response = array('status' => 0, 'message' => "Failed to add");
                 }
-            }
+            // }
         } else {
             $messages = (validation_errors()) ? validation_errors() : '';
             $response = array('status' => 0, 'message' => $messages);
@@ -552,13 +550,7 @@ class Letters extends Common_Controller {
         // $this->form_validation->set_rules('description', "Description", 'required|trim');
 
         if ($this->form_validation->run() == true) {
-            $this->filedata['status'] = 1;
             
-            if ($this->filedata['status'] == 0) {
-                $response = array('status' => 0, 'message' => $this->filedata['error']);
-            // }
-            } else {
-             
 
                     $image = '';
 		
@@ -603,7 +595,7 @@ class Letters extends Common_Controller {
                 } else {
                     $response = array('status' => 0, 'message' => "Failed to add");
                 }
-            }
+           
         } else {
             $messages = (validation_errors()) ? validation_errors() : '';
             $response = array('status' => 0, 'message' => $messages);
@@ -620,13 +612,7 @@ class Letters extends Common_Controller {
         $this->form_validation->set_rules('header_id', "header", 'required|trim');
 
         if ($this->form_validation->run() == true) {
-            $this->filedata['status'] = 1;
-            
-            if ($this->filedata['status'] == 0) {
-                $response = array('status' => 0, 'message' => $this->filedata['error']);
-            // }
-            } else {
-             
+        
 
                 $options_data = array(
                     'user_id'=> $LoginID,
@@ -643,7 +629,7 @@ class Letters extends Common_Controller {
                 } else {
                     $response = array('status' => 0, 'message' => "Failed to add");
                 }
-            }
+          
         } else {
             $messages = (validation_errors()) ? validation_errors() : '';
             $response = array('status' => 0, 'message' => $messages);
@@ -664,12 +650,7 @@ class Letters extends Common_Controller {
         $this->form_validation->set_rules('body_id', "body_id", 'required|trim');
 
         if ($this->form_validation->run() == true) {
-            $this->filedata['status'] = 1;
             
-            if ($this->filedata['status'] == 0) {
-                $response = array('status' => 0, 'message' => $this->filedata['error']);
-            // }
-            } else {
              
 
                 $options_data = array(
@@ -687,7 +668,7 @@ class Letters extends Common_Controller {
                 } else {
                     $response = array('status' => 0, 'message' => "Failed to add");
                 }
-            }
+           
         } else {
             $messages = (validation_errors()) ? validation_errors() : '';
             $response = array('status' => 0, 'message' => $messages);
@@ -788,6 +769,21 @@ class Letters extends Common_Controller {
         );
 
         $this->data['list'] = $this->common_model->customGet($optionheader);
+        $optionEmailTemplate = array(
+            'table' => 'vendor_sale_lettel_header',
+            // 'select' => 'vendor_sale_lettel_header.*',
+            'select' => 'vendor_sale_lettel_header.*, vendor_sale_lettel_header.internal_name as header_internal_name ,vendor_sale_lettel_header.logo as header_logo, vendor_sale_lettel_bodies.*,vendor_sale_lettel_recipients.*,vendor_sale_lettel_footer.* ,vendor_sale_lettel_footer.internal_name as footer_internal_name',
+            'join' => array(
+                array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_lettel_header.user_id','left'),
+                array('vendor_sale_lettel_bodies', 'vendor_sale_lettel_header.id=vendor_sale_lettel_bodies.header_id','left'),
+                array('vendor_sale_lettel_recipients', 'vendor_sale_lettel_bodies.id=vendor_sale_lettel_recipients.body_id','left'),
+                array('vendor_sale_lettel_footer', 'vendor_sale_lettel_recipients.id=vendor_sale_lettel_footer.recipient_id','left')
+                
+            ),
+            'where' => array('vendor_sale_lettel_header.user_id' => $LoginID)
+        );
+
+        $this->data['template_list'] = $this->common_model->customGet($optionEmailTemplate);
 
         $this->load->admin_render('consultation', $this->data, 'inner_script');
     }
@@ -1299,5 +1295,55 @@ class Letters extends Common_Controller {
         }
         echo $response;
     }
+
+    public function generate_template() {
+        
+        $this->form_validation->set_rules('internal_name', 'internal_name', 'required');
+        
+       
+        
+        if ($this->form_validation->run() == true) {     
+            
+                 $options_data = array(
+                    'email_type'    => $this->input->post('internal_name'),
+                    'title'         => $this->input->post('internal_name'),
+                    'description'   => $this->input->post('internal_name'),
+                    'image'         => $this->input->post('header_logo'),
+                    'bodies_template'=> $this->input->post('bodies_templatess'),
+                    'recipient_template'=> $this->input->post('recipient_template'),
+                    'footer_logo'=>$this->input->post('logo'),
+                    'create_date'   => datetime(),
+                    'is_active'        => 1,
+                );
+               
+                $option = array('table' => 'vendor_sale_email_template', 'data' => $options_data);
+                if ($this->common_model->customInsert($option)) {
+                    $response = array('status' => 1, 'message' => 'Successfuly Saved', 'url' => base_url('emailTemplate'));
+                }else {
+                    $response = array('status' => 0, 'message' => 'Failed');
+                }                
+            
+        } else {
+            $messages = (validation_errors()) ? validation_errors() : '';
+            $response = array('status' => 0, 'message' => $messages);
+        }
+        return json_encode($response);
+    }
+
+    // public function generate_template() {
+        
+    //         // Process form data here
+    //         // $id = $this->input->post('id');
+    //         $id = $this->input->post();
+    //         // Generate template logic
+    //         // Return appropriate response
+    //         echo json_encode(array('success' => true)); // Example response
+      
+    //     print_r($id);die;
+    //     // Perform any necessary logic to generate the template based on the ID
+        
+    //     // Redirect or return a response as needed
+    // }
+    
 
 }

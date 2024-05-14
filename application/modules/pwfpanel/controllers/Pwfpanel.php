@@ -140,6 +140,22 @@ class Pwfpanel extends Common_Controller
 
                 $data['total_patient'] = $this->common_model->customCount($option);
                 $option = array(
+                    'table' => 'task',
+                    'select' => 'task.id',
+                    'join' => array(
+                        
+                        array('doctors doc', 'doc.id=task.assign_to', 'left')
+                    ),
+                    'order' => array('task.id' => 'ASC'),
+                    // 'where' => array(
+                    //     'user.delete_status' => 0,
+                    //     'group.id' => 3
+                    // ),
+                    'order' => array('task.id' => 'desc'),
+                );
+                // print_r($option);die;
+                $data['total_task'] = $this->common_model->customCount($option);
+                $option = array(
                     'table' => "patient P",
                     'select' => "P.id",
                     'where' => array('DATE(created_date)' => date('Y-m-d'))
@@ -158,30 +174,24 @@ class Pwfpanel extends Common_Controller
 $date = date("Y-m-d");
 
 $AdminCareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
-
-
 $week = $this->input->get('weeks');
 $month = $this->input->get('month');
 $year = $this->input->get('year');
 
-// Build the WHERE clause based on the selected date range
 $whereClause = '';
 if (!empty($week)) {
-    // Calculate the start and end dates for the selected week
     $startDate = date("Y-m-d", strtotime("last monday", strtotime("+$week week")));
     $endDate = date("Y-m-d", strtotime("next sunday", strtotime("+$week week")));
     $whereClause = "AND created_date BETWEEN '$startDate' AND '$endDate'";
+
 } elseif (!empty($month) && !empty($year)) {
-    // Create the date range for the selected month and year
     $startDate = "$year-$month-01";
     $endDate = date("Y-m-t", strtotime($startDate)); // Last day of the month
     $whereClause = "AND created_date BETWEEN '$startDate' AND '$endDate'";
    
 } elseif (!empty($year)) {
-    // Filter by the selected year
     $whereClause = "AND YEAR(created_date) = '$year'";
-
-    
+ 
 }
 
 
@@ -217,7 +227,7 @@ $data['total_patient_doctors'] = $user_facility_counts;
 
                 
 
-                    $this->load->admin_render('dashboard', $data);
+                $this->load->admin_render('dashboard', $data);
                     // redirect('patient', 'refresh');
                 }
                 /* else if ($this->ion_auth->is_facilityManager()) {
@@ -236,9 +246,37 @@ $data['total_patient_doctors'] = $user_facility_counts;
                 $this->load->admin_render('vendorDashboard', $this->data, 'inner_script');
             } else if ($this->ion_auth->is_facilityManager()) {
 
+                $date = date("Y-m-d");   
+                $week = $this->input->get('weeks');
+$month = $this->input->get('month');
+$year = $this->input->get('year');
+
+// Build the WHERE clause based on the selected date range
+$whereClause = '';
+
+if (!empty($week)) {
+    // Calculate the start and end dates for the selected week
+    $startDate = date("Y-m-d", strtotime("last monday", strtotime("+$week week")));
+    $endDate = date("Y-m-d", strtotime("next sunday", strtotime("+$week week")));
+    $whereClause = "AND created_date BETWEEN '$startDate' AND '$endDate'";
+} elseif (!empty($month) && !empty($year)) {
+    // Create the date range for the selected month and year
+    $startDate = "$year-$month-01";
+    $endDate = date("Y-m-t", strtotime($startDate)); // Last day of the month
+    $whereClause = "AND created_date BETWEEN '$startDate' AND '$endDate'";
+   
+} elseif (!empty($year)) {
+    // Filter by the selected year
+    $whereClause = "AND YEAR(created_date) = '$year'";
+
+    
+}
+// print_r($whereClause);die;
 
                 $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+                
                 $Sql = "SELECT vendor_sale_users.care_unit_id FROM vendor_sale_users WHERE vendor_sale_users.id = '$CareUnitID'";
+                // print_r($Sql);die;
                 $careUnit_list_id = $this->common_model->customQuery($Sql);
                 $care_unit_ids = [];
                 foreach ($careUnit_list_id as $values) {
@@ -260,7 +298,7 @@ $data['total_patient_doctors'] = $user_facility_counts;
                 $data['careUnit'] = $y;
 
 
-                $data['initial_dx'] = $this->common_model->customCount(array('table' => 'initial_dx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0)));
+                $data['initial_dx'] = $this->common_model->customCount(array('table' => 'initial_dx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0) ,$whereClause));
                 $data['initial_rx'] = $this->common_model->customCount(array('table' => 'initial_rx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0)));
                 // $data['doctors'] = $this->common_model->customCount(array('table' => 'doctors', 'select' => 'id,name', 'where' => array('is_active' => 1, 'doctors.facility_user_id'=>$user_id, 'delete_status' => 0)));
 
@@ -277,8 +315,9 @@ $data['total_patient_doctors'] = $user_facility_counts;
                     'where' => array(
                         'user.delete_status' => 0,
                         // 'group.id' => 5,
-                        'user.id'=>$CareUnitID
-                    ),
+                        'user.id'=>$CareUnitID 
+                    ) ,$whereClause,
+                    
                     'order' => array('user.id' => 'desc'),
                 );
                 $data['doctors'] = $this->common_model->customCount($option);
@@ -295,7 +334,7 @@ $data['total_patient_doctors'] = $user_facility_counts;
                     'where' => array(
                         'users.delete_status' => 0,
                         'doctors.facility_user_id'=>$CareUnitID
-                    ),
+                    ),$whereClause,
                     'order' => array('users.id' => 'desc'),
                 );
                 $data['doctors_list'] = $this->common_model->customGet($option);
@@ -314,7 +353,7 @@ $data['total_patient_doctors'] = $user_facility_counts;
                     'where' => array(
                         'user.delete_status' => 0,
                         'group.id' => 5
-                    ),
+                    ),$whereClause,
                     'order' => array('user.id' => 'desc'),
                 );
                 $data['total_md_steward'] = $this->common_model->customCount($option);
@@ -339,7 +378,7 @@ $data['total_patient_doctors'] = $user_facility_counts;
                     'join' => array(
                         array('users', 'doctors.user_id=users.id', 'left'),  
                     ),
-                    
+                    $whereClause,
                     'where' => array(
                         'users.delete_status' => 0,
                         'doctors.facility_user_id'=>$CareUnitID
@@ -352,7 +391,7 @@ $data['total_patient_doctors'] = $user_facility_counts;
 
 
                 $AdminCareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
-                $Sql = "SELECT vendor_sale_patient.operator_id FROM vendor_sale_patient WHERE vendor_sale_patient.operator_id = $AdminCareUnitID";
+                $Sql = "SELECT vendor_sale_patient.operator_id FROM vendor_sale_patient WHERE vendor_sale_patient.operator_id = $AdminCareUnitID $whereClause";
                 $careunit_facility_counts = $this->common_model->customQuery($Sql);
                 $user_facility_counts = count($careunit_facility_counts);
                 $data['total_patient'] = $user_facility_counts;
@@ -362,7 +401,7 @@ $data['total_patient_doctors'] = $user_facility_counts;
                 $date = date("Y-m-d");
                 //print_r($date);die;
                 $AdminCareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
-                $Sql = "SELECT vendor_sale_patient.operator_id FROM vendor_sale_patient WHERE vendor_sale_patient.operator_id = $AdminCareUnitID AND  DATE(created_date) = '$date'";
+                $Sql = "SELECT vendor_sale_patient.operator_id FROM vendor_sale_patient WHERE vendor_sale_patient.operator_id = $AdminCareUnitID AND  DATE(created_date) = '$date'  $whereClause";
                 $careunit_facility_counts = $this->common_model->customQuery($Sql);
                 $user_facility_counts = count($careunit_facility_counts);
                 $data['total_patient_today'] = $user_facility_counts;
@@ -384,7 +423,7 @@ $data['total_patient_doctors'] = $user_facility_counts;
                     'appointment_clinic.md_patient_status' => 0,
                     
                     // 'h.admin_id' => $user_id
-                ),
+                ),$whereClause,
                 'order' => array('appointment_clinic.id' => 'desc'));
                 
                 $data['appointment_list'] = $this->common_model->customGet($option);
@@ -400,10 +439,11 @@ $data['total_patient_doctors'] = $user_facility_counts;
                     'order' => array('user.id' => 'ASC'),
                     'where' => array(
                         'user.delete_status' => 0,
-                        'group.id' => 5
-                    ),
+                        'group.id' => 5 
+                    ) , $whereClause,
                     'order' => array('user.id' => 'desc'),
                 );
+                // print_r($option);die;
                 $data['total_appointment'] = $this->common_model->customCount($option);
                 
                 // $date = date('Y/m/d H:i:s');
@@ -460,7 +500,7 @@ $data['total_patient_doctors'] = $user_facility_counts;
                 WHERE DATE(vendor_sale_clinic_appointment.start_date_appointment) = '$currentDate'
                    OR DATE(od.out_start_time_at) = '$currentDate'
                    OR DATE(da.start_date_availability) = '$currentDate'
-                   OR DATE(ta.theatre_date_time) = '$currentDate'
+                   OR DATE(ta.theatre_date_time) = '$currentDate'  $whereClause
                 ORDER BY vendor_sale_clinic_appointment.start_date_appointment DESC, od.out_start_time_at DESC, da.start_date_availability DESC, ta.theatre_date_time DESC
                 LIMIT 6"; // Example limit value of 10
         

@@ -149,11 +149,8 @@ class DataOperator extends Common_Controller
             'select' => '*'
         );
         $this->data['countries'] = $this->common_model->customGet($option);
-        $option = array(
-            'table' => 'states',
-            'select' => '*'
-        );
-        $this->data['states'] = $this->common_model->customGet($option);
+       
+
         $option = array(
             'table' => 'care_unit',
             'select' => '*', 'where' => array('delete_status' => 0), 'order' => array('name' => 'ASC')
@@ -177,6 +174,7 @@ class DataOperator extends Common_Controller
      */
     public function add()
     {
+        
         $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
         // print_r($LoginID);die("aaa");
 
@@ -203,7 +201,9 @@ class DataOperator extends Common_Controller
             echo json_encode($response);
             exit;
         }
+        
         $email = strtolower($this->input->post('user_email'));
+        // print_r($email);die;
         $zipcode = $this->input->post('zipcode');
         $options = array(
             'table' => USERS . ' as user',
@@ -218,7 +218,7 @@ class DataOperator extends Common_Controller
         }
         if ($this->form_validation->run() == true) {
 
-            $this->filedata['status'] = 1;
+            // $this->filedata['status'] = 1;
             $image = "";
             if (!empty($_FILES['user_image']['name'])) {
                 $this->filedata = $this->commonUploadImage($_POST, 'users', 'user_image');
@@ -226,9 +226,7 @@ class DataOperator extends Common_Controller
                     $image = 'uploads/users/' . $this->filedata['upload_data']['file_name'];
                 }
             }
-            if ($this->filedata['status'] == 0) {
-                $response = array('status' => 0, 'message' => $this->filedata['error']);
-            } else {
+           
                 $email = strtolower($this->input->post('user_email'));
                 $identity = ($identity_column === 'email') ? $email : $this->input->post('user_email');
                 $password = $this->input->post('password');
@@ -305,29 +303,77 @@ class DataOperator extends Common_Controller
                         'delete_status' => 0
                     );
                     $this->db->insert('vendor_sale_doctors_qualification', $doctors_table);
+                    $query = $this->db->order_by('created_on', 'desc')->limit(1)->get('vendor_sale_email_host');
+        $result = $query->row();
+                    $this->load->library('email');
+                    $fromName="ioready";
+                    $to= $email;
+                    $subject='Test Mail Subject';
+                    $message='Test Content';
+                    $from = $result->email;
+                    $this->email->from($from, $fromName);
+                    $this->email->to($to);
+            
+                    $this->email->subject($subject);
+                    $this->email->message($message);
+            
+                    if($this->email->send())
+                    {
+                        echo "Mail Sent Successfully";
+                    }
+                    else
+                    {
+                        echo "Failed to send email";
+                        show_error($this->email->print_debugger());             
+                            }
+
+                    // Assuming $config is populated from somewhere
+                    // if (!empty($config) && is_array($config)) {
+                    //     $this->email->initialize($config);
+                    // } else {
+                    //     $EmailTemplate = getEmailTemplate("welcome");
+                    //     if (!empty($EmailTemplate)) {
+                    //         $html = array();
+                    //         $html['logo'] = base_url() . getConfig('site_logo');
+                    //         $html['site'] = getConfig('site_name');
+                    //         $html['site_meta_title'] = getConfig('site_meta_title');
+                    //         $name = $this->input->post('first_name') . " " . $this->input->post('last_name');
+                    //         $login_id = $this->input->post($x);
+                    //         $html['user'] = ucwords($name);
+                    //         $html['email'] = $email;
+                    //         $html['password'] = $password;
+                    //         $html['website'] = base_url();
+                    //         $html['content'] = $EmailTemplate->description;
+                    //         $email_template = $this->load->view('email-template/registration', $html, true);
+                    //         $title = '[' . getConfig('site_name') . '] ' . $EmailTemplate->title;
+                    
+                    //         // Set email parameters
+                    //         $this->email->from('aditya_urmaliya@ioready.io', 'aditya_urmaliya@ioready.io');
+                    //         $this->email->to($email);
+                    //         $this->email->subject($title);
+                    //         $this->email->message($email_template);
+                    
+                    //         // Send email
+                    //         if ($this->email->send()) {
+                    //             echo 'Email sent successfully.';
+                    //         } else {
+                    //             echo 'Email sending failed.';
+                    //         }
+                    //     }
+                    // }
+
+
+
 
                 } else {
                     echo "You can not register Doctor";
                 }
 
                     /** info email * */
-                    $EmailTemplate = getEmailTemplate("welcome");
-                    if (!empty($EmailTemplate)) {
-                        $html = array();
-                        $html['logo'] = base_url() . getConfig('site_logo');
-                        $html['site'] = getConfig('site_name');
-                        $html['site_meta_title'] = getConfig('site_meta_title');
-                        $name = $this->input->post('first_name') . " " . $this->input->post('last_name');
-                        $login_id = $this->input->post($x);
-                        $html['user'] = ucwords($name);
-                        $html['email'] = $email;
-                        $html['password'] = $password;
-                        $html['website'] = base_url();
-                        $html['content'] = $EmailTemplate->description;
-                        $email_template = $this->load->view('email-template/registration', $html, true);
-                        $title = '[' . getConfig('site_name') . '] ' . $EmailTemplate->title;
-                        send_mail_new($email_template, $title, $email, getConfig('admin_email'));
-                    }
+                    
+                    
+
+   
                 } else {
                     $where_id = $email_exist->id;
                     $options_data = array(
@@ -369,7 +415,7 @@ class DataOperator extends Common_Controller
                 } else {
                     $response = array('status' => 0, 'message' => lang('user_failed'));
                 }
-            }
+            
         } else {
             $messages = (validation_errors()) ? validation_errors() : '';
             $response = array('status' => 0, 'message' => $messages);
@@ -668,4 +714,109 @@ class DataOperator extends Common_Controller
         }
         echo $response;
     }
+
+
+
+    public function getStates()
+    {
+        $response = array();
+        $id = $this->input->post('id');
+       
+        if (!empty($id)) {
+            // $options = array(
+            //     'table' => 'states',
+            //     'select' => 'states.*',
+            //     'where' => array('country_id' => $id),
+            // );
+            // $states = $this->common_model->customGet($options);
+            // $stateData = '';
+            // foreach ($states as $state_list) {
+                
+            //     $stateData .= '<option value="' . $state_list->id_state . '">' . $state_list->state . '</option>';
+            // }
+            
+            
+        
+            // if($states){
+            //     $response['success'] = true;
+            //     $response['status'] = 200;
+            //     $response['data'] = $stateData;
+            // } else {
+            //     $response['success'] = false;
+            //     $response['message'] = 'No states found';
+            // }
+
+            $options = array(
+                'table' => 'states',
+                'select' => 'states.*',
+                'where' => array('country_id' => $id),
+            );
+            $states = $this->common_model->customGet($options);
+            
+            $data.= '<select id="state" onchange="getCities(this.value)" name="state" class="form-control" size="1">';
+            $data.= '<option value="" disabled selected>Please select</option>';
+            
+            
+            foreach ($states as $state_list) {
+               
+                $data.= '<option value="' . $state_list->id_state . '">' . $state_list->state . '</option>';
+            }
+            
+            
+             $data.= '</select>';
+            
+            // echo $response;
+
+            
+        // } else {
+        //     $response['success'] = false;
+        //     $response['message'] = 'Invalid request';
+        }
+
+        
+        echo json_encode($data);
+
+    //    return  json_encode($response);
+    }
+    
+    public function getCity()
+    {
+        $response = array();
+        $id = $this->input->post('id');
+        if (!empty($id)) {
+            $options = array(
+                'table' => 'cities',
+                'select' => 'cities.*',
+                'where' => array('state_id' => $id),
+            );
+            $cities = $this->common_model->customGet($options);
+    
+            // if($cities){
+            //     $response['success'] = true;
+            //     $response['data'] = $cities;
+            // } else {
+            //     $response['success'] = false;
+            //     $response['message'] = 'No cities found';
+            // }
+
+            $data.= '<select id="city" name="city" class="form-control" size="1">';
+            $data.= '<option value="" disabled selected>Please select</option>';
+            
+            
+            foreach ($cities as $cities_list) {
+               
+                $data.= '<option value="' . $cities_list->id_city . '">' . $cities_list->city . '</option>';
+            }
+            
+             $data.= '</select>';
+        }
+        echo json_encode($data);
+    }
+    
+
+   
+
+    
+
+
 }
