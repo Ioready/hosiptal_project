@@ -155,9 +155,10 @@ class Admin extends Common_Controller {
         $this->data['title'] = "Add " . $this->title;
         $this->data['formUrl'] = $this->router->fetch_class() . "/add";
         $option = array('table' => 'countries',
-            'select' => '*'
-        );
-        $this->data['countries'] = $this->common_model->customGet($option);
+        'select' => '*','where'=>array('shortname'=>'GB')
+    );
+    $this->data['countries'] = $this->common_model->customGet($option);
+
         $option = array('table' => 'states',
             'select' => '*');
         $this->data['states'] = $this->common_model->customGet($option);
@@ -185,6 +186,9 @@ class Admin extends Common_Controller {
      * @return array
      */
     public function add() {
+        // echo '<pre>';
+        // print_r($this->input->post());die;
+        // echo '</pre>';
         $tables = $this->config->item('tables', 'ion_auth');
         $identity_column = $this->config->item('identity', 'ion_auth');
         $this->data['identity_column'] = $identity_column;
@@ -234,15 +238,15 @@ class Admin extends Common_Controller {
 
             // $this->filedata['status'] = 1;
             $image = "";
-            if (!empty($_FILES['user_image']['name'])) {
-                $this->filedata = $this->commonUploadImage($_POST, 'users', 'user_image');
-                if ($this->filedata['status'] == 1) {
-                    $image = 'uploads/users/' . $this->filedata['upload_data']['file_name'];
-                }
-            }
-            if ($this->filedata['status'] == 0) {
-                $response = array('status' => 0, 'message' => $this->filedata['error']);
-            } else {
+            // if (!empty($_FILES['user_image']['name'])) {
+            //     $this->filedata = $this->commonUploadImage($_POST, 'users', 'user_image');
+            //     if ($this->filedata['status'] == 1) {
+            //         $image = 'uploads/users/' . $this->filedata['upload_data']['file_name'];
+            //     }
+            // }
+            // if ($this->filedata['status'] == 0) {
+            //     $response = array('status' => 0, 'message' => $this->filedata['error']);
+            // } else {
                 $email = strtolower($this->input->post('user_email'));
                 $identity = ($identity_column === 'email') ? $email : $this->input->post('user_email');
                 $password = $this->input->post('password');
@@ -279,15 +283,36 @@ class Admin extends Common_Controller {
                         'created_on' => strtotime(datetime())
                     );
                     
-                    // print_r($additional_data);die;
                     $insert_id = $this->ion_auth->register($identity, $password, $email, $additional_data, array(2));
 
 
+                    if(!empty($this->input->post('country'))){
+                        $country = $this->input->post('country');
+                    }else{
+                        $country = $this->input->post('country_id');
+                    }
+
+                    if(!empty($this->input->post('state'))){
+                        $state = $this->input->post('state');
+                    }else{
+                        $state = $this->input->post('state_id');
+                    }
+                    
+                    if(!empty($this->input->post('city'))){
+                        $city = $this->input->post('city');
+                    }else{
+                        $city = $this->input->post('city_id');
+                    }
+                    
+                    
                     $additional_data_profile = array(
                         'user_id' => $insert_id,
-                        'country' => $this->input->post('country'),
-                        'state' => $this->input->post('state'),
-                        'city' => $this->input->post('city'),
+                        // 'country' => $this->input->post('country'),
+                        // 'state' => $this->input->post('state'),
+                        // 'city' => $this->input->post('city'),
+                        'country' => $country,
+                        'state' => $state,
+                        'city' => $city,
                         'address1' => $this->input->post('address1'),
                         // 'profile_pic' => $image,
                         'gender' => $this->input->post('user_gender'),
@@ -304,7 +329,10 @@ class Admin extends Common_Controller {
 
 
                     /** info email * */
+
+
                     $EmailTemplate = getEmailTemplate("welcome");
+                    
                     if (!empty($EmailTemplate)) {
                         $html = array();
                         $html['logo'] = base_url() . getConfig('site_logo');
@@ -319,9 +347,9 @@ class Admin extends Common_Controller {
                         $email_template = $this->load->view('email-template/registration', $html, true);
                         $title = '[' . getConfig('site_name') . '] ' . $EmailTemplate->title;
 
-                        $patient_id = $this->common_model->customInsert($option);
-            $query = $this->db->order_by('created_on', 'desc')->limit(1)->get('vendor_sale_email_host');
-        $result = $query->row();
+                    $patient_id = $this->common_model->customInsert($option);
+                    $query = $this->db->order_by('created_on', 'desc')->limit(1)->get('vendor_sale_email_host');
+                    $result = $query->row();
                     $this->load->library('email');
                     $fromName="ioready";
                     $to= $email;
@@ -332,17 +360,20 @@ class Admin extends Common_Controller {
                     $this->email->subject($title);
                     $this->email->message($email_template);
             
-                    if($this->email->send())
-                    {
-                        echo "Mail Sent Successfully";
-                    }
-                    else
-                    {
-                        echo "Failed to send email";
-                        show_error($this->email->print_debugger());             
+                            if($this->email->send())
+                            {
+                                echo "Mail Sent Successfully";
+                            }
+                            else
+                             {
+                                echo "Failed to send email";
+                                show_error($this->email->print_debugger());             
                             }
                         send_mail_new($email_template, $title, $email, getConfig('admin_email'));
                     }
+
+
+
                 } else {
                     $where_id = $email_exist->id;
                     $options_data = array(
@@ -376,6 +407,7 @@ class Admin extends Common_Controller {
                     $this->db->where("user_id", $where_id);
                     $this->db->update('vendor_sale_user_profile', $additional_data_profile);
                 }
+
                 if ($insert_id) {
                     $html = array();
                     $response = array('status' => 1, 'message' => 'Added Successfully', 'url' => base_url($this->router->fetch_class()));
@@ -383,10 +415,10 @@ class Admin extends Common_Controller {
                     $response = array('status' => 0, 'message' => lang('user_failed'));
                 }
             }
-        } else {
-            $messages = (validation_errors()) ? validation_errors() : '';
-            $response = array('status' => 0, 'message' => $messages);
-        }
+        // } else {
+        //     $messages = (validation_errors()) ? validation_errors() : '';
+        //     $response = array('status' => 0, 'message' => $messages);
+        // }
         echo json_encode($response);
     }
    
@@ -398,8 +430,14 @@ class Admin extends Common_Controller {
 
      
     public function edit() {
+        // $this->data['parent'] = $this->title;
+        // $this->data['title'] = "Edit " . $this->title;
+
         $this->data['parent'] = $this->title;
         $this->data['title'] = "Edit " . $this->title;
+        $this->data['formUrl'] = $this->router->fetch_class() . "/edit";
+       
+
         $id = decoding($_GET['id']);
         if (!empty($id)) {
             $option = array(
@@ -416,12 +454,25 @@ class Admin extends Common_Controller {
             );
             $results_row = $this->common_model->customGet($option);
             if (!empty($results_row)) {
-                $option = array('table' => 'countries',
-                    'select' => '*');
+
+                // print_r($results_row->state);die;
+                $option = array('table' => 'countries','select' => '*','where'=>array('shortname'=>'GB'));
                 $this->data['countries'] = $this->common_model->customGet($option);
+
                 $option = array('table' => 'states',
-                    'select' => '*');
+                    'select' => '*', 'where'=> array('id_state'=> $results_row->state),
+                    // 'single'=>true,
+                );
                 $this->data['states'] = $this->common_model->customGet($option);
+                $option = array(
+                    'table' => 'cities',
+                    'select' => '*',
+                    'where' => array('id_city'=> $results_row->city),
+                    // 'single' => true,
+                );
+                $this->data['cities'] = $this->common_model->customGet($option);
+                
+                // print_r($this->data['states']);die;
                 $this->data['results'] = $results_row;
                // print_r( json_decode($this->data['results']->care_unit_id));die;
                 $option = array('table' => 'care_unit',
@@ -439,7 +490,8 @@ class Admin extends Common_Controller {
             );
 
             $this->data['staward'] = $this->common_model->customGet($option);
-                $this->load->admin_render('edit', $this->data, 'inner_script');
+            $this->load->admin_render('edit', $this->data, 'inner_script');
+                // $this->load->admin_render('edit', $this->data, 'inner_script');
             } else {
                 $this->session->set_flashdata('error', lang('not_found'));
                 redirect('vendors');
@@ -491,7 +543,7 @@ class Admin extends Common_Controller {
             );
             $is_unique_email = $this->common_model->customGet($option);
             if (empty($is_unique_email)) {
-                $this->filedata['status'] = 1;
+                // $this->filedata['status'] = 1;
                 $image = $this->input->post('exists_image');
                 if (!empty($_FILES['user_image']['name'])) {
                     $this->filedata = $this->commonUploadImage($_POST, 'users', 'user_image');
@@ -501,9 +553,9 @@ class Admin extends Common_Controller {
                         unlink_file($this->input->post('exists_image'), FCPATH);
                     }
                 }
-                if ($this->filedata['status'] == 0) {
-                    $response = array('status' => 0, 'message' => $this->filedata['error']);
-                } else {
+                // if ($this->filedata['status'] == 0) {
+                //     $response = array('status' => 0, 'message' => $this->filedata['error']);
+                // } else {
                     if (empty($newpass)) {
                         $currentPass = $this->input->post('current_password');
                     } else {
@@ -519,23 +571,17 @@ class Admin extends Common_Controller {
                         'phone' => $this->input->post('phone_no'),
                         'profile_pic' => $image,
                         'email' => $user_email,
-                        'zipcode_access' => json_encode($this->input->post('zipcode')),
-                       
+                        'zipcode_access' => $this->input->post('zipCode'),
+                       'phone_code'=>$this->input->post('phone_code'),
                         'is_pass_token' => $currentPass,
                     );
                     // print_r($options_data);die;
                     $this->ion_auth->update($where_id, $options_data);
                     $additional_data_profile = array(
-                        // 'description' => $this->input->post('description'),
-                        // 'designation' => $this->input->post('designation'),
-                        // 'website' => $this->input->post('website'),
                         'country' => $this->input->post('country'),
                         'state' => $this->input->post('state'),
                         'city' => $this->input->post('city'),
                         'address1' => $this->input->post('address1'),
-                        // 'category_id' => (!empty($this->input->post('category_id'))) ? implode(",", $this->input->post('category_id')) : "",
-                        // 'company_name' => $this->input->post('company_name'),
-                        // 'profile_pic' => $image,
                         'update_date' => date('Y-m-d H:i:s')
                     );
                     $this->db->where("user_id", $where_id);
@@ -546,7 +592,7 @@ class Admin extends Common_Controller {
                     //     $this->common_model->customUpdate(array('table' => 'users', 'data' => array('password' => $pass_new), 'where' => array('id' => $where_id)));
                     }
                     $response = array('status' => 1, 'message' => 'updated Successfully', 'url' => base_url('mdSteward/edit'), 'id' => encoding($this->input->post('id')));
-                }
+                // }
             } else {
                 $response = array('status' => 0, 'message' => "The email address already exists");
             }
@@ -681,6 +727,67 @@ class Admin extends Common_Controller {
             $response = 400;
         }
         echo $response;
+    }
+
+
+    public function getStates()
+    {
+        $response = array();
+        $id = $this->input->post('id');
+       
+        if (!empty($id)) {
+           
+
+            $options = array(
+                'table' => 'states',
+                'select' => 'states.*',
+                'where' => array('country_id' => $id),
+            );
+            $states = $this->common_model->customGet($options);
+            
+            $data.= '<select id="state" onchange="getCities(this.value)" name="state" class="form-control" size="1">';
+            $data.= '<option value="" disabled selected>Please select</option>';
+            
+            
+            foreach ($states as $state_list) {
+               
+                $data.= '<option value="' . $state_list->id_state . '">' . $state_list->state . '</option>';
+            }
+            
+            
+             $data.= '</select>';
+        }
+
+        
+        echo json_encode($data);
+
+    //    return  json_encode($response);
+    }
+    
+    public function getCity()
+    {
+        $response = array();
+        $id = $this->input->post('id');
+        if (!empty($id)) {
+            $options = array(
+                'table' => 'cities',
+                'select' => 'cities.*',
+                'where' => array('state_id' => $id),
+            );
+            $cities = $this->common_model->customGet($options);
+
+            $data.= '<select id="city" name="city" class="form-control" size="1">';
+            $data.= '<option value="" disabled selected>Please select</option>';
+            
+            
+            foreach ($cities as $cities_list) {
+               
+                $data.= '<option value="' . $cities_list->id_city . '">' . $cities_list->city . '</option>';
+            }
+            
+             $data.= '</select>';
+        }
+        echo json_encode($data);
     }
 
 }

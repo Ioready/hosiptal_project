@@ -37,12 +37,10 @@ class Coupon extends Common_Controller {
             'select' => 'coupon_type,coupon_code,user_size,total_use_user,cash_type,amount,id,used_type,min_amount,max_amount,percentage_in_amount',
             // 'where' => array('coupon_code' => $coupon_code,'end_date >=' => $currDate,'start_date <=' => $currDate,'status' => 1),
             'where_in' => array('coupon_type' => array(1, 4)),
+            'where' => array('delete_status' => 0),
             
         );
-        // $isCouponCode = $this->common_model->customGet($option);
-
-        // $option = array('table' => $this->_table, 'where' => array('status' => 0, 'facility_user_id'=>$hospital), 'order' => array('id' => 'desc'));
-
+       
         $this->data['list'] = $this->common_model->customGet($option);
         // print_r($this->data['list']);die;
         $this->load->admin_render('list', $this->data, 'inner_script');
@@ -134,7 +132,7 @@ class Coupon extends Common_Controller {
      */
     public function edit() {
         $this->data['title'] = "Edit " . $this->title;
-        $this->data['formUrl'] = $this->router->fetch_class() . "/update";
+        $this->data['updateFormUrl'] = $this->router->fetch_class() . "/update";
         $id = decoding($this->input->post('id'));
         if (!empty($id)) {
             $option = array(
@@ -163,14 +161,46 @@ class Coupon extends Common_Controller {
      */
     public function update() {
 
-        $this->form_validation->set_rules('name', "User Name", 'required|trim');
-        
+        // $this->form_validation->set_rules('name', "User Name", 'required|trim');
+        $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+      
+
+        $this->form_validation->set_rules('cash_type', "cash_type", 'required|trim');
+        $this->form_validation->set_rules('used_type', "used_type", 'required|trim');
+        $this->form_validation->set_rules('coupon_type', "coupon_type", 'required|trim');
+        $this->form_validation->set_rules('user_size', "user_size", 'required|trim');
+        $this->form_validation->set_rules('min_amount', "min_amount", 'required|trim');
+        $this->form_validation->set_rules('amount', "amount", 'required|trim');
+        $this->form_validation->set_rules('percentage_in_amount', "percentage_in_amount", 'required|trim');
+
+        $this->form_validation->set_rules('start_date', "start_date", 'required|trim');
+        $this->form_validation->set_rules('end_date', "end_date", 'required|trim');
+
         $where_id = $this->input->post('id');
         if ($this->form_validation->run() == TRUE):
         
+
+
+            $chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+                    $code = "";
+                    for ($i = 0; $i < 8; $i++) {
+                        $code .= $chars[mt_rand(0, strlen($chars)-1)];
+                    }
+
                     $options_data = array(
-                        'name' => $this->input->post('name'),
-                       
+                        'cash_type' => $this->input->post('cash_type'),
+                        'coupon_code' =>$code,
+                        // 'total_use_user' => 1,
+                        'used_type' => $this->input->post('used_type'),
+                        'coupon_type'=> $this->input->post('coupon_type'),
+                        'user_size'=> $this->input->post('user_size'),
+                        'min_amount'=> $this->input->post('min_amount'),
+                        // 'max_amount'=>,
+                        'amount'=>$this->input->post('amount'),
+                        'percentage_in_amount'=>$this->input->post('percentage_in_amount'),
+                        'start_date'=>$this->input->post('start_date'),
+                        'end_date'=>$this->input->post('end_date'),
+                      
                     );
                     
                     $option = array(
@@ -186,4 +216,27 @@ class Coupon extends Common_Controller {
         echo json_encode($response);
     }
 
+    public function delete() {
+        
+        $response = "";
+        $id = decoding($this->input->post('id')); // delete id
+        $table = $this->input->post('table'); //table name
+        $id_name = $this->input->post('id_name'); // table field name
+        
+        if (!empty($table) && !empty($id) && !empty($id_name)) {
+            // print_r($id_name);die;
+            $option = array(
+                'table' => $table,
+                'data' => array('delete_status' => 1),
+                'where' => array($id_name => $id)
+            );
+            $delete = $this->common_model->customUpdate($option);
+            if ($delete) {
+                $response = 200;
+            } else $response = 400;
+        }else {
+            $response = 400;
+        }
+        echo $response;
+    }
 }

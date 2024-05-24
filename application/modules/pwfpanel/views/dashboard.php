@@ -84,17 +84,30 @@
             <h1 class="no-margins"><?php echo $total_admin; ?></h1>
             <h5 class="text-primary"><strong>Total Admin</strong></h5>
         </div>
+        <a href="<?php echo site_url('admin'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "reports") ? "active" : "" ?>">
         <img src="<?php echo base_url(); ?>uploads/administrator.png" style=" height: 45px; width: 45px; filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%); margin-bottom: 5px;" alt="">
+        </a>
     </div>
 </div>
 
-<div class="col-lg-3 dashboardBoxes">
+<!-- <div class="col-lg-3 dashboardBoxes">
     <div style="background-color: #FFFAEC; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
         <div class="ibox-content">
             <h1 class="no-margins"><?php echo $total_hospital; ?></h1>
             <h5 class="text-primary"><strong>Total Hospital</strong></h5>
         </div>
         <img src="<?php echo base_url(); ?>uploads/hospital-buildings.png" style="height: 45px; width: 45px; filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%); margin-bottom: 5px;" alt="">
+    </div>
+</div> -->
+<div class="col-lg-3 dashboardBoxes">
+    <div style="background-color: #FFFAEC; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
+        <div class="ibox-content">
+            <h1 class="no-margins"><?php echo $total_coupon; ?></h1>
+            <h5 class="text-primary"><strong>Total Coupon</strong></h5>
+        </div>
+        <a href="<?php echo site_url('Coupon'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "Coupon") ? "active" : "" ?>">
+        <img src="<?php echo base_url(); ?>uploads/hospital-buildings.png" style="height: 45px; width: 45px; filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%); margin-bottom: 5px;" alt="">
+        </a>
     </div>
 </div>
 
@@ -104,7 +117,9 @@
             <h1 class="no-margins"><?php echo $total_plans; ?></h1>
             <h5 class="text-primary"><strong>Total Plan</strong></h5>
         </div>
+        <a href="<?php echo site_url('AllPlans'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "AllPlans") ? "active" : "" ?>">
         <img src="<?php echo base_url(); ?>uploads/checklist.png" style="height: 45px; width: 45px; filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%); margin-bottom: 5px;" alt="">
+        </a>
     </div>
 </div>
 
@@ -114,85 +129,11 @@
             <h1 class="no-margins"><?php echo $total_order; ?></h1>
             <h5 class="text-primary"><strong>Total Order</strong></h5>
         </div>
+        <a href="<?php echo site_url('userOrder'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "userOrder") ? "active" : "" ?>">
         <img src="<?php echo base_url(); ?>uploads/order.png" style="height: 45px; width: 45px; filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%); margin-bottom: 5px;" alt="">
+        </a>
     </div>
 </div>
-
-<!-- <div class="col-lg-4 dashboardBoxes">
-    <div style="background-color:#FFE6E8; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
-        <div class="ibox-content">
-        <h1 class="no-margins"><?php echo $total_patient_today; ?></h1>
-            <h5 class="text-primary"><strong>Total Patient Today</strong></h5>
-        </div>
-        <img src="<?php echo base_url(); ?>uploads/doctor-consultation1.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
-    </div>
-</div> -->
-
-
-
-
-
-
-
-                        <!-- <div class="col-lg-4">
-                           <div class="ibox float-e-margins">
-                               <div class="ibox-title">
-                                        <div class="stat-percent font-bold text-primary"> <i class="fa fa-plus"></i></div>
-                                        <h5 class="text-primary"><strong>Care Unit</strong></h5>
-                                   </div>
-                                   <div class="ibox-content">
-                                       <h1 class="no-margins"><?php //echo $careUnit; ?></h1>
-                                       <h5 class="text-primary"><strong>Total hospitals</strong></h5>
-                                   </div>
-                               </div>
-                        </div> -->
-
-                        <!--<div class="col-lg-4">-->
-                        <!--    <div class="ibox float-e-margins">-->
-                        <!--            <div class="ibox-title">-->
-                                      
-                        <!--            </div>-->
-                        <!--            <div class="ibox-content">-->
-                        <!--                <h1 class="no-margins"><?php echo $initial_dx; ?></h1>-->
-                                       
-                        <!--                <h5 class="text-primary"><strong>Total Infections</strong></h5>-->
-                        <!--            </div>-->
-                        <!--        </div>-->
-                        <!-- </div>-->
-
-                        <!--<div class="col-lg-4">-->
-                        <!--        <div class="ibox float-e-margins">-->
-                        <!--            <div class="ibox-title">-->
-                                       
-                        <!--            </div>-->
-                        <!--            <div class="ibox-content">-->
-                        <!--                <h1 class="no-margins"><?php echo $initial_rx; ?></h1>-->
-                                       
-                        <!--                <h5 class="text-primary"><strong>Total Antibiotic</strong></h5>-->
-                        <!--            </div>-->
-                        <!--        </div>-->
-                        <!--</div>-->
-
-                        <!--<div class="col-lg-4">-->
-                        <!--        <div class="ibox float-e-margins">-->
-                        <!--            <div class="ibox-title">-->
-                                        
-                        <!--            </div>-->
-                        <!--            <div class="ibox-content">-->
-                        <!--                <h1 class="no-margins"><?php echo $total_patient_today; ?></h1>-->
-                                       
-                        <!--                <h5 class="text-primary"><strong>Total Patient Today</strong></h5>-->
-                        <!--            </div>-->
-                        <!--        </div>-->
-                        <!--</div>-->
-
-
-
-
-                                            <!-- <h5 class="text-primary"><strong>Patient</strong></h5> -->
-
-
-
 
 
   <div class="row m-2">
@@ -213,10 +154,11 @@
         new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                labels: ['Admin', 'Hospital', 'Plan', 'Order'],
                 datasets: [{
                     label: '# of Votes',
-                    data: [12, 19, 3, 5, 2, 3],
+                    // data: [12, 19, 3, 5, 2, 3],
+                    data: [<?php echo $total_admin; ?>, <?php echo $total_hospital; ?>, <?php echo $total_plans; ?>, <?php echo $total_order; ?>],
                     borderWidth: 2,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.9)',
@@ -288,10 +230,12 @@
             <h1 class="no-margins"><?php echo $total_hospital; ?></h1>
             <h5 class="text-primary"><strong>Total Hospital</strong></h5>
         </div>
+        <a href="<?php echo site_url('facilityManager'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "facilityManager") ? "active" : "" ?>">
         <img src="<?php echo base_url(); ?>uploads/hospital-buildings.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+        </a>
     </div>
 </div>
-<div class="col-lg-4 dashboardBoxes">
+<!-- <div class="col-lg-4 dashboardBoxes">
     <div style="background-color:#FFE0B7; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
         <div class="ibox-content">
         <h1 class="no-margins"><?php echo $careUnit; ?></h1>
@@ -299,7 +243,7 @@
         </div>
         <img src="<?php echo base_url(); ?>uploads/intravenous-therapy.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
     </div>
-</div>
+</div> -->
 
 
 
@@ -320,11 +264,22 @@
             if($row->DurationInMonths == 'month'){  
              ?>
              <div class="basic box price monthly fw-bold"  style="background-color:#FFFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);border-radius:20px " >
-                <h2 style="margin-top:0;margin-bottom:0 fw-bold" class="title"><?php echo $row->PlanName;?></h2>
+                <h2 style="margin-top:0;margin-bottom:0 fw-bold" class="title"><?php echo ucfirst($row->PlanName);?></h2>
                 <div class="view"  style="background-color:white; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" >
-                    <div class="icon">
+                    <!-- <div class="icon">
                         <img src="https://i.postimg.cc/2jcfMcf4/hot-air-balloon.png" alt="hot-air-balloon">
+                    </div> -->
+
+                    <div class="icon" style="height: 94px;">
+                        <?php if(!empty($row->icons)){ ?> 
+
+                       
+                    <img src="<?php echo base_url($row->icons); ?>" alt="hot-air-balloon">
+                    <?php  } else { ?>
+                        <img src="https://i.postimg.cc/2jcfMcf4/hot-air-balloon.png" alt="hot-air-balloon">
+                      <?php } ?>
                     </div>
+
                     <div class="price monthly cost">
                         <p class="amount">$<?php echo $row->Price;?></p>
                         <p class="detail">Admin Per Month</p>
@@ -364,11 +319,22 @@
             <?php 
             }else if($row->DurationInMonths == 'years'){ ?>
                    <div class="basic box price yearly ">
-                <h2 style="margin-top:0;margin-bottom:0" class="title"><?php echo $row->PlanName;?></h2>
+                <h2 style="margin-top:0;margin-bottom:0" class="title"><?php echo ucfirst($row->PlanName);?></h2>
                 <div class="view">
-                    <div class="icon">
+                    <!-- <div class="icon">
                         <img src="https://i.postimg.cc/2jcfMcf4/hot-air-balloon.png" alt="hot-air-balloon">
+                    </div> -->
+
+                    <div class="icon" style="height: 94px;">
+                        <?php if(!empty($row->icons)){ ?> 
+
+                       
+                    <img src="<?php echo base_url($row->icons); ?>" alt="hot-air-balloon">
+                    <?php  } else { ?>
+                        <img src="https://i.postimg.cc/2jcfMcf4/hot-air-balloon.png" alt="hot-air-balloon">
+                      <?php } ?>
                     </div>
+
                     <div class="price monthly cost">
                         <p class="amount">$<?php echo $row->Price;?></p>
                         <p class="detail">Admin Per Month</p>
@@ -379,14 +345,7 @@
                     </div>
                 </div>
                 <div class="description">
-                    <ul>
-                        <li>Lorem, ipsum dolor.</li>
-                        <li>Harum, beatae laudantium.</li>
-                        <li>Odit, fugit saepe.</li>
-                        <li>Harum, veniam suscipit!</li>
-                        <li>A, aut veritatis!</li>
-                        <li>Aliquid, quasi repellat!</li>
-                    </ul>
+                    
                     <?php echo $row->plan_description; ?>
                 </div>
                 <?php if($this->ion_auth->is_admin()){ ?>
@@ -426,17 +385,10 @@
        <?php } ?>     
         
       
-<?php } //}?>
-        </div>
-    </section>
-
-
-
-
-
-                                            <!-- <h5 class="text-primary"><strong>Patient</strong></h5> -->
-                        <?php } else if ($this->ion_auth->is_subAdmin()) { ?>
-
+        <?php } ?>
+                </div>
+            </section>        
+            <?php } else if ($this->ion_auth->is_subAdmin()) { ?>
 
                     <div class="panel-body">
                             <form action="<?php echo site_url('pwfpanel'); ?>" name="patientForm" method="get">
@@ -805,7 +757,9 @@
                             <h1 class="no-margins"><?php echo $total_appointment; ?></h1>
                             <h5 class="text-primary"><strong>Total Today Appointment</strong></h5>
                         </div>
+                        <a href="<?php echo site_url('appointment'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "appointment") ? "active" : "" ?>">
                         <img src="<?php echo base_url(); ?>uploads/appointment.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+                        </a>
                     </div>
             </div>
 
@@ -815,7 +769,9 @@
                         <h1 class="no-margins"><?php echo $total_patient; ?></h1>
                         <h5 class="text-primary"><strong>Total Patient </strong></h5>
                     </div>
+                    <a href="<?php echo site_url('patient'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "patient") ? "active" : "" ?>">
                     <img src="<?php echo base_url(); ?>uploads/user.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+                    </a>
                 </div>
             </div>
 
@@ -833,7 +789,9 @@
                    </h1>
                    <h5 class="text-primary"><strong>Total Doctor</strong></h5>
                    </div>
+                   <a href="<?php echo site_url('dataOperator'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "dataOperator") ? "active" : "" ?>">
                    <img src="<?php echo base_url(); ?>uploads/doctor.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+                </a>
                </div>
            </div>
 
@@ -848,7 +806,9 @@
                    </h1>
                    <h5 class="text-primary"><strong>Total Care Unit Department</strong></h5>
                    </div>
+                   <a href="<?php echo site_url('careUnit'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "careUnit") ? "active" : "" ?>">
                    <img src="<?php echo base_url(); ?>uploads/department.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+                    </a>
                </div>
            </div>
 
@@ -863,8 +823,10 @@
                    </h1>
                    <h5 class="text-primary"><strong>Total Operation</strong></h5>
                    </div>
+                   <a href="<?php echo site_url('careUnit'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "careUnit") ? "active" : "" ?>">
                    <img src="<?php echo base_url(); ?>uploads/operation.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
-               </div>
+                    </a>
+                </div>
            </div>
 
            <div class="col-lg-4 dashboardBoxes">
@@ -878,7 +840,9 @@
                    </h1>
                    <h5 class="text-primary"><strong>Total Infections</strong></h5>
                    </div>
+                   <a href="<?php echo site_url('initialDx'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "initialDx") ? "active" : "" ?>">
                    <img src="<?php echo base_url(); ?>uploads/Infections.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+                    </a>
                </div>
            </div>
 
@@ -891,7 +855,9 @@
                            <h1 class="no-margins"><?php echo $initial_rx; ?></h1>
                            <h5 class="text-primary"><strong>Total Antibiotic</strong></h5>
                        </div>
+                       <a href="<?php echo site_url('initialRx'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "initialRx") ? "active" : "" ?>">
                        <img src="<?php echo base_url(); ?>uploads/Antibiotic.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+                        </a>
                    </div>
            </div>
 
@@ -903,14 +869,14 @@
                                         <h1 class="no-margins"><?php echo $total_patient_today; ?></h1>
                                         <h5 class="text-primary"><strong>Total Patient Today </strong></h5>
                                     </div>
+                                    <a href="<?php echo site_url('patient'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "patient") ? "active" : "" ?>">
                                     <img src="<?php echo base_url(); ?>uploads/user.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+                                     </a>
                                 </div>
                             </div>
 
            <div class="col-lg-4 dashboardBoxes">
                <div style="background-color:#DAEBFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
-                   <!-- <div class="ibox-title">
-                   </div> -->
                    <div class="ibox-content">
                    <h1 class="no-margins">
 
@@ -1763,14 +1729,15 @@ section{
 .title{
     width: 100%;
     padding: 10px 0;
-    font-size: 1.2em;
-    font-weight: lighter;
+    font-size: 22px;
+    font-weight: 800;
     text-align: center;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
-
+    
     color: var(--white-smoke);
 }
+
 
 .basic .title{
     background: var(--pinkish-red);

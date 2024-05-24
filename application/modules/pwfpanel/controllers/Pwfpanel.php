@@ -37,29 +37,26 @@ class Pwfpanel extends Common_Controller
 
                 $data['doctors'] = $this->common_model->customCount(array('table' => 'doctors', 'select' => 'id,name', 'where' => array('is_active' => 1, 'facility_user_id'=>$user_id, 'delete_status' => 0)));
                 
-                
-//                 $optionHospital = array(
-//                     'table' => USERS . ' as user',
-//                     'select' => 'user.*',
-//                     'join' => array(
-//                         array(USER_GROUPS . ' as ugroup', 'ugroup.user_id = user.id', 'left'),
-//                         array(GROUPS . ' as group', 'group.id = ugroup.group_id', 'left'),
-//                         array('user_profile AS UP', 'UP.user_id = user.id', 'left'),
-//                         array('care_unit AS CU', 'CU.id = user.care_unit_id', 'left'),
-//                         array('hospital AS h', 'h.user_id = user.id', 'inner')
-//                     ),
-//                     'where' => array(
-//                         'user.delete_status' => 0,
-//                         'group.id' => 6,
-//                         'h.admin_id' => $user_id
-//                     ),
-//                     // 'single'=>true,
-//                     'order' => array('user.id' => 'DESC') // Order descending by user id
-//                 );
-    
-//                 $data['hospital_id'] = $this->common_model->customGet($optionHospital);
-// print_r($data['hospital_id']);die;
+                $option = array(
+                    'table' => 'coupons',
+                    'select' => 'coupon_type,coupon_code,user_size,total_use_user,cash_type,amount,id,used_type,min_amount,max_amount,percentage_in_amount',
+                    'where_in' => array('coupon_type' => array(1, 4)),
+                    
+                );
+                $data['total_coupon'] = $this->common_model->customCount($option);
 
+                $optionOrder = array(
+                    'table' => 'orders',
+                    'select' => 'orders.*,U.first_name ,U.last_name,p.PlanName,p.Price,p.DurationInMonths',
+                    'join' => array(
+                                   
+                                    array('users AS U', 'U.id = orders.user_id', 'left'),
+                                    array('admin_plans AS p', 'p.id = orders.plan_id', 'left')
+                                ),
+                );
+        
+        
+                $data['total_order'] = $this->common_model->customCount($optionOrder);
 
 
 
@@ -108,11 +105,11 @@ class Pwfpanel extends Common_Controller
                 );
                 $data['total_plans'] = $this->common_model->customCount($option_order);
 
-                $option_order = array(
-                    'table' => 'user_subscribers',
-                    'select' => 'user_subscribers.*',
-                );
-                $data['total_order'] = $this->common_model->customCount($option_order);
+                // $option_order = array(
+                //     'table' => 'user_subscribers',
+                //     'select' => 'user_subscribers.*',
+                // );
+                // $data['total_order'] = $this->common_model->customCount($option_order);
 
 
                 $option = array(
