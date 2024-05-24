@@ -34,15 +34,14 @@ class Setting extends Common_Controller {
     public function paymentSetting() {
         $this->data['parent'] = "Settings";
         $this->data['title'] = "Settings";
-        $option = array(
+        $optionPayment = array(
             'table' => 'payment_gateway',
             'select' => 'payment_gateway.*',
-            'order' => array('payment_gateway.id' => 'DESC'),
-            
+            'single'=>true,
         );
 
-        $this->data['list'] = $this->common_model->customGet($option);
-
+        $this->data['list'] = $this->common_model->customGet($optionPayment);
+// print_r($this->data['list']);die;
         $this->load->admin_render('payment_setting', $this->data, 'inner_script');
     }
 

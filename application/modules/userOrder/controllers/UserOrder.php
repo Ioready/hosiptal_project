@@ -6,7 +6,7 @@ class UserOrder extends Common_Controller {
 
     public $data = array();
     public $file_data = "";
-    public $_table = 'user_subscribers';
+    public $_table = 'orders';
     public $title = "Orders";
 
     public function __construct() {
@@ -33,15 +33,27 @@ class UserOrder extends Common_Controller {
          $hospital = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 
         
-         $option = array(
-            'table' => 'orders',
+        //  $option = array(
+        //     'table' => 'orders',
+        //     'select' => 'orders.*,U.first_name ,U.last_name,p.PlanName,p.Price,p.DurationInMonths',
+        //     'join' => array(
+                           
+        //                     array('users AS U', 'U.id = orders.user_id', 'left'),
+        //                     array('admin_plans AS p', 'p.id = orders.plan_id', 'left')
+        //                 ),
+        // );
+
+        $option = array(
+            'table' => 'users AS U',
             'select' => 'orders.*,U.first_name ,U.last_name,p.PlanName,p.Price,p.DurationInMonths',
             'join' => array(
                            
-                            array('users AS U', 'U.id = orders.user_id', 'left'),
-                            array('admin_plans AS p', 'p.id = orders.plan_id', 'left')
+                            array('orders ', 'U.id = orders.user_id','inner'),
+                            array('admin_plans AS p', 'p.id = orders.plan_id', 'inner')
                         ),
+            'where' => array('orders.delete_status' => 0),
         );
+
 
         // $option = array('table' => $this->_table, 'where' => array('status' => 0, 'facility_user_id'=>$hospital), 'order' => array('id' => 'desc'));
 
@@ -156,6 +168,30 @@ class UserOrder extends Common_Controller {
         endif;
 
         echo json_encode($response);
+    }
+
+    public function delete() {
+        
+        $response = "";
+        $id = decoding($this->input->post('id')); // delete id
+        $table = $this->input->post('table'); //table name
+        $id_name = $this->input->post('id_name'); // table field name
+        
+        if (!empty($table) && !empty($id) && !empty($id_name)) {
+            // print_r($id_name);die;
+            $option = array(
+                'table' => $table,
+                'data' => array('delete_status' => 1),
+                'where' => array($id_name => $id)
+            );
+            $delete = $this->common_model->customUpdate($option);
+            if ($delete) {
+                $response = 200;
+            } else $response = 400;
+        }else {
+            $response = 400;
+        }
+        echo $response;
     }
 
 }

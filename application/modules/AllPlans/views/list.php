@@ -139,16 +139,25 @@ display:none;
 
 
             <?php 
+            $colors = ['#acd34c', '#ffa500', '#4caf50', '#ffd700', '#ff4d4d', '#3498db'];
             foreach($list as $key=> $row){
             
+                $randomColor = $colors[array_rand($colors)]; 
+
             if($row->DurationInMonths == 'month'){ 
 
             ?>
             <div class="basic box price monthly" >
-                <h2 style="margin-top:0;margin-bottom:0" class="title"><?php echo $row->PlanName;?></h2>
+                <h2 style="margin-top:0;margin-bottom:0" class="title" style="background-color: <?php echo $randomColor; ?>"><?php echo ucfirst($row->PlanName);?></h2>
                 <div class="view">
-                    <div class="icon">
+                    <div class="icon" style="height: 94px;">
+                        <?php if(!empty($row->icons)){ ?> 
+
+                       
+                    <img src="<?php echo base_url($row->icons); ?>" alt="hot-air-balloon">
+                    <?php  } else { ?>
                         <img src="https://i.postimg.cc/2jcfMcf4/hot-air-balloon.png" alt="hot-air-balloon">
+                      <?php } ?>
                     </div>
                     <div class="price monthly cost">
                         <p class="amount">$<?php echo $row->Price;?></p>
@@ -182,7 +191,6 @@ display:none;
                 <div class="plan_button">
                 
                 <!-- <a href="<?php echo site_url('stripePayments'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "stripePaymentController") ? "active" : "" ?>"> -->
-                <!-- <button >START FREE 7 DAYS TRIAL </button></a> -->
                 <a href="<?php echo base_url('make-stripe-payment?'.'id='.$row->id);?>" class="plan_button save-btn btn btn-sm btn-primary">START FREE 7 DAYS TRIAL </a>
                 <!-- <a href="<?php echo base_url('my-stripe?'.'id='.$row->id);?>"><button >START FREE 7 DAYS TRIAL </button></a> -->
                 </div>
@@ -194,12 +202,19 @@ display:none;
             <!-- make-stripe-payment -->
             <?php 
             }else if($row->DurationInMonths == 'years'){ ?>
- <div class="basic box price yearly ">
-                <h2 style="margin-top:0;margin-bottom:0" class="title"><?php echo $row->PlanName;?></h2>
+            <div class="basic box price yearly " >
+                <h2 style="margin-top:0;margin-bottom:0" class="title" ><?php echo ucfirst($row->PlanName);?></h2>
                 <div class="view">
-                    <div class="icon">
+                <div class="icon" style="height: 94px;">
+                        <?php if(!empty($row->icons)){ ?> 
+
+                       
+                    <img src="<?php echo base_url($row->icons); ?>" alt="hot-air-balloon">
+                    <?php  } else { ?>
                         <img src="https://i.postimg.cc/2jcfMcf4/hot-air-balloon.png" alt="hot-air-balloon">
+                      <?php } ?>
                     </div>
+
                     <div class="price monthly cost">
                         <p class="amount">$<?php echo $row->Price;?></p>
                         <p class="detail">Admin Per Month</p>
@@ -401,12 +416,12 @@ section{
 .title{
     width: 100%;
     padding: 10px 0;
-    font-size: 1.2em;
-    font-weight: lighter;
+    font-size: 22px;
+    font-weight: 800;
     text-align: center;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
-
+    
     color: var(--white-smoke);
 }
 

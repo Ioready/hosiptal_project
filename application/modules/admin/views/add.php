@@ -110,20 +110,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="col-md-12" >
-                       <div class="form-group">
-                         <label class="col-md-3 control-label">Zipcode Access</label>
-                            <div class="col-md-9">
-                                 <select class="" name="zipcode[]" id="zipcode" multiple="" style="width:100%;" placeholder="Select Zipcode">
-                                     <option value="">Select Zipcode</option>
-                                    <?php //foreach($zipcode_list as $key=>$val){?>
-                                        <option value="<?php //echo $val->zipcode;?>"><?php //echo $val->zipcode;?></option>
-                                    <?php //}?>
-                                </select>
-                            </div>
-                           
-                        </div>
-                    </div> -->
+                    
                                
 <!--                      <div class="col-md-12" >
                                 <div class="form-group">
@@ -172,17 +159,20 @@
                     </div>-->
                     
                     
-                   <div class="col-md-6" >
+                    <div class="col-md-6" >
                         <div class="form-group">
                             <label class="m-4 control-label">Country</label>
+                           
                             <div class="col-md-12">
-                                 <input type="text" class="form-control" name="country" id="country" placeholder="Country"/> 
+                                 <!-- <input type="text" class="col-md-12 form-control" name="country_id" id="country_in" placeholder="Country"/> <br> -->
                                 
-                                    <select id="country" name="country" class="form-control select2" size="1">
+                                    <select id="country" onchange="getStates(this.value)" name="country" class="form-control select2" size="1">
                                         <option value="0">Please select</option>
-                                        <?php foreach ($countries as $country) { ?>          
+                                            <?php foreach ($countries as $country) { ?>
+                                                        
                                             <option value="<?php echo $country->id; ?>"><?php echo $country->name; ?></option>
-                                        <?php } ?>
+                                                    
+                                            <?php } ?>
                                     </select>
                                
                             </div>
@@ -192,84 +182,41 @@
                                 <div class="form-group">
                                     <label class="m-4 control-label">State</label>
                                     <div class="col-md-12">
-                                          <select id="country" name="state" class="form-control select2" size="1">
-                                                <option value="" disabled selected>Please select</option>
-                                                <?php foreach ($states as $state) { ?>
-                                                                
-                                                    <option value="<?php echo $state->id; ?>"><?php echo $state->name; ?></option>
-                                                    <?php } ?>
-                                            </select>
-                                        <input type="text" class="form-control" name="state" placeholder="State" value="<?php //echo $results->state;  ?>"/>
+                                    <!-- <input type="text" class="form-control" name="state_id" id="state_in" placeholder="State Name"/> -->
+                                    </div>
+                                    <div class="col-md-12" id="state_div">
                                     </div>
                                 </div>
-                            </div>
+                    </div>
                     <div class="col-md-6" >
                         <div class="form-group">
                             <label class="m-4 control-label">City</label>
                             <div class="col-md-12">
-                                <input type="text" class="form-control" name="city" placeholder="City Name"/>
+                            <!-- <input type="text" class="form-control" name="city_id" id="city_in" placeholder="City Name"/> -->
+                            </div>
+                            <div class="col-md-12" id="city">
+                               
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6" >
-                        <div class="form-group">
-                            <label class="m-4 control-label">Address</label>
+                       <div class="form-group">
+                         <label class="m-4 control-label">Zipcode Access</label>
                             <div class="col-md-12">
-                                <input type="text" class="form-control" name="address1" placeholder=""/>
+                            <input type="text" id="postalCode" class="form-control" placeholder="Enter Postal Code" name="zipCode">
+                            <!-- <div id="result"></div> -->
                             </div>
                         </div>
                     </div>
-                    
-                  
 
-                    
-<!--                   <div class="col-md-12" >
+                    <div class="col-md-6" >
                         <div class="form-group">
-                            <label class="col-md-3 control-label"><?php echo lang('profile_image'); ?></label>
-                            <div class="col-md-9">
-                                
-                                <div class="group_filed">
-                                            <div class="img_back_prieview_Academic">
-                                                <div class="images_box_upload_ven_addvendore_vendore">
-                                                    <div id="image-preview-addvendore-vendore">
-                                                         <input type="file" name="user_image" id="image-upload-addvendore-vendore" />
-                                                    </div>
-                                                </div>
-                                                    <div id="image-preview-addvendore">
-                                                         <label for="image-upload-addvendore-vendore" id="image-label-addvendore-vendore">Upload Logo</label>
-                                                    </div>
-                                            </div>
-                           </div>
-                                
-                                
-                                
-                                    <div class="profile_content edit_img">
-                                    <div class="file_btn file_btn_logo">
-                                      <input type="file"  class="input_img2" id="user_image" name="user_image" style="display: inline-block;">
-                                      <span class="glyphicon input_img2 logo_btn" style="display: block;">
-                                          <div id="show_company_img"></div>
-                                        <span class="ceo_logo row push">
-                             
-                                        <a href="<?php echo base_url().'backend_asset/images/default.jpg';?>" data-toggle="lightbox-image">
-                                                        <img src="<?php echo base_url().'backend_asset/images/default.jpg';?>" alt="image">
-                                                    </a>
-                                          
-                                            
-                                        </span>
-                                        
-                                      </span>
-                                      <img class="show_company_img2" style="display:none" alt="img" src="<?php echo base_url() ?>/backend_asset/images/logo.png">
-                                      <span style="display:none" class="fa fa-close remove_img"></span>
-                                    </div>
-                                  </div> 
-                                  
-                                  
-                                  
-                                  
-                                  <div class="ceo_file_error file_error text-danger"></div>
+                            <label class="m-4 control-label">Address</label>
+                            <div class="col-md-12">
+                                <input type="text" class="form-control" name="address1" id="address1" placeholder=""/>
                             </div>
                         </div>
-                    </div>-->
+                    </div>
                     <div class="space-22"></div>
                 </div>
             </div>
@@ -295,7 +242,93 @@
         autoclose: true,
         endDate:'today'       
     });
-/*    $("#zipcode").select2({
-        allowClear: true
-    });*/
+
 </script>
+
+<script>
+
+
+function getStates(countryId) {
+   
+
+    $.ajax({
+        url: 'admin/getStates',
+        type: 'POST',
+        dataType: "json",
+        data: { id: countryId },
+        success: function(response) {
+            $('#state_div').html(response);
+            
+        },
+        error: function(xhr, status, error) {
+            // console.error(xhr.responseText);
+        }
+    });
+}
+
+
+function getCities(stateId) {
+    $.ajax({
+        url: 'admin/getCity',
+        type: 'POST',
+        dataType: "json",
+        data: { id: stateId },
+        success: function(response) {
+   
+    $('#city').html(response);
+},
+        error: function(xhr, status, error) {
+            console.error(xhr.responseText);
+        }
+    });
+}
+
+</script>
+
+    <script>
+        $(document).ready(function() {
+            $('#postalCode').on('keyup', function() {
+                var postalCode = $(this).val();
+                
+                    $.ajax({
+                        url: 'https://data.opendatasoft.com/api/records/1.0/search/',
+                        data: {
+                            dataset: 'geonames-postal-code@public',
+                            q: postalCode,
+                            // rows: 1
+                        },
+                        success: function(response) {
+                            var records = response.records;
+                            if (records.length > 0) {
+                                var record = records[0].fields;
+                                var html = '<p>City: ' + record.place_name + '</p>';
+                                html += '<p>State: ' + record.admin_name1 + '</p>';
+                                html += '<p>Country: ' + record.country_code + '</p>';
+                                if(record.country_code == 'GB'){
+                                    var countryData = 'United Kingdom';
+                                }else{
+                                    var countryData = record.country_code;
+                                }
+                                $('#city_in').val(record.place_name);
+
+                                $('#state_in').val(record.admin_name1);
+
+                                $('#country_in').val(countryData);
+
+                                $('#result').html(html);
+
+
+                            } else {
+                                $('#result').html('<p>No results found</p>');
+                            }
+                        },
+                        error: function() {
+                            $('#result').html('<p>An error occurred while fetching data</p>');
+                        }
+                    });
+                
+            });
+        });
+    </script>
+
+    

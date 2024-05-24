@@ -439,7 +439,7 @@ class Patient extends Common_Controller
      */
     function open_model()
     {
-        // die('pppppppppp11');
+    
         $this->data['title'] = "Add " . $this->title;
         // $this->data['formUrl'] = $this->router->fetch_class() . "/add";
         $this->data['formUrl'] = $this->router->fetch_class() . "/addPatient";
@@ -454,10 +454,9 @@ class Patient extends Common_Controller
         }
         $this->data['care_unit'] = $this->common_model->customGet($option);
 
-        $option = array('table' => 'countries',
-            'select' => '*'
-        );
+        $option = array('table' => 'countries','select' => '*','where'=>array('shortname'=>'GB'));
         $this->data['countries'] = $this->common_model->customGet($option);
+
         $option = array('table' => 'states',
                     'select' => '*');
                 $this->data['states'] = $this->common_model->customGet($option);
@@ -1591,28 +1590,12 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
         $this->form_validation->set_rules('city', 'city', 'trim');
         $this->form_validation->set_rules('post_code', 'post_code', 'trim');
         $this->form_validation->set_rules('country', 'country', 'trim');
-        // $this->form_validation->set_rules('Occupation', 'Occupation', 'trim');
-        // $this->form_validation->set_rules('Company', 'Company', 'trim');
-        // $this->form_validation->set_rules('religion', 'religion', 'trim|required');
-        // $this->form_validation->set_rules('ethnicity', 'ethnicity', 'trim|required');
-        // $this->form_validation->set_rules('contacts_clinician', 'contacts_clinician', 'trim|required');
-        // $this->form_validation->set_rules('death_day', 'death_day', 'trim|required');
-        // $this->form_validation->set_rules('death_month', 'death_month', 'trim|required');
-
-        // $this->form_validation->set_rules('death_year', 'death_year', 'trim');
+       
         $this->form_validation->set_rules('relation', 'relation', 'trim');
         $this->form_validation->set_rules('storedDataType', 'Relation Type', 'trim|required');
 
-
         $this->form_validation->set_rules('storedData', 'storedData', 'trim|required');
-        // $this->form_validation->set_rules('receive_emails', 'receive_emails', 'trim|required');
-        // $this->form_validation->set_rules('receive_sms_messages', 'receive_sms_messages', 'trim|required');
-        // $this->form_validation->set_rules('has_consented_to_promotional_marketing', 'has_consented_to_promotional_marketing', 'trim|required');
-        // $this->form_validation->set_rules('receive_payment_reminders', 'receive_payment_reminders', 'trim|required');
         $this->form_validation->set_rules('privacy_policy', 'privacy_policy', 'trim|required');
-
-        // $this->form_validation->set_rules('billing_detail', 'billing_detail', 'trim|required');
-        // $this->form_validation->set_rules('payment_reference', 'payment_reference', 'trim|required');
         $this->form_validation->set_rules('card_number', 'card_number', 'trim|required');
         $this->form_validation->set_rules('exp_month_year', 'exp_month_year', 'trim|required');
         $this->form_validation->set_rules('cvv', 'cvv', 'trim|required');
@@ -1646,7 +1629,7 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 
                 if (empty($email_exist)) {
 
-                    // print_r($this->input->post('phone'));die;
+                    // print_r($this->input->post());die;
                    $day = $this->input->post('day');
                    $month = $this->input->post('month');
                    $year = $this->input->post('year');
@@ -1783,27 +1766,29 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
             $patient_id = $this->common_model->customInsert($option);
             $query = $this->db->order_by('created_on', 'desc')->limit(1)->get('vendor_sale_email_host');
         $result = $query->row();
-                    $this->load->library('email');
-                    $fromName="ioready";
-                    $to= $email;
-                    $subject="Patient Registration Login Credentials";
-                    $message= "Patient account login Credentials" . "<p>username: " . $email . "</p><p>Password: " . $password . "</p>";
-                    $from = $result->email;
-                    $this->email->from($from, $fromName);
-                    $this->email->to($to);
+
+                    // $this->load->library('email');
+                    // $fromName="ioready";
+                    // $to= $email;
+                    // $subject="Patient Registration Login Credentials";
+                    // $message= "Patient account login Credentials" . "<p>username: " . $email . "</p><p>Password: " . $password . "</p>";
+                    // $from = $result->email;
+                    // $this->email->from($from, $fromName);
+                    // $this->email->to($to);
             
-                    $this->email->subject($subject);
-                    $this->email->message($message);
+                    // $this->email->subject($subject);
+                    // $this->email->message($message);
             
-                    if($this->email->send())
-                    {
-                        echo "Mail Sent Successfully";
-                    }
-                    else
-                    {
-                        echo "Failed to send email";
-                        show_error($this->email->print_debugger());             
-                            }
+                    // if($this->email->send())
+                    // {
+                    //     echo "Mail Sent Successfully";
+                    // }
+                    // else
+                    // {
+                    //     echo "Failed to send email";
+                    //     show_error($this->email->print_debugger());             
+                    //         }
+
             if ($patient_id) {
                 $option = array(
                     'table' => 'patient_consult',
@@ -2815,5 +2800,65 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
             $response = array('status' => 0, 'message' => $messages);
         }
         echo json_encode($response);
+    }
+
+    public function getStates()
+    {
+        $response = array();
+        $id = $this->input->post('id');
+       
+        if (!empty($id)) {
+           
+
+            $options = array(
+                'table' => 'states',
+                'select' => 'states.*',
+                'where' => array('country_id' => $id),
+            );
+            $states = $this->common_model->customGet($options);
+            
+            $data.= '<select id="state" onchange="getCities(this.value)" name="state" class="form-control" size="1">';
+            $data.= '<option value="" disabled selected>Please select</option>';
+            
+            
+            foreach ($states as $state_list) {
+               
+                $data.= '<option value="' . $state_list->id_state . '">' . $state_list->state . '</option>';
+            }
+            
+            
+             $data.= '</select>';
+        }
+
+        
+        echo json_encode($data);
+
+    //    return  json_encode($response);
+    }
+    
+    public function getCity()
+    {
+        $response = array();
+        $id = $this->input->post('id');
+        if (!empty($id)) {
+            $options = array(
+                'table' => 'cities',
+                'select' => 'cities.*',
+                'where' => array('state_id' => $id),
+            );
+            $cities = $this->common_model->customGet($options);
+
+            $data.= '<select id="city" name="city" class="form-control" size="1">';
+            $data.= '<option value="" disabled selected>Please select</option>';
+            
+            
+            foreach ($cities as $cities_list) {
+               
+                $data.= '<option value="' . $cities_list->id_city . '">' . $cities_list->city . '</option>';
+            }
+            
+             $data.= '</select>';
+        }
+        echo json_encode($data);
     }
 }

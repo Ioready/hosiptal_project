@@ -246,6 +246,53 @@
         });
 
     }
+
+    var deleteFnClinic = function (table, field, id, ctrl, method, txt) {
+
+console.log(txt);
+if(typeof method == "undefined" || method==""){
+    method = "index.php/users/delete";
+}
+bootbox.confirm({
+    message: "Do you really want to delete "+txt+"?",
+    buttons: {
+        confirm: {
+            label: 'OK',
+            className: '<?php echo THEME_BUTTON; ?>'
+        },
+        cancel: {
+            label: 'Cancel',
+            className: 'btn-danger'
+        }
+    },
+    callback: function (result) {
+        if (result) {
+            var url = "<?php echo base_url() ?>"+method;
+            $.ajax({
+                method: "POST",
+                url: url,
+                data: {id: id, id_name: field, table: table},
+                success: function (response) {
+                    if (response == 200) {
+
+                        $("#message").html("<div class='alert alert-success'><?php echo lang('delete_success'); ?></div>");
+                        window.setTimeout(function () {
+                            window.location.reload();
+                            window.location.href = "<?php echo base_url(); ?>" + ctrl;
+                        }, 1000);
+                    }else{
+                        $("#message").html("<div class='alert alert-danger'>This Record cannot delete because have used in other module</div>"); 
+                    }
+                },
+                error: function (error, ror, r) {
+                    bootbox.alert(error);
+                },
+            });
+        }
+    }
+});
+
+}
     var deleteFn1 = function (table, field, create_date, ctrl, method, txt) {
 
 if(typeof method == "undefined" || method==""){
@@ -486,6 +533,30 @@ bootbox.confirm({
         });
     }
     
+
+    var open_modal_clinic = function (controller) {
+        $.ajax({
+            url: '<?php echo base_url(); ?>' + controller + "/open_model_clinic",
+            type: 'POST',
+            data: {'<?php echo $this->security->get_csrf_token_name(); ?>': '<?php echo $this->security->get_csrf_hash(); ?>'},
+            success: function (data, textStatus, jqXHR) {
+                $('#form-modal-box').html(data);
+                $("#commonModal").modal('show');
+            }
+        });
+    }
+
+    var open_model_practitioner = function (controller) {
+        $.ajax({
+            url: '<?php echo base_url(); ?>' + controller + "/open_model_practitioner",
+            type: 'POST',
+            data: {'<?php echo $this->security->get_csrf_token_name(); ?>': '<?php echo $this->security->get_csrf_hash(); ?>'},
+            success: function (data, textStatus, jqXHR) {
+                $('#form-modal-box').html(data);
+                $("#commonModal").modal('show');
+            }
+        });
+    }
 
     /** end script in application **/
 

@@ -283,7 +283,7 @@ class FacilityManager extends Common_Controller {
         }
         if ($this->form_validation->run() == true) {
 
-            $this->filedata['status'] = 1;
+           
             $image = "";
             if (!empty($_FILES['user_image']['name'])) {
                 $this->filedata = $this->commonUploadImage($_POST, 'users', 'user_image');
@@ -291,9 +291,8 @@ class FacilityManager extends Common_Controller {
                     $image = 'uploads/users/' . $this->filedata['upload_data']['file_name'];
                 }
             }
-            if ($this->filedata['status'] == 0) {
-                $response = array('status' => 0, 'message' => $this->filedata['error']);
-            } else {
+           
+
                 $email = strtolower($this->input->post('user_email'));
                 $identity = ($identity_column === 'email') ? $email : $this->input->post('user_email');
                 $password = $this->input->post('password');
@@ -384,7 +383,7 @@ class FacilityManager extends Common_Controller {
                         $email_template = $this->load->view('email-template/registration', $html, true);
                         $title = '[' . getConfig('site_name') . '] ' . $EmailTemplate->title;
                         send_mail_new($email_template, $title, $email, getConfig('admin_email'));
-                    }
+                    
                 } else {
                     $where_id = $email_exist->id;
                     $options_data = array(

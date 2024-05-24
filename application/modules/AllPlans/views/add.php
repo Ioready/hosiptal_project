@@ -72,6 +72,13 @@
                                 </div>
                             </div> -->
 
+                            <div class="col-md-12" >
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Uploads Icon</label>
+                                        <input type="file" class="form-control" name="icons" id="icons" placeholder="icons" />
+                                </div>
+                            </div>
+
                             <div class="space-22"></div>
                         </div>
                     </div>

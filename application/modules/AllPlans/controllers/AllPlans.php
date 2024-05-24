@@ -32,10 +32,6 @@ class AllPlans extends Common_Controller {
        
          $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
          
-
-         
-
-
         $option = array('table' => $this->_table, 'where' => array('status' => 0), 'order' => array('id' => 'desc'));
         $this->data['list'] = $this->common_model->customGet($option);
         $this->load->admin_render('list', $this->data, 'inner_script');
@@ -74,6 +70,7 @@ class AllPlans extends Common_Controller {
         $this->form_validation->set_rules('price', "Price", 'required|trim');
         $this->form_validation->set_rules('Duration', "Duration", 'required|trim');
         $this->form_validation->set_rules('plan_description', "plan_description", 'required|trim');
+        // $this->form_validation->set_rules('icons', "icons", 'required');
         
         if ($this->form_validation->run() == true) {
             
@@ -83,11 +80,21 @@ class AllPlans extends Common_Controller {
                 // if (!$this->common_model->customGet($option)) {
                     $plan_name = $this->input->post('plan_name');
                     
+
+                    $image = "";
+                    if (!empty($_FILES['icons']['name'])) {
+                        $this->filedata = $this->commonUploadImage($_POST, 'icons', 'icons');
+                        if ($this->filedata['status'] == 1) {
+                            $image = 'uploads/icons/' . $this->filedata['upload_data']['file_name'];
+                        }
+                    }
+
                     $options_data = array(
                         'PlanName' => $plan_name,
                         'Price' => $this->input->post('price'),
                         'DurationInMonths' =>$this->input->post('Duration'),
                         'plan_description' => $this->input->post('plan_description'),
+                        'icons' => $image,
                     );
                     $option = array('table' => $this->_table, 'data' => $options_data);
                    $this->common_model->customInsert($option);
@@ -170,24 +177,37 @@ class AllPlans extends Common_Controller {
 
         $where_id = $this->input->post('id');
         
-        if ($this->form_validation->run() == FALSE):
-            $messages = (validation_errors()) ? validation_errors() : '';
-            $response = array('status' => 1, 'message' => $messages);
-        else:
-            $this->filedata['status'] = 0;
+        if ($this->form_validation->run() == true):
+        //     $messages = (validation_errors()) ? validation_errors() : '';
+        //     $response = array('status' => 1, 'message' => $messages);
+        // else:
+        //     $this->filedata['status'] = 0;
            
-            if ($this->filedata['status'] == 1) {
-                $response = array('status' => 1, 'message' => $this->filedata['error']);
-            } else {
+        //     if ($this->filedata['status'] == 1) {
+        //         $response = array('status' => 1, 'message' => $this->filedata['error']);
+        //     } else {
                 // print_r($this->input->post('plan_description'));die;
 
+
+                $image = "";
+                    if (!empty($_FILES['icons']['name'])) {
+                        $this->filedata = $this->commonUploadImage($_POST, 'icons', 'icons');
+                        if ($this->filedata['status'] == 1) {
+                            $image = 'uploads/icons/' . $this->filedata['upload_data']['file_name'];
+                        }
+                    }
+                    
                 $option = array('table' => $this->_table, 'where' => array('id =' => $where_id));
                 if (!empty($this->common_model->customGet($option))) {
+
+                    
+
                     $options_data = array(
                         'PlanName' => $this->input->post('plan_name'),
                         'Price' => $this->input->post('price'),
                         'DurationInMonths' =>$this->input->post('Duration'),
                         'plan_description' => $this->input->post('plan_description'),
+                        'icons' => $image,
                     );
                     
                     $option = array(
@@ -201,7 +221,7 @@ class AllPlans extends Common_Controller {
                 } else {
                     $response = array('status' => 0, 'message' => "plan id is empty"); 
                 }
-            }
+            // }
         endif;
 
         echo json_encode($response);

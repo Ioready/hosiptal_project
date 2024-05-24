@@ -266,7 +266,7 @@
     <div class="col-md-12">
         <div class="form-group">
             <div class="col-md-12">
-                <div class="col-md-4">
+                <!-- <div class="col-md-4">
                     <label class="">City</label>
                     <select id="country" name="city" class="form-control select2" size="1">
                         <option value="" disabled selected>Please select</option>
@@ -289,7 +289,59 @@
                         <option value="<?php echo $country->id;?>"><?php echo $country->name;?></option>
                         <?php }?>
                     </select>
-                </div>
+                </div> -->
+
+
+                <div class="col-md-6" >
+                        <div class="form-group">
+                            <label class="m-4 control-label">Country</label>
+                           
+                            <div class="col-md-12">
+                                 <!-- <input type="text" class="col-md-12 form-control" name="country_id" id="country_in" placeholder="Country"/> <br> -->
+                                
+                                    <select id="country" onchange="getStates(this.value)" name="country" class="form-control select2" size="1">
+                                        <option value="0">Please select</option>
+                                            <?php foreach ($countries as $country) { ?>
+                                                        
+                                            <option value="<?php echo $country->id; ?>"><?php echo $country->name; ?></option>
+                                                    
+                                            <?php } ?>
+                                    </select>
+                               
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6" >
+                        <div class="form-group">
+                            <label class="m-4 control-label">State</label>
+                            <div class="col-md-12">
+                            <!-- <input type="text" class="form-control" name="state_id" id="state_in" placeholder="State Name"/> -->
+                            </div>
+                            <div class="col-md-12" id="state_div">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6" >
+                        <div class="form-group">
+                            <label class="m-4 control-label">City</label>
+                            <div class="col-md-12">
+                            <!-- <input type="text" class="form-control" name="city_id" id="city_in" placeholder="City Name"/> -->
+                            </div>
+                            <div class="col-md-12" id="city">
+                               
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6" >
+                       <div class="form-group">
+                         <label class="m-4 control-label">Zipcode Access</label>
+                            <div class="col-md-12">
+                            <input type="text" id="postalCode" class="form-control" placeholder="Enter Postal Code" name="post_code">
+                            <!-- <div id="result"></div> -->
+                            </div>
+                        </div>
+                    </div>
+
             </div>
         </div>
     </div>
@@ -2174,3 +2226,89 @@ document.getElementById("relationship").style.display = "none";
     font-weight:normal !important;
 }
     </style>
+
+<script>
+
+
+function getStates(countryId) {
+   
+
+    $.ajax({
+        url: 'patient/getStates',
+        type: 'POST',
+        dataType: "json",
+        data: { id: countryId },
+        success: function(response) {
+            $('#state_div').html(response);
+            
+        },
+        error: function(xhr, status, error) {
+            // console.error(xhr.responseText);
+        }
+    });
+}
+
+
+function getCities(stateId) {
+    $.ajax({
+        url: 'patient/getCity',
+        type: 'POST',
+        dataType: "json",
+        data: { id: stateId },
+        success: function(response) {
+   
+    $('#city').html(response);
+},
+        error: function(xhr, status, error) {
+            console.error(xhr.responseText);
+        }
+    });
+}
+
+</script>
+
+    <script>
+        $(document).ready(function() {
+            $('#postalCode').on('keyup', function() {
+                var postalCode = $(this).val();
+                
+                    $.ajax({
+                        url: 'https://data.opendatasoft.com/api/records/1.0/search/',
+                        data: {
+                            dataset: 'geonames-postal-code@public',
+                            q: postalCode,
+                            // rows: 1
+                        },
+                        success: function(response) {
+                            var records = response.records;
+                            if (records.length > 0) {
+                                var record = records[0].fields;
+                                var html = '<p>City: ' + record.place_name + '</p>';
+                                html += '<p>State: ' + record.admin_name1 + '</p>';
+                                html += '<p>Country: ' + record.country_code + '</p>';
+                                if(record.country_code == 'GB'){
+                                    var countryData = 'United Kingdom';
+                                }else{
+                                    var countryData = record.country_code;
+                                }
+                                $('#city_in').val(record.place_name);
+
+                                $('#state_in').val(record.admin_name1);
+
+                                $('#country_in').val(countryData);
+
+                                $('#result').html(html);
+
+
+                            } else {
+                                $('#result').html('<p>No results found</p>');
+                            }
+                        },
+                        error: function() {
+                            $('#result').html('<p>An error occurred while fetching data</p>');
+                        }
+                    });
+                
+            });
+        });
+    </script>

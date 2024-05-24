@@ -146,10 +146,9 @@ class DataOperator extends Common_Controller
         $this->data['title'] = "Add " . $this->title;
         $this->data['formUrl'] = 'index.php/'.$this->router->fetch_class() . "/add";
         $option = array('table' => 'countries',
-            'select' => '*'
-        );
-        $this->data['countries'] = $this->common_model->customGet($option);
-       
+        'select' => '*','where'=>array('shortname'=>'GB')
+    );
+    $this->data['countries'] = $this->common_model->customGet($option);
 
         $option = array(
             'table' => 'care_unit',
@@ -305,27 +304,27 @@ class DataOperator extends Common_Controller
                     $this->db->insert('vendor_sale_doctors_qualification', $doctors_table);
                     $query = $this->db->order_by('created_on', 'desc')->limit(1)->get('vendor_sale_email_host');
         $result = $query->row();
-                    $this->load->library('email');
-                    $fromName="ioready";
-                    $to= $email;
-                    $subject='Test Mail Subject';
-                    $message='Test Content';
-                    $from = $result->email;
-                    $this->email->from($from, $fromName);
-                    $this->email->to($to);
+                    // $this->load->library('email');
+                    // $fromName="ioready";
+                    // $to= $email;
+                    // $subject='Test Mail Subject';
+                    // $message='Test Content';
+                    // $from = $result->email;
+                    // $this->email->from($from, $fromName);
+                    // $this->email->to($to);
             
-                    $this->email->subject($subject);
-                    $this->email->message($message);
+                    // $this->email->subject($subject);
+                    // $this->email->message($message);
             
-                    if($this->email->send())
-                    {
-                        echo "Mail Sent Successfully";
-                    }
-                    else
-                    {
-                        echo "Failed to send email";
-                        show_error($this->email->print_debugger());             
-                            }
+                    // if($this->email->send())
+                    // {
+                    //     echo "Mail Sent Successfully";
+                    // }
+                    // else
+                    // {
+                    //     echo "Failed to send email";
+                    //     show_error($this->email->print_debugger());             
+                    //         }
 
                     // Assuming $config is populated from somewhere
                     // if (!empty($config) && is_array($config)) {
