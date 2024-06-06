@@ -13,14 +13,67 @@
 }
 </style>
 <div id="page-content">
-    <ul class="breadcrumb breadcrumb-top">
-        <li>
-            <a href="<?php echo site_url('pwfpanel'); ?>">Home</a>
-        </li>
-        <li class="fw-bold">
-            <a href="<?php echo site_url($parent); ?>"><?php echo $title; ?></a>
-        </li>
-    </ul>
+<div class="block_list full">
+    <div class="row text-center">
+        
+        <div class="col-sm-6 col-lg-2 mb-4">
+            <a href="<?php echo base_url()."careUnit/";?>" class="widget widget-hover-effect2 rounded" style="border-radius: 10px; ">
+                <div class="widget-extra themed-background-dark"   style="background:#337ab7;">
+                    <h4 style="font-size:14px; font-weight:600; color:white;">Department</h4>
+                </div>
+                <div class="widget-extra-full"><span class="h2 themed-color-dark animation-expandOpen fw-bold"><?php echo $active;?></span></div>
+            </a>
+        </div>
+        <div class="col-sm-6 col-lg-2 mb-4">
+            <a href="<?php echo base_url()."Letters";?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
+                <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
+                    <h4 style="font-size:16px; font-weight:600; color:white;">Letters</h4>
+                </div>
+                <div class="widget-extra-full"><span class="h2 animation-expandOpen fw-bold text-dark"><?php echo $inactive;?></span></div>
+            </a>
+        </div>
+       
+        <div class="col-sm-6 col-lg-2 mb-4">
+        <a href="<?php echo base_url()."invoices";?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
+                <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
+                    <h4 style="font-size:16px; font-weight:600; color:white;">invoices</h4>
+                </div>
+                <div class="widget-extra-full"><span class="h2 animation-expandOpen fw-bold text-dark"><?php echo $inactive;?></span></div>
+            </a>
+        </div>
+
+
+        <div class="col-sm-6 col-lg-2 mb-4">
+        <a href="<?php echo base_url()."initialDx";?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
+                <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
+                    <h4 style="font-size:16px; font-weight:600; color:white;">initialDx</h4>
+                </div>
+                <div class="widget-extra-full"><span class="h2 animation-expandOpen fw-bold text-dark"><?php echo $inactive;?></span></div>
+            </a>
+        </div>
+
+
+        <div class="col-sm-6 col-lg-2 mb-4">
+        <a href="<?php echo base_url()."cultureSource";?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
+                <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
+                    <h4 style="font-size:16px; font-weight:600; color:white;">Lab</h4>
+                </div>
+                <div class="widget-extra-full"><span class="h2 animation-expandOpen fw-bold text-dark"><?php echo $inactive;?></span></div>
+            </a>
+        </div>
+
+        <div class="col-sm-6 col-lg-2 mb-4">
+        <a href="<?php echo base_url()."organism";?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
+                <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
+                    <h4 style="font-size:16px; font-weight:600; color:white;">organism</h4>
+                </div>
+                <div class="widget-extra-full"><span class="h2 animation-expandOpen fw-bold text-dark"><?php echo $inactive;?></span></div>
+            </a>
+        </div>
+        
+        
+        
+    </div>
     <!-- Datatables Content -->
     <div class="block full">
         <div class="block-title ">

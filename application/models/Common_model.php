@@ -476,4 +476,11 @@ class Common_model extends MY_Model {
         return array('total_count' => $total_count, 'result' => $data);
     }
 
+    public function fetch_data($query) {
+        $this->db->like('patient_id', $query);
+        // $this->db->limit(1); 
+        $query = $this->db->get('vendor_sale_patient');
+        return $query->result_array(); // Ensure result_array() is used
+    }
+
 }

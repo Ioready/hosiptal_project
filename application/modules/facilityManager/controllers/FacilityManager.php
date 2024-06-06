@@ -368,7 +368,9 @@ class FacilityManager extends Common_Controller {
 
                     /** info email * */
                     $EmailTemplate = getEmailTemplate("welcome");
+                    
                     if (!empty($EmailTemplate)) {
+                        
                         $html = array();
                         $html['logo'] = base_url() . getConfig('site_logo');
                         $html['site'] = getConfig('site_name');
@@ -381,8 +383,48 @@ class FacilityManager extends Common_Controller {
                         $html['website'] = base_url();
                         $html['content'] = $EmailTemplate->description;
                         $email_template = $this->load->view('email-template/registration', $html, true);
+                        
                         $title = '[' . getConfig('site_name') . '] ' . $EmailTemplate->title;
-                        send_mail_new($email_template, $title, $email, getConfig('admin_email'));
+                        // print_r($title);die;
+                        
+                        send_mail_new($message, $subject, $to_email, $from_email = "", $attach = "", getConfig('admin_email'));
+                        // send_mail_new($email_template, $title, $email, getConfig('admin_email'));
+
+
+                        $user_id = $this->session->userdata('user_id');
+
+
+                        $option = array(
+                            'table' => USERS . ' as user',
+                            'select' => 'user.*,group.name as group_name',
+                            'join' => array(
+                                array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                                array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                            ),
+                            'order' => array('user.id' => 'DESC'),
+                            'where' => array('user.id'=>$user_id),
+                            'single'=>true,
+                        );
+                
+                        $authUser = $this->common_model->customGet($option);
+
+                    $from = $authUser->email;
+// print_r($email);die;
+                    $subject = "Hospital Task";
+                    $title = "Hospital  Task";
+                    $data['name'] = ucwords($this->input->post('task_name'));
+                    $data['content'] = "Hospital Assign Task"
+                        . "<p>Task Name: " . $this->input->post('task_name') . "</p><p>Assign to: " . $email . "</p><p>Department: " . $type . "</p><p>Patient Name: " . $this->input->post('patient_name') . "</p><p>Due date: " . $this->input->post('due_date') . "</p><p>Task Comment: " . $this->input->post('task_comment') . "</p>";
+                    // $template = $this->load->view('user_signup_mail', $data, true);
+                    // print_r($data);die;
+                    // $template = $this->load->view('email-template/task_email', $data, true);
+                    $template = $this->load->view('email-template/registration', $data, true);
+                    // $this->send_email($email, $from, $subject, $template, $title);
+                    
+                    // $this->send_email_smtp($email, $from, $subject, $template, $title);
+                    $this->sendEmail();
+
+
                     
                 } else {
                     $where_id = $email_exist->id;

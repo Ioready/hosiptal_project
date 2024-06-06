@@ -76,142 +76,205 @@ class Appointment extends Common_Controller {
         
          $this->data['list'] = $dataArray;
 
-         $option = array(
-            'table' => 'care_unit',
-            'select' => '*', 'where' => array('delete_status' => 0), 'order' => array('name' => 'ASC')
-        );
-        $this->data['care_unit'] = $this->common_model->customGet($option);
+        //  $option = array(
+        //     'table' => 'care_unit',
+        //     'select' => '*', 'where' => array('delete_status' => 0), 'order' => array('name' => 'ASC')
+        // );
+        // $this->data['care_unit'] = $this->common_model->customGet($option);
 
+        $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 
-        if($this->input->post('appointment_id') == 'clinic_appointment'){
-           
-            $option = array(
-                'table' => 'clinic_appointment',
-                'select' => 'clinic_appointment.*, U.first_name, U.last_name, UP.address1,UP.city,UP.state',
+        if($this->ion_auth->is_subAdmin()){
+            $optionDoctor = array(
+                'table' => ' doctors',
+                'select' => 'users.*',
                 'join' => array(
-                    array('users as U', 'clinic_appointment.location_appointment=U.id', 'left'),
-                    array('user_profile as UP', 'UP.user_id=clinic_appointment.location_appointment', 'left')),
-                'where' => array('status' => 0),
+                    array('users', 'doctors.user_id=users.id', 'left'),
+                    array('user_profile UP', 'UP.user_id=users.id', 'left'),
+                    array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
+                    
+                ),
+                
+                'where' => array(
+                    'users.delete_status' => 0,
+                    'doctors.facility_user_id'=>$datadoctors->facility_user_id
+                ),
+                // 'order' => array('users.id' => 'desc'),
             );
+            $doctorsData = $this->common_model->customGet($optionDoctor);
 
-            $this->data['clinic_appointment'] = $this->common_model->customGet($option);
-            
-            }else if($this->input->post('appointment_id') == 'theatre_appointment'){
-
-                $option = array(
-                    'table' => 'theatre_appointment',
-                    'select' => 'theatre_appointment.*, U.first_name, U.last_name, UP.address1,UP.city,UP.state',
-                    'join' => array(
-                        array('users as U', 'theatre_appointment.theatre_location=U.id', 'left'),
-                        array('user_profile as UP', 'UP.user_id=theatre_appointment.theatre_location', 'left')),
-                    'where' => array('status' => 0),
-                );
-                $this->data['clinic_appointment'] = $this->common_model->customGet($option);
-               
-            }else if($this->input->post('appointment_id') == 'availability'){
     
-                $option = array(
-                    'table' => 'doctor_availability',
-                    'select' => 'doctor_availability.*, U.first_name, U.last_name, UP.address1,UP.city,UP.state',
-                    'join' => array(
-                        array('users as U', 'doctor_availability.availability_location=U.id', 'left'),
-                        array('user_profile as UP', 'UP.user_id=doctor_availability.availability_location', 'left')),
-                    'where' => array('status' => 0),
-                );
+
+            $optionPractitioner = array(
+                'table' => 'practitioner',
+                'select' => '*', 'where' => array('hospital_id'=>$datadoctors->facility_user_id,'delete_status' => 0), 'order' => array('name' => 'ASC')
+            );
+            $practitionerData = $this->common_model->customGet($optionPractitioner);
+        $combinedData = array_merge($practitionerData,$doctorsData);
+        $this->data['practitioner'] = $combinedData;
     
-                $this->data['clinic_appointment'] = $this->common_model->customGet($option);
+    
+        } else if ($this->ion_auth->is_facilityManager()) {
             
-            }else if($this->input->post('appointment_id') == 'out_of_office'){
-                $option = array(
-                    'table' => 'out_of_office_doctor',
-                    'select' => 'out_of_office_doctor.*, U.first_name, U.last_name, UP.address1,UP.city,UP.state',
+            $departmentanddoctordata = $this->input->post('departmentanddoctordata');
+
+            $departmentanddoctordata = $this->input->post('departmentanddoctordata');
+
+            if (is_array($departmentanddoctordata) && !empty($departmentanddoctordata)) {
+                // Option to retrieve doctors data
+                $optionDoctor = array(
+                    'table' => 'doctors',
+                    'select' => 'users.*',
                     'join' => array(
-                        array('users as U', 'out_of_office_doctor.out_of_office_location=U.id', 'left'),
-                        array('user_profile as UP', 'UP.user_id=out_of_office_doctor.out_of_office_location', 'left')),
-                    'where' => array('status' => 0),
-                );
-        
-                $this->data['clinic_appointment'] = $this->common_model->customGet($option);
-                }else{
-
-                    $option = array(
-                        'table' => 'clinic_appointment',
-                        'select' => 'clinic_appointment.*, U.first_name, U.last_name, UP.address1,UP.city,UP.state',
-                        'join' => array(
-                            array('users as U', 'clinic_appointment.location_appointment=U.id', 'left'),
-                            array('user_profile as UP', 'UP.user_id=clinic_appointment.location_appointment', 'left')),
-                        'where' => array('status' => 0),
-                    );
-
-                    $this->data['clinic_appointment'] = $this->common_model->customGet($option);
-                }
-
-
-//                 $sql = '
-//                 SELECT *
-//                 FROM (
-//                     SELECT doctor_name FROM `vendor_sale_clinic_appointment`
-//                     UNION
-//                     SELECT doctor_name FROM `vendor_sale_out_of_office_doctor`
-//                 ) AS combined_data';
-//                 $data = $this->db->query($sql);
-			
-// 			if($data->num_rows() > 0){
-// 				return $data->result();
-// 			}
-// 			return false;
-// print_r($data);die;
-
-                // $option = array(
-                //     'table' => 'clinic_appointment',
-                //     'select' => 'clinic_appointment.*,clinic_appointment.id as clinic_appointment_id,od.*,da.*,ta.*, U.first_name, U.last_name',
-                //     'join' => array(
-                //         array('users as U', 'clinic_appointment.clinician_appointment=U.id', 'left'),
-                //         // array('user_profile as UP', 'UP.user_id=clinic_appointment.doctor_name', 'left'),
-                //         array('out_of_office_doctor as od', 'od.doctor_name=clinic_appointment.doctor_name', 'left'),
-                //         array('doctor_availability as da', 'da.doctor_name=clinic_appointment.doctor_name', 'left'),
-                //         array('theatre_appointment as ta', 'ta.doctor_name=clinic_appointment.doctor_name', 'left')),
-
-                //     'where' => array('clinic_appointment.status' => 0),
-                //     'order' => array('clinic_appointment.id' => 'desc'),
-                // );
-
-
-                $option = array(
-                    'table' => 'users as U',
-                    'select' => 'clinic_appointment.*,clinic_appointment.id as clinic_appointment_id,od.*,da.*,ta.*, U.first_name, U.last_name',
-                    'join' => array(
-                        array('clinic_appointment', 'clinic_appointment.clinician_appointment=U.id', 'left'),
-                        // array('user_profile as UP', 'UP.user_id=clinic_appointment.doctor_name', 'left'),
-                        array('out_of_office_doctor as od', 'od.out_of_office_practitioner=U.id', 'left'),
-                        array('doctor_availability as da', 'da.availability_practitioner=U.id', 'left'),
-                        array('theatre_appointment as ta', 'ta.theatre_clinician=U.id', 'left')),
-
-                    'where' => array('clinic_appointment.status' => 0),
-                    'order' => array('clinic_appointment.id' => 'desc'),
-                );
-
-                $this->data['clinic_appointment'] = $this->common_model->customGet($option);
-                // print_r($this->data['clinic_appointment']);die;
-                $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
-                $option = array(
-                    'table' => USERS . ' as user',
-                    'select' => 'user.id,user.first_name,user.last_name,user.email,user.login_id,user.created_on,user.active,group.name as group_name,UP.doc_file,CU.care_unit_code,CU.name',
-                    'join' => array(
-                        array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
-                        array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left'),
-                        array('user_profile UP', 'UP.user_id=user.id', 'left'),
-                        array('care_unit CU', 'CU.id=user.care_unit_id', 'left'),
-                        array('doctors AS d', 'd.user_id = user.id', 'left')
+                        array('users', 'doctors.user_id=users.id', 'left'),
+                        array('user_profile UP', 'UP.user_id=users.id', 'left'),
+                        array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
                     ),
-                   
-                    'where' => array('user.delete_status' => 0, 'group.id' => 5, 'user.login_id' => $LoginID),
-                    'order' => array('user.id' => 'desc')
+                    'where' => array(
+                        'users.delete_status' => 0,
+                        'doctors.facility_user_id' => $CareUnitID,
+                    ),
+                    'where_in' => array('doctors.user_id' => $departmentanddoctordata),  // Use where_in to check for multiple IDs
+                    'order' => array('users.id' => 'asc'),
                 );
-        $this->data['doctors'] = $this->common_model->customGet($option);
+                $doctorsData = $this->common_model->customGet($optionDoctor);
+              
+            
+                $optionPractitioner = array(
+                    'table' => 'practitioner',
+                    'select' => '*',
+                    'where' => array(
+                        'hospital_id' => $CareUnitID,
+                        'delete_status' => 0,
+                    ),
+                    'where_in' => array('practitioner.id' => $departmentanddoctordata),  // Use where_in to check for multiple IDs
+                    'order' => array('id' => 'ASC')
+                );
+                $practitionerData = $this->common_model->customGet($optionPractitioner);
+                $combinedData = array_merge($practitionerData, $doctorsData);
+                $data['practitioner'] = $combinedData;
+                // echo json_encode($data['practitioner']);
+                $this->data['practitioner_filter'] = $combinedData;
+              
+            }
+            else{
+            $optionDoctor = array(
+                'table' => 'doctors',
+                'select' => 'users.*',
+                'join' => array(
+                    array('users', 'doctors.user_id=users.id', 'left'),
+                    array('user_profile UP', 'UP.user_id=users.id', 'left'),
+                    array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
+                ),
+                'where' => array(
+                    'users.delete_status' => 0,
+                    'doctors.facility_user_id' => $CareUnitID
+                ),
+                'order' => array('users.id' => 'asc'),
+            );
+            $doctorsData = $this->common_model->customGet($optionDoctor);
+    
+            $optionPractitioner = array(
+                'table' => 'practitioner',
+                'select' => '*',
+                'where' => array(
+                    'hospital_id' => $CareUnitID,
+                    'delete_status' => 0
+                ),
+                'order' => array('id' => 'ASC')
+            );
+            $practitionerData = $this->common_model->customGet($optionPractitioner);
+            $combinedData = array_merge($practitionerData,$doctorsData);
+            $this->data['practitioner'] = $combinedData;
+        }
 
-        $user_id = $this->session->userdata('user_id');
-        // print_r($user_id);die;
+
+        }
+
+       
+                
+             
+        $selectedDate = $this->input->post('selectedDate');
+        if(!empty($selectedDate)){
+        
+        $this->load->model('common_model');  // Make sure your model is loaded
+    
+        $option = array(
+            'table' => 'clinic_appointment',
+            'select' => 'clinic_appointment.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state, pa.name as patient_name, cl.name as clinic_name, cl.clinic_location, pr.name',
+            'join' => array(
+                array('users as U', 'clinic_appointment.location_appointment = U.id', 'left'),
+                array('patient as pa', 'clinic_appointment.patient = pa.user_id', 'left'),
+                array('clinic as cl', 'clinic_appointment.location_appointment = cl.id', 'left'),
+                array('user_profile as UP', 'UP.user_id = U.id', 'left'),
+                array('practitioner as pr', 'clinic_appointment.practitioner = pr.id', 'left'),
+            ),
+            'where' => array(
+                'clinic_appointment.status' => 0
+            ),
+            'or_where' => array(
+                'clinic_appointment.start_date_appointment' => $selectedDate,
+                'clinic_appointment.theatre_date_time' => $selectedDate,
+                'clinic_appointment.out_start_time_at' => $selectedDate,
+                'clinic_appointment.start_date_availability' => $selectedDate
+            )
+        );
+    
+        $data = $this->common_model->customGet($option);
+        echo json_encode($data);
+               
+            }else{
+                $current_date = date('Y-m-d');
+                $dateToUse = $current_date;
+        
+        $this->load->model('common_model');  // Make sure your model is loaded
+    
+        $option = array(
+            'table' => 'clinic_appointment',
+            'select' => 'clinic_appointment.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state, pa.name as patient_name, cl.name as clinic_name, cl.clinic_location, pr.name',
+            'join' => array(
+                array('users as U', 'clinic_appointment.location_appointment = U.id', 'left'),
+                array('patient as pa', 'clinic_appointment.patient = pa.user_id', 'left'),
+                array('clinic as cl', 'clinic_appointment.location_appointment = cl.id', 'left'),
+                array('user_profile as UP', 'UP.user_id = U.id', 'left'),
+                array('practitioner as pr', 'clinic_appointment.practitioner = pr.id', 'left'),
+            ),
+            'where' => array(
+                'clinic_appointment.status' => 0
+            ),
+            'or_where' => array(
+                'clinic_appointment.start_date_appointment' => $dateToUse,
+                'clinic_appointment.theatre_date_time' => $dateToUse,
+                'clinic_appointment.out_start_time_at' => $dateToUse,
+                'clinic_appointment.start_date_availability' => $dateToUse
+            )
+        );
+    
+        $this->data['all_appointment'] = $this->common_model->customGet($option);
+        // print_r($this->data['all_appointment']);die;
+            }
+                // print_r($this->data['all_appointment']);die;
+
+
+                                $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+                                $option = array(
+                                    'table' => USERS . ' as user',
+                                    'select' => 'user.id,user.first_name,user.last_name,user.email,user.login_id,user.created_on,user.active,group.name as group_name,UP.doc_file,CU.care_unit_code,CU.name',
+                                    'join' => array(
+                                        array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                                        array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left'),
+                                        array('user_profile UP', 'UP.user_id=user.id', 'left'),
+                                        array('care_unit CU', 'CU.id=user.care_unit_id', 'left'),
+                                        array('doctors AS d', 'd.user_id = user.id', 'left')
+                                    ),
+                                
+                                    'where' => array('user.delete_status' => 0, 'group.id' => 5, 'user.login_id' => $LoginID),
+                                    'order' => array('user.id' => 'desc')
+                                );
+                                $this->data['doctors'] = $this->common_model->customGet($option);
+
+                                $user_id = $this->session->userdata('user_id');
+                                // print_r($user_id);die;
 
                                 $option = array(
                                     'table' => USERS . ' as user',
@@ -242,6 +305,174 @@ class Appointment extends Common_Controller {
 
         $this->load->admin_render('text', $this->data, 'inner_script');
     }
+    public function getLocationFilter() {
+        $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+        $response = '';
+        $id = $this->input->post('id');
+    
+        if ($id == 'practitioner') {
+            $optionDoctor = array(
+                'table' => 'doctors',
+                'select' => 'users.*',
+                'join' => array(
+                    array('users', 'doctors.user_id=users.id', 'left'),
+                    array('user_profile UP', 'UP.user_id=users.id', 'left'),
+                    array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
+                ),
+                'where' => array(
+                    'users.delete_status' => 0,
+                    'doctors.facility_user_id' => $CareUnitID
+                ),
+                'order' => array('users.id' => 'asc'),
+            );
+            $doctorsData = $this->common_model->customGet($optionDoctor);
+    
+            $optionPractitioner = array(
+                'table' => 'practitioner',
+                'select' => '*',
+                'where' => array(
+                    'hospital_id' => $CareUnitID,
+                    'delete_status' => 0
+                ),
+                'order' => array('name' => 'ASC')
+            );
+            $practitionerData = $this->common_model->customGet($optionPractitioner);
+            $practitioner = array_merge($practitionerData, $doctorsData);
+            echo json_encode($practitioner);
+
+            $response .= '<select id="multiple-checkboxes" name="state[]" class="form-multi-select form-control" multiple="multiple">';
+            $response .= '<option value="" selected><input type="checkbox">Select All</option>';
+
+            foreach ($practitioner as $practitioner_list) {
+                $response .= '<option value="' . $practitioner_list->id . '">';
+                $response .= '<input type="checkbox" value="' . $practitioner_list->id . '"> ' . $practitioner_list->name . $practitioner_list->first_name . ' ' . $practitioner_list->last_name;
+                $response .= '</option>';
+            }
+    
+            $response .= '</select>';
+        } elseif ($id == 'location' || $id == 'clinic') {
+            $option = array(
+                'table' => 'clinic',
+                'select' => '*',
+                'where' => array('hospital_id' => $CareUnitID, 'delete_status' => 0),
+                'order' => array('name' => 'ASC')
+            );
+            $clinic_location = $this->common_model->customGet($option);
+    
+            $response .= '<select id="state" onchange="getCities(this.value)" name="state" class="form-control" size="1">';
+            $response .= '<option value="" disabled selected>Please select</option>';
+    
+            foreach ($clinic_location as $clinic_location_list) {
+                $response .= '<option value="' . $clinic_location_list->id . '">';
+                $response .= '<input type="checkbox" value="' . $clinic_location_list->id . '"> ' . ($id == 'location' ? $clinic_location_list->clinic_location : $clinic_location_list->name);
+                $response .= '</option>';
+            }
+    
+            $response .= '</select>';
+        }
+    
+        // echo json_encode($response);
+    }
+    
+    
+
+    
+    // public function getLocationFilter()
+    // {
+    //     $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+    //     $response = array();
+    //     $id = $this->input->post('id');
+       
+    //     if ($id == 'practitioner') {
+        
+    //         $optionDoctor = array(
+    //             'table' => 'doctors',
+    //             'select' => 'users.*',
+    //             'join' => array(
+    //                 array('users', 'doctors.user_id=users.id', 'left'),
+    //                 array('user_profile UP', 'UP.user_id=users.id', 'left'),
+    //                 array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
+    //             ),
+    //             'where' => array(
+    //                 'users.delete_status' => 0,
+    //                 'doctors.facility_user_id' => $CareUnitID
+    //             ),
+    //             'order' => array('users.id' => 'asc'),
+    //         );
+    //         $doctorsData = $this->common_model->customGet($optionDoctor);
+    
+    //         $optionPractitioner = array(
+    //             'table' => 'practitioner',
+    //             'select' => '*',
+    //             'where' => array(
+    //                 'hospital_id' => $CareUnitID,
+    //                 'delete_status' => 0
+    //             ),
+    //             'order' => array('name' => 'ASC')
+    //         );
+    //         $practitionerData = $this->common_model->customGet($optionPractitioner);
+    //         $practitioner = array_merge($practitionerData,$doctorsData);
+            
+            
+    //         $data.= '<select id="view_id" name="state" class="form-control" size="1" multiple>';
+    //         $data.= '<option value="" selected>Select  All</option>';
+
+    //         foreach ($practitioner as $practitioner_list) {
+    //             $data .= '<option value="' . $practitioner_list->id . '">' . $practitioner_list->name . $practitioner_list->first_name . ' ' . $practitioner_list->last_name . '</option>';
+    //         }
+            
+    //         $data.= '</select>';
+            
+           
+    //     }else if ($id == 'location') {
+           
+        
+    //         $option = array(
+    //             'table' => 'clinic',
+    //             'select' => '*', 'where' => array('hospital_id'=>$CareUnitID,'delete_status' => 0), 'order' => array('name' => 'ASC')
+    //         );
+    //         $clinic_location = $this->common_model->customGet($option);
+            
+    //         $data.= '<select id="state" onchange="getCities(this.value)" name="state" class="form-control" size="1">';
+    //         $data.= '<option value="" disabled selected>Please select</option>';
+            
+            
+    //         foreach ($clinic_location as $clinic_location_list) {
+               
+    //             $data.= '<option value="' . $clinic_location_list->id . '">' . $clinic_location_list->clinic_location . '</option>';
+    //         }
+            
+            
+    //          $data.= '</select>';
+            
+           
+    //     }else  if ($id == 'clinic') {
+           
+        
+    //         $option = array(
+    //             'table' => 'clinic',
+    //             'select' => '*', 'where' => array('hospital_id'=>$CareUnitID,'delete_status' => 0), 'order' => array('name' => 'ASC')
+    //         );
+    //         $clinic_location = $this->common_model->customGet($option);
+            
+    //         $data.= '<select id="state" onchange="getCities(this.value)" name="state" class="form-control" size="1">';
+    //         $data.= '<option value="" disabled selected>Please select</option>';
+            
+            
+    //         foreach ($clinic_location as $clinic_location_list) {
+               
+    //             $data.= '<option value="' . $clinic_location_list->id . '">' . $clinic_location_list->name . '</option>';
+    //         }
+            
+            
+    //          $data.= '</select>';
+            
+           
+    //     }
+
+        
+    //     echo json_encode($data);
+    // }
 
     /**
      * @method profile
@@ -274,7 +505,7 @@ class Appointment extends Common_Controller {
         $this->db->like('patient_id', $paramValue);
         $this->db->limit(1); 
 $results = $this->db->get('vendor_sale_patient')->result_array();
-// print_r($results);die;
+
 $this->data['results'] = $results;
       $this->data['parent'] = $this->title;
         $this->data['title'] = "Add " . $this->title;
@@ -359,6 +590,21 @@ $this->data['results'] = $results;
             'order' => array('users.id' => 'desc'),
         );
         $this->data['doctorsname'] = $this->common_model->customGet($option);
+
+        $option = array(
+            'table' => 'clinic',
+            'select' => '*', 'where' => array('hospital_id'=>$datadoctors->facility_user_id,'delete_status' => 0), 'order' => array('name' => 'ASC')
+        );
+        $this->data['clinic_location'] = $this->common_model->customGet($option);
+
+
+        $option = array(
+            'table' => 'practitioner',
+            'select' => '*', 'where' => array('hospital_id'=>$datadoctors->facility_user_id,'delete_status' => 0), 'order' => array('name' => 'ASC')
+        );
+        $this->data['practitioner'] = $this->common_model->customGet($option);
+
+
     } else if ($this->ion_auth->is_facilityManager()) {
         
         $option = array(
@@ -380,6 +626,17 @@ $this->data['results'] = $results;
         $this->data['doctorsname'] = $this->common_model->customGet($option);
 
 
+        $option = array(
+            'table' => 'clinic',
+            'select' => '*', 'where' => array('hospital_id'=>$CareUnitID,'delete_status' => 0), 'order' => array('name' => 'ASC')
+        );
+        $this->data['clinic_location'] = $this->common_model->customGet($option);
+
+        $option = array(
+            'table' => 'practitioner',
+            'select' => '*', 'where' => array('hospital_id'=>$CareUnitID,'delete_status' => 0), 'order' => array('name' => 'ASC')
+        );
+        $this->data['practitioner'] = $this->common_model->customGet($option);
         
     }
 
@@ -418,6 +675,25 @@ $this->data['results'] = $results;
      * @description add dynamic rows
      * @return array
      */
+public function fetch() {
+    $output = '';
+    $query = $this->input->post('query');
+    if ($query) {
+        $results = $this->common_model->fetch_data($query);
+        $output .= '<select class="form-control select2" name="patient" id="patient">';
+        if (!empty($results)) {
+            foreach ($results as $row) {
+                $output .= '<option value="'.$row['user_id'].'">( '.$row['patient_id'].')  -'.$row['name'].' - '. $row['address'].'</option>';
+               
+            }
+        } else {
+            $output .= '<option>No Data Found</option>';
+        }
+        $output .= '</select>';
+        echo $output;
+    }
+}
+
     public function add() {
 
 //         echo "<pre>";
@@ -440,24 +716,37 @@ $this->data['results'] = $results;
      
         if ($this->form_validation->run() == true) {
 
-         $doctor_id =    $this->input->post('doctor_name');
+        //  $doctor_id =    $this->input->post('doctor_name');
          
 
-         $query = $this->db->get_where('users', array('id' => $doctor_id));
-                    $result = $query->row();
-                    $email = $result->username;
-                    $from = getConfig('admin_email');
-                    $subject = "Appointment for Patient";
-                    $password = "test";
-                    $title = "Appointment doctor";
-                    $data['name'] = ucwords($this->input->post('patient'));
-                    $data['content'] = "Appointment" . "<p>username: " . $email . "</p><p>Password: " . $password . "</p>";
-                    $template = $this->load->view('email-template/registration', $data, true);
+        //  $query = $this->db->get_where('users', array('id' => $doctor_id));
+        //             $result = $query->row();
+        //             $email = $result->username;
+        //             $from = getConfig('admin_email');
+        //             $subject = "Appointment for Patient";
+        //             $password = "test";
+        //             $title = "Appointment doctor";
+        //             $data['name'] = ucwords($this->input->post('patient'));
+        //             $data['content'] = "Appointment" . "<p>username: " . $email . "</p><p>Password: " . $password . "</p>";
+        //             $template = $this->load->view('email-template/registration', $data, true);
+        //             $this->send_email_smtp($email, $from, $subject, $template, $title);
 
-                    
-                    // echo "Email Template: ";
-                    // echo $template;
-                    $this->send_email_smtp($email, $from, $subject, $template, $title);
+        //             $practitioner =    $this->input->post('practitioner');
+         
+
+        //  $practitionerquery = $this->db->get_where('practitioner', array('id' => $practitioner));
+
+        //             $result = $practitionerquery->row();
+        //             $email = $result->email;
+        //             $from = getConfig('admin_email');
+        //             $subject = "Appointment for Patient";
+        //             $password = "test";
+        //             $title = "Appointment doctor";
+        //             $data['name'] = ucwords($this->input->post('patient'));
+        //             $data['content'] = "Appointment" . "<p>username: " . $email . "</p><p>Password: " . $password . "</p>";
+        //             $template = $this->load->view('email-template/registration', $data, true);
+        //             $this->send_email_smtp($email, $from, $subject, $template, $title);
+
                     // Try sending email
                     
         //  $date = $this->input->post('date');
@@ -486,152 +775,270 @@ $this->data['results'] = $results;
                     
                 // }  else {
 
-                    if($this->input->post('patient') != ""){
+                    $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 
+
+                    // $additional_data_profile = array(
+                    //     'type'=>$this->input->post('type'),
+                    //     'patient' => $this->input->post('patient')? : "",
+                    //     'location_appointment' => $this->input->post('location_appointment')? : "",
+                    //     'clinician_appointment' => $this->input->post('location_appointment')? : "",
+                    //     'practitioner'=>$this->input->post('practitioner')? : "",
+                    //     'appointment_type' => $this->input->post('appointment_type')? : "",
+                    //     'start_date_appointment' => $this->input->post('start_date_appointment')? : "",
+                    //     'end_date_appointment' => $this->input->post('end_date_appointment')? : "",
+                    //     'comment_appointment' => $this->input->post('comment_appointment')? : "",
+                    //     'doctor_name' => $this->input->post('doctor_name')? : "",
+                    //     'theatre_clinician' => $this->input->post('theatre_clinician')? : "",
+
+                    //     'theatre_anaesthetic_type'=>$this->input->post('theatre_anaesthetic_type')? : "",
+                    //     'theatre_admission_date_time' => $this->input->post('theatre_admission_date_time')? : "",
+                    //     'theatre_anaesthetist' => $this->input->post('theatre_anaesthetist')? : "",
+
+                    //     'theatre_type_of_stay' => $this->input->post('theatre_type_of_stay')? : "",
+
+                    //     'theatre_date_time' => $this->input->post('theatre_date_time')? : "",
+                    //     'theatre_time_duration' => $this->input->post('theatre_time_duration')? : "",
+
+                    //     'status' => '0',
+                                     
+                    // );
+                   
                     
-                        $query = $this->db->get_where('users', array('email' => $this->input->post('clinician_appointment')));
-                    $receiver = $query->row();
-                    $receiver_id = $receiver->id;
 
+                    // $this->db->insert('clinic_appointment', $additional_data_profile); 
                     $additional_data_profile = array(
-                        
-                        'patient' => $this->input->post('patient'),
-                        'location_appointment' => $this->input->post('location_appointment'),
-                        'clinician_appointment' => $receiver_id,
-                        'appointment_type' => $this->input->post('appointment_type'),
-                        'start_date_appointment' => $this->input->post('start_date_appointment'),
-                        'end_date_appointment' => $this->input->post('end_date_appointment'),
-                        'comment_appointment' => $this->input->post('comment_appointment'),
-                        'doctor_name' => $this->input->post('doctor_name'),
-                        'status' => '0',
-                        // 'created_at' => ,                 
-                  
-                    );
-                    // print_r($this->input->post('doctor_name'));
+                        'type' => $this->input->post('type') ?: null,
+                        'patient' => $this->input->post('patient') ?: null,
+                        'location_appointment' => $this->input->post('location_appointment') ?: null,
+                        'clinician_appointment' => $this->input->post('location_appointment') ?: null,
+                        'practitioner' => $this->input->post('practitioner') ?: null,
+                        'appointment_type' => $this->input->post('appointment_type') ?: null,
+                        'start_date_appointment' => $this->input->post('start_date_appointment') ?: null,
+                        'end_date_appointment' => $this->input->post('end_date_appointment') ?: null,
+                        'comment_appointment' => $this->input->post('comment_appointment') ?: null,
+                        'doctor_name' => $this->input->post('doctor_name') ?: null,
+                        'theatre_clinician' => $this->input->post('theatre_clinician') ?: null,
+                        'theatre_anaesthetic_type' => $this->input->post('theatre_anaesthetic_type') ?: null,
+                        'theatre_admission_date_time' => $this->input->post('theatre_admission_date_time') ?: null,
+                        'theatre_anaesthetist' => $this->input->post('theatre_anaesthetist') ?: null,
+                        'theatre_type_of_stay' => $this->input->post('theatre_type_of_stay') ?: null,
+                        'theatre_date_time' => $this->input->post('theatre_date_time') ?: null,
+                        'theatre_time_duration' => $this->input->post('theatre_time_duration') ?: null,
 
+                        'out_start_time_at'=>$this->input->post('out_start_time_at') ?: null,
+                        'out_end_time_at'=>$this->input->post('out_end_time_at') ?: null,
+                        'start_date_availability'=>$this->input->post('start_date_availability') ?: null,
+                        'end_time_date_availability'=>$this->input->post('end_time_date_availability') ?: null,
+                        'status' => '0',
+                    );
+                    
+                    // print_r($additional_data_profile);die;
                     $this->db->insert('clinic_appointment', $additional_data_profile); 
+
                     $insert_id = $this->db->insert_id();
+                    
 
                     $additional_notification = array(
-                        
-                        'care_unit_id' => $this->input->post('clinician_appointment'),
+                       
+                        'type_id' => 'clinic_appointment',
+                        'patient_id' => $this->input->post('patient'),
+                        'care_unit_id' => $this->input->post('location_appointment'),
                         'clinic_appointment_id' => $insert_id,
-                        'user_id' => $receiver_id,
+                        'user_id' => $CareUnitID,
                         'sender_id' => $this->input->post('doctor_name'),
                     );
                     
-
+                   
                     $this->db->insert('notifications', $additional_notification); 
+                    $notifications_id = $this->db->insert_id();
 
+
+                    if($this->input->post('patient') != ""){
+     
+      
+                    
+                    //     $query = $this->db->get_where('users', array('email' => $this->input->post('practitioner')));
+                    // $receiver = $query->row();
+                    // $practitioner =    $this->input->post('practitioner');
+
+                    // $receiver_id = $practitioner;
+                    // echo "<pre>";
+
+                    // print_r($receiver_id);die;
+                    // echo "</pre>";
+
+                    // $additional_data_profile = array(
+                    //     'type'=>$this->input->post('type'),
+                    //     'patient' => $this->input->post('patient'),
+                    //     'location_appointment' => $this->input->post('location_appointment'),
+                    //     'clinician_appointment' => $this->input->post('location_appointment'),
+                    //     'practitioner'=>$this->input->post('practitioner'),
+                    //     'appointment_type' => $this->input->post('appointment_type'),
+                    //     'start_date_appointment' => $this->input->post('start_date_appointment'),
+                    //     'end_date_appointment' => $this->input->post('end_date_appointment'),
+                    //     'comment_appointment' => $this->input->post('comment_appointment'),
+                    //     'doctor_name' => $this->input->post('doctor_name'),
+                    //     'status' => '0',
+                                     
+                    // );
+                   
+                    
+
+                    // $this->db->insert('clinic_appointment', $additional_data_profile); 
+
+                    // $insert_id = $this->db->insert_id();
+
+                    
+// print_r($additional_data_profile);die;
+
+                   
+                    // $additional_notification = array(
+                       
+                    //     'type_id' => 'clinic_appointment',
+                    //     'patient_id' => $this->input->post('patient'),
+                    //     'care_unit_id' => $this->input->post('location_appointment'),
+                    //     'clinic_appointment_id' => $insert_id,
+                    //     'user_id' => $CareUnitID,
+                    //     'sender_id' => $this->input->post('doctor_name'),
+                    // );
+                    
+                   
+                    // $this->db->insert('notifications', $additional_notification); 
+                    // $notifications_id = $this->db->insert_id();
+                    // echo "<pre>";
+                    // print_r($notifications_id);die;
+                    // echo "</pre>";
                 
-                }else if($this->input->post('theatre_patient') != ""){
+                // }else if($this->input->post('theatre_patient') != ""){
 
-                    $query = $this->db->get_where('users', array('email' => $this->input->post('theatre_clinician')));
-                    $receiver = $query->row();
-                    $receiver_id = $receiver->id;
+                //     $query = $this->db->get_where('users', array('email' => $this->input->post('theatre_clinician')));
+                //     $receiver = $query->row();
+                //     $receiver_id = $receiver->id;
 
-                    $additional_data_theatre = array(
-                        'theatre_patient' => $this->input->post('theatre_patient'),
-                        'theatre_location' => $this->input->post('theatre_location'),
-                        'theatre_clinician' => $receiver_id,
-                        'theatre_appointment_type' => $this->input->post('theatre_appointment_type'),
-                        'theatre_anaesthetist' => $this->input->post('theatre_anaesthetist'),
-                        'theatre_type_of_stay' => $this->input->post('theatre_type_of_stay'),
-                        'theatre_date_time' => $this->input->post('theatre_date_time'),
-                        'theatre_time_duration' => $this->input->post('theatre_time_duration'),
-                        'theatre_admission_date_time' => $this->input->post('theatre_admission_date_time'),
-                        'theatre_anaesthetic_type' => $this->input->post('theatre_anaesthetic_type'),
-                        'theatre_comment' => $this->input->post('theatre_comment'),
-                        'doctor_name' => $this->input->post('doctor_name'),
-                        'status' => '0'
-                    );
+                    // $additional_data_theatre = array(
+                    //     'type'=>$this->input->post('type'),
+                    //     'theatre_patient' => $this->input->post('theatre_patient'),
+                    //     'theatre_location' => $this->input->post('theatre_location'),
+                    //     'theatre_clinician' => $receiver_id,
+                    //     'theatre_appointment_type' => $this->input->post('theatre_appointment_type'),
+                    //     'theatre_anaesthetist' => $this->input->post('theatre_anaesthetist'),
+                    //     'theatre_type_of_stay' => $this->input->post('theatre_type_of_stay'),
+                    //     'theatre_date_time' => $this->input->post('theatre_date_time'),
+                    //     'theatre_time_duration' => $this->input->post('theatre_time_duration'),
+                    //     'theatre_admission_date_time' => $this->input->post('theatre_admission_date_time'),
+                    //     'theatre_anaesthetic_type' => $this->input->post('theatre_anaesthetic_type'),
+                    //     'theatre_comment' => $this->input->post('theatre_comment'),
+                    //     'doctor_name' => $this->input->post('doctor_name'),
+                    //     'status' => '0'
+                    // );
                     
-                    $this->db->insert('vendor_sale_theatre_appointment', $additional_data_theatre); 
+                    // $this->db->insert('vendor_sale_theatre_appointment', $additional_data_theatre); 
+
+                    // $additional_data_theatre = array(
+                    //     'type'=>$this->input->post('type'),
+                    //     'theatre_patient' => $this->input->post('theatre_patient'),
+                    //     'theatre_location' => $this->input->post('theatre_location'),
+                    //     'theatre_clinician' => $receiver_id,
+                    //     'theatre_appointment_type' => $this->input->post('theatre_appointment_type'),
+                    //     'theatre_anaesthetist' => $this->input->post('theatre_anaesthetist'),
+                    //     'theatre_type_of_stay' => $this->input->post('theatre_type_of_stay'),
+                    //     'theatre_date_time' => $this->input->post('theatre_date_time'),
+                    //     'theatre_time_duration' => $this->input->post('theatre_time_duration'),
+                    //     'theatre_admission_date_time' => $this->input->post('theatre_admission_date_time'),
+                    //     'theatre_anaesthetic_type' => $this->input->post('theatre_anaesthetic_type'),
+                    //     'theatre_comment' => $this->input->post('theatre_comment'),
+                    //     'doctor_name' => $this->input->post('doctor_name'),
+                    //     'status' => '0'
+                    // );
                     
-                    $insert_id = $this->db->insert_id();
+                    // $this->db->insert('vendor_sale_theatre_appointment', $additional_data_theatre); 
+
                     
-                    $additional_notification = array(
+                    // $insert_id = $this->db->insert_id();
+                    
+                //     $additional_notification = array(
                         
-                        'care_unit_id' => $this->input->post('theatre_location'),
-                        'theatre_appointment_id	' => $insert_id,
-                        'user_id' => $receiver_id,
-                        'sender_id' => $this->input->post('doctor_name'),
-                    );
+                //         'care_unit_id' => $this->input->post('theatre_location'),
+                //         'theatre_appointment_id	' => $insert_id,
+                //         'user_id' => $receiver_id,
+                //         'sender_id' => $this->input->post('doctor_name'),
+                //     );
                     
 
-                    $this->db->insert('notifications', $additional_notification); 
+                //     $this->db->insert('notifications', $additional_notification); 
 
 
-                }else if($this->input->post('availability_location') != ""){ 
+                // }else if($this->input->post('availability_location') != ""){ 
 
-                    $query = $this->db->get_where('users', array('email' => $this->input->post('availability_practitioner')));
-                    $receiver = $query->row();
-                    $receiver_id = $receiver->id;
+                //     $query = $this->db->get_where('users', array('email' => $this->input->post('availability_practitioner')));
+                    // $receiver = $query->row();
+                    // $receiver_id = $receiver->id;
 
-                    $additional_data_theatre = array(
+                    // $additional_data_theatre = array(
                         
                         
-                        'availability_location' => $this->input->post('availability_location'),
-                        'availability_practitioner' => $receiver_id,
-                        'start_date_availability' => $this->input->post('start_date_availability'),
-                        'end_time_date_availability' => $this->input->post('end_time_date_availability'),
-                        'doctor_name' => $this->input->post('doctor_name'),
-                        'status' => '0',
+                    //     'availability_location' => $this->input->post('availability_location'),
+                    //     'availability_practitioner' => $receiver_id,
+                    //     'start_date_availability' => $this->input->post('start_date_availability'),
+                    //     'end_time_date_availability' => $this->input->post('end_time_date_availability'),
+                    //     'doctor_name' => $this->input->post('doctor_name'),
+                    //     'status' => '0',
                         // 'created_at' => ,                 
                   
-                    );
+                    // );
 
-                    $insert_id =$this->db->insert('doctor_availability', $additional_data_theatre);
+                    // $insert_id =$this->db->insert('doctor_availability', $additional_data_theatre);
                     
-                    $insert_id = $this->db->insert_id();
+                //     $insert_id = $this->db->insert_id();
                     
                     
-                    $additional_notification = array(
+                //     $additional_notification = array(
                         
-                        'care_unit_id' => $this->input->post('theatre_location'),
-                        'availability_id	' => $insert_id,
-                        'user_id' => $receiver_id,
-                        'sender_id' => $this->input->post('doctor_name'),
-                    );
+                //         'care_unit_id' => $this->input->post('theatre_location'),
+                //         'availability_id	' => $insert_id,
+                //         'user_id' => $receiver_id,
+                //         'sender_id' => $this->input->post('doctor_name'),
+                //     );
                     
 
-                    $this->db->insert('notifications', $additional_notification); 
+                //     $this->db->insert('notifications', $additional_notification); 
 
-                }else if($this->input->post('out_of_office_location') != ""){ 
+                // }else if($this->input->post('out_of_office_location') != ""){ 
 
-                    $query = $this->db->get_where('users', array('email' => $this->input->post('out_of_office_practitioner')));
-                    $receiver = $query->row();
-                    $receiver_id = $receiver->id;
+                    // $query = $this->db->get_where('users', array('email' => $this->input->post('out_of_office_practitioner')));
+                    // $receiver = $query->row();
+                    // $receiver_id = $receiver->id;
 
-                    $additional_data_out = array(
+                    // $additional_data_out = array(
                         
                         
                         // 'out_of_office_location' => $this->input->post('out_of_office_location'),
-                        'out_of_office_location' => $this->input->post('out_of_office_location'),
-                        'out_of_office_practitioner' => $receiver_id,
-                        'out_start_time_at' => $this->input->post('out_start_time_at'),
-                        'out_end_time_at' => $this->input->post('out_end_time_at'),
-                        'out_of_office_comment' => $this->input->post('out_of_office_comment'),
-                        'doctor_name' => $this->input->post('doctor_name'),
-                        'status' => '0',
+                        // 'out_of_office_location' => $this->input->post('out_of_office_location'),
+                        // 'out_of_office_practitioner' => $receiver_id,
+                        // 'out_start_time_at' => $this->input->post('out_start_time_at'),
+                        // 'out_end_time_at' => $this->input->post('out_end_time_at'),
+                        // 'out_of_office_comment' => $this->input->post('out_of_office_comment'),
+                        // 'doctor_name' => $this->input->post('doctor_name'),
+                        // 'status' => '0',
                         // 'created_at' => ,                 
                   
-                    );
+                    // );
 
-                    $this->db->insert('out_of_office_doctor', $additional_data_out); 
-                    $insert_id = $this->db->insert_id();
+                    // $this->db->insert('out_of_office_doctor', $additional_data_out); 
+                    // $insert_id = $this->db->insert_id();
                     
                     
-                    $additional_notification = array(
+                    // $additional_notification = array(
                         
-                        'care_unit_id' => $this->input->post('theatre_location'),
-                        'out_of_office_id	' => $insert_id,
-                        'user_id' => $receiver_id,
-                        'sender_id' => $this->input->post('doctor_name'),
-                    );
+                    //     'care_unit_id' => $this->input->post('theatre_location'),
+                    //     'out_of_office_id	' => $insert_id,
+                    //     'user_id' => $receiver_id,
+                    //     'sender_id' => $this->input->post('doctor_name'),
+                    // );
                     
 
-                    $this->db->insert('notifications', $additional_notification);
+                    // $this->db->insert('notifications', $additional_notification);
 
                 }
                     // print_r($additional_data_profile);die;
@@ -894,5 +1301,42 @@ $this->data['results'] = $results;
         }
         echo $response;
     }
+
+    public function filterAppointmentsByDate()
+    {
+        $selectedDate = $this->input->post('selectedDate');
+        
+        $this->load->model('common_model');  // Make sure your model is loaded
+    
+        $option = array(
+            'table' => 'clinic_appointment',
+            'select' => 'clinic_appointment.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state, pa.name as patient_name, cl.name as clinic_name, cl.clinic_location, pr.name',
+            'join' => array(
+                array('users as U', 'clinic_appointment.location_appointment = U.id', 'left'),
+                array('patient as pa', 'clinic_appointment.patient = pa.user_id', 'left'),
+                array('clinic as cl', 'clinic_appointment.location_appointment = cl.id', 'left'),
+                array('user_profile as UP', 'UP.user_id = U.id', 'left'),
+                array('practitioner as pr', 'clinic_appointment.practitioner = pr.id', 'left'),
+            ),
+            'where' => array(
+                'clinic_appointment.status' => 0
+            ),
+            'or_where' => array(
+                'clinic_appointment.start_date_appointment' => $selectedDate,
+                'clinic_appointment.theatre_date_time' => $selectedDate,
+                'clinic_appointment.out_start_time_at' => $selectedDate,
+                'clinic_appointment.start_date_availability' => $selectedDate
+            )
+        );
+    
+        $data['all_appointment'] = $this->common_model->customGet($option);
+    // print_t($data['all_appointment']);die;
+        // Respond with JSON
+        $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode($data['all_appointment']));
+    }
+    
+
 
 }

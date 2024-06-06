@@ -267,6 +267,18 @@ class DataOperator extends Common_Controller
                     );
                     $insert_id = $this->ion_auth->register($identity, $password, $email, $additional_data, array(5));
 
+                    $doctors_table = array(
+                        'user_id' => $insert_id,
+                        'name' => $this->input->post('first_name').' '. $this->input->post('last_name'),
+                        'facility_user_id' => $LoginID,
+                        'email'=>$this->input->post('user_email'),
+                        'is_active' => 1,
+                        'create_date' => date('Y-m-d H:i:s'),
+                        'delete_status' => 0
+                    );
+                    
+                    $this->db->insert('vendor_sale_doctors', $doctors_table);
+
                     $additional_data_profile = array(
                         'user_id' => $insert_id,
                         'description' => $this->input->post('description'),
@@ -280,30 +292,34 @@ class DataOperator extends Common_Controller
                         'profile_pic' => $image,
                         'update_date' => date('Y-m-d H:i:s')
                     );
+                   
                     $this->db->insert('vendor_sale_user_profile', $additional_data_profile);
 
                     $a = $additional_data_profile['user_id'];
-                    if ($LoginID !== 1) {
-                    $doctors_table = array(
-                        'user_id' => $a,
-                        'name' => $this->input->post('first_name').' '. $this->input->post('last_name'),
-                        'facility_user_id' => $LoginID,
-                        'is_active' => 1,
-                        'create_date' => date('Y-m-d H:i:s'),
-                        'delete_status' => 0
-                    );
-                    $this->db->insert('vendor_sale_doctors', $doctors_table);
+                    // if ($LoginID !== 1) {
+                    // $doctors_table = array(
+                    //     'user_id' => $insert_id,
+                    //     'name' => $this->input->post('first_name').' '. $this->input->post('last_name'),
+                    //     'facility_user_id' => $LoginID,
+                    //     'email'=>$email,
+                    //     'is_active' => 1,
+                    //     'create_date' => date('Y-m-d H:i:s'),
+                    //     'delete_status' => 0
+                    // );
+                    // $this->db->insert('vendor_sale_doctors', $doctors_table);
 
-                    $doctors_table = array(
+                    $doctors_tabless = array(
                         'user_id' => $a,
                         'qualification' => $this->input->post('qualification'),
                         'availability' => $this->input->post('availability'),
                         'create_date' => date('Y-m-d H:i:s'),
                         'delete_status' => 0
                     );
-                    $this->db->insert('vendor_sale_doctors_qualification', $doctors_table);
+                    $this->db->insert('vendor_sale_doctors_qualification', $doctors_tabless);
                     $query = $this->db->order_by('created_on', 'desc')->limit(1)->get('vendor_sale_email_host');
 
+                    // send_email_smtp
+                    
 //                     $result = $query->row();
 //                     $this->load->library('email');
 
@@ -367,9 +383,9 @@ class DataOperator extends Common_Controller
 
 
 
-                } else {
-                    echo "You can not register Doctor";
-                }
+                // } else {
+                //     echo "You can not register Doctor";
+                // }
 
                     /** info email * */
                     
