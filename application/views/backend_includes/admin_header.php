@@ -283,6 +283,7 @@ hh
                                         <a href="<?php echo site_url('AllPlans'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "AllPlans") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/ham.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Plans</span></a>
                                 </li>
 
+                               
                                 <!--                                     <li title="Reports">
                                         <a href="<?php echo site_url('reports'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "reports") ? "active" : "" ?>"><i class="gi gi-charts sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Reports Details</span></a>
                                     </li> -->
@@ -550,9 +551,18 @@ hh
                                     <img src="<?php echo base_url(); ?>uploads/home.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">Dashboard</span></a>
                                 </li>
 
-                                <li title="Reports">
+                                <!-- <li title="Reports">
                                     <a href="<?php echo site_url('reportsSummary'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "reportsSummary") ? "active" : "" ?>">
                                     <img src="<?php echo base_url(); ?>uploads/icons/report.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Report Summary</span></a>
+                                </li> -->
+
+                                <li title="Risk Analysis">
+                                    <a href="<?php echo site_url('reportsSummary'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "reportsSummary") ? "active" : "" ?>">
+                                    <img src="<?php echo base_url(); ?>uploads/icons/report.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Risk Analysis</span></a>
+                                </li>
+
+                                <li title="CQC Health">
+                                        <a href="<?php echo site_url('cqcHealth'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "cqcHealth") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/cqc.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">CQC Health</span></a>
                                 </li>
                                 <!-- <li title="Appointment">
                                     <a href="<?php echo site_url('appointment'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "appointment") ? "active" : "" ?>">
