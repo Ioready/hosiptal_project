@@ -365,32 +365,6 @@ class FacilityManager extends Common_Controller {
                     );
                     $this->db->insert('vendor_sale_hospital', $additional_data_hospital);
 
-
-                    /** info email * */
-                    $EmailTemplate = getEmailTemplate("welcome");
-                    
-                    if (!empty($EmailTemplate)) {
-                        
-                        $html = array();
-                        $html['logo'] = base_url() . getConfig('site_logo');
-                        $html['site'] = getConfig('site_name');
-                        $html['site_meta_title'] = getConfig('site_meta_title');
-                        $name = $this->input->post('first_name') . " " . $this->input->post('last_name');
-                        $html['user'] = ucwords($name);
-                        $html['email'] = $email;
-                        $html['password'] = $password;
-                        $html['uniqe_token'] =  $random_id;
-                        $html['website'] = base_url();
-                        $html['content'] = $EmailTemplate->description;
-                        $email_template = $this->load->view('email-template/registration', $html, true);
-                        
-                        $title = '[' . getConfig('site_name') . '] ' . $EmailTemplate->title;
-                        // print_r($title);die;
-                        
-                        send_mail_new($message, $subject, $to_email, $from_email = "", $attach = "", getConfig('admin_email'));
-                        // send_mail_new($email_template, $title, $email, getConfig('admin_email'));
-
-
                         $user_id = $this->session->userdata('user_id');
 
 
@@ -409,23 +383,29 @@ class FacilityManager extends Common_Controller {
                         $authUser = $this->common_model->customGet($option);
 
                     $from = $authUser->email;
-// print_r($email);die;
-                    $subject = "Hospital Task";
-                    $title = "Hospital  Task";
-                    $data['name'] = ucwords($this->input->post('task_name'));
-                    $data['content'] = "Hospital Assign Task"
-                        . "<p>Task Name: " . $this->input->post('task_name') . "</p><p>Assign to: " . $email . "</p><p>Department: " . $type . "</p><p>Patient Name: " . $this->input->post('patient_name') . "</p><p>Due date: " . $this->input->post('due_date') . "</p><p>Task Comment: " . $this->input->post('task_comment') . "</p>";
-                    // $template = $this->load->view('user_signup_mail', $data, true);
-                    // print_r($data);die;
-                    // $template = $this->load->view('email-template/task_email', $data, true);
-                    $template = $this->load->view('email-template/registration', $data, true);
-                    // $this->send_email($email, $from, $subject, $template, $title);
-                    
-                    // $this->send_email_smtp($email, $from, $subject, $template, $title);
-                    $this->sendEmail();
 
+                    $name = $this->input->post('first_name');
+                    $email = $email;
+                    $mobile = '78965412365';
+                    $subject = 'Hello hospital';
 
-                    
+                    $EmailTemplate = getEmailTemplate("welcome");
+                    // if (!empty($EmailTemplate)) {
+                        $html = array();
+                        $html['logo'] = base_url() . getConfig('site_logo');
+                        $html['site'] = getConfig('site_name');
+                        $html['site_meta_title'] = getConfig('site_meta_title');
+                        $name = $this->input->post('first_name') . " " . $this->input->post('last_name');
+                        $html['user'] = ucwords($name);
+                        $html['email'] = $email;
+                        $html['password'] = $password;
+                        $html['token'] = $random_id;
+                        $html['website'] = base_url();
+                        $html['content'] = $EmailTemplate->description;
+                        $template = $this->load->view('email-template/registration', $html, true);
+                        $title = '[' . getConfig('site_name') . '] ' . $EmailTemplate->title;
+                        $this->sendEmail($email, $from, $subject, $template, $title);
+                   
                 } else {
                     $where_id = $email_exist->id;
                     $options_data = array(
@@ -469,7 +449,7 @@ class FacilityManager extends Common_Controller {
                 } else {
                     $response = array('status' => 0, 'message' => lang('user_failed'));
                 }
-            }
+            
         } else {
             $messages = (validation_errors()) ? validation_errors() : '';
             $response = array('status' => 0, 'message' => $messages);

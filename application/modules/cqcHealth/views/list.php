@@ -149,7 +149,65 @@ display:none;
                     <div class="col-md-4 col-ls-4 col-sm-4">
                         <h2>Patient Report</h2>
                         <div>
-                            <canvas id="mypatientChart"></canvas>
+                        <canvas id="riskChart"></canvas>
+                        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('riskChart').getContext('2d');
+            const chartData = <?php echo $chart_data; ?>;
+
+        //     const riskChart = new Chart(ctx, {
+        //         type: 'pie',
+        //         data: {
+        //             labels: chartData.labels,
+        //             datasets: [{
+        //                 data: chartData.data,
+        //                 backgroundColor: [
+        //                     'red',    // Red
+        //                     'orange', // Amber
+        //                     'yellow', // Yellow
+        //                     'green'   // Green
+        //                 ]
+        //             }]
+        //         },
+        //         options: {
+        //             responsive: true,
+        //             plugins: {
+        //                 legend: {
+        //                     position: 'top',
+        //                 },
+        //                 title: {
+        //                     display: true,
+        //                     text: 'Patient Risk Levels'
+        //                 }
+        //             }
+        //         }
+        //     });
+        // });
+
+
+        var myChart = new Chart(ctx, {
+  type: 'pie',
+  data: {
+    labels: ["M", "T", "W", "T", "F", "S", "S"],
+    datasets: [{
+      backgroundColor: [
+        "#2ecc71",
+        "#3498db",
+        "#95a5a6",
+        "#9b59b6",
+        "#f1c40f",
+        "#e74c3c",
+        "#34495e"
+      ],
+      
+      data: [12, 19, 3, 17, 28, 24, 7]
+    }]
+  }
+});
+});
+    </script>
+
                         </div>
                     </div>
 
@@ -161,9 +219,9 @@ display:none;
     </div> -->
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <script>
-    var ctx = document.getElementById("mypatientChart").getContext('2d');
+var ctx = document.getElementById("mypatientChart").getContext('2d');
 var myChart = new Chart(ctx, {
   type: 'pie',
   data: {

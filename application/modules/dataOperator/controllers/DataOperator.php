@@ -279,6 +279,14 @@ class DataOperator extends Common_Controller
                     
                     $this->db->insert('vendor_sale_doctors', $doctors_table);
 
+                    $option = array(
+                        'table' => 'vendor_sale_hospital',
+                        'select' => 'token_uniq',
+                        'where' => array('user_id' => $LoginID),
+                        'single' => true
+                    );
+                    $hospital = $this->common_model->customGet($option);
+                   $token_uniqss =  $hospital->token_uniq;
                     $additional_data_profile = array(
                         'user_id' => $insert_id,
                         'description' => $this->input->post('description'),
@@ -318,6 +326,25 @@ class DataOperator extends Common_Controller
                     $this->db->insert('vendor_sale_doctors_qualification', $doctors_tabless);
                     $query = $this->db->order_by('created_on', 'desc')->limit(1)->get('vendor_sale_email_host');
 
+
+                    $EmailTemplate = getEmailTemplate("welcome");
+                    
+                    // if (!empty($EmailTemplate)) {
+                        $html = array();
+                        $html['logo'] = base_url() . getConfig('site_logo');
+                        $html['site'] = getConfig('site_name');
+                        $html['site_meta_title'] = getConfig('site_meta_title');
+                        $name = $this->input->post('first_name') . " " . $this->input->post('last_name');
+                        $html['user'] = ucwords($name);
+                        $html['email'] = $email;
+                        $html['password'] = $password;
+                        $html['token'] = $token_uniqss;
+                        $html['website'] = base_url();
+                        $html['content'] = $EmailTemplate->description;
+                        $template = $this->load->view('email-template/registration', $html, true);
+                        $title = '[' . getConfig('site_name') . '] ' . $EmailTemplate->title;
+                        $this->sendEmail($email, $from, $subject, $template, $title);
+                        
                     // send_email_smtp
                     
 //                     $result = $query->row();

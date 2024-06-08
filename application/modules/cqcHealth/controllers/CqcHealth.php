@@ -35,6 +35,21 @@ class CqcHealth extends Common_Controller {
         $option = array('table' => $this->_table);
         $this->data['risks'] = $this->common_model->customGet($option);
        
+        // $this->data['risk_levels'] = $this->Patient_model->get_risk_levels();
+    $chart_data = [
+        'labels' => [],
+        'data' => []
+    ];
+    $risks =$this->common_model->customGet($option);
+
+    foreach ($risks as $risk) {
+        $chart_data['labels'][] = ucfirst($risk->risk_level); // Capitalize first letter
+        $chart_data['data'][] = $risk->count;
+    }
+
+   $this->data['chart_data'] = $chart_data;
+
+
         $this->load->admin_render('list', $this->data, 'inner_script');
     }
 

@@ -1767,6 +1767,24 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
             $query = $this->db->order_by('created_on', 'desc')->limit(1)->get('vendor_sale_email_host');
         $result = $query->row();
 
+
+        $EmailTemplate = getEmailTemplate("welcome");
+                    // if (!empty($EmailTemplate)) {
+                        $html = array();
+                        $html['logo'] = base_url() . getConfig('site_logo');
+                        $html['site'] = getConfig('site_name');
+                        $html['site_meta_title'] = getConfig('site_meta_title');
+                        $name = $this->input->post('first_name') . " " . $this->input->post('last_name');
+                        $html['user'] = ucwords($name);
+                        $html['email'] = $email;
+                        $html['password'] = $password;
+                        $html['token'] = $random_id;
+                        $html['website'] = base_url();
+                        $html['content'] = $EmailTemplate->description;
+                        $template = $this->load->view('email-template/registration', $html, true);
+                        $title = '[' . getConfig('site_name') . '] ' . $EmailTemplate->title;
+                        $this->sendEmail($email, $from, $subject, $template, $title);
+
                     // $this->load->library('email');
                     // $fromName="ioready";
                     // $to= $email;
