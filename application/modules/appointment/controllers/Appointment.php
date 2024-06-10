@@ -305,6 +305,8 @@ class Appointment extends Common_Controller {
 
         $this->load->admin_render('text', $this->data, 'inner_script');
     }
+
+
     public function getLocationFilter() {
         $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
         $response = '';
@@ -338,18 +340,7 @@ class Appointment extends Common_Controller {
             );
             $practitionerData = $this->common_model->customGet($optionPractitioner);
             $practitioner = array_merge($practitionerData, $doctorsData);
-            echo json_encode($practitioner);
-
-            $response .= '<select id="multiple-checkboxes" name="state[]" class="form-multi-select form-control" multiple="multiple">';
-            $response .= '<option value="" selected><input type="checkbox">Select All</option>';
-
-            foreach ($practitioner as $practitioner_list) {
-                $response .= '<option value="' . $practitioner_list->id . '">';
-                $response .= '<input type="checkbox" value="' . $practitioner_list->id . '"> ' . $practitioner_list->name . $practitioner_list->first_name . ' ' . $practitioner_list->last_name;
-                $response .= '</option>';
-            }
-    
-            $response .= '</select>';
+            
         } elseif ($id == 'location' || $id == 'clinic') {
             $option = array(
                 'table' => 'clinic',
@@ -357,21 +348,11 @@ class Appointment extends Common_Controller {
                 'where' => array('hospital_id' => $CareUnitID, 'delete_status' => 0),
                 'order' => array('name' => 'ASC')
             );
-            $clinic_location = $this->common_model->customGet($option);
+            $practitioner = $this->common_model->customGet($option);
     
-            $response .= '<select id="state" onchange="getCities(this.value)" name="state" class="form-control" size="1">';
-            $response .= '<option value="" disabled selected>Please select</option>';
-    
-            foreach ($clinic_location as $clinic_location_list) {
-                $response .= '<option value="' . $clinic_location_list->id . '">';
-                $response .= '<input type="checkbox" value="' . $clinic_location_list->id . '"> ' . ($id == 'location' ? $clinic_location_list->clinic_location : $clinic_location_list->name);
-                $response .= '</option>';
-            }
-    
-            $response .= '</select>';
         }
     
-        // echo json_encode($response);
+        echo json_encode($practitioner);
     }
     
     

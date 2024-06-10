@@ -62,7 +62,7 @@
   
   
               <div class="col-sm-6 col-lg-6 col-md-6 m-4" style="margin-right: 10px;">
-              <select id="departmentanddoctordata" name="departmentanddoctordata[]" class="multiselect-ui form-control dropdown-menu" multiple="multiple"> 
+              <select id="departmentanddoctordata" name="departmentanddoctordata[]" class="multiselect-ui form-control dropdown-menu" multiple="multiple" onchange="fetchTableData(this.value)" > 
               
               </select>
 
@@ -130,12 +130,12 @@
                         <div class="col-md-12">
                 <div style="overflow-x: auto; overflow-y: auto; width: auto; height: 500px;">
                 <style>
-.hidden {
-    display: none;
-}
-</style>
+                .hidden {
+                    display: none;
+                }
+                </style>
                   <table class="table table-bordered text-center" id="datatable">
-                        <!-- <thead id="practitioner_id">
+                        <thead id="practitioner_id">
                             <tr>
                                 <th class="text-center fw-bold" style="font-size:16px; background-color:#337ab7;color:white;">Time</th>
                                 <?php
@@ -162,9 +162,9 @@
                                     </th>
                                 <?php  } } ?>
                             </tr>
-                        </thead> -->
+                        </thead>
 
-                        <thead id="practitioner_id">
+                        <!-- <thead id="practitioner_id">
                             <?php if (!empty($practitioner_filter)) { ?>
                             <tr>
                                 <th class="text-center fw-bold" style="font-size:16px; background-color:#337ab7;color:white;">Time</th>
@@ -192,7 +192,7 @@
 
                             </tr>
                             <?php  }?>
-                        </thead>
+                        </thead> -->
 
                         <script>
                             document.addEventListener('DOMContentLoaded', function() {
@@ -211,7 +211,7 @@
                             <?php
                             $start_time = strtotime('07:00');
                             $end_time = strtotime('24:00');
-                            $interval = 1 * 60; // 10 minutes interval
+                            $interval = 10 * 60; // 10 minutes interval
 
                             for ($time = $start_time; $time <= $end_time; $time += $interval) {
                                 $formatted_time = date('H:i', $time); // Format time in 24-hour format
@@ -558,7 +558,7 @@ $(function() {
 
 
     function getLocations(view_id) {
-        // console.log(view_id);
+    
     $.ajax({
         url: 'appointment/getLocationFilter',
         type: 'POST',
@@ -568,7 +568,7 @@ $(function() {
             console.log(response);
 
            
-            $('#departmentanddoctordata').empty(); // Clear the existing options
+            $('#departmentanddoctordata').empty(); 
 
         
             $('#departmentanddoctordata').append('<option value="">All Select</option>'); // Default option
@@ -670,7 +670,7 @@ $(document).ready(function() {
 $(document).ready(function() {
     $('#departmentanddoctordata').on('change', function() {
         var departmentanddoctordata = $(this).val();
-        alert(departmentanddoctordata); // For debugging purposes
+      
 
         $.ajax({
             
@@ -679,7 +679,18 @@ $(document).ready(function() {
             data: { departmentanddoctordata: departmentanddoctordata },
             success: function(response) {
                 console.log(response);
-                 $('#practitioner_id').val(response);
+                let headerRow = '<tr>';
+                response.forEach(function(header) {
+                headerRow += `<th class="text-center fw-bold" style="font-size:16px; background-color:#337ab7;color:white;">${header}</th>`;
+            });
+            headerRow += '</tr>';
+            if(!empty(headerRow)){
+                alert(headerRow);
+                $('#datatable thead').val(headerRow);
+                console.log('get data',response);
+            }
+           
+                
                  
             },
             error: function(xhr, status, error) {
@@ -688,9 +699,49 @@ $(document).ready(function() {
         });
     });
 
-    // Optionally trigger the change event on page load
     $('#dateChange').trigger('change');
 });
+
+
+
+// function fetchTableData(departmentanddoctordata) {
+//     $.ajax({
+//         url: 'appointment/index',
+//         type: 'POST',
+//         dataType: 'json',
+//         data: { departmentanddoctordata: departmentanddoctordata },
+//         success: function(response) {
+//             console.log(response);
+//             // Update table headers
+//             let headers = response;
+//             let headerRow = '<tr>';
+//             headers.forEach(function(header) {
+//                 headerRow += `<th class="text-center fw-bold" style="font-size:16px; background-color:#337ab7;color:white;">${header}</th>`;
+//             });
+//             headerRow += '</tr>';
+//             $('#datatable thead').html(headerRow);
+
+//             // Update table body
+//             let rows = response.data;
+//             let bodyHtml = '';
+//             rows.forEach(function(row) {
+//                 bodyHtml += '<tr>';
+//                 row.forEach(function(cell) {
+//                     bodyHtml += `<td>${cell}</td>`;
+//                 });
+//                 bodyHtml += '</tr>';
+//             });
+//             $('#datatable tbody').html(bodyHtml);
+//         },
+//         error: function(xhr, status, error) {
+//             console.error('Error fetching table data:', error);
+//         }
+//     });
+// }
+
+// Call the function to fetch data when needed
+// fetchTableData();
+
 </script>
 
 
