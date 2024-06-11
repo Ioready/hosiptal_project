@@ -76,12 +76,6 @@ class Appointment extends Common_Controller {
         
          $this->data['list'] = $dataArray;
 
-        //  $option = array(
-        //     'table' => 'care_unit',
-        //     'select' => '*', 'where' => array('delete_status' => 0), 'order' => array('name' => 'ASC')
-        // );
-        // $this->data['care_unit'] = $this->common_model->customGet($option);
-
         $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 
         if($this->ion_auth->is_subAdmin()){
@@ -99,7 +93,7 @@ class Appointment extends Common_Controller {
                     'users.delete_status' => 0,
                     'doctors.facility_user_id'=>$datadoctors->facility_user_id
                 ),
-                // 'order' => array('users.id' => 'desc'),
+               
             );
             $doctorsData = $this->common_model->customGet($optionDoctor);
 
@@ -217,6 +211,12 @@ class Appointment extends Common_Controller {
                 'clinic_appointment.theatre_date_time' => $selectedDate,
                 'clinic_appointment.out_start_time_at' => $selectedDate,
                 'clinic_appointment.start_date_availability' => $selectedDate
+            ),
+            'order' => array(
+            'clinic_appointment.start_date_appointment' => 'desc',
+                'clinic_appointment.theatre_date_time' => 'desc',
+                'clinic_appointment.out_start_time_at' => 'desc',
+                'clinic_appointment.start_date_availability' => 'desc'
             )
         );
     
@@ -247,6 +247,12 @@ class Appointment extends Common_Controller {
                 'clinic_appointment.theatre_date_time' => $dateToUse,
                 'clinic_appointment.out_start_time_at' => $dateToUse,
                 'clinic_appointment.start_date_availability' => $dateToUse
+            ),
+            'order' => array(
+            'clinic_appointment.start_date_appointment' => 'desc',
+                // 'clinic_appointment.theatre_date_time' => 'desc',
+                // 'clinic_appointment.out_start_time_at' => 'desc',
+                // 'clinic_appointment.start_date_availability' => 'desc'
             )
         );
     
