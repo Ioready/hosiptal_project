@@ -65,9 +65,9 @@ $query_builder = TRUE;
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
-	'username' => 'ioreyuqp_infoioready_user',
-	'password' => '3ow(;b}b4=kT',
-	'database' => 'ioreyuqp_infoioready',
+	'username' => 'root',
+	'password' => '',
+	'database' => 'hospital_management_ci',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => 'vendor_sale_',
 	'pconnect' => FALSE,

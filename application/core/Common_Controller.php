@@ -284,10 +284,10 @@ class Common_Controller extends MX_Controller {
        
         $config = Array(    
             'protocol' => 'smtp',
-            'smtp_host' => 'ssl://smtp.googlemail.com',
-            'smtp_port' => 465,
-            'smtp_user' => 'kalpanaofficial94@gmail.com',
-            'smtp_pass' => 'avbcfhvzvypfftgz',
+            'smtp_host' => 'smtp.googlemail.com',
+            'smtp_port' => 25,
+            'smtp_user' => 'tech.sunilvishwakarma@gmail.com',
+            'smtp_pass' => 'zmwiylikyaocxenp',
             'smtp_timeout' => '4',
             'mailtype' => 'html',
             'charset' => 'iso-8859-1'
@@ -303,6 +303,51 @@ class Common_Controller extends MX_Controller {
           $this->email->message($template); 
           $this->email->send(); $this->email->initialize($config);
     }
+
+
+function sendEmail($email, $from, $subject, $template, $title)
+    {   
+  $emailConfig = array(
+        //  'protocol' => 'smtp',
+        //   'smtp_host' => 'ssl://smtp.gmail.com',
+        //   'smtp_port' => '465',
+        //   'smtp_user' => 'chandalekhyani@gmail.com',
+        //   'smtp_pass' => 'jethalaldaya',
+        //   'mailtype'  => 'html',
+        //   'charset'   => 'iso-8859-1'
+
+        'protocol' => 'smtp',
+            'smtp_host' => 'smtp.googlemail.com',
+            'smtp_port' => 25,
+            'smtp_user' => 'tech.sunilvishwakarma@gmail.com',
+            'smtp_pass' => 'zmwiylikyaocxenp',
+            'mailtype' => 'html',
+            'charset' => 'iso-8859-1'
+      );
+       
+      // Set your email information
+      $from = array('email' => $from, 'name' => $title);
+      $to = array($email);
+      $subject = 'New Registration: '.$this->input->post('name').'-'.$this->input->post('mobile1');
+       
+      $message = 'Details are: <br />'.$this->input->post('name').'<br />'.$this->input->post('fname').'<br />'.$this->input->post('mobile1').'<br />'.$this->input->post('mobile2').'<br />'.$this->input->post('email').'<br />'.$this->input->post('locality').'<br />';
+      $this->load->library('email', $emailConfig);
+      $this->email->set_newline("\r\n");
+      $this->email->from($from['email'], $from['name']);
+      $this->email->to($to);
+      $this->email->subject($subject);
+      $this->email->message($template);
+      if (!$this->email->send()) {
+          // Raise error message
+          // show_error($this->email->print_debugger());
+      }
+      else {
+          // Show success notification or other things here
+          // echo 'Success to send email';
+      }
+    }
+
+
 
     /**
      * @project Developer

@@ -156,6 +156,8 @@ class Attributes extends Common_Controller {
     }
 
     public function clinic() {
+        $user_id = $this->session->userdata('user_id');
+
         $this->data['url'] = base_url() . $this->router->fetch_class();
         $this->data['pageTitle'] = "Add " . 'clinic';
         $this->data['parent'] = $this->router->fetch_class();
@@ -163,7 +165,7 @@ class Attributes extends Common_Controller {
         $this->data['title'] = 'clinic';
         $this->data['tablePrefix'] = 'vendor_sale_' . 'clinic';
         $this->data['table'] = 'clinic';
-        $option = array('table' => 'clinic', 'where' => array('delete_status' => 0),'order'=>array('name'=>'asc'));
+        $option = array('table' => 'clinic', 'where' => array('hospital_id'=>$user_id,'delete_status' => 0),'order'=>array('name'=>'asc'));
         $this->data['list'] = $this->common_model->customGet($option);
         $this->load->admin_render('list_clinic', $this->data, 'inner_script');
     }
@@ -276,6 +278,8 @@ class Attributes extends Common_Controller {
 
 
     public function practitioner() {
+        $user_id = $this->session->userdata('user_id');
+
         $this->data['url'] = base_url() . $this->router->fetch_class();
         $this->data['pageTitle'] = "Add " . $this->title;
         $this->data['parent'] = $this->router->fetch_class();
@@ -283,7 +287,7 @@ class Attributes extends Common_Controller {
         $this->data['title'] = $this->title;
         $this->data['tablePrefix'] = 'vendor_sale_' . 'practitioner';
         $this->data['table'] = 'practitioner';
-        $option = array('table' => 'practitioner', 'where' => array('delete_status' => 0),'order'=>array('name'=>'asc'));
+        $option = array('table' => 'practitioner', 'where' => array('hospital_id'=>$user_id,'delete_status' => 0),'order'=>array('name'=>'asc'));
         $this->data['list'] = $this->common_model->customGet($option);
         $this->load->admin_render('list_practitioner', $this->data, 'inner_script');
     }
@@ -307,20 +311,30 @@ class Attributes extends Common_Controller {
     public function add_practitioner() {
 
         $this->form_validation->set_rules('name', "Name", 'required|trim');
+
+        $email = strtolower($this->input->post('email'));
+        // print_r($email);die;
+        $zipcode = $this->input->post('zipcode');
+        $options = array(
+            'table' => 'practitioner',
+            'select' => 'practitioner.email,practitioner.id',
+            'where' => array('practitioner.email' => $email, 'practitioner.delete_status' => 0),
+            'single' => true
+        );
+        $exist_email = $this->common_model->customGet($options);
+        if (!empty($exist_email)) {
+
+            $this->form_validation->set_rules('email', lang('email'), 'trim|xss_clean|is_unique[practitioner.email]');
+        }
+
         if ($this->form_validation->run() == true) {
-            // $this->filedata['status'] = 1;
-            // $image = "";
-            // if (!empty($_FILES['image']['name'])) {
-            //     $this->filedata = $this->commonUploadImage($_POST, 'submenu', 'image');
-            //     if ($this->filedata['status'] == 1) {
-            //         $image = 'uploads/submenu/' . $this->filedata['upload_data']['file_name'];
-            //     }
-            // }
-            // if ($this->filedata['status'] == 0) {
-            //     $response = array('status' => 0, 'message' => $this->filedata['error']);
-            // } else {
+            
+                $user_id = $this->session->userdata('user_id');
+
                 $options_data = array(
                     'name' => $this->input->post('name'),
+                    'email' => $this->input->post('email'),
+                    'hospital_id' => $user_id,
                     'is_active' => 1,
                     'create_date' => datetime()
                 );

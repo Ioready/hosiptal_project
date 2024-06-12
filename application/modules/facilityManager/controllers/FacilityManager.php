@@ -365,10 +365,32 @@ class FacilityManager extends Common_Controller {
                     );
                     $this->db->insert('vendor_sale_hospital', $additional_data_hospital);
 
+                        $user_id = $this->session->userdata('user_id');
 
-                    /** info email * */
+
+                        $option = array(
+                            'table' => USERS . ' as user',
+                            'select' => 'user.*,group.name as group_name',
+                            'join' => array(
+                                array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                                array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                            ),
+                            'order' => array('user.id' => 'DESC'),
+                            'where' => array('user.id'=>$user_id),
+                            'single'=>true,
+                        );
+                
+                        $authUser = $this->common_model->customGet($option);
+
+                    $from = $authUser->email;
+
+                    $name = $this->input->post('first_name');
+                    $email = $email;
+                    $mobile = '78965412365';
+                    $subject = 'Hello hospital';
+
                     $EmailTemplate = getEmailTemplate("welcome");
-                    if (!empty($EmailTemplate)) {
+                    // if (!empty($EmailTemplate)) {
                         $html = array();
                         $html['logo'] = base_url() . getConfig('site_logo');
                         $html['site'] = getConfig('site_name');
@@ -377,13 +399,13 @@ class FacilityManager extends Common_Controller {
                         $html['user'] = ucwords($name);
                         $html['email'] = $email;
                         $html['password'] = $password;
-                        $html['uniqe_token'] =  $random_id;
+                        $html['token'] = $random_id;
                         $html['website'] = base_url();
                         $html['content'] = $EmailTemplate->description;
-                        $email_template = $this->load->view('email-template/registration', $html, true);
+                        $template = $this->load->view('email-template/registration', $html, true);
                         $title = '[' . getConfig('site_name') . '] ' . $EmailTemplate->title;
-                        send_mail_new($email_template, $title, $email, getConfig('admin_email'));
-                    
+                        $this->sendEmail($email, $from, $subject, $template, $title);
+                   
                 } else {
                     $where_id = $email_exist->id;
                     $options_data = array(
@@ -427,7 +449,7 @@ class FacilityManager extends Common_Controller {
                 } else {
                     $response = array('status' => 0, 'message' => lang('user_failed'));
                 }
-            }
+            
         } else {
             $messages = (validation_errors()) ? validation_errors() : '';
             $response = array('status' => 0, 'message' => $messages);

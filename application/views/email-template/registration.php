@@ -70,7 +70,7 @@
                 <td align="left"  style="padding: 15px 45px 15px 45px; color: #555555; font-family: Arial, sans-serif; font-size: 14px; line-height: 26px;">
                     <strong>Login Id: <?php echo $email; ?></strong><p></p>
                     <strong>Login Password: <?php echo $password; ?></strong><p></p>
-                    
+                    <strong>Token: <?php echo $token; ?></strong><p></p>
                     <strong>Login Url: <?php echo $website; ?></strong><p></p>
 
                 </td>

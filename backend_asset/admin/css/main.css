@@ -111,10 +111,8 @@ body {
 #page-container{
     height: 580px !important;
 }
+*/
 
-#sidebar{
-    height:580px !important;
-} */
 
 #page-container,
 #sidebar,
@@ -145,8 +143,11 @@ body {
 }
 
 #page-content {
-    padding: 10px 5px 1px;
+    padding: 100px 5px 1px;
     background-color: #eaedf1;
+    height: 100vh;
+    overflow-y: scroll;
+    scrollbar-width: none;
 }
 
 #page-content + footer {
@@ -262,6 +263,7 @@ header.navbar-inverse {
     margin: 0;
     min-width: 320px;
     border: none;
+    z-index: 2;
 }
 
 header.navbar-default.navbar-fixed-top {
@@ -433,15 +435,24 @@ header.navbar-inverse.navbar-fixed-bottom {
 (#m03sns) SIDEBAR/NAVIGATION
 =================================================================
 */
-
+.sidebar-scroll{
+    /* height: 100%; */
+}
 /* Sidebar Content */
 .sidebar-content {
     width: 250px;
     color: #ffffff;
+    /* height: 100%; */
 }
 
 .sidebar-section {
     padding: 10px;
+    width: 250px;
+}
+.sidebar-fixed{
+    position: fixed;
+    z-index: 5;
+    background: #fff;
 }
 
 /* Sidebar Brand + Title */
@@ -488,12 +499,12 @@ a.sidebar-title:focus {
 /* Sidebar User */
 .sidebar-user {
     /* padding-left: 88px; */
-    background: rgba(255, 255, 255, 0.1);
+    /* background: rgba(255, 255, 255, 0.1); */
 }
 
 .sidebar-user-avatar {
-    width: 68px;
-    height: 68px;
+    width: 100%;
+    height: 100%;
     /* float: left; */
     /* padding: 2px;
     margin-left: -78px;
@@ -502,8 +513,8 @@ a.sidebar-title:focus {
 }
 
 .sidebar-user-avatar img {
-    /* width: 64px; */
-    height: 64px;
+    width: 100%;
+    height: 100%;
     border-radius: 32px;
 }
 
@@ -515,6 +526,7 @@ a.sidebar-title:focus {
     font-size: 17px;
     font-weight: 500;
     margin-top: 10px;
+    width: 100%;
     /* line-height: 26px; */
 }
 
@@ -700,7 +712,7 @@ a.sidebar-title:focus {
 .sidebar-nav {
     list-style: none;
     margin: 0;
-    padding: 10px 0 0;
+    padding: 120px 0 0;
 }
 .sidebar-nav li{
     display: flex;
@@ -2015,6 +2027,10 @@ a[data-toggle="lightbox-image"]:hover img {
 /* Navbar */
 .navbar.navbar-default {
     background-color: #f9fafc;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
 }
 
 .navbar.navbar-inverse {
@@ -3846,11 +3862,14 @@ p, .table, .alert, .carousel {
         padding: 50px 0;
         margin: 50px -20px;
     }
-
+    
     #page-content {
-        padding: 20px 20px 1px;
+        padding: 110px 20px 1px;
     }
-
+    .sidebar-section{
+        height: 80px;
+    }
+   
     .header-section,
     .breadcrumb-top,
     .block,
@@ -3971,7 +3990,9 @@ p, .table, .alert, .carousel {
     #login-alt-container {
         display: block;
     }
-
+    .sidebar-section{
+        height: 80px;
+    }
     /* Sidebar Animations */
     .sidebar-no-animations #sidebar,
     .sidebar-no-animations #sidebar-alt {

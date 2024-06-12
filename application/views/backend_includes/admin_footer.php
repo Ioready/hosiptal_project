@@ -101,13 +101,16 @@
 
 <!-- Google Maps API Key (you will have to obtain a Google Maps API key to use Google Maps) -->
 <!-- For more info please have a look at https://developers.google.com/maps/documentation/javascript/get-api-key#key -->
-<script src="https://maps.googleapis.com/maps/api/js?key="></script>
+<!-- <script src="https://maps.googleapis.com/maps/api/js?key="></script> -->
 <script src="<?php echo base_url(); ?>backend_asset/admin/js/helpers/gmaps.min.js"></script>
 <script src="<?php echo base_url(); ?>backend_asset/plugins/bootbox/bootbox.min.js"></script>
 <!-- Load and execute javascript code used only in this page -->
 <script src="<?php echo base_url(); ?>backend_asset/admin/js/pages/index.js"></script>
 <script src="<?php echo base_url(); ?>backend_asset/plugins/toastr/toastr.min.js"></script>
 <script src="<?php echo base_url(); ?>backend_asset/js/admin.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css">
 
                          
  <script type="text/javascript">

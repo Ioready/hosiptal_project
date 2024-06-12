@@ -73,7 +73,7 @@ class Pwfpanel extends Common_Controller
                 'where' => array(
                     'user.delete_status' => 0,
                     'group.id' => 6,
-                    // 'h.admin_id' => $user_id
+                    'h.admin_id' => $user_id,
                 ),
                 'order' => array('user.id' => 'DESC') // Order descending by user id
             );

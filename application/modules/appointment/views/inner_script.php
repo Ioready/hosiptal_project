@@ -20,11 +20,11 @@
             form_name = 'editFormAjax';
         $("#" + form_name).validate({
             rules: {
-                patient: "required",
+                // patient: "required",
                 // time_start: "required",
                 // time_end: "required",
                 // patient_name: "required",
-                doctor_name: "required",
+                // doctor_name: "required",
                 // reason: "required"
                 
             },
@@ -32,8 +32,8 @@
                 // date: '<?php echo lang('date_validation'); ?>',
                 // time_start: '<?php echo lang('time_start_validation'); ?>',
                 // time_end: '<?php echo lang('time_end_validation'); ?>',
-                patient: '<?php echo lang('patient_name_validation'); ?>',
-                doctor_name: '<?php echo lang('doctor_name_validation'); ?>',
+                // patient: '<?php echo lang('patient_name_validation'); ?>',
+                // doctor_name: '<?php echo lang('doctor_name_validation'); ?>',
                 // reason: '<?php echo lang('rreason_validation'); ?>',
               
 
@@ -664,5 +664,26 @@
     } 
 
 </script>
+
+
+<script>
+        $(document).ready(function() {
+            $("#search").keyup(function() {
+                var query = $(this).val();
+                if (query != '') {
+                    $.ajax({
+                        url: "<?php echo site_url('appointment/fetch'); ?>",
+                        method: "POST",
+                        data: {query: query},
+                        success: function(data) {
+                            $('#result').html(data);
+                        }
+                    });
+                } else {
+                    $('#result').html('');
+                }
+            });
+        });
+    </script>
 
 

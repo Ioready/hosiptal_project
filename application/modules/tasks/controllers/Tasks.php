@@ -1432,7 +1432,7 @@ class Tasks extends Common_Controller
                     // print_r($authUser->email);die;
                     $from = $authUser->email;
                     
-                    $email = $assignTo->email;;
+                    $email = $assignTo->email;
                     
                     // $from = getConfig('admin_email');
                     $subject = "Hospital Task";

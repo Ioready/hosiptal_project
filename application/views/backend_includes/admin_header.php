@@ -124,7 +124,7 @@
             <!-- Main Sidebar -->
             <div id="sidebar"  class="bg-light" >
                 <!-- Wrapper for scrolling functionality -->
-                <div id="sidebar-scroll" style=" background-color:#FFFF; height:600px;  overflow-y: scroll;  overflow-x: hidden;">
+                <div id="sidebar-scroll" style=" background-color:#FFFF; height:100vh; scrollbar-width: none;  overflow-y: scroll;  overflow-x: hidden;">
                     <!-- Sidebar Content -->
                     <div class="sidebar-content">
                         <!-- Brand -->
@@ -134,7 +134,7 @@
                         <!-- END Brand -->
 
                         <!-- User Info -->
-                        <div class="sidebar-section sidebar-user clearfix sidebar-nav-mini-hide m-0">
+                        <div class="sidebar-section sidebar-fixed sidebar-user clearfix sidebar-nav-mini-hide m-0">
                             <div class="sidebar-user-avatar">
                                 <a href="<?php echo base_url() . 'pwfpanel' ?>">
                                     <img src="<?php echo base_url() . getConfig('site_logo'); ?>" alt="avatar">
@@ -277,12 +277,13 @@ hh
 
                                 <li>
                                     <a href="<?php echo site_url('pwfpanel') ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "pwfpanel") ? "active" : "" ?>">
-                                    <img src="<?php echo base_url(); ?>uploads/home.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Dashboard</span></a>
+                                    <img src="<?php echo base_url(); ?>uploads/home.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Dashboard </span></a>
                                 </li>
                                  <li title="Plans">
                                         <a href="<?php echo site_url('AllPlans'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "AllPlans") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/ham.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Plans</span></a>
                                 </li>
 
+                               
                                 <!--                                     <li title="Reports">
                                         <a href="<?php echo site_url('reports'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "reports") ? "active" : "" ?>"><i class="gi gi-charts sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Reports Details</span></a>
                                     </li> -->
@@ -550,9 +551,18 @@ hh
                                     <img src="<?php echo base_url(); ?>uploads/home.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">Dashboard</span></a>
                                 </li>
 
-                                <li title="Reports">
+                                <!-- <li title="Reports">
                                     <a href="<?php echo site_url('reportsSummary'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "reportsSummary") ? "active" : "" ?>">
                                     <img src="<?php echo base_url(); ?>uploads/icons/report.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Report Summary</span></a>
+                                </li> -->
+
+                                <li title="Risk Analysis">
+                                    <a href="<?php echo site_url('reportsSummary'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "reportsSummary") ? "active" : "" ?>">
+                                    <img src="<?php echo base_url(); ?>uploads/icons/report.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Risk Analysis</span></a>
+                                </li>
+
+                                <li title="CQC Health">
+                                        <a href="<?php echo site_url('cqcHealth'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "cqcHealth") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/cqc.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">CQC Health</span></a>
                                 </li>
                                 <!-- <li title="Appointment">
                                     <a href="<?php echo site_url('appointment'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "appointment") ? "active" : "" ?>">
@@ -606,9 +616,7 @@ hh
                                         <a href="<?php echo site_url('facilityManager'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "facilityManager") ? "active" : "" ?>"><i class="fa fa-briefcase sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Facility Manager</span></a>
                                     </li> -->
 
-                                <li title="Department">
-                                    <a href="<?php echo site_url('careUnit'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "careUnit") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/department.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Department/Care Unit</span></a>
-                                </li> 
+                               
                                 <!-- <li title="DayTimeSlot">
                                     <a href="<?php echo site_url('dayTimeSlot'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "DayTimeSlot") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/department.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp;Day Time Slot</span></a>
                                 </li> -->
@@ -627,24 +635,30 @@ hh
                                     </li> -->
                                
 
-                            
+                                <li title="Attributes 1">
+                                <a href="<?php echo site_url('careUnit'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "careUnit") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/labs.svg" height="23px" width="23px"><span class="sidebar-nav-mini-hide text-dark">Hospital Attributes</span></a>
+                                </li>
 
-                                <li title="Letters">
+                                <!-- <li title="Department">
+                                    <a href="<?php echo site_url('careUnit'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "careUnit") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/department.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Department/Care Unit</span></a>
+                                </li>  -->
+
+                                <!-- <li title="Letters">
                                     <a href="<?php echo site_url('letters'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "Letters") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/letters.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Letters</span></a>
-                                </li>
-                                <li title="Invoices">
+                                </li> -->
+                                <!-- <li title="Invoices">
                                     <a href="<?php echo site_url('invoices'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "invoices") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/invoice.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Invoices</span></a>
-                                </li>
+                                </li> -->
 
-                                <li title="Diagnosis">
+                                <!-- <li title="Diagnosis">
                                     <a href="<?php echo site_url('initialDx'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "initialDx") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/infection.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Infections</span></a>
-                                </li>
-                               <li title="Culture Source">
+                                </li> -->
+                               <!-- <li title="Culture Source">
                                     <a href="<?php echo site_url('cultureSource'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "cultureSource") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/products.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Culture Source</span></a>
-                                </li>
-                                <li title="Organism">
+                                </li> -->
+                                <!-- <li title="Organism">
                                     <a href="<?php echo site_url('organism'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "organism") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/products.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Organism</span></a>
-                                </li>
+                                </li> -->
                                 <li title="Precautions">
                                     <a href="<?php echo site_url('precautions'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "precautions") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/products.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Precautions</span></a>
                                 </li>

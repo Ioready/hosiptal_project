@@ -180,11 +180,10 @@
                 <h2 class="modal-title"><img src="<?php echo base_url(); ?>uploads/form.svg" style="height: 30px; width: 30px; filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%); margin-bottom: 5px;" alt=""> Clinic Appointment</h2>
                 
             </div>
-    <form action="<?php echo site_url('appointment/open_model'); ?>" method="get">
-  <label for="gsearch">Search patient:</label>
-  <input type="search" id="search" name="search">
-  <input type="submit">
-</form>
+   
+
+ 
+
 
         <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('index.php/' .$formUrl) ?>" enctype="multipart/form-data">
             
@@ -192,60 +191,60 @@
             <div class="form-body">
                 <br>
                 <div class="row">
-                    <div class="col-md-12">
+                <div class="col-md-12">
+                 <div class="form-group">
+
+                        <label for="gsearch" class="col-md-3 control-label">Search Today patient:</label>
+                        <!-- <input type="search" id="search"> -->
+                        <div class="col-md-9">
+                                                <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search" id="search">
+                        
+                        </div>
+                            </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
                         <div class="form-group">
-                            <label class="col-md-3 control-label"> Today Patient</label>
+                            <label class="col-md-3 control-label"> </label>
                             <div class="col-md-9">
-                            <?php foreach ($results as $result):
-                                // print_r($result['name']);
-                                ?>
-                                <input type="text" id="patient" name="patient" class="form-control" placeholder="Today Patient" style="text-align: justify;" value="<?php echo $result['name']; ?>">
-                                
-
-                            </div>
+                            <input type="hidden" name="type" id="type" value="clinic_appointment">
+                            <div id="result"></div>
+                        </div>
                         </div>
                     </div>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label class="col-md-3 control-label">Patient id</label>
-                            <div class="col-md-3">
-                            <p><?php echo $result['patient_id']; ?></p>
+      
+                   
+    
 
-                            </div>
-                        </div>
-                        <?php endforeach; ?>
-                    </div>
                     <div class="col-md-12">
                         <div class="form-group">
                             
                             <?php 
                         if ($this->ion_auth->is_facilityManager()) { ?>
-                            <label class="col-md-3 control-label">Hospital Location</label>
+                            <label class="col-md-3 control-label">Location</label>
                                 <div class="col-md-9">
                                 <select id="country" name="location_appointment" class="form-control select2" size="1">
                                     <option value="0">This is The Hospital Location</option>
 
-                                    <?php foreach ($care_unit as $care_units) { ?>
-                                        <option value="<?php echo $care_units->id; ?>"><?php echo $care_units->name; ?></option>
+                                    <?php foreach ($clinic_location as $location) { ?>
+                                        <option value="<?php echo $location->id; ?>"><?php echo $location->clinic_location; ?></option>
                                     <?php } ?>
-                                    <!-- <?php foreach ($doctorsname as $country) { ?>
-                                        <option value="<?php echo $country->email; ?>"><?php echo $country->first_name.' '.$country->last_name; ?></option>
-                                    <?php } ?> -->
+                                    
                                 </select>
                                
                             </div>
                         <?php }else { ?>
                         
-                            <label class="col-md-3 control-label">Hospital Location</label>
+                            <label class="col-md-3 control-label">Location</label>
                             <div class="col-md-9">
                                 <select id="country" name="location_appointment" class="form-control select2" size="1">
                                     <option value="0">Please select</option>
-                                    <!-- <?php foreach ($userlocation as $country) { ?>
-                                        <option value="<?php echo $country->email; ?>"><?php echo $country->address1.' '.$country->city.' '.$country->first_name.' '.$country->last_name ; ?></option>
-                                    <?php } ?> -->
+                                   
                                     
-                                    <?php foreach ($care_unit as $care_units) { ?>
-                                        <option value="<?php echo $care_units->id; ?>"><?php echo $care_units->name; ?></option>
+                                    <?php foreach ($clinic_location as $location) { ?>
+                                        <option value="<?php echo $location->id; ?>"><?php echo $location->clinic_location; ?></option>
                                     <?php } ?>
                                 </select>
                                
@@ -253,7 +252,24 @@
                             <?php } ?>
                         </div>
                     </div>
+
                     <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Practitioner</label>
+                            <div class="col-md-9">
+                                <select id="practitioner" name="practitioner" class="form-control select2" size="1">
+                                    <option value="0">Please select</option>
+                                  
+                                    <?php foreach ($practitioner as $practitioners) { ?>
+                                        <option value="<?php echo $practitioners->id; ?>"><?php echo $practitioners->name; ?></option>
+                                    <?php } ?>
+                                    
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="col-md-12">
                         <div class="form-group">
                             <label class="col-md-3 control-label">Clinician</label>
                             <div class="col-md-9">
@@ -262,26 +278,19 @@
                                     <?php foreach ($doctorsname as $country) { ?>
                                         <option value="<?php echo $country->email; ?>"><?php echo $country->first_name.' '.$country->last_name; ?></option>
                                     <?php } ?>
-                                    <!-- <?php foreach ($care_unit as $care_units) { ?>
-                                        <option value="<?php echo $care_units->id; ?>"><?php echo $care_units->name; ?></option>
-                                    <?php } ?> -->
+                                    
                                 </select>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
+
                     <div class="col-md-12">
                         <div class="form-group">
                             <label class="col-md-3 control-label">Appointment type</label>
                             <div class="col-md-9">
                             
                                 <select id="country" name="appointment_type" class="form-control select2" size="1" required>
-                                    <!-- <option value="0">Please select</option> -->
-                                    <!-- <option value="Admin">Admin</option>
-                                    <option value="Arthrocopic-Rotator-Cuff-Repair-great-than-2cm-(T7915)">Arthrocopic Rotator Cuff Repair great than 2cm (T7915)</option>
-                                    <option value="Hyaluronic-acid-injection-knee">Hyaluronic acid injection knee</option>
-                                    <option value="Hyaluronic-acid-injection-shoulder">Hyaluronic acid injection shoulder</option>
-                                    <option value="Initial-Consultation-(E0000610)-Mr-Moholkar-@BMI">Initial Consultation (E0000610) Mr Moholkar @BMI</option> -->
-
+                                    
                                     <?php foreach ($appointment_type as $appointment_types) { ?>
                                         <option value="<?php echo $appointment_types->id; ?>"><?php echo $appointment_types->name; ?></option>
                                     <?php } ?>
@@ -289,6 +298,11 @@
                             </div>
                         </div>
                     </div>
+
+
+                    
+                    
+
                     <div class="col-md-12">
                         <div class="form-group row">
                             <label class="col-md-3 control-label">Start Date</label>
@@ -345,11 +359,7 @@
         <div class="modal-header text-center">
                 <h2 class="modal-title"><img src="<?php echo base_url(); ?>uploads/form.svg" style="height: 30px; width: 30px; filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%); margin-bottom: 5px;" alt=""> Theatre Appointment</h2>
             </div>
-            <form action="<?php echo site_url('appointment/open_model'); ?>" method="get">
-  <label for="gsearch">Search patient:</label>
-  <input type="search" id="search" name="search">
-  <input type="submit">
-</form>
+        
         
         <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('index.php/' .$formUrl) ?>" enctype="multipart/form-data">
             
@@ -357,48 +367,68 @@
             <div class="form-body">
                 <br>
                 <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label class="col-md-3 control-label"> Today Patient</label>
-                            <?php if (!empty($results)) : ?>
-                            <?php foreach ($results as $result) {?>
-                            <div class="col-md-9">
-                            
-                                <input type="text" id="patient" name="theatre_patient" class="form-control" placeholder="New Patient" style="text-align: justify;" value="<?php echo $result['name']; ?>">
-                                
-                                </div>
-                                <?php } ?>
-                                <?php else : ?>
-    <p>No results found.</p>
-<?php endif; ?>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label class="col-md-3 control-label">Patient id</label>
-                            <div class="col-md-3">
-                            <p><?php echo $result['patient_id']; ?></p>
+                   
 
-                            </div>
-                        </div>
+                    <div class="col-md-12">
+                 <div class="form-group">
+
+                        <label for="gsearch" class="col-md-3 control-label">Search Today patient:</label>
+                        <!-- <input type="search" id="search"> -->
+                        <div class="col-md-9">
+                                                <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search" id="search_patient">
                         
+                        </div>
+                            </div>
                     </div>
+                </div>
+
+                <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="col-md-3 control-label"> </label>
+                            <div class="col-md-9">
+                            <input type="hidden" name="type" id="type" value="theatre_appointment">
+                            <div id="result_patient"></div>
+                        </div>
+                        </div>
+                    </div>
+
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label class="col-md-3 control-label"> Hospital Location</label>
+                            
+                            <?php 
+                        if ($this->ion_auth->is_facilityManager()) { ?>
+                            <label class="col-md-3 control-label">Location</label>
+                                <div class="col-md-9">
+                                <select id="country" name="location_appointment" class="form-control select2" size="1">
+                                    <option value="0">This is The Hospital Location</option>
+
+                                    <?php foreach ($clinic_location as $location) { ?>
+                                        <option value="<?php echo $location->id; ?>"><?php echo $location->clinic_location; ?></option>
+                                    <?php } ?>
+                                    
+                                </select>
+                               
+                            </div>
+                        <?php }else { ?>
+                        
+                            <label class="col-md-3 control-label">Location</label>
                             <div class="col-md-9">
-                                <select id="country" name="theatre_location" class="form-control select2" size="1">
+                                <select id="country" name="location_appointment" class="form-control select2" size="1">
                                     <option value="0">Please select</option>
-                                    <!-- <?php foreach ($countries as $country) { ?>
-                                        <option value="<?php echo $country->id; ?>"><?php echo $country->name; ?></option>
-                                    <?php } ?> -->
-                                    <?php foreach ($care_unit as $care_units) { ?>
-                                        <option value="<?php echo $care_units->id; ?>"><?php echo $care_units->name; ?></option>
+                                   
+                                    
+                                    <?php foreach ($clinic_location as $location) { ?>
+                                        <option value="<?php echo $location->id; ?>"><?php echo $location->clinic_location; ?></option>
                                     <?php } ?>
                                 </select>
+                               
                             </div>
+                            <?php } ?>
                         </div>
                     </div>
+
+                   
                     <div class="col-md-12">
 
                         <div class="form-group">
@@ -407,8 +437,11 @@
                                 <select id="country" name="theatre_clinician" class="form-control select2" size="1">
                                     <option value="0">Please select</option>
                                     <?php foreach ($doctorsname as $country) { ?>
-                                        <option value="<?php echo $country->email; ?>"><?php echo $country->first_name.' '.$country->last_name; ?></option>
+                                        <option value="<?php echo $country->id; ?>"><?php echo $country->first_name.' '.$country->last_name; ?></option>
                                     <?php } ?>
+                                    <!-- <?php foreach ($clinic_location as $location) { ?>
+                                        <option value="<?php echo $location->id; ?>"><?php echo $location->name; ?></option>
+                                    <?php } ?> -->
                                 </select>
                             </div>
                         </div>
@@ -418,7 +451,7 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label">Appointment type</label>
                             <div class="col-md-9">
-                                <select id="country" name="theatre_appointment_type" class="form-control select2" size="1">
+                                <select id="country" name="appointment_type" class="form-control select2" size="1">
                                     <option value="0">Please select</option>
                                     <?php foreach ($appointment_type as $appointment_types) { ?>
                                         <option value="<?php echo $appointment_types->id; ?>"><?php echo $appointment_types->name; ?></option>
@@ -548,7 +581,7 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label">Comment</label>
                             <div class="col-md-9">
-                                <textarea class="form-control" id="exampleFormControlTextarea1" name="theatre_comment" rows="3"></textarea>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" name="comment_appointment" rows="3"></textarea>
                             </div>
                         </div>
                     </div>
@@ -587,37 +620,60 @@
             <div class="form-body">
                 <br>
                 <div class="row">
+
+                    <input type="hidden" name="type" id="type" value="availability_appointment"> 
+
                     <div class="col-md-12">
                         <div class="form-group">
+                            
+                            <?php 
+                        if ($this->ion_auth->is_facilityManager()) { ?>
+                            <label class="col-md-3 control-label">Location</label>
+                                <div class="col-md-9">
+                                <select id="country" name="location_appointment" class="form-control select2" size="1">
+                                    <option value="0">This is The Hospital Location</option>
+
+                                    <?php foreach ($clinic_location as $location) { ?>
+                                        <option value="<?php echo $location->id; ?>"><?php echo $location->clinic_location; ?></option>
+                                    <?php } ?>
+                                    
+                                </select>
+                               
+                            </div>
+                        <?php }else { ?>
+                        
                             <label class="col-md-3 control-label">Location</label>
                             <div class="col-md-9">
-                                <select id="country" name="availability_location" class="form-control select2" size="1">
+                                <select id="country" name="location_appointment" class="form-control select2" size="1">
                                     <option value="0">Please select</option>
-                                    <!-- <?php foreach ($countries as $country) { ?>
-                                        <option value="<?php echo $country->id; ?>"><?php echo $country->name; ?></option>
-                                    <?php } ?> -->
-                                    <?php foreach ($care_unit as $care_units) { ?>
-                                        <option value="<?php echo $care_units->id; ?>"><?php echo $care_units->name; ?></option>
+                                   
+                                    
+                                    <?php foreach ($clinic_location as $location) { ?>
+                                        <option value="<?php echo $location->id; ?>"><?php echo $location->clinic_location; ?></option>
                                     <?php } ?>
                                 </select>
+                               
                             </div>
+                            <?php } ?>
                         </div>
                     </div>
+
                     <div class="col-md-12">
                         <div class="form-group">
                             <label class="col-md-3 control-label">Practitioner</label>
                             <div class="col-md-9">
-                                <select id="country" name="availability_practitioner" class="form-control select2" size="1">
+                                <select id="practitioner" name="practitioner" class="form-control select2" size="1">
                                     <option value="0">Please select</option>
-                                    <?php foreach ($doctorsname as $country) { ?>
-                                        <option value="<?php echo $country->email; ?>"><?php echo $country->first_name.' '.$country->last_name; ?></option>
+                                  
+                                    <?php foreach ($practitioner as $practitioners) { ?>
+                                        <option value="<?php echo $practitioners->id; ?>"><?php echo $practitioners->name; ?></option>
                                     <?php } ?>
-
                                     
                                 </select>
                             </div>
                         </div>
                     </div>
+
                     <div class="col-md-12">
                         <div class="form-group row">
                             <label class="col-md-3 control-label">Date and time</label>
@@ -672,34 +728,53 @@
             <div class="form-body">
                 <br>
                 <div class="row">
+                <input type="hidden" name="type" id="type" value="out_of_office_appointment"> 
                     <div class="col-md-12">
                         <div class="form-group">
+                            
+                            <?php 
+                        if ($this->ion_auth->is_facilityManager()) { ?>
+                            <label class="col-md-3 control-label">Location</label>
+                                <div class="col-md-9">
+                                <select id="country" name="location_appointment" class="form-control select2" size="1">
+                                    <option value="0">This is The Hospital Location</option>
+
+                                    <?php foreach ($clinic_location as $location) { ?>
+                                        <option value="<?php echo $location->id; ?>"><?php echo $location->clinic_location; ?></option>
+                                    <?php } ?>
+                                    
+                                </select>
+                               
+                            </div>
+                        <?php }else { ?>
+                        
                             <label class="col-md-3 control-label">Location</label>
                             <div class="col-md-9">
-                                <select id="country" name="out_of_office_location" class="form-control select2" size="1">
+                                <select id="country" name="location_appointment" class="form-control select2" size="1">
                                     <option value="0">Please select</option>
-                                    <!-- <?php foreach ($countries as $country) { ?>
-                                        <option value="<?php echo $country->id; ?>"><?php echo $country->name; ?></option>
-                                    <?php } ?> -->
-
-                                    <?php foreach ($care_unit as $care_units) { ?>
-                                        <option value="<?php echo $care_units->id; ?>"><?php echo $care_units->name; ?></option>
+                                   
+                                    
+                                    <?php foreach ($clinic_location as $location) { ?>
+                                        <option value="<?php echo $location->id; ?>"><?php echo $location->clinic_location; ?></option>
                                     <?php } ?>
                                 </select>
+                               
                             </div>
+                            <?php } ?>
                         </div>
                     </div>
+
                     <div class="col-md-12">
                         <div class="form-group">
                             <label class="col-md-3 control-label">Practitioner</label>
                             <div class="col-md-9">
-                                <select id="country" name="out_of_office_practitioner" class="form-control select2" size="1">
+                                <select id="practitioner" name="practitioner" class="form-control select2" size="1">
                                     <option value="0">Please select</option>
-                                    
-
-                                    <?php foreach ($doctorsname as $country) { ?>
-                                        <option value="<?php echo $country->email; ?>"><?php echo $country->first_name.' '.$country->last_name; ?></option>
+                                  
+                                    <?php foreach ($practitioner as $practitioners) { ?>
+                                        <option value="<?php echo $practitioners->id; ?>"><?php echo $practitioners->name; ?></option>
                                     <?php } ?>
+                                    
                                 </select>
                             </div>
                         </div>
@@ -726,7 +801,7 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label">Comment</label>
                             <div class="col-md-9">
-                                <textarea class="form-control" id="exampleFormControlTextarea1" name="out_of_office_comment" rows="3"></textarea>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" name="comment_appointment" rows="3"></textarea>
                             </div>
                         </div>
                     </div>
@@ -1058,3 +1133,45 @@ $('.btnPrevious').click(function() {
     $('.nav-pills .active').parent().prev('li').find('a').trigger('click');
 });
 </script>
+
+<script>
+    $(document).ready(function() {
+        $("#search").keyup(function() {
+            var query = $(this).val();
+            if (query != '') {
+                $.ajax({
+                    url: "<?php echo site_url('appointment/fetch'); ?>",
+                    method: "POST",
+                    data: {query: query},
+                    success: function(data) {
+                        $('#result').html(data);
+                    }
+                });
+            } else {
+                $('#result').html('');
+            }
+        });
+    });
+</script>
+
+
+<script>
+    $(document).ready(function() {
+        $("#search_patient").keyup(function() {
+            var query = $(this).val();
+            if (query != '') {
+                $.ajax({
+                    url: "<?php echo site_url('appointment/fetch'); ?>",
+                    method: "POST",
+                    data: {query: query},
+                    success: function(data) {
+                        $('#result_patient').html(data);
+                    }
+                });
+            } else {
+                $('#result_patient').html('');
+            }
+        });
+    });
+</script>
+

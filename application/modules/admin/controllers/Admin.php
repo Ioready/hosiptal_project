@@ -359,17 +359,75 @@ class Admin extends Common_Controller {
             
                     $this->email->subject($title);
                     $this->email->message($email_template);
+
+
+
+                    $name = $this->input->post('first_name');
+    	$email = $email;
+    	$mobile = '78965412365';
+    	$subject = 'Hello hospital';
+
+
+        // $config = Array(    
+        //     'protocol' => 'smtp',
+        //     'smtp_host' => 'ssl://smtp.googlemail.com',
+        //     'smtp_port' => 465,
+        //     'smtp_user' => 'tech.sunilvishwakarma@gmail.com',
+        //     'smtp_pass' => 'zmwiylikyaocxenp',
+        //     'smtp_timeout' => '4',
             
-                            if($this->email->send())
-                            {
-                                echo "Mail Sent Successfully";
-                            }
-                            else
-                             {
-                                echo "Failed to send email";
-                                show_error($this->email->print_debugger());             
-                            }
-                        send_mail_new($email_template, $title, $email, getConfig('admin_email'));
+        //     'charset' => 'iso-8859-1',
+        //     'mailtype'=>'html'
+        //   );
+        //   $this->load->library('email', $config); // Load email template
+        //       $this->email->set_newline("\r\n");
+        //       $this->email->from('tech.sunilvishwakarma@gmail.com', 'Kalpana');
+        //       $data = array(
+        //           'user_name'=> 'Kalpana',
+        //       );
+        //   $this->email->to('tech.sunilvishwakarma@gmail.com'); 
+        //   $this->email->subject('Hey, Thank you for Registering with us'); 
+          
+  
+        //   $this->email->message('hiiiiii'); 
+        //   $this->email->send();
+  
+                                //   redirect('contact');
+
+                                  
+            
+                        //     if($this->email->send())
+                        //     {
+                        //         echo "Mail Sent Successfully";
+                        //     }
+                        //     else
+                        //      {
+                        //         echo "Failed to send email";
+                        //         show_error($this->email->print_debugger());             
+                        //     }
+                        $EmailTemplate = getEmailTemplate("welcome");
+                        // if (!empty($EmailTemplate)) {
+                            $html = array();
+                            $html['logo'] = base_url() . getConfig('site_logo');
+                            $html['site'] = getConfig('site_name');
+                            $html['site_meta_title'] = getConfig('site_meta_title');
+                            $name = $this->input->post('first_name') . " " . $this->input->post('last_name');
+                            $html['user'] = ucwords($name);
+                            $html['email'] = $email;
+                            $html['password'] = $password;
+                            $html['token'] = $token_uniqss;
+                            $html['website'] = base_url();
+                            $html['content'] = $EmailTemplate->description;
+                            $template = $this->load->view('email-template/registration', $html, true);
+                            $title = '[' . getConfig('site_name') . '] ' . $EmailTemplate->title;
+                            
+                            // send_email_smtp($email_template, $title, $email, getConfig('admin_email'));
+                            
+                            sendEmail($email, $from, $subject, $template, $title);
+                        // }
+
+
+                        // send_mail_new($email_template, $title, $email, getConfig('admin_email'));
                     }
 
 
