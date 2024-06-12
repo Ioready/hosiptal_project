@@ -90,20 +90,16 @@
                 <?php } ?>
                 <div class="form-group save-btn">
 
-                <div class="col-sm-6">
+                <!-- <div class="col-sm-6"> -->
                 <label for="datePicker">Select Date:</label>
                 <input type="date" id="datePicker" class="form-control" >
-            </div>
-           
+            <!-- </div> -->
+            
 
                     <!-- <input type="date" id="dateChange" name="datePicker" class="form-control" onclick="filterByToday()"> -->
                 </div>
             </div>
-            <div class="row mt-3">
-            <div class="col-sm-12">
-                <p type="text" id="dateDisplay" value="">Selected Date: </p>
-            </div>
-        </div>
+           
             <div class="form-body">
                 <div class="row">
                     <div class="col-md-12">
@@ -127,14 +123,14 @@
                                             <?php
                                                 $start_time = strtotime('07:00');
                                                 $end_time = strtotime('24:00');
-                                                $interval = 1 * 60;
+                                                $interval = 20 * 60;
 
                                                 for ($time = $start_time; $time <= $end_time; $time += $interval) {
                                                     $formatted_time = date('H:i', $time);
                                                     echo '<tr><td class="time-cell">' . $formatted_time . '</td>';
                                                     
                                                     foreach ($practitioner as $department) {
-                                                        $appointment_found = false;
+                                                        $appointment_found = true;
                                                         foreach ($all_appointment as $appointment) {
                                                             $appointmentTime = date('H:i', strtotime($appointment->start_date_appointment));
                                                             $end_date_appointment = date('H:i', strtotime($appointment->end_date_appointment));
@@ -161,21 +157,23 @@
                                                             if ($appointment->practitioner == $department->id || $appointment->theatre_clinician == $department->id) {
                                                                 if ($appointment->type == 'clinic_appointment' && $formatted_time >= $appointmentTime && $formatted_time <= $end_date_appointment) {
                                                                     echo '<td class="day-cell appointment-row" id="dateDisplay" data-date="' . $appointment_date . '" data-day="' . $appointment->practitioner . '"><label style="background-color:green; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;"><span style="background-color: green; color: white;"><strong>' . $appointment->first_name . ' ' . $appointment->last_name . '</strong><br>' . $appointment->comment_appointment . '<br>' . $appointmentTime . ' - ' . $end_date_appointment . '</span></label></td>';
-                                                                    $appointment_found = true;
+                                                                    $appointment_found = false;
                                                                     break;
                                                                 } elseif ($appointment->type == 'out_of_office_appointment' && $formatted_time >= $out_start_time_at && $formatted_time <= $out_end_time_at) {
                                                                     echo '<td class="day-cell appointment-row"  id="dateDisplay" data-date="' . $out_start_timeAt . '" data-day="' . $appointment->practitioner . '"><label style="background-color:pink; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;"><span style="background-color: pink; color: white;"><strong>' . $appointment->first_name . ' ' . $appointment->last_name . '</strong><br>' . $appointment->out_of_office_comment . '<br>' . $out_start_time_at . ' - ' . $out_end_time_at . '</span></label></td>';
-                                                                    $appointment_found = true;
+                                                                    $appointment_found = false;
                                                                     break;
                                                                 } elseif ($appointment->type == 'availability_appointment' && $formatted_time >= $start_date_availability && $formatted_time <= $end_time_date_availability) {
                                                                     echo '<td class="day-cell appointment-row"  id="dateDisplay" data-date="' . $start_dateAvailability . '" data-day="' . $appointment->practitioner . '"><label style="background-color:#40E0D0; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;"><span style="background-color: #40E0D0; color: white;"><strong>' . $appointment->first_name . ' ' . $appointment->last_name . '</strong><br>Available<br>' . $start_date_availability . ' - ' . $end_time_date_availability . '</span></label></td>';
-                                                                    $appointment_found = true;
+                                                                    $appointment_found = false;
                                                                     break;
                                                                 } elseif ($appointment->type == 'theatre_appointment' && $formatted_time >= $theatre_date_time && $formatted_time <= $theatre_end_time) {
                                                                     echo '<td class="day-cell appointment-row"  id="dateDisplay" data-date="' . $theatre_dateTime . '" data-day="' . $appointment->theatre_clinician . '"><label style="background-color:#800080; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;"><span style="background-color: #800080; color: white;"><strong>' . $appointment->first_name . ' ' . $appointment->last_name . '</strong><br>' . $appointment->theatre_comment . '<br>' . $theatre_date_time . ' - ' . $theatre_end_time . '</span></label></td>';
-                                                                    $appointment_found = true;
+                                                                    $appointment_found = false;
                                                                     break;
                                                                 }
+                                                                $appointment_found = false;
+                                                                break;
                                                             }
                                                         }
                                                         if (!$appointment_found) {
@@ -239,23 +237,35 @@
 
             function updateTableHeaders(selectedNames) {
                 var headerRow = $('#practitioner_id');
-                headerRow.find('th').not(':first').remove(); // Clear existing headers except the first one
+                headerRow.find('tr').empty(); // Clear existing headers
+                headerRow.find('tr').append('<th class="text-center fw-bold" style="font-size:16px; background-color:#337ab7;color:white;">Time</th>'); // Add Time header
 
                 selectedNames.forEach(function(practitionerId) {
-                    var headerCell = $('th[data-practitioner-id="' + practitionerId + '"]').clone();
-                    headerRow.append(headerCell);
+                    var practitionerName = $('#departmentanddoctordata option[value="' + practitionerId + '"]').text();
+                    headerRow.find('tr').append('<th class="day-cell text-center" style="font-size:14px;background-color:#337ab7;color:white;">' + practitionerName + '</th>');
                 });
 
                 $('#datatable tbody tr').each(function() {
-                    $(this).find('td').not(':first').remove();
+                    $(this).find('td').not(':first').remove(); // Clear existing data cells
                     selectedNames.forEach(function(practitionerId) {
-                        var dataCell = $('td[data-day="' + practitionerId + '"]').clone();
-                        $(this).append(dataCell);
-                    });
+// alert(practitionerId);
+                        var appointmentName = $('#dateDisplay option[value="' + practitionerId + '"]').text();
+                        // $(this).append('<td class="day-cell text-center" style="font-size:14px;background-color:#337ab7;color:white;">' + appointmentName + '</td>');
+
+                        $(this).append('<td class="day-cell" data-time="' + $(this).find('.time-cell').text() + '" data-day="' + practitionerId + '"></td>');
+                    }.bind(this));
                 });
             }
-       
+
+            // Show all headers on page load
+            $('#departmentanddoctordata').on('multiselectcreate', function() {
+                var allPractitionerIds = $('#departmentanddoctordata').find('option').map(function() {
+                    return $(this).val();
+                }).get();
+                updateTableHeaders(allPractitionerIds);
+            }).multiselect('rebuild');
         });
+
 
 function getLocations(view_id) {
     $.ajax({
@@ -281,36 +291,19 @@ function getLocations(view_id) {
     });
 }
 
-// function filterByDate(date) {
-// alert(date);
-//     $('.appointment-row').hide();
-//     $('.appointment-row[data-date="' + date + '"]').show();
-//     document.getElementById("dateDisplay").innerText = "Selected Date: " + new Date(date).toDateString();
-// }
-
-// function filterByToday() {
-//     filterByDate("<?php echo date('Y-m-d'); ?>");
-// }
-
-// function filterByNextDate() {
-//     filterByDate("<?php echo date('Y-m-d', strtotime('+1 day')); ?>");
-// }
-
-// function filterByPreDate() {
-//     filterByDate("<?php echo date('Y-m-d', strtotime('-1 day')); ?>");
-// }
-
-// $(document).ready(function() {
-//     filterByToday();
-// });
 </script>
 
 <script>
        document.getElementById('datePicker').addEventListener('change', function() {
+        
+        if(){
+
+        }
     filterByDate(this.value);
 });
 
 function filterByDate(date) {
+    alert(date);
     const appointmentRows = document.querySelectorAll('.appointment-row');
     appointmentRows.forEach(row => {
         row.style.display = 'none';
@@ -327,6 +320,12 @@ function filterByDate(date) {
 function filterByToday() {
     filterByDate("<?php echo date('Y-m-d'); ?>");
 }
+    </script>
+
+    <script>
+        let today = new Date().toISOString().substr(0, 10);
+        document.querySelector("#datePicker").value = today;
+        document.querySelector("#datePicker").valueAsDate = new Date();
     </script>
 </body>
 </html>
