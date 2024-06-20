@@ -180,18 +180,52 @@ class Appointment extends Common_Controller {
             $practitionerData = $this->common_model->customGet($optionPractitioner);
             $combinedData = array_merge($practitionerData,$doctorsData);
             $this->data['practitioner'] = $combinedData;
-        }
-
-
-        }
+       
 
        
                 
              
-        $selectedDate = $this->input->post('selectedDate');
-        if(!empty($selectedDate)){
+        // $selectedDate = $this->input->post('selectedDate');
+        // if(!empty($selectedDate)){
         
-        $this->load->model('common_model');  // Make sure your model is loaded
+        // $this->load->model('common_model');  // Make sure your model is loaded
+    
+        // $option = array(
+        //     'table' => 'clinic_appointment',
+        //     'select' => 'clinic_appointment.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state, pa.name as patient_name, cl.name as clinic_name, cl.clinic_location, pr.name',
+        //     'join' => array(
+        //         array('users as U', 'clinic_appointment.location_appointment = U.id', 'left'),
+        //         array('patient as pa', 'clinic_appointment.patient = pa.user_id', 'left'),
+        //         array('clinic as cl', 'clinic_appointment.location_appointment = cl.id', 'left'),
+        //         array('user_profile as UP', 'UP.user_id = U.id', 'left'),
+        //         array('practitioner as pr', 'clinic_appointment.practitioner = pr.id', 'left'),
+        //     ),
+        //     'where' => array(
+        //         'clinic_appointment.status' => 0
+        //     ),
+        //     'or_where' => array(
+        //         'clinic_appointment.start_date_appointment' => $selectedDate,
+        //         'clinic_appointment.theatre_date_time' => $selectedDate,
+        //         'clinic_appointment.out_start_time_at' => $selectedDate,
+        //         'clinic_appointment.start_date_availability' => $selectedDate
+        //     ),
+        //     'order' => array(
+        //     'clinic_appointment.start_date_appointment' => 'desc',
+        //         'clinic_appointment.theatre_date_time' => 'desc',
+        //         'clinic_appointment.out_start_time_at' => 'desc',
+        //         'clinic_appointment.start_date_availability' => 'desc'
+        //     )
+        // );
+    
+        // $data = $this->common_model->customGet($option);
+        // echo json_encode($data);
+        // $this->data['all_appointment'] = $data;
+               
+        //     }else{
+        //         $current_date = date('Y-m-d');
+        //         $dateToUse = $current_date;
+        
+        // $this->load->model('common_model');  // Make sure your model is loaded
     
         $option = array(
             'table' => 'clinic_appointment',
@@ -206,12 +240,12 @@ class Appointment extends Common_Controller {
             'where' => array(
                 'clinic_appointment.status' => 0
             ),
-            'or_where' => array(
-                'clinic_appointment.start_date_appointment' => $selectedDate,
-                'clinic_appointment.theatre_date_time' => $selectedDate,
-                'clinic_appointment.out_start_time_at' => $selectedDate,
-                'clinic_appointment.start_date_availability' => $selectedDate
-            ),
+            // 'or_where' => array(
+            //     'clinic_appointment.start_date_appointment' => $dateToUse,
+            //     'clinic_appointment.theatre_date_time' => $dateToUse,
+            //     'clinic_appointment.out_start_time_at' => $dateToUse,
+            //     'clinic_appointment.start_date_availability' => $dateToUse
+            // ),
             'order' => array(
             'clinic_appointment.start_date_appointment' => 'desc',
                 'clinic_appointment.theatre_date_time' => 'desc',
@@ -220,45 +254,19 @@ class Appointment extends Common_Controller {
             )
         );
     
-        $data = $this->common_model->customGet($option);
-        echo json_encode($data);
-               
-            }else{
-                $current_date = date('Y-m-d');
-                $dateToUse = $current_date;
-        
-        $this->load->model('common_model');  // Make sure your model is loaded
-    
-        $option = array(
-            'table' => 'clinic_appointment',
-            'select' => 'clinic_appointment.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state, pa.name as patient_name, cl.name as clinic_name, cl.clinic_location, pr.name',
-            'join' => array(
-                array('users as U', 'clinic_appointment.location_appointment = U.id', 'left'),
-                array('patient as pa', 'clinic_appointment.patient = pa.user_id', 'left'),
-                array('clinic as cl', 'clinic_appointment.location_appointment = cl.id', 'left'),
-                array('user_profile as UP', 'UP.user_id = U.id', 'left'),
-                array('practitioner as pr', 'clinic_appointment.practitioner = pr.id', 'left'),
-            ),
-            'where' => array(
-                'clinic_appointment.status' => 0
-            ),
-            'or_where' => array(
-                'clinic_appointment.start_date_appointment' => $dateToUse,
-                'clinic_appointment.theatre_date_time' => $dateToUse,
-                'clinic_appointment.out_start_time_at' => $dateToUse,
-                'clinic_appointment.start_date_availability' => $dateToUse
-            ),
-            'order' => array(
-            'clinic_appointment.start_date_appointment' => 'desc',
-                // 'clinic_appointment.theatre_date_time' => 'desc',
-                // 'clinic_appointment.out_start_time_at' => 'desc',
-                // 'clinic_appointment.start_date_availability' => 'desc'
-            )
-        );
-    
         $this->data['all_appointment'] = $this->common_model->customGet($option);
-        // print_r($this->data['all_appointment']);die;
-            }
+        // // print_r($this->data['all_appointment']);die;
+            // }
+
+
+
+
+
+}
+
+
+}
+
                 // print_r($this->data['all_appointment']);die;
 
 
@@ -1324,6 +1332,176 @@ public function fetch() {
             ->set_output(json_encode($data['all_appointment']));
     }
     
+public function filterdateDepartment(){
 
+    $selectedDate = $this->input->post('selectedDate');
+    $practitionerId = $this->input->post('departmentId'); // Capture practitioner ID
+
+    if (is_array($practitionerId)) {
+        $practitionerId = implode(',', $practitionerId);
+    }
+
+$CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+
+
+$sql = "SELECT vendor_sale_practitioner.*
+        FROM vendor_sale_practitioner
+        WHERE (vendor_sale_practitioner.id IN ($practitionerId))
+        AND (
+            vendor_sale_practitioner.hospital_id LIKE '%$CareUnitID%'
+            
+        )";
+
+$result = $this->db->query($sql);
+
+$doctorsData = $result->result();
+
+
+$sql = "SELECT U.*, U.first_name, U.last_name
+        FROM vendor_sale_doctors
+        LEFT JOIN vendor_sale_users as U ON vendor_sale_doctors.user_id = U.id
+        WHERE (vendor_sale_doctors.user_id IN ($practitionerId))
+        AND (
+            vendor_sale_doctors.facility_user_id LIKE '%$CareUnitID%'
+            
+        )";
+
+$result = $this->db->query($sql);
+
+$practitionerData = $result->result();
+
+$practitioner = array_merge($doctorsData, $practitionerData);
+
+if(!empty($practitionerId)){
+
+
+$sql = "SELECT vendor_sale_clinic_appointment.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state, pa.name as patient_name, cl.name as clinic_name, cl.clinic_location, pr.name as practitioner_name
+        FROM vendor_sale_clinic_appointment
+        LEFT JOIN vendor_sale_users as U ON vendor_sale_clinic_appointment.location_appointment = U.id
+        LEFT JOIN vendor_sale_patient as pa ON vendor_sale_clinic_appointment.patient = pa.user_id
+        LEFT JOIN vendor_sale_clinic as cl ON vendor_sale_clinic_appointment.location_appointment = cl.id
+        LEFT JOIN vendor_sale_user_profile as UP ON UP.user_id = U.id
+        LEFT JOIN vendor_sale_practitioner as pr ON vendor_sale_clinic_appointment.practitioner = pr.id
+        WHERE (vendor_sale_clinic_appointment.practitioner IN ($practitionerId) OR vendor_sale_clinic_appointment.theatre_clinician IN ($practitionerId))
+        AND (
+            vendor_sale_clinic_appointment.start_date_appointment LIKE '%$selectedDate%'
+            OR vendor_sale_clinic_appointment.theatre_date_time LIKE '%$selectedDate%'
+            OR vendor_sale_clinic_appointment.out_start_time_at LIKE '%$selectedDate%'
+            OR vendor_sale_clinic_appointment.start_date_availability LIKE '%$selectedDate%'
+        )
+        ORDER BY vendor_sale_clinic_appointment.start_date_appointment DESC,
+                 vendor_sale_clinic_appointment.theatre_date_time DESC,
+                 vendor_sale_clinic_appointment.out_start_time_at DESC,
+                 vendor_sale_clinic_appointment.start_date_availability DESC";
+
+$result = $this->db->query($sql);
+
+$all_appointment = $result->result();
+}else{
+    $sql = "SELECT vendor_sale_clinic_appointment.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state, pa.name as patient_name, cl.name as clinic_name, cl.clinic_location, pr.name as practitioner_name
+        FROM vendor_sale_clinic_appointment
+        LEFT JOIN vendor_sale_users as U ON vendor_sale_clinic_appointment.location_appointment = U.id
+        LEFT JOIN vendor_sale_patient as pa ON vendor_sale_clinic_appointment.patient = pa.user_id
+        LEFT JOIN vendor_sale_clinic as cl ON vendor_sale_clinic_appointment.location_appointment = cl.id
+        LEFT JOIN vendor_sale_user_profile as UP ON UP.user_id = U.id
+        LEFT JOIN vendor_sale_practitioner as pr ON vendor_sale_clinic_appointment.practitioner = pr.id
+        -- WHERE (vendor_sale_clinic_appointment.practitioner IN ($practitionerId) OR vendor_sale_clinic_appointment.theatre_clinician IN ($practitionerId))
+        WHERE (
+            vendor_sale_clinic_appointment.start_date_appointment LIKE '%$selectedDate%'
+            OR vendor_sale_clinic_appointment.theatre_date_time LIKE '%$selectedDate%'
+            OR vendor_sale_clinic_appointment.out_start_time_at LIKE '%$selectedDate%'
+            OR vendor_sale_clinic_appointment.start_date_availability LIKE '%$selectedDate%'
+        )
+        ORDER BY vendor_sale_clinic_appointment.start_date_appointment DESC,
+                 vendor_sale_clinic_appointment.theatre_date_time DESC,
+                 vendor_sale_clinic_appointment.out_start_time_at DESC,
+                 vendor_sale_clinic_appointment.start_date_availability DESC";
+
+$result = $this->db->query($sql);
+
+$all_appointment = $result->result();
+}
+
+
+   $output ='
+                                        
+                                        <tbody>'?>
+                                            <?php
+                                                $start_time = strtotime('07:00');
+                                                $end_time = strtotime('24:00');
+                                                $interval = 1 * 60;
+
+                                                for ($time = $start_time; $time <= $end_time; $time += $interval) {
+                                                    $formatted_time = date('H:i', $time);
+                                                    echo '<tr><td class="time-cell">' . $formatted_time . '</td>';
+                                                   
+                                                    foreach ($practitioner as $department) {
+                                                        $appointment_found = true;
+                                                       
+                                                        foreach ($all_appointment as $appointment) {
+                                                            $appointmentTime = date('H:i', strtotime($appointment->start_date_appointment));
+                                                            $end_date_appointment = date('H:i', strtotime($appointment->end_date_appointment));
+                                                            $appointment_date = date('Y-m-d', strtotime($appointment->start_date_appointment));
+                                                            
+                                                            $out_start_time_at = date('H:i', strtotime($appointment->out_start_time_at));
+                                                            $out_end_time_at = date('H:i', strtotime($appointment->out_end_time_at));
+                                                            $out_start_timeAt = date('Y-m-d', strtotime($appointment->out_start_time_at));
+                                                            
+                                                            $start_date_availability = date('H:i', strtotime($appointment->start_date_availability));
+                                                            $end_time_date_availability = date('H:i', strtotime($appointment->end_time_date_availability));
+                                                            $start_dateAvailability = date('Y-m-d', strtotime($appointment->start_date_availability));
+                                                            
+                                                            $theatre_date_time = date('H:i', strtotime($appointment->theatre_date_time));
+                                                            $theatre_time_duration = $appointment->theatre_time_duration;
+                                                            $durationInSeconds = $theatre_time_duration * 60;
+                                                            $theatre_end_time = date('H:i', strtotime($theatre_date_time . " +$durationInSeconds seconds"));
+                                                            $theatre_dateTime = date('Y-m-d', strtotime($appointment->theatre_date_time));
+                                                            
+                                                            
+                                                            $current_date = date('Y-m-d');
+                                                        
+
+                                                            if ($appointment->practitioner == $department->id || $appointment->theatre_clinician == $department->id) {
+                                                                if ($appointment->type == 'clinic_appointment' && $formatted_time >= $appointmentTime && $formatted_time <= $end_date_appointment) {
+                                                                    if ($formatted_time == $appointmentTime) {
+                                                                        echo '<td class="day-cell appointment-row" rowspan="' . (($end_date_appointment - $appointmentTime) / $interval) . '" id="dateDisplay" data-date="' . $appointment_date . '" data-day="' . $appointment->practitioner . '"><label style="background-color:green; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;"><span style="background-color: green; color: white;"><strong>' . $appointment->first_name . ' ' . $appointment->last_name . '</strong><br>' . $appointment->comment_appointment . '<br>' . $appointmentTime . ' - ' . $end_date_appointment . '</span></label></td>';
+                                                                    }
+                                                                    $appointment_found = false;
+                                                                    break;
+                                                                } elseif ($appointment->type == 'out_of_office_appointment' && $formatted_time >= $out_start_time_at && $formatted_time <= $out_end_time_at) {
+                                                                    if ($formatted_time == $out_start_time_at) {
+                                                                        echo '<td class="day-cell appointment-row" rowspan="' . (($out_end_time_at - $out_start_time_at) / $interval) . '" id="dateDisplay" data-date="' . $out_start_timeAt . '" data-day="' . $appointment->practitioner . '"><label style="background-color:pink; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;"><span style="background-color: pink; color: white;"><strong>' . $appointment->first_name . ' ' . $appointment->last_name . '</strong><br>' . $appointment->out_of_office_comment . '<br>' . $out_start_time_at . ' - ' . $out_end_time_at . '</span></label></td>';
+                                                                    }
+                                                                    $appointment_found = false;
+                                                                    break;
+                                                                } elseif ($appointment->type == 'availability_appointment' && $formatted_time >= $start_date_availability && $formatted_time <= $end_time_date_availability) {
+                                                                    if ($formatted_time == $start_date_availability) {
+                                                                        echo '<td class="day-cell appointment-row" rowspan="' . (($end_time_date_availability - $start_date_availability) / $interval) . '" id="dateDisplay" data-date="' . $start_dateAvailability . '" data-day="' . $appointment->practitioner . '"><label style="background-color:#40E0D0; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;"><span style="background-color: #40E0D0; color: white;"><strong>' . $appointment->first_name . ' ' . $appointment->last_name . '</strong><br>Available<br>' . $start_date_availability . ' - ' . $end_time_date_availability . '</span></label></td>';
+                                                                    }
+                                                                    $appointment_found = false;
+                                                                    break;
+                                                                } elseif ($appointment->type == 'theatre_appointment' && $formatted_time >= $theatre_date_time && $formatted_time <= $theatre_end_time) {
+                                                                    if ($formatted_time == $theatre_date_time) {
+                                                                        echo '<td class="day-cell appointment-row" rowspan="' . (($theatre_end_time - $theatre_date_time) / $interval) . '" id="dateDisplay" data-date="' . $theatre_dateTime . '" data-day="' . $appointment->theatre_clinician . '"><label style="background-color:#800080; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;"><span style="background-color: #800080; color: white;"><strong>' . $appointment->first_name . ' ' . $appointment->last_name . '</strong><br>' . $appointment->theatre_comment . '<br>' . $theatre_date_time . ' - ' . $theatre_end_time . '</span></label></td>';
+                                                                    }
+                                                                    $appointment_found = false;
+                                                                    break;
+                                                                }
+                                                                // $appointment_found = false;
+                                                                // break;
+                                                            }
+                                                        }
+                                                        if ($appointment_found) {
+                                                            echo '<td class="day-cell" data-time="' . $formatted_time . '" data-day="' . $department->id . '"></td>';
+                                                        }
+                                                    }
+                                                    echo '</tr>';
+                                                }
+                                            '
+                                        </tbody>';
+
+                                        
+                                  
+}
 
 }
