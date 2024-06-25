@@ -323,6 +323,14 @@ function sendEmail($email, $from, $subject, $template, $title)
             'smtp_pass' => 'zmwiylikyaocxenp',
             'mailtype' => 'html',
             'charset' => 'iso-8859-1'
+
+        // 'protocol' => 'smtp',
+        //     'smtp_host' => 'ioready.io',
+        //     'smtp_port' => 25,
+        //     'smtp_user' => 'aditya_urmaliya@ioready.io',
+        //     'smtp_pass' => 'S^VpL2$aOC_,',
+        //     'mailtype' => 'html',
+        //     'charset' => 'iso-8859-1'
       );
        
       // Set your email information

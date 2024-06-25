@@ -485,43 +485,43 @@ class Common_model extends MY_Model {
 
 
     
-    function getWhere($table,$where){ 
-        //$this->db->order_by("id", "desc"); 
-        $this->db->where($where);
-        $getdata = $this->db->get($table);    
-        $num = $getdata->num_rows();
-        if($num> 0){ 
-          $arr=$getdata->result();
-          foreach ($arr as $rows)
-          {
-            $data[] = $rows;
-          }
-          $getdata->free_result();
-          return $data;
-          }else{ 
-          return false;
-          }
-        }
+    // function getWhere($table,$where){ 
+    //     //$this->db->order_by("id", "desc"); 
+    //     $this->db->where($where);
+    //     $getdata = $this->db->get($table);    
+    //     $num = $getdata->num_rows();
+    //     if($num> 0){ 
+    //       $arr=$getdata->result();
+    //       foreach ($arr as $rows)
+    //       {
+    //         $data[] = $rows;
+    //       }
+    //       $getdata->free_result();
+    //       return $data;
+    //       }else{ 
+    //       return false;
+    //       }
+    //     }
 
-        function get_Where_join($tbl1,$tbl2,$field1,$field2,$select,$join_type,$where){   
-			$this->db->select($select);
-			$this->db->from($tbl1);
-			$this->db->where($where );
-			$this->db->join($tbl2, $tbl1.'.'.$field1.'='.$tbl2.'.'.$field2,$join_type);			
-			$getdata  = $this->db->get();
-			//echo $this->db->last_query();
-			//die;
-			$num = $getdata->num_rows();
-			if($num> 0){ 
-				$arr=$getdata->result();
-				foreach ($arr as $rows){
-					$data[] = $rows;
-				}
-				$getdata->free_result();
-				return $data;
-				} else{ 
-				return false;
-			}
-		}
+    // function get_Where_join($tbl1,$tbl2,$field1,$field2,$select,$join_type,$where){   
+	// 		$this->db->select($select);
+	// 		$this->db->from($tbl1);
+	// 		$this->db->where($where );
+	// 		$this->db->join($tbl2, $tbl1.'.'.$field1.'='.$tbl2.'.'.$field2,$join_type);			
+	// 		$getdata  = $this->db->get();
+	// 		//echo $this->db->last_query();
+	// 		//die;
+	// 		$num = $getdata->num_rows();
+	// 		if($num> 0){ 
+	// 			$arr=$getdata->result();
+	// 			foreach ($arr as $rows){
+	// 				$data[] = $rows;
+	// 			}
+	// 			$getdata->free_result();
+	// 			return $data;
+	// 			} else{ 
+	// 			return false;
+	// 		}
+	// }
 
 }

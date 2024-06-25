@@ -96,7 +96,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <input type="text" name="id" value="<?php echo $results->id; ?>" />
+                            <input type="hidden" name="id" value="<?php echo $results->id; ?>" />
                             <div class="space-22"></div>
                         </div>
                     </div>
