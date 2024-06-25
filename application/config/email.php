@@ -23,6 +23,18 @@ $config['mailtype'] = 'html';
 $config['wordwrap'] = TRUE;
 $config['newline'] = "\r\n";
 
+// $config['protocol'] = 'smtp';
+// $config['smtp_host'] = 'ioready.io';  
+// $config['smtp_port'] = '465';  
+// $config['smtp_timeout'] = '30';  
+// $config['smtp_user'] = 'aditya_urmaliya@ioready.io';  
+// $config['smtp_pass'] = 'S^VpL2$aOC_,';
+// $config['charset'] = 'utf-8';
+// $config['mailtype'] = 'html';
+// $config['wordwrap'] = TRUE;
+// $config['newline'] = "\r\n";
+
+
 /* End of file email.php */  
 /* Location: ./system/application/config/email.php */
 

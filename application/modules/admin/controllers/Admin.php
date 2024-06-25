@@ -331,9 +331,65 @@ class Admin extends Common_Controller {
                     /** info email * */
 
 
-                    $EmailTemplate = getEmailTemplate("welcome");
+                    // $EmailTemplate = getEmailTemplate("welcome");
                     
-                    if (!empty($EmailTemplate)) {
+                    // if (!empty($EmailTemplate)) {
+                    //     $html = array();
+                    //     $html['logo'] = base_url() . getConfig('site_logo');
+                    //     $html['site'] = getConfig('site_name');
+                    //     $html['site_meta_title'] = getConfig('site_meta_title');
+                    //     $name = $this->input->post('first_name') . " " . $this->input->post('last_name');
+                    //     $html['user'] = ucwords($name);
+                    //     $html['email'] = $email;
+                    //     $html['password'] = $password;
+                    //     $html['website'] = base_url();
+                    //     $html['content'] = $EmailTemplate->description;
+                    //     $email_template = $this->load->view('email-template/registration', $html, true);
+                    //     $title = '[' . getConfig('site_name') . '] ' . $EmailTemplate->title;
+
+                    // $patient_id = $this->common_model->customInsert($option);
+                    // $query = $this->db->order_by('created_on', 'desc')->limit(1)->get('vendor_sale_email_host');
+                    // $result = $query->row();
+                    // $this->load->library('email');
+                    // $fromName="ioready";
+                    // $to= $email;
+                    // $this->email->from($from, $fromName);
+                    // $this->email->to($to);
+                    
+                    // $this->email->subject($title);
+                    // $this->email->message($email_template);
+                    
+                    $user_id = $this->session->userdata('user_id');
+
+
+                        $option = array(
+                            'table' => USERS . ' as user',
+                            'select' => 'user.*,group.name as group_name',
+                            'join' => array(
+                                array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                                array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                            ),
+                            'order' => array('user.id' => 'DESC'),
+                            'where' => array('user.id'=>$user_id),
+                            'single'=>true,
+                        );
+                
+                        $authUser = $this->common_model->customGet($option);
+
+                    $from = $authUser->email;
+
+                    
+                    // $from = $result->email;
+                 
+                    $name = $this->input->post('first_name');
+                    $email = $email;
+                   
+                    $subject = 'Hello hospital';
+
+
+        
+                    $EmailTemplate = getEmailTemplate("welcome");
+                    // if (!empty($EmailTemplate)) {
                         $html = array();
                         $html['logo'] = base_url() . getConfig('site_logo');
                         $html['site'] = getConfig('site_name');
@@ -342,93 +398,15 @@ class Admin extends Common_Controller {
                         $html['user'] = ucwords($name);
                         $html['email'] = $email;
                         $html['password'] = $password;
+                        $html['token'] = $random_id;
                         $html['website'] = base_url();
                         $html['content'] = $EmailTemplate->description;
-                        $email_template = $this->load->view('email-template/registration', $html, true);
+                        $template = $this->load->view('email-template/registration', $html, true);
                         $title = '[' . getConfig('site_name') . '] ' . $EmailTemplate->title;
-
-                    $patient_id = $this->common_model->customInsert($option);
-                    $query = $this->db->order_by('created_on', 'desc')->limit(1)->get('vendor_sale_email_host');
-                    $result = $query->row();
-                    $this->load->library('email');
-                    $fromName="ioready";
-                    $to= $email;
-                    $from = $result->email;
-                    $this->email->from($from, $fromName);
-                    $this->email->to($to);
-            
-                    $this->email->subject($title);
-                    $this->email->message($email_template);
-
-
-
-                    $name = $this->input->post('first_name');
-    	$email = $email;
-    	$mobile = '78965412365';
-    	$subject = 'Hello hospital';
-
-
-        // $config = Array(    
-        //     'protocol' => 'smtp',
-        //     'smtp_host' => 'ssl://smtp.googlemail.com',
-        //     'smtp_port' => 465,
-        //     'smtp_user' => 'tech.sunilvishwakarma@gmail.com',
-        //     'smtp_pass' => 'zmwiylikyaocxenp',
-        //     'smtp_timeout' => '4',
-            
-        //     'charset' => 'iso-8859-1',
-        //     'mailtype'=>'html'
-        //   );
-        //   $this->load->library('email', $config); // Load email template
-        //       $this->email->set_newline("\r\n");
-        //       $this->email->from('tech.sunilvishwakarma@gmail.com', 'Kalpana');
-        //       $data = array(
-        //           'user_name'=> 'Kalpana',
-        //       );
-        //   $this->email->to('tech.sunilvishwakarma@gmail.com'); 
-        //   $this->email->subject('Hey, Thank you for Registering with us'); 
-          
-  
-        //   $this->email->message('hiiiiii'); 
-        //   $this->email->send();
-  
-                                //   redirect('contact');
-
-                                  
-            
-                        //     if($this->email->send())
-                        //     {
-                        //         echo "Mail Sent Successfully";
-                        //     }
-                        //     else
-                        //      {
-                        //         echo "Failed to send email";
-                        //         show_error($this->email->print_debugger());             
-                        //     }
-                        $EmailTemplate = getEmailTemplate("welcome");
-                        // if (!empty($EmailTemplate)) {
-                            $html = array();
-                            $html['logo'] = base_url() . getConfig('site_logo');
-                            $html['site'] = getConfig('site_name');
-                            $html['site_meta_title'] = getConfig('site_meta_title');
-                            $name = $this->input->post('first_name') . " " . $this->input->post('last_name');
-                            $html['user'] = ucwords($name);
-                            $html['email'] = $email;
-                            $html['password'] = $password;
-                            $html['token'] = $token_uniqss;
-                            $html['website'] = base_url();
-                            $html['content'] = $EmailTemplate->description;
-                            $template = $this->load->view('email-template/registration', $html, true);
-                            $title = '[' . getConfig('site_name') . '] ' . $EmailTemplate->title;
-                            
-                            // send_email_smtp($email_template, $title, $email, getConfig('admin_email'));
-                            
-                            sendEmail($email, $from, $subject, $template, $title);
-                        // }
-
-
+                        // $this->sendEmail($email, $from, $subject, $template, $title);
+                        $this->sendEmail($email, $from, $subject, $template, $title);
                         // send_mail_new($email_template, $title, $email, getConfig('admin_email'));
-                    }
+                    // }
 
 
 

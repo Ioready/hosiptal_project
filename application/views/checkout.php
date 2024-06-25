@@ -56,28 +56,26 @@
 							class="form-validation" data-cc-on-file="false"
 							data-stripe-publishable-key="<?php echo $this->config->item('stripe_key') ?>"
 							id="payment-form">
-							<div class='col-xs-12 col-md-4 form-group expiration required'>
+							<div class='col-xs-12 form-group expiration required'>
 								<input class='form-control' type='hidden' name="total_price" value="<?php echo $results;?>">
 							</div>
 
-							<div class='form-row row'>
-								<div class='col-xs-12 form-group required'>
-									<label class='control-label'>Name on Card</label>
-									<input class='form-control' size='4' type='text' name="name">
-								</div>
-							</div>
+	
+
 							<div class='form-row row'>
 								<div class='col-xs-12 form-group required'>
 								<label class='control-label'>Name on Card</label>
-									<input class='form-control' size='4' type='text' name="name">
+									<input class='form-control' type='text' name="name">
 								</div>
 							</div>
+
 							<div class='form-row row'>
 								<div class='col-xs-12 form-group required'>
 									<label class='control-label'>Email</label>
 									<input class='form-control' size='4' type='text' name="email">
 								</div>
 							</div>
+
 							<div class='form-row row '>
 								<div class='col-xs-12 form-group card required '>
 									<label class='control-label mt-2'>Card Number</label>
@@ -108,7 +106,7 @@
 									<div class='alert-danger alert'>Error occured while making the payment.</div>
 								</div>
 							</div>
-							<div class='col-xs-12 col-md-4 form-group expiration required'>
+							<div class='col-xs-12 form-group expiration required'>
 								<input class='form-control' type='hidden' name="plan_id" value="<?php echo $plan_id;?>">
 							</div>
 
