@@ -318,7 +318,7 @@ function sendEmail($email, $from, $subject, $template, $title)
 
         'protocol' => 'smtp',
             'smtp_host' => 'smtp.googlemail.com',
-            'smtp_port' => 25,
+            'smtp_port' => 465,
             'smtp_user' => 'tech.sunilvishwakarma@gmail.com',
             'smtp_pass' => 'zmwiylikyaocxenp',
             'mailtype' => 'html',
@@ -326,7 +326,7 @@ function sendEmail($email, $from, $subject, $template, $title)
 
         // 'protocol' => 'smtp',
         //     'smtp_host' => 'ioready.io',
-        //     'smtp_port' => 25,
+        //     'smtp_port' => 465,
         //     'smtp_user' => 'aditya_urmaliya@ioready.io',
         //     'smtp_pass' => 'S^VpL2$aOC_,',
         //     'mailtype' => 'html',

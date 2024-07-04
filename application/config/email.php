@@ -34,6 +34,12 @@ $config['newline'] = "\r\n";
 // $config['wordwrap'] = TRUE;
 // $config['newline'] = "\r\n";
 
+// 'smtp_host' => 'ioready.io',
+//             'smtp_port' => 465,
+//             'smtp_user' => 'aditya_urmaliya@ioready.io',
+//             'smtp_pass' => 'S^VpL2$aOC_,',
+//             'mailtype' => 'html',
+//             'charset' => 'iso-8859-1'
 
 /* End of file email.php */  
 /* Location: ./system/application/config/email.php */
