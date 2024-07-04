@@ -306,7 +306,7 @@ if (!empty($week)) {
                         array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
                         array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left'),
                         array('user_profile UP', 'UP.user_id=user.id', 'inner'),
-                        array('doctors D', 'D.facility_user_id=user.id', 'left')
+                        array('doctors D', 'D.facility_user_id=user.id', 'inner')
                     ),
                     // 'order' => array('user.id' => 'ASC'),
                     'where' => array(
@@ -436,7 +436,8 @@ if (!empty($week)) {
                     'order' => array('user.id' => 'ASC'),
                     'where' => array(
                         'user.delete_status' => 0,
-                        'group.id' => 5 
+                        'group.id' => 5,
+                        'user.id'=>$AdminCareUnitID,
                     ) , $whereClause,
                     'order' => array('user.id' => 'desc'),
                 );

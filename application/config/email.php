@@ -36,8 +36,8 @@ $config['newline'] = "\r\n";
 
 
 // $config['protocol'] = 'smtp';
-// $config['smtp_host'] = 'https://ioready.io';  
-// $config['smtp_port'] = '2080';  
+// $config['smtp_host'] = 'tcp://mail.ioready.io:2079';  
+// $config['smtp_port'] = '2079';  
 // $config['smtp_timeout'] = '30';  
 // $config['smtp_user'] = 'aditya_urmaliya@ioready.io';  
 // $config['smtp_pass'] = 'S^VpL2$aOC_,';
@@ -45,6 +45,7 @@ $config['newline'] = "\r\n";
 // $config['mailtype'] = 'html';
 // $config['wordwrap'] = TRUE;
 // $config['newline'] = "\r\n";
+// $config['newline'] =  "\r\n";
 
 
 // 'smtp_host' => 'ioready.io',

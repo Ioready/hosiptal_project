@@ -140,14 +140,14 @@ display:none;
                     </div>
 
                     <div class="col-md-4 col-ls-4 col-sm-4">
-                        <h2>Patient Report</h2>
+                        <!-- <h2>Patient Report</h2> -->
                         <div>
                             <canvas id="mypatientChart"></canvas>
                         </div>
                     </div>
 
                     <div class="col-md-4 col-ls-4 col-sm-4">
-                        <h2>Patient Report</h2>
+                        <h2>Doctor Report</h2>
                         <div>
                         <canvas id="riskChart"></canvas>
                         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

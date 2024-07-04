@@ -337,8 +337,8 @@ function sendEmail($email, $from, $subject, $template, $title)
         
 
         // 'protocol' => 'smtp',
-        //     'smtp_host' => 'http://mail.ioready.io:2079',
-        //     'smtp_port' => 2079,
+        //     'smtp_host' => 'http://mail.ioready.io:2080',
+        //     'smtp_port' => 2080,
         //     'smtp_user' => 'aditya_urmaliya@ioready.io',
         //     'smtp_pass' => 'S^VpL2$aOC_,',
         //     'mailtype' => 'html',
@@ -360,12 +360,45 @@ function sendEmail($email, $from, $subject, $template, $title)
       $this->email->message($template);
       if (!$this->email->send()) {
           // Raise error message
-          // show_error($this->email->print_debugger());
+          show_error($this->email->print_debugger());
       }
       else {
           // Show success notification or other things here
-          // echo 'Success to send email';
+          echo 'Success to send email';
       }
+
+
+
+
+
+//       $config['protocol'] = 'smtp';
+// $config['smtp_host'] = 'tcp://mail.ioready.io:2079';  
+// $config['smtp_port'] = '2079';  
+// $config['smtp_timeout'] = '30';  
+// $config['smtp_user'] = 'aditya_urmaliya@ioready.io';  
+// $config['smtp_pass'] = 'S^VpL2$aOC_,';
+// $config['charset'] = 'utf-8';
+// $config['mailtype'] = 'html';
+// $config['wordwrap'] = TRUE;
+// $config['newline'] = "\r\n";
+// 		$this->load->library('email', $config); // Load email template
+//             $this->email->set_newline("\r\n");
+//             $this->email->from($from, $title);
+//             $data = array(
+//     			'user_name'=> 'Kalpana',
+//             );
+//         $this->email->to($email); // replace it with receiver email id
+// 		$this->email->subject($subject); // replace it with email subject
+// 		//$message = $this->load->view('sent_register',$data,TRUE);
+
+// 		$this->email->message($template); 
+// 		$this->email->send();
+
+//         if(!$this->email->send()) {
+//             show_error($this->email->print_debugger()); 
+//         }else{
+//             echo 'Your e-mail has been sent!';
+// }
     }
 
 

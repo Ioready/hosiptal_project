@@ -70,7 +70,7 @@
         <div class="form-group">
             <div class="col-md-12">
                 <label class="control-label">First Name</label>
-                <input type="text" class="form-control" name="first_name" id="first_name" placeholder="First Name" maxlength="9" />
+                <input type="text" class="form-control" name="first_name" id="first_name" placeholder="First Name" />
             </div>
         </div>
     </div>

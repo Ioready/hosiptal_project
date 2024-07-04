@@ -404,6 +404,12 @@ class Admin extends Common_Controller {
                         $template = $this->load->view('email-template/registration', $html, true);
                         $title = '[' . getConfig('site_name') . '] ' . $EmailTemplate->title;
                         // $this->sendEmail($email, $from, $subject, $template, $title);
+                        // echo $email;
+                        // echo $from;
+                        // echo $subject;
+                        // echo $template;
+                        // echo $title;
+                        // die;
                         $this->sendEmail($email, $from, $subject, $template, $title);
                         // send_mail_new($email_template, $title, $email, getConfig('admin_email'));
                     // }
