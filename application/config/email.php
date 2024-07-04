@@ -12,20 +12,32 @@ $query = $this->db->order_by('created_on', 'desc')->limit(1)->get('vendor_sale_e
 | Configuration of outgoing mail server. 
 | */
 
+// $config['protocol'] = 'smtp';
+// $config['smtp_host'] = 'ssl://smtp.gmail.com';  
+// $config['smtp_port'] = '587';  
+// $config['smtp_timeout'] = '30';  
+// $config['smtp_user'] = 'tech.sunilvishwakarma@gmail.com';  
+// $config['smtp_pass'] = 'zmwiylikyaocxenp';
+// $config['charset'] = 'utf-8';
+// $config['mailtype'] = 'html';
+// $config['wordwrap'] = TRUE;
+// $config['newline'] = "\r\n";
+
 $config['protocol'] = 'smtp';
 $config['smtp_host'] = 'ssl://smtp.googlemail.com';  
 $config['smtp_port'] = '465';  
 $config['smtp_timeout'] = '30';  
-$config['smtp_user'] = 'tech.sunilvishwakarma@gmail.com';  
-$config['smtp_pass'] = 'zmwiylikyaocxenp';
+$config['smtp_user'] = 'kalpanaofficial94@gmail.com';  
+$config['smtp_pass'] = 'avbcfhvzvypfftgz';
 $config['charset'] = 'utf-8';
 $config['mailtype'] = 'html';
 $config['wordwrap'] = TRUE;
 $config['newline'] = "\r\n";
 
+
 // $config['protocol'] = 'smtp';
-// $config['smtp_host'] = 'ioready.io';  
-// $config['smtp_port'] = '465';  
+// $config['smtp_host'] = 'https://ioready.io';  
+// $config['smtp_port'] = '2080';  
 // $config['smtp_timeout'] = '30';  
 // $config['smtp_user'] = 'aditya_urmaliya@ioready.io';  
 // $config['smtp_pass'] = 'S^VpL2$aOC_,';
@@ -33,6 +45,7 @@ $config['newline'] = "\r\n";
 // $config['mailtype'] = 'html';
 // $config['wordwrap'] = TRUE;
 // $config['newline'] = "\r\n";
+
 
 // 'smtp_host' => 'ioready.io',
 //             'smtp_port' => 465,
