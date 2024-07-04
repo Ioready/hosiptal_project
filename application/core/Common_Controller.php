@@ -334,6 +334,7 @@ function sendEmail($email, $from, $subject, $template, $title)
         'charset' => 'iso-8859-1',
         'mailtype'=>'html'
 
+        
 
         // 'protocol' => 'smtp',
         //     'smtp_host' => 'http://mail.ioready.io:2079',
