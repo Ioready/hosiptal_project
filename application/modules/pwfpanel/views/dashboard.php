@@ -880,7 +880,9 @@
                    <div class="ibox-content">
                    <h1 class="no-margins">
 
-                   <?php echo $initial_dx; ?>
+                   <?php //echo $initial_dx; 
+                   echo '0';
+                   ?>
                    </h1>
                    <h5 class="text-primary"><strong>Total Earning</strong></h5>
                    </div>

@@ -99,7 +99,9 @@ class Patient extends Common_Controller
                     array('doctors', 'doctors.id=patient.doctor_id'),
                     array('users', 'users.id=patient.md_steward_id')
                 ),
-                'where' => array('patient.id' => $value)
+                'where' => array('patient.id' => $value,
+                ''
+                )
             );
 
             $careUnitData_list[] = $this->common_model->customGet($option);
@@ -148,7 +150,7 @@ class Patient extends Common_Controller
         }
 
 
-        // print_r($UsersCareUnitID);die;
+        // print_r($this->data['careUnitsUser_list']);die;
         
         $option = array(
             'table' => 'patient P',
@@ -171,12 +173,15 @@ class Patient extends Common_Controller
             ),
             
             // 'where'=>array('P.care_unit_id,'. $careUnitID),
-            // 'where'=>array('P.md_steward_id,'. $UsersCareUnitID),
+            // 'where'=>array('P.operator_id,'. $UsersCareUnitID),
+            // vendor_sale_patient.operator_id = $UsersCareUnitID
             // 'where'=>array('P.id,'. '1'),
             'group_by' => 'pid'
         );
-
-
+        // print_r($UsersCareUnitID);die;
+        if (!empty($UsersCareUnitID)) {
+            $option['where']['P.operator_id'] = $UsersCareUnitID;
+        }
         if (!empty($careUnitID)) {
             $option['where']['P.care_unit_id'] = $careUnitID;
         }
