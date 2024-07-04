@@ -316,23 +316,35 @@ function sendEmail($email, $from, $subject, $template, $title)
         //   'mailtype'  => 'html',
         //   'charset'   => 'iso-8859-1'
 
+        // 'protocol' => 'smtp',
+        //     'smtp_host' => 'ssl://smtp.gmail.com',
+        //     'smtp_port' => 587,
+        //     'smtp_user' => 'tech.sunilvishwakarma@gmail.com',
+        //     'smtp_pass' => 'zmwiylikyaocxenp',
+        //     'mailtype' => 'html',
+        // 'smtp_timeout' => '4',
+        //     'charset' => 'iso-8859-1'
+
         'protocol' => 'smtp',
-            'smtp_host' => 'smtp.googlemail.com',
-            'smtp_port' => 465,
-            'smtp_user' => 'tech.sunilvishwakarma@gmail.com',
-            'smtp_pass' => 'zmwiylikyaocxenp',
-            'mailtype' => 'html',
-            'charset' => 'iso-8859-1'
+        'smtp_host' => 'ssl://smtp.googlemail.com',
+        'smtp_port' => 465,
+        'smtp_user' => 'kalpanaofficial94@gmail.com',
+        'smtp_pass' => 'avbcfhvzvypfftgz',
+        'smtp_timeout' => '4',
+        'charset' => 'iso-8859-1',
+        'mailtype'=>'html'
+
 
         // 'protocol' => 'smtp',
-        //     'smtp_host' => 'ioready.io',
-        //     'smtp_port' => 465,
+        //     'smtp_host' => 'http://mail.ioready.io:2079',
+        //     'smtp_port' => 2079,
         //     'smtp_user' => 'aditya_urmaliya@ioready.io',
         //     'smtp_pass' => 'S^VpL2$aOC_,',
         //     'mailtype' => 'html',
         //     'charset' => 'iso-8859-1'
       );
        
+
       // Set your email information
       $from = array('email' => $from, 'name' => $title);
       $to = array($email);
