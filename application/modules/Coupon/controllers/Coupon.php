@@ -36,7 +36,7 @@ class Coupon extends Common_Controller {
             'table' => 'coupons',
             'select' => 'coupon_type,coupon_code,user_size,total_use_user,cash_type,amount,id,used_type,min_amount,max_amount,percentage_in_amount',
             // 'where' => array('coupon_code' => $coupon_code,'end_date >=' => $currDate,'start_date <=' => $currDate,'status' => 1),
-            'where_in' => array('coupon_type' => array(1, 4)),
+            'where_in' => array('coupon_type' => array(1,2,3, 4)),
             'where' => array('delete_status' => 0),
             
         );
@@ -70,16 +70,16 @@ class Coupon extends Common_Controller {
         $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
       
 
-        $this->form_validation->set_rules('cash_type', "cash_type", 'required|trim');
-        $this->form_validation->set_rules('used_type', "used_type", 'required|trim');
-        $this->form_validation->set_rules('coupon_type', "coupon_type", 'required|trim');
-        $this->form_validation->set_rules('user_size', "user_size", 'required|trim');
-        $this->form_validation->set_rules('min_amount', "min_amount", 'required|trim');
-        $this->form_validation->set_rules('amount', "amount", 'required|trim');
-        $this->form_validation->set_rules('percentage_in_amount', "percentage_in_amount", 'required|trim');
+        $this->form_validation->set_rules('cash_type', "cash_type", 'required');
+        $this->form_validation->set_rules('used_type', "used_type", 'required');
+        $this->form_validation->set_rules('coupon_type', "coupon_type", 'required');
+        $this->form_validation->set_rules('user_size', "user_size", 'required');
+        $this->form_validation->set_rules('min_amount', "min_amount", 'required');
+        $this->form_validation->set_rules('amount', "amount", 'required');
+        $this->form_validation->set_rules('percentage_in_amount', "percentage_in_amount", 'required');
 
-        $this->form_validation->set_rules('start_date', "start_date", 'required|trim');
-        $this->form_validation->set_rules('end_date', "end_date", 'required|trim');
+        $this->form_validation->set_rules('start_date', "start_date", 'required');
+        $this->form_validation->set_rules('end_date', "end_date", 'required');
        
 
         

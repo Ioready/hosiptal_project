@@ -20,10 +20,18 @@ class Admin extends Common_Controller {
      * @return array
      */
     public function index($vendor_profile_activate = "No") {
-        $this->data['parent'] = $this->title;
+        // $this->data['parent'] = $this->title;
        
-        $this->data['title'] = $this->title;
+        // $this->data['title'] = $this->title;
+        // $this->data['model'] = $this->router->fetch_class();
+
+         $this->data['url'] = base_url() . $this->router->fetch_class();
+        $this->data['pageTitle'] = "Add " . $this->title;
+        $this->data['parent'] = $this->router->fetch_class();
         $this->data['model'] = $this->router->fetch_class();
+        $this->data['title'] = $this->title;
+        $this->data['tablePrefix'] = 'vendor_sale_' . $this->_table;
+        $this->data['table'] = $this->_table;
         $role_name = $this->input->post('role_name');
        
         $this->data['roles'] = array(
@@ -207,14 +215,6 @@ class Admin extends Common_Controller {
         $this->form_validation->set_rules('admin_name', lang('admin_name'), 'required|trim|xss_clean');
         $this->form_validation->set_rules('first_name', lang('first_name'), 'required|trim|xss_clean');
         $this->form_validation->set_rules('user_email', lang('user_email'), 'required|trim|xss_clean');
-        // if (empty($_POST['care_unit_id'])) {
-       // $this->form_validation->set_rules('care_unit_id[]', "Care Unit", 'required',array('required' =>'Select at least one Care Unit'));
-        // $this->form_validation->set_rules('care_unit_id[]', "Care Unit", 'trim');
-        // }
-        // if (empty($_POST['md_steward_id'])) {
-        //      $this->form_validation->set_rules('md_steward_id[]', "MD Steward", 'trim');
-        //      }.
-
         $this->form_validation->set_rules('password', lang('password'), 'trim|required|xss_clean|min_length[6]|max_length[14]');
         if (!preg_match('/(?=.*[a-z])(?=.*[0-9]).{6,}/i', $this->input->post('password'))) {
             $response = array('status' => 0, 'message' => "The Password Should be required alphabetic and numeric");
@@ -236,17 +236,8 @@ class Admin extends Common_Controller {
         }
         if ($this->form_validation->run() == true) {
 
-            // $this->filedata['status'] = 1;
             $image = "";
-            // if (!empty($_FILES['user_image']['name'])) {
-            //     $this->filedata = $this->commonUploadImage($_POST, 'users', 'user_image');
-            //     if ($this->filedata['status'] == 1) {
-            //         $image = 'uploads/users/' . $this->filedata['upload_data']['file_name'];
-            //     }
-            // }
-            // if ($this->filedata['status'] == 0) {
-            //     $response = array('status' => 0, 'message' => $this->filedata['error']);
-            // } else {
+           
                 $email = strtolower($this->input->post('user_email'));
                 $identity = ($identity_column === 'email') ? $email : $this->input->post('user_email');
                 $password = $this->input->post('password');
@@ -276,7 +267,6 @@ class Admin extends Common_Controller {
                         'phone_code' => $this->input->post('phone_code'),
                         'gender' => $this->input->post('user_gender'),
                         'care_unit_id'=> json_encode($this->input->post('care_unit_id')),
-                        // 'md_steward_id'=> json_encode($this->input->post('md_steward_id')),
                         'zipcode_access' => json_encode($this->input->post('zipcode')),
                         'email_verify' => 1,
                         'is_pass_token' => $password,
@@ -325,40 +315,7 @@ class Admin extends Common_Controller {
                         'email' => $email,
                         'created_on' => strtotime(datetime())
                     );
-                    $this->db->insert('vendor_sale_user_admin', $additional_data_admin);
-
-
-                    /** info email * */
-
-
-                    // $EmailTemplate = getEmailTemplate("welcome");
-                    
-                    // if (!empty($EmailTemplate)) {
-                    //     $html = array();
-                    //     $html['logo'] = base_url() . getConfig('site_logo');
-                    //     $html['site'] = getConfig('site_name');
-                    //     $html['site_meta_title'] = getConfig('site_meta_title');
-                    //     $name = $this->input->post('first_name') . " " . $this->input->post('last_name');
-                    //     $html['user'] = ucwords($name);
-                    //     $html['email'] = $email;
-                    //     $html['password'] = $password;
-                    //     $html['website'] = base_url();
-                    //     $html['content'] = $EmailTemplate->description;
-                    //     $email_template = $this->load->view('email-template/registration', $html, true);
-                    //     $title = '[' . getConfig('site_name') . '] ' . $EmailTemplate->title;
-
-                    // $patient_id = $this->common_model->customInsert($option);
-                    // $query = $this->db->order_by('created_on', 'desc')->limit(1)->get('vendor_sale_email_host');
-                    // $result = $query->row();
-                    // $this->load->library('email');
-                    // $fromName="ioready";
-                    // $to= $email;
-                    // $this->email->from($from, $fromName);
-                    // $this->email->to($to);
-                    
-                    // $this->email->subject($title);
-                    // $this->email->message($email_template);
-                    
+                    $this->db->insert('vendor_sale_user_admin', $additional_data_admin);                    
                     $user_id = $this->session->userdata('user_id');
 
 
@@ -403,65 +360,19 @@ class Admin extends Common_Controller {
                         $html['content'] = $EmailTemplate->description;
                         $template = $this->load->view('email-template/registration', $html, true);
                         $title = '[' . getConfig('site_name') . '] ' . $EmailTemplate->title;
-                        // $this->sendEmail($email, $from, $subject, $template, $title);
-                        // echo $email;
-                        // echo $from;
-                        // echo $subject;
-                        // echo $template;
-                        // echo $title;
-                        // die;
+                       
                         $this->sendEmail($email, $from, $subject, $template, $title);
                         // send_mail_new($email_template, $title, $email, getConfig('admin_email'));
-                    // }
-
-
-
+                    
+                    $this->response = array('status' => 1,'message' => 'Added Successfully');
                 } else {
-                    $where_id = $email_exist->id;
-                    $options_data = array(
-                        
-                        'hospital_name' => $this->input->post('admin_name'),
-                        'first_name' => $this->input->post('first_name'),
-                        'last_name' => $this->input->post('last_name'),
-                        'team_code' => $code,
-                        'username' => $username[0],
-                        'date_of_birth' => (!empty($this->input->post('date_of_birth'))) ? date('Y-m-d', strtotime($this->input->post('date_of_birth'))) : date('Y-m-d'),
-                        'gender' => $this->input->post('user_gender'),
-                        'profile_pic' => $image,
-                        'phone' => $this->input->post('phone_no'),
-                        'email_verify' => 1,
-                        'is_pass_token' => $password,
-                        'zipcode_access' => json_encode($this->input->post('zipcode')),
-                        'care_unit_id' => json_encode($this->input->post('care_unit_id')),
-                        // 'md_steward_id' => json_encode($this->input->post('md_steward_id')),
-                        'created_on' => strtotime(datetime()),
-                        'delete_status' => 0
-                    );
-                    $insert_id = $this->ion_auth->update($where_id, $options_data);
-                    $additional_data_profile = array(
-                        'country' => $this->input->post('country'),
-                        'state' => $this->input->post('state'),
-                        'city' => $this->input->post('city'),
-                        'address1' => $this->input->post('address1'),
-                        // 'profile_pic' => $image,
-                        'update_date' => date('Y-m-d H:i:s')
-                    );
-                    $this->db->where("user_id", $where_id);
-                    $this->db->update('vendor_sale_user_profile', $additional_data_profile);
-                }
-
-                if ($insert_id) {
-                    $html = array();
-                    $response = array('status' => 1, 'message' => 'Added Successfully', 'url' => base_url($this->router->fetch_class()));
-                } else {
-                    $response = array('status' => 0, 'message' => lang('user_failed'));
-                }
-            }
-        // } else {
-        //     $messages = (validation_errors()) ? validation_errors() : '';
-        //     $response = array('status' => 0, 'message' => $messages);
-        // }
-        echo json_encode($response);
+          
+            $messages = (validation_errors()) ? validation_errors() : '';
+            $this->response = array('status' => 0, 'message' => $messages);
+        }
+    }
+//    return $this->load->admin_render('list', $this->response, 'inner_script');
+        echo json_encode($this->response);
     }
    
     /**

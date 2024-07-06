@@ -125,5 +125,5 @@
 
 <script>
   // Initialize CKEditor
-  CKEDITOR.replace('editor');
+  CKEDITOR.replace('editor1');
 </script>

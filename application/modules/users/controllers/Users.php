@@ -178,7 +178,7 @@ class Users extends Common_Controller
 
                 $vendor_user_id = $this->session->userdata('user_id');
 
-                // $where .= ' and referral.user_id="' . $vendor_user_id . '"';
+                $where .= ' and referral.user_id="' . $vendor_user_id . '"';
                 $options = array(
                     'table' => USERS . ' as user',
                     'select' => 'user.*,group.name as group_name',
@@ -209,7 +209,7 @@ class Users extends Common_Controller
             }
 
             $users_list = $this->common_model->customGet($options);
-
+// print_r($users_list);die;
             if (!empty($users_list)) {
                 foreach ($users_list as $users) {
 

@@ -681,10 +681,10 @@ hh
                                 <!-- <li title="Recommendation">
                                     <a href="<?php echo site_url('recommendation'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "recommendation") ? "active" : "" ?>"><i class="fa fa-paper-plane sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Steward Communications</span></a>
                                 </li> -->
-                                <li title="FaqQuestion
+                                <!-- <li title="FaqQuestion
                                      '">
                                     <a href="<?php echo site_url('faqquestion'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "faqquestion") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/faq.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">FAQ</span></a>
-                                </li>
+                                </li> -->
                                 <li title="Email Template">
                                     <a href="<?php echo site_url('emailTemplate'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "emailTemplate") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/email.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Email Template</span></a>
                                 </li>

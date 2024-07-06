@@ -747,10 +747,10 @@ You can upload product lists from Semble's lab partners from the Lab settings pa
                                         <select id="location" name="location" class="form-control select-chosen" size="1" onchange='getPatientId(this.value)'>
                                             <option value="">Please select</option>
                                             <?php
-                                                if (!empty($countries)) {
-                                                    foreach ($countries as $doctor) {
+                                                if (!empty($clinic_location)) {
+                                                    foreach ($clinic_location as $clinic_locations) {
                                                 ?>
-                                                        <option value="<?php echo $doctor->id; ?>"><?php echo $doctor->name; ?></option>
+                                                        <option value="<?php echo $clinic_locations->id; ?>"><?php echo $clinic_locations->clinic_location; ?></option>
                                                 <?php
                                                     }
                                                 }
@@ -774,10 +774,10 @@ You can upload product lists from Semble's lab partners from the Lab settings pa
                                         <select id="clinicians" name="clinicians" class="form-control select-chosen" size="1" onchange='getPatientId(this.value)'>
                                             <option value="">Please select</option>
                                             <?php
-                                                if (!empty($careUnitsUser)) {
-                                                    foreach ($careUnitsUser as $careUnitsUsers) {
+                                                if (!empty($clinic_location)) {
+                                                    foreach ($clinic_location as $clinic_locations) {
                                                 ?>
-                                                        <option value="<?php echo $careUnitsUsers->id; ?>"><?php echo $careUnitsUsers->name; ?></option>
+                                                        <option value="<?php echo $clinic_locations->id; ?>"><?php echo $clinic_locations->name; ?></option>
                                                 <?php
                                                     }
                                                 }

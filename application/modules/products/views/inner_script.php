@@ -213,7 +213,7 @@
             callback: function (result) {
                 if (result) {
                         $.ajax({
-                        url: '<?php echo base_url(); ?>' + "contactus/updateAccountStatus",
+                        url: '<?php echo base_url(); ?>' + "products/updateAccountStatus",
                         type: "post",
                         data: {userId: id, status: status},
                         success: function (data, textStatus, jqXHR) {

@@ -1,7 +1,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.js"></script>
-<!-- Page content -->
+
 <div id="page-content">
-    <!-- Datatables Header -->
+ 
     <ul class="breadcrumb breadcrumb-top">
         <li>
             <a href="<?php echo site_url('pwfpanel');?>">Home</a>
@@ -10,17 +10,17 @@
             <a href="<?php echo site_url('facilityManager');?>"><?php echo $title;?></a>
         </li>
     </ul>
-    <!-- END Datatables Header -->
-    <!-- Datatables Content -->
+   
     <div class="block full">
         <div class="block-title">
             <h2><strong><?php echo $title;?></strong> Panel</h2>
         </div>
+        
         <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('index.php/' .$formUrl) ?>" enctype="multipart/form-data">
             <div class="modal-header text-center">
                 <h2 class="modal-title"><i class="fa fa-pencil"></i> <?php echo (isset($title)) ? ucwords($title) : "" ?></h2>
             </div>
-            <div class="alert alert-danger" id="error-box" style="display: none"></div>
+            <!-- <div class="alert alert-danger" id="error-box" style="display: none"></div> -->
             <div class="form-body">
                 <div class="row">
                     <div class="col-md-6" >
@@ -29,7 +29,7 @@
                             <div class="col-md-12">
                                 <input type="text" class="form-control" name="admin_name" id="admin_name" placeholder="Admin Name" />
                             </div>
-                             <!-- <span class="help-block m-b-none col-md-offset-3"><i class="fa fa-arrow-circle-o-up"></i> <?php echo lang('english_note');?></span>  -->
+                            
                         </div>
                     </div>
                     <div class="col-md-6" >
@@ -111,60 +111,11 @@
                         </div>
                     </div>
                     
-                               
-<!--                      <div class="col-md-12" >
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">Company Name</label>
-                                    <div class="col-md-9">
-                                        <input type="text" class="form-control" name="company_name" value="" />
-                                    </div>
-                                </div>
-                            </div>
-                    <div class="col-md-12" >
-                        <div class="form-group">
-                            <label class="col-md-3 control-label">Company Website</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" name="website" placeholder=""/>
-                            </div>
-                        </div>
-                    </div>-->
-                    
-                    
-                    
-                    
-<!--                     <div class="col-md-12" >
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">Software Category</label>
-                                    <div class="col-md-9">
-                                          <select id="category_id" name="category_id[]" multiple class="form-control select-chosen" size="1">
-                                              <option value="">Please select</option>
-                                                <?php foreach($categorys as $category){?>
-                                                            
-                                                <option value="<?php echo $category->id;?>"><?php echo $category->category_name;?></option>
-                                                        
-                                                <?php }?>
-                                            </select>
-                                        <input type="text" class="form-control" name="state" placeholder="State" value="<?php //echo $results->state; ?>"/>
-                                    </div>
-                                </div>
-                            </div>-->
-                            
-<!--                             <div class="col-md-12" >
-                        <div class="form-group">
-                            <label class="col-md-3 control-label">Description</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" name="description" id="description" placeholder=""/>
-                            </div>
-                        </div>
-                    </div>-->
-                    
-                    
                     <div class="col-md-6" >
                         <div class="form-group">
                             <label class="m-4 control-label">Country</label>
                            
                             <div class="col-md-12">
-                                 <!-- <input type="text" class="col-md-12 form-control" name="country_id" id="country_in" placeholder="Country"/> <br> -->
                                 
                                     <select id="country" onchange="getStates(this.value)" name="country" class="form-control select2" size="1">
                                         <option value="0">Please select</option>
@@ -182,7 +133,7 @@
                                 <div class="form-group">
                                     <label class="m-4 control-label">State</label>
                                     <div class="col-md-12">
-                                    <!-- <input type="text" class="form-control" name="state_id" id="state_in" placeholder="State Name"/> -->
+                                    
                                     </div>
                                     <div class="col-md-12" id="state_div">
                                     </div>
@@ -192,7 +143,7 @@
                         <div class="form-group">
                             <label class="m-4 control-label">City</label>
                             <div class="col-md-12">
-                            <!-- <input type="text" class="form-control" name="city_id" id="city_in" placeholder="City Name"/> -->
+                           
                             </div>
                             <div class="col-md-12" id="city">
                                
@@ -204,7 +155,7 @@
                          <label class="m-4 control-label">Zipcode Access</label>
                             <div class="col-md-12">
                             <input type="text" id="postalCode" class="form-control" placeholder="Enter Postal Code" name="zipCode">
-                            <!-- <div id="result"></div> -->
+                           
                             </div>
                         </div>
                     </div>
@@ -220,11 +171,9 @@
                     <div class="space-22"></div>
                 </div>
             </div>
-            <div class="text-right">
-            <button type="submit" id="submit" class="btn btn-sm text-white" style="background-color: #337ab7;">
-    Save
-</button>
 
+            <div class="text-right">
+            <button type="submit" id="submit" class="btn btn-sm text-white" style="background-color: #337ab7;">Save</button>
             </div>
         </form>
         
