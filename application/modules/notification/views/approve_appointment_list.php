@@ -439,6 +439,8 @@ if ($this->ion_auth->is_subAdmin()) {
                   $start_dateAvailability = date('Y-m-d', strtotime($notification->start_date_availability));
 
                   $theatre_dateTime = date('Y-m-d', strtotime($notification->theatre_date_time));
+                  $theatre_start_date_time = date('Y-m-d', strtotime($notification->theatre_start_date_time));
+                  
             ?>
 									<tr>
                                     <td><?php echo $notification->clinic_appointment_id;?></td>
@@ -449,7 +451,21 @@ if ($this->ion_auth->is_subAdmin()) {
 										<!-- <td>35</td> -->
 										<td><?php echo $notification->first_name;?></td>
 										<td><?php echo $notification->name;?></td>
-										<td><?php echo $appointment_date;?></td>
+										<td>
+                                            <?php if(!empty($appointment_date || $theatre_start_date_time)){
+                                            echo $appointment_date;
+                                        }else if(!empty($theatre_start_date_time)){
+                                            echo $theatre_start_date_time;
+                                        }else{
+
+                                        }
+                                        // else if(!empty($theatre_start_date_time)){
+                                        //     echo $theatre_start_date_time;
+                                        // }else{
+                                        //     echo $theatre_start_date_time;
+                                        // }
+                                        
+                                        ?></td>
 										<td>
                                         <?php 
                                                         if ($formatted_time == $appointment_date) {
@@ -467,13 +483,13 @@ if ($this->ion_auth->is_subAdmin()) {
                                             <?php if($notification->appointment_status == 'Inactive'): ?>
                                                 <span class="custom-badge status-red">Inactive</span> 
                                             <?php elseif($notification->appointment_status == 'Active'): ?>
-                                                <input type="hidden" class="notification-id" value="<?php echo $notification->notification_id;?>">
+                                                <input type="hidden" class="notification-id" value="<?php echo $notification->notification_ids;?>">
                                                 <select class="statusDropdown custom-badge <?php echo ($notification->appointment_status == 'Active') ? 'status-green' : 'status-red'; ?>">
                                                     <option value="Active"><strong>Active</strong></option>
                                                     <option value="Inactive"><strong>Inactive</strong></option>
                                                 </select>
                                             <?php else: ?>
-                                                <input type="hidden" class="notification-id" value="<?php echo $notification->notification_id;?>">
+                                                <input type="hidden" class="notification-id" value="<?php echo $notification->notification_ids;?>">
                                                 <select class="statusDropdown custom-badge <?php echo ($notification->appointment_status == 'pending') ? 'status-red' : 'status-green'; ?>">
                                                     <option disabled selected><strong  > Pending</strong></option>
                                                     <option value="Active"><strong>Active</strong></option>
@@ -481,15 +497,7 @@ if ($this->ion_auth->is_subAdmin()) {
                                                 </select>
                                             <?php endif; ?>
                                         </td>
-										<!-- <td class="text-right">
-											<div class="dropdown dropdown-action">
-												<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-												<div class="dropdown-menu dropdown-menu-right">
-													<a class="dropdown-item" href="edit-appointment.html"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-													<a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_appointment"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-												</div>
-											</div>
-										</td> -->
+										
 									</tr>
 
                                     <?php endforeach; ?>
@@ -543,7 +551,7 @@ $(document).ready(function() {
     $('.statusDropdown').on('change', function() {
         var selectedStatus = $(this).val();
         var notificationId = $(this).prev('.notification-id').val(); 
-        
+        // alert(selectedStatus);
         $.ajax({
             url: '<?php echo base_url('notification/update_notification_doctor'); ?>',
             method: 'POST',

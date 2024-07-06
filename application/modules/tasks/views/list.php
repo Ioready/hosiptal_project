@@ -12,78 +12,11 @@
     <?php if ($this->ion_auth->is_admin() or $this->ion_auth->is_subAdmin() or $this->ion_auth->is_facilityManager()) { ?>
         <div class="block full">
             <div class="row text-center">
-                <!--  <div class="col-sm-6 col-lg-12">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <div id="msg"></div>
-                        <?php
-                        $message = $this->session->flashdata('success');
-                        if (!empty($message)) :
-                        ?><div class="alert alert-success">
-                                <?php echo $message; ?></div><?php endif; ?>
-                        <?php
-                        $error = $this->session->flashdata('error');
-                        if (!empty($error)) :
-                        ?><div class="alert alert-danger">
-                                <?php echo $error; ?></div><?php endif; ?>
-                        <form action="<?php echo site_url('task/patientImport'); ?>" name="patientFormExport" method="post" enctype="multipart/form-data">
-                            <div class="col-sm-6 col-lg-2">
-                                <div class="text-left">Upload File:</div>
-                            </div>
-                            <div class="col-sm-6 col-lg-10">
-                                <div class="text-left text-danger">Note: First, select care unit to upload the file</div>
-                            </div>
-                            <div class="col-sm-6 col-lg-4">
-                                <select id="care_unit1" name="careUnit" class="form-control select-2" onchange="getPatient()">
-                                    <option value="">Select Care Unit</option>
-                                    <?php
-                                    if (isset($careUnit) && !empty($careUnit)) {
-                                        foreach ($careUnit as $row) {
-                                            $select = "";
-                                            if (isset($careUnitID)) {
-                                                if ($careUnitID == $row->id) {
-                                                    $select = "selected";
-                                                }
-                                            }
-                                    ?>
-                                            <option value="<?php echo $row->id; ?>" <?php echo $select; ?>><?php echo $row->name; ?></option>
-                                            <?php
-                                        }
-                                    }
-                                            ?>
-                                </select>
-                            </div>
-                            <div class="col-sm-6 col-lg-4 hidetext">
-                                <input type="file" name="patientFile" class="form-control" accept=".csv"/>
-                            </div>
-                            <div class="col-sm-6 col-lg-1 hidetext">
-                                <button type="submit" class="btn btn-info btn-sm" value="Import"><fa class="fa fa-file-pdf-o"></fa> Import</button>
-                            </div>
-                            <div id="labelError"></div>
-                        </form>
-                    </div>
-                </div></div> -->
+            
 
                 <div class="col-sm-6 col-lg-12 mt-4">
                     <div class="panel panel-default">
-                        <!-- <div style="margin: 0px 0px 20px 16px;">
-                            <div class="col-sm-6 col-lg-2">
-                                <div class="text-left">Download File:</div>
-                            </div>
-                            <div class="col-sm-6 col-lg-6">
-                                <div class="text-left text-danger">Note: select care unit to download specific care unit's file or , overall file will be downloaded</div>
-                            </div>
-                            <?php
-                            $message = $this->session->flashdata('success');
-                            if (!empty($message)) :
-                            ?><div class="alert alert-success col-sm-6 col-lg-2" style="margin: 2px 5px 5px 3.5%;">
-                                    <?php echo $message; ?></div><?php endif; ?>
-                            <?php
-                            $error = $this->session->flashdata('error');
-                            if (!empty($error)) :
-                            ?><div class="alert alert-danger col-sm-6 col-lg-2" style="margin: 2px 5px 5px 3.5%;">
-                                    <?php echo $error; ?></div><?php endif; ?>
-                        </div> -->
+                       
 
 
                         <div class="p-4">
@@ -94,22 +27,7 @@
                     <div class="col-lg-6">
                         <div class="text-left text-danger">Note: select care unit to download specific care unit's file or, overall file will be downloaded</div>
                     </div>
-                    <div class="col-lg-2">
-                        <?php
-                        $message = $this->session->flashdata('success');
-                        if (!empty($message)) :
-                        ?>
-                        <div class="alert alert-success"><?php echo $message; ?></div>
-                        <?php endif; ?>
-                    </div>
-                    <div class="col-lg-2">
-                        <?php
-                        $error = $this->session->flashdata('error');
-                        if (!empty($error)) :
-                        ?>
-                        <div class="alert alert-danger"><?php echo $error; ?></div>
-                        <?php endif; ?>
-                    </div>
+                    
                 </div>
             </div>
 
@@ -159,12 +77,7 @@
                                         ?>
                                     </select>
                                 </div>
-                                <!-- <div class="col-sm-12 col-lg-2">
-                                    <input type="text" class="form-control" name="date" id="date" placeholder="from date" />
-                                </div>
-                                <div class="col-sm-12 col-lg-2">
-                                    <input type="text" class="form-control" name="date1" id="date1" placeholder="to date" />
-                                </div> -->
+                                
 
 
                                 <?php
@@ -175,7 +88,7 @@
                                 <!-- month year download -->
                                 <!-- <form action="<?php echo site_url('task/monthYearPatientExport'); ?>" name="patientFormExport" method="get"> -->
                                 <div>
-                                <div class="col-lg-3">
+                                <!-- <div class="col-lg-3">
                                         <select class="form-control" name="month" id="month">
                                             <option value="">Select Month</option>
                                             <option value="01">January</option>
@@ -191,7 +104,7 @@
                                             <option value="11">November</option>
                                             <option value="12">December</option>
                                         </select>
-                                    </div>
+                                    </div> -->
                                     <div class="col-lg-2">
                                     <select class="form-control" name="year" id="year">
                                             <?php

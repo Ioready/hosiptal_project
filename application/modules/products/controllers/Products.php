@@ -54,9 +54,10 @@ class Products extends Common_Controller {
         FROM `vendor_sale_doctor_product` 
         LEFT JOIN `vendor_sale_users` ON 
         `vendor_sale_users`.`id` = `vendor_sale_doctor_product`.`user_id`
-        WHERE `vendor_sale_doctor_product`.`status` = 0  and
-        `vendor_sale_doctor_product`.`user_id` =$LoginID
+        WHERE `vendor_sale_doctor_product`.`user_id` =$LoginID
         ORDER BY `vendor_sale_doctor_product`.`id` DESC";
+        //   WHERE `vendor_sale_doctor_product`.`status` = 0  and
+        //   `vendor_sale_doctor_product`.`user_id` =$LoginID
         
         // $option1 ="SELECT `vendor_sale_contactus`.`title`, 
         // `vendor_sale_contactus`.`id`, 
@@ -149,6 +150,9 @@ class Products extends Common_Controller {
             'select' => '*'
         );
         $this->data['countries'] = $this->common_model->customGet($option);
+
+        $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+
         $option = array('table' => 'states',
                     'select' => '*');
                 $this->data['states'] = $this->common_model->customGet($option);
@@ -159,6 +163,87 @@ class Products extends Common_Controller {
                 );
                 $this->data['careUnitsUser'] = $this->common_model->customGet($option);
 
+
+                if($this->ion_auth->is_subAdmin()){
+
+                    $option = array(
+                        'table' => ' doctors',
+                        'select' => 'doctors.*',
+                        'join' => array(
+                            array('users', 'doctors.user_id=users.id', 'left'),
+                        ),
+                        'where' => array(
+                            'users.delete_status' => 0,
+                            'doctors.user_id'=>$CareUnitID
+                        ),
+                        'single' => true,
+                    );
+            
+                    $datadoctors = $this->common_model->customGet($option);
+                    $option = array(
+                        'table' => ' doctors',
+                        'select' => 'users.*',
+                        'join' => array(
+                            array('users', 'doctors.user_id=users.id', 'left'),
+                            array('user_profile UP', 'UP.user_id=users.id', 'left'),
+                        ),
+                        'where' => array(
+                            'users.delete_status' => 0,
+                            'doctors.facility_user_id'=>$datadoctors->facility_user_id
+                        ),
+                        'order' => array('users.id' => 'desc'),
+                    );
+                    $this->data['doctorsname'] = $this->common_model->customGet($option);
+            
+                    $option = array(
+                        'table' => 'clinic',
+                        'select' => '*', 'where' => array('hospital_id'=>$datadoctors->facility_user_id,'delete_status' => 0), 'order' => array('name' => 'ASC')
+                    );
+                    $this->data['clinic_location'] = $this->common_model->customGet($option);
+            
+            
+                    $option = array(
+                        'table' => 'practitioner',
+                        'select' => '*', 'where' => array('hospital_id'=>$datadoctors->facility_user_id,'delete_status' => 0), 'order' => array('name' => 'ASC')
+                    );
+                    $this->data['practitioner'] = $this->common_model->customGet($option);
+            
+            
+                } else if ($this->ion_auth->is_facilityManager()) {
+                    
+                    $option = array(
+                        'table' => ' doctors',
+                        'select' => 'users.*',
+                        'join' => array(
+                            array('users', 'doctors.user_id=users.id', 'left'),
+                            array('user_profile UP', 'UP.user_id=users.id', 'left'),
+                            array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
+                            
+                        ),
+                        
+                        'where' => array(
+                            'users.delete_status' => 0,
+                            'doctors.facility_user_id'=>$CareUnitID
+                        ),
+                        'order' => array('users.id' => 'desc'),
+                    );
+                    $this->data['doctorsname'] = $this->common_model->customGet($option);
+            
+            
+                    $option = array(
+                        'table' => 'clinic',
+                        'select' => '*', 'where' => array('hospital_id'=>$CareUnitID,'delete_status' => 0), 'order' => array('name' => 'ASC')
+                    );
+                    $this->data['clinic_location'] = $this->common_model->customGet($option);
+            
+                    $option = array(
+                        'table' => 'practitioner',
+                        'select' => '*', 'where' => array('hospital_id'=>$CareUnitID,'delete_status' => 0), 'order' => array('name' => 'ASC')
+                    );
+                    $this->data['practitioner'] = $this->common_model->customGet($option);
+                    
+                }
+                
         $this->load->admin_render('add', $this->data, 'inner_script');
     }
 
@@ -182,28 +267,29 @@ class Products extends Common_Controller {
         // $this->form_validation->set_rules('description', "Description", 'required|trim');
 
         if ($this->form_validation->run() == true) {
-            $this->filedata['status'] = 1;
+            // $this->filedata['status'] = 1;
             
-            if ($this->filedata['status'] == 0) {
-                $response = array('status' => 0, 'message' => $this->filedata['error']);
-            } else {
+            // if ($this->filedata['status'] == 0) {
+            //     $response = array('status' => 0, 'message' => $this->filedata['error']);
+            // } else {
                
 
                 $options_data = array(
                     'user_id'=> $LoginID,
-                    'type' => $this->input->post('type'),
-                    'name' => $this->input->post('name'),
-                    'price' => $this->input->post('price'),
-                    'supplier' => $this->input->post('supplier'),
-                    'product_code' => $this->input->post('product_code'),
-                    'appointment_booked' => $this->input->post('appointment_booked'),
+                    'type' => $this->input->post('type')?? null,
+                    'name' => $this->input->post('name')?? null,
+                    'price' => $this->input->post('price')?? null,
+                    'appointment_booked' => $this->input->post('appointment_booked')?? null,
+                    'supplier' => $this->input->post('supplier')?? null,
+                    'product_code' => $this->input->post('product_code')?? null,
                     
-                    'serial_number' => $this->input->post('serial_number'),
-                    'stock_level' => $this->input->post('stock_level'),
-                    'tax' => $this->input->post('tax'),
-                    'cost' => $this->input->post('cost'),
-                    'comment' => $this->input->post('comment'),
-                    'renewal' => $this->input->post('renewal'),
+                    'serial_number' => $this->input->post('serial_number')?? null,
+                    'stock_level' => $this->input->post('stock_level')?? null,
+                    'tax' => $this->input->post('tax')?? null,
+                    'cost' => $this->input->post('cost')?? null,
+                    'comment' => $this->input->post('comment')?? null,
+
+                    'renewal' => $this->input->post('renewal')?? null,
                     'duration' => $this->input->post('duration')?? null,
                     'color' => $this->input->post('color')?? 0,
                     'appointment_video_consult' => $this->input->post('appointment_video_consult')?? 0,
@@ -215,13 +301,17 @@ class Products extends Common_Controller {
 
                     
                 );
+                // print_r($options_data);die;
+                // $option = $this->db->insert('doctor_product', $options_data); 
+
                 $option = array('table' => $this->_table, 'data' => $options_data);
+
                 if ($this->common_model->customInsert($option)) {
                     $response = array('status' => 1, 'message' => "Successfully added", 'url' => base_url($this->router->fetch_class()));
                 } else {
                     $response = array('status' => 0, 'message' => "Failed to add");
                 }
-            }
+            // }
         } else {
             $messages = (validation_errors()) ? validation_errors() : '';
             $response = array('status' => 0, 'message' => $messages);
@@ -434,15 +524,24 @@ class Products extends Common_Controller {
 
     public function updateAccountStatus() {
         $id = decoding($this->input->post('userId'));
+       
         $status = $this->input->post('status');
         if ($status == "No") {
             $status = 0;
         } else {
             $status = 1;
         }
-        $update = $this->common_model->customUpdate(array('table' => 'users', 'data' => array('active' => $status), 'where' => array('id' => $id)));
+       
+        // $option = array(
+        //     'table' => 'doctor_product',
+        //     'data' => $options_data,
+        //     'where' => array('id' => $where_id)
+        // );
+        // $update = $this->common_model->customUpdate($option);
+
+        $update = $this->common_model->customUpdate(array('table' => 'doctor_product', 'data' => array('status' => $status), 'where' => array('id' => $id)));
         if ($update) {
-            $response = array('status' => 1, 'message' => "Vendor Verified Successfully");
+            $response = array('status' => 1, 'message' => "product update Successfully");
         } else {
             $response = array('status' => 0, 'message' => "Error");
         }

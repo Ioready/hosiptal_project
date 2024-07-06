@@ -82,11 +82,32 @@ display:none;
                             ?>
                             <tr>
                                 <td><?php echo $rowCount1; ?></td>            
-                                <td><?php echo $rows->coupon_type; ?></td>
+                                <td><?php if($rows->coupon_type== '0'){
+                                    echo 'Auto';
+                                }else if($rows->coupon_type== '1'){
+                                    echo 'Deposit';
+                                }else if($rows->coupon_type== '2'){
+                                    echo 'Without deposit';
+                                }else if($rows->coupon_type== '3'){
+                                    echo 'Registration';
+                                }else{
+
+                                }  ?></td>
                                 <td><?php echo $rows->coupon_code; ?></td>
                                 <td><?php echo $rows->user_size; ?></td>
                                 <td><?php echo $rows->total_use_user; ?></td>
-                                <td><?php echo $rows->cash_type; ?></td>
+
+                                <td><?php if($rows->cash_type== '0'){
+                                    echo 'Auto';
+                                }else if($rows->cash_type== '1'){
+                                    echo 'Deposit';
+                                }else if($rows->cash_type== '2'){
+                                    echo 'Without deposit';
+                               
+                                }else{
+
+                                }  ?>
+                                </td>
                                 <td><?php echo $rows->amount; ?></td>
                                 <td><?php echo $rows->used_type; ?></td>
                                 <td><?php echo $rows->min_amount; ?></td>
@@ -114,12 +135,34 @@ display:none;
                             $rowCount++;
                     ?>
                      <tr>
-                                <td><?php echo $rowCount1; ?></td>            
-                                <td><?php echo $rows->coupon_type; ?></td>
+                                <td><?php echo $rowCount1; ?></td>   
+                                <td><?php if($rows->coupon_type== '0'){
+                                    echo 'Auto';
+                                }else if($rows->coupon_type== '1'){
+                                    echo 'Deposit';
+                                }else if($rows->coupon_type== '2'){
+                                    echo 'Without deposit';
+                                }else if($rows->coupon_type== '3'){
+                                    echo 'Registration';
+                                }else{
+
+                                }  ?></td>         
+                                <!-- <td><?php //echo $rows->coupon_type; ?></td> -->
                                 <td><?php echo $rows->coupon_code; ?></td>
                                 <td><?php echo $rows->user_size; ?></td>
                                 <td><?php echo $rows->total_use_user; ?></td>
-                                <td><?php echo $rows->cash_type; ?></td>
+                                <td><?php if($rows->cash_type== '0'){
+                                    echo 'Auto';
+                                }else if($rows->cash_type== '1'){
+                                    echo 'Deposit';
+                                }else if($rows->cash_type== '2'){
+                                    echo 'Without deposit';
+                               
+                                }else{
+
+                                }  ?>
+                                </td>
+                                <!-- <td><?php //echo $rows->cash_type; ?></td> -->
                                 <td><?php echo $rows->amount; ?></td>
                                 <td><?php echo $rows->used_type; ?></td>
                                 <td><?php echo $rows->min_amount; ?></td>

@@ -1,6 +1,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.js"></script>
 <!-- Page content -->
-<div id="page-content">
+ <style>
+    .min-height-data{
+        height: 100%!important;
+    }
+ </style>
+<div id="page-content min-height-data"> 
     <!-- Datatables Header -->
     <ul class="breadcrumb breadcrumb-top">
         <li>
@@ -17,7 +22,7 @@
     
  
     
-    <div class="block full">
+    <div class="block full min-height-data">
         <div class="block-title">
             <h2><strong>Contacts</strong> Panel</h2>
         </div>
@@ -211,41 +216,47 @@
                           <!-- <div class="col-md-2"></div> -->
 
                            <!-- <div class="col-md-10"> -->
-                            <div class="col-md-4">
-                            <label class="">City (Optional)</label>
-                                    <select id="country" name="city" class="form-control select2" size="1">
-                                        <option value="" disabled selected>Please select</option>
-                                        <?php foreach($states as $state){?>
+                           <div class="col-md-4">
+                           <div class="form-group">
+                            <label class="m-4 control-label">Country*</label>
+                                    
+                                    <select id="country" onchange="getStates(this.value)" name="country" class="form-control select2" size="1">
+                                        <option value="0">Please select</option>
+                                            <?php foreach ($countries as $country) { ?>
+                                                        
+                                            <option value="<?php echo $country->id; ?>"><?php echo $country->name; ?></option>
                                                     
-                                        <option value="<?php echo $state->id;?>"><?php echo $state->name;?></option>
-                                                
-                                        <?php }?>
+                                            <?php } ?>
                                     </select>
-
-                                <!-- <input type="text" class="form-control" name="first_name" id="first_name" placeholder="<?php echo lang('first_name');?>" /> -->
+                                    </div>
                             </div>
-                            <!-- <span class="help-block m-b-none col-md-offset-3"><i class="fa fa-arrow-circle-o-up"></i> <?php echo lang('english_note');?></span> -->
-                            
-                            <div class="col-md-4">
+
+                            <div class="col-md-4" >
+                                <div class="form-group">
+                                    <label class="m-4 control-label">State</label>
+                                   
+                                    <div class="col-md-12" id="state_div">
+                                    </div>
+                                </div>
+                            </div>
+                        <div class="col-md-4" >
+                            <div class="form-group">
+                                <label class="m-4 control-label">City</label>
+                                
+                                <div class="col-md-12" id="city">
+                                
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+
+                            <div class="col-md-12">
+                            <div class="form-group">
                             <label class="">PostCode (Optional)</label>
                                 <input type="text" class="form-control" name="post_code" id="post_code" placeholder="Post Code" />
                             </div>
 
-                            
-                            <div class="col-md-4">
-                            <label class="">Country (Optional)</label>
-                                    <select id="country" name="country" class="form-control select2" size="1">
-                                        <option value="0">Please select</option>
-                                        <?php foreach($countries as $country){?>
-                                                    
-                                        <option value="<?php echo $country->id;?>"><?php echo $country->name;?></option>
-                                                
-                                        <?php }?>
-                                    </select>
-                            </div>
-
-                            <!-- </div> -->
-
+                             </div>
                         </div>
                     </div>
 
@@ -342,4 +353,44 @@
 /*    $("#zipcode").select2({
         allowClear: true
     });*/
+</script>
+
+<script>
+
+
+function getStates(countryId) {
+   
+
+    $.ajax({
+        url: 'contactus/getStates',
+        type: 'POST',
+        dataType: "json",
+        data: { id: countryId },
+        success: function(response) {
+            $('#state_div').html(response);
+            
+        },
+        error: function(xhr, status, error) {
+            // console.error(xhr.responseText);
+        }
+    });
+}
+
+
+function getCities(stateId) {
+    $.ajax({
+        url: 'contactus/getCity',
+        type: 'POST',
+        dataType: "json",
+        data: { id: stateId },
+        success: function(response) {
+   
+    $('#city').html(response);
+},
+        error: function(xhr, status, error) {
+            console.error(xhr.responseText);
+        }
+    });
+}
+
 </script>

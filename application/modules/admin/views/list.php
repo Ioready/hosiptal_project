@@ -50,6 +50,9 @@
                     <a  href="<?php echo base_url().'index.php/' . $this->router->fetch_class(); ?>/open_model" class="save-btn btn btn-sm btn-primary">
                         <i class="gi gi-circle_plus mb-1 me-2"></i> <?php echo $title; ?>
                     </a></h2>
+                     <!-- <h2><a href="javascript:void(0)"  onclick="open_modal('<?php echo $model; ?>')"  style="background-color:#337ab7;" class="btn btn-sm m-2 text-white">
+                        <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
+                    </a></h2> -->
             <?php }else if($this->ion_auth->is_superAdmin()){ ?>
                     <h2>
                     <a href="<?php echo base_url() . $this->router->fetch_class(); ?>/open_model" class="save-btn btn btn-sm btn-primary">
@@ -57,16 +60,8 @@
                     </a></h2>
                 <?php } ?>
         </div>
-        <!-- <div class="content-header">
-            <ul class="nav-horizontal text-center">
-                <li class="<?php echo ($this->uri->segment(3) == "No") ? 'active' : ''; ?>">
-                    <a href="<?php echo base_url() ?>vendors/index/No"><i class="fa fa-times"></i> Unverified Vendors</a>
-                </li>
-                <li class="<?php echo ($this->uri->segment(3) == "Yes") ? 'active' : ''; ?>">
-                    <a href="<?php echo base_url() ?>vendors/index/Yes"><i class="gi gi-check"></i> Verified Vendors</a>
-                </li>
-            </ul>
-        </div> -->
+        
+
         <div class="table-responsive">
             <table id="common_datatable_users" class="table table-vcenter table-condensed table-bordered text-center">
                 <thead>

@@ -193,12 +193,14 @@ class Contactus extends Common_Controller {
         $this->data['users'] = $this->common_model->customQuery($option);
 
         $option = array('table' => 'countries',
-            'select' => '*'
+            'select' => '*',
+            'where'=>array('shortname'=>'GB')
         );
         $this->data['countries'] = $this->common_model->customGet($option);
         $option = array('table' => 'states',
                     'select' => '*');
-                $this->data['states'] = $this->common_model->customGet($option);
+
+        $this->data['states'] = $this->common_model->customGet($option);
 
         $this->load->admin_render('add', $this->data, 'inner_script');
     }
@@ -602,5 +604,67 @@ class Contactus extends Common_Controller {
         }
         echo $response;
     }
+
+
+    public function getStates()
+    {
+        $response = array();
+        $id = $this->input->post('id');
+       
+        if (!empty($id)) {
+           
+
+            $options = array(
+                'table' => 'states',
+                'select' => 'states.*',
+                'where' => array('country_id' => $id),
+            );
+            $states = $this->common_model->customGet($options);
+            
+            $data.= '<select id="state" onchange="getCities(this.value)" name="state" class="form-control" size="1">';
+            $data.= '<option value="" disabled selected>Please select</option>';
+            
+            
+            foreach ($states as $state_list) {
+               
+                $data.= '<option value="' . $state_list->id_state . '">' . $state_list->state . '</option>';
+            }
+            
+            
+             $data.= '</select>';
+        }
+
+        
+        echo json_encode($data);
+
+    //    return  json_encode($response);
+    }
+    
+    public function getCity()
+    {
+        $response = array();
+        $id = $this->input->post('id');
+        if (!empty($id)) {
+            $options = array(
+                'table' => 'cities',
+                'select' => 'cities.*',
+                'where' => array('state_id' => $id),
+            );
+            $cities = $this->common_model->customGet($options);
+
+            $data.= '<select id="city" name="city" class="form-control" size="1">';
+            $data.= '<option value="" disabled selected>Please select</option>';
+            
+            
+            foreach ($cities as $cities_list) {
+               
+                $data.= '<option value="' . $cities_list->id_city . '">' . $cities_list->city . '</option>';
+            }
+            
+             $data.= '</select>';
+        }
+        echo json_encode($data);
+    }
+    
 
 }

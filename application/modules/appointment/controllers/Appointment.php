@@ -833,7 +833,9 @@ public function fetch() {
 
                     $insert_id = $this->db->insert_id();
                     
-
+                    $practitioner = $this->input->post('practitioner');
+                    // 'sender_id' => $practitioner ?: null;
+                    
                     $additional_notification = array(
                        
                         'type_id' => 'clinic_appointment',
@@ -849,199 +851,76 @@ public function fetch() {
                     $notifications_id = $this->db->insert_id();
 
 
-                    if($this->input->post('patient') != ""){
-     
-      
-                    
-                    //     $query = $this->db->get_where('users', array('email' => $this->input->post('practitioner')));
-                    // $receiver = $query->row();
-                    // $practitioner =    $this->input->post('practitioner');
-
-                    // $receiver_id = $practitioner;
-                    // echo "<pre>";
-
-                    // print_r($receiver_id);die;
-                    // echo "</pre>";
-
-                    // $additional_data_profile = array(
-                    //     'type'=>$this->input->post('type'),
-                    //     'patient' => $this->input->post('patient'),
-                    //     'location_appointment' => $this->input->post('location_appointment'),
-                    //     'clinician_appointment' => $this->input->post('location_appointment'),
-                    //     'practitioner'=>$this->input->post('practitioner'),
-                    //     'appointment_type' => $this->input->post('appointment_type'),
-                    //     'start_date_appointment' => $this->input->post('start_date_appointment'),
-                    //     'end_date_appointment' => $this->input->post('end_date_appointment'),
-                    //     'comment_appointment' => $this->input->post('comment_appointment'),
-                    //     'doctor_name' => $this->input->post('doctor_name'),
-                    //     'status' => '0',
-                                     
-                    // );
-                   
-                    
-
-                    // $this->db->insert('clinic_appointment', $additional_data_profile); 
-
-                    // $insert_id = $this->db->insert_id();
-
-                    
-// print_r($additional_data_profile);die;
-
-                   
-                    // $additional_notification = array(
-                       
-                    //     'type_id' => 'clinic_appointment',
-                    //     'patient_id' => $this->input->post('patient'),
-                    //     'care_unit_id' => $this->input->post('location_appointment'),
-                    //     'clinic_appointment_id' => $insert_id,
-                    //     'user_id' => $CareUnitID,
-                    //     'sender_id' => $this->input->post('doctor_name'),
-                    // );
-                    
-                   
-                    // $this->db->insert('notifications', $additional_notification); 
-                    // $notifications_id = $this->db->insert_id();
-                    // echo "<pre>";
-                    // print_r($notifications_id);die;
-                    // echo "</pre>";
-                
-                // }else if($this->input->post('theatre_patient') != ""){
-
-                //     $query = $this->db->get_where('users', array('email' => $this->input->post('theatre_clinician')));
-                //     $receiver = $query->row();
-                //     $receiver_id = $receiver->id;
-
-                    // $additional_data_theatre = array(
-                    //     'type'=>$this->input->post('type'),
-                    //     'theatre_patient' => $this->input->post('theatre_patient'),
-                    //     'theatre_location' => $this->input->post('theatre_location'),
-                    //     'theatre_clinician' => $receiver_id,
-                    //     'theatre_appointment_type' => $this->input->post('theatre_appointment_type'),
-                    //     'theatre_anaesthetist' => $this->input->post('theatre_anaesthetist'),
-                    //     'theatre_type_of_stay' => $this->input->post('theatre_type_of_stay'),
-                    //     'theatre_date_time' => $this->input->post('theatre_date_time'),
-                    //     'theatre_time_duration' => $this->input->post('theatre_time_duration'),
-                    //     'theatre_admission_date_time' => $this->input->post('theatre_admission_date_time'),
-                    //     'theatre_anaesthetic_type' => $this->input->post('theatre_anaesthetic_type'),
-                    //     'theatre_comment' => $this->input->post('theatre_comment'),
-                    //     'doctor_name' => $this->input->post('doctor_name'),
-                    //     'status' => '0'
-                    // );
-                    
-                    // $this->db->insert('vendor_sale_theatre_appointment', $additional_data_theatre); 
-
-                    // $additional_data_theatre = array(
-                    //     'type'=>$this->input->post('type'),
-                    //     'theatre_patient' => $this->input->post('theatre_patient'),
-                    //     'theatre_location' => $this->input->post('theatre_location'),
-                    //     'theatre_clinician' => $receiver_id,
-                    //     'theatre_appointment_type' => $this->input->post('theatre_appointment_type'),
-                    //     'theatre_anaesthetist' => $this->input->post('theatre_anaesthetist'),
-                    //     'theatre_type_of_stay' => $this->input->post('theatre_type_of_stay'),
-                    //     'theatre_date_time' => $this->input->post('theatre_date_time'),
-                    //     'theatre_time_duration' => $this->input->post('theatre_time_duration'),
-                    //     'theatre_admission_date_time' => $this->input->post('theatre_admission_date_time'),
-                    //     'theatre_anaesthetic_type' => $this->input->post('theatre_anaesthetic_type'),
-                    //     'theatre_comment' => $this->input->post('theatre_comment'),
-                    //     'doctor_name' => $this->input->post('doctor_name'),
-                    //     'status' => '0'
-                    // );
-                    
-                    // $this->db->insert('vendor_sale_theatre_appointment', $additional_data_theatre); 
-
-                    
-                    // $insert_id = $this->db->insert_id();
-                    
-                //     $additional_notification = array(
+                        // if($this->input->post('type') == "clinic_appointment"){
                         
-                //         'care_unit_id' => $this->input->post('theatre_location'),
-                //         'theatre_appointment_id	' => $insert_id,
-                //         'user_id' => $receiver_id,
-                //         'sender_id' => $this->input->post('doctor_name'),
-                //     );
-                    
-
-                //     $this->db->insert('notifications', $additional_notification); 
-
-
-                // }else if($this->input->post('availability_location') != ""){ 
-
-                //     $query = $this->db->get_where('users', array('email' => $this->input->post('availability_practitioner')));
-                    // $receiver = $query->row();
-                    // $receiver_id = $receiver->id;
-
-                    // $additional_data_theatre = array(
+                        //     $additional_notification = array(
+                            
+                        //         'type_id' => 'clinic_appointment',
+                        //         'patient_id' => $this->input->post('patient'),
+                        //         'care_unit_id' => $this->input->post('location_appointment'),
+                        //         'clinic_appointment_id' => $insert_id,
+                        //         'user_id' => $CareUnitID,
+                        //         'sender_id' => $this->input->post('doctor_name'),
+                        //     );
+                            
+                        //     $this->db->insert('notifications', $additional_notification); 
+                        //     $notifications_id = $this->db->insert_id();
                         
-                        
-                    //     'availability_location' => $this->input->post('availability_location'),
-                    //     'availability_practitioner' => $receiver_id,
-                    //     'start_date_availability' => $this->input->post('start_date_availability'),
-                    //     'end_time_date_availability' => $this->input->post('end_time_date_availability'),
-                    //     'doctor_name' => $this->input->post('doctor_name'),
-                    //     'status' => '0',
-                        // 'created_at' => ,                 
-                  
-                    // );
+                        // }else if($this->input->post('type') == "clinic_appointment"){
 
-                    // $insert_id =$this->db->insert('doctor_availability', $additional_data_theatre);
-                    
-                //     $insert_id = $this->db->insert_id();
-                    
-                    
-                //     $additional_notification = array(
-                        
-                //         'care_unit_id' => $this->input->post('theatre_location'),
-                //         'availability_id	' => $insert_id,
-                //         'user_id' => $receiver_id,
-                //         'sender_id' => $this->input->post('doctor_name'),
-                //     );
-                    
+                        //     $query = $this->db->get_where('users', array('email' => $this->input->post('theatre_clinician')));
+                        //     $receiver = $query->row();
+                        //     $receiver_id = $receiver->id;
+                            
+                        //     $additional_notification = array(
+                                
+                        //         'care_unit_id' => $this->input->post('location_appointment'),
+                        //         'clinic_appointment_id	' => $insert_id,
+                        //         'user_id' => $receiver_id,
+                        //         'sender_id' => $this->input->post('doctor_name'),
+                        //     );
+                            
 
-                //     $this->db->insert('notifications', $additional_notification); 
-
-                // }else if($this->input->post('out_of_office_location') != ""){ 
-
-                    // $query = $this->db->get_where('users', array('email' => $this->input->post('out_of_office_practitioner')));
-                    // $receiver = $query->row();
-                    // $receiver_id = $receiver->id;
-
-                    // $additional_data_out = array(
-                        
-                        
-                        // 'out_of_office_location' => $this->input->post('out_of_office_location'),
-                        // 'out_of_office_location' => $this->input->post('out_of_office_location'),
-                        // 'out_of_office_practitioner' => $receiver_id,
-                        // 'out_start_time_at' => $this->input->post('out_start_time_at'),
-                        // 'out_end_time_at' => $this->input->post('out_end_time_at'),
-                        // 'out_of_office_comment' => $this->input->post('out_of_office_comment'),
-                        // 'doctor_name' => $this->input->post('doctor_name'),
-                        // 'status' => '0',
-                        // 'created_at' => ,                 
-                  
-                    // );
-
-                    // $this->db->insert('out_of_office_doctor', $additional_data_out); 
-                    // $insert_id = $this->db->insert_id();
-                    
-                    
-                    // $additional_notification = array(
-                        
-                    //     'care_unit_id' => $this->input->post('theatre_location'),
-                    //     'out_of_office_id	' => $insert_id,
-                    //     'user_id' => $receiver_id,
-                    //     'sender_id' => $this->input->post('doctor_name'),
-                    // );
-                    
-
-                    // $this->db->insert('notifications', $additional_notification);
-
-                }
-                    // print_r($additional_data_profile);die;
-
-                    
+                        //     $this->db->insert('notifications', $additional_notification); 
 
 
-                 
+                        // }else if($this->input->post('type') == "availability_location"){ 
+
+                        //     $query = $this->db->get_where('users', array('email' => $this->input->post('availability_practitioner')));
+                        //     $receiver = $query->row();
+                        //     $receiver_id = $receiver->id;
+                            
+                        //     $additional_notification = array(
+                                
+                        //         'care_unit_id' => $this->input->post('location_appointment'),
+                        //         'clinic_appointment_id' => $insert_id,
+                        //         'user_id' => $receiver_id,
+                        //         'sender_id' => $this->input->post('doctor_name'),
+                        //     );
+                            
+
+                        //     $this->db->insert('notifications', $additional_notification); 
+
+                        // }else if($this->input->post('type') == "out_of_office_location"){ 
+
+                        //     $query = $this->db->get_where('users', array('email' => $this->input->post('out_of_office_practitioner')));
+                        //     $receiver = $query->row();
+                        //     $receiver_id = $receiver->id;
+
+                            
+                        //     $additional_notification = array(
+                                
+                        //         'care_unit_id' => $this->input->post('location_appointment'),
+                        //         'clinic_appointment_id' => $insert_id,
+                        //         'user_id' => $receiver_id,
+                        //         'sender_id' => $this->input->post('doctor_name'),
+                        //     );
+                            
+
+                        //     $this->db->insert('notifications', $additional_notification);
+
+                        // }
+                            
                     if ($insert_id) {
                         $html = array();
                         $response = array('status' => 1, 'message' => 'Added Successfully', 'url' => base_url($this->router->fetch_class()));

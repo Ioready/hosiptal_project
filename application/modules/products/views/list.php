@@ -173,8 +173,8 @@
                         <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 200px;"><?php echo "Appointment Booked"; ?></th>
                         
                         
-                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 200px;"><?php echo "Status"; ?></th>
-                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 200px;"><?php echo "Date"; ?></th>
+                        <!-- <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 200px;"><?php echo "Status"; ?></th> -->
+                        <!-- <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 200px;"><?php echo "Date"; ?></th> -->
 
                         
                         <?php if($this->ion_auth->is_facilityManager()){?>
@@ -198,6 +198,7 @@
                         $rowCount = 0;
                         foreach ($list as $rows):
                             $rowCount++;
+                           
                             ?>
                             <?php if($LoginID == 1){ ?>
                             <tr>
@@ -245,6 +246,7 @@
                     $rowCount = 0;
                     foreach ($list as $rows){
                         $rowCount++;
+                        
                         ?>
                         
                         <tr>
@@ -272,34 +274,23 @@
                             <td><?php echo $rows->cost ?></td>
                             <td><?php echo $rows->comment ?></td>
                             <td><?php echo $rows->appointment_booked ?></td>
-                            <td><?php echo $rows->status ?></td>
-    
-                            <td class="text-center"><?php echo date('m/d/Y', $rows->create_on); ?></td>
+                            <!-- <td><?php //echo $rows->status ?></td> -->
+                            <!-- <td></td> -->
+                            <td class="text-center"><?php $start_dateAvailability = date('Y-m-d', strtotime($rows->create_on));
+                             echo $start_dateAvailability; ?></td>
                             <?php if ($this->ion_auth->is_facilityManager() || $this->ion_auth->is_subAdmin()) { ?>
 
-                            <td class="actions text-center" >
+                            <td class="actions text-center">
                                 <div class="btn-group btn-group-xs">
-                                    <a href="<?php echo base_url() . 'contactus/edit?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-pencil"></i></a>
-                                    
-                                        <?php
-                                        if ($rows->id != 1) {
-                                            if ($rows->is_active == 1) {
-                                                ?>
-                                                                            <!--                                                    <a href="javascript:void(0)" data-toggle="tooltip" class="btn btn-xs btn-success" onclick="statusFn('<?php echo USERS; ?>', 'id', '<?php echo encoding($rows->id); ?>', '<?php echo $rows->is_active; ?>')" title="Inactive Now"><i class="fa fa-check"></i></a>-->
-                                            <?php } else { ?>
-                                                                            <!--                                                    <a href="javascript:void(0)" data-toggle="tooltip" class="btn btn-xs btn-danger" onclick="statusFn('<?php echo USERS; ?>', 'id', '<?php echo encoding($rows->id); ?>', '<?php echo $rows->is_active; ?>')" title="Active Now"><i class="fa fa-times"></i></a>-->
-                                                <?php
-                                            }
-                                            if ($rows->is_active == 1) {
-                                                ?>
-                                                <!-- <a href="javascript:void(0)" data-toggle="tooltip" class="btn btn-xs btn-success" onclick="changeVendorStatus('<?php echo encoding($rows->id); ?>', 'No','<?php echo $rows->first_name . ' ' . $rows->last_name; ?>')" title="Inactive Now"><i class="fa fa-check"></i> Active</a> -->
-                                            <?php } else { ?>
-                                            <!--  <a href="javascript:void(0)" data-toggle="tooltip" class="btn btn-xs btn-danger" onclick="changeVendorStatus('<?php echo encoding($rows->id); ?>', 'Yes','<?php echo $rows->first_name . ' ' . $rows->last_name; ?>')" title="Active Now"><i class="fa fa-times"></i> Inactive</a> -->
-                                            <?php } ?>
-                                            <a href="javascript:void(0)" style="margin-left: 10px;" data-toggle="tooltip"   onclick="deleteFn('<?php echo contactus; ?>', 'id', '<?php echo encoding($rows->id); ?>', 'contactus', 'contactus/delVendors','<?php echo 'this entry' ?>')" class="btn btn-danger"><i class="fa fa-trash"></i></a>
-                                        <?php }
-                                        ?>
-                    <!-- <a href="<?php echo base_url() . 'vendors/paymentList/' . $rows->id; ?>" class="btn btn-sm btn-primary">Client List</a> -->
+                                    <!-- <a href="<?php echo base_url() . 'products/edit?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-pencil"></i></a> -->
+                                               <?php if($rows->status == 1){ ?>
+
+                                               
+                                             <a href="javascript:void(0)" data-toggle="tooltip" class="btn btn-xs btn-danger" onclick="changeVendorStatus('<?php echo encoding($rows->id); ?>', 'No','<?php echo $rows->first_name . ' ' . $rows->last_name; ?>')" title="Active Now"><i class="fa fa-times"></i> Inactive</a>
+                                <?php   }else {?>
+
+                                    <a href="javascript:void(0)" data-toggle="tooltip" class="btn btn-xs btn-success" onclick="changeVendorStatus('<?php echo encoding($rows->id); ?>', 'Yes','<?php echo $rows->first_name . ' ' . $rows->last_name; ?>')" title="Inactive"><i class="fa fa-times"></i> Active</a>
+                                    <?php   }?>
                                     </div>
                                 </td>
                             </tr>

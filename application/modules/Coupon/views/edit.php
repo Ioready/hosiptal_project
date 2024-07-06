@@ -23,7 +23,21 @@
                                 <div class="form-group">
                                     <label class="m-4 control-label">Coupon Type</label>
                                     <div class="col-md-12">
-                                        <input type="text" class="form-control" name="coupon_type" id="coupon_type" placeholder="coupon type" value="<?php echo $results->coupon_type; ?>"/>
+                                    <select class="form-control" name="coupon_type" id="coupon_type">
+                                        <option class="form-control" value="0" <?php echo ($results->coupon_type == 0) ? 'selected' : ''; ?>>Auto</option>
+                                        <option class="form-control" value="1" <?php echo ($results->coupon_type == 1) ? 'selected' : ''; ?>>Deposit</option>
+                                        <option class="form-control" value="2" <?php echo ($results->coupon_type == 2) ? 'selected' : ''; ?>>Without deposit</option>
+                                        <option class="form-control" value="3" <?php echo ($results->coupon_type == 3) ? 'selected' : ''; ?>>Registration</option>
+                                    </select>
+
+                                    <!-- <select class="form-control" name="coupon_type" id="coupon_type">
+                                            <option class="form-control" value="0">Auto</option>
+                                            <option class="form-control" value="1">Deposit</option>
+                                            <option class="form-control" value="2">Without deposit</option>
+                                            <option class="form-control" value="3">Registration</option>
+                                            	
+                                        </select> -->
+                                        <!-- <input type="text" class="form-control" name="coupon_type" id="coupon_type" placeholder="coupon type" value="<?php echo $results->coupon_type; ?>"/> -->
                                     </div>
                                 </div>
                             </div>
@@ -39,7 +53,12 @@
                                 <div class="form-group">
                                     <label class="m-4 control-label">Cash Type</label>
                                     <div class="col-md-12">
-                                        <input type="text" class="form-control" name="cash_type" id="cash_type" placeholder="Cash Type" value="<?php echo $results->cash_type; ?>"/>
+                                    <select class="form-control" name="cash_type" id="cash_type">
+                                            <option class="form-control" value="1"<?php echo ($results->cash_type == 1) ? 'selected' : ''; ?>>Cash bonus</option>
+                                            <option class="form-control" value="2"<?php echo ($results->cash_type == 2) ? 'selected' : ''; ?>>Cash deposit</option>
+                                           
+                                        </select>
+                                        <!-- <input type="text" class="form-control" name="cash_type" id="cash_type" placeholder="Cash Type" value="<?php echo $results->cash_type; ?>"/> -->
                                     </div>
                                 </div>
                             </div>
@@ -64,7 +83,7 @@
 
                             <div class="col-md-6" >
                                 <div class="form-group">
-                                    <label class="m-4 control-label">Min Mmount</label>
+                                    <label class="m-4 control-label">Min Amount</label>
                                     <div class="col-md-12">
                                         <input type="text" class="form-control" name="min_amount" id="min_amount" placeholder="Min Amount" value="<?php echo $results->min_amount; ?>"/>
                                     </div>
