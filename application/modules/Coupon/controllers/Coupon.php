@@ -109,6 +109,7 @@ class Coupon extends Common_Controller {
                       
                     );
                     
+                    
                     $option = array('table' => $this->_table, 'data' => $options_data);
                     $this->common_model->customInsert($option);
 
