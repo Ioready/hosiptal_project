@@ -119,11 +119,7 @@ class Coupon extends Common_Controller {
                     $messages = (validation_errors()) ? validation_errors() : '';
                     $response = array('status' => 0, 'message' => $messages);
                 }
-            // }
-        // } else {
-        //     $messages = (validation_errors()) ? validation_errors() : '';
-        //     $response = array('status' => 0, 'message' => $messages);
-        // }
+            
         echo json_encode($response);
     }
 
