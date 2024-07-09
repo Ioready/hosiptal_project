@@ -79,6 +79,23 @@ class Appointment extends Common_Controller {
         $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 
         if($this->ion_auth->is_subAdmin()){
+
+            $option = array(
+                'table' => ' doctors',
+                'select' => 'doctors.*',
+                'join' => array(
+                    array('users', 'doctors.user_id=users.id', 'left'),
+                ),
+                'where' => array(
+                    'users.delete_status' => 0,
+                    'doctors.user_id'=>$CareUnitID
+                ),
+                'single' => true,
+            );
+    
+            $datadoctors = $this->common_model->customGet($option);
+            
+
             $optionDoctor = array(
                 'table' => ' doctors',
                 'select' => 'users.*',
@@ -322,7 +339,56 @@ class Appointment extends Common_Controller {
 
 
     public function getLocationFilter() {
+
         $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+
+        $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+
+        if($this->ion_auth->is_subAdmin()){
+
+
+ $option = array(
+                'table' => ' doctors',
+                'select' => 'doctors.*',
+                'join' => array(
+                    array('users', 'doctors.user_id=users.id', 'left'),
+                ),
+                'where' => array(
+                    'users.delete_status' => 0,
+                    'doctors.user_id'=>$CareUnitID
+                ),
+                'single' => true,
+            );
+    
+            $datadoctors = $this->common_model->customGet($option);
+
+
+            $optionDoctor = array(
+                'table' => ' doctors',
+                'select' => 'users.*',
+                'join' => array(
+                    array('users', 'doctors.user_id=users.id', 'left'),
+                    array('user_profile UP', 'UP.user_id=users.id', 'left'),
+                    array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
+                    
+                ),
+                
+                'where' => array(
+                    'users.delete_status' => 0,
+                    'doctors.facility_user_id'=>$datadoctors->facility_user_id
+                ),
+               
+            );
+            $doctorsData = $this->common_model->customGet($optionDoctor);
+
+    
+
+            $optionPractitioner = array(
+                'table' => 'practitioner',
+                'select' => '*', 'where' => array('hospital_id'=>$datadoctors->facility_user_id,'delete_status' => 0), 'order' => array('name' => 'ASC')
+            );
+    
+    
         $response = '';
         $id = $this->input->post('id');
     
@@ -337,7 +403,7 @@ class Appointment extends Common_Controller {
                 ),
                 'where' => array(
                     'users.delete_status' => 0,
-                    'doctors.facility_user_id' => $CareUnitID
+                    'doctors.facility_user_id' => $datadoctors->facility_user_id
                 ),
                 'order' => array('users.id' => 'asc'),
             );
@@ -347,7 +413,7 @@ class Appointment extends Common_Controller {
                 'table' => 'practitioner',
                 'select' => '*',
                 'where' => array(
-                    'hospital_id' => $CareUnitID,
+                    'hospital_id' => $datadoctors->facility_user_id,
                     'delete_status' => 0
                 ),
                 'order' => array('name' => 'ASC')
@@ -359,12 +425,69 @@ class Appointment extends Common_Controller {
             $option = array(
                 'table' => 'clinic',
                 'select' => '*',
-                'where' => array('hospital_id' => $CareUnitID, 'delete_status' => 0),
+                'where' => array('hospital_id' => $datadoctors->facility_user_id, 'delete_status' => 0),
                 'order' => array('name' => 'ASC')
             );
             $practitioner = $this->common_model->customGet($option);
     
         }
+
+
+
+        } else if ($this->ion_auth->is_facilityManager()) {
+
+            $response = '';
+            $id = $this->input->post('id');
+        
+            if ($id == 'practitioner') {
+                $optionDoctor = array(
+                    'table' => 'doctors',
+                    'select' => 'users.*',
+                    'join' => array(
+                        array('users', 'doctors.user_id=users.id', 'left'),
+                        array('user_profile UP', 'UP.user_id=users.id', 'left'),
+                        array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
+                    ),
+                    'where' => array(
+                        'users.delete_status' => 0,
+                        'doctors.facility_user_id' => $CareUnitID
+                    ),
+                    'order' => array('users.id' => 'asc'),
+                );
+                $doctorsData = $this->common_model->customGet($optionDoctor);
+        
+                $optionPractitioner = array(
+                    'table' => 'practitioner',
+                    'select' => '*',
+                    'where' => array(
+                        'hospital_id' => $CareUnitID,
+                        'delete_status' => 0
+                    ),
+                    'order' => array('name' => 'ASC')
+                );
+                $practitionerData = $this->common_model->customGet($optionPractitioner);
+                $practitioner = array_merge($practitionerData, $doctorsData);
+                
+            } elseif ($id == 'location' || $id == 'clinic') {
+                $option = array(
+                    'table' => 'clinic',
+                    'select' => '*',
+                    'where' => array('hospital_id' => $CareUnitID, 'delete_status' => 0),
+                    'order' => array('name' => 'ASC')
+                );
+                $practitioner = $this->common_model->customGet($option);
+        
+            }
+
+            
+       
+
+
+            }
+
+
+
+        
     
         echo json_encode($practitioner);
     }

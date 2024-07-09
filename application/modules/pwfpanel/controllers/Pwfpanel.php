@@ -143,11 +143,11 @@ class Pwfpanel extends Common_Controller
                         
                         array('doctors doc', 'doc.id=task.assign_to', 'left')
                     ),
-                    'order' => array('task.id' => 'ASC'),
-                    // 'where' => array(
-                    //     'user.delete_status' => 0,
-                    //     'group.id' => 3
-                    // ),
+                    // 'order' => array('task.id' => 'ASC'),
+                    'where' => array(
+                        'task.status' => 'pending',
+                        'task.user_id' => $user_id
+                    ),
                     'order' => array('task.id' => 'desc'),
                 );
                 // print_r($option);die;

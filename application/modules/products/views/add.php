@@ -7,7 +7,7 @@
             <a href="<?php echo site_url('pwfpanel');?>">Home</a>
         </li>
         <li>
-            <a href="<?php echo site_url('business');?>">Vendor</a>
+            <a href="<?php echo site_url('product');?>">product</a>
         </li>
     </ul>
     <!-- END Datatables Header -->
@@ -272,7 +272,7 @@ You can upload product lists from Semble's lab partners from the Lab settings pa
                             <div class="col-md-10" style="padding-left: 32px;">
                                 
                             <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="appointment_booked" value="" id="flexCheckIndeterminate">
+                            <input class="form-check-input" type="checkbox" name="appointment_booked" id="flexCheckIndeterminate">
                             <label class="form-check-label" for="flexCheckIndeterminate">
                             This is an appointment that can be booked in the calendar
                             </label>

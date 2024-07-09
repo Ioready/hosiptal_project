@@ -180,6 +180,7 @@ class Products extends Common_Controller {
                     );
             
                     $datadoctors = $this->common_model->customGet($option);
+                    
                     $option = array(
                         'table' => ' doctors',
                         'select' => 'users.*',
@@ -279,7 +280,7 @@ class Products extends Common_Controller {
                     'type' => $this->input->post('type')?? null,
                     'name' => $this->input->post('name')?? null,
                     'price' => $this->input->post('price')?? null,
-                    'appointment_booked' => $this->input->post('appointment_booked')?? null,
+                    'appointment_booked' => $this->input->post('appointment_booked')?? 0,
                     'supplier' => $this->input->post('supplier')?? null,
                     'product_code' => $this->input->post('product_code')?? null,
                     
@@ -289,7 +290,7 @@ class Products extends Common_Controller {
                     'cost' => $this->input->post('cost')?? null,
                     'comment' => $this->input->post('comment')?? null,
 
-                    'renewal' => $this->input->post('renewal')?? null,
+                    'renewal' => $this->input->post('renewal')?? 0,
                     'duration' => $this->input->post('duration')?? null,
                     'color' => $this->input->post('color')?? 0,
                     'appointment_video_consult' => $this->input->post('appointment_video_consult')?? 0,
