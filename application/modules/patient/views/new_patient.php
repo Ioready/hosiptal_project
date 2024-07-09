@@ -767,13 +767,27 @@
                                                     <div class="form-group">
                                                         <label class="col-md-3 control-label">Doctor</label>
                                                         <div class="col-md-9">
-                                                            <select id="doctor_id" name="doctor_id" class="form-control select-chosen">
+                                                            <!-- <select id="doctor_id" name="doctor_id" class="form-control select-chosen">
                                                                 <option value="">Please Select</option>
                                                                 <?php
                                                                 if (!empty($doctors)) {
                                                                     foreach ($doctors as $doctor) {
                                                                 ?>
                                                                         <option value="<?php echo $doctor->id; ?>"><?php echo $doctor->doctor_name; ?></option>
+                                                                <?php
+                                                                    }
+                                                                }
+                                                                ?>
+                                                            </select> -->
+
+                                                            <select id="doctor_id" name="doctor_id" class="form-control select-chosen">
+                                                                <option value="">Please Select</option>
+                                                                <?php
+                                                                if (!empty($doctors)) {
+                                                                    foreach ($doctors as $doctor) {
+                                                                ?>
+                                                                <option value="<?php echo $doctor->id; ?>"><?php echo $doctor->first_name. ' '.$doctor->last_name; ?></option>
+
                                                                 <?php
                                                                     }
                                                                 }

@@ -527,6 +527,7 @@ class Patient extends Common_Controller
 
 $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 
+
     if($this->ion_auth->is_subAdmin()){
 
         $option = array(
@@ -563,8 +564,7 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
             'order' => array('users.id' => 'desc'),
         );
         $this->data['doctors'] = $this->common_model->customGet($option);
-        // print_r($datadoctors->facility_user_id);die;
-
+       
     } else if ($this->ion_auth->is_facilityManager()) {
         
         $option = array(
