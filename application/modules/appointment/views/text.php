@@ -70,51 +70,44 @@
             <div class="modal-header text-center" style="display:flex;border-radius:10px; background-color:#FFFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);">
                 <?php if ($this->ion_auth->is_facilityManager()) { ?>
 
+             <div class="col-sm-3 col-lg-3 col-md-3 m-4">
+                <div class="col-md-9">
+                    <select id="viewSelector" onchange="getLocations(this.value)" name="location_appointment" class="form-control select2" size="1">
+                        <option value="0">View By</option>
+                        <option value="practitioner"><b> Practitioner View</b></option>
+                        <option value="location"><b>Location View</option>
+                        <option value="clinic"><b>Clinic View</option>
+                    </select>
+ 
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-lg-6 col-md-6 m-4">
+                <div class="col-sm-6 col-lg-6 col-md-6 m-4">
+                    <select id="departmentanddoctordata" name="departmentanddoctordata[]" class="multiselect-ui form-control dropdown-menu" multiple="multiple"></select>
+                </div>
+            </div>
+            <?php } else if($this->ion_auth->is_subAdmin()) { ?>
+
+                <div class="col-sm-3 col-lg-3 col-md-3 m-4">
+                    <div class="col-md-9">
+                        <select id="viewSelector" onchange="getLocations(this.value)" name="location_appointment" class="form-control select2" size="1">
+                            <option value="0">View By</option>
+                            <option value="practitioner"><b> Practitioner View</b></option>
+                            <option value="location"><b>Location View</option>
+                            <option value="clinic"><b>Clinic View</option>
+                        </select>
+ 
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-lg-6 col-md-6 m-4">
+                    <div class="col-sm-6 col-lg-6 col-md-6 m-4">
+                        <select id="departmentanddoctordata" name="departmentanddoctordata[]" class="multiselect-ui form-control dropdown-menu" multiple="multiple"></select>
+        </div>
+                    </div>
 
                     
-
-    
-
-             <div class="col-sm-3 col-lg-3 col-md-3 m-4">
-            <div class="col-md-9">
-            <select id="viewSelector" onchange="getLocations(this.value)" name="location_appointment" class="form-control select2" size="1">
-            <option value="0">View By</option>
-            <option value="practitioner"><b> Practitioner View</b></option>
-            <option value="location"><b>Location View</option>
-            <option value="clinic"><b>Clinic View</option>
-            </select>
- 
-                        </div>
-                    </div>
-
-                    <div class="col-sm-6 col-lg-6 col-md-6 m-4">
-                    <div class="col-sm-6 col-lg-6 col-md-6 m-4">
-            <select id="departmentanddoctordata" name="departmentanddoctordata[]" class="multiselect-ui form-control dropdown-menu" multiple="multiple"></select>
-        </div>
-                    </div>
-                <?php } else if($this->ion_auth->is_subAdmin()) { ?>
-
-                    <div class="col-sm-3 col-lg-3 col-md-3 m-4">
-            <div class="col-md-9">
-            <select id="viewSelector" onchange="getLocations(this.value)" name="location_appointment" class="form-control select2" size="1">
-            <option value="0">View By</option>
-            <option value="practitioner"><b> Practitioner View</b></option>
-            <option value="location"><b>Location View</option>
-            <option value="clinic"><b>Clinic View</option>
-            </select>
- 
-                        </div>
-                    </div>
-
-                    <div class="col-sm-6 col-lg-6 col-md-6 m-4">
-                    <div class="col-sm-6 col-lg-6 col-md-6 m-4">
-            <select id="departmentanddoctordata" name="departmentanddoctordata[]" class="multiselect-ui form-control dropdown-menu" multiple="multiple"></select>
-        </div>
-                    </div>
-
-                    <!-- <div class="col-sm-4 col-lg-4 col-md-4" style="margin-top:20px;margin-right:100px;">
-                        <select id="appointmentType" name="appointment_id" class="form-control" onchange="fetchData()"></select>
-                    </div> -->
                 <?php } ?>
                
                 <div class="form-group save-btn">
@@ -210,9 +203,13 @@
                                                                 // break;
                                                             }
                                                         }
-                                                        if ($appointment_found) {
-                                                            echo '<td class="day-cell" data-time="' . $formatted_time . '" data-day="' . $department->id . '"></td>';
-                                                        }
+                                                        $appointment_found = false;
+                                                        break;
+                                                        // if ($appointment_found) {
+                                                        //     echo '<td class="day-cell" data-time="' . $formatted_time . '" data-day="' . $department->id . '"></td>';
+                                                        
+                                                        // }
+
                                                     }
                                                     echo '</tr>';
                                                 }

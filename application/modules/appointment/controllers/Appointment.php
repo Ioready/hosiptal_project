@@ -124,6 +124,38 @@ class Appointment extends Common_Controller {
         $combinedData = array_merge($practitionerData,$doctorsData);
         $this->data['practitioner'] = $combinedData;
     
+
+
+        $option = array(
+            'table' => 'clinic_appointment',
+            'select' => 'clinic_appointment.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state, pa.name as patient_name, cl.name as clinic_name, cl.clinic_location, pr.name',
+            'join' => array(
+                array('users as U', 'clinic_appointment.location_appointment = U.id', 'left'),
+                array('patient as pa', 'clinic_appointment.patient = pa.user_id', 'left'),
+                array('clinic as cl', 'clinic_appointment.location_appointment = cl.id', 'left'),
+                array('user_profile as UP', 'UP.user_id = U.id', 'left'),
+                array('practitioner as pr', 'clinic_appointment.practitioner = pr.id', 'left'),
+            ),
+            'where' => array(
+                'clinic_appointment.status' => 0
+            ),
+            // 'or_where' => array(
+            //     'clinic_appointment.start_date_appointment' => $dateToUse,
+            //     'clinic_appointment.theatre_date_time' => $dateToUse,
+            //     'clinic_appointment.out_start_time_at' => $dateToUse,
+            //     'clinic_appointment.start_date_availability' => $dateToUse
+            // ),
+            'order' => array(
+            'clinic_appointment.start_date_appointment' => 'desc',
+                'clinic_appointment.theatre_date_time' => 'desc',
+                'clinic_appointment.out_start_time_at' => 'desc',
+                'clinic_appointment.start_date_availability' => 'desc'
+            )
+        );
+    
+        $this->data['all_appointment'] = $this->common_model->customGet($option);
+        
+        
     
         } else if ($this->ion_auth->is_facilityManager()) {
             
@@ -272,13 +304,7 @@ class Appointment extends Common_Controller {
         );
     
         $this->data['all_appointment'] = $this->common_model->customGet($option);
-        // // print_r($this->data['all_appointment']);die;
-            // }
-
-
-
-
-
+        
 }
 
 
@@ -478,16 +504,7 @@ class Appointment extends Common_Controller {
                 $practitioner = $this->common_model->customGet($option);
         
             }
-
-            
-       
-
-
             }
-
-
-
-        
     
         echo json_encode($practitioner);
     }
@@ -597,19 +614,6 @@ class Appointment extends Common_Controller {
      * @description get profile
      * @return array
      */
-//   function search(){
-
-//     // $query = $this->input->get('query');
-//     $paramValue = $this->input->get('search');
-//     // print_r($paramValue);die;
-// $this->db->like('patient_id', $paramValue); 
-// $results = $this->db->get('vendor_sale_patient')->result_array();
-// // print_r($results);die;
-// $this->data['results'] = $results;
-// $this->load->admin_render('add', $this->data, 'inner_script');
-    
-
-//   }
     
     /**
      * @method open_model
@@ -658,23 +662,6 @@ $this->data['results'] = $results;
         
         $this->data['userlocation'] = $this->common_model->customGet($option);
 
-
-        // $option = array(
-        //     'table' => USERS . ' as user',
-        //     'select' => 'user.id,user.first_name,user.last_name,user.email,user.login_id,user.created_on,user.active,group.name as group_name,UP.doc_file,CU.care_unit_code,CU.name',
-        //     'join' => array(
-        //         array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
-        //         array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left'),
-        //         array('user_profile UP', 'UP.user_id=user.id', 'left'),
-        //         array('care_unit CU', 'CU.id=user.care_unit_id', 'left'),
-        //         array('doctors AS d', 'd.user_id = user.id', 'left')
-        //     ),
-           
-        //     'where' => array('user.delete_status' => 0, 'group.id' => 5, 'user.login_id' => $user_id ),
-        //     'order' => array('user.id' => 'desc')
-        // );
-
-        // $this->data['doctorsname'] = $this->common_model->customGet($option);
 
         $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 

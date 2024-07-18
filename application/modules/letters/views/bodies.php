@@ -21,7 +21,7 @@
     <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url($formUrl) ?>" enctype="multipart/form-data">
         <div class="alert alert-danger" id="error-box" style="display: none"></div>
         <div class="form-body">
-            <div class="row">.
+            <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="m-4 control-label">Select Header*</label>

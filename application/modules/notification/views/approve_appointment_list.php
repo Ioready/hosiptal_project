@@ -235,13 +235,13 @@ if ($this->ion_auth->is_subAdmin()) {
                                             <?php if($notification->appointment_status == 'Inactive'): ?>
                                                 <span class="custom-badge status-red">Inactive</span> 
                                             <?php elseif($notification->appointment_status == 'Active'): ?>
-                                                <input type="hidden" class="notification-id" value="<?php echo $notification->notification_id;?>">
+                                                <input type="hidden" class="notification-id" value="<?php echo $notification->notification_ids;?>">
                                                 <select class="statusDropdown custom-badge <?php echo ($notification->appointment_status == 'Active') ? 'status-green' : 'status-red'; ?>">
                                                     <option value="Active"><strong>Active</strong></option>
                                                     <option value="Inactive"><strong>Inactive</strong></option>
                                                 </select>
                                             <?php else: ?>
-                                                <input type="hidden" class="notification-id" value="<?php echo $notification->notification_id;?>">
+                                                <input type="hidden" class="notification-id" value="<?php echo $notification->notification_ids;?>">
                                                 <select class="statusDropdown custom-badge <?php echo ($notification->appointment_status == 'pending') ? 'status-red' : 'status-green'; ?>">
                                                     <option disabled selected><strong  > Pending</strong></option>
                                                     <option value="Active"><strong>Active</strong></option>
@@ -406,7 +406,7 @@ if ($this->ion_auth->is_subAdmin()) {
                   
 
                   // Out Of Office
-            
+        
                   $out_start_time_at = date('g:i A', strtotime($notification->out_start_time_at));
                   $out_end_time_at = date('g:i A', strtotime($notification->out_end_time_at));
                   $out_of_office_comment = $notification->out_of_office_comment;
@@ -440,6 +440,7 @@ if ($this->ion_auth->is_subAdmin()) {
 
                   $theatre_dateTime = date('Y-m-d', strtotime($notification->theatre_date_time));
                   $theatre_start_date_time = date('Y-m-d', strtotime($notification->theatre_start_date_time));
+                  
                   
             ?>
 									<tr>

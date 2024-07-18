@@ -478,12 +478,44 @@ class Common_model extends MY_Model {
 
     public function fetch_data($query) {
 
-        $UsersCareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+        $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
        
-        $this->db->like('patient_id', $query);
-        $this->db->where('operator_id', $UsersCareUnitID);
+        if($this->ion_auth->is_subAdmin()){
+    
+            $option = array(
+                'table' => ' doctors',
+                'select' => 'doctors.*',
+                'join' => array(
+                    array('users', 'doctors.user_id=users.id', 'left'),
+                ),
+                'where' => array(
+                    'users.delete_status' => 0,
+                    'doctors.user_id'=>$CareUnitID
+                ),
+                'single' => true,
+            );
+    
+            $datadoctors = $this->common_model->customGet($option);
+            
+           
+            $this->db->like('patient_id', $query);
+        $this->db->where('operator_id', $datadoctors->facility_user_id);
         // $this->db->limit(1); 
         $query = $this->db->get('vendor_sale_patient');
+
+    
+        } else if ($this->ion_auth->is_facilityManager()) {
+            
+           
+            $this->db->like('patient_id', $query);
+            $this->db->where('operator_id', $CareUnitID);
+            // $this->db->limit(1); 
+            $query = $this->db->get('vendor_sale_patient');
+    
+        
+        }
+
+
         return $query->result_array(); // Ensure result_array() is used
     }
 
