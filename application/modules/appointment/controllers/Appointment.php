@@ -28,7 +28,8 @@ class Appointment extends Common_Controller {
         $this->data['title'] = $this->title;
         $this->data['model'] = $this->router->fetch_class();
         $role_name = $this->input->post('role_name');
-       
+        $today = date('Y-m-d');
+        
         $this->data['roles'] = array(
             'role_name' => $role_name
         );
@@ -137,13 +138,19 @@ class Appointment extends Common_Controller {
                 array('practitioner as pr', 'clinic_appointment.practitioner = pr.id', 'left'),
             ),
             'where' => array(
-                'clinic_appointment.status' => 0
+                'clinic_appointment.status' => 0,
+                // 'clinic_appointment.start_date_appointment' => $today,
+                // 'clinic_appointment.theatre_date_time' => $today,
+                // 'clinic_appointment.out_start_time_at' => $today,
+                // 'clinic_appointment.start_date_availability' => $today
+                'clinic_appointment.created_at' => date('Y-m-d', strtotime('created_at')),
+                
             ),
             // 'or_where' => array(
-            //     'clinic_appointment.start_date_appointment' => $dateToUse,
-            //     'clinic_appointment.theatre_date_time' => $dateToUse,
-            //     'clinic_appointment.out_start_time_at' => $dateToUse,
-            //     'clinic_appointment.start_date_availability' => $dateToUse
+            //     'clinic_appointment.start_date_appointment' => $today,
+            //     'clinic_appointment.theatre_date_time' => $today,
+            //     'clinic_appointment.out_start_time_at' => $today,
+            //     'clinic_appointment.start_date_availability' => $today
             // ),
             'order' => array(
             'clinic_appointment.start_date_appointment' => 'desc',
@@ -153,9 +160,32 @@ class Appointment extends Common_Controller {
             )
         );
     
-        $this->data['all_appointment'] = $this->common_model->customGet($option);
+        // $this->data['all_appointment'] = $this->common_model->customGet($option);
         
-        
+
+        $sql = "SELECT vendor_sale_clinic_appointment.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state, pa.name as patient_name, cl.name as clinic_name, cl.clinic_location, pr.name as practitioner_name
+        FROM vendor_sale_clinic_appointment
+        LEFT JOIN vendor_sale_users as U ON vendor_sale_clinic_appointment.location_appointment = U.id
+        LEFT JOIN vendor_sale_patient as pa ON vendor_sale_clinic_appointment.patient = pa.user_id
+        LEFT JOIN vendor_sale_clinic as cl ON vendor_sale_clinic_appointment.location_appointment = cl.id
+        LEFT JOIN vendor_sale_user_profile as UP ON UP.user_id = U.id
+        LEFT JOIN vendor_sale_practitioner as pr ON vendor_sale_clinic_appointment.practitioner = pr.id
+        WHERE (
+            vendor_sale_clinic_appointment.start_date_appointment LIKE '%$today%'
+            OR vendor_sale_clinic_appointment.theatre_date_time LIKE '%$today%'
+            OR vendor_sale_clinic_appointment.out_start_time_at LIKE '%$today%'
+            OR vendor_sale_clinic_appointment.start_date_availability LIKE '%$today%'
+        )
+        ORDER BY vendor_sale_clinic_appointment.start_date_appointment DESC,
+                 vendor_sale_clinic_appointment.theatre_date_time DESC,
+                 vendor_sale_clinic_appointment.out_start_time_at DESC,
+                 vendor_sale_clinic_appointment.start_date_availability DESC";
+
+$result = $this->db->query($sql);
+
+$this->data['all_appointment'] = $result->result();
+
+        // print_r($this->data['all_appointment']);die;
     
         } else if ($this->ion_auth->is_facilityManager()) {
             
@@ -189,7 +219,7 @@ class Appointment extends Common_Controller {
                     'where' => array(
                         'hospital_id' => $CareUnitID,
                         'delete_status' => 0,
-                        'id' => 10,
+                        // 'id' => 10,
                     ),
                     'where_in' => array('practitioner.id' => $departmentanddoctordata),  // Use where_in to check for multiple IDs
                     'order' => array('id' => 'ASC')
@@ -223,7 +253,7 @@ class Appointment extends Common_Controller {
                 'select' => '*',
                 'where' => array(
                     'hospital_id' => $CareUnitID,
-                    'id' => 10,
+                    // 'id' => 10,
                     'delete_status' => 0
                 ),
                 'order' => array('id' => 'ASC')
@@ -290,7 +320,9 @@ class Appointment extends Common_Controller {
             ),
             'where' => array(
                 'clinic_appointment.status' => 0,
-                'clinic_appointment.practitioner' => 10,
+                // 'clinic_appointment.start_date_appointment' => $today,
+                // 'clinic_appointment.DATE(start_date_appointment)' =>  $today,
+                // 'clinic_appointment.practitioner' => 10,
             ),
             // 'or_where' => array(
             //     'clinic_appointment.start_date_appointment' => $dateToUse,
@@ -306,7 +338,33 @@ class Appointment extends Common_Controller {
             )
         );
     
-        $this->data['all_appointment'] = $this->common_model->customGet($option);
+        // $this->data['all_appointment'] = $this->common_model->customGet($option);
+
+
+        
+        $sql = "SELECT vendor_sale_clinic_appointment.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state, pa.name as patient_name, cl.name as clinic_name, cl.clinic_location, pr.name as practitioner_name
+        FROM vendor_sale_clinic_appointment
+        LEFT JOIN vendor_sale_users as U ON vendor_sale_clinic_appointment.location_appointment = U.id
+        LEFT JOIN vendor_sale_patient as pa ON vendor_sale_clinic_appointment.patient = pa.user_id
+        LEFT JOIN vendor_sale_clinic as cl ON vendor_sale_clinic_appointment.location_appointment = cl.id
+        LEFT JOIN vendor_sale_user_profile as UP ON UP.user_id = U.id
+        LEFT JOIN vendor_sale_practitioner as pr ON vendor_sale_clinic_appointment.practitioner = pr.id
+        WHERE (
+            vendor_sale_clinic_appointment.start_date_appointment LIKE '%$today%'
+            OR vendor_sale_clinic_appointment.theatre_date_time LIKE '%$today%'
+            OR vendor_sale_clinic_appointment.out_start_time_at LIKE '%$today%'
+            OR vendor_sale_clinic_appointment.start_date_availability LIKE '%$today%'
+        )
+        ORDER BY vendor_sale_clinic_appointment.start_date_appointment DESC,
+                 vendor_sale_clinic_appointment.theatre_date_time DESC,
+                 vendor_sale_clinic_appointment.out_start_time_at DESC,
+                 vendor_sale_clinic_appointment.start_date_availability DESC";
+
+$result = $this->db->query($sql);
+// $result = $this->db->query($sql);
+
+$this->data['all_appointment'] = $result->result();
+        // print_r($this->data['all_appointment']);die;
         
 }
 
