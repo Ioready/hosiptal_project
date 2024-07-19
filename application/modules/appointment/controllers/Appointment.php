@@ -189,6 +189,7 @@ class Appointment extends Common_Controller {
                     'where' => array(
                         'hospital_id' => $CareUnitID,
                         'delete_status' => 0,
+                        'id' => 10,
                     ),
                     'where_in' => array('practitioner.id' => $departmentanddoctordata),  // Use where_in to check for multiple IDs
                     'order' => array('id' => 'ASC')
@@ -222,6 +223,7 @@ class Appointment extends Common_Controller {
                 'select' => '*',
                 'where' => array(
                     'hospital_id' => $CareUnitID,
+                    'id' => 10,
                     'delete_status' => 0
                 ),
                 'order' => array('id' => 'ASC')
@@ -287,7 +289,8 @@ class Appointment extends Common_Controller {
                 array('practitioner as pr', 'clinic_appointment.practitioner = pr.id', 'left'),
             ),
             'where' => array(
-                'clinic_appointment.status' => 0
+                'clinic_appointment.status' => 0,
+                'clinic_appointment.practitioner' => 10,
             ),
             // 'or_where' => array(
             //     'clinic_appointment.start_date_appointment' => $dateToUse,
