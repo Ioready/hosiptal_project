@@ -10,7 +10,7 @@
             <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url($formUrl) ?>" enctype="multipart/form-data">
             <div class="modal-header text-center">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <h2 class="modal-title fw-bold"><i class="fa fa-pencil"></i> <?php echo (isset($title)) ? ucwords($title) : "" ?></h2>
+                        <h2 class="modal-title fw-bold"><i class="fa fa-pencil"></i> Add new patient form</h2>
                     </div>
                 <div class="modal-body">
                     <!-- <div class="loaders">
