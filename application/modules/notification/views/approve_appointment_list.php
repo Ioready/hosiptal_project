@@ -209,24 +209,37 @@ if ($this->ion_auth->is_subAdmin()) {
                   $start_dateAvailability = date('Y-m-d', strtotime($notification->start_date_availability));
 
                   $theatre_dateTime = date('Y-m-d', strtotime($notification->theatre_date_time));
+                  $theatre_admission_date = date('Y-m-d', strtotime($notification->theatre_admission_date_time));
             ?>
 									<tr>
                                     <td><?php echo $notification->clinic_appointment_id;?></td>
 										<!-- <td>APT0001</td> -->
-										<td><img width="28" height="28" src="assets/img/user.jpg" class="rounded-circle m-r-5" alt=""> <?php echo $notification->patient;?></td>
+										<td><img width="28" height="28" src="<?php echo base_url('/assets/img/user.jpg')?>" class="rounded-circle m-r-5" alt=""> &nbsp;  <?php echo $notification->first_name;?></td>
 										<!-- <td>35</td> -->
 										<td><?php echo $notification->first_name;?></td>
-										<td><?php echo $notification->name;?></td>
-										<td><?php echo $appointment_date;?></td>
+										<td><?php echo $notification->doctor_name;?></td>
+                                        <td><?php if(!empty($appointment_date)){
+                                            echo $appointment_date ?? '';
+                                        }else if(!empty($theatre_admission_date)){
+                                            echo $theatre_admission_date ?? '';
+                                        } else{
+                                            echo '';
+                                        }
+                                          ?></td>
+
+										<!-- <td><?php //echo $appointment_date ?? $theatre_admission_date ?? ''; ?></td> -->
+
+
 										<td>
                                         <?php 
-                                                        if ($formatted_time == $appointment_date) {
+                                                        if ($appointment_date) {
+                                                            // print_r($appointmentTime);die;
                                                             echo $appointmentTime . ' - ' . $end_date_appointment;
-                                                        } elseif ($formatted_time == $out_start_timeAt) {
+                                                        } elseif ($out_start_timeAt) {
                                                             echo $out_start_time_at . ' - ' .  $out_end_time_at;
-                                                        } elseif ($formatted_time == $start_dateAvailability) {
+                                                        } elseif ($start_dateAvailability) {
                                                             echo $start_date_availability . ' - ' .  $end_time_date_availability;
-                                                        } elseif ($formatted_time == $theatre_dateTime) {
+                                                        } elseif ($theatre_dateTime) {
                                                             echo $theatre_date_time . ' - ' .  $theatre_end_time;
                                                         }
                                                         ?>
@@ -448,9 +461,9 @@ if ($this->ion_auth->is_subAdmin()) {
 										<!-- <td>APT0001</td> -->
 										<td>
                                             <!-- <img width="28" height="28" src="assets/img/user.jpg" class="rounded-circle m-r-5" alt=""> -->
-                                         <?php echo $notification->patient;?></td>
+                                         <?php echo $notification->first_name;?></td>
 										<!-- <td>35</td> -->
-										<td><?php echo $notification->first_name;?></td>
+										<td><?php echo $notification->doctor_name;?></td>
 										<td><?php echo $notification->name;?></td>
 										<td>
                                             <?php if(!empty($appointment_date || $theatre_start_date_time)){

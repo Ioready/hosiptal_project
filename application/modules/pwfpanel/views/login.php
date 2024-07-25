@@ -168,13 +168,14 @@
                         <div class="col-xs-12">
                         <div style="width: 100%; height: 11px; border-bottom: 1px solid black; text-align: center">
                             <span style="font-size: 15px; background-color: #F3F5F6; padding: 0 5px;">
-                            New Account <!--Padding is optional-->
+                            <!-- New Account  -->
+                            <!--Padding is optional-->
                             </span>
                         </div></div>
 
-                        <div class="col-xs-12 text-right-login_admin" style="margin-top:13px;">
+                        <!-- <div class="col-xs-12 text-right-login_admin" style="margin-top:13px;">
                             <button class="btn btn-sm btn-primary m-2" style="background: #337ab7;"><a style="color:#ffffff" href="https://buy.stripe.com/test_6oE7wk0tgcTu4PmeUU">Create new account</a></button>
-                        </div>
+                        </div> -->
 
 
                         <!-- <div class="col-xs-6">
@@ -272,9 +273,9 @@
                     <span></span>
                 </label>
             </div>
-            <div class="col-xs-6 text-right">
+            <!-- <div class="col-xs-6 text-right">
                 <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Register Account</button>
-            </div>
+            </div> -->
         </div>
         <div class="form-group">
             <div class="col-xs-12 text-center">

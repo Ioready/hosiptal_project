@@ -1565,6 +1565,34 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
     public function addPatient()
     {
 
+
+    $operator_id = ($this->ion_auth->is_admin()) ? 0 : $this->session->userdata('user_id');
+
+    
+    if($this->ion_auth->is_subAdmin()){
+
+        $option = array(
+            'table' => ' doctors',
+            'select' => 'doctors.*',
+            'join' => array(
+                array('users', 'doctors.user_id=users.id', 'left'),
+            ),
+            'where' => array(
+                'users.delete_status' => 0,
+                'doctors.user_id'=>$operator_id
+            ),
+            'single' => true,
+        );
+
+        $datadoctors = $this->common_model->customGet($option);
+      $hospitalAndDoctorId=  $datadoctors->facility_user_id;
+
+    } else if ($this->ion_auth->is_facilityManager()) {
+        
+        
+  $hospitalAndDoctorId = $operator_id;
+        
+    }
         // "<pre>";
         // echo 'patient';
         // print_r($this->input->post());die;
@@ -1733,7 +1761,7 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
                 'table' => 'patient',
                 'data' => array(
                     'name' => ucwords($this->input->post('first_name').' '.$this->input->post('last_name')),
-                    'operator_id' => $operator_id,
+                    'operator_id' => $hospitalAndDoctorId,
                     'patient_id' => $patient_unique,
                     
                     'address' => ucwords($this->input->post('address_lookup')),

@@ -159,34 +159,33 @@ class Notification extends Common_Controller {
                 
                     $option = array(
                         'table' => 'notifications',
-                        'select' => 'notifications.*,notifications.id as notification_ids,users.first_name,users.email,vendor_sale_clinic_appointment.*,vendor_sale_clinic_appointment.theatre_date_time as theatre_start_date_time,
-                        ',
+                        'select' => 'notifications.*, notifications.id as notification_ids, users.first_name, users.email, 
+                                    vendor_sale_clinic_appointment.*, 
+                                    vendor_sale_clinic_appointment.theatre_date_time as theatre_start_date_time,vendor_sale_doctors.name as doctor_name',
                         'join' => array(
-                           
-                            array('users' => 'users.id=notifications.user_id'),
+                            // Commented out join
+                            // array('users' => 'users.id=notifications.user_id'),
+                            array('users' => 'users.id=notifications.patient_id'),
                             array('vendor_sale_clinic_appointment' => 'vendor_sale_clinic_appointment.id=notifications.clinic_appointment_id'),
-                            // array('vendor_sale_doctors' => 'vendor_sale_doctors.id=notifications.sender_id'),
-
-                            //  array('vendor_sale_theatre_appointment' => 'vendor_sale_theatre_appointment.id=notifications.theatre_appointment_id'),
-                            //  array('vendor_sale_out_of_office_doctor' => 'vendor_sale_out_of_office_doctor.id=notifications.out_of_office_id'),
-                            // array('vendor_sale_doctor_availability' => 'vendor_sale_doctor_availability.id=notifications.availability_id'),
-
+                            array('vendor_sale_doctors' => 'vendor_sale_doctors.user_id=notifications.sender_id'),
+                            // Commented out join
                             // array('vendor_sale_care_unit' => 'vendor_sale_care_unit.id=notifications.care_unit_id'),
-                            // array('vendor_sale_care_unit' => 'vendor_sale_care_unit.id=vendor_sale_theatre_appointment.theatre_clinician'),
-                            // array('vendor_sale_care_unit' => 'vendor_sale_care_unit.id=vendor_sale_clinic_appointment.clinician_appointment'),
-                            // array('vendor_sale_care_unit' => 'vendor_sale_care_unit.id=vendor_sale_clinic_appointment.clinician_appointment'),
+                            
                         ),
                         'where' => array(
                             'notifications.user_id' => $userID,
-                            // 'DATE(sent_time)' => date('Y-m-d'), 
-                            // 'TIME(sent_time) >=' => date('H:i:s'), 
+                            // Commented out conditions
+                            // 'DATE(sent_time)' => date('Y-m-d'),
+                            // 'TIME(sent_time) >=' => date('H:i:s'),
                         ),
                         'order' => array('notifications.user_id' => 'desc'),
-                       
                     );
-                
+                    
                     $this->data['notifications'] = $this->common_model->customGet($option);
-                    //  print_r($this->data['notifications']);die;
+                    // print_r($this->data['notifications']);
+                    // die;
+                    
+
         $this->load->admin_render('approve_appointment_list', $this->data, 'inner_script');
     }
 

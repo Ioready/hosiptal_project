@@ -37,6 +37,7 @@ class Coupon extends Common_Controller {
             'select' => 'coupon_type,coupon_code,user_size,total_use_user,cash_type,amount,id,used_type,min_amount,max_amount,percentage_in_amount',
             // 'where' => array('coupon_code' => $coupon_code,'end_date >=' => $currDate,'start_date <=' => $currDate,'status' => 1),
             'where' => array('delete_status' => 0),
+            'where_in' => array('coupon_type' => array(0,1,2,3, 4)),
             
         );
        

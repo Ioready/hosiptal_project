@@ -37,10 +37,13 @@ class Pwfpanel extends Common_Controller
 
                 $data['doctors'] = $this->common_model->customCount(array('table' => 'doctors', 'select' => 'id,name', 'where' => array('is_active' => 1, 'facility_user_id'=>$user_id, 'delete_status' => 0)));
                 
+               
                 $option = array(
                     'table' => 'coupons',
                     'select' => 'coupon_type,coupon_code,user_size,total_use_user,cash_type,amount,id,used_type,min_amount,max_amount,percentage_in_amount',
-                    'where_in' => array('coupon_type' => array(1, 4)),
+                    // 'where' => array('coupon_code' => $coupon_code,'end_date >=' => $currDate,'start_date <=' => $currDate,'status' => 1),
+                    'where' => array('delete_status' => 0),
+                    'where_in' => array('coupon_type' => array(0,1,2,3, 4)),
                     
                 );
                 $data['total_coupon'] = $this->common_model->customCount($option);

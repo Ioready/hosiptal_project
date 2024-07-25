@@ -1,50 +1,55 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <style>
-    .modal-footer .btn+.btn {
-        margin-bottom: 5px !important;
-        margin-left: 5px;
-    }
-
-    span.select2.select2-container.select2-container--default {
-        width: 100% !important;
-    }
-
-    span.select2-selection.select2-selection--multiple {
-        min-height: auto !important;
-        overflow: auto !important;
-        border: solid #ddd0d0 1px;
-        color: black;
-    }
-
-    .select2-container--default .select2-selection--multiple .select2-selection__choice {
-        background-color: #d9416c;
-    }
+    .modal-footer .btn + .btn {
+    margin-bottom: 5px !important;
+    margin-left: 5px;
+}
 </style>
-<!-- Page content -->
-<div id="page-content">
-    <!-- Datatables Header -->
-    <ul class="breadcrumb breadcrumb-top">
-        <li>
-            <a href="<?php echo site_url('pwfpanel');?>">Home</a>
-        </li>
-        <li>
-            <a href="<?php echo site_url('patient');?>">patient</a>
-        </li>
-    </ul>
-    
-    <div class="block full">
-        <div class="block-title">
-            <h2><strong>Patient</strong> Panel</h2>
-        </div>
-        <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url($formUrl) ?>" enctype="multipart/form-data">
+<div id="commonModalNew" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url($formUrl) ?>" enctype="multipart/form-data">
+            <div class="modal-header text-center">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h2 class="modal-title fw-bold"><i class="fa fa-pencil"></i> <?php echo (isset($title)) ? ucwords($title) : "" ?></h2>
+                    </div>
+                <div class="modal-body">
+                    <!-- <div class="loaders">
+                        <img src="<?php //echo base_url().'backend_asset/images/Preloader_2.gif';?>" class="loaders-img" class="img-responsive">
+                    </div> -->
+                    <div class="alert alert-danger" id="error-box" style="display: none"></div>
+                    <div class="form-body">
 
-       <div class="alert alert-danger" id="error-box" style="display: none;"></div>
-         <div class="form-body">
-            
-       
 
-    <div class="row">
+                        <!-- <div class="row">
+                            <div class="col-md-12" >
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Care Unit Code</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" name="care_unit_code" id="care_unit_code" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12" >
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Name</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" name="name" id="name" placeholder="Name" />
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="col-md-12" >
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Email</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" name="email" id="email" placeholder="Email" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="space-22"></div>
+                        </div> -->
+
+
+                        <div class="row">
     <div class="modal-header text-center">
         <div class="col-md-12">
             <div class="vender_title_admin">
@@ -78,9 +83,6 @@
         </div>
     </div>
 </div>
-
-
-
 
 <div class="row">
     <div class="col-md-3">
@@ -164,9 +166,7 @@
     </div>
 </div>
 
-      
 
-      
 
 
 
@@ -638,28 +638,6 @@
     </div>
 </div>
 
-<div class="row">
-    <!-- <div class="modal-header">
-        <h3 class="modal-title"><strong>ID numbers</strong></h3>
-    </div> -->
-    <div class="modal-header text-center">
-        <div class="col-md-12">
-            <div class="vender_title_admin">
-                <h3><strong>ID numbers</strong></h3>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-12">
-        <div class="form-group">
-            <div class="col-md-12">
-                <div class="col-md-12">
-                    <label class="">System</label>
-                    <input type="text" class="form-control" name="System_id" id="System_id" placeholder="System Id" />
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 
                 
@@ -1557,216 +1535,10 @@
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                             </div>
                             
-                        </div>
-                        </div>
-                    </div>
-    </div>
-<!-- END Datatables Content -->
-</div>
-<!-- END Page Content -->
-
-
-<script>
-$(document).ready(function() {
-    $('#Anaesthetist').submit(function(event) {
-        event.preventDefault();
-       
-        var formData = $(this).find('input[name="relation_number"]').val();
-        var type = $(this).find('input[name="type"]').val();
-
-        $('#storedData').val(formData);
-        $('#storedDataType').val(type);
-    });
-});
-</script>
-
-<script>
-$(document).ready(function() {
-    $('#Emergency_Contact').submit(function(event) {
-        event.preventDefault();
-        
-        var formData = $(this).find('input[name="relation_number"]').val();
-        var type = $(this).find('input[name="type"]').val();
-
-        $('#storedData').val(formData);
-        $('#storedDataType').val(type);
-    });
-});
-</script>
-
-<script>
-$(document).ready(function() {
-    $('#Family_Member').submit(function(event) {
-        event.preventDefault();
-        
-        var formData = $(this).find('input[name="relation_number"]').val();
-        var type = $(this).find('input[name="type"]').val();
-
-        $('#storedData').val(formData);
-        $('#storedDataType').val(type);
-    });
-});
-</script>
-
-<script>
-$(document).ready(function() {
-    $('#GP').submit(function(event) {
-        event.preventDefault();
-        
-        // Get the value from the form input
-        var formData = $(this).find('input[name="relation_number"]').val();
-        var type = $(this).find('input[name="type"]').val();
-
-        // Set the value to the other input field
-        $('#storedData').val(formData);
-        $('#storedDataType').val(type);
-    });
-});
-</script>
-
-<script>
-$(document).ready(function() {
-    $('#Insurance_Provider').submit(function(event) {
-        event.preventDefault();
-        
-        // Get the value from the form input
-        var formData = $(this).find('input[name="relation_number"]').val();
-        var policy_number = $(this).find('input[name="ip_policy_number"]').val();
-        var authorisation_code = $(this).find('input[name="ip_authorisation_code"]').val();
-        var type = $(this).find('input[name="type"]').val();
-
-        // Set the value to the other input field
-        $('#storedData').val(formData);
-        $('#policy_number').val(policy_number);
-        $('#authorisation_code').val(authorisation_code);
-        $('#storedDataType').val(type);
-
-    
-    });
-});
-</script>
-
-<script>
-$(document).ready(function() {
-    $('#Next_Of_kin').submit(function(event) {
-        event.preventDefault();
-        
-        var formData = $(this).find('input[name="relation_number"]').val();
-        var type = $(this).find('input[name="type"]').val();
-
-        // Set the value to the other input field
-        $('#storedData').val(formData);
-        $('#storedDataType').val(type);
-    });
-});
-</script>
-
-<script>
-$(document).ready(function() {
-    $('#Parent_Guardian').submit(function(event) {
-        event.preventDefault();
-        
-        var formData = $(this).find('input[name="relation_number"]').val();
-        var type = $(this).find('input[name="type"]').val();
-        $('#storedData').val(formData);
-        $('#storedDataType').val(type);
-    });
-});
-</script>
-
-<script>
-$(document).ready(function() {
-    $('#Paying_Account').submit(function(event) {
-        event.preventDefault();
-        
-        var formData = $(this).find('input[name="relation_number"]').val();
-        var type = $(this).find('input[name="type"]').val();
-
-        $('#storedData').val(formData);
-        $('#storedDataType').val(type);
-    });
-});
-</script>
-
-<script>
-$(document).ready(function() {
-    $('#Pharmacy').submit(function(event) {
-        event.preventDefault();
-        
-        var formData = $(this).find('input[name="relation_number"]').val();
-        var type = $(this).find('input[name="type"]').val();
-
-        $('#storedData').val(formData);
-        $('#storedDataType').val(type);
-    });
-});
-</script>
-
-<script>
-$(document).ready(function() {
-    $('#Practitioner').submit(function(event) {
-        event.preventDefault();
-        
-        var formData = $(this).find('input[name="relation_number"]').val();
-        var type = $(this).find('input[name="type"]').val();
-
-        // Set the value to the other input field
-        $('#storedData').val(formData);
-        $('#storedDataType').val(type);
-    });
-});
-</script><script>
-$(document).ready(function() {
-    $('#Referring_Clinician').submit(function(event) {
-        event.preventDefault();
-        
-        var formData = $(this).find('input[name="relation_number"]').val();
-        var type = $(this).find('input[name="type"]').val();
-
-        // Set the value to the other input field
-        $('#storedData').val(formData);
-        $('#storedDataType').val(type);
-    });
-});
-</script>
-
-</script><script>
-$(document).ready(function() {
-    $('#Social_Worker').submit(function(event) {
-        event.preventDefault();
-        
-        var formData = $(this).find('input[name="relation_number"]').val();
-        var type = $(this).find('input[name="type"]').val();
-
-        // Set the value to the other input field
-        $('#storedData').val(formData);
-        $('#storedDataType').val(type);
-    });
-});
-</script>
-
-</script>
-<script>
-$(document).ready(function() {
-    $('#Spouse_Partner').submit(function(event) {
-        event.preventDefault();
-        
-        var formData = $(this).find('input[name="relation_number"]').val();
-        var type = $(this).find('input[name="type"]').val();
-
-        // Set the value to the other input field
-        $('#storedData').val(formData);
-        $('#storedDataType').val(type);
-    });
-});
-</script>
-
-
-
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
-
-
-<style>
+                        <!-- </div> -->
+                        <!-- </div> -->
+                    <!-- </div> -->
+                    <style>
     .user-setting{
     background-color: #5c99f130;
     padding: 23px;
@@ -1775,84 +1547,8 @@ $(document).ready(function() {
     }
 
  </style>
-<script>
-    $(document).ready(function(){
 
-//hides dropdown content
-$(".show-hide").hide();
-
-//unhides first option content
-// $("#Selected").show();
-
-//listen to dropdown for change
-$("#select_relation").change(function(){
-  //rehide content on change
-  $('.show-hide').hide();
-  
-  $('#'+$(this).val()).show();
-});
-
-});
-
-$("#select_relation").change(function(selected){
-if(selected)
-{
-document.getElementById("change_value").style.display = "";
-$('.show-hide').hide();
-  
-  $('#'+$(this).val()).show();
-} 
-else
-{
-document.getElementById("change_value").style.display = "none";
-}
-}
-);
-
-</script>
-
-<script>
-    $('#date_of_start_abx').datepicker({
-        todayBtn: "linked",
-        format: "mm/dd/yyyy",
-        keyboardNavigation: false,
-        forceParse: false,
-        calendarWeeks: true,
-        autoclose: true
-    });
-</script>
-
-<script>
-
-
-function checkMe(selected)
-{
-if(selected)
-{
-document.getElementById("divcheck").style.display = "";
-} 
-else
-{
-document.getElementById("divcheck").style.display = "none";
-}
-
-}
-
-function addRelationship(selected){
-if(selected)
-{
-document.getElementById("relationship").style.display = "";
-} 
-else
-{
-document.getElementById("relationship").style.display = "none";
-}
-}
-
-
-
-</script>
-
+ 
 <style>
     input {
  
@@ -1860,336 +1556,8 @@ document.getElementById("relationship").style.display = "none";
   padding: 5px; 
 }
 </style>
-<script>
-    var app;
-
-(function() {
-  'use strict';
-  
-  app = {
-    monthAndSlashRegex: /^\d\d \/ $/, // regex to match "MM / "
-    monthRegex: /^\d\d$/, // regex to match "MM"
-    
-    el_cardNumber: '.ccFormatMonitor',
-    el_expDate: '#inputExpDate',
-    el_cvv: '.cvv',
-    el_ccUnknown: 'cc_type_unknown',
-    el_ccTypePrefix: 'cc_type_',
-    el_monthSelect: '#monthSelect',
-    el_yearSelect: '#yearSelect',
-    
-    cardTypes: {
-      'American Express': {
-        name: 'American Express',
-        code: 'ax',
-        security: 4,
-        pattern: /^3[47]/,
-        valid_length: [15],
-        formats: {
-          length: 15,
-          format: 'xxxx xxxxxxx xxxx'
-        }
-      },
-      'Visa': {
-				name: 'Visa',
-				code: 'vs',
-        security: 3,
-				pattern: /^4/,
-				valid_length: [16],
-				formats: {
-						length: 16,
-						format: 'xxxx xxxx xxxx xxxx'
-					}
-			},
-      'Maestro': {
-				name: 'Maestro',
-				code: 'ma',
-        security: 3,
-				pattern: /^(50(18|20|38)|5612|5893|63(04|90)|67(59|6[1-3])|0604)/,
-				valid_length: [16],
-				formats: {
-						length: 16,
-						format: 'xxxx xxxx xxxx xxxx'
-					}
-			},
-      'Mastercard': {
-				name: 'Mastercard',
-				code: 'mc',
-        security: 3,
-				pattern: /^5[1-5]/,
-				valid_length: [16],
-				formats: {
-						length: 16,
-						format: 'xxxx xxxx xxxx xxxx'
-					}
-			} 
-    }
-  };
-  
-  app.addListeners = function() {
-      $(app.el_expDate).on('keydown', function(e) {
-        app.removeSlash(e);
-      });
-
-      $(app.el_expDate).on('keyup', function(e) {
-        app.addSlash(e);
-      });
-
-      $(app.el_expDate).on('blur', function(e) {
-        app.populateDate(e);
-      });
-
-      $(app.el_cvv +', '+ app.el_expDate).on('keypress', function(e) {
-        return e.charCode >= 48 && e.charCode <= 57;
-      });  
-  };
-  
-  app.addSlash = function (e) {
-    var isMonthEntered = app.monthRegex.exec(e.target.value);
-    if (e.key >= 0 && e.key <= 9 && isMonthEntered) {
-      e.target.value = e.target.value + " / ";
-    }
-  };
-  
-  app.removeSlash = function(e) {
-    var isMonthAndSlashEntered = app.monthAndSlashRegex.exec(e.target.value);
-    if (isMonthAndSlashEntered && e.key === 'Backspace') {
-      e.target.value = e.target.value.slice(0, -3);
-    }
-  };
-  
-  app.populateDate = function(e) {
-    var month, year;
-    
-    if (e.target.value.length == 7) {
-      month = parseInt(e.target.value.slice(0, -5));
-      year = "20" + e.target.value.slice(5);
-      
-      if (app.checkMonth(month)) {
-        $(app.el_monthSelect).val(month);
-      } else {
-        $(app.el_monthSelect).val(0);
-      }
-      
-      if (app.checkYear(year)) {
-        $(app.el_yearSelect).val(year);
-      } else {
-        $(app.el_yearSelect).val(0);
-      }
-      
-    }
-  };
-  
-  app.checkMonth = function(month) {
-    if (month <= 12) {
-      var monthSelectOptions = app.getSelectOptions($(app.el_monthSelect));
-      month = month.toString();
-      if (monthSelectOptions.includes(month)) {
-        return true; 
-      }
-    }
-  };
-  
-  app.checkYear = function(year) {
-    var yearSelectOptions = app.getSelectOptions($(app.el_yearSelect));
-    if (yearSelectOptions.includes(year)) {
-      return true; 
-    }
-  };
-          
-  app.getSelectOptions = function(select) {
-    var options = select.find('option');
-    var optionValues = [];
-    for (var i = 0; i < options.length; i++) {
-      optionValues[i] = options[i].value;
-    }
-    return optionValues;
-  };
-  
-  app.setMaxLength = function ($elem, length) {
-    if($elem.length && app.isInteger(length)) {
-      $elem.attr('maxlength', length);
-    }else if($elem.length){
-      $elem.attr('maxlength', '');
-    }
-  };
-  
-  app.isInteger = function(x) {
-    return (typeof x === 'number') && (x % 1 === 0);
-  };
-
-  app.createExpDateField = function() {
-    $(app.el_monthSelect +', '+ app.el_yearSelect).hide();
-    $(app.el_monthSelect).parent().prepend('<input type="text" class="ccFormatMonitor">');
-  };
-  
-  
-  app.isValidLength = function(cc_num, card_type) {
-    for(var i in card_type.valid_length) {
-      if (cc_num.length <= card_type.valid_length[i]) {
-        return true;
-      }
-    }
-    return false;
-  };
-
-  app.getCardType = function(cc_num) {
-    for(var i in app.cardTypes) {
-      var card_type = app.cardTypes[i];
-      if (cc_num.match(card_type.pattern) && app.isValidLength(cc_num, card_type)) {
-        return card_type;
-      }
-    }
-  };
-
-  app.getCardFormatString = function(cc_num, card_type) {
-    for(var i in card_type.formats) {
-      var format = card_type.formats[i];
-      if (cc_num.length <= format.length) {
-        return format;
-      }
-    }
-  };
-
-  app.formatCardNumber = function(cc_num, card_type) {
-    var numAppendedChars = 0;
-    var formattedNumber = '';
-    var cardFormatIndex = '';
-
-    if (!card_type) {
-      return cc_num;
-    }
-
-    var cardFormatString = app.getCardFormatString(cc_num, card_type);
-    for(var i = 0; i < cc_num.length; i++) {
-      cardFormatIndex = i + numAppendedChars;
-      if (!cardFormatString || cardFormatIndex >= cardFormatString.length) {
-        return cc_num;
-      }
-
-      if (cardFormatString.charAt(cardFormatIndex) !== 'x') {
-        numAppendedChars++;
-        formattedNumber += cardFormatString.charAt(cardFormatIndex) + cc_num.charAt(i);
-      } else {
-        formattedNumber += cc_num.charAt(i);
-      }
-    }
-
-    return formattedNumber;
-  };
-
-  app.monitorCcFormat = function($elem) {
-    var cc_num = $elem.val().replace(/\D/g,'');
-    var card_type = app.getCardType(cc_num);
-    $elem.val(app.formatCardNumber(cc_num, card_type));
-    app.addCardClassIdentifier($elem, card_type);
-  };
-
-  app.addCardClassIdentifier = function($elem, card_type) {
-    var classIdentifier = app.el_ccUnknown;
-    if (card_type) {
-      classIdentifier = app.el_ccTypePrefix + card_type.code;
-      app.setMaxLength($(app.el_cvv), card_type.security);
-    } else {
-      app.setMaxLength($(app.el_cvv));
-    }
-
-    if (!$elem.hasClass(classIdentifier)) {
-      var classes = '';
-      for(var i in app.cardTypes) {
-        classes += app.el_ccTypePrefix + app.cardTypes[i].code + ' ';
-      }
-      $elem.removeClass(classes + app.el_ccUnknown);
-      $elem.addClass(classIdentifier);
-    }
-  };
-
-  
-  app.init = function() {
-
-    $(document).find(app.el_cardNumber).each(function() {
-      var $elem = $(this);
-      if ($elem.is('input')) {
-        $elem.on('input', function() {
-          app.monitorCcFormat($elem);
-        });
-      }
-    });
-    
-    app.addListeners();
-    
-  }();
-  
-})();
-</script>
 
 
-<script>
-    function myFunction4() {
-        var txt;
-        if (confirm("You are about to ADD the MD Steward recommendations, please confirm or cancel.")) {
-            //txt = "You pressed OK!";
-            document.getElementById("demo1").style = 'display:block';
-
-        } else {
-            //txt = "You pressed Cancel!";
-            document.getElementById("demo1").style = 'display:none';
-        }
-    }
-
-
-    function showDiv(select) {
-        if (select.value == "Loeb" || select.value == "Nhsn -UTI" || select.value == "Nhsn -CDI/MDRO" || select.value == "McGeer – UTI" || select.value == "McGeer – RTI" || select.value == "McGeer – GITI" || select.value == "McGeer –SSTI") {
-            document.getElementById('hidden_div').style.display = "block";
-        } else {
-            document.getElementById('hidden_div').style.display = "none";
-        }
-    }
-
-
-
-    function myFun() {
-        event.preventDefault();
-        if ($("#infection_surveillance_checklist").val() != "N/A" && $("#infection_surveillance_checklist").val() == "Loeb") {
-            alert("Printable ABX Checklist form will appear after clicking OK button. Please complete and submit the form.");
-            window.open("<?php echo base_url(); ?>application/modules/patient/views/form1.html", "_blank")
-        }
-
-        if ($("#infection_surveillance_checklist").val() != "N/A" && $("#infection_surveillance_checklist").val() == "McGeer – UTI") {
-            alert("Printable ABX Checklist form will appear after clicking OK button. Please complete and submit the form.");
-            window.open("<?php echo base_url(); ?>application/modules/patient/views/form2.html", "_blank")
-        }
-        if ($("#infection_surveillance_checklist").val() != "N/A" && $("#infection_surveillance_checklist").val() == "McGeer – RTI") {
-            alert("Printable ABX Checklist form will appear after clicking OK button. Please complete and submit the form.");
-            window.open("<?php echo base_url(); ?>application/modules/patient/views/form3.html", "_blank")
-        }
-        if ($("#infection_surveillance_checklist").val() != "N/A" && $("#infection_surveillance_checklist").val() == "McGeer – GITI") {
-            alert("Printable ABX Checklist form will appear after clicking OK button. Please complete and submit the form.");
-            window.open("<?php echo base_url(); ?>application/modules/patient/views/form4.html", "_blank")
-        }
-        if ($("#infection_surveillance_checklist").val() != "N/A" && $("#infection_surveillance_checklist").val() == "McGeer –SSTI") {
-            alert("Printable ABX Checklist form will appear after clicking OK button. Please complete and submit the form.");
-            window.open("<?php echo base_url(); ?>application/modules/patient/views/form5.html", "_blank")
-        }
-        if ($("#infection_surveillance_checklist").val() != "N/A" && $("#infection_surveillance_checklist").val() == "Nhsn -UTI") {
-            alert("Printable ABX Checklist form will appear after clicking OK button. Please complete and submit the form.");
-            window.open("<?php echo base_url(); ?>front_assets/images/57.114_uti_blank.pdf")
-        }
-        if ($("#infection_surveillance_checklist").val() != "N/A" && $("#infection_surveillance_checklist").val() == "Nhsn -CDI/MDRO") {
-            alert("Printable ABX Checklist form will appear after clicking OK button. Please complete and submit the form.");
-            window.open("<?php echo base_url(); ?>front_assets/images/57.128_LabIDEvent_BLANK")
-        }
-
-    }
-
-    $('input[type=radio][name="criteria_met"]').prop('checked', false);
-</script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-<script>
-    $(".multiple-select").select2({
-        // maximumSelectionLength: 2
-        placeholder: "Please select",
-    });
 </script>
 <style>
     .save-btn{
@@ -2221,114 +1589,11 @@ document.getElementById("relationship").style.display = "none";
 }
     </style>
 
-<script>
-
-
-function getStates(countryId) {
-   
-
-    $.ajax({
-        url: 'patient/getStates',
-        type: 'POST',
-        dataType: "json",
-        data: { id: countryId },
-        success: function(response) {
-            $('#state_div').html(response);
-            
-        },
-        error: function(xhr, status, error) {
-            // console.error(xhr.responseText);
-        }
-    });
-}
-
-
-function getCities(stateId) {
-    $.ajax({
-        url: 'patient/getCity',
-        type: 'POST',
-        dataType: "json",
-        data: { id: stateId },
-        success: function(response) {
-   
-    $('#city').html(response);
-},
-        error: function(xhr, status, error) {
-            console.error(xhr.responseText);
-        }
-    });
-}
-
-</script>
-
-    <script>
-        $(document).ready(function() {
-            $('#postalCode').on('keyup', function() {
-                var postalCode = $(this).val();
-                
-                    $.ajax({
-                        url: 'https://data.opendatasoft.com/api/records/1.0/search/',
-                        data: {
-                            dataset: 'geonames-postal-code@public',
-                            q: postalCode,
-                            // rows: 1
-                        },
-                        success: function(response) {
-                            var records = response.records;
-                            if (records.length > 0) {
-                                var record = records[0].fields;
-                                var html = '<p>City: ' + record.place_name + '</p>';
-                                html += '<p>State: ' + record.admin_name1 + '</p>';
-                                html += '<p>Country: ' + record.country_code + '</p>';
-                                if(record.country_code == 'GB'){
-                                    var countryData = 'United Kingdom';
-                                }else{
-                                    var countryData = record.country_code;
-                                }
-                                $('#city_in').val(record.place_name);
-
-                                $('#state_in').val(record.admin_name1);
-
-                                $('#country_in').val(countryData);
-
-                                $('#result').html(html);
-
-
-                            } else {
-                                $('#result').html('<p>No results found</p>');
-                            }
-                        },
-                        error: function() {
-                            $('#result').html('<p>An error occurred while fetching data</p>');
-                        }
-                    });
-                
-            });
-        });
-    </script>
-
-<script>
-    // Function to handle the response
-    function handleResponse(response) {
-        var errorBox = document.getElementById('error-box');
-        var successBox = document.getElementById('success-box');
-
-        if (response.status == 1) {
-            successBox.innerHTML = response.message;
-            successBox.style.display = 'block';
-            // Redirect after success
-            if (response.url) {
-                setTimeout(function() {
-                    window.location.href = response.url;
-                }, 2000); // Redirect after 2 seconds
-            }
-        } else {
-            errorBox.innerHTML = response.message;
-            errorBox.style.display = 'block';
-        }
-    }
-
-    // Example response data (replace with actual AJAX response)
-    var response = <?php echo json_encode($response); ?>;
-    handleResponse(response);
-</script>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal"><?php echo lang('reset_btn');?></button>
+                    <button  style="background: #337ab7" type="submit" id="submit" class="btn btn-sm btn-primary m-2" ><?php echo lang('submit_btn');?></button>
+                </div>
+            </form>
+        </div> <!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>

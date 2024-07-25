@@ -49,6 +49,11 @@
             <li><a href="<?php echo site_url('appointment');?>"><?php echo $title;?></a></li>
         </ul>
 
+        <!-- <h2>
+            <a href="javascript:void(0)"  onclick="open_model_new('<?php echo $model; ?>')"  class="btn btn-sm btn-primary  fw-bold">
+                New Patient
+            </a>
+        </h2> -->
         <div class="block full" style="border-radius:12px">
             <div class="block-title">
                 <?php if ($this->ion_auth->is_subAdmin()) { ?>
@@ -297,6 +302,7 @@
                 <div class="text-right"></div>
             </div>
         </div>
+        <div id="form-modal-box"></div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.min.js"></script>

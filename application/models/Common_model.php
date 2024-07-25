@@ -496,24 +496,28 @@ class Common_model extends MY_Model {
             );
     
             $datadoctors = $this->common_model->customGet($option);
-            
+            // print_r($datadoctors->facility_user_id);die;
            
-            $this->db->like('patient_id', $query);
+            // $this->db->like('patient_id', $query);
+            $this->db->like('name', $query);
         $this->db->where('operator_id', $datadoctors->facility_user_id);
-        // $this->db->limit(1); 
         $query = $this->db->get('vendor_sale_patient');
 
-    
+        // print_r($query);die;
         } else if ($this->ion_auth->is_facilityManager()) {
             
            
             $this->db->like('patient_id', $query);
+            $this->db->like('name', $query);
             $this->db->where('operator_id', $CareUnitID);
             // $this->db->limit(1); 
             $query = $this->db->get('vendor_sale_patient');
     
         
+        
+        
         }
+
 
 
         return $query->result_array(); // Ensure result_array() is used

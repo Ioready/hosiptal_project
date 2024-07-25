@@ -10,6 +10,8 @@
 <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
 
+
+
  <!-- Add jQuery library -->
  <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
  <script>
@@ -96,7 +98,6 @@
 
 
 
-
                                 <div class="container">
     <div class="row" >
         <div class="col">
@@ -152,6 +153,7 @@
                                         </div> -->
                                   
 
+                                      
                                         <div id="elementToToggle" class="tab-pane-second d-block" id="pills-1" role="tabpanel" aria-labelledby="pills-home-tab">
     <ul class="nav nav-pills-second nav-fill nav-tab-appointment active" id="pills-tab" role="tablist">
         <li class="nav-item-second active">
@@ -176,13 +178,14 @@
         
         
     </div>
+   
     <div class="modal-header text-center">
                 <h2 class="modal-title"><img src="<?php echo base_url(); ?>uploads/form.svg" style="height: 30px; width: 30px; filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%); margin-bottom: 5px;" alt=""> Clinic Appointment</h2>
                 
             </div>
    
 
- 
+        
 
 
         <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('index.php/' .$formUrl) ?>" enctype="multipart/form-data">
@@ -201,8 +204,15 @@
                             <input type="text" class="form-control" placeholder="Search" id="search">
                         
                         </div>
-                            </div>
                     </div>
+                </div>
+                    
+                <h2>
+            <a href="javascript:void(0)"  onclick="open_model_new('<?php echo $model; ?>')"  class="btn btn-sm btn-primary  fw-bold">
+                New Patient
+            </a>
+        </h2>
+
                 </div>
 
                 <div class="col-md-12">
@@ -836,10 +846,14 @@
                     </div>
                 </div>
             </div>
+           
         </div>
 
     <?php } ?>
+   
+</div>
 
+<div id="form-modal-box"></div>
 </div>
 
 <script>
@@ -1174,4 +1188,6 @@ $('.btnPrevious').click(function() {
         });
     });
 </script>
+</body>
+</html>
 

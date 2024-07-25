@@ -693,6 +693,7 @@ $this->data['results'] = $results;
       $this->data['parent'] = $this->title;
         $this->data['title'] = "Add " . $this->title;
         $this->data['formUrl'] = $this->router->fetch_class() . "/add";
+        $this->data['model'] = $this->router->fetch_class();
        
         $user_id = $this->session->userdata('user_id');
         $option = array(
@@ -841,6 +842,16 @@ $this->data['results'] = $results;
      * @description add dynamic rows
      * @return array
      */
+
+
+
+     function open_model_new() {
+        $this->data['title'] = "Add " . $this->title;
+        $this->data['formUrlNew'] = $this->router->fetch_class() . "/addNewPatient";
+        $this->load->view('add_new_patient', $this->data);
+    }
+
+
 public function fetch() {
     $output = '';
     $query = $this->input->post('query');
