@@ -156,7 +156,7 @@ if ($this->ion_auth->is_subAdmin()) {
 										<th>Patient Name</th>
 										<!-- <th>Age</th> -->
 										<th>Doctor Name</th>
-										<th>Department</th>
+										<!-- <th>Department</th> -->
 										<th>Appointment Date</th>
 										<th>Appointment Time</th>
 										<th>Status</th>
@@ -216,7 +216,7 @@ if ($this->ion_auth->is_subAdmin()) {
 										<!-- <td>APT0001</td> -->
 										<td><img width="28" height="28" src="<?php echo base_url('/assets/img/user.jpg')?>" class="rounded-circle m-r-5" alt=""> &nbsp;  <?php echo $notification->first_name;?></td>
 										<!-- <td>35</td> -->
-										<td><?php echo $notification->first_name;?></td>
+										<!-- <td><?php //echo $notification->first_name;?></td> -->
 										<td><?php echo $notification->doctor_name;?></td>
                                         <td><?php if(!empty($appointment_date)){
                                             echo $appointment_date ?? '';
