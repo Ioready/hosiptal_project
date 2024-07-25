@@ -25,6 +25,7 @@
                 <h2 class="modal-title"><i class="fa fa-pencil"></i> <?php echo (isset($title)) ? ucwords($title) : "" ?></h2>
             </div>
             <div class="alert alert-danger" id="error-box" style="display: none"></div>
+            
             <div class="form-body">
                 <div class="row mt-4">
                     <div class="col-md-6">

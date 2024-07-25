@@ -91,28 +91,28 @@
             url: url,
             data: {
                 to_email:to_email,
-                patient_id:patient_id,
-                room_number:room_number,
-                care_unit_name:care_unit_name,
-                doctor_name:doctor_name,
-                symptom_onset:symptom_onset,
-                culture_source_name:culture_source_name,
-                organism_name:organism_name,
-                precautions_name:precautions_name,
-                md_steward:md_steward,
-                date_of_start_abx:date_of_start_abx,
-                initial_rx_name:initial_rx_name,
-                initial_dx_name:initial_dx_name,
-                initial_dot:initial_dot,
-                infection_surveillance_checklist:infection_surveillance_checklist,
-                criteria_met:criteria_met,
-                md_stayward_response:md_stayward_response,
-                new_initial_rx_name: new_initial_rx_name,
-                psa: psa,
-                new_initial_dx_name: new_initial_dx_name,
-                new_initial_dot: new_initial_dot,
+                // patient_id:patient_id,
+                // // room_number:room_number,
+                // care_unit_name:care_unit_name,
+                // doctor_name:doctor_name,
+                // symptom_onset:symptom_onset,
+                // culture_source_name:culture_source_name,
+                // organism_name:organism_name,
+                // precautions_name:precautions_name,
+                // md_steward:md_steward,
+                // date_of_start_abx:date_of_start_abx,
+                // initial_rx_name:initial_rx_name,
+                // initial_dx_name:initial_dx_name,
+                // initial_dot:initial_dot,
+                // infection_surveillance_checklist:infection_surveillance_checklist,
+                // criteria_met:criteria_met,
+                // md_stayward_response:md_stayward_response,
+                // new_initial_rx_name: new_initial_rx_name,
+                // psa: psa,
+                // new_initial_dx_name: new_initial_dx_name,
+                // new_initial_dot: new_initial_dot,
                 //pct: pct,
-                additional_comment_option: additional_comment_option,
+                // additional_comment_option: additional_comment_option,
                 
                 
                
@@ -212,27 +212,7 @@
     }
     $(".hidetext").hide();
 
-    /* function getPatientId(id) {
-        var patient_mode = $("#patient_mode").val();
-        if (patient_mode == 'Existing') {
-            var url = "<?php echo base_url() ?>patient/get_patient_id";
-            $.ajax({
-                method: "POST",
-                url: url,
-                data: {
-                    careunit_id: id
-                },
-                success: function(response) {
-                    $("#patient_id_dropbox").html(response);
-                },
-                error: function(error, ror, r) {
-                    bootbox.alert(error);
-                },
-            });
-        }
-
-
-    } */
+   
 
     function deletePatient(patient_id) {
         bootbox.confirm({

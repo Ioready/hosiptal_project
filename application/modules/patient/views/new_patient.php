@@ -29,7 +29,7 @@
             <a href="<?php echo site_url('pwfpanel');?>">Home</a>
         </li>
         <li>
-            <a href="<?php echo site_url('business');?>">Vendor</a>
+            <a href="<?php echo site_url('patient');?>">patient</a>
         </li>
     </ul>
     <!-- END Datatables Header -->
@@ -45,19 +45,12 @@
         </div>
         <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url($formUrl) ?>" enctype="multipart/form-data">
 
-        <!-- <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('business/vendors_add') ?>" enctype="multipart/form-data"> -->
-            <!-- <div class="modal-header">
-                <h3 class="modal-title"><strong> Basic Details</strong></h3>
-            </div> -->
-            <!-- <div class="loaders">
-                <img src="<?php //echo base_url().'backend_asset/images/Preloader_2.gif';?>" class="loaders-img" class="img-responsive">
-            </div> -->
-            <div class="alert alert-danger" id="error-box" style="display: none"></div>
-            <div class="form-body">
+       <div class="alert alert-danger" id="error-box" style="display: none;"></div>
+         <div class="form-body">
+            
+       
 
-
-                      
-                        <div class="row">
+            <div class="row">
     <div class="modal-header text-center">
         <div class="col-md-12">
             <div class="vender_title_admin">
@@ -1187,7 +1180,7 @@
             </form>
         
 
-            <div class="modal" id="myModal">
+                    <div class="modal" id="myModal">
                         <div class="modal-dialog">
                         <div class="modal-content">
                         
@@ -1578,16 +1571,15 @@
 </div>
 <!-- END Page Content -->
 
+
 <script>
 $(document).ready(function() {
     $('#Anaesthetist').submit(function(event) {
         event.preventDefault();
-        
-        // Get the value from the form input
+       
         var formData = $(this).find('input[name="relation_number"]').val();
         var type = $(this).find('input[name="type"]').val();
 
-        // Set the value to the other input field
         $('#storedData').val(formData);
         $('#storedDataType').val(type);
     });
@@ -1602,7 +1594,6 @@ $(document).ready(function() {
         var formData = $(this).find('input[name="relation_number"]').val();
         var type = $(this).find('input[name="type"]').val();
 
-        // Set the value to the other input field
         $('#storedData').val(formData);
         $('#storedDataType').val(type);
     });
@@ -1617,7 +1608,6 @@ $(document).ready(function() {
         var formData = $(this).find('input[name="relation_number"]').val();
         var type = $(this).find('input[name="type"]').val();
 
-        // Set the value to the other input field
         $('#storedData').val(formData);
         $('#storedDataType').val(type);
     });
@@ -1684,8 +1674,6 @@ $(document).ready(function() {
         
         var formData = $(this).find('input[name="relation_number"]').val();
         var type = $(this).find('input[name="type"]').val();
-
-        // Set the value to the other input field
         $('#storedData').val(formData);
         $('#storedDataType').val(type);
     });
@@ -1700,7 +1688,6 @@ $(document).ready(function() {
         var formData = $(this).find('input[name="relation_number"]').val();
         var type = $(this).find('input[name="type"]').val();
 
-        // Set the value to the other input field
         $('#storedData').val(formData);
         $('#storedDataType').val(type);
     });
@@ -1715,7 +1702,6 @@ $(document).ready(function() {
         var formData = $(this).find('input[name="relation_number"]').val();
         var type = $(this).find('input[name="type"]').val();
 
-        // Set the value to the other input field
         $('#storedData').val(formData);
         $('#storedDataType').val(type);
     });
@@ -1783,7 +1769,7 @@ $(document).ready(function() {
 
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
 
 
 <style>
@@ -2326,3 +2312,29 @@ function getCities(stateId) {
             });
         });
     </script>
+
+<script>
+    // Function to handle the response
+    function handleResponse(response) {
+        var errorBox = document.getElementById('error-box');
+        var successBox = document.getElementById('success-box');
+
+        if (response.status == 1) {
+            successBox.innerHTML = response.message;
+            successBox.style.display = 'block';
+            // Redirect after success
+            if (response.url) {
+                setTimeout(function() {
+                    window.location.href = response.url;
+                }, 2000); // Redirect after 2 seconds
+            }
+        } else {
+            errorBox.innerHTML = response.message;
+            errorBox.style.display = 'block';
+        }
+    }
+
+    // Example response data (replace with actual AJAX response)
+    var response = <?php echo json_encode($response); ?>;
+    handleResponse(response);
+</script>

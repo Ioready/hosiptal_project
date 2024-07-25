@@ -99,9 +99,7 @@ class Patient extends Common_Controller
                     array('doctors', 'doctors.id=patient.doctor_id'),
                     array('users', 'users.id=patient.md_steward_id')
                 ),
-                'where' => array('patient.id' => $value,
-                ''
-                )
+                'where' => array('patient.id' => $value)
             );
 
             $careUnitData_list[] = $this->common_model->customGet($option);
@@ -150,7 +148,7 @@ class Patient extends Common_Controller
         }
 
 
-        // print_r($this->data['careUnitsUser_list']);die;
+        // print_r($UsersCareUnitID);die;
         
         $option = array(
             'table' => 'patient P',
@@ -173,15 +171,12 @@ class Patient extends Common_Controller
             ),
             
             // 'where'=>array('P.care_unit_id,'. $careUnitID),
-            // 'where'=>array('P.operator_id,'. $UsersCareUnitID),
-            // vendor_sale_patient.operator_id = $UsersCareUnitID
+            // 'where'=>array('P.md_steward_id,'. $UsersCareUnitID),
             // 'where'=>array('P.id,'. '1'),
             'group_by' => 'pid'
         );
-        // print_r($UsersCareUnitID);die;
-        if (!empty($UsersCareUnitID)) {
-            $option['where']['P.operator_id'] = $UsersCareUnitID;
-        }
+
+
         if (!empty($careUnitID)) {
             $option['where']['P.care_unit_id'] = $careUnitID;
         }
@@ -527,7 +522,6 @@ class Patient extends Common_Controller
 
 $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 
-
     if($this->ion_auth->is_subAdmin()){
 
         $option = array(
@@ -564,7 +558,8 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
             'order' => array('users.id' => 'desc'),
         );
         $this->data['doctors'] = $this->common_model->customGet($option);
-       
+        // print_r($datadoctors->facility_user_id);die;
+
     } else if ($this->ion_auth->is_facilityManager()) {
         
         $option = array(
@@ -1769,26 +1764,31 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
             );
 
             $patient_id = $this->common_model->customInsert($option);
-            $query = $this->db->order_by('created_on', 'desc')->limit(1)->get('vendor_sale_email_host');
+        //     $query = $this->db->order_by('created_on', 'desc')->limit(1)->get('vendor_sale_email_host');
+        // $result = $query->row();
+
+        $query = $this->db->order_by('created_on', 'desc')->limit(1)->get('vendor_sale_email_host');
         $result = $query->row();
 
 
-        $EmailTemplate = getEmailTemplate("welcome");
-                    // if (!empty($EmailTemplate)) {
-                        $html = array();
-                        $html['logo'] = base_url() . getConfig('site_logo');
-                        $html['site'] = getConfig('site_name');
-                        $html['site_meta_title'] = getConfig('site_meta_title');
-                        $name = $this->input->post('first_name') . " " . $this->input->post('last_name');
-                        $html['user'] = ucwords($name);
-                        $html['email'] = $email;
-                        $html['password'] = $password;
-                        $html['token'] = $random_id;
-                        $html['website'] = base_url();
-                        $html['content'] = $EmailTemplate->description;
-                        $template = $this->load->view('email-template/registration', $html, true);
-                        $title = '[' . getConfig('site_name') . '] ' . $EmailTemplate->title;
-                        $this->sendEmail($email, $from, $subject, $template, $title);
+                        // $EmailTemplate = getEmailTemplate("welcome");
+                   
+                        // $html = array();
+                        // $html['logo'] = base_url() . getConfig('site_logo');
+                        // $html['site'] = getConfig('site_name');
+                        // $html['site_meta_title'] = getConfig('site_meta_title');
+                        // $name = $this->input->post('first_name') . " " . $this->input->post('last_name');
+                        // $html['user'] = ucwords($name);
+                        // $html['email'] = $email;
+                        // $html['password'] = $password;
+                        // $html['token'] = $random_id;
+                        // $html['website'] = base_url();
+                        // $html['content'] = $EmailTemplate->description;
+                        // $template = $this->load->view('email-template/registration', $html, true);
+                        // $title = '[' . getConfig('site_name') . '] ' . $EmailTemplate->title;
+                        // $this->sendEmail($email, $from, $subject, $template, $title);
+
+
 
                     // $this->load->library('email');
                     // $fromName="ioready";
@@ -1903,6 +1903,8 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
                     )
                 );
                 $patient_id = $this->common_model->customInsert($option);
+
+                
 
                 if ($patient_id) {
                     $option = array(

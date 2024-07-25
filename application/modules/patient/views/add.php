@@ -35,6 +35,7 @@
                                                         ?>" class="loaders-img" class="img-responsive">
                                         </div> -->
                     <div class="alert alert-danger" id="error-box" style="display: none"></div>
+
                     <div class="form-body">
                         <div class="row">
                             <!--  <div class="col-md-6">
@@ -53,6 +54,7 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Care Unit</label>
                                     <div class="col-md-9">
+                                    <!-- <select id="care_unit" name="care_unit_id" class="form-control select-chosen" size="1"> -->
                                         <select id="care_unit" name="care_unit_id" class="form-control select-chosen" size="1" onchange='getPatientId(this.value)'>
                                             <option value="">Please select</option>
                                             <?php
