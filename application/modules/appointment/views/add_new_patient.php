@@ -3,6 +3,9 @@
     margin-bottom: 5px !important;
     margin-left: 5px;
 }
+input { 
+    text-align: justify;
+}
 </style>
 <div id="commonModalNew" class="modal fade bd-example-modal-lg" role="dialog">
     <div class="modal-dialog modal-lg">
@@ -32,7 +35,7 @@
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <label class="control-label">First Name</label>
-                                    <input type="text" class="form-control" name="first_name" id="first_name" placeholder="First Name" />
+                                    <input type="text" class="form-control" name="first_name" id="first_name" placeholder="First Name" style="text-align: justify;"/>
                                 </div>
                             </div>
                         </div>
@@ -40,7 +43,7 @@
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <label class="control-label">Last Name</label>
-                                    <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Last Name" />
+                                    <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Last Name" style="text-align: justify;"/>
                                 </div>
                             </div>
                         </div>
@@ -48,7 +51,7 @@
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <label class="control-label">Title (Optional)</label>
-                                    <input type="text" class="form-control" name="title" id="title" placeholder="Title" />
+                                    <input type="text" class="form-control" name="title" id="title" placeholder="Title" style="text-align: justify;"/>
                                 </div>
                             </div>
                         </div>
@@ -59,7 +62,7 @@
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <label class="control-label">Date Of Birth</label>
-                                    <input type="text" class="form-control" name="day" id="day" placeholder="Day" maxlength="2" />
+                                    <input type="text" class="form-control" name="day" id="day" placeholder="Day" maxlength="2" style="text-align: justify;"/>
                                 </div>
                             </div>
                         </div>
@@ -165,7 +168,7 @@
 
                                     <div class="col-md-6">
                                         <label class="">Phone Number</label>
-                                        <input type="text" class="form-control" name="phone_number" id="phone_number" placeholder="<?php echo lang('Phone Number');?>" />
+                                        <input type="text" class="form-control" name="phone_number" id="phone_number" placeholder="<?php echo lang('Phone Number');?>" style="text-align: justify;"/>
                                     </div>
                                 </div>
                             </div>
@@ -176,7 +179,7 @@
                                 <div class="col-md-12">
                                     <div class="col-md-12">
                                         <label class=""><?php echo lang('user_email');?></label>
-                                        <input type="email" class="form-control" name="user_email" id="user_email" placeholder="<?php echo lang('user_email');?>" />
+                                        <input type="email" class="form-control" name="user_email" id="user_email" placeholder="<?php echo lang('user_email');?>" style="text-align: justify;"/>
                                     </div>
                                 </div>
                             </div>
@@ -187,7 +190,7 @@
                                 <div class="col-md-12">
                                     <div class="col-md-12">
                                         <label class="control-label"><?php echo lang('password'); ?></label>
-                                        <input type="text" class="form-control" name="password" id="password" placeholder="<?php echo lang('password'); ?>" value="<?php echo randomPassword(); ?>" />
+                                        <input type="text" class="form-control" name="password" id="password" placeholder="<?php echo lang('password'); ?>" value="<?php echo randomPassword(); ?>" style="text-align: justify;"/>
                                     </div>
                                 </div>
                             </div>
@@ -198,7 +201,7 @@
                                 <div class="col-md-12">
                                     <div class="col-md-12">
                                         <label class="">Address Lookup</label>
-                                        <input type="text" class="form-control" name="address_lookup" id="address_lookup" placeholder="Address Lookup" />
+                                        <input type="text" class="form-control" name="address_lookup" id="address_lookup" placeholder="Address Lookup" style="text-align: justify;"/>
                                     </div>
                                 </div>
                             </div>
@@ -209,7 +212,7 @@
                                 <div class="col-md-12">
                                     <div class="col-md-12">
                                         <label class="">Street address (Optional)</label>
-                                        <input type="text" class="form-control" name="streem_address" id="streem_address" placeholder="Street Address" />
+                                        <input type="text" class="form-control" name="streem_address" id="streem_address" placeholder="Street Address" style="text-align: justify;"/>
                                     </div>
                                 </div>
                             </div>
@@ -288,7 +291,7 @@
                                         <div class="form-group">
                                             <label class="m-4 control-label">Zipcode Access</label>
                                                 <div class="col-md-12">
-                                                <input type="text" id="postalCode" class="form-control" placeholder="Enter Postal Code" name="post_code">
+                                                <input type="text" id="postalCode" class="form-control" placeholder="Enter Postal Code" name="post_code" style="text-align: justify;">
                                                 <!-- <div id="result"></div> -->
                                                 </div>
                                             </div>
@@ -317,7 +320,7 @@
                                 <div class="col-md-12">
                                     <div class="col-md-12">
                                         <label class="">Occupation (optional)</label>
-                                        <input type="text" class="form-control" name="Occupation" id="Occupation" placeholder="<?php echo 'Occupation' ;?>" />
+                                        <input type="text" class="form-control" name="Occupation" id="Occupation" placeholder="<?php echo 'Occupation' ;?>" style="text-align: justify;"/>
                                     </div>
                                 </div>
                             </div>
@@ -328,7 +331,7 @@
                                 <div class="col-md-12">
                                     <div class="col-md-12">
                                         <label class="">Company (optional)</label>
-                                        <input type="text" class="form-control" name="Company" id="Company" placeholder="<?php echo 'Company'; ?>" />
+                                        <input type="text" class="form-control" name="Company" id="Company" placeholder="<?php echo 'Company'; ?>" style="text-align: justify;"/>
                                     </div>
                                 </div>
                             </div>
@@ -430,7 +433,7 @@
                                                 </select>
                                             </div>
                                             <div class="col-md-2">
-                                                <input type="number" class="form-control" name="death_year" id="death_year" placeholder="Death Year" />
+                                                <input type="number" class="form-control" name="death_year" id="death_year" placeholder="Death Year" style="text-align: justify;"/>
                                             </div>
                                         </div>
                                     </div>
@@ -489,7 +492,7 @@
                                     
                                         <div class="form-group">
                                             <div class="col-md-12">
-                                                <input type="checkbox" id="receive_emails" name="receive_emails" class="custom-control-input" value="receive_emails">
+                                                <input type="checkbox" id="receive_emails" name="receive_emails" class="custom-control-input" value="receive_emails" >
                                                 <label class="custom-control-label check-labels" for="customRadioInline1">Receive emails</label>
                                             </div>
                                             <div class="col-md-12">
@@ -546,12 +549,12 @@
                                 <div class="col-md-12">
                                     <div class="col-md-6">
                                         <label class="">Billing details (optional)</label>
-                                        <input type="text" class="form-control" name="billing_detail" id="billing_detail" placeholder="Choose a billing details" />
+                                        <input type="text" class="form-control" name="billing_detail" id="billing_detail" placeholder="Choose a billing details" style="text-align: justify;"/>
                                     </div>
                                     
                                     <div class="col-md-6">
                                         <label class="">Payment reference (optional)</label>
-                                        <input type="text" class="form-control" name="payment_reference" id="payment_reference" placeholder="Payment Reference" />
+                                        <input type="text" class="form-control" name="payment_reference" id="payment_reference" placeholder="Payment Reference" style="text-align: justify;"/>
                                     </div>
                                 </div>
                             </div>
@@ -573,9 +576,9 @@
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <div class="col-md-12">
-                                        <input type="text" class="form-control ccFormatMonitor mb-4" name="card_number" id="card_number" placeholder="Card Number">
-                                        <input type="text" id="inputExpDate" class="form-control mb-4" name="exp_month_year" id="exp_month_year" placeholder="MM / YY" maxlength='7'>
-                                        <input type="password" class="form-control cvv" name="cvv" id="cvv" placeholder="CVV">
+                                        <input type="text" class="form-control ccFormatMonitor mb-4" name="card_number" id="card_number" placeholder="Card Number" style="text-align: justify;">
+                                        <input type="text" id="inputExpDate" class="form-control mb-4" name="exp_month_year" id="exp_month_year" placeholder="MM / YY" maxlength='5' style="text-align: justify;">
+                                        <input type="password" class="form-control cvv" name="cvv" id="cvv" placeholder="CVV" style="text-align: justify;">
                                     </div>
                                 </div>
                             </div>
@@ -598,7 +601,7 @@
             <div class="col-md-12">
                 <div class="col-md-12">
                     <label class="">System</label>
-                    <input type="text" class="form-control" name="System_id" id="System_id" placeholder="System Id" />
+                    <input type="text" class="form-control" name="System_id" id="System_id" placeholder="System Id" style="text-align: justify;"/>
                 </div>
             </div>
         </div>
@@ -766,7 +769,7 @@
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Room Number</label>
                                 <div class="col-md-9">
-                                    <input type="text" class="form-control" name="room_number" id="room_number" placeholder="0000" maxlength="4" />
+                                    <input type="text" class="form-control" name="room_number" id="room_number" placeholder="0000" maxlength="4" style="text-align: justify;"/>
                                     <p><b>Note :</b> Room Number can be 3 digit or 4 digit <br> number,if you dont know then write '<b>NA</b>'.</p>
                                 </div>
 
@@ -811,7 +814,7 @@
                                                 <div class="form-group">
                                                     <label class="col-md-3 control-label">Days of Therapy</label>
                                                     <div class="col-md-9">
-                                                        <input type="number" class="form-control" name="initial_dot" onkeyup="myFunction()" id="initial_dot" placeholder="0" />
+                                                        <input type="number" class="form-control" name="initial_dot" onkeyup="myFunction()" id="initial_dot" placeholder="0" style="text-align: justify;"/>
                                                         <b style="color:red;"><span id="test"></span></b>
                                                         <script>
                                                             function myFunction() {
@@ -993,7 +996,7 @@
                                                     <div class="form-group">
                                                         <label class="col-md-3 control-label">New Days of Therapy</label>
                                                         <div class="col-md-9">
-                                                            <input type="number" onchange="isDirty(this.value)" onkeyup="myFunction1()" class="form-control" name="new_initial_dot" id="new_initial_dot" placeholder="0" />
+                                                            <input type="number" onchange="isDirty(this.value)" onkeyup="myFunction1()" class="form-control" name="new_initial_dot" id="new_initial_dot" placeholder="0" style="text-align: justify;"/>
                                                             <b style="color:red"><span id="test1"></span></b>
                                                             <script>
                                                                 function myFunction1() {
@@ -1452,6 +1455,7 @@
 
 </script>
 <style>
+
     .save-btn{
     font-weight:700;
     color:white;
@@ -1486,7 +1490,7 @@
 
 function getStates(countryId) {
    
-alert(countryId);
+
     $.ajax({
         url: 'appointment/getStates',
         type: 'POST',
