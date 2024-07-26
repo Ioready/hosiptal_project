@@ -109,16 +109,7 @@ if ($this->ion_auth->is_subAdmin()) {
 
                 <div class="ibox-content">
                     <div class="row">
-                        <?php
-                        $message = $this->session->flashdata('success');
-                        if (!empty($message)):
-                            ?><div class="alert alert-success">
-                        <?php echo $message; ?></div><?php endif; ?>
-                        <?php
-                        $error = $this->session->flashdata('error');
-                        if (!empty($error)):
-                            ?><div class="alert alert-danger">
-                        <?php echo $error; ?></div><?php endif; ?>
+                        
                         <div id="message"></div>
                         <div class="col-sm-12">     
                                 <div class="table-responsive">

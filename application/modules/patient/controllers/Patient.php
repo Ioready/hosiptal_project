@@ -1565,7 +1565,11 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
     public function addPatient()
     {
 
-
+        // "<pre>";
+        // echo 'patient';
+        // print_r($this->input->post());die;
+        // "<pre>";
+        
     $operator_id = ($this->ion_auth->is_admin()) ? 0 : $this->session->userdata('user_id');
 
     
@@ -1593,10 +1597,7 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
   $hospitalAndDoctorId = $operator_id;
         
     }
-        // "<pre>";
-        // echo 'patient';
-        // print_r($this->input->post());die;
-        // "<pre>";
+       
 
     
         $this->form_validation->set_rules('first_name', 'first_name', 'trim');

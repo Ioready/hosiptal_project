@@ -44,7 +44,7 @@
             
        
 
-    <div class="row">
+<div class="row">
     <div class="modal-header text-center">
         <div class="col-md-12">
             <div class="vender_title_admin">
@@ -503,10 +503,8 @@
                                             </div>
                                             
                                             <div class="col-md-12">
-                                                <!-- <a href="" target="blank">Add new relation</a> -->
-                                                <!-- <a href="<?php echo site_url('patient/openRelationship'); ?>" target="blank" class=" <?php echo (strtolower($this->router->fetch_class()) == "patient") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">Add New Relationship</span></a> -->
-                                                <!-- <button type="button" style="border" onclick="addRelationship(this.click);" >Add New Relationship</button> -->
-                                                <button class="save-btn" type="button" style="border" data-toggle="modal" data-target="#myModal" >Add New Relationship</button>
+                                               
+                                                <button class="save-btn" type="button" style="border:#b4bdb4" data-toggle="modal" data-target="#myModal" >Add New Relationship</button>
                                                 
                                             </div>
                 
@@ -522,9 +520,7 @@
                                 <input type="hidden" class="form-control" name="authorisation_code" id="authorisation_code" readonly>
                               
                                 <div class="row">
-    <!-- <div class="modal-header">
-        <h3 class="modal-title"><strong>Communication preferences</strong></h3>
-    </div> -->
+   
     <div class="modal-header text-center">
         <div class="col-md-12">
             <div class="vender_title_admin">
@@ -584,9 +580,7 @@
 </div>
 
 <div class="row">
-    <!-- <div class="modal-header">
-        <h3 class="modal-title"><strong>Billing settings</strong></h3>
-    </div> -->
+   
     <div class="modal-header text-center">
         <div class="col-md-12">
             <div class="vender_title_admin">
@@ -639,9 +633,7 @@
 </div>
 
 <div class="row">
-    <!-- <div class="modal-header">
-        <h3 class="modal-title"><strong>ID numbers</strong></h3>
-    </div> -->
+  
     <div class="modal-header text-center">
         <div class="col-md-12">
             <div class="vender_title_admin">
