@@ -564,4 +564,14 @@ class Common_model extends MY_Model {
 	// 		}
 	// }
 
+
+    public function customQuerySql($query){
+        $query =$this->db->query($query);
+        if ($query->num_rows() > 0) {
+
+        return $query->result();
+        } else {
+            return false;
+        }
+    }
 }

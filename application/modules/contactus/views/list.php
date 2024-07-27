@@ -14,89 +14,12 @@
     <!-- Quick Stats -->
     <div class="block_list full">
 
-        <!--        <div class="row text-center">
-                    <div class="col-sm-6 col-lg-3">
-                        <a href="<?php echo base_url() ?>vendors/index/No" class="widget widget-hover-effect2">
-                            <div class="widget-extra themed-background">
-                                <h4 class="widget-content-light"><strong> Inactivate </strong> Vendors</h4>
-                            </div>
-                            <div class="widget-extra-full">
-                                <span class="h2 animation-expandOpen"><?php echo $inactive_vendors; ?></span></div>
-                        </a>
-                    </div>
-                    <div class="col-sm-6 col-lg-3">
-                        <a href="<?php echo base_url() ?>vendors/index/Yes" class="widget widget-hover-effect2">
-                            <div class="widget-extra themed-background-dark">
-                                <h4 class="widget-content-light"><strong> Activated </strong> Vendors</h4>
-                            </div>
-                            <div class="widget-extra-full"><span class="h2 themed-color-dark animation-expandOpen"><?php echo $active_vendors; ?></span></div>
-                        </a>
-                    </div>
-                    <div class="col-sm-6 col-lg-3">
-        
-                    </div>
-                    <div class="col-sm-6 col-lg-3">
-        
-                    </div>
-                </div>-->
-
     </div>
     <!-- END Quick Stats -->
     <?php if ($this->ion_auth->is_admin() or $this->ion_auth->is_subAdmin() or $this->ion_auth->is_facilityManager()) { ?>
         <div class="block full">
             <div class="row text-center">
-                <!--  <div class="col-sm-6 col-lg-12">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <div id="msg"></div>
-                        <?php
-                        $message = $this->session->flashdata('success');
-                        if (!empty($message)) :
-                        ?><div class="alert alert-success">
-                                <?php echo $message; ?></div><?php endif; ?>
-                        <?php
-                        $error = $this->session->flashdata('error');
-                        if (!empty($error)) :
-                        ?><div class="alert alert-danger">
-                                <?php echo $error; ?></div><?php endif; ?>
-                        <form action="<?php echo site_url('patient/patientImport'); ?>" name="patientFormExport" method="post" enctype="multipart/form-data">
-                            <div class="col-sm-6 col-lg-2">
-                                <div class="text-left">Upload File:</div>
-                            </div>
-                            <div class="col-sm-6 col-lg-10">
-                                <div class="text-left text-danger">Note: First, select care unit to upload the file</div>
-                            </div>
-                            <div class="col-sm-6 col-lg-4">
-                                <select id="care_unit1" name="careUnit" class="form-control select-2" onchange="getPatient()">
-                                    <option value="">Select Care Unit</option>
-                                    <?php
-                                    if (isset($careUnit) && !empty($careUnit)) {
-                                        foreach ($careUnit as $row) {
-                                            $select = "";
-                                            if (isset($careUnitID)) {
-                                                if ($careUnitID == $row->id) {
-                                                    $select = "selected";
-                                                }
-                                            }
-                                    ?>
-                                            <option value="<?php echo $row->id; ?>" <?php echo $select; ?>><?php echo $row->name; ?></option>
-                                            <?php
-                                        }
-                                    }
-                                            ?>
-                                </select>
-                            </div>
-                            <div class="col-sm-6 col-lg-4 hidetext">
-                                <input type="file" name="patientFile" class="form-control" accept=".csv"/>
-                            </div>
-                            <div class="col-sm-6 col-lg-1 hidetext">
-                                <button type="submit" class="btn btn-info btn-sm" value="Import"><fa class="fa fa-file-pdf-o"></fa> Import</button>
-                            </div>
-                            <div id="labelError"></div>
-                        </form>
-                    </div>
-                </div></div> -->
-
+            
 
                 <div class="col-sm-6 col-lg-12">
 
@@ -241,24 +164,7 @@
                                     <div class="btn-group btn-group-xs">
                                         <a href="<?php echo base_url() . 'contactus/edit?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-pencil"></i></a>
                                         
-                                            <?php
-                                            if ($rows->id != 1) {
-                                                if ($rows->is_active == 1) {
-                                                    ?>
-                                                                                <!--                                                    <a href="javascript:void(0)" data-toggle="tooltip" class="btn btn-xs btn-success" onclick="statusFn('<?php echo USERS; ?>', 'id', '<?php echo encoding($rows->id); ?>', '<?php echo $rows->is_active; ?>')" title="Inactive Now"><i class="fa fa-check"></i></a>-->
-                                                <?php } else { ?>
-                                                                                <!--                                                    <a href="javascript:void(0)" data-toggle="tooltip" class="btn btn-xs btn-danger" onclick="statusFn('<?php echo USERS; ?>', 'id', '<?php echo encoding($rows->id); ?>', '<?php echo $rows->is_active; ?>')" title="Active Now"><i class="fa fa-times"></i></a>-->
-                                                    <?php
-                                                }
-                                                if ($rows->is_active == 1) {
-                                                    ?>
-                                                    <!-- <a href="javascript:void(0)" data-toggle="tooltip" class="btn btn-xs btn-success" onclick="changeVendorStatus('<?php echo encoding($rows->id); ?>', 'No','<?php echo $rows->first_name . ' ' . $rows->last_name; ?>')" title="Inactive Now"><i class="fa fa-check"></i> Active</a> -->
-                                                <?php } else { ?>
-                                                <!--  <a href="javascript:void(0)" data-toggle="tooltip" class="btn btn-xs btn-danger" onclick="changeVendorStatus('<?php echo encoding($rows->id); ?>', 'Yes','<?php echo $rows->first_name . ' ' . $rows->last_name; ?>')" title="Active Now"><i class="fa fa-times"></i> Inactive</a> -->
-                                                <?php } ?>
-                                                <a href="javascript:void(0)" style="margin-left: 10px;" data-toggle="tooltip"   onclick="deleteFn('<?php echo contactus; ?>', 'id', '<?php echo encoding($rows->id); ?>', 'contactus', 'contactus/delVendors','<?php echo $rows->first_name . ' ' . $rows->last_name; ?>')" class="btn btn-danger"><i class="fa fa-trash"></i></a>
-                                            <?php }
-                                            ?>
+                                            
                         <!-- <a href="<?php echo base_url() . 'vendors/paymentList/' . $rows->id; ?>" class="btn btn-sm btn-primary">Client List</a> -->
                                         </div>
                                     </td>
@@ -312,7 +218,7 @@
                                     <a href="<?php echo base_url() . 'contactus/edit?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-pencil"></i></a>
                                     
                                         <?php
-                                        if ($rows->id != 1) {
+                                        if ($rows->id != '') {
                                             if ($rows->is_active == 1) {
                                                 ?>
                                                                             <!--                                                    <a href="javascript:void(0)" data-toggle="tooltip" class="btn btn-xs btn-success" onclick="statusFn('<?php echo USERS; ?>', 'id', '<?php echo encoding($rows->id); ?>', '<?php echo $rows->is_active; ?>')" title="Inactive Now"><i class="fa fa-check"></i></a>-->
@@ -322,14 +228,15 @@
                                             }
                                             if ($rows->is_active == 1) {
                                                 ?>
-                                                <!-- <a href="javascript:void(0)" data-toggle="tooltip" class="btn btn-xs btn-success" onclick="changeVendorStatus('<?php echo encoding($rows->id); ?>', 'No','<?php echo $rows->first_name . ' ' . $rows->last_name; ?>')" title="Inactive Now"><i class="fa fa-check"></i> Active</a> -->
+                                                <a href="javascript:void(0)" data-toggle="tooltip" class="btn btn-xs btn-success" onclick="changeVendorStatus('<?php echo encoding($rows->id); ?>', 'No','<?php echo $rows->first_name . ' ' . $rows->last_name; ?>')" title="Inactive Now"><i class="fa fa-check"></i> Active</a>
                                             <?php } else { ?>
-                                            <!--  <a href="javascript:void(0)" data-toggle="tooltip" class="btn btn-xs btn-danger" onclick="changeVendorStatus('<?php echo encoding($rows->id); ?>', 'Yes','<?php echo $rows->first_name . ' ' . $rows->last_name; ?>')" title="Active Now"><i class="fa fa-times"></i> Inactive</a> -->
+                                             <a href="javascript:void(0)" data-toggle="tooltip" class="btn btn-xs btn-danger" onclick="changeVendorStatus('<?php echo encoding($rows->id); ?>', 'Yes','<?php echo $rows->first_name . ' ' . $rows->last_name; ?>')" title="Active Now"><i class="fa fa-times"></i> Inactive</a>
                                             <?php } ?>
-                                            <a href="javascript:void(0)" style="margin-left: 10px;" data-toggle="tooltip"   onclick="deleteFn('<?php echo contactus; ?>', 'id', '<?php echo encoding($rows->id); ?>', 'contactus', 'contactus/delVendors','<?php echo 'this entry' ?>')" class="btn btn-danger"><i class="fa fa-trash"></i></a>
-                                        <?php }
+                                            <a href="javascript:void(0)" style="margin-left: 10px;" data-toggle="tooltip"  class="btn btn-danger" onclick="deleteFn('<?php echo $table; ?>', 'id', '<?php echo encoding($rows->id); ?>', 'contactus', 'contactus/delVendors','<?php echo 'this entry' ?>')"><i class="fa fa-trash"></i></a>
+                                       
+                                       <?php }
                                         ?>
-                    <!-- <a href="<?php echo base_url() . 'vendors/paymentList/' . $rows->id; ?>" class="btn btn-sm btn-primary">Client List</a> -->
+                    <a href="<?php echo base_url() . 'vendors/paymentList/' . $rows->id; ?>" class="btn btn-sm btn-primary">Client List</a>
                                     </div>
                                 </td>
                             </tr>

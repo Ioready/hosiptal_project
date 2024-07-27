@@ -38,7 +38,15 @@
                                 </div>
                             </div>
 
-
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class=" control-label m-4">File attachment</label>
+                                    <div class="col-md-12">
+                                        <input type="file" class="form-control" name="image_name[]" id="file" placeholder="File" multiple />
+                                    </div>
+                                </div>
+                            </div>
+                            
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label class="m-4 control-label">Tutorial</label>

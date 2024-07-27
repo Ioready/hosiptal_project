@@ -25,12 +25,42 @@ class Contactus extends Common_Controller {
         $this->data['parent'] = $this->title;
         $this->data['title'] = $this->title;
         $this->data['model'] = $this->router->fetch_class();
+        $this->data['table'] = $this->_table;
         $role_name = $this->input->post('role_name');
 
-        $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+        // $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 
-        if($LoginID != 1 && $LoginID != NULL ){
-            $x = $LoginID;
+
+        $LoginID = ($this->ion_auth->is_admin()) ? 0 : $this->session->userdata('user_id');
+
+    
+    if($this->ion_auth->is_subAdmin()){
+
+        $option = array(
+            'table' => ' doctors',
+            'select' => 'doctors.*',
+            'join' => array(
+                array('users', 'doctors.user_id=users.id', 'left'),
+            ),
+            'where' => array(
+                'users.delete_status' => 0,
+                'doctors.user_id'=>$LoginID
+            ),
+            'single' => true,
+        );
+
+        $datadoctors = $this->common_model->customGet($option);
+      $hospitalAndDoctorId=  $datadoctors->facility_user_id;
+
+    } else if ($this->ion_auth->is_facilityManager()) {
+        
+        
+  $hospitalAndDoctorId = $LoginID;
+        
+    }
+
+        if($hospitalAndDoctorId != 1 && $hospitalAndDoctorId != NULL ){
+            $x = $hospitalAndDoctorId;
         }
         
         $this->data['roles'] = array(
@@ -57,7 +87,7 @@ class Contactus extends Common_Controller {
         LEFT JOIN `vendor_sale_users` ON 
         `vendor_sale_users`.`id` = `vendor_sale_doctors_contactus`.`user_id`
         WHERE `vendor_sale_doctors_contactus`.`delete_status` = 0  and
-        `vendor_sale_doctors_contactus`.`user_id` =$LoginID
+        `vendor_sale_doctors_contactus`.`user_id` =$hospitalAndDoctorId
         ORDER BY `vendor_sale_doctors_contactus`.`id` DESC";
         
         // $option1 ="SELECT `vendor_sale_contactus`.`title`, 
@@ -93,7 +123,7 @@ class Contactus extends Common_Controller {
         // ORDER BY `vendor_sale_contactus`.`id` DESC";
         
         // $this->data['list'] = $this->common_model->customQuery($option);
-// print_r($this->data['list']);die;
+// print_r($this->data['list']);die;    
 
         $this->load->admin_render('list', $this->data, 'inner_script');
     }
@@ -104,12 +134,37 @@ class Contactus extends Common_Controller {
         $this->data['parent'] = $this->title;
         $this->data['title'] = $this->title;
         $this->data['model'] = $this->router->fetch_class();
+        $this->data['table'] = $this->_table;
         $role_name = $this->input->post('role_name');
 
         $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+        if($this->ion_auth->is_subAdmin()){
 
-        if($LoginID != 1 && $LoginID != NULL ){
-            $x = $LoginID;
+            $option = array(
+                'table' => ' doctors',
+                'select' => 'doctors.*',
+                'join' => array(
+                    array('users', 'doctors.user_id=users.id', 'left'),
+                ),
+                'where' => array(
+                    'users.delete_status' => 0,
+                    'doctors.user_id'=>$LoginID
+                ),
+                'single' => true,
+            );
+    
+            $datadoctors = $this->common_model->customGet($option);
+          $hospitalAndDoctorId=  $datadoctors->facility_user_id;
+    
+        } else if ($this->ion_auth->is_facilityManager()) {
+            
+            
+      $hospitalAndDoctorId = $LoginID;
+            
+        }
+
+        if($hospitalAndDoctorId != 1 && $hospitalAndDoctorId != NULL ){
+            $x = $hospitalAndDoctorId;
         }
         
         $this->data['roles'] = array(
@@ -136,7 +191,7 @@ class Contactus extends Common_Controller {
         LEFT JOIN `vendor_sale_users` ON 
         `vendor_sale_users`.`id` = `vendor_sale_doctors_contactus`.`user_id`
         WHERE `vendor_sale_doctors_contactus`.`delete_status` = 0  and
-        `vendor_sale_doctors_contactus`.`user_id` =$LoginID
+        `vendor_sale_doctors_contactus`.`user_id` =$hospitalAndDoctorId
         ORDER BY `vendor_sale_doctors_contactus`.`id` DESC";
         
         $this->data['list'] = $this->common_model->customQuery($option1);
@@ -202,6 +257,7 @@ class Contactus extends Common_Controller {
 
         $this->data['states'] = $this->common_model->customGet($option);
 
+        
         $this->load->admin_render('add', $this->data, 'inner_script');
     }
 
@@ -225,11 +281,11 @@ class Contactus extends Common_Controller {
         // $this->form_validation->set_rules('description', "Description", 'required|trim');
 
         if ($this->form_validation->run() == true) {
-            $this->filedata['status'] = 1;
+            // $this->filedata['status'] = 1;
             
-            if ($this->filedata['status'] == 0) {
-                $response = array('status' => 0, 'message' => $this->filedata['error']);
-            } else {
+            // if ($this->filedata['status'] == 0) {
+            //     $response = array('status' => 0, 'message' => $this->filedata['error']);
+            // } else {
                 // $options_data = array(
                 //     'facility_manager_id' => $LoginID,
                 //     'title' => $this->input->post('title'),
@@ -261,13 +317,18 @@ class Contactus extends Common_Controller {
                     'healthcode' => $this->input->post('healthcode'),
                     
                 );
+
+                // echo "<pre>";
+                // print_r($options_data);die;
+                // echo "</pre>";
                 $option = array('table' => $this->_table, 'data' => $options_data);
+               
                 if ($this->common_model->customInsert($option)) {
                     $response = array('status' => 1, 'message' => "Successfully added", 'url' => base_url($this->router->fetch_class()));
                 } else {
                     $response = array('status' => 0, 'message' => "Failed to add");
                 }
-            }
+            // }
         } else {
             $messages = (validation_errors()) ? validation_errors() : '';
             $response = array('status' => 0, 'message' => $messages);
@@ -283,51 +344,48 @@ class Contactus extends Common_Controller {
     public function edit() {
         $this->data['parent'] = $this->title;
         $this->data['title'] = "Edit " . $this->title;
+        $this->data['table'] = $this->_table;
         $id = decoding($_GET['id']);
+       
         
+
         if (!empty($id)) {
+        //     $option1 ="SELECT `vendor_sale_doctors_contactus`.`title`,`vendor_sale_doctors_contactus`.`first_name`, `vendor_sale_doctors_contactus`.`last_name`,`vendor_sale_doctors_contactus`.`company`,
+        // `vendor_sale_doctors_contactus`.`id`, 
+        // `vendor_sale_doctors_contactus`.`contacts_clinician`,
+        // `vendor_sale_doctors_contactus`.`comment`,
+        // `vendor_sale_doctors_contactus`.`created_at`,
+        // `vendor_sale_doctors_contactus`.`user_id`,`vendor_sale_doctors_contactus`.`phone_type`,`vendor_sale_doctors_contactus`.`phone_number`,`vendor_sale_doctors_contactus`.`user_email`
+        // ,`vendor_sale_doctors_contactus`.`address_lookup`,`vendor_sale_doctors_contactus`.`streem_address`,`vendor_sale_doctors_contactus`.`city`,`vendor_sale_doctors_contactus`.`post_code`
+        // ,`vendor_sale_doctors_contactus`.`country`,`vendor_sale_doctors_contactus`.`billing_detail`,`vendor_sale_doctors_contactus`.`payment_reference`
+        // ,`vendor_sale_doctors_contactus`.`System`,`vendor_sale_doctors_contactus`.`healthcode`
+        // FROM `vendor_sale_doctors_contactus` 
+        // LEFT JOIN `vendor_sale_users` ON 
+        // `vendor_sale_users`.`id` = `vendor_sale_doctors_contactus`.`user_id`
+        // WHERE `vendor_sale_doctors_contactus`.`delete_status` = 0  and
+        // `vendor_sale_doctors_contactus`.`id` =$id
+        // ORDER BY `vendor_sale_doctors_contactus`.`id` DESC";
+        
+        // $results_row= $this->common_model->customQuerySql($option1);
 
-        /*     
-            $option ="SELECT `vendor_sale_recommendation`.`title`, 
-                        `vendor_sale_recommendation`.`id`,
-                        `vendor_sale_recommendation`.`description`,
-                        `vendor_sale_recommendation`.`is_active`,
-                        `vendor_sale_recommendation`.`create_date`,
-                        `vendor_sale_users`.`first_name`,
-                        `vendor_sale_users`.`last_name`
-                        FROM `vendor_sale_recommendation` 
-                        LEFT JOIN `vendor_sale_users` ON 
-                        `vendor_sale_users`.`id` = `vendor_sale_recommendation`.`facility_manager_id`
-                        WHERE  `vendor_sale_recommendation`.`id` = $id and `vendor_sale_recommendation`.`delete_status` = 0 
-                        ORDER BY `vendor_sale_recommendation`.`id` DESC";
-            $results_row = $this->common_model->customQuery($option);
- */
+        $option = array('table' => 'countries','select' => '*','where'=>array('shortname'=>'GB'));
+        $this->data['countries'] = $this->common_model->customGet($option);
 
-            $option = array(
-                'table' => contactus . ' as R',
-                'select' => 'R.*, '
-                . 'U.id as u_id,U.first_name,U.last_name,',
-                'join' => array(
-                    array(USERS . ' as U', 'U.id=R.facility_manager_id', '')),
-                'where' => array('R.id' => $id),
-                'single' => true
-            );
-            $results_row = $this->common_model->customGet($option);
+        $option = array(
+            'table' => $this->_table,
+            'where' => array('id' => $id),
+            'single' => true
+        );
+        $results_row = $this->common_model->customGet($option);
 
-
+       
+            
             if (!empty($results_row)) {
                 
                 $this->data['results'] = $results_row;
 
-
-            $option = "SELECT `vendor_sale_users`.`id`,`vendor_sale_users`.`first_name`, 
-                            `vendor_sale_users`.`last_name`
-                            FROM `vendor_sale_users` 
-                            LEFT JOIN `vendor_sale_users_groups` ON `vendor_sale_users_groups`.`user_id` = `vendor_sale_users`.`id`
-                            LEFT JOIN `vendor_sale_groups` ON `vendor_sale_groups`.`id` = `vendor_sale_users_groups`.`group_id`
-                            WHERE `vendor_sale_users`.`delete_status` = 0 and `vendor_sale_users_groups`.`group_id` = 5
-                            ORDER BY `vendor_sale_users`.`first_name` ASC";
-                $this->data['care_unit'] = $this->common_model->customQuery($option);
+                // print_r($this->data['results']);die;
+           
                 $this->load->admin_render('edit', $this->data, 'inner_script');
             } else {
                 $this->session->set_flashdata('error', lang('not_found'));
@@ -347,40 +405,64 @@ class Contactus extends Common_Controller {
 
 
     public function update() {
-        $this->form_validation->set_rules('facility_manager_id', "Facility Manager", 'required|trim');
+
+        // echo '<pre>';
+        // print_r($this->input->post());die;
+        // echo '</pre>';
+        $this->form_validation->set_rules('country', "country", 'required|trim');
         $this->form_validation->set_rules('title', "Title", 'required|trim');
-        $this->form_validation->set_rules('description', "Description", 'required|trim');
+        $this->form_validation->set_rules('city', "city", 'required|trim');
 
         $where_id = $this->input->post('id');
 
-        if ($this->form_validation->run() == FALSE):
-            $messages = (validation_errors()) ? validation_errors() : '';
-            $response = array('status' => 0, 'message' => $messages);
-        else:
-            $this->filedata['status'] = 1;
-
-            if ($this->filedata['status'] == 0) {
-                $response = array('status' => 0, 'message' => $this->filedata['error']);
-            } else {
+        if ($this->form_validation->run() == True){
+        
+           
 
                 $options_data = array(
+                'table' => 'doctors_contactus',
+                'data' => array(
+                    'first_name' => $this->input->post('first_name'),
+                    'last_name' => $this->input->post('last_name'),
                     'title' => $this->input->post('title'),
-                    'description' => $this->input->post('description'),
-                    'facility_manager_id' => $this->input->post('facility_manager_id'),
+                    'company' => $this->input->post('company'),
+                    'contacts_clinician'=> $this->input->post('company'),
+                    'comment' => $this->input->post('comment'),
+                    'phone_type'=> $this->input->post('phone_type'),
+                    'phone_number' => $this->input->post('phone_number'),
+                    'user_email' => $this->input->post('user_email'),
+                    'address_lookup' => $this->input->post('address_lookup'),
+                    'streem_address' => $this->input->post('streem_address'),
+                    'country' => $this->input->post('country'),
+                    // 'state' => $this->input->post('state'),
+                    'city' => $this->input->post('city'),
+                    'post_code' => $this->input->post('post_code'),
+                    'billing_detail' => $this->input->post('billing_detail'),
+                    'payment_reference' => $this->input->post('payment_reference'),
+                    'System' => $this->input->post('System'),
+                    'healthcode' => $this->input->post('healthcode'),
+                ),
+                'where' => array('id' => $where_id)
                 );
 
-                
-                $option = array(
-                    'table' => $this->_table,
-                    'data' => $options_data,
-                    'where' => array('id' => $where_id)
-                );
-                $update = $this->common_model->customUpdate($option);
+                // print_r($options_data);die;
+                // $option = array(
+                //     'table' => $this->_table,
+                //     'data' => $options_data,
+                //     'where' => array('id' => $where_id)
+                // );
+
+                // print_r($option);die;
+
+                $update = $this->common_model->customUpdate($options_data);
                 
                 $response = array('status' => 1, 'message' => "Successfully updated", 'url' => base_url('contactus/edit'), 'id' => encoding($this->input->post('id')));
                 
-            }
-        endif;
+            // }
+        }else{
+            $messages = (validation_errors()) ? validation_errors() : '';
+            $response = array('status' => 0, 'message' => $messages);
+        }
 
         echo json_encode($response);
     }

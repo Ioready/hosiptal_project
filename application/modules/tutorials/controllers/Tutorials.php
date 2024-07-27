@@ -314,7 +314,59 @@ class Tutorials extends Common_Controller
                 'data' => $options_data,
                 'where' => array('id' => $where_id)
             );
-            $update = $this->common_model->customUpdate($option);
+            $inserted_id = $this->common_model->customUpdate($option);
+
+            if ($inserted_id) {
+                if (empty($_FILES['image_name']['name'][0]) && empty($_FILES['image_name']['tmp_name'][0])) {
+                    $this->db->trans_complete();
+                    $response = array('status' => 1, 'message' => 'Tutorial successfully added', 'url' => base_url('tutorial'));
+                } else {
+                    $total_count = count($_FILES['image_name']['name']);
+
+                    for ($i = 0; $i < $total_count; $i++) {
+                        $tmpFilePath = $_FILES['image_name']['tmp_name'][$i];
+                        $fileSize = $_FILES['image_name']['size'][$i];
+
+                        if ($tmpFilePath != "" && $fileSize <= $maxFileSize) {
+                            $originalFileName = $_FILES['image_name']['name'][$i];
+                            $fileExtension = pathinfo($originalFileName, PATHINFO_EXTENSION);
+
+                            // Generate a unique file name using a timestamp and random number
+                            $uniqueFileName = time() . '_' . mt_rand(1000, 9999) . '.' . $fileExtension;
+
+                            $newFilePath = "uploads/file/" . $uniqueFileName;
+                            if (move_uploaded_file($tmpFilePath, $newFilePath)) {
+                                $uploaded_images[] = $newFilePath;
+                                $options_data1 = array(
+                                    'file'           => $newFilePath,
+                                    'tutorial_id'         => $inserted_id,
+                                    'created_date'   => date('Y-m-d H:i:s'),
+                                    'delete_status'  =>  0
+                                );
+                                $this->db->insert('tutorial_file', $options_data1);
+                            }
+                        } else {
+                            $response = array('status' => 0, 'message' => 'One or more files exceed the maximum size limit (100MB).');
+                            echo json_encode($response);
+                            return;
+                        }
+                    }
+                    $this->db->trans_complete(); // Complete the transaction
+                    if ($this->db->trans_status() === FALSE) {
+                        // If any query within the transaction failed, return error
+                        $response = array('status' => 0, 'message' => 'Error occurred during insertion.');
+                    } else {
+                        // Check if all inserts were successful
+                        if ($inserted_id && count($uploaded_images) === $total_count) {
+                            $response = array('status' => 1, 'message' => 'Tutorial successfully added', 'url' => base_url('tutorial'));
+                        } else {
+                            $response = array('status' => 0, 'message' => 'Tutorial failed to be added');
+                        }
+                    }
+                }
+            } else {
+                $response = array('status' => 0, 'message' => 'Something went wrong!.');
+            }
             $response = array('status' => 1, 'message' => 'Tutorial updated successfully', 'url' => base_url('index.php/tutorials'));
 
         endif;
