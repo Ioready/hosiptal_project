@@ -128,14 +128,18 @@
                         
                         <?php if($this->ion_auth->is_facilityManager()){?>
                         <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width:60px;">Created Date</th>
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width:60px;"><?php echo lang('action'); ?></th>
                         <?php }else if($this->ion_auth->is_admin()){ ?>
                         <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width:60px;">Query Date</th>
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width:60px;"><?php echo lang('action'); ?></th>
                         <?php } ?>
                         <?php if($this->ion_auth->is_facilityManager()){?>
+                            <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width:60px;">Created Date</th>
                         <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width:70px;"><?php echo lang('action'); ?></th>
                         <?php } ?>
 
                         <?php if($this->ion_auth->is_subAdmin()){?>
+                            <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width:60px;">Created Date</th>
                         <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width:60px;"><?php echo lang('action'); ?></th>
                         <?php } ?>
                     </tr>
