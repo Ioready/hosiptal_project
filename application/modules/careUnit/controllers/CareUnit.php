@@ -130,6 +130,7 @@ class CareUnit extends Common_Controller {
         $this->form_validation->set_rules('name', "Name", 'required|trim');
         $this->form_validation->set_rules('care_unit_code', "care unit code", 'required|trim|min_length[3]|max_length[3]');
         $this->form_validation->set_rules('email', "Email", 'valid_email|trim');
+
         if ($this->form_validation->run() == true) {
             $care_unit_code = $this->input->post('care_unit_code');
             // $option = array(
@@ -155,17 +156,18 @@ class CareUnit extends Common_Controller {
                 exit;
             }
            
-            $this->filedata['status'] = 1;
-            $image = "";
-            if (!empty($_FILES['image']['name'])) {
-                $this->filedata = $this->commonUploadImage($_POST, 'submenu', 'image');
-                if ($this->filedata['status'] == 1) {
-                    $image = 'uploads/submenu/' . $this->filedata['upload_data']['file_name'];
-                }
-            }
-            if ($this->filedata['status'] == 0) {
-                $response = array('status' => 0, 'message' => $this->filedata['error']);
-            } else {
+            // $this->filedata['status'] = 1;
+            // $image = "";
+            // if (!empty($_FILES['image']['name'])) {
+            //     $this->filedata = $this->commonUploadImage($_POST, 'submenu', 'image');
+            //     if ($this->filedata['status'] == 1) {
+            //         $image = 'uploads/submenu/' . $this->filedata['upload_data']['file_name'];
+            //     }
+            // }
+
+            // if ($this->filedata['status'] == 0) {
+            //     $response = array('status' => 0, 'message' => $this->filedata['error']);
+            // } else {
                 
               if($CareUnitID != 1){
                 
@@ -188,9 +190,9 @@ class CareUnit extends Common_Controller {
                     'create_date' => datetime()
                 );
             }
-               // print_r($options_data);die;
+              
                 $option = array('table' => $this->_table, 'data' => $options_data);
-              //  print_r($option);die;
+            //    print_r($option);die;
                 if ($this->common_model->customInsert($option)) {
                     $Sql = "SELECT vendor_sale_care_unit.id FROM vendor_sale_care_unit 
                         WHERE vendor_sale_care_unit.facility_user_id ='$CareUnitID'"; 
@@ -200,49 +202,54 @@ class CareUnit extends Common_Controller {
                     foreach ($careunit_facility_counts as $value) {
                         $arrayState[] = $value->id;
                       }  
-                     // print_r($arrayState);die;
+                    //  print_r($arrayState);die;
                       //print_r('ffffffffff');die;
-                      //print_r($arrayState);die;
-                    //$jsonDecode = json_decode($careUnit_list_id[0]->care_unit_id);
-                    $arrayMerge = array_unique(array_merge($arrayState, $jsonDecode));
-                   
-                   // print_r($arrayMerge);die;
+                    //   print_r($careUnit_list_id[0]->care_unit_id);die;
+                    // $jsonDecode = json_decode($careUnit_list_id[0]->care_unit_id);
+                    // $jsonEncodes = explode(" ",$jsonDecode);
+                    // $jsonDecode = $careUnit_list_id['care_unit_id'];
                     
-                    $jsonEncode = json_encode($arrayMerge);
+                //    $array_merge= array_merge($arrayState, $jsonEncodes);
+
+                //    print_r($array_merge);die;
+                //     $arrayMerge = array_unique($array_merge);
+                   
+                  
+                //     $jsonEncode = json_encode($array_merge);
                     //print_r($jsonEncode);die;
-                    if($CareUnitID != 1){
-                        $updateCids ="UPDATE vendor_sale_users SET care_unit_id='$jsonEncode' WHERE vendor_sale_users.id = '$CareUnitID'";
+                    // if($CareUnitID != 1){
+                    //     $updateCids ="UPDATE vendor_sale_users SET care_unit_id='$jsonEncode' WHERE vendor_sale_users.id = '$CareUnitID'";
                        // $this->common_model->customQuery($updateCids,false, true);
-                    }
+                    // }
                    // print_r($updateCids);die;
 
-                       $this->common_model->customQuery($updateCids);
+                    //    $this->common_model->customQuery($updateCids);
 
                         //print_r($array_merge);die;
                     /** info email * */
                    
-                    $EmailTemplate = getEmailTemplate("welcome");
-                    if (!empty($EmailTemplate) && !empty($this->input->post('email'))) {
-                        $html = array();
-                        $html['logo'] = base_url() . getConfig('site_logo');
-                        $html['site'] = getConfig('site_name');
-                        $html['site_meta_title'] = getConfig('site_meta_title');
-                        $name = $this->input->post('name');
-                        $html['user'] = ucwords($name);
-                        $html['website'] = base_url();
-                        $html['content'] = $EmailTemplate->description;
-                        $email_template = $this->load->view('email-template/welcome', $html, true);
-                        $title = '[' . getConfig('site_name') . '] ' . $EmailTemplate->title;
-                        send_mail_new($email_template, $title, $this->input->post('email'), getConfig('admin_email'));
+                    // $EmailTemplate = getEmailTemplate("welcome");
+                    // if (!empty($EmailTemplate) && !empty($this->input->post('email'))) {
+                    //     $html = array();
+                    //     $html['logo'] = base_url() . getConfig('site_logo');
+                    //     $html['site'] = getConfig('site_name');
+                    //     $html['site_meta_title'] = getConfig('site_meta_title');
+                    //     $name = $this->input->post('name');
+                    //     $html['user'] = ucwords($name);
+                    //     $html['website'] = base_url();
+                    //     $html['content'] = $EmailTemplate->description;
+                    //     $email_template = $this->load->view('email-template/welcome', $html, true);
+                    //     $title = '[' . getConfig('site_name') . '] ' . $EmailTemplate->title;
+                    //     send_mail_new($email_template, $title, $this->input->post('email'), getConfig('admin_email'));
 
                         
-                    }
+                    // }
 
                     $response = array('status' => 1, 'message' => "Successfully added", 'url' => base_url($this->router->fetch_class()));
                 } else {
                     $response = array('status' => 0, 'message' => "Failed to add");
                 }
-            }
+            // }
         } else {
             $messages = (validation_errors()) ? validation_errors() : '';
             $response = array('status' => 0, 'message' => $messages);

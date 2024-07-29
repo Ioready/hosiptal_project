@@ -13,9 +13,7 @@
                         <h2 class="modal-title fw-bold"><i class="fa fa-pencil"></i> <?php echo (isset($title)) ? ucwords($title) : "" ?></h2>
                     </div>
                 <div class="modal-body">
-                    <!-- <div class="loaders">
-                        <img src="<?php //echo base_url().'backend_asset/images/Preloader_2.gif';?>" class="loaders-img" class="img-responsive">
-                    </div> -->
+                   
                     <div class="alert alert-danger" id="error-box" style="display: none"></div>
                     <div class="form-body">
                         <div class="row">

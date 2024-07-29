@@ -131,60 +131,69 @@ class Notification extends Common_Controller {
         redirect('notification');
     }
 
-    // function Notification_list()
-    // {
-    //     $userID = $this->ion_auth->get_user_id();
-
-
-    //     $query = $this->db->get_where('vendor_sale_clinic_appointment', array('doctor_name' => $userID));
-    //                 // $result = $query->row();
-    //                 $this->data['list'] =$query->row();
-                  
-    //                 // $this->load->admin_render('list', $data);
-
-    //                 $this->load->admin_render('list', $this->data, 'inner_script');
-    // }
-
     public function notification_list() {
+
         $this->data['parent'] = "Notification";
         $this->data['title'] = "Notification";
 
+    $operator_id = ($this->ion_auth->is_admin()) ? 0 : $this->session->userdata('user_id');
+    if($this->ion_auth->is_subAdmin()){
 
-        $userID = $this->ion_auth->get_user_id();
+        $option = array(
+            'table' => ' doctors',
+            'select' => 'doctors.*',
+            'join' => array(
+                array('users', 'doctors.user_id=users.id', 'left'),
+            ),
+            'where' => array(
+                'users.delete_status' => 0,
+                'doctors.user_id'=>$operator_id
+            ),
+            'single' => true,
+        );
 
+                    $datadoctors = $this->common_model->customGet($option);
+                $hospitalAndDoctorId=  $datadoctors->facility_user_id;
 
-        // $query = $this->db->get_where('vendor_sale_clinic_appointment', array('doctor_name' => $userID));
-                    
-                    // $this->data['notifications'] =$query->row();
-                
-                    $option = array(
-                        'table' => 'notifications',
-                        'select' => 'notifications.*, notifications.id as notification_ids, users.first_name, users.email, 
-                                    vendor_sale_clinic_appointment.*, 
-                                    vendor_sale_clinic_appointment.theatre_date_time as theatre_start_date_time,vendor_sale_doctors.name as doctor_name',
-                        'join' => array(
-                            // Commented out join
-                            // array('users' => 'users.id=notifications.user_id'),
-                            array('users' => 'users.id=notifications.patient_id'),
-                            array('vendor_sale_clinic_appointment' => 'vendor_sale_clinic_appointment.id=notifications.clinic_appointment_id'),
-                            array('vendor_sale_doctors' => 'vendor_sale_doctors.user_id=notifications.sender_id'),
-                            // Commented out join
-                            // array('vendor_sale_care_unit' => 'vendor_sale_care_unit.id=notifications.care_unit_id'),
+                $sql = "SELECT vendor_sale_notifications.*, 
+                vendor_sale_notifications.id AS notification_ids, 
+                vendor_sale_users.first_name, 
+                vendor_sale_users.email, 
+                vendor_sale_clinic_appointment.*, 
+                vendor_sale_clinic_appointment.theatre_date_time AS theatre_start_date_time,vendor_sale_clinic_appointment.type as appointment_type, vendor_sale_practitioner.name AS practitioner_name,userss.first_name as doctor_name FROM vendor_sale_notifications
+            LEFT JOIN vendor_sale_users ON vendor_sale_users.id = vendor_sale_notifications.patient_id 
+            LEFT JOIN vendor_sale_clinic_appointment ON vendor_sale_clinic_appointment.id = vendor_sale_notifications.clinic_appointment_id 
+            LEFT JOIN vendor_sale_practitioner ON vendor_sale_practitioner.id = vendor_sale_clinic_appointment.practitioner 
+            LEFT JOIN vendor_sale_users AS userss ON userss.id = vendor_sale_clinic_appointment.theatre_clinician
+            WHERE vendor_sale_notifications.user_id = $operator_id ORDER BY vendor_sale_notifications.id DESC";
+
+            $result = $this->db->query($sql);
+
+            $this->data['notifications'] = $result->result();
+
+    } else if ($this->ion_auth->is_facilityManager()) {
+        
+        
+            $hospitalAndDoctorId = $operator_id;
+
+            $sql = "SELECT vendor_sale_notifications.*, 
+                vendor_sale_notifications.id AS notification_ids, 
+                vendor_sale_users.first_name, 
+                vendor_sale_users.email, 
+                vendor_sale_clinic_appointment.*, 
+                vendor_sale_clinic_appointment.theatre_date_time AS theatre_start_date_time,vendor_sale_clinic_appointment.type as appointment_type, vendor_sale_practitioner.name AS practitioner_name,userss.first_name as doctor_name FROM vendor_sale_notifications
+            LEFT JOIN vendor_sale_users ON vendor_sale_users.id = vendor_sale_notifications.patient_id 
+            LEFT JOIN vendor_sale_clinic_appointment ON vendor_sale_clinic_appointment.id = vendor_sale_notifications.clinic_appointment_id 
+            LEFT JOIN vendor_sale_practitioner ON vendor_sale_practitioner.id = vendor_sale_clinic_appointment.practitioner 
+            LEFT JOIN vendor_sale_users as userss ON userss.id = vendor_sale_clinic_appointment.theatre_clinician
+            WHERE vendor_sale_notifications.facility_user_id = $hospitalAndDoctorId
+            ORDER BY vendor_sale_notifications.id DESC";
+
+            $result = $this->db->query($sql);
+
+            $this->data['notifications'] =  $result->result();;
                             
-                        ),
-                        'where' => array(
-                            'notifications.user_id' => $userID,
-                            // Commented out conditions
-                            // 'DATE(sent_time)' => date('Y-m-d'),
-                            // 'TIME(sent_time) >=' => date('H:i:s'),
-                        ),
-                        'order' => array('notifications.user_id' => 'desc'),
-                    );
-                    
-                    $this->data['notifications'] = $this->common_model->customGet($option);
-                    // print_r($this->data['notifications']);
-                    // die;
-                    
+            } 
 
         $this->load->admin_render('approve_appointment_list', $this->data, 'inner_script');
     }

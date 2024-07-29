@@ -1559,9 +1559,7 @@ public function fetch() {
 
     public function add() {
 
-//         echo "<pre>";
-// print_r($this->input->post());die;
-// echo "</pre>";
+       
 
         $tables = $this->config->item('tables', 'ion_auth');
         $identity_column = $this->config->item('identity', 'ion_auth');
@@ -1638,7 +1636,7 @@ public function fetch() {
                     
                 // }  else {
 
-                    $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+                    // $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 
 
                     // $additional_data_profile = array(
@@ -1667,7 +1665,35 @@ public function fetch() {
                                      
                     // );
                    
+// $operator_id = ($this->ion_auth->is_admin()) ? 0 : $this->session->userdata('user_id');
+//     if($this->ion_auth->is_subAdmin()){
+
+//         $option = array(
+//             'table' => ' doctors',
+//             'select' => 'doctors.*',
+//             'join' => array(
+//                 array('users', 'doctors.user_id=users.id', 'left'),
+//             ),
+//             'where' => array(
+//                 'users.delete_status' => 0,
+//                 'doctors.user_id'=>$operator_id
+//             ),
+//             'single' => true,
+//         );
+
+//         $datadoctors = $this->common_model->customGet($option);
+//       $CareUnitID=  $datadoctors->facility_user_id;
+
+//     } else if ($this->ion_auth->is_facilityManager()) {
+        
+        
+//   $CareUnitID = $operator_id;
+        
+//     }
+
                     
+
+
 
                     // $this->db->insert('clinic_appointment', $additional_data_profile); 
                     $additional_data_profile = array(
@@ -1677,8 +1703,8 @@ public function fetch() {
                         'clinician_appointment' => $this->input->post('location_appointment') ?: null,
                         'practitioner' => $this->input->post('practitioner') ?: null,
                         'appointment_type' => $this->input->post('appointment_type') ?: null,
-                        'start_date_appointment' => $this->input->post('start_date_appointment') ?: null,
-                        'end_date_appointment' => $this->input->post('end_date_appointment') ?: null,
+                        'start_date_appointment' => $this->input->post('start_date_appointment') ?: $this->input->post('theatre_date_time') ?: $this->input->post('out_start_time_at') ?:$this->input->post('start_date_availability') ?: null,
+                        'end_date_appointment' => $this->input->post('end_date_appointment') ?:$this->input->post('end_time_date_availability') ?:$this->input->post('out_end_time_at') ?: null,
                         'comment_appointment' => $this->input->post('comment_appointment') ?: null,
                         'doctor_name' => $this->input->post('doctor_name') ?: null,
                         'theatre_clinician' => $this->input->post('theatre_clinician') ?: null,
@@ -1703,20 +1729,69 @@ public function fetch() {
                     
                     $practitioner = $this->input->post('practitioner');
                     // 'sender_id' => $practitioner ?: null;
-                    
-                    $additional_notification = array(
+           
+
+$operator_id = ($this->ion_auth->is_admin()) ? 0 : $this->session->userdata('user_id');
+    if($this->ion_auth->is_subAdmin()){
+
+        $option = array(
+            'table' => ' doctors',
+            'select' => 'doctors.*',
+            'join' => array(
+                array('users', 'doctors.user_id=users.id', 'left'),
+            ),
+            'where' => array(
+                'users.delete_status' => 0,
+                'doctors.user_id'=>$operator_id
+            ),
+            'single' => true,
+        );
+
+        $datadoctors = $this->common_model->customGet($option);
+      $CareUnitID=  $datadoctors->facility_user_id;
+
+    //   echo "<pre>";
+    //   print_r($this->input->post('patient'));die;
+    //   echo "</pre>";
+
+      $additional_notification = array(
                        
-                        'type_id' => 'clinic_appointment',
-                        'patient_id' => $this->input->post('patient'),
-                        'care_unit_id' => $this->input->post('location_appointment'),
-                        'clinic_appointment_id' => $insert_id,
-                        'user_id' => $CareUnitID,
-                        'sender_id' => $this->input->post('doctor_name'),
-                    );
+        'type_id' => 'clinic_appointment',
+        'patient_id' => $this->input->post('patient'),
+        'care_unit_id' => $this->input->post('location_appointment'),
+        'clinic_appointment_id' => $insert_id,
+        'user_id' => $operator_id,
+        'facility_user_id'=>$CareUnitID,
+        'sender_id' => $this->input->post('doctor_name'),
+    );
+    
+   
+    $this->db->insert('notifications', $additional_notification); 
+    $notifications_id = $this->db->insert_id();
+
+    } else if ($this->ion_auth->is_facilityManager()) {
+        
+        
+  $CareUnitID = $operator_id;
+
+  $additional_notification = array(
+                       
+    'type_id' => 'clinic_appointment',
+    'patient_id' => $this->input->post('patient'),
+    'care_unit_id' => $this->input->post('location_appointment'),
+    'clinic_appointment_id' => $insert_id,
+    'user_id' => $CareUnitID,
+    'facility_user_id'=>$CareUnitID,
+    'sender_id' => $this->input->post('doctor_name'),
+);
+
+
+$this->db->insert('notifications', $additional_notification); 
+$notifications_id = $this->db->insert_id();
+        
+    }
+
                     
-                   
-                    $this->db->insert('notifications', $additional_notification); 
-                    $notifications_id = $this->db->insert_id();
 
 
                         // if($this->input->post('type') == "clinic_appointment"){
