@@ -1780,7 +1780,7 @@ $operator_id = ($this->ion_auth->is_admin()) ? 0 : $this->session->userdata('use
     'patient_id' => $this->input->post('patient'),
     'care_unit_id' => $this->input->post('location_appointment'),
     'clinic_appointment_id' => $insert_id,
-    'user_id' => $CareUnitID,
+    'user_id' => $this->input->post('practitioner') ?: $this->input->post('theatre_clinician') ?: null,
     'facility_user_id'=>$CareUnitID,
     'sender_id' => $this->input->post('doctor_name'),
 );
