@@ -158,7 +158,7 @@
                                             <?php
                                                 $start_time = strtotime('07:00');
                                                 $end_time = strtotime('24:00');
-                                                $interval = 1 * 60;
+                                                $interval = 15 * 60;
 
                                                 for ($time = $start_time; $time <= $end_time; $time += $interval) {
 

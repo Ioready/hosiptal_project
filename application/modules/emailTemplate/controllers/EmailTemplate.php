@@ -143,14 +143,16 @@ class EmailTemplate extends Common_Controller {
     public function sendEmailTemplate()
     {
         
-      
+     
         $this->form_validation->set_rules('subject', lang('subject'), 'required');
         
         $this->form_validation->set_rules('from_mail', lang('from_mail'), 'required');
         $user_id = $this->session->userdata('user_id');
         if ($this->form_validation->run() == true) {
                 $from = $this->input->post('from_mail');
-               
+    //             echo '<pre>';
+    //   print_r($this->input->post());die;
+    //   echo '</pre>';
                     $additional_data = array(
                         'user_id' => $user_id,
                         'app_name' => $this->input->post('app_name'),
@@ -190,11 +192,29 @@ class EmailTemplate extends Common_Controller {
                     // $template = $this->load->view('user_signup_mail', $data, true);
                     // print_r($data);die;
                     // $template = $this->load->view('email-template/registration', $data, true);
-                    $template = $this->load->view('emailTemplate/list', $data, true);
+                    // $template = $this->load->view('emailTemplate/list', $data, true);
 
                     // $this->send_email($email, $from, $subject, $template, $title);
                     
-                    $this->send_email_smtp($email, $from, $subject, $template, $title);
+                    // $this->send_email_smtp($email, $from, $subject, $template, $title);
+
+                    $EmailTemplate = getEmailTemplate("welcome");
+                    
+                    // if (!empty($EmailTemplate)) {
+                        $html = array();
+                        $html['logo'] = base_url() . getConfig('site_logo');
+                        $html['site'] = getConfig('site_name');
+                        $html['site_meta_title'] = getConfig('site_meta_title');
+                        $name = $this->input->post('first_name') . " " . $this->input->post('last_name');
+                        $html['user'] = ucwords($name);
+                        $html['email'] = $email;
+                        $html['password'] = $password;
+                        $html['token'] = $token_uniqss;
+                        $html['website'] = base_url();
+                        $html['content'] = $EmailTemplate->description;
+                        $template = $this->load->view('email-template/registration', $html, true);
+                        $title = '[' . getConfig('site_name') . '] ' . $EmailTemplate->title;
+                        $this->sendEmail($email, $from, $subject, $template, $title);
  
                     $response = array('status' => 1, 'message' => lang('user_success'), 'url' => base_url('users'));
                  

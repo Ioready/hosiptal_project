@@ -663,12 +663,12 @@ hh
                                 <!-- <li title="Organism">
                                     <a href="<?php echo site_url('organism'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "organism") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/products.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Organism</span></a>
                                 </li> -->
-                                <li title="Precautions">
+                                <!-- <li title="Precautions">
                                     <a href="<?php echo site_url('precautions'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "precautions") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/products.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Precautions</span></a>
-                                </li>
-                                <li title="Antibiotic Name">
+                                </li> -->
+                                <!-- <li title="Antibiotic Name">
                                     <a href="<?php echo site_url('initialRx'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "initialRx") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/products.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Antibiotic Name</span></a>
-                                </li> 
+                                </li>  -->
 
                                 <li title="Products">
                                     <a href="<?php echo site_url('products'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "products") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/products.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Products</span></a>

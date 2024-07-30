@@ -161,14 +161,14 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-12">
+            <!-- <div class="col-md-12">
             <label class="control-label mb-4">Create Letter template*</label>
                 <div class="form-group">
                     <div class="col-md-12">
                         <textarea id="editor" name="description"><?php echo $useTemplate->bodies_template;?></textarea>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <label class="control-label mb-4">Create Recipient*</label>
                 <div class="form-group">
                     <div class="col-md-12">

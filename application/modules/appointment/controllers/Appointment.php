@@ -1788,7 +1788,24 @@ $operator_id = ($this->ion_auth->is_admin()) ? 0 : $this->session->userdata('use
 
 $this->db->insert('notifications', $additional_notification); 
 $notifications_id = $this->db->insert_id();
+
+//  $additional_notification = array(
+                            
+//             'type_id' => 'clinic_appointment',
+//             'patient_id' => $this->input->post('patient'),
+//             'care_unit_id' => $this->input->post('location_appointment'),
+//             'clinic_appointment_id' => $insert_id,
+//             'user_id' => $this->input->post('practitioner') ?: $this->input->post('theatre_clinician') ?: null,
+//             'facility_user_id'=>$CareUnitID,
+//             'sender_id' => $this->input->post('doctor_name'),
+//         );
         
+//     $this->db->insert('notifications', $additional_notification); 
+//     $notifications_id = $this->db->insert_id();
+
+
+
+
     }
 
                     
@@ -2329,7 +2346,7 @@ $output ='<tbody>'?>
                                         <?php
                                             $start_time = strtotime('07:00');
                                             $end_time = strtotime('24:00');
-                                            $interval = 1 * 60;
+                                            $interval = 15 * 60;
 
                                             for ($time = $start_time; $time <= $end_time; $time += $interval) {
 

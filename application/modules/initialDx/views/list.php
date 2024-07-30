@@ -33,12 +33,29 @@
         <div class="col-sm-6 col-lg-2 mb-4">
         <a href="<?php echo base_url()."initialDx";?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
                 <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
-                    <h4 style="font-size:16px; font-weight:600; color:white;">initialDx</h4>
+                    <h4 style="font-size:16px; font-weight:600; color:white;">Diagnosis</h4>
                 </div>
                 <div class="widget-extra-full"><span class="h2 animation-expandOpen fw-bold text-dark"><?php echo $inactive;?></span></div>
             </a>
         </div>
 
+        <div class="col-sm-6 col-lg-2 mb-4">
+        <a href="<?php echo base_url()."initialRx";?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
+                <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
+                    <h4 style="font-size:16px; font-weight:600; color:white;">Antibiotic</h4>
+                </div>
+                <div class="widget-extra-full"><span class="h2 animation-expandOpen fw-bold text-dark"><?php echo $inactive;?></span></div>
+            </a>
+        </div>
+
+        <div class="col-sm-6 col-lg-2 mb-4">
+        <a href="<?php echo base_url()."precautions";?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
+                <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
+                    <h4 style="font-size:16px; font-weight:600; color:white;">Precautions</h4>
+                </div>
+                <div class="widget-extra-full"><span class="h2 animation-expandOpen fw-bold text-dark"><?php echo $inactive;?></span></div>
+            </a>
+        </div>
 
         <div class="col-sm-6 col-lg-2 mb-4">
         <a href="<?php echo base_url()."cultureSource";?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
@@ -61,6 +78,7 @@
         
         
     </div>
+
     <!-- Datatables Content -->
     <div class="block full">
         <div class="block-title">
