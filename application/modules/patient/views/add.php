@@ -407,7 +407,7 @@
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Culture Source</label>
+                                    <label class="col-md-3 control-label">Labs</label>
                                     <div class="col-md-9">
                                         <select id="culture_source" name="culture_source" class="form-control select-chosen" size="1">
                                             <option value="">Please select</option>
