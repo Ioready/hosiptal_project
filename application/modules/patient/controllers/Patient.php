@@ -236,7 +236,7 @@ class Patient extends Common_Controller
                     'select' => 'NS.*,CA.start_date_appointment,CA.end_date_appointment,CA.type,CA.location_appointment,CA.clinician_appointment,CA.appointment_type,CA.practitioner',
                     'join' => array(
                         array('doctors DOC', 'DOC.id=P.doctor_id', 'left'),
-                        array('users U', 'U.id=P.user_id', 'left'),
+                        array('users U', 'U.id=P.user_id', 'inner'),
                         array('clinic_appointment CA', 'U.id=CA.patient', 'inner'),
                         array('notifications NS', 'CA.id=NS.clinic_appointment_id', 'left')
                     ),
