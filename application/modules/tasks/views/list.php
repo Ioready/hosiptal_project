@@ -230,9 +230,23 @@
                     <div class="form-group">
                         <label class="m-4 control-label">Patient</label>
                         <div class="col-md-12">
-                            <input type="text" class="form-control" name="patient_name" id="patient_name" placeholder="Patient Name" />
+                            <input type="text" class="form-control" id="search" placeholder="Search Patient" />
+                            <!-- <input type="text" class="form-control" placeholder="Search" id="search"> -->
+
+                            <!-- <div id="result"></div> -->
                         </div>
                     </div>
+
+                    
+                        <div class="form-group">
+                            
+                            <div class="col-md-12">
+                            <input type="hidden" name="type" id="type" value="clinic_appointment">
+                            <div id="result"></div>
+                        </div>
+                        </div>
+               
+
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
@@ -722,3 +736,23 @@ a.status-green {
 }
 
 </style>
+
+<script>
+    $(document).ready(function() {
+        $("#search").keyup(function() {
+            var query = $(this).val();
+            if (query != '') {
+                $.ajax({
+                    url: "<?php echo site_url('tasks/fetch'); ?>",
+                    method: "POST",
+                    data: {query: query},
+                    success: function(data) {
+                        $('#result').html(data);
+                    }
+                });
+            } else {
+                $('#result').html('');
+            }
+        });
+    });
+</script>

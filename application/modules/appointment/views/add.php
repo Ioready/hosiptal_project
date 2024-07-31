@@ -223,7 +223,7 @@
                             <div id="result"></div>
                         </div>
                         </div>
-                    </div>
+                </div>
       
                    
     
@@ -386,7 +386,7 @@
                         <!-- <input type="search" id="search"> -->
                         <div class="col-md-9">
                                                 <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search" id="search_patient">
+                            <!-- <input type="text" class="form-control" placeholder="Search" id="search_patient"> -->
                         
                         </div>
                             </div>

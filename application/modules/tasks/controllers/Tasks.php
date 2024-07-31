@@ -2134,4 +2134,23 @@ class Tasks extends Common_Controller
         }
         // redirect('notification/notification_list');
     }
+
+    public function fetch() {
+        $output = '';
+        $query = $this->input->post('query');
+        if ($query) {
+            $results = $this->common_model->fetch_data($query);
+            $output .= '<select class="form-control select2" name="patient_name" id="patient_name">';
+            if (!empty($results)) {
+                foreach ($results as $row) {
+                    $output .= '<option value="'.$row['user_id'].'">( '.$row['patient_id'].')  -'.$row['name'].' - '. $row['address'].'</option>';
+                   
+                }
+            } else {
+                $output .= '<option>No Data Found</option>';
+            }
+            $output .= '</select>';
+            echo $output;
+        }
+    }
 }

@@ -125,6 +125,86 @@
 
     <?php if ($this->ion_auth->is_admin() or $this->ion_auth->is_subAdmin() or $this->ion_auth->is_facilityManager()) { ?>
         <div class="block full">
+
+        <div class="row text-center">
+        
+        <div class="col-sm-6 col-md-2 mb-4">
+            <a href="<?php echo base_url() . 'index.php/patient/summary?id=' . encoding($results->id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 10px; ">
+                <div class="widget-extra themed-background-dark"   style="background:#337ab7;">
+                    <h4 style="font-size:14px; font-weight:600; color:white;">Summery</h4>
+                </div>
+                <div class="widget-extra-full"><span class="h2 themed-color-dark animation-expandOpen fw-bold"><?php echo $active;?></span></div>
+            </a>
+        </div>
+        <div class="col-sm-6 col-lg-2 mb-4">
+            <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($results->id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
+                <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
+                    <h4 style="font-size:16px; font-weight:600; color:white;">Consultation</h4>
+                </div>
+                <div class="widget-extra-full"><span class="h2 animation-expandOpen fw-bold text-dark"><?php echo $inactive;?></span></div>
+            </a>
+        </div>
+        <div class="col-sm-6 col-lg-2 mb-4">
+        <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($results->id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
+                <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
+                    <h4 style="font-size:16px; font-weight:600; color:white;">Medications</h4>
+                </div>
+                <div class="widget-extra-full"><span class="h2 animation-expandOpen fw-bold text-dark"><?php echo $inactive;?></span></div>
+            </a>
+        </div>
+
+        <div class="col-sm-6 col-lg-2 mb-4">
+        <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($results->id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
+                <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
+                    <h4 style="font-size:16px; font-weight:600; color:white;">Letters and forms</h4>
+                </div>
+                <div class="widget-extra-full"><span class="h2 animation-expandOpen fw-bold text-dark"><?php echo $inactive;?></span></div>
+            </a>
+        </div>
+        <div class="col-sm-6 col-lg-2 mb-4">
+        <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($results->id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
+                <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
+                    <h4 style="font-size:16px; font-weight:600; color:white;">Prescriptions</h4>
+                </div>
+                <div class="widget-extra-full"><span class="h2 animation-expandOpen fw-bold text-dark"><?php echo $inactive;?></span></div>
+            </a>
+        </div>
+        <div class="col-sm-6 col-lg-2 mb-4">
+        <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($results->id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
+                <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
+                    <h4 style="font-size:16px; font-weight:600; color:white;">Labs</h4>
+                </div>
+                <div class="widget-extra-full"><span class="h2 animation-expandOpen fw-bold text-dark"><?php echo $inactive;?></span></div>
+            </a>
+        </div>
+        <div class="col-sm-6 col-lg-2 mb-4">
+        <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($results->id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
+                <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
+                    <h4 style="font-size:16px; font-weight:600; color:white;">Medications</h4>
+                </div>
+                <div class="widget-extra-full"><span class="h2 animation-expandOpen fw-bold text-dark"><?php echo $inactive;?></span></div>
+            </a>
+        </div>
+        <div class="col-sm-6 col-lg-2 mb-4">
+        <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($results->id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
+                <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
+                    <h4 style="font-size:16px; font-weight:600; color:white;">Medications</h4>
+                </div>
+                <div class="widget-extra-full"><span class="h2 animation-expandOpen fw-bold text-dark"><?php echo $inactive;?></span></div>
+            </a>
+        </div>
+        
+        <div class="col-sm-6 col-lg-2 mb-4">
+        <a href="<?php echo base_url() . 'index.php/patient/communication?id=' . encoding($results->id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
+                <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
+                    <h4 style="font-size:16px; font-weight:600; color:white;">Communication</h4>
+                </div>
+                <div class="widget-extra-full"><span class="h2 animation-expandOpen fw-bold text-dark"><?php echo $inactive;?></span></div>
+            </a>
+        </div>
+    </div>
+
+
             <div class="row text-center">
                 <div class="col-sm-6 col-lg-12">
                 </div>
@@ -132,30 +212,25 @@
                     <div class="panel panel-default">
                         <div >
                             
-                            <ul class="nav nav-pills nav-fill nav-tabss mt-4" id="pills-tab" role="tablist" >
+                            <!-- <ul class="nav nav-pills nav-fill nav-tabss mt-4" id="pills-tab" role="tablist" >
                                 <li class="nav-item">
                                 <a href="<?php echo site_url('patient'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "patient") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide text-dark">Patient</span></a>
-                                    <!-- <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-1" role="tab">Practice Contacts</a> -->
                                 </li>
                                 <li class="nav-item">
                                 
                                 <a href="<?php echo base_url() . 'index.php/patient/summary?id=' . encoding($results->id); ?>" data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark">Summary</span></a>
 
                                 </li>
-                                <!-- <li class="nav-item">
-                                <a href="<?php echo site_url('patient/consultationTemplates'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "consultationTemplates") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide text-dark">Consultation Templates</span></a>
-                                    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-2" role="tab"></a>
-                                </li> -->
+                               
                                 <li class="nav-item">
                                 <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($results->id); ?>"data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark"> Consultation Templates</span></a>
-                                    <!-- <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-2" role="tab"></a> -->
                                 </li>
                                 <li class="nav-item">
                                 
                                 <a href="<?php echo base_url() . 'index.php/patient/communication?id=' . encoding($results->id); ?>" data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark">Communication</span></a>
                                 </li>
                                 
-                            </ul>
+                            </ul> -->
                         </div> 
 
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="=" crossorigin="anonymous" />
@@ -215,12 +290,7 @@
         </div>
     </div>
 </div>
-
-
-
-
-                            
-                            <div class="panel-body">
+<div class="panel-body">
                             
                         </div>
                     </div>

@@ -1,3 +1,135 @@
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.js"></script>
+
+
+
+ 
+
+<style>
+   .save-btn{
+    /* font-weight:700; */
+    /* color:white; */
+    /* font-size: 1.5rem; */
+    /* padding: 0.6rem 2.25rem !important; */
+    background-color: #a7afb7 !important;
+    background:none;
+}
+.save-btn:hover{
+    color:white;
+    background:#00008B !important;
+}
+.btn {
+    margin: 1px 0;
+    background-color: #b9adad;
+}
+
+.modal_popup{
+    display: none;
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+
+.modal-body1 {
+    padding: 0px 15px;
+}
+.modal-appointment {
+    padding-left: 15px;
+}
+.appointment-status {
+    font-weight: 900 !important;
+    font-size: 14px;
+}
+
+.sendmail{
+    float: right;
+    margin: -41px 0;
+}
+
+.mailmodel{
+    margin-left:-15px;
+    margin-right:-15px;
+}
+
+@media only screen and (min-width: 668px) and (max-width: 1600px) {
+        .sendmail{
+            margin-top: -17px;
+                 }  
+    }
+
+    @media only screen and (max-width: 600px) {
+        .sendmail{
+            margin-top: -32px;
+                 }  
+       
+        }
+
+
+        .card {
+    background-color: #fff;
+    border-radius: 10px;
+    border: none;
+    position: relative;
+    /* margin-bottom: 30px; */
+    box-shadow: 0 0.46875rem 2.1875rem rgba(90,97,105,0.1), 0 0.9375rem 1.40625rem rgba(90,97,105,0.1), 0 0.25rem 0.53125rem rgba(90,97,105,0.12), 0 0.125rem 0.1875rem rgba(90,97,105,0.1);
+}
+.l-bg-cherry {
+    background: linear-gradient(to right, #337a, #337a) !important;
+    color: #fff;
+}
+
+.l-bg-blue-dark {
+    background: linear-gradient(to right, #337a, #337a) !important;
+    color: #fff;
+}
+
+.l-bg-green-dark {
+    background: linear-gradient(to right, #337a, #337a) !important;
+    color: #fff;
+}
+
+.l-bg-orange-dark {
+    background: linear-gradient(to right, #337a, #337a) !important;
+    color: #fff;
+}
+
+.card .card-statistic-3 .card-icon-large .fas, .card .card-statistic-3 .card-icon-large .far, .card .card-statistic-3 .card-icon-large .fab, .card .card-statistic-3 .card-icon-large .fal {
+    font-size: 110px;
+}
+
+.card .card-statistic-3 .card-icon {
+    /* text-align: center;
+    line-height: 50px;
+    margin-left: 15px;
+    color: #000;
+    position: absolute;
+    right: -5px;
+    top: 20px;
+    opacity: 0.1; */
+}
+
+.l-bg-cyan {
+    background: linear-gradient(135deg, #289cf5, #84c0ec) !important;
+    color: #fff;
+}
+
+.l-bg-green {
+    background: linear-gradient(135deg, #23bdb8 0%, #43e794 100%) !important;
+    color: #fff;
+}
+
+.l-bg-orange {
+    background: linear-gradient(to right, #f9900e, #ffba56) !important;
+    color: #fff;
+}
+
+.l-bg-cyan {
+    background: linear-gradient(135deg, #289cf5, #84c0ec) !important;
+    color: #fff;
+}
+</style>
 <!-- Page content -->
 <div id="page-content">
     <!-- Datatables Header -->
@@ -6,54 +138,206 @@
             <a href="<?php echo site_url('pwfpanel'); ?>">Home</a>
         </li>
         <li>
-            <a href="<?php echo site_url($model); ?>"><?php echo $title; ?></a>
+            <a href="<?php echo site_url($this->router->fetch_class()); ?>"><?php echo $title; ?></a>
         </li>
     </ul>
-   
-    <!-- END Quick Stats -->
+
     <?php if ($this->ion_auth->is_admin() or $this->ion_auth->is_subAdmin() or $this->ion_auth->is_facilityManager()) { ?>
-        <div class="block full">
+       
+        <div class="block full" id="printableTable">
+
             <div class="row text-center">
-            
-                <div class="col-sm-6 col-lg-12">
                 
+                <div class="col-sm-6 col-md-2 mb-4">
+                    <a href="<?php echo base_url() . 'index.php/patient/summary?id=' . encoding($results->id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 10px; ">
+                        <div class="widget-extra themed-background-dark"   style="background:#337ab7;">
+                            <h4 style="font-size:14px; font-weight:600; color:white;">Summery</h4>
+                        </div>
+                        <div class="widget-extra-full"><span class="h2 themed-color-dark animation-expandOpen fw-bold"><?php echo $active;?></span></div>
+                    </a>
                 </div>
+                <div class="col-sm-6 col-lg-2 mb-4">
+                    <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($results->id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
+                        <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
+                            <h4 style="font-size:16px; font-weight:600; color:white;">Consultation</h4>
+                        </div>
+                        <div class="widget-extra-full"><span class="h2 animation-expandOpen fw-bold text-dark"><?php echo $inactive;?></span></div>
+                    </a>
+                </div>
+                <div class="col-sm-6 col-lg-2 mb-4">
+                <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($results->id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
+                        <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
+                            <h4 style="font-size:16px; font-weight:600; color:white;">Medications</h4>
+                        </div>
+                        <div class="widget-extra-full"><span class="h2 animation-expandOpen fw-bold text-dark"><?php echo $inactive;?></span></div>
+                    </a>
+                </div>
+
+                <div class="col-sm-6 col-lg-2 mb-4">
+                <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($results->id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
+                        <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
+                            <h4 style="font-size:16px; font-weight:600; color:white;">Letters and forms</h4>
+                        </div>
+                        <div class="widget-extra-full"><span class="h2 animation-expandOpen fw-bold text-dark"><?php echo $inactive;?></span></div>
+                    </a>
+                </div>
+                <div class="col-sm-6 col-lg-2 mb-4">
+                <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($results->id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
+                        <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
+                            <h4 style="font-size:16px; font-weight:600; color:white;">Prescriptions</h4>
+                        </div>
+                        <div class="widget-extra-full"><span class="h2 animation-expandOpen fw-bold text-dark"><?php echo $inactive;?></span></div>
+                    </a>
+                </div>
+                <div class="col-sm-6 col-lg-2 mb-4">
+                <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($results->id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
+                        <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
+                            <h4 style="font-size:16px; font-weight:600; color:white;">Labs</h4>
+                        </div>
+                        <div class="widget-extra-full"><span class="h2 animation-expandOpen fw-bold text-dark"><?php echo $inactive;?></span></div>
+                    </a>
+                </div>
+                <div class="col-sm-6 col-lg-2 mb-4">
+                <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($results->id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
+                        <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
+                            <h4 style="font-size:16px; font-weight:600; color:white;">Medications</h4>
+                        </div>
+                        <div class="widget-extra-full"><span class="h2 animation-expandOpen fw-bold text-dark"><?php echo $inactive;?></span></div>
+                    </a>
+                </div>
+                <div class="col-sm-6 col-lg-2 mb-4">
+                <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($results->id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
+                        <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
+                            <h4 style="font-size:16px; font-weight:600; color:white;">Medications</h4>
+                        </div>
+                        <div class="widget-extra-full"><span class="h2 animation-expandOpen fw-bold text-dark"><?php echo $inactive;?></span></div>
+                    </a>
+                </div>
+                
+                <div class="col-sm-6 col-lg-2 mb-4">
+                <a href="<?php echo base_url() . 'index.php/patient/communication?id=' . encoding($results->id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
+                        <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
+                            <h4 style="font-size:16px; font-weight:600; color:white;">Communication</h4>
+                        </div>
+                        <div class="widget-extra-full"><span class="h2 animation-expandOpen fw-bold text-dark"><?php echo $inactive;?></span></div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="row text-center">
+                
                 <div class="col-sm-6 col-lg-12">
                     <div class="panel panel-default">
-                      
-                        <div style="margin: 0px 0px 20px 16px;">
-                            
+                    <!-- <div> 
                         <ul class="nav nav-pills nav-fill nav-tabss mt-4" id="pills-tab" role="tablist" >
-                                            <li class="nav-item">
-                                            <a href="<?php echo site_url('patient'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "patient") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide text-dark">Patient</span></a>
-                                               
-                                            </li>
-                                            <li class="nav-item">
-                                            
-                                            <a href="<?php echo base_url() . 'index.php/patient/summary?id=' . encoding($results->id); ?>" data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark">Summary</span></a>
-
-                                            </li>
-                                            <!-- <li class="nav-item">
-                                            <a href="<?php echo site_url('patient/consultationTemplates'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "consultationTemplates") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide text-dark">Consultation Templates</span></a>
-                                                <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-2" role="tab"></a>
-                                            </li> -->
-
-                                            
-                                            <li class="nav-item">
-                                            <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($results->id); ?>"data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark"> Consultation Templates</span></a>
-                                                <!-- <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-2" role="tab"></a> -->
-                                            </li>
-                                            <li class="nav-item">
-                                            
-                                            <a href="<?php echo base_url() . 'index.php/patient/communication?id=' . encoding($results->id); ?>" data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark">Communication</span></a>
-                                            </li>
-                                            
-                                        </ul>
-                                        
-                            </div> 
-                            <div class="panel-body">
+                            <li class="nav-item">
+                            <a href="<?php echo site_url('patient'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "patient") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide text-dark">Patient</span></a>
+                            </li>
+                            <li class="nav-item">
+                            <a href="<?php echo base_url() . 'index.php/patient/summary?id=' . encoding($results->id); ?>" data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark">Summary</span></a>
+                            </li>
                             
+                            <li class="nav-item">
+                            <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($results->id); ?>"data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark"> Consultation</span></a>
+                                
+                            </li>
+                            <li class="nav-item">
+                            <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($results->id); ?>"data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark"> Medications</span></a>
+                                
+                            </li>
+                            <li class="nav-item">
+                            <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($results->id); ?>"data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark"> Letters and forms</span></a>
+                                
+                            </li>
+
+                            <li class="nav-item">
+                            <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($results->id); ?>"data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark"> Prescriptions</span></a>
+                                
+                            </li>
+
+                            <li class="nav-item">
+                            <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($results->id); ?>"data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark"> Labs</span></a>
+                                
+                            </li>
+
+                            <li class="nav-item">
+                            <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($results->id); ?>"data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark"> Invoices</span></a>
+                                
+                            </li>
+
+                            <li class="nav-item">
+                            <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($results->id); ?>"data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark"> Account statements</span></a>
+                                
+                            </li>
+
+                            <li class="nav-item">
+                            
+                            <a href="<?php echo base_url() . 'index.php/patient/communication?id=' . encoding($results->id); ?>" data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark">Communication</span></a>
+                            </li>
+
+                            <li class="nav-item">
+                            
+                            <a href="<?php echo base_url() . 'index.php/patient/communication?id=' . encoding($results->id); ?>" data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark">Documents</span></a>
+                            </li>
+                            <li class="nav-item">
+                            
+                            <a href="<?php echo base_url() . 'index.php/patient/communication?id=' . encoding($results->id); ?>" data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark">Logs</span></a>
+                            </li>
+                            
+                        </ul>
+                    </div>  -->
+
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="=" crossorigin="anonymous" />
+                <div class="m-4">
+                    <div class="row">
+                        <div class="col-md-3 col-lg-3">
+                            <div class="card l-bg-cherry">
+                                <div class="card-statistic-3 m-4">
+                            
+                                    <div class="card-icon card-icon-large"><i class="fas fa-tint" style="font-size:3em;"></i></div> <!-- Using fa-tint icon -->
+                                    <div class="mb-4">
+                                        <h4 class="card-title mb-0">Blood Group</h4>
+                                        <h4 class="text-center fw-bold m-2">A+</h4>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+                        <div class="col-md-3 col-lg-3">
+                            <div class="card l-bg-blue-dark">
+                                <div class="card-statistic-3 m-4">
+                                    <div class="card-icon card-icon-large"><i class="fas fa-heartbeat" style="font-size:3em;"></i></div> <!-- Using fa-heartbeat icon -->
+                                    <div class="mb-4">
+                                        <h4 class="card-title mb-0">Blood Pressure</h4>
+                                        <h4 class="text-center fw-bold m-2">120/80</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-lg-3">
+                            <div class="card l-bg-green-dark">
+                                <div class="card-statistic-3 m-4">
+                                    <div class="card-icon card-icon-large"><i class="fas fa-heartbeat" style="font-size:3em;"></i></div> <!-- Using fa-heartbeat icon -->
+                                    <div class="mb-4">
+                                        <h4 class="card-title mb-0">Hert rate</h4>
+                                        <h4 class="text-center fw-bold m-2">120/80</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-lg-3">
+                            <div class="card l-bg-orange-dark">
+                                <div class="card-statistic-3 m-4">
+                                    <div class="card-icon card-icon-large"><i class="fas fa-thermometer-half" style="font-size:3em;"></i></div> <!-- Using fa-thermometer-half icon -->
+                                    <div class="mb-4">
+                                        <h4 class="card-title mb-0">Temperature</h4>
+                                        <h4 class="text-center fw-bold m-2">98.6°F</h4> <!-- Example temperature value in Fahrenheit -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                    </div>
                     </div>
                 </div>
             </div>
@@ -72,19 +356,26 @@
             <div class="card-body p-4" style="background-color:#FFFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);border-radius:20px">
                 <div class="row">
                     <div class="col-md-11">
-                        <h5 class="no-margins fw-bold"><?php echo $results->patient_name; ?></h5>
-                        <h5 class="text-dark fw-bold"><i class="fa fa-home" > </i> <?php echo $results->address;?></h5>
-                        <h5 class="text-dark fw-bold"><i class="fa fa-phone" > </i> <?php echo $results->patient_phone_number;?></h5>
+                        <h4 class="no-margins fw-bold"><?php echo $results->patient_name; ?></h4>
+                        <h6 class="text-dark fw-bold"><?php 
+                        $from = new DateTime($results->date_of_birth);
+                        $to   = new DateTime('today');
+                       
+                        echo $results->date_of_birth.'  |  '.$from->diff($to)->y.' Years  |  '.$results->gender;?></h6>
+                        <button type="button" class="btn btn-sm btn-primary save-btn btn-xs">Public</button>
+                        <h5 class="text-dark fw-bold"><i class="fa fa-home" > </i> <?php echo $results->address. ',  United Kingdom';?></h5>
+                        <h5 class="text-dark fw-bold"><i class="fa fa-phone" > </i> <?php echo $results->patient_phone_number. '('. $results->phone_code.')';?></h5>
                     </div>
                     <div class="col-md-1">
-                        <img src="<?php echo base_url(); ?>uploads/user.png" style="height: 65px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);" alt="">
+                    <button class="Button Button--outline" onclick="printDiv()"><i class="fa fa-print" aria-hidden="true"></i></button>
+                        <!-- <img src="<?php echo base_url(); ?>uploads/user.png" style="height: 65px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);" alt=""> -->
                     </div>
                 </div>
             </div>
         </div>
     </div> 
 </div>
-        <div class="row p-4 mt-4">
+<div class="row p-4 mt-4">
     <div class="col-md-4 ">
         <div class=" mb-3">
             <div class="card-body p-4" style="background-color:#EDEAFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);border-radius:20px">
@@ -130,8 +421,141 @@
             </div>
         </div>
     </div>
+
 </div>
-  
+
+<!-- <div class="row p-4 mt-4">
+    
+</div> -->
+
+<div class="row p-4 mt-4">
+    <div class="col-md-4 ">
+        <div class=" mb-3">
+            <div class="card-body p-4" style="background-color:#EDEAFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);border-radius:20px">
+                <div class="row">
+                <div class="col-md-8">
+                <h4 class="no-margins fw-bold"><strong>Appointment</strong></h4> 
+            </div>
+            <div class="col-md-4">
+                        <img src="<?php echo base_url(); ?>uploads/appointment.svg" style="height: 65px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);" alt="">
+                    </div>
+
+    </div>
+    <div class="row">
+
+                    <div class="col-md-12">
+                        
+                        <?php $rowCount = 0;
+                         foreach($results_rowAppointment as $appointment){ 
+                            $rowCount++;
+                            ?>
+                        <div class="row" style="border-bottom: 1px solid gray;">
+                        <div class="text-dark fw-bold">
+                            <?php echo $rowCount. '  '.$appointment->type; ?>
+                            
+                         </div>
+                         <div class="text-dark appointment-status">
+                            <?php echo $appointment->appointment_status; ?>
+                            
+                         </div>
+
+                            <div class="text-dark fw-bold modal-appointment">
+                            <?php echo $appointment->start_date_appointment; ?>
+                            
+                         </div>
+                        </div>
+                            <!-- <p class="text-dark fw-bold"><?php echo $appointment->end_date_appointment; ?></p> -->
+
+                          <?php  } 
+                            ?>
+                        <!-- <p class="text-dark fw-bold"><?php echo $results->initial_dx_name; ?></p> -->
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 ">
+        <div class=" mb-3">
+            <div class="card-body p-4" style="background-color:#EDEAFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);border-radius:20px">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h4 class="no-margins fw-bold"><strong>Task</strong></h4> 
+                        <!-- <p class="text-dark fw-bold"><?php echo $results->initial_dx_name; ?></p> -->
+                    </div>
+                    <div class="col-md-4">
+                        <img src="<?php echo base_url(); ?>uploads/tasks.svg" style="height: 65px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);" alt="">
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-12">
+                        
+                        <?php $rowCount = 0;
+                         foreach($results_task as $task){ 
+                            $rowCount++;
+                            ?>
+                        <div class="row" style="border-bottom: 1px solid gray;">
+                        <div class="text-dark fw-bold">
+                            <?php echo $rowCount. '  '.$task->task_name; ?>
+                            
+                         </div>
+                         <div class="text-dark appointment-status">Doctor Name:  
+                            <?php echo $task->doctor_name; ?>
+                            
+                         </div>
+                         
+                            <div class="text-dark fw-bold modal-appointment">Priority:
+                            <?php echo $task->priority; ?>
+                            
+                         </div>
+                         <div class="text-dark fw-bold modal-appointment">Due date:
+                            <?php echo $task->due_date; ?>
+                            
+                         </div>
+                         <div class="text-dark appointment-status">Status:  
+                            <?php echo $task->status; ?>
+                            
+                         </div>
+                        </div>
+                            <!-- <p class="text-dark fw-bold"><?php echo $appointment->end_date_appointment; ?></p> -->
+
+                          <?php  } 
+                            ?>
+                        <!-- <p class="text-dark fw-bold"><?php echo $results->initial_dx_name; ?></p> -->
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-4 ">
+        <div class=" mb-3">
+            <div class="card-body p-4" style="background-color:#EDEAFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);border-radius:20px">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h4 class="no-margins fw-bold"><strong>Product</strong></h4> 
+                        <!-- <p class="text-dark fw-bold"><?php echo $results->initial_dx_name; ?></p> -->
+                    </div>
+                    <div class="col-md-4">
+                        <img src="<?php echo base_url(); ?>uploads/products.svg" style="height: 65px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+            </div>
+        </div>
+    </div>
+</div>
+
+<iframe name="print_frame" width="0" height="0" frameborder="0" src="about:blank"></iframe>
 </section>
 
 
@@ -373,6 +797,13 @@ document.addEventListener('DOMContentLoaded', function() {
 /*    $("#zipcode").select2({
         allowClear: true
     });*/
+
+    function printDiv() {
+         window.frames["print_frame"].document.body.innerHTML = document.getElementById("printableTable").innerHTML;
+         window.frames["print_frame"].window.focus();
+         window.frames["print_frame"].window.print();
+       }
+
 </script>
 
 <style>

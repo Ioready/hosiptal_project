@@ -1,4 +1,119 @@
 <!-- Page content -->
+
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.js"></script>
+
+
+
+ 
+
+<style>
+
+.btn {
+    margin: 1px 0;
+    background-color: #b9adad;
+}
+
+.modal_popup{
+    display: none;
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+
+.modal-body1 {
+    padding: 0px 15px;
+}
+.sendmail{
+    float: right;
+    margin: -41px 0;
+}
+
+.mailmodel{
+    margin-left:-15px;
+    margin-right:-15px;
+}
+
+@media only screen and (min-width: 668px) and (max-width: 1600px) {
+        .sendmail{
+            margin-top: -17px;
+                 }  
+    }
+
+    @media only screen and (max-width: 600px) {
+        .sendmail{
+            margin-top: -32px;
+                 }  
+       
+        }
+
+
+        .card {
+    background-color: #fff;
+    border-radius: 10px;
+    border: none;
+    position: relative;
+    /* margin-bottom: 30px; */
+    box-shadow: 0 0.46875rem 2.1875rem rgba(90,97,105,0.1), 0 0.9375rem 1.40625rem rgba(90,97,105,0.1), 0 0.25rem 0.53125rem rgba(90,97,105,0.12), 0 0.125rem 0.1875rem rgba(90,97,105,0.1);
+}
+.l-bg-cherry {
+    background: linear-gradient(to right, #337a, #337a) !important;
+    color: #fff;
+}
+
+.l-bg-blue-dark {
+    background: linear-gradient(to right, #337a, #337a) !important;
+    color: #fff;
+}
+
+.l-bg-green-dark {
+    background: linear-gradient(to right, #337a, #337a) !important;
+    color: #fff;
+}
+
+.l-bg-orange-dark {
+    background: linear-gradient(to right, #337a, #337a) !important;
+    color: #fff;
+}
+
+.card .card-statistic-3 .card-icon-large .fas, .card .card-statistic-3 .card-icon-large .far, .card .card-statistic-3 .card-icon-large .fab, .card .card-statistic-3 .card-icon-large .fal {
+    font-size: 110px;
+}
+
+.card .card-statistic-3 .card-icon {
+    /* text-align: center;
+    line-height: 50px;
+    margin-left: 15px;
+    color: #000;
+    position: absolute;
+    right: -5px;
+    top: 20px;
+    opacity: 0.1; */
+}
+
+.l-bg-cyan {
+    background: linear-gradient(135deg, #289cf5, #84c0ec) !important;
+    color: #fff;
+}
+
+.l-bg-green {
+    background: linear-gradient(135deg, #23bdb8 0%, #43e794 100%) !important;
+    color: #fff;
+}
+
+.l-bg-orange {
+    background: linear-gradient(to right, #f9900e, #ffba56) !important;
+    color: #fff;
+}
+
+.l-bg-cyan {
+    background: linear-gradient(135deg, #289cf5, #84c0ec) !important;
+    color: #fff;
+}
+</style>
+
 <div id="page-content">
     <ul class="breadcrumb breadcrumb-top">
         <li>
@@ -8,124 +123,123 @@
             <a href="<?php echo site_url($parent); ?>"><?php echo $title; ?></a>
         </li>
     </ul>
-<!--     <div class="block full">
-        <div class="row text-center">
+   
+    <?php if ($this->ion_auth->is_admin() or $this->ion_auth->is_subAdmin() or $this->ion_auth->is_facilityManager()) { ?>
+        <div class="block full">
+            <div class="row text-center">
+                <div class="col-sm-6 col-lg-12">
+                </div>
+                <div class="col-sm-6 col-lg-12">
+                    <div class="panel panel-default">
+                        <div >
+                            
+                            <ul class="nav nav-pills nav-fill nav-tabss mt-4" id="pills-tab" role="tablist" >
+                                <li class="nav-item">
+                                <a href="<?php echo site_url('patient'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "patient") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide text-dark">Patient</span></a>
+                                    <!-- <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-1" role="tab">Practice Contacts</a> -->
+                                </li>
+                                <li class="nav-item">
+                                
+                                <a href="<?php echo base_url() . 'index.php/patient/summary?id=' . encoding($results->id); ?>" data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark">Summary</span></a>
 
-            <div class="col-sm-6 col-lg-12">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <div id="msg"></div>
-                        <?php
-                        $message = $this->session->flashdata('success');
-                        if (!empty($message)):
-                            ?><div class="alert alert-success">
-                                <?php echo $message; ?></div><?php endif; ?>
-                        <?php
-                        $error = $this->session->flashdata('error');
-                        if (!empty($error)):
-                            ?><div class="alert alert-danger">
-                                <?php echo $error; ?></div><?php endif; ?>
-                        <form action="<?php echo site_url('patient/patientImport'); ?>" name="patientFormExport" method="post" enctype="multipart/form-data">
-                            <div class="col-sm-6 col-lg-2">
-                                <div class="text-left">Upload File:</div>
-                            </div>
-                            <div class="col-sm-6 col-lg-10">
-                                <div class="text-left text-danger">Note: First, select care unit to upload the file</div>
-                            </div>
-                            <div class="col-sm-6 col-lg-4">
-                                <select id="care_unit1" name="careUnit" class="form-control select-2" onchange="getPatient()">
-                                    <option value="">Select Care Unit</option>
-                                    <?php
-                                    if (isset($careUnit) && !empty($careUnit)) {
-                                        foreach ($careUnit as $row) {
-                                            $select = "";
-                                            if (isset($careUnitID)) {
-                                                if ($careUnitID == $row->id) {
-                                                    $select = "selected";
-                                                }
-                                            }
-                                            ?>
-                                            <option value="<?php echo $row->id; ?>" <?php echo $select; ?>><?php echo $row->name; ?></option>
-                                            <?php
-                                        }
-                                    }
-                                    ?>
-                                </select>
-                            </div>
-                            <div class="col-sm-6 col-lg-4 hidetext">
-                                <input type="file" name="patientFile" class="form-control" accept=".csv"/>
-                            </div>
-                            <div class="col-sm-6 col-lg-1 hidetext">
-                                <button type="submit" class="btn btn-info btn-sm" value="Import"><fa class="fa fa-file-pdf-o"></fa> Import</button>
-                            </div>
-                            <div id="labelError"></div>
-                        </form>
-                    </div>
-                </div></div>
-            <div class="col-sm-6 col-lg-12">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <form action="<?php echo site_url('patient'); ?>" name="patientForm" method="get">
-                            <div class="col-sm-6 col-lg-2">
-                                <div class="text-left">Download File:</div>
-                            </div>
-                            <div class="col-sm-6 col-lg-10">
-                                <div class="text-left text-danger">Note: select care unit to download specific care unit's file or , overall file will be downloaded</div>
-                            </div>
-                            <div class="col-sm-6 col-lg-4">
-                                <select id="care_unit" name="careUnit" class="form-control select-2" onchange="getPatient()">
-                                    <option value="">Select Care Unit</option>
-                                    <?php
-                                    if (isset($careUnit) && !empty($careUnit)) {
-                                        foreach ($careUnit as $row) {
-                                            $select = "";
-                                            if (isset($careUnitID)) {
-                                                if ($careUnitID == $row->id) {
-                                                    $select = "selected";
-                                                }
-                                            }
-                                            ?>
-                                            <option value="<?php echo $row->id; ?>" <?php echo $select; ?>><?php echo $row->name; ?></option>
-                                            <?php
-                                        }
-                                    }
-                                    ?>
-                                </select>
-                            </div>
-                            <div class="col-sm-6 col-lg-2">
-                                <input type="submit" class="btn btn-primary btn-sm" value="Search"/>
-                            </div>
-                        </form>
-                        <?php
-                        if (isset($careUnitID)) {
-                            $careUnitID = (!empty($careUnitID)) ? $careUnitID : '';
-                        }
-                        ?>
-                        <form action="<?php echo site_url('patient/patientExport'); ?>" name="patientFormExport" method="get">
-                            <div class="col-sm-12 col-lg-6">
-                                <input type="hidden" name="careUnitID" id="careUnitID" value="<?php echo $careUnitID; ?>" />
-                                <div class="col-sm-12 col-lg-8">
-                                <input type="text" class="form-control" name="date" id="date" />
-                                </div>
-                                <div class="col-sm-12 col-lg-4">
-                                <button type="submit" class="btn btn-success btn-sm"><fa class="fa fa-file-pdf-o"></fa> Export</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div></div>
+                                </li>
+                                <!-- <li class="nav-item">
+                                <a href="<?php echo site_url('patient/consultationTemplates'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "consultationTemplates") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide text-dark">Consultation Templates</span></a>
+                                    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-2" role="tab"></a>
+                                </li> -->
+                                <li class="nav-item">
+                                <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($results->id); ?>"data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark"> Consultation Templates</span></a>
+                                    <!-- <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-2" role="tab"></a> -->
+                                </li>
+                                <li class="nav-item">
+                                
+                                <a href="<?php echo base_url() . 'index.php/patient/communication?id=' . encoding($results->id); ?>" data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark">Communication</span></a>
+                                </li>
+                                
+                            </ul>
+                        </div> 
+
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="=" crossorigin="anonymous" />
+                <div class="m-4">
+                    <div class="row">
+                        <div class="col-md-3 col-lg-3">
+                            <div class="card l-bg-cherry">
+                                <div class="card-statistic-3 m-4">
+                            
+                                    <div class="card-icon card-icon-large"><i class="fas fa-tint" style="font-size:3em;"></i></div> <!-- Using fa-tint icon -->
+<div class="mb-4">
+    <h4 class="card-title mb-0">Blood Group</h4>
+    <h4 class="text-center fw-bold m-2">A+</h4>
+</div>
+
+                </div>
             </div>
         </div>
-    </div> -->
+        
+        <div class="col-md-3 col-lg-3">
+            <div class="card l-bg-blue-dark">
+                <div class="card-statistic-3 m-4">
+                <div class="card-icon card-icon-large"><i class="fas fa-heartbeat" style="font-size:3em;"></i></div> <!-- Using fa-heartbeat icon -->
+<div class="mb-4">
+    <h4 class="card-title mb-0">Blood Pressure</h4>
+    <h4 class="text-center fw-bold m-2">120/80</h4>
+</div>
+
+
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3 col-lg-3">
+            <div class="card l-bg-green-dark">
+                <div class="card-statistic-3 m-4">
+                <div class="card-icon card-icon-large"><i class="fas fa-heartbeat" style="font-size:3em;"></i></div> <!-- Using fa-heartbeat icon -->
+<div class="mb-4">
+    <h4 class="card-title mb-0">Hert rate</h4>
+    <h4 class="text-center fw-bold m-2">120/80</h4>
+</div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-lg-3">
+            <div class="card l-bg-orange-dark">
+                <div class="card-statistic-3 m-4">
+                <div class="card-icon card-icon-large"><i class="fas fa-thermometer-half" style="font-size:3em;"></i></div> <!-- Using fa-thermometer-half icon -->
+<div class="mb-4">
+    <h4 class="card-title mb-0">Temperature</h4>
+    <h4 class="text-center fw-bold m-2">98.6°F</h4> <!-- Example temperature value in Fahrenheit -->
+</div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+                            
+                            <div class="panel-body">
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <?php } ?>
     <!-- Datatables Content -->
     <div class="block full">
-<!--         <div class="block-title">
+        <div class="block-title">
             <h2><strong><?php echo $title; ?></strong> Panel</h2>
 
             <h2><a href="javascript:void(0)"  onclick="open_modal('<?php echo $model; ?>')" class="btn btn-sm btn-primary">
                     <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
                 </a></h2>
 
-        </div> -->
+        </div>
 
         <div class="table-responsive">
             <table id="common_datatable_menucat"  class="table table-vcenter table-condensed table-bordered text-center">
@@ -191,7 +305,7 @@
                                     <a href="<?php echo base_url() . 'index.php/patient/edit?id=' . encoding($rows->patient_id); ?>" data-toggle="tooltip" class="btn btn-xs btn-success"><i class="fa fa-eye"></i></a>
         <!--                                    <a href="<?php echo base_url() . 'patient/edit_parient?id=' . encoding($rows->patient_id); ?>" data-toggle="tooltip" class="btn btn-default" target="_blank"><i class="fa fa-pencil"></i></a>-->
                                     <a href="javascript:void(0)" onclick="deletePatient('<?php echo $rows->patient_id; ?>')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
-<!--                                       <a href="<?php echo base_url() . 'patient/existing_list/' . $rows->pid; ?>" target='_blank' data-toggle="tooltip" class="btn btn-default">View List</a> -->
+<!--                                       <a href="<?php echo base_url() . 'patient/existing_list/' . $rows->pid; ?>" target='_blank' data-toggle="tooltip" class="btn btn-default">View List</a>
                                 </td>
                             </tr>
                             <?php

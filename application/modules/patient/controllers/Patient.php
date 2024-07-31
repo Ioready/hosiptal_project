@@ -157,10 +157,10 @@ class Patient extends Common_Controller
                 . 'PC.initial_rx,IRX.name as initial_rx_name,PC.initial_dx,IDX.name as initial_dx_name,PC.initial_dot,'
                 . 'PC.new_initial_rx,IRX2.name as new_initial_rx_name,PC.new_initial_dx,IDX2.name as new_initial_dx_name,PC.new_initial_dot,PC.comment',
             'join' => array(
-                array('care_unit CI', 'CI.id=P.care_unit_id', 'inner'),
-                array('doctors DOC', 'DOC.user_id=P.doctor_id', 'inner'),
-                array('users U', 'U.id=P.md_steward_id', 'inner'),
-                array('patient_consult PC', 'PC.patient_id=P.id', 'inner'),
+                array('care_unit CI', 'CI.id=P.care_unit_id', 'left'),
+                array('doctors DOC', 'DOC.user_id=P.doctor_id', 'left'),
+                array('users U', 'U.id=P.md_steward_id', 'left'),
+                array('patient_consult PC', 'PC.patient_id=P.id', 'left'),
                 array('initial_rx IRX', 'IRX.id=PC.initial_rx', 'left'),
                 array('initial_dx IDX', 'IDX.id=PC.initial_dx', 'left'),
                 array('culture_source CS', 'CS.name=P.culture_source', 'left'),
@@ -205,38 +205,74 @@ class Patient extends Common_Controller
             $this->data['formUrl'] = $this->router->fetch_class() . "/update";
             $id = decoding($_GET['id']);
             if (!empty($id)) {
-
+                // print_r($id); die;
                 $option = array(
                     'table' => 'patient P',
                     'select' => 'P.total_days_of_patient_stay,P.infection_surveillance_checklist,P.date_of_start_abx,P.md_patient_status,P.id ,P.patient_id,P.name as patient_name,P.address,P.room_number,P.symptom_onset,P.md_stayward_consult,P.criteria_met,P.md_stayward_response,P.psa,P.created_date,'
                         . 'P.care_unit_id,CI.name as care_unit_name,P.doctor_id,P.culture_source,P.organism,P.precautions,CS.name as culture_source_name,Org.name as organism_name,Pre.name as precautions_name,DOC.name as doctor_name,P.md_steward_id,U.first_name as md_steward,'
                         . 'PC.initial_rx,IRX.name as initial_rx_name,PC.initial_dx,IDX.name as initial_dx_name,PC.initial_dot,'
-                        . 'PC.new_initial_rx,IRX2.name as new_initial_rx_name,PC.new_initial_dx,IDX2.name as new_initial_dx_name,PC.new_initial_dot,PC.additional_comment_option,PC.comment,U.email as patient_email,U.email as password, U.phone as patient_phone_number',
+                        . 'PC.new_initial_rx,IRX2.name as new_initial_rx_name,PC.new_initial_dx,IDX2.name as new_initial_dx_name,PC.new_initial_dot,PC.additional_comment_option,PC.comment,U.email as patient_email,U.email as password, U.phone as patient_phone_number,U.date_of_birth,U.gender,U.phone_code',
                     'join' => array(
-                        array('care_unit CI', 'CI.id=P.care_unit_id', 'inner'),
-                        array('doctors DOC', 'DOC.id=P.doctor_id', 'inner'),
-                        array('users U', 'U.id=P.user_id', 'inner'),
-                        array('patient_consult PC', 'PC.patient_id=P.id', 'inner'),
+                        array('care_unit CI', 'CI.id=P.care_unit_id', 'left'),
+                        array('doctors DOC', 'DOC.id=P.doctor_id', 'left'),
+                        array('users U', 'U.id=P.user_id', 'left'),
+                        array('patient_consult PC', 'PC.patient_id=P.id', 'left'),
                         array('initial_rx IRX', 'IRX.id=PC.initial_rx', 'left'),
                         array('initial_dx IDX', 'IDX.id=PC.initial_dx', 'left'),
                         array('culture_source CS', 'CS.name=P.culture_source', 'left'),
                         array('organism Org', 'Org.name=P.organism', 'left'),
                         array('precautions Pre', 'Pre.name=P.precautions', 'left'),
                         array('initial_rx IRX2', 'IRX2.id=PC.new_initial_rx', 'left'),
-                        array('initial_dx IDX2', 'IDX2.id=PC.new_initial_dx', 'left')
+                        array('initial_dx IDX2', 'IDX2.id=PC.new_initial_dx', 'left'),
+                        // array('clinic_appointment CA', 'patient.id=CA.patient', 'left')
                     ),
                     'single' => true
                 );
                 $option['where']['P.id'] = $id;
                 $results_row = $this->common_model->customGet($option);
+
+                $optionAppointment = array(
+                    'table' => 'patient P',
+                    'select' => 'NS.*,CA.start_date_appointment,CA.end_date_appointment,CA.type,CA.location_appointment,CA.clinician_appointment,CA.appointment_type,CA.practitioner',
+                    'join' => array(
+                        array('doctors DOC', 'DOC.id=P.doctor_id', 'left'),
+                        array('users U', 'U.id=P.user_id', 'left'),
+                        array('clinic_appointment CA', 'U.id=CA.patient', 'inner'),
+                        array('notifications NS', 'CA.id=NS.clinic_appointment_id', 'left')
+                    ),
+                    // 'single' => true
+                );
+                $option['where']['P.id'] = $id;
+                $this->data['results_rowAppointment'] = $this->common_model->customGet($optionAppointment);
+
+                $optionAppointment = array(
+                    'table' => 'patient P',
+                    'select' => 'TK.*,DOC.name as doctor_name',
+                    'join' => array(
+                       
+                        array('users U', 'U.id=P.user_id', 'left'),
+                        array('task TK', 'U.id=TK.patient_name', 'inner'),
+                        array('doctors DOC', 'DOC.user_id=TK.assign_to', 'left'),
+                        // array('notifications NS', 'CA.id=NS.clinic_appointment_id', 'left')
+                    ),
+                    // 'single' => true
+                );
+                $option['where']['P.id'] = $id;
+                $this->data['results_task'] = $this->common_model->customGet($optionAppointment);
+            //    print_r($this->data['results_task']);die;
+
+
                 if (!empty($results_row)) {
 
                     $results_row->md_steward_response = clone $results_row;
 
 
                     $filteredData = $this->applyAlgo($results_row);
-                    // echo"<pre>"; print_r($filteredData); die;
+                    // echo"<pre>"; 
+                    // print_r($filteredData); die;
                     $this->data['results'] = $filteredData;
+
+                    
                     $this->load->admin_render('summary', $this->data, 'inner_script');
                 } else {
                     $this->session->set_flashdata('error', lang('not_found'));
@@ -1372,9 +1408,9 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
                         // 'date_of_birth' => (!empty($this->input->post('date_of_birth'))) ? date('Y-m-d', strtotime($this->input->post('date_of_birth'))) : date('Y-m-d'),
                         // 'profile_pic' => $image,
                         'phone' => $this->input->post('phone'),
-                        // 'phone_code' => $this->input->post('phone_code'),
+                        'phone_code' => $this->input->post('phone_code'),
                         'care_unit_id' => $this->input->post('care_unit_id'),
-                        // 'zipcode_access' => json_encode($this->input->post('zipcode')),
+                        'zipcode_access' => $this->input->post('zipcode'),
                         'email_verify' => 1,
                         'is_pass_token' => $this->input->post('password'),
                         'created_on' => strtotime(datetime())
@@ -1669,13 +1705,13 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
                         //'team_code' => $code,
                         'login_id' => $x,
                         'username' => $code,
-                        'date_of_birth' => $day.'/'.$month.'/'.$year,
+                        'date_of_birth' => $year.'-'.$month.'-'.$day,
                         // 'date_of_birth' => (!empty($this->input->post('date_of_birth'))) ? date('Y-m-d', strtotime($this->input->post('date_of_birth'))) : date('Y-m-d'),
                         // 'profile_pic' => $image,
                         'phone' => $this->input->post('phone_number'),
                         'country_code'=>$this->input->post('country'),
                         'gender'=>$this->input->post('gender'),
-                        'gender'=>$this->input->post('gender'),
+                        // 'gender'=>$this->input->post('gender'),
                         'zipcode_access'=>$this->input->post('post_code'),
                         // 'phone_code' => $this->input->post('phone_code'),
                         'care_unit_id' => $this->input->post('care_unit_id'),
@@ -2064,6 +2100,62 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
             redirect('patient');
         }
     }
+
+    public function patientDetails()
+    {
+        $this->data['parent'] = $this->title;
+        $this->data['title'] = $this->title;
+        $this->data['formUrl'] = $this->router->fetch_class() . "/update";
+        $id = decoding($_GET['id']);
+       
+        if (!empty($id)) {
+
+            $option = array(
+                'table' => 'patient P',
+                'select' => 'P.total_days_of_patient_stay,P.infection_surveillance_checklist,P.date_of_start_abx,P.md_patient_status,P.id ,P.patient_id,P.name as patient_name,P.address,P.room_number,P.symptom_onset,P.md_stayward_consult,P.criteria_met,P.md_stayward_response,P.psa,P.created_date,'
+                    . 'P.care_unit_id,CI.name as care_unit_name,P.doctor_id,P.culture_source,P.organism,P.precautions,CS.name as culture_source_name,Org.name as organism_name,Pre.name as precautions_name,DOC.name as doctor_name,P.md_steward_id,U.first_name as md_steward,'
+                    . 'PC.initial_rx,IRX.name as initial_rx_name,PC.initial_dx,IDX.name as initial_dx_name,PC.initial_dot,'
+                    . 'PC.new_initial_rx,IRX2.name as new_initial_rx_name,PC.new_initial_dx,IDX2.name as new_initial_dx_name,PC.new_initial_dot,PC.additional_comment_option,PC.comment,U.email as patient_email,U.email as password,U.date_of_birth',
+                'join' => array(
+                    array('care_unit CI', 'CI.id=P.care_unit_id', 'left'),
+                    array('doctors DOC', 'DOC.id=P.doctor_id', 'left'),
+                    array('users U', 'U.id=P.md_steward_id', 'left'),
+                    array('patient_consult PC', 'PC.patient_id=P.id', 'left'),
+                    array('initial_rx IRX', 'IRX.id=PC.initial_rx', 'left'),
+                    array('initial_dx IDX', 'IDX.id=PC.initial_dx', 'left'),
+                    array('culture_source CS', 'CS.name=P.culture_source', 'left'),
+                    array('organism Org', 'Org.name=P.organism', 'left'),
+                    array('precautions Pre', 'Pre.name=P.precautions', 'left'),
+                    array('initial_rx IRX2', 'IRX2.id=PC.new_initial_rx', 'left'),
+                    array('initial_dx IDX2', 'IDX2.id=PC.new_initial_dx', 'left')
+                ),
+                'single' => true
+            );
+            $option['where']['P.id'] = $id;
+            $results_row = $this->common_model->customGet($option);
+            if (!empty($results_row)) {
+
+                
+
+                $results_row->md_steward_response = clone $results_row;
+                // print_r($results_row);die;
+
+                $filteredData = $this->applyAlgo($results_row);
+                // echo"<pre>";
+                $this->data['results'] = $filteredData;
+                // print_r($this->data['results']); die;
+                $this->load->admin_render('patient_details', $this->data, 'inner_script');
+            } else {
+                $this->session->set_flashdata('error', lang('not_found'));
+                redirect('patient');
+            }
+        } else {
+            $this->session->set_flashdata('error', lang('not_found'));
+            redirect('patient');
+        }
+    }
+
+    
 
 
     public function applyAlgo($results_row)
