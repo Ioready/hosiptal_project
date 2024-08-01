@@ -197,7 +197,19 @@
             }
         });
     }
+    var open_model_medication = function (controller) {
+        $.ajax({
+            url: '<?php echo base_url(); ?>' + controller + "/open_model_medication",
+            type: 'POST',
+            data: {'<?php echo $this->security->get_csrf_token_name(); ?>': '<?php echo $this->security->get_csrf_hash(); ?>'},
+            success: function (data, textStatus, jqXHR) {
+                $('#form-modal-box').html(data);
+                $("#commonModalNew").modal('show');
+            }
+        });
+    }
 
+    
     var open_modal_edit = function (controller, id) {
         $.ajax({
             url: '<?php echo base_url(); ?>' + controller + "/open_model_edit" + "?id=" + id,

@@ -224,7 +224,7 @@ class Patient extends Common_Controller
                         array('precautions Pre', 'Pre.name=P.precautions', 'left'),
                         array('initial_rx IRX2', 'IRX2.id=PC.new_initial_rx', 'left'),
                         array('initial_dx IDX2', 'IDX2.id=PC.new_initial_dx', 'left'),
-                        // array('clinic_appointment CA', 'patient.id=CA.patient', 'left')
+                        
                     ),
                     'single' => true
                 );
@@ -294,6 +294,8 @@ class Patient extends Common_Controller
 
             $this->data['formUrl'] = $this->router->fetch_class() . "/update";
             $id = decoding($_GET['id']);
+
+            
             if (!empty($id)) {
 
                 $option = array(
@@ -301,31 +303,34 @@ class Patient extends Common_Controller
                     'select' => 'P.total_days_of_patient_stay,P.infection_surveillance_checklist,P.date_of_start_abx,P.md_patient_status,P.id ,P.patient_id,P.name as patient_name,P.address,P.room_number,P.symptom_onset,P.md_stayward_consult,P.criteria_met,P.md_stayward_response,P.psa,P.created_date,'
                         . 'P.care_unit_id,CI.name as care_unit_name,P.doctor_id,P.culture_source,P.organism,P.precautions,CS.name as culture_source_name,Org.name as organism_name,Pre.name as precautions_name,DOC.name as doctor_name,P.md_steward_id,U.first_name as md_steward,'
                         . 'PC.initial_rx,IRX.name as initial_rx_name,PC.initial_dx,IDX.name as initial_dx_name,PC.initial_dot,'
-                        . 'PC.new_initial_rx,IRX2.name as new_initial_rx_name,PC.new_initial_dx,IDX2.name as new_initial_dx_name,PC.new_initial_dot,PC.additional_comment_option,PC.comment,U.email as patient_email,U.email as password, U.phone as patient_phone_number',
+                        . 'PC.new_initial_rx,IRX2.name as new_initial_rx_name,PC.new_initial_dx,IDX2.name as new_initial_dx_name,PC.new_initial_dot,PC.additional_comment_option,PC.comment,U.email as patient_email,U.email as password, U.phone as patient_phone_number,U.date_of_birth,U.gender,U.phone_code',
                     'join' => array(
-                        array('care_unit CI', 'CI.id=P.care_unit_id', 'inner'),
-                        array('doctors DOC', 'DOC.id=P.doctor_id', 'inner'),
-                        array('users U', 'U.id=P.user_id', 'inner'),
-                        array('patient_consult PC', 'PC.patient_id=P.id', 'inner'),
+                        array('care_unit CI', 'CI.id=P.care_unit_id', 'left'),
+                        array('doctors DOC', 'DOC.id=P.doctor_id', 'left'),
+                        array('users U', 'U.id=P.user_id', 'left'),
+                        array('patient_consult PC', 'PC.patient_id=P.id', 'left'),
                         array('initial_rx IRX', 'IRX.id=PC.initial_rx', 'left'),
                         array('initial_dx IDX', 'IDX.id=PC.initial_dx', 'left'),
                         array('culture_source CS', 'CS.name=P.culture_source', 'left'),
                         array('organism Org', 'Org.name=P.organism', 'left'),
                         array('precautions Pre', 'Pre.name=P.precautions', 'left'),
                         array('initial_rx IRX2', 'IRX2.id=PC.new_initial_rx', 'left'),
-                        array('initial_dx IDX2', 'IDX2.id=PC.new_initial_dx', 'left')
+                        array('initial_dx IDX2', 'IDX2.id=PC.new_initial_dx', 'left'),
+                        
                     ),
                     'single' => true
                 );
                 $option['where']['P.id'] = $id;
                 $results_row = $this->common_model->customGet($option);
+
                 if (!empty($results_row)) {
 
                     $results_row->md_steward_response = clone $results_row;
 
 
                     $filteredData = $this->applyAlgo($results_row);
-                    // echo"<pre>"; print_r($filteredData); die;
+                    // echo"<pre>"; 
+                    // print_r($filteredData); die;
                     $this->data['results'] = $filteredData;
                     $this->load->admin_render('communication', $this->data, 'inner_script');
                 } else {
@@ -341,12 +346,13 @@ class Patient extends Common_Controller
         // $this->load->admin_render('summary', $this->data, 'inner_script');
     }
 
+
     public function consultationTemplates($vendor_profile_activate = "No") {
         $this->data['parent'] = $this->title;
         $this->data['title'] = $this->title;
         $this->data['model'] = $this->router->fetch_class();
         $id = decoding($_GET['id']);
-        // print_r($_GET['id']);die;
+        
         $role_name = $this->input->post('role_name');
 
         $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
@@ -383,31 +389,34 @@ class Patient extends Common_Controller
                 'select' => 'P.total_days_of_patient_stay,P.infection_surveillance_checklist,P.date_of_start_abx,P.md_patient_status,P.id ,P.patient_id,P.name as patient_name,P.address,P.room_number,P.symptom_onset,P.md_stayward_consult,P.criteria_met,P.md_stayward_response,P.psa,P.created_date,'
                     . 'P.care_unit_id,CI.name as care_unit_name,P.doctor_id,P.culture_source,P.organism,P.precautions,CS.name as culture_source_name,Org.name as organism_name,Pre.name as precautions_name,DOC.name as doctor_name,P.md_steward_id,U.first_name as md_steward,'
                     . 'PC.initial_rx,IRX.name as initial_rx_name,PC.initial_dx,IDX.name as initial_dx_name,PC.initial_dot,'
-                    . 'PC.new_initial_rx,IRX2.name as new_initial_rx_name,PC.new_initial_dx,IDX2.name as new_initial_dx_name,PC.new_initial_dot,PC.additional_comment_option,PC.comment,U.email as patient_email,U.email as password, U.phone as patient_phone_number',
+                    . 'PC.new_initial_rx,IRX2.name as new_initial_rx_name,PC.new_initial_dx,IDX2.name as new_initial_dx_name,PC.new_initial_dot,PC.additional_comment_option,PC.comment,U.email as patient_email,U.email as password, U.phone as patient_phone_number,U.date_of_birth,U.gender,U.phone_code',
                 'join' => array(
-                    array('care_unit CI', 'CI.id=P.care_unit_id', 'inner'),
-                    array('doctors DOC', 'DOC.id=P.doctor_id', 'inner'),
-                    array('users U', 'U.id=P.user_id', 'inner'),
-                    array('patient_consult PC', 'PC.patient_id=P.id', 'inner'),
+                    array('care_unit CI', 'CI.id=P.care_unit_id', 'left'),
+                    array('doctors DOC', 'DOC.id=P.doctor_id', 'left'),
+                    array('users U', 'U.id=P.user_id', 'left'),
+                    array('patient_consult PC', 'PC.patient_id=P.id', 'left'),
                     array('initial_rx IRX', 'IRX.id=PC.initial_rx', 'left'),
                     array('initial_dx IDX', 'IDX.id=PC.initial_dx', 'left'),
                     array('culture_source CS', 'CS.name=P.culture_source', 'left'),
                     array('organism Org', 'Org.name=P.organism', 'left'),
                     array('precautions Pre', 'Pre.name=P.precautions', 'left'),
                     array('initial_rx IRX2', 'IRX2.id=PC.new_initial_rx', 'left'),
-                    array('initial_dx IDX2', 'IDX2.id=PC.new_initial_dx', 'left')
+                    array('initial_dx IDX2', 'IDX2.id=PC.new_initial_dx', 'left'),
+                    
                 ),
                 'single' => true
             );
             $option['where']['P.id'] = $id;
             $results_row = $this->common_model->customGet($option);
+
             if (!empty($results_row)) {
 
                 $results_row->md_steward_response = clone $results_row;
 
 
                 $filteredData = $this->applyAlgo($results_row);
-                // echo"<pre>"; print_r($filteredData); die;
+                // echo"<pre>"; 
+                // print_r($filteredData); die;
                 $this->data['results'] = $filteredData;
             }
         }
@@ -416,6 +425,225 @@ class Patient extends Common_Controller
         $this->load->admin_render('consultation', $this->data, 'inner_script');
     }
     
+
+    public function patientMedication($vendor_profile_activate = "No") {
+        $this->data['parent'] = $this->title;
+        $this->data['title'] = $this->title;
+        $this->data['model'] = $this->router->fetch_class();
+        $id = decoding($_GET['id']);
+        
+        $role_name = $this->input->post('role_name');
+
+        $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+
+        if($LoginID != 1 && $LoginID != NULL ){
+            $x = $LoginID;
+        }
+        
+        $this->data['roles'] = array(
+            'role_name' => $role_name
+        );
+        if ($vendor_profile_activate == "No") {
+            $vendor_profile_activate = 0;
+        } else {
+            $vendor_profile_activate = 1;
+        }
+
+        $optionheader = array(
+            'table' => 'vendor_sale_user_consultation_setting',
+            'select' => 'vendor_sale_user_consultation_setting`.*',
+            'join' => array(
+                array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_user_consultation_setting.user_id','left')
+            ),
+            'where' => array('vendor_sale_user_consultation_setting.user_id' => $LoginID)
+        );
+
+        $this->data['list'] = $this->common_model->customGet($optionheader);
+
+        $id = decoding($_GET['id']);
+        if (!empty($id)) {
+
+            $option = array(
+                'table' => 'patient P',
+                'select' => 'P.total_days_of_patient_stay,P.infection_surveillance_checklist,P.date_of_start_abx,P.md_patient_status,P.id ,P.patient_id,P.name as patient_name,P.address,P.room_number,P.symptom_onset,P.md_stayward_consult,P.criteria_met,P.md_stayward_response,P.psa,P.created_date,'
+                    . 'P.care_unit_id,CI.name as care_unit_name,P.doctor_id,P.culture_source,P.organism,P.precautions,CS.name as culture_source_name,Org.name as organism_name,Pre.name as precautions_name,DOC.name as doctor_name,P.md_steward_id,U.first_name as md_steward,'
+                    . 'PC.initial_rx,IRX.name as initial_rx_name,PC.initial_dx,IDX.name as initial_dx_name,PC.initial_dot,'
+                    . 'PC.new_initial_rx,IRX2.name as new_initial_rx_name,PC.new_initial_dx,IDX2.name as new_initial_dx_name,PC.new_initial_dot,PC.additional_comment_option,PC.comment,U.email as patient_email,U.email as password, U.phone as patient_phone_number,U.date_of_birth,U.gender,U.phone_code',
+                'join' => array(
+                    array('care_unit CI', 'CI.id=P.care_unit_id', 'left'),
+                    array('doctors DOC', 'DOC.id=P.doctor_id', 'left'),
+                    array('users U', 'U.id=P.user_id', 'left'),
+                    array('patient_consult PC', 'PC.patient_id=P.id', 'left'),
+                    array('initial_rx IRX', 'IRX.id=PC.initial_rx', 'left'),
+                    array('initial_dx IDX', 'IDX.id=PC.initial_dx', 'left'),
+                    array('culture_source CS', 'CS.name=P.culture_source', 'left'),
+                    array('organism Org', 'Org.name=P.organism', 'left'),
+                    array('precautions Pre', 'Pre.name=P.precautions', 'left'),
+                    array('initial_rx IRX2', 'IRX2.id=PC.new_initial_rx', 'left'),
+                    array('initial_dx IDX2', 'IDX2.id=PC.new_initial_dx', 'left'),
+                    
+                ),
+                'single' => true
+            );
+            $option['where']['P.id'] = $id;
+            $results_row = $this->common_model->customGet($option);
+
+            if (!empty($results_row)) {
+
+                $results_row->md_steward_response = clone $results_row;
+
+
+                $filteredData = $this->applyAlgo($results_row);
+                // echo"<pre>"; 
+                // print_r($filteredData); die;
+                $this->data['results'] = $filteredData;
+            }
+        }
+
+        
+        $this->load->admin_render('patient_medication', $this->data, 'inner_script');
+    }
+
+    function open_model_medication()
+    {
+        // die('pppppppppp11');
+        $this->data['title'] = "Add " . $this->title;
+        $this->data['formUrl'] = $this->router->fetch_class() . "/add";
+        $AdminCareUnitID = isset($_SESSION['admin_care_unit_id']) ? $_SESSION['admin_care_unit_id'] : '';
+
+        $option = array('table' => 'care_unit', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc'));
+        if (!empty($AdminCareUnitID)) {
+            $option['where']['id']  = $AdminCareUnitID;
+        }
+        $this->data['care_unit'] = $this->common_model->customGet($option);
+
+        $this->data['careUnitss'] = json_decode($AdminCareUnitID);
+
+        $careUnitDatas = array();
+        foreach ($this->data['careUnitss'] as $value) {
+
+            $option = array(
+                'table' => 'care_unit',
+                'select' => 'care_unit.id,care_unit.name',
+                'where' => array('care_unit.id' => $value)
+            );
+            $careUnitDatas[] = $this->common_model->customGet($option);
+        }
+        $arraySingle = call_user_func_array('array_merge', $careUnitDatas);
+        $this->data['careUnitsUser'] = $arraySingle;
+        //print_r($arraySingle);die;
+        // print_r($this->data['careUnitsUser']);die;
+
+
+        $this->data['initial_dx'] = $this->common_model->customGet(array('table' => 'initial_dx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
+        $this->data['culture_source'] = $this->common_model->customGet(array('table' => 'culture_source', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
+        $this->data['organism'] = $this->common_model->customGet(array('table' => 'organism', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
+        $this->data['precautions'] = $this->common_model->customGet(array('table' => 'precautions', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
+        $this->data['initial_rx'] = $this->common_model->customGet(array('table' => 'initial_rx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
+       
+        $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+
+        if($this->ion_auth->is_subAdmin()){
+    
+            $option = array(
+                'table' => ' doctors',
+                'select' => 'doctors.*',
+                'join' => array(
+                    array('users', 'doctors.user_id=users.id', 'left'),
+                    
+                    
+                ),
+                
+                'where' => array(
+                    'users.delete_status' => 0,
+                    'doctors.user_id'=>$CareUnitID
+                ),
+                'single' => true,
+            );
+    
+            $datadoctors = $this->common_model->customGet($option);
+    
+    
+        $option = array(
+                'table' => ' doctors',
+                'select' => 'users.*',
+                'join' => array(
+                    array('users', 'doctors.user_id=users.id', 'left'),
+                    array('user_profile UP', 'UP.user_id=users.id', 'left'),
+                    array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
+                    
+                ),
+                
+                'where' => array(
+                    'users.delete_status' => 0,
+                    // 'doctors.facility_user_id'=>$datadoctors->facility_user_id
+                ),
+                'order' => array('users.id' => 'desc'),
+            );
+            $this->data['doctors'] = $this->common_model->customGet($option);
+    
+    
+        } else if ($this->ion_auth->is_facilityManager()) {
+            
+            $option = array(
+                'table' => ' doctors',
+                'select' => 'users.*',
+                'join' => array(
+                    array('users', 'doctors.user_id=users.id', 'left'),
+                    array('user_profile UP', 'UP.user_id=users.id', 'left'),
+                    array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
+                    
+                ),
+                
+                'where' => array(
+                    'users.delete_status' => 0,
+                    'doctors.facility_user_id'=>$CareUnitID
+                ),
+                'order' => array('users.id' => 'desc'),
+            );
+            $this->data['doctors'] = $this->common_model->customGet($option);
+        }
+       
+        
+        $user_id = $this->session->userdata('user_id');
+        $option = array(
+
+            'table' => 'users',
+            'select' => 'users.*', 
+            
+            'where' => array(
+                'users.delete_status' => 0,
+                // 'doctors.facility_user_id' => $user_id
+            ),
+        );
+        
+
+        $this->data['doctorsss'] = $this->common_model->customGet($option);
+        
+        $option2 = array(
+            'table' => USERS . ' as user',
+            'select' => 'user.*,group.name as group_name,UP.doc_file',
+            'join' => array(
+                array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left'),
+                array('user_profile UP', 'UP.user_id=user.id', 'left')
+            ),
+            'order' => array('user.id' => 'ASC'),
+            'where' => array(
+                'user.delete_status' => 0,
+                'group.id' => 3
+            ),
+            'order' => array('user.first_name' => 'ASC')
+        );
+
+        $this->data['stawardss'] = $this->common_model->customGet($option2);
+        // print_r($this->data);
+
+
+        
+        $this->load->admin_render('add_medicine', $this->data, 'inner_script');
+        
+    }
 
     /**
      * @method index
@@ -2636,55 +2864,108 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
     {
 
 
-        $this->load->library('email');
+        // $this->load->library('email');
 
-        $config['protocol'] = 'smtp';
-        $config['smtp_host'] = 'ssl://smtp.ionos.com'; //'smtp.mailtrap.io';//ssl://smtp.gmail.com
-        $config['smtp_port'] = '465'; //2525';//465
-        $config['smtp_timeout'] = '7';
-        $config['smtp_user'] = "dnr@idcaresteward.com"; //"cd3f624d7cd7a0";//'pawan.mobiwebtech@gmail.com';
-        $config['smtp_pass'] = "!0c@R3%7ew@R0"; //"5e1dbcb52e12d4";//'********';
-        $config['charset'] = 'iso-8859-1';
-        $config['newline'] = "\r\n";
-        $config['mailtype'] = 'html';
-        $config['validation'] = TRUE;
-        $config['wordwrap'] = TRUE;
-        $from = 'dnr@idcaresteward.com';
-        $title = "IDCARE";
-        $subject = "IDCARE-Patient Details";
-        // $to = array('dpdev@visvero.net', 'vajay8679@gmail.com');
-        // $to = ['dpdev@visvero.net'];
-        //$a=   implode(" ",$to_email);
-        $to = explode(',', $to_email);
+        // $config['protocol'] = 'smtp';
+        // $config['smtp_host'] = 'ssl://smtp.ionos.com';
+        // $config['smtp_port'] = '465'; //2525';//465
+        // $config['smtp_timeout'] = '7';
+        // $config['smtp_user'] = "dnr@idcaresteward.com"; //"cd3f624d7cd7a0";//'pawan.mobiwebtech@gmail.com';
+        // $config['smtp_pass'] = "!0c@R3%7ew@R0"; //"5e1dbcb52e12d4";//'********';
+        // $config['charset'] = 'iso-8859-1';
+        // $config['newline'] = "\r\n";
+        // $config['mailtype'] = 'html';
+        // $config['validation'] = TRUE;
+        // $config['wordwrap'] = TRUE;
+        // $from = 'dnr@idcaresteward.com';
+        // $title = "IDCARE";
+        // $subject = "IDCARE-Patient Details";
+        
+        // $to = explode(',', $to_email);
 
 
-        $this->email->initialize($config);
-        $this->email->set_newline("\r\n");
-        $this->email->from($from, $title);
-        $this->email->to($to);
-        $this->email->subject($subject);
-        $this->email->message($template2);
-
-        if ($this->email->send()) {
-
-            return true;
-        }
-        // } 
-        //     print_r($to_emailss);die;
-
+        // $this->email->initialize($config);
+        // $this->email->set_newline("\r\n");
+        // $this->email->from($from, $title);
+        // $this->email->to($to);
+        // $this->email->subject($subject);
+        // $this->email->message($template2);
 
         // if ($this->email->send()) {
+
         //     return true;
-        // } else {
-        //     return false;
         // }
+
+        $emailConfig = array(
+            //  'protocol' => 'smtp',
+            //   'smtp_host' => 'ssl://smtp.gmail.com',
+            //   'smtp_port' => '465',
+            //   'smtp_user' => 'chandalekhyani@gmail.com',
+            //   'smtp_pass' => 'jethalaldaya',
+            //   'mailtype'  => 'html',
+            //   'charset'   => 'iso-8859-1'
+    
+            // 'protocol' => 'smtp',
+            //     'smtp_host' => 'ssl://smtp.gmail.com',
+            //     'smtp_port' => 587,
+            //     'smtp_user' => 'tech.sunilvishwakarma@gmail.com',
+            //     'smtp_pass' => 'zmwiylikyaocxenp',
+            //     'mailtype' => 'html',
+            // 'smtp_timeout' => '4',
+            //     'charset' => 'iso-8859-1'
+    
+            'protocol' => 'smtp',
+            'smtp_host' => 'ssl://smtp.googlemail.com',
+            'smtp_port' => 465,
+            'smtp_user' => 'kalpanaofficial94@gmail.com',
+            'smtp_pass' => 'avbcfhvzvypfftgz',
+            'smtp_timeout' => '4',
+            'charset' => 'iso-8859-1',
+            'mailtype'=>'html'
+    
+            
+    
+            // 'protocol' => 'smtp',
+            //     'smtp_host' => 'http://mail.ioready.io:2080',
+            //     'smtp_port' => 2080,
+            //     'smtp_user' => 'aditya_urmaliya@ioready.io',
+            //     'smtp_pass' => 'S^VpL2$aOC_,',
+            //     'mailtype' => 'html',
+            //     'charset' => 'iso-8859-1'
+          );
+           
+    
+          // Set your email information
+          $from = array('email' => $from, 'name' => $title);
+          $to = array($email);
+          $subject = 'New Registration: '.$this->input->post('name').'-'.$this->input->post('mobile1');
+           
+          $message = 'Details are: <br />'.$this->input->post('name').'<br />'.$this->input->post('fname').'<br />'.$this->input->post('mobile1').'<br />'.$this->input->post('mobile2').'<br />'.$this->input->post('email').'<br />'.$this->input->post('locality').'<br />';
+          $this->load->library('email', $emailConfig);
+          $this->email->set_newline("\r\n");
+          $this->email->from($from['email'], $from['name']);
+          $this->email->to($to);
+          $this->email->subject($subject);
+          $this->email->message($template);
+          if (!$this->email->send()) {
+              // Raise error message
+              show_error($this->email->print_debugger());
+          }
+          else {
+              // Show success notification or other things here
+              echo 'Success to send email';
+          }
+    
+    
+  
+
 
     }
 
     function email_smtp1()
     {
 
-        $to_email = $_POST['to_email'];
+        $email = $_POST['to_email'];
         $patient_id = $_POST['patient_id'];
         $room_number = $_POST['room_number'];
         $care_unit_name = ucwords($_POST['care_unit_name']);
@@ -2715,7 +2996,7 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 
 
 
-        $template3 = '<h3 align="left"><strong>Patient</strong> Info</h3>
+        $template = '<h3 align="left"><strong>Patient</strong> Info</h3>
        <table border="1" width="50%" cellpadding="5">
         <tr>
          <td width="30%">Patient ID</td>
@@ -2812,9 +3093,32 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
          <td width="70%">' . $additional_comment_option . '</td>
         </tr>
        </table>';
+        $title ="patient details";
+       
+        $user_id = $this->session->userdata('user_id');
+        $option = array(
+            'table' => USERS . ' as user',
+            'select' => 'user.*,group.name as group_name',
+            'join' => array(
+                array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+            ),
+            'order' => array('user.id' => 'DESC'),
+            'where' => array('user.id'=>$user_id),
+            'single'=>true,
+        );
 
+        $authUser = $this->common_model->customGet($option);
+        $from = $authUser->email;
+        $name = $this->input->post('first_name');
+        // $email = $email;
 
-        $template2 = $this->send_mail_smtp1($template3, $to_email);
+        $mobile = '78965412365';
+        $subject = 'Hello hospital';
+
+        // $template2 = $this->send_mail_smtp1($template3, $to_email);
+
+        $template2 = $this->sendEmail($email, $from, $subject, $template, $title);
 
         return $template2;
     }
@@ -2862,12 +3166,12 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
         $this->form_validation->set_rules('internal_name', "internal_name", 'required|trim');
 
         if ($this->form_validation->run() == true) {
-            $this->filedata['status'] = 1;
+            // $this->filedata['status'] = 1;
             
-            if ($this->filedata['status'] == 0) {
-                $response = array('status' => 0, 'message' => $this->filedata['error']);
+            // if ($this->filedata['status'] == 0) {
+            //     $response = array('status' => 0, 'message' => $this->filedata['error']);
             // }
-            } else {
+            // } else {
             
                 $options_data = array(
                     'user_id'=> $LoginID,
@@ -2905,7 +3209,7 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
                 } else {
                     $response = array('status' => 0, 'message' => "Failed to add");
                 }
-            }
+            // }
         } else {
             $messages = (validation_errors()) ? validation_errors() : '';
             $response = array('status' => 0, 'message' => $messages);

@@ -1,4 +1,4 @@
-<script src="<?php echo base_url() . 'backend_asset/admin/js/' ?>app.js"></script>
+<script src="<?php echo base_url() . 'backend_asset/admin/js/' ?>app.js"></script> 
 <script>
     var isDataChange = false;
 

@@ -1,4 +1,130 @@
 <!-- Page content -->
+<style>
+   .save-btn{
+    /* font-weight:700; */
+    /* color:white; */
+    /* font-size: 1.5rem; */
+    /* padding: 0.6rem 2.25rem !important; */
+    background-color: #a7afb7 !important;
+    background:none;
+}
+.save-btn:hover{
+    color:white;
+    background:#00008B !important;
+}
+.btn {
+    margin: 1px 0;
+    background-color: #b9adad;
+}
+
+.modal_popup{
+    display: none;
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+
+.modal-body1 {
+    padding: 0px 15px;
+}
+.modal-appointment {
+    padding-left: 15px;
+}
+.appointment-status {
+    font-weight: 900 !important;
+    font-size: 14px;
+}
+
+.sendmail{
+    float: right;
+    margin: -41px 0;
+}
+
+.mailmodel{
+    margin-left:-15px;
+    margin-right:-15px;
+}
+
+@media only screen and (min-width: 668px) and (max-width: 1600px) {
+        .sendmail{
+            margin-top: -17px;
+                 }  
+    }
+
+    @media only screen and (max-width: 600px) {
+        .sendmail{
+            margin-top: -32px;
+                 }  
+       
+        }
+
+
+        .card {
+    background-color: #fff;
+    border-radius: 10px;
+    border: none;
+    position: relative;
+    /* margin-bottom: 30px; */
+    box-shadow: 0 0.46875rem 2.1875rem rgba(90,97,105,0.1), 0 0.9375rem 1.40625rem rgba(90,97,105,0.1), 0 0.25rem 0.53125rem rgba(90,97,105,0.12), 0 0.125rem 0.1875rem rgba(90,97,105,0.1);
+}
+.l-bg-cherry {
+    background: linear-gradient(to right, #337a, #337a) !important;
+    color: #fff;
+}
+
+.l-bg-blue-dark {
+    background: linear-gradient(to right, #337a, #337a) !important;
+    color: #fff;
+}
+
+.l-bg-green-dark {
+    background: linear-gradient(to right, #337a, #337a) !important;
+    color: #fff;
+}
+
+.l-bg-orange-dark {
+    background: linear-gradient(to right, #337a, #337a) !important;
+    color: #fff;
+}
+
+.card .card-statistic-3 .card-icon-large .fas, .card .card-statistic-3 .card-icon-large .far, .card .card-statistic-3 .card-icon-large .fab, .card .card-statistic-3 .card-icon-large .fal {
+    font-size: 110px;
+}
+
+.card .card-statistic-3 .card-icon {
+    /* text-align: center;
+    line-height: 50px;
+    margin-left: 15px;
+    color: #000;
+    position: absolute;
+    right: -5px;
+    top: 20px;
+    opacity: 0.1; */
+}
+
+.l-bg-cyan {
+    background: linear-gradient(135deg, #289cf5, #84c0ec) !important;
+    color: #fff;
+}
+
+.l-bg-green {
+    background: linear-gradient(135deg, #23bdb8 0%, #43e794 100%) !important;
+    color: #fff;
+}
+
+.l-bg-orange {
+    background: linear-gradient(to right, #f9900e, #ffba56) !important;
+    color: #fff;
+}
+
+.l-bg-cyan {
+    background: linear-gradient(135deg, #289cf5, #84c0ec) !important;
+    color: #fff;
+}
+</style>
+
 <div id="page-content">
     <!-- Datatables Header -->
     <ul class="breadcrumb breadcrumb-top">
@@ -69,7 +195,7 @@
                 <div class="col-sm-6 col-lg-2 mb-4">
                 <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($results->id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
                         <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
-                            <h4 style="font-size:16px; font-weight:600; color:white;">Medications</h4>
+                            <h4 style="font-size:16px; font-weight:600; color:white;">Invoices</h4>
                         </div>
                         <div class="widget-extra-full"><span class="h2 animation-expandOpen fw-bold text-dark"><?php echo $inactive;?></span></div>
                     </a>
@@ -77,7 +203,7 @@
                 <div class="col-sm-6 col-lg-2 mb-4">
                 <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($results->id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
                         <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
-                            <h4 style="font-size:16px; font-weight:600; color:white;">Medications</h4>
+                            <h4 style="font-size:16px; font-weight:600; color:white;">Account statements</h4>
                         </div>
                         <div class="widget-extra-full"><span class="h2 animation-expandOpen fw-bold text-dark"><?php echo $inactive;?></span></div>
                     </a>
@@ -87,6 +213,22 @@
                 <a href="<?php echo base_url() . 'index.php/patient/communication?id=' . encoding($results->id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
                         <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
                             <h4 style="font-size:16px; font-weight:600; color:white;">Communication</h4>
+                        </div>
+                        <div class="widget-extra-full"><span class="h2 animation-expandOpen fw-bold text-dark"><?php echo $inactive;?></span></div>
+                    </a>
+                </div>
+                <div class="col-sm-6 col-lg-2 mb-4">
+                <a href="<?php echo base_url() . 'index.php/patient/communication?id=' . encoding($results->id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
+                        <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
+                            <h4 style="font-size:16px; font-weight:600; color:white;">Documents</h4>
+                        </div>
+                        <div class="widget-extra-full"><span class="h2 animation-expandOpen fw-bold text-dark"><?php echo $inactive;?></span></div>
+                    </a>
+                </div>
+                <div class="col-sm-6 col-lg-2 mb-4">
+                <a href="<?php echo base_url() . 'index.php/patient/communication?id=' . encoding($results->id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
+                        <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
+                            <h4 style="font-size:16px; font-weight:600; color:white;">Logs</h4>
                         </div>
                         <div class="widget-extra-full"><span class="h2 animation-expandOpen fw-bold text-dark"><?php echo $inactive;?></span></div>
                     </a>
@@ -212,6 +354,32 @@
             </div>
         </div>
 
+        <div class="row mt-4">
+    <div class="col-md-12">
+        <div class="">
+            <div class="card-body p-4" style="background-color:#FFFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);border-radius:20px">
+                <div class="row">
+                    <div class="col-md-11">
+                        <h4 class="no-margins fw-bold"><?php echo $results->patient_name; ?></h4>
+                        <h6 class="text-dark fw-bold"><?php 
+                        $from = new DateTime($results->date_of_birth);
+                        $to   = new DateTime('today');
+                       
+                        echo $results->date_of_birth.'  |  '.$from->diff($to)->y.' Years  |  '.$results->gender;?></h6>
+                        <button type="button" class="btn btn-sm btn-primary save-btn btn-xs">Public</button>
+                        <h5 class="text-dark fw-bold"><i class="fa fa-home" > </i> <?php echo $results->address. ',  United Kingdom';?></h5>
+                        <h5 class="text-dark fw-bold"><i class="fa fa-phone" > </i> <?php echo $results->patient_phone_number. '('. $results->phone_code.')';?></h5>
+                    </div>
+                    <div class="col-md-1">
+                    <button class="Button Button--outline" onclick="printDiv()"><i class="fa fa-print" aria-hidden="true"></i></button>
+                        <!-- <img src="<?php echo base_url(); ?>uploads/user.png" style="height: 65px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);" alt=""> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
+
     <?php } ?>
     <!-- Datatables Content -->
     <!-- Datatables Content -->
@@ -288,6 +456,9 @@
                     <tr>
                         <th class="text-center" style="font-size:14px;">Sr. No</th>
                         <th class="text-center" style="font-size:14px;">Internal Name</th>
+                        <th class="text-center" style="font-size:14px;">Name</th>
+                        <th class="text-center" style="font-size:14px;">Question</th>
+                        <th class="text-center" style="font-size:14px;">Diagraml</th>
                         <th class="text-center" style="font-size:14px;">Created date</th>
                         <th class="text-center" style="font-size:14px;"><?php echo lang('action'); ?></th>
                     </tr>
@@ -336,6 +507,13 @@
                             <tr>
                             <td><?php echo $rowCount; ?></td>
                                 <td class="text-center"><?php echo $rows->internal_name; ?></td>
+
+                                <td class="text-center"><?php echo $rows->name; ?></td>
+                                <td class="text-center"><?php  
+                                $cleanedString = str_replace(array('["', '"]'), '', $rows->question);
+                                 echo $cleanedString;?></td>
+                                <td class="text-center"><img src="<?php echo $rows->diagram_url; ?>" alt="" width="150px;"></td>
+
                                 <td class="text-center"><?php echo date('m/d/Y', strtotime($rows->created_on)); ?></td>
                                     <td class="actions text-center">
                                     <!-- <a href="javascript:void(0)" class="btn btn-default" onclick="editFn('index.php/userSettings/open_consult/edit?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-pencil"></i></a> -->

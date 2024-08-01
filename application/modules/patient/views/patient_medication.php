@@ -1,10 +1,4 @@
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.js"></script>
-
-
-
- 
-
+<!-- Page content -->
 <style>
    .save-btn{
     /* font-weight:700; */
@@ -130,7 +124,7 @@
     color: #fff;
 }
 </style>
-<!-- Page content -->
+
 <div id="page-content">
     <!-- Datatables Header -->
     <ul class="breadcrumb breadcrumb-top">
@@ -138,15 +132,16 @@
             <a href="<?php echo site_url('pwfpanel'); ?>">Home</a>
         </li>
         <li>
-            <a href="<?php echo site_url($this->router->fetch_class()); ?>"><?php echo $title; ?></a>
+            <a href="<?php echo site_url($model); ?>"><?php echo $title; ?></a>
         </li>
     </ul>
-
+   
+    <!-- END Quick Stats -->
     <?php if ($this->ion_auth->is_admin() or $this->ion_auth->is_subAdmin() or $this->ion_auth->is_facilityManager()) { ?>
-       
-        <div class="block full" id="printableTable">
+        <div class="block full">
 
-            <div class="row text-center">
+
+        <div class="row text-center">
                 
                 <div class="col-sm-6 col-md-2 mb-4">
                     <a href="<?php echo base_url() . 'index.php/patient/summary?id=' . encoding($results->id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 10px; ">
@@ -165,7 +160,7 @@
                     </a>
                 </div>
                 <div class="col-sm-6 col-lg-2 mb-4">
-                <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($results->id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
+                <a href="<?php echo base_url(). 'index.php/patient/patientMedication?id=' . encoding($results->id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
                         <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
                             <h4 style="font-size:16px; font-weight:600; color:white;">Medications</h4>
                         </div>
@@ -240,68 +235,11 @@
                 </div>
             </div>
 
-            <div class="row text-center">
+             <div class="row text-center">
                 
                 <div class="col-sm-6 col-lg-12">
                     <div class="panel panel-default">
-                    <!-- <div> 
-                        <ul class="nav nav-pills nav-fill nav-tabss mt-4" id="pills-tab" role="tablist" >
-                            <li class="nav-item">
-                            <a href="<?php echo site_url('patient'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "patient") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide text-dark">Patient</span></a>
-                            </li>
-                            <li class="nav-item">
-                            <a href="<?php echo base_url() . 'index.php/patient/summary?id=' . encoding($results->id); ?>" data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark">Summary</span></a>
-                            </li>
-                            
-                            <li class="nav-item">
-                            <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($results->id); ?>"data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark"> Consultation</span></a>
-                                
-                            </li>
-                            <li class="nav-item">
-                            <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($results->id); ?>"data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark"> Medications</span></a>
-                                
-                            </li>
-                            <li class="nav-item">
-                            <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($results->id); ?>"data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark"> Letters and forms</span></a>
-                                
-                            </li>
-
-                            <li class="nav-item">
-                            <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($results->id); ?>"data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark"> Prescriptions</span></a>
-                                
-                            </li>
-
-                            <li class="nav-item">
-                            <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($results->id); ?>"data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark"> Labs</span></a>
-                                
-                            </li>
-
-                            <li class="nav-item">
-                            <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($results->id); ?>"data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark"> Invoices</span></a>
-                                
-                            </li>
-
-                            <li class="nav-item">
-                            <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($results->id); ?>"data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark"> Account statements</span></a>
-                                
-                            </li>
-
-                            <li class="nav-item">
-                            
-                            <a href="<?php echo base_url() . 'index.php/patient/communication?id=' . encoding($results->id); ?>" data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark">Communication</span></a>
-                            </li>
-
-                            <li class="nav-item">
-                            
-                            <a href="<?php echo base_url() . 'index.php/patient/communication?id=' . encoding($results->id); ?>" data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark">Documents</span></a>
-                            </li>
-                            <li class="nav-item">
-                            
-                            <a href="<?php echo base_url() . 'index.php/patient/communication?id=' . encoding($results->id); ?>" data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark">Logs</span></a>
-                            </li>
-                            
-                        </ul>
-                    </div>  -->
+                   
 
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="=" crossorigin="anonymous" />
                 <div class="m-4">
@@ -359,14 +297,7 @@
             </div>
         </div>
 
-    <?php } ?>
-    
-
-    <section style="background-color: #eee;">
-
-   
-
-<div class="row mt-4">
+        <div class="row mt-4">
     <div class="col-md-12">
         <div class="">
             <div class="card-body p-4" style="background-color:#FFFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);border-radius:20px">
@@ -391,293 +322,167 @@
         </div>
     </div> 
 </div>
-<div class="row p-4 mt-4">
-    <div class="col-md-4 ">
-        <div class=" mb-3">
-            <div class="card-body p-4" style="background-color:#EDEAFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);border-radius:20px">
-                <div class="row">
-                    <div class="col-md-8">
-                        <h4 class="no-margins fw-bold"><strong>Problem</strong></h4> 
-                        <p class="text-dark fw-bold"><?php echo $results->initial_dx_name; ?></p>
-                    </div>
-                    <div class="col-md-4">
-                        <img src="<?php echo base_url(); ?>uploads/doctor.png" style="height: 65px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);" alt="">
-                    </div>
-                </div>
-            </div>
+
+    <?php } ?>
+    <!-- Datatables Content -->
+    <!-- Datatables Content -->
+    <div class="block full">
+
+          <div class="block-title">
+           
+                <?php if ($this->ion_auth->is_admin()) { ?>
+                <h2><a href="javascript:void(0)"  onclick="open_model_medication('<?php echo $model; ?>')" class="btn btn-sm btn-primary">
+                        <i class="gi gi-circle_plus"></i> <?php echo 'New'; ?>
+                    </a></h2>
+            <?php }else if($this->ion_auth->is_facilityManager()){ ?>
+                <h2><a href="javascript:void(0)"  onclick="open_model_medication('<?php echo $model; ?>')" class="btn btn-sm btn-primary">
+                        <i class="gi gi-circle_plus"></i> <?php echo 'New'; ?>
+                    </a></h2>
+                    <?php } ?>
+          </div>
+
+        <div class="block-title">
+            <h2><strong><?php echo 'Medication';?></strong> Panel</h2>
         </div>
-    </div>
-    <div class="col-md-4">
-        <div class=" mb-3">
-            <div class="card-body p-4" style="background-color:#DAEBFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5); border-radius:20px">
+        <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('index.php/' .$formUrl) ?>" enctype="multipart/form-data">
+            <!-- <div class="modal-header text-center">
+                <h2 class="modal-title"><i class="fa fa-pencil"></i> <?php echo (isset($title)) ? ucwords($title) : "" ?></h2>
+            </div> -->
+
+            <div class="alert alert-danger" id="error-box" style="display: none"></div>
+            <div class="form-body">
                 <div class="row">
-                    <div class="col-md-8">
-                        <h4 class="no-margins fw-bold">Medical History</h4>
-                        <p class="text-dark fw-bold"><strong>  <?php echo $results->initial_rx_name; ?></strong></p>
-                    </div>
-                    <div class="col-md-4">
-                        <img src="<?php echo base_url(); ?>uploads/planning.png" style="height:65px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);" alt="">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class=" mb-3">
-            <div class="card-body p-4" style="background-color:#FFE0B7; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);border-radius:20px;">
-                <div class="row">
-                    <div class="col-md-8">
-                        <h4 class="no-margins fw-bold">Medication</h4>
-                        <p class="text-dark fw-bold"><strong>   <?php echo $results->organism_name; ?></strong></p>
-                    </div>
-                    <div class="col-md-4">
-                        <img src="<?php echo base_url(); ?>uploads/medicine.png" style="height:65px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);" alt="">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                    <div class="col-md-12" >
+                        <div class="form-group">
+            
+                                <div class="col-md-12">
+                                <!-- <h2>Users</h2> -->
+                            <form id="timeSlotForm" action="submit.php" method="post">
+                                    
+                            <div style="overflow-x: auto; overflow-y: auto; width: auto; height: auto;">
 
-</div>
-
-<!-- <div class="row p-4 mt-4">
-    
-</div> -->
-
-<div class="row p-4 mt-4">
-    <div class="col-md-4 ">
-        <div class=" mb-3">
-            <div class="card-body p-4" style="background-color:#EDEAFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);border-radius:20px">
-                <div class="row">
-                <div class="col-md-8">
-                <h4 class="no-margins fw-bold"><strong>Appointment</strong></h4> 
-            </div>
-            <div class="col-md-4">
-                        <img src="<?php echo base_url(); ?>uploads/appointment.svg" style="height: 65px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);" alt="">
-                    </div>
-
-    </div>
-    <div class="row">
-
-                    <div class="col-md-12">
-                        
-                        <?php $rowCount = 0;
-                         foreach($results_rowAppointment as $appointment){ 
-                            $rowCount++;
-                            // print_r($appointment);die;
-                            ?>
-                        <div class="row" style="border-bottom: 1px solid gray;">
-                        <div class="text-dark fw-bold">
-                            <?php echo $rowCount. '  '.$appointment->type; ?>
-                            
-                         </div>
-                         <div class="text-dark appointment-status">
-                            <?php 
-                            if($appointment->appointment_status == 'Active'):
-                            
-                            ?>
-                                <span class="custom-badge status-green"><?php echo $appointment->appointment_status; ?></span> 
-                                
-                            <?php else: ?>
-                                <span class="custom-badge status-red"><?php echo $appointment->appointment_status; ?></span> 
-                
-                             <?php endif; 
-                            ?>
-                            
-                         </div>
-
-                            <div class="text-dark fw-bold modal-appointment">
-                            <?php echo $appointment->start_date_appointment; ?>
-                            
-                         </div>
-                        </div>
                            
-                          <?php  } 
-                            ?>
-                       
-                    </div>
-                    
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-4 ">
-        <div class=" mb-3">
-            <div class="card-body p-4" style="background-color:#EDEAFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);border-radius:20px">
-                <div class="row">
-                    <div class="col-md-8">
-                        <h4 class="no-margins fw-bold"><strong>Task</strong></h4> 
-                        <!-- <p class="text-dark fw-bold"><?php echo $results->initial_dx_name; ?></p> -->
-                    </div>
-                    <div class="col-md-4">
-                        <img src="<?php echo base_url(); ?>uploads/tasks.svg" style="height: 65px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);" alt="">
-                    </div>
-                </div>
-
-                <div class="row">
-
-                    <div class="col-md-12">
-                        
-                        <?php $rowCount = 0;
-                         foreach($results_task as $task){ 
-                            $rowCount++;
-                            ?>
-                        <div class="row" style="border-bottom: 1px solid gray;">
-                        <div class="text-dark fw-bold">
-                            <?php echo $rowCount. '  '.$task->task_name; ?>
                             
-                         </div>
-
-                         <div class="text-dark appointment-status">
-                            <?php 
-                            if($task->status == 'Done'):
-                            
-                            ?>
-                                <span class="custom-badge status-green"><?php echo $task->status; ?></span> 
-                                
-                            <?php else: ?>
-                                <span class="custom-badge status-red"><?php echo $task->status; ?></span> 
-                
-                             <?php endif; 
-                            ?>
-                            
-                         </div>
-                         
-                         <div class="text-dark appointment-status">Doctor Name:  
-                            <?php echo $task->doctor_name; ?>
-                            
-                         </div>
-                         
-                            <div class="text-dark fw-bold modal-appointment">Priority:
-                            <?php echo $task->priority; ?>
-                            
-                         </div>
-                         <div class="text-dark fw-bold modal-appointment">Due date:
-                            <?php echo $task->due_date; ?>
-                            
-                         </div>
-                         
-
                         </div>
-                            <!-- <p class="text-dark fw-bold"><?php echo $appointment->end_date_appointment; ?></p> -->
-
-                          <?php  } 
-                            ?>
-                        <!-- <p class="text-dark fw-bold"><?php echo $results->initial_dx_name; ?></p> -->
                     </div>
-                    
+
+                     <div class="col-md-12" >
+                        <div class="form-group">
+                            <!-- <label class="col-md-3 control-label">Doctor Name:</label> -->
+                            <div class="col-md-9">
+                           
+                        <input type="hidden" id="doctor_name" name="doctor_name" class="form-control" value="<?php echo $userData->id; ?>">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12" >
+                   
+                    <div class="space-22"></div>
                 </div>
             </div>
-        </div>
-    </div>
-
-
-    <div class="col-md-4 ">
-        <div class=" mb-3">
-            <div class="card-body p-4" style="background-color:#EDEAFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);border-radius:20px">
-                <div class="row">
-                    <div class="col-md-8">
-                        <h4 class="no-margins fw-bold"><strong>Product</strong></h4> 
-                        <!-- <p class="text-dark fw-bold"><?php echo $results->initial_dx_name; ?></p> -->
-                    </div>
-                    <div class="col-md-4">
-                        <img src="<?php echo base_url(); ?>uploads/products.svg" style="height: 65px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);" alt="">
-                    </div>
-                </div>
+            <div class="text-right">
+                <!-- <button type="submit" id="submit" class="btn btn-sm btn-primary" >Save</button> -->
             </div>
-        </div>
-    </div>
+            
+        </form>
 
     
+
+    <div class="table-responsive">
+            <table id="common_datatable_users" class="table table-vcenter table-condensed table-bordered text-center">
+                <thead>
+                    <tr>
+                        <th class="text-center" style="font-size:14px;">Sr. No</th>
+                        <th class="text-center" style="font-size:14px;">Type</th>
+                        <th class="text-center" style="font-size:14px;">Name</th>
+                        <th class="text-center" style="font-size:14px;">Details</th>
+                        <th class="text-center" style="font-size:14px;">Last Recorded</th>
+                        <th class="text-center" style="font-size:14px;">Last Prescribed</th>
+                        <th class="text-center" style="font-size:14px;">Review</th>
+                        <th class="text-center" style="font-size:14px;">Created date</th>
+                        <th class="text-center" style="font-size:14px;">Status</th>
+                        <th class="text-center" style="font-size:14px;"><?php echo lang('action'); ?></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+
+                    <?php
+                    
+                    if (!empty($careUnitsUser_list)) {
+                        $rowCount = 0;
+                        foreach ($careUnitsUser_list as $rows) {
+                            $rowCount++;
+                           
+                    ?>
+
+
+                            <tr>
+                                <td class="text-center" style="font-size:14px;"><?php echo $rowCount; ?></td>
+                                <td class="text-center" style="font-size:14px;"><?php echo $rows->internal_name; ?></td>
+                                <td class="text-center" style="font-size:14px;"><?php echo date('m/d/Y', strtotime($rows->created_on)); ?></td>
+                               
+                                <td class="actions">
+                                <td class="actions">
+                                    <!-- <a href="javascript:void(0)" class="btn btn-default" onclick="editFn('index.php/userSettings/open_consult/edit?id=', '<?php echo encoding($rows->id) ?>', 'userSettings/open_consult');"><i class="fa fa-pencil"></i></a> -->
+                                                    <a href="<?php echo base_url() . 'userSettings/edit?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-sm  btn-default"><i class="fa fa-eye"></i></a>
+                                                                        
+                                    <!-- <a href="<?php echo base_url() . 'index.php/userSettings/existing_list/' . $rows->pid; ?>" target='_blank' data-toggle="tooltip" class="btn btn-default">View History</a> -->
+                                    <a href="javascript:void(0)" onclick="deletePatient('<?php echo $rows->id; ?>')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+
+                                </td>
+
+                                </td>
+                            </tr>
+
+
+                        <?php
+                        }
+                        //}
+                    } else {
+                        $rowCount = 0;
+                        foreach ($list as $rows) :
+                            $rowCount++;
+                        ?>
+                            <tr>
+                            <td><?php echo $rowCount; ?></td>
+                                <td class="text-center"><?php echo $rows->internal_name; ?></td>
+
+                                <td class="text-center"><?php echo $rows->name; ?></td>
+                                <td class="text-center"><?php  
+                                $cleanedString = str_replace(array('["', '"]'), '', $rows->question);
+                                 echo $cleanedString;?></td>
+                                <td class="text-center"><img src="<?php echo $rows->diagram_url; ?>" alt="" width="150px;"></td>
+
+                                <td class="text-center"><?php echo date('m/d/Y', strtotime($rows->created_on)); ?></td>
+                                <td class="text-center"><?php echo date('m/d/Y', strtotime($rows->created_on)); ?></td>
+                                <td class="text-center"><?php echo date('m/d/Y', strtotime($rows->created_on)); ?></td>
+                                <td class="text-center"><?php echo date('m/d/Y', strtotime($rows->status)); ?></td>
+                                    <td class="actions text-center">
+                                    <!-- <a href="javascript:void(0)" class="btn btn-default" onclick="editFn('index.php/userSettings/open_consult/edit?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-pencil"></i></a> -->
+                                    <a href="<?php echo base_url() . 'userSettings/consultEdit?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-xs btn-default"><i class="fa fa-pencil"></i></a>
+                                                                        
+                                    <!-- <a href="<?php echo base_url() . 'index.php/userSettings/open_consult/existing_list/' . $rows->pid; ?>" target='_blank' data-toggle="tooltip" class="btn btn-default">View History</a> -->
+                                    <a href="javascript:void(0)" onclick="deleteConsult('<?php echo $rows->id; ?>')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+
+                                </td>
+                            </tr>
+                    <?php
+                        endforeach;
+                    }
+                    ?>
+
+                </tbody>
+            </table>
             </div>
         </div>
-    </div>
-</div>
-
-<iframe name="print_frame" width="0" height="0" frameborder="0" src="about:blank"></iframe>
-</section>
-
-
-<style>
-    .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
-    position: relative;
-    min-height: 1px;
-    padding-left: 15px;
-    padding-right: 15px;
-}
-.align-items-center {
-    -ms-flex-align: center !important;
-    align-items: center !important;
-}.
-.justify-content-center {
-    -ms-flex-pack: center !important;
-    justify-content: center !important;
-}
-.text-white {
-    color: #fff !important;
-}
-.rounded-circle {
-    border-radius: 50% !important;
-}
-
-.bg-info {
-    background-color: #17a2b8 !important;
-}
-.mb-0, .my-0 {
-    margin-bottom: 0 !important;
-}
-.small, small {
-    font-size: .875em;
-    font-weight: 400;
-}
-.text-white {
-    color: #fff !important;
-}
-.p-3 {
-    padding: 1rem !important;
-}
-.justify-content-between {
-    -ms-flex-pack: justify !important;
-    justify-content: space-between !important;
-}
-.d-flex {
-    display: -ms-flexbox !important;
-    display: flex !important;
-}
-.card-img, .card-img-top {
-    border-top-left-radius: calc(0.25rem - 1px);
-    border-top-right-radius: calc(0.25rem - 1px);
-}
-.card-body {
-    -ms-flex: 1 1 auto;
-    flex: 1 1 auto;
-    min-height: 1px;
-    padding: 1.25rem;
-}
-
-.card {
-    height: 200px;
-    position: relative;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    min-width: 0;
-    word-wrap: break-word;
-    background-color: #fff;
-    background-clip: border-box;
-    border: 1px solid rgba(0, 0, 0, .125);
-    border-radius: 0.25rem;
-}
-</style>
-</div>
-
-
     <!-- END Datatables Content -->
+
+    <div id="form-modal-box"></div>
 </div>
 <!-- END Page Content -->
-<div id="form-modal-box"></div>
+<!-- <div id="form-modal-box"></div> -->
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -837,44 +642,7 @@ document.addEventListener('DOMContentLoaded', function() {
 /*    $("#zipcode").select2({
         allowClear: true
     });*/
-
-    function printDiv() {
-         window.frames["print_frame"].document.body.innerHTML = document.getElementById("printableTable").innerHTML;
-         window.frames["print_frame"].window.focus();
-         window.frames["print_frame"].window.print();
-       }
-
 </script>
-
-<style>
-    .custom-badge {
-	border-radius: 4px;
-	display: inline-block;
-	font-size: 12px;
-	min-width: 95px;
-	padding: 1px 10px;
-	text-align: center;
-}
-.status-red,
-a.status-red {
-	background-color: red;
-	border: 1px solid #fe0000;
-	color: white;
-    border-radius:10px;
-    padding:2px;
-    float: inline-end;
-}
-.status-green,
-a.status-green {
-	background-color: green;
-	border: 1px solid #00ce7c;
-    border-radius:10px;
-    padding:2px;
-	color: white;
-    float: inline-end;
-}
-
-</style>
 
 <style>
     .user-setting{
