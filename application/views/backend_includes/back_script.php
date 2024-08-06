@@ -175,7 +175,10 @@
     }
 
     var open_modal = function (controller) {
-        $.ajax({
+        var id = $('#patient_id').val();
+        // alert(id);
+        if(id==''){
+            $.ajax({
             url: '<?php echo base_url(); ?>' + controller + "/open_model",
             type: 'POST',
             data: {'<?php echo $this->security->get_csrf_token_name(); ?>': '<?php echo $this->security->get_csrf_hash(); ?>'},
@@ -184,6 +187,20 @@
                 $("#commonModal").modal('show');
             }
         });
+
+        }else{
+            var id = $('#patient_id').val();
+            $.ajax({
+            url: '<?php echo base_url(); ?>' + controller + "/open_model",
+            type: 'POST',
+            data: {'<?php echo $this->security->get_csrf_token_name(); ?>': '<?php echo $this->security->get_csrf_hash(); ?>',id:id},
+            success: function (data, textStatus, jqXHR) {
+                $('#form-modal-box').html(data);
+                $("#commonModal").modal('show');
+            }
+        });
+        }
+        
     }
 
     var open_model_new = function (controller) {
@@ -203,8 +220,8 @@
             type: 'POST',
             data: {'<?php echo $this->security->get_csrf_token_name(); ?>': '<?php echo $this->security->get_csrf_hash(); ?>'},
             success: function (data, textStatus, jqXHR) {
-                $('#form-modal-box').html(data);
-                $("#commonModalNew").modal('show');
+                $('#form-modal-medicine-box').html(data);
+                $("#commonModalMedicine").modal('show');
             }
         });
     }
@@ -582,6 +599,7 @@ bootbox.confirm({
         });
     }
 
+    
     /** end script in application **/
 
 </script>

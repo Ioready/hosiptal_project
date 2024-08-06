@@ -27,6 +27,11 @@ class Appointment extends Common_Controller {
        
         $this->data['title'] = $this->title;
         $this->data['model'] = $this->router->fetch_class();
+
+        // $this->data['formUrlAdd'] = $this->router->fetch_class() . "/addPatient";
+        $this->data['formUrl'] = $this->router->fetch_class() . "/add";
+
+
         $role_name = $this->input->post('role_name');
         $today = date('Y-m-d');
         
@@ -77,6 +82,23 @@ class Appointment extends Common_Controller {
         
          $this->data['list'] = $dataArray;
 
+
+
+         $user_id = $this->session->userdata('user_id');
+         $option = array(
+             'table' => USERS . ' as user',
+             'select' => 'user.*, UP.address1,UP.city,UP.country,UP.state,UP.description,'
+             . 'UP.designation,UP.website,group.name as group_name,group.id as g_id,'
+             . 'UP.doc_file,UP.company_name,UP.category_id,UP.profile_pic img,UP.doc_file as nda_doc,UP.doc_file_referral',
+             'join' => array(
+                 array(USER_GROUPS . ' as u_group', 'u_group.user_id=user.id', ''),
+                 array(GROUPS . ' as group', 'group.id=u_group.group_id', ''),
+                 array('user_profile as UP', 'UP.user_id=user.id', 'left')),
+             'where' => array('user.id' => $user_id),
+             'single' => true
+         );
+         $this->data['userData'] = $this->common_model->customGet($option);
+
         $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 
         if($this->ion_auth->is_subAdmin()){
@@ -124,6 +146,42 @@ class Appointment extends Common_Controller {
             $practitionerData = $this->common_model->customGet($optionPractitioner);
         $combinedData = array_merge($practitionerData,$doctorsData);
         $this->data['practitioner'] = $combinedData;
+
+        
+       $option = array(
+        'table' => ' doctors',
+        'select' => 'doctors.*',
+        'join' => array(
+            array('users', 'doctors.user_id=users.id', 'left'),
+        ),
+        'where' => array(
+            'users.delete_status' => 0,
+            'doctors.user_id'=>$CareUnitID
+        ),
+        'single' => true,
+    );
+
+    $datadoctors = $this->common_model->customGet($option);
+    $option = array(
+        'table' => ' doctors',
+        'select' => 'users.*',
+        'join' => array(
+            array('users', 'doctors.user_id=users.id', 'left'),
+            array('user_profile UP', 'UP.user_id=users.id', 'left'),
+        ),
+        'where' => array(
+            'users.delete_status' => 0,
+            'doctors.facility_user_id'=>$datadoctors->facility_user_id
+        ),
+        'order' => array('users.id' => 'desc'),
+    );
+    $this->data['doctorsname'] = $this->common_model->customGet($option);
+
+    $option = array(
+        'table' => 'clinic',
+        'select' => '*', 'where' => array('hospital_id'=>$datadoctors->facility_user_id), 'order' => array('name' => 'ASC')
+    );
+    $this->data['clinic_location'] = $this->common_model->customGet($option);
     
 
 
@@ -189,6 +247,7 @@ $this->data['all_appointment'] = $result->result();
     
         } else if ($this->ion_auth->is_facilityManager()) {
             
+
             $departmentanddoctordata = $this->input->post('departmentanddoctordata');
 
             $departmentanddoctordata = $this->input->post('departmentanddoctordata');
@@ -212,13 +271,37 @@ $this->data['all_appointment'] = $result->result();
                 );
                 $doctorsData = $this->common_model->customGet($optionDoctor);
               
+
+                
+       
+    $option = array(
+        'table' => ' doctors',
+        'select' => 'users.*',
+        'join' => array(
+            array('users', 'doctors.user_id=users.id', 'left'),
+            array('user_profile UP', 'UP.user_id=users.id', 'left'),
+        ),
+        'where' => array(
+            'users.delete_status' => 0,
+            'doctors.facility_user_id'=>$doctorsData->facility_user_id
+        ),
+        'order' => array('users.id' => 'desc'),
+    );
+    $this->data['doctorsname'] = $this->common_model->customGet($option);
+
+    $option = array(
+        'table' => 'clinic',
+        'select' => '*', 'where' => array('hospital_id'=>$doctorsData->facility_user_id), 'order' => array('name' => 'ASC')
+    );
+    $this->data['clinic_location'] = $this->common_model->customGet($option);
+
             
                 $optionPractitioner = array(
                     'table' => 'practitioner',
                     'select' => '*',
                     'where' => array(
                         'hospital_id' => $CareUnitID,
-                        'delete_status' => 0,
+                        // 'delete_status' => 0,
                         // 'id' => 10,
                     ),
                     'where_in' => array('practitioner.id' => $departmentanddoctordata),  // Use where_in to check for multiple IDs
@@ -262,6 +345,40 @@ $this->data['all_appointment'] = $result->result();
             $combinedData = array_merge($practitionerData,$doctorsData);
             $this->data['practitioner'] = $combinedData;
        
+            $option = array(
+                'table' => ' doctors',
+                'select' => 'doctors.*',
+                'join' => array(
+                    array('users', 'doctors.user_id=users.id', 'left'),
+                ),
+                'where' => array(
+                    'users.delete_status' => 0,
+                    'doctors.user_id'=>$CareUnitID
+                ),
+                'single' => true,
+            );
+        
+            $datadoctors = $this->common_model->customGet($option);
+            $option = array(
+                'table' => ' doctors',
+                'select' => 'users.*',
+                'join' => array(
+                    array('users', 'doctors.user_id=users.id', 'left'),
+                    array('user_profile UP', 'UP.user_id=users.id', 'left'),
+                ),
+                'where' => array(
+                    'users.delete_status' => 0,
+                    'doctors.facility_user_id'=>$CareUnitID
+                ),
+                'order' => array('users.id' => 'desc'),
+            );
+            $this->data['doctorsname'] = $this->common_model->customGet($option);
+        
+            $option = array(
+                'table' => 'clinic',
+                'select' => '*', 'where' => array('hospital_id'=>$CareUnitID), 'order' => array('name' => 'ASC')
+            );
+            $this->data['clinic_location'] = $this->common_model->customGet($option);
 
        
                 
@@ -366,6 +483,44 @@ $result = $this->db->query($sql);
 $this->data['all_appointment'] = $result->result();
         // print_r($this->data['all_appointment']);die;
         
+
+
+
+        
+       $option = array(
+        'table' => ' doctors',
+        'select' => 'doctors.*',
+        'join' => array(
+            array('users', 'doctors.user_id=users.id', 'left'),
+        ),
+        'where' => array(
+            'users.delete_status' => 0,
+            'doctors.user_id'=>$CareUnitID
+        ),
+        'single' => true,
+    );
+
+    $datadoctors = $this->common_model->customGet($option);
+    $option = array(
+        'table' => ' doctors',
+        'select' => 'users.*',
+        'join' => array(
+            array('users', 'doctors.user_id=users.id', 'left'),
+            array('user_profile UP', 'UP.user_id=users.id', 'left'),
+        ),
+        'where' => array(
+            'users.delete_status' => 0,
+            'doctors.facility_user_id'=>$CareUnitID
+        ),
+        'order' => array('users.id' => 'desc'),
+    );
+    $this->data['doctorsname'] = $this->common_model->customGet($option);
+
+    $option = array(
+        'table' => 'clinic',
+        'select' => '*', 'where' => array('hospital_id'=>$CareUnitID), 'order' => array('name' => 'ASC')
+    );
+    $this->data['clinic_location'] = $this->common_model->customGet($option);
 }
 
 
@@ -414,12 +569,60 @@ $this->data['all_appointment'] = $result->result();
 
         $this->data['hospitals'] = $this->common_model->customGet($option);
                             
-        // print_r($this->data['hospitals'] );die;
+       
 
-        // $this->data['clinic_appointment'] = $this->common_model->customGet($option);
-    // print_r($this->data['clinic_appointment'] );die;
         
-        // $this->load->admin_render('list', $this->data, 'inner_script');
+               //print_r($this->data['userlocation']);die;
+               $option = array('table' => 'countries',
+               'select' => '*'
+           );
+           $this->data['countries'] = $this->common_model->customGet($option);
+       
+       
+           $option = array(
+               'table' => 'care_unit',
+               'select' => '*', 'where' => array('delete_status' => 0), 'order' => array('name' => 'ASC')
+           );
+           $this->data['care_unit'] = $this->common_model->customGet($option);
+       
+           $option = array(
+               'table' => 'appointment_type',
+               'select' => '*', 'where' => array('delete_status' => 0), 'order' => array('name' => 'ASC')
+           );
+           $this->data['appointment_type'] = $this->common_model->customGet($option);
+       
+           $option = array(
+               'table' => 'type_of_stay',
+               'select' => '*', 'where' => array('delete_status' => 0), 'order' => array('name' => 'ASC')
+           );
+           $this->data['type_of_stay'] = $this->common_model->customGet($option);
+
+
+           $option = array('table' => 'countries',
+           'select' => '*'
+       );
+       $this->data['countries'] = $this->common_model->customGet($option);
+   
+   
+       $option = array(
+           'table' => 'care_unit',
+           'select' => '*', 'where' => array('delete_status' => 0), 'order' => array('name' => 'ASC')
+       );
+       $this->data['care_unit'] = $this->common_model->customGet($option);
+   
+       $option = array(
+           'table' => 'appointment_type',
+           'select' => '*', 'where' => array('delete_status' => 0), 'order' => array('name' => 'ASC')
+       );
+       $this->data['appointment_type'] = $this->common_model->customGet($option);
+   
+       $option = array(
+           'table' => 'type_of_stay',
+           'select' => '*', 'where' => array('delete_status' => 0), 'order' => array('name' => 'ASC')
+       );
+       $this->data['type_of_stay'] = $this->common_model->customGet($option);
+
+
 
         $this->load->admin_render('text', $this->data, 'inner_script');
     }
@@ -849,7 +1052,7 @@ $this->data['results'] = $results;
 
         $this->data['title'] = "addPatient " . $this->title;
         $this->data['formUrlAdd'] = $this->router->fetch_class() . "/addPatient";
-
+        $this->data['formUrl'] = $this->router->fetch_class() . "/add";
 
 
         $AdminCareUnitID = isset($_SESSION['admin_care_unit_id']) ? $_SESSION['admin_care_unit_id'] : '';

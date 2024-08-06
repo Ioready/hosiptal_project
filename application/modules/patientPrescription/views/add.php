@@ -26,6 +26,7 @@
                                     
                                     <div class="col-md-9">
                                     <h4 class="no-margins fw-bold"></h4>
+                                    
                                         <input type="hidden" class="form-control" name="patient_id" id="patient_id_data" value="<?php print_r($this->data['patient_id']);?>"/>
                                     </div>
                                 </div>
@@ -35,11 +36,11 @@
                            
                             
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Labs Name</label>
+                                    <label class="col-md-3 control-label">Prescriptions Name</label>
                                     <div class="col-md-9">
-                                    <select id="framework" name="labs_name" class="form-control">
+                                    <select id="framework" name="prescriptions_name" class="form-control">
                                     
-                                    <?php foreach ($culture_source as $category) { ?>
+                                    <?php foreach ($precautions as $category) { ?>
                                     <option value="<?php echo $category->id; ?>"><?php echo $category->name; ?></option>
                                     <?php } ?>
                                     </select>

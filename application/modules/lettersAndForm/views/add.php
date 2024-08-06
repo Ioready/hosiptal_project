@@ -1,11 +1,13 @@
+
+<script src="https://cdn.ckeditor.com/4.18.0/standard/ckeditor.js"></script>
 <style>
     .modal-footer .btn + .btn {
     margin-bottom: 5px !important;
     margin-left: 5px;
 }
 </style>
-<div id="commonModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
+<div id="commonModal" class="modal fade bd-example-modal-lg" role="dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url($formUrl) ?>" enctype="multipart/form-data">
             <div class="modal-header text-center">
@@ -31,44 +33,14 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-12" >
                            
-                            
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">Labs Name</label>
-                                    <div class="col-md-9">
-                                    <select id="framework" name="labs_name" class="form-control">
-                                    
-                                    <?php foreach ($culture_source as $category) { ?>
-                                    <option value="<?php echo $category->id; ?>"><?php echo $category->name; ?></option>
-                                    <?php } ?>
-                                    </select>
-                                </div>
-                                </div>
-                            </div>
-                            
 
                             <div class="col-md-12" >
-                           
-                            
+                            <label class="control-label">letter body</label>
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Doctor Name</label>
-                                    <div class="col-md-9">
-                                    <select id="framework" name="doctor_name" class="form-control">
                                     
-                                    <?php foreach ($doctors as $category) { ?>
-                                    <option value="<?php echo $category->id; ?>"><?php echo $category->first_name. ' '. $category->last_name; ?></option>
-                                    <?php } ?>
-                                    </select>
-                                </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-12" >
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">Details</label>
-                                    <div class="col-md-9">
-                                    <textarea name="detail" id="detail" rows="4" cols="45"></textarea>
+                                    <div class="col-md-12">
+                                    <textarea name="detail" id="body" rows="10"></textarea>
                                         <!-- <input type="text" class="form-control" name="detail" id="detail" placeholder="detail" /> -->
                                     </div>
                                 </div>
@@ -91,23 +63,38 @@
 
    
 </div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
-  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css" />
+<script>
+    // Initialize CKEditor
+    // CKEDITOR.replace('body');
 
-<script type="text/javascript">
-  $(document).ready(function(){
- $('#framework').multiselect({
-  nonSelectedText: 'Select Framework',
-  enableFiltering: true,
-  enableCaseInsensitiveFiltering: true,
-  buttonWidth:'342px',
+    CKEDITOR.replace('body', {
+    // Custom configuration options
+    toolbar: [
+        { name: 'document', items: ['Source', '-', 'NewPage', 'Preview', '-', 'Templates'] },
+        { name: 'clipboard', items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'] },
+        { name: 'editing', items: ['Find', 'Replace', '-', 'SelectAll', '-', 'SpellChecker'] },
+        '/',
+        { name: 'basicstyles', items: ['Bold', 'Italic', 'Underline', '-', 'RemoveFormat'] },
+        { name: 'paragraph', items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote'] },
+        { name: 'insert', items: ['Image', 'Table', 'HorizontalRule', 'SpecialChar'] },
+        '/',
+        { name: 'styles', items: ['Styles', 'Format'] },
+        { name: 'colors', items: ['TextColor', 'BGColor'] },
+        { name: 'tools', items: ['Maximize'] },
+'/',
 
- });
+        { name: 'templates', items: ['templates', 'templates'] },
+        { name: 'colors', items: ['TextColor', 'BGColor'] },
+        { name: 'tools', items: ['Maximize'] }
+    ],
+    height: 300
 });
 
 </script>
+
+
 

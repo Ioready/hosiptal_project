@@ -93,12 +93,7 @@
                             <!-- Begin Page Content -->
                             <div class="container-fluid">
                                 <div class="tabControl">
-
-
-
-
-
-                                <div class="container">
+<div class="container">
     <div class="row" >
         <div class="col">
             <ul class="nav nav-pills nav-fill nav-tabss" id="pills-tab" role="tablist">

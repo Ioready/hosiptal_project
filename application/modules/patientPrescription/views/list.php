@@ -295,7 +295,7 @@
         <div class="block-title ">
             <h2 class="fw-bold"><strong><?php echo $title; ?></strong> Panel</h2>
             <?php if ($this->ion_auth->is_facilityManager()) { ?>
-               
+                
                 <input type="hidden" name="patient_id" id="patient_id" value="<?php echo $patient_id;?>">
                 <h2><a href="javascript:void(0)"  onclick="open_modal('<?php echo $model; ?>')" class="btn btn-sm btn-primary save-btn" id="patient_ids">
                         <i class="gi gi-circle_plus"></i> <?php echo $title; ?> 
@@ -308,7 +308,7 @@
                 <tr>
                         <th class="text-center" style="font-size:14px;">Sr. No</th>
                         <th class="text-center" style="font-size:14px;">Doctor Name</th>
-                        <th class="text-center" style="font-size:14px;">Lab Name</th>
+                        <th class="text-center" style="font-size:14px;">Prescriptions Name</th>
                         <th class="text-center" style="font-size:14px;">Details</th>
                         <th class="text-center" style="font-size:14px;">Created date</th>
                         <!-- <th class="text-center" style="font-size:14px;">Status</th> -->

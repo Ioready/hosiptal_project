@@ -26,6 +26,7 @@
                                     
                                     <div class="col-md-9">
                                     <h4 class="no-margins fw-bold"></h4>
+                                    
                                         <input type="hidden" class="form-control" name="patient_id" id="patient_id_data" value="<?php print_r($this->data['patient_id']);?>"/>
                                     </div>
                                 </div>

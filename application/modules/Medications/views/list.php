@@ -153,6 +153,7 @@
                 <div class="widget-extra-full"><span class="h2 animation-expandOpen fw-bold text-dark"><?php echo $inactive;?></span></div>
             </a>
         </div>
+        
 
         <div class="col-sm-6 col-lg-2 mb-4">
         <a href="<?php echo base_url(). 'index.php/lettersAndForm?id=' . encoding($patient_id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
@@ -171,7 +172,7 @@
                     </a>
                 </div>
                 <div class="col-sm-6 col-lg-2 mb-4">
-                <a href="<?php echo base_url(). 'Labs?id=' . encoding($patient_id);?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
+                <a href="<?php echo base_url(). 'labs?id=' . encoding($patient_id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
                         <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
                             <h4 style="font-size:16px; font-weight:600; color:white;">Labs</h4>
                         </div>
@@ -297,7 +298,7 @@
             <?php if ($this->ion_auth->is_facilityManager()) { ?>
                
                 <input type="hidden" name="patient_id" id="patient_id" value="<?php echo $patient_id;?>">
-                <h2><a href="javascript:void(0)"  onclick="open_modal('<?php echo $model; ?>')" class="btn btn-sm btn-primary save-btn" id="patient_ids">
+                <h2><a href="javascript:void(0)"  onclick="open_modal('<?php echo $model; ?>')" class="btn btn-sm btn-primary save-btn model-medication" id="<?php echo $patient_id;?>" value="<?php echo $patient_id;?>">
                         <i class="gi gi-circle_plus"></i> <?php echo $title; ?> 
                     </a></h2>
             <?php } ?>
@@ -307,9 +308,12 @@
                 <thead>
                 <tr>
                         <th class="text-center" style="font-size:14px;">Sr. No</th>
-                        <th class="text-center" style="font-size:14px;">Doctor Name</th>
-                        <th class="text-center" style="font-size:14px;">Lab Name</th>
+                        <th class="text-center" style="font-size:14px;">Type</th>
+                        <th class="text-center" style="font-size:14px;">Name</th>
                         <th class="text-center" style="font-size:14px;">Details</th>
+                        <th class="text-center" style="font-size:14px;">Last Recorded</th>
+                        <th class="text-center" style="font-size:14px;">Last Prescribed</th>
+                        <th class="text-center" style="font-size:14px;">Review</th>
                         <th class="text-center" style="font-size:14px;">Created date</th>
                         <!-- <th class="text-center" style="font-size:14px;">Status</th> -->
                         <th class="text-center" style="font-size:14px;"><?php echo lang('action'); ?></th>
@@ -331,9 +335,12 @@
                             ?>
                             <tr>
                                 <td><?php echo $rowCount; ?></td>            
-                                <td><?php echo $rows->first_name. ' '.$rows->last_name; ?></td>
+                                <td><?php echo $rows->type; ?></td>
                                 <td><?php echo $rows->name; ?></td>
-                                <td><?php echo $rows->details; ?></td>
+                                <td><?php echo $rows->detail; ?></td>
+                                <td><?php echo $rows->last_recorded; ?></td>
+                                <td><?php echo $rows->last_prescribed; ?></td>
+                                <td><?php echo $rowCount; ?></td>
                                 <td><?php echo $rows->create_date; ?></td>
                                
 
@@ -361,13 +368,14 @@
 <div id="form-modal-box"></div>
 </div>
 
-<script>
+<!-- <script>
     $(document).ready(function() {
-  $('#patient_ids').click(function() {
-   var patientsdata = $('#patient_id').val();
-  
-  $('#patient_id_data').val(patientsdata);
+  $('.model-medication').click(function() {
+   
+   var id = $(this).attr('id');
+   alert(id);
+  $('#patient_id_data').val(id);
 
   });
 });
-</script>
+</script> -->

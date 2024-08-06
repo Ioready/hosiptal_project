@@ -123,6 +123,23 @@
     background: linear-gradient(135deg, #289cf5, #84c0ec) !important;
     color: #fff;
 }
+
+
+
+#framework{
+  height:40px;
+  overflow-y:auto;
+    width:50px;
+}
+/* option{
+  overflow-y:scroll;
+} */
+
+.open> .dropdown-menu {
+    display: block;
+    height: 164px;
+    overflow-y: auto;
+}
 </style>
 
 <div id="page-content">
@@ -330,15 +347,34 @@
 
           <div class="block-title">
            
-                <?php if ($this->ion_auth->is_admin()) { ?>
-                <h2><a href="javascript:void(0)"  onclick="open_model_medication('<?php echo $model; ?>')" class="btn btn-sm btn-primary">
+                <!-- <?php if ($this->ion_auth->is_admin()) { ?>
+                <h2><a href="javascript:void(0)"  onclick="document.getElementById('commonModalMedicine').model('show')" class="btn btn-sm btn-primary">
                         <i class="gi gi-circle_plus"></i> <?php echo 'New'; ?>
                     </a></h2>
             <?php }else if($this->ion_auth->is_facilityManager()){ ?>
-                <h2><a href="javascript:void(0)"  onclick="open_model_medication('<?php echo $model; ?>')" class="btn btn-sm btn-primary">
+                <h2><a href="javascript:void(0)"  data-toggle="modal" data-target="#commonModalMedicine" class="btn btn-sm btn-primary">
                         <i class="gi gi-circle_plus"></i> <?php echo 'New'; ?>
                     </a></h2>
-                    <?php } ?>
+                    <?php } ?> -->
+
+                    <?php if ($this->ion_auth->is_subAdmin()) { ?>
+                    <h2 class="save-btn">
+                        <a href="<?php echo base_url().'index.php/' . $this->router->fetch_class(); ?>/add_medicine" class="btn btn-sm btn-primary">
+                            <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
+                        </a>
+                    </h2>
+                <?php } else if($this->ion_auth->is_facilityManager()) { ?>
+                    <h2 class="save-btn">
+                    <a href="javascript:void(0)"  onclick="open_model_medication('<?php echo $model_medicine; ?>')" class="btn btn-sm btn-primary" style="background: #337ab7;">
+                        <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
+                    </a>
+
+                        <!-- <a href="<?php echo base_url().'index.php/' . $this->router->fetch_class(); ?>/add_medicine" class="btn btn-sm btn-primary">
+                            <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
+                        </a> -->
+                    </h2>
+                <?php } ?>
+                
           </div>
 
         <div class="block-title">
@@ -479,290 +515,148 @@
         </div>
     <!-- END Datatables Content -->
 
-    <div id="form-modal-box"></div>
+    <div id="form-modal-medicine-box"></div>
+
+
+    <style>
+    .modal-footer .btn + .btn {
+    margin-bottom: 5px !important;
+    margin-left: 5px;
+}
+</style>
+<!-- <div id="commonModalMedicine" class="modal fade lg" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form class="form-horizontal" role="form" id="dataForm" method="post" enctype="multipart/form-data">
+            <div class="modal-header text-center">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h2 class="modal-title"><i class="fa fa-pencil"></i> <?php echo (isset($title)) ? ucwords($title) : "" ?></h2>
+                    </div>
+                <div class="modal-body">
+                    
+                    <div class="alert alert-danger" id="error-box" style="display: none"></div>
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-12" >
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Patient Name</label>
+                                    <div class="col-md-9">
+                                    <h4 class="no-margins fw-bold"><?php echo $results->patient_name; ?></h4>
+                                        <input type="text" class="form-control" name="patient_id" id="patient_id" value="<?php echo $results->id; ?>" placeholder="Name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12" >
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Type</label>
+                                    <div class="col-md-9">
+                                    
+                                        <input type="text" class="form-control" name="type" id="type" placeholder="Type" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12" >
+                           
+                            
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Antibiotic Name</label>
+                                    <div class="col-md-9">
+                                    <select id="framework" name="initial_rx[]" multiple class="form-control">
+                                    
+                                    <?php foreach ($initial_rx as $category) { ?>
+                                    <option value="<?php echo $category->id; ?>"><?php echo $category->name; ?></option>
+                                    <?php } ?>
+                                    </select>
+                                </div>
+                                </div>
+                            </div>
+
+                            
+
+                            <div class="col-md-12" >
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Details</label>
+                                    <div class="col-md-9">
+                                    
+                                        <input type="text" class="form-control" name="detail" id="detail" placeholder="detail" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12" >
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Last Recorded</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" name="last_recorded" id="last_recorded" placeholder="Last Recorded" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12" >
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Last Prescribed</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" name="last_prescribed" id="last_prescribed" placeholder="Last Prescribed" />
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="space-22"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal"><?php echo lang('reset_btn');?></button>
+                    <input type="submit" id="submit" class="btn btn-sm btn-primary"  value="<?php echo lang('submit_btn');?>">
+                </div>
+            </form>
+        </div> 
+    </div>
+</div> -->
 </div>
 <!-- END Page Content -->
 <!-- <div id="form-modal-box"></div> -->
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-$(document).ready(function(){
-  // Add click event listener to all td elements with class 'day-cell'
-  $('.day-cell').click(function(){
-    // Get time and day values from data attributes
-    var time = $(this).data('time');
-    var day = $(this).data('day');
-    // Set hidden input values
-    $('#selectedTime').val(time);
-    $('#selectedDay').val(day);
-    // Submit the form
-    $('#timeSlotForm').submit();
-  });
-});
-</script>
-<script>
-$(document).ready(function(){
-  // Add click event listener to all td elements with class 'time-cell'
-  $('.time-cell').click(function(){
-    // Toggle 'highlight' class on click
-    $(this).toggleClass('highlight');
-  });
 
-  // Add click event listener to all td elements with class 'day-cell'
-  $('.day-cell').click(function(){
-    // Toggle 'highlight' class on click
-    $(this).toggleClass('highlight');
-  });
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
   
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css" />
+
+<!-- <script type="text/javascript">
+  $(document).ready(function(){
+ $('#framework').multiselect({
+  nonSelectedText: 'Select Framework',
+  enableFiltering: true,
+  enableCaseInsensitiveFiltering: true,
+  buttonWidth:'342px',
+
+ });
 });
-</script>
 
-<style>
-.highlight {
-    background-color: yellow; /* Change this to the desired highlight color */
-  }
-
-header h1,
-header p {
-  margin: 0;
-}
-footer {
-  padding: 7vh 5vw;
-  border-top: 1px solid #ddd;
-}
-aside {
-  padding: 7vh 5vw;
-}
-.primary {
-  overflow: auto;
-  scroll-snap-type: both mandatory;
-  height: 80vh;
-}
-@media (min-width: 40em) {
-  main {
-    display: flex;
-  }
-  aside {
-    flex: 0 1 20vw;
-    order: 1;
-    border-right: 1px solid #ddd;
-  }
-  .primary {
-    order: 2;
-  }
-}
-table {
-  border-collapse: collapse;
-  border: 0;
-}
-th,
-td {
-  border: 1px solid #aaa;
-  background-clip: padding-box;
-  scroll-snap-align: start;
-}
-tbody tr:last-child th,
-tbody tr:last-child td {
-  border-bottom: 0;
-}
-thead {
-  z-index: 1000;
-  position: relative;
-}
-th,
-td {
-  padding: 0.6rem;
-  min-width: 6rem;
-  text-align: left;
-  margin: 0;
-}
-thead th {
-  position: sticky;
-  top: 0;
-  border-top: 0;
-  background-clip: padding-box;
-}
-thead th.pin {
-  left: 0;
-  z-index: 1001;
-  border-left: 0;
-}
-tbody th {
-  background-clip: padding-box;
-  border-left: 0;
-}
-tbody {
-  z-index: 10;
-  position: relative;
-}
-tbody th {
-  position: sticky;
-  left: 0;
-}
-thead th,
-tbody th {
-  background-color: #f8f8f8;
-}
-</style>
-
+</script> -->
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-    checkboxes.forEach(function(checkbox) {
-    checkbox.addEventListener('click', function() {
-        checkboxes.forEach(function(cb) {
-        cb.parentNode.parentNode.classList.remove('selected');
+        $(document).ready(function() {
+            $('#dataForm').on('submit', function(event) {
+                event.preventDefault(); // Prevent form submission
+
+                $.ajax({
+                    url: '<?= base_url("/patient/add_medicine") ?>', // URL to the controller method
+                    type: 'POST',
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        $('#response').html(response); // Display response message
+                    },
+                    error: function(xhr, status, error) {
+                        $('#response').html('An error occurred: ' + xhr.responseText);
+                    }
+                });
+            });
         });
-        if (this.checked) {
-        this.parentNode.parentNode.classList.add('selected');
-        const selectedTime = this.getAttribute('data-time');
-        const selectedDay = this.getAttribute('data-day');
-        console.log(`Selected time: ${selectedTime}, Selected day: ${selectedDay}`);
-        }
-    });
-    });
-});
 </script>
-
-
-
-<script type="text/javascript">
-    $('#date').datepicker({
-        startView: 2,
-        todayBtn: "linked",
-        keyboardNavigation: false,
-        forceParse: false,
-        calendarWeeks: true,
-        autoclose: true,
-        endDate:'today'       
-    });
-/*    $("#zipcode").select2({
-        allowClear: true
-    });*/
-</script>
-
-<style>
-    .user-setting{
-        background-color: antiquewhite;
-        padding: 13px;
-        border-radius: 5px;
-        border: 1px solid #df9595;
-    }
-
-    .btnPrevious,
-.btnNext{
-	display: inline-block;
-	border: 1px solid #444348;
-	border-radius: 3px;
-	margin: 5px;
-	color: #444348;
-	font-size: 14px;
-	padding: 10px 15px;
-	cursor: pointer;
-}
-
-.nav-tabss {
-    margin-bottom: 0;
-    padding-left: 0;
-    list-style: none;
-    /* width: 316px; */
-    border-radius: inherit;
-    font-weight: 900;
-}
-.nav-tab-appointment{
-    margin-bottom: 0;
-    padding-left: 0;
-    list-style: none;
-    /* width: 553px; */
-    padding: 20px;
-    border-radius: inherit;
-    background-color:white;
-
-}
-.nav-tab-appointment.active-link{
-    margin-bottom: 0;
-    padding-left: 0;
-    list-style: none;
-    width: 553px;
-    padding: 20px;
-    border-radius: inherit;
-    background-color:white;
-
-}
-
-.nav-pills-second{
-    background-color:white;
-}
-.nav-pills-second>li {
-    float: left;
-}
-.nav-pills-second.ul li:active .underline {
-	transition: none;
-	background-color: red;
-}
-
-.nav-link>a.active.underline {
-	width: 100%;
-	background-color: red;
-}
-.new-contact{
-    background-color: darkslategray;
-    color: white;
-    font-weight: 900;
-    width: 88px;
-}
-a.new-contact:hover{
-    /* background-color: #d9416c !important; */
-    color: white;
-    font-weight: 900;
-    width: 88px;
-}
-</style>
-
-<style>
-    /* Custom styles for dropdown */
-.select-dropdown {
-    position: relative;
-}
-
-/* Custom styles for search input */
-.input-group-search {
-    position: relative;
-}
-
-/* Adjust the dropdown and search input width as needed */
-.select-dropdown .btn-secondary,
-.input-group-search .form-control {
-    width: 100%;
-}
-
-
-
-</style>
-<script>
-
-$(document).ready(function() {
-    // Toggle dropdown on button click
-    $('[data-testid="button__dropdown--sort-menu"]').click(function() {
-        $(this).toggleClass('active');
-        // Toggle dropdown menu visibility
-        $(this).next('.ListViewMenu__buttonGroup___MY6Wh').toggle();
-    });
-
-    // Handle search button click
-    $('.btn-search').click(function() {
-        // Get search input value
-        var searchTerm = $(this).closest('.input-group').find('.form-control').val();
-        // Perform search operation with the searchTerm
-        console.log('Search term:', searchTerm);
-    });
-});
-
-</script>
-
 
 
 

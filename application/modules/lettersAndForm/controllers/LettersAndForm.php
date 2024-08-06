@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Labs extends Common_Controller {
+class LettersAndForm extends Common_Controller {
 
     public $data = array();
     public $file_data = "";
@@ -10,7 +10,7 @@ class Labs extends Common_Controller {
     public $_tables = 'patient_labs';
     // public $_tables = 'clinic';
     
-    public $title = "Patient Labs";
+    public $title = "Letters And Form";
 
     public function __construct() {
         parent::__construct();

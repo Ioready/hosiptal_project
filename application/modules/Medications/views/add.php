@@ -22,28 +22,22 @@
                         <div class="row">
                             <div class="col-md-12" >
                                 <div class="form-group">
-                                    <!-- <label class="col-md-3 control-label">Patient Name</label> -->
+                                    <label class="col-md-3 control-label">Patient Name</label>
                                     
                                     <div class="col-md-9">
                                     <h4 class="no-margins fw-bold"></h4>
-                                        <input type="hidden" class="form-control" name="patient_id" id="patient_id_data" value="<?php print_r($this->data['patient_id']);?>"/>
+                                        <input type="hidden" name="patient_id" value="<?php print_r($this->data['patient_id']);?>" />
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-md-12" >
-                           
-                            
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Labs Name</label>
+                                    <label class="col-md-3 control-label hover_me">Type</label>
                                     <div class="col-md-9">
-                                    <select id="framework" name="labs_name" class="form-control">
                                     
-                                    <?php foreach ($culture_source as $category) { ?>
-                                    <option value="<?php echo $category->id; ?>"><?php echo $category->name; ?></option>
-                                    <?php } ?>
-                                    </select>
-                                </div>
+                                        <input type="text" class="form-control" name="type" id="type" placeholder="Type" />
+                                    </div>
                                 </div>
                             </div>
                             
@@ -52,12 +46,12 @@
                            
                             
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Doctor Name</label>
+                                    <label class="col-md-3 control-label">Antibiotic Name</label>
                                     <div class="col-md-9">
-                                    <select id="framework" name="doctor_name" class="form-control">
+                                    <select id="framework" name="medication_name" class="form-control">
                                     
-                                    <?php foreach ($doctors as $category) { ?>
-                                    <option value="<?php echo $category->id; ?>"><?php echo $category->first_name. ' '. $category->last_name; ?></option>
+                                    <?php foreach ($initial_rx as $category) { ?>
+                                    <option value="<?php echo $category->id; ?>"><?php echo $category->name; ?></option>
                                     <?php } ?>
                                     </select>
                                 </div>
@@ -74,7 +68,22 @@
                                 </div>
                             </div>
 
-                            
+                            <div class="col-md-12" >
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Last Recorded</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" name="last_recorded" id="last_recorded" placeholder="Last Recorded" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12" >
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Last Prescribed</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" name="last_prescribed" id="last_prescribed" placeholder="Last Prescribed" />
+                                    </div>
+                                </div>
+                            </div>
                             
                             <div class="space-22"></div>
                         </div>
@@ -110,4 +119,5 @@
 });
 
 </script>
+
 

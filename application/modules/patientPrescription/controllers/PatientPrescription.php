@@ -2,15 +2,15 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Labs extends Common_Controller {
+class PatientPrescription extends Common_Controller {
 
     public $data = array();
     public $file_data = "";
     public $_table = 'culture_source';
-    public $_tables = 'patient_labs';
+    public $_tables = 'patient_prescriptions';
     // public $_tables = 'clinic';
     
-    public $title = "Patient Labs";
+    public $title = "Patient Prescriptiont";
 
     public function __construct() {
         parent::__construct();
@@ -38,14 +38,14 @@ class Labs extends Common_Controller {
        $id=  decoding($_GET['id']);
     //    print_r($id);die;
         $option = array(
-            'table' => 'patient_labs',
-            'select' => 'patient_labs`.*,vendor_sale_culture_source.name,vendor_sale_users.first_name,vendor_sale_users.last_name',
+            'table' => 'patient_prescriptions',
+            'select' => 'patient_prescriptions`.*,vendor_sale_precautions.name,vendor_sale_users.first_name,vendor_sale_users.last_name',
             'join' => array(
-                array('vendor_sale_culture_source', 'vendor_sale_culture_source.id=patient_labs.name','left'),
-                array('vendor_sale_users', 'patient_labs.doctor_id=vendor_sale_users.id', 'left'),
+                array('vendor_sale_precautions', 'vendor_sale_precautions.id=patient_prescriptions.prescriptions_name','left'),
+                array('vendor_sale_users', 'patient_prescriptions.doctor_id=vendor_sale_users.id', 'left'),
             ),
             
-            'where' => array('patient_labs.patient_id' => $id)
+            'where' => array('patient_prescriptions.patient_id' => $id)
         );
 
 
@@ -143,7 +143,7 @@ class Labs extends Common_Controller {
     public function add() {
 
         // print_r($this->input->post());die;
-        $this->form_validation->set_rules('labs_name', "labs_name", 'required|trim');
+        $this->form_validation->set_rules('prescriptions_name', "prescriptions name", 'required|trim');
         if ($this->form_validation->run() == true) {
            
            
@@ -153,7 +153,7 @@ class Labs extends Common_Controller {
                    
                     'patient_id' => $this->input->post('patient_id'),
                     'doctor_id' => $this->input->post('doctor_name'),
-                    'name' => $this->input->post('labs_name'),
+                    'prescriptions_name' => $this->input->post('prescriptions_name'),
                     'facility_user_id' => $CareUnitID,
                     'details' => $this->input->post('detail'),
                     'is_active' => 1,
