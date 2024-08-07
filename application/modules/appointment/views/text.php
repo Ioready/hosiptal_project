@@ -1085,8 +1085,8 @@ transition: opacity 0.3s linear, right 0.3s ease-out;
                                                
                                         </div>
                                     <div class="modal-footer">
-                                    <button type="button" class="btn btn-success">Save</button>
-                                    <button type="button" class="btn btn-default close-btn" data-dismiss="modal">Close</button>
+                                    <!-- <button type="button" class="btn btn-success">Save</button>
+                                    <button type="button" class="btn btn-default close-btn" data-dismiss="modal">Close</button> -->
                                     </div>
                                 </div>
                             
