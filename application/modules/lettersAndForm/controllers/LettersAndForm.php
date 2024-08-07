@@ -7,7 +7,7 @@ class LettersAndForm extends Common_Controller {
     public $data = array();
     public $file_data = "";
     public $_table = 'culture_source';
-    public $_tables = 'patient_labs';
+    public $_tables = 'letters_and_form';
     // public $_tables = 'clinic';
     
     public $title = "Letters And Form";
@@ -38,14 +38,13 @@ class LettersAndForm extends Common_Controller {
        $id=  decoding($_GET['id']);
     //    print_r($id);die;
         $option = array(
-            'table' => 'patient_labs',
-            'select' => 'patient_labs`.*,vendor_sale_culture_source.name,vendor_sale_users.first_name,vendor_sale_users.last_name',
+            'table' => 'letters_and_form',
+            'select' =>'letters_and_form`.*,vendor_sale_users.first_name,vendor_sale_users.last_name',
             'join' => array(
-                array('vendor_sale_culture_source', 'vendor_sale_culture_source.id=patient_labs.name','left'),
-                array('vendor_sale_users', 'patient_labs.doctor_id=vendor_sale_users.id', 'left'),
+                array('vendor_sale_users', 'letters_and_form.user_id=vendor_sale_users.id', 'left'),
             ),
             
-            'where' => array('patient_labs.patient_id' => $id)
+            'where' => array('letters_and_form.patient_id' => $id)
         );
 
 
@@ -69,8 +68,11 @@ class LettersAndForm extends Common_Controller {
         $this->data['precautions'] = $this->common_model->customGet(array('table' => 'precautions', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
         $this->data['initial_rx'] = $this->common_model->customGet(array('table' => 'initial_rx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
         
+
         
-        $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+        
+        
+ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 
     if($this->ion_auth->is_subAdmin()){
 
@@ -108,7 +110,11 @@ class LettersAndForm extends Common_Controller {
             'order' => array('users.id' => 'desc'),
         );
         $this->data['doctors'] = $this->common_model->customGet($option);
-        // print_r($datadoctors->facility_user_id);die;
+
+
+        $this->data['send_mail_template'] = $this->common_model->customGet(array('table' => 'send_mail_template', 'select' => 'send_mail_template.*', 'where' => array('user_id' =>$datadoctors->facility_user_id)));
+
+        
 
     } else if ($this->ion_auth->is_facilityManager()) {
         
@@ -129,6 +135,19 @@ class LettersAndForm extends Common_Controller {
             'order' => array('users.id' => 'desc'),
         );
         $this->data['doctors'] = $this->common_model->customGet($option);
+
+        $send_mail_template = $this->common_model->customGet(array('table' => 'send_mail_template', 'select' => 'send_mail_template.app_name', 'where' => array('user_id' =>$CareUnitID)));
+       $$template_name =[];
+        foreach($send_mail_template as $key=>$datavalues){
+            $template_name[$key] =  $datavalues->app_name;
+
+       } 
+
+       $send_mailt=  implode(', ', array_map(function($val){return sprintf("'%s'", $val);}, $template_name));
+
+
+       $this->data['send_mail_template']=$send_mailt;
+        // print_r($this->data['send_mail_template']);die;
     }
         
     // print_r($this->data['doctors']);die;
@@ -143,7 +162,7 @@ class LettersAndForm extends Common_Controller {
     public function add() {
 
         // print_r($this->input->post());die;
-        $this->form_validation->set_rules('labs_name', "labs_name", 'required|trim');
+        $this->form_validation->set_rules('details', "details", 'required|trim');
         if ($this->form_validation->run() == true) {
            
            
@@ -152,17 +171,16 @@ class LettersAndForm extends Common_Controller {
                 $options_data = array(
                    
                     'patient_id' => $this->input->post('patient_id'),
-                    'doctor_id' => $this->input->post('doctor_name'),
-                    'name' => $this->input->post('labs_name'),
+                    'user_id' => $CareUnitID,
                     'facility_user_id' => $CareUnitID,
-                    'details' => $this->input->post('detail'),
+                    'details' => $this->input->post('details'),
                     'is_active' => 1,
                     'create_date' => datetime()
                 );
                 // print_r($options_data);die;
-                $option = array('table' => $this->_tables, 'data' => $options_data);
+                $option = array('table' => 'vendor_sale_letters_and_form', 'data' => $options_data);
                 if ($this->common_model->customInsert($option)) {
-                    $response = array('status' => 1, 'message' => "Successfully added", 'url' => base_url($this->router->fetch_class()));
+$response = array('status' => 1, 'message' => "Successfully added", 'url' =>base_url($this->router->fetch_class()));
                 } else {
                     $response = array('status' => 0, 'message' => "Failed to add");
                 }
@@ -244,6 +262,120 @@ class LettersAndForm extends Common_Controller {
         endif;
 
         echo json_encode($response);
+    }
+
+
+
+
+ public function getAllEmailTemplate(){
+
+    $id = $this->input->post('id');     
+    $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+
+    if($this->ion_auth->is_subAdmin()){
+
+        $option = array(
+            'table' => ' doctors',
+            'select' => 'doctors.*',
+            'join' => array(
+                array('users', 'doctors.user_id=users.id', 'left'),
+            ),
+            
+            'where' => array(
+                'users.delete_status' => 0,
+                'doctors.user_id'=>$CareUnitID
+            ),
+            'single' => true,
+        );
+
+        $datadoctors = $this->common_model->customGet($option);
+
+
+    $option = array(
+            'table' => ' doctors',
+            'select' => 'users.*',
+            'join' => array(
+                array('users', 'doctors.user_id=users.id', 'left'),
+                array('user_profile UP', 'UP.user_id=users.id', 'left'),
+                // array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
+                
+            ),
+            
+            'where' => array(
+                'users.delete_status' => 0,
+                'doctors.facility_user_id'=>$datadoctors->facility_user_id
+            ),
+            'order' => array('users.id' => 'desc'),
+        );
+        $this->data['doctors'] = $this->common_model->customGet($option);
+
+
+        $this->data['send_mail_template'] = $this->common_model->customGet(array('table' => 'send_mail_template', 'select' => 'send_mail_template.*', 'where' => array('user_id' =>$datadoctors->facility_user_id)));
+
+        
+
+    } else if ($this->ion_auth->is_facilityManager()) {
+        
+        $option = array(
+            'table' => ' doctors',
+            'select' => 'users.*',
+            'join' => array(
+                array('users', 'doctors.user_id=users.id', 'left'),
+                array('user_profile UP', 'UP.user_id=users.id', 'left'),
+                array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
+                
+            ),
+            
+            'where' => array(
+                'users.delete_status' => 0,
+                'doctors.facility_user_id'=>$CareUnitID
+            ),
+            'order' => array('users.id' => 'desc'),
+        );
+        $this->data['doctors'] = $this->common_model->customGet($option);
+
+        $send_mail_template = $this->common_model->customGet(array('table' => 'send_mail_template', 'select' => 'send_mail_template.description', 'where' => array('user_id' =>$CareUnitID,'app_name'=>$id)));
+       $template_name =[];
+        foreach($send_mail_template as $key=>$datavalues){
+            $template_name[$key] =  $datavalues->description;
+
+       } 
+    //    $send_mailts= json_decode($template_name, true);
+       $send_mailts=  implode(" ", $template_name);
+
+//        $cleaned_content = str_replace(['<p>', '</p>'], '', $send_mailts);
+
+// // Remove \r\n and \n
+// $cleaned_content = str_replace(["\r\n", "\n"], '', $send_mailts);
+
+// // Optionally remove &nbsp; if needed
+// $cleaned_content = str_replace('&nbsp;', '', $send_mailts);
+
+
+
+$html_content = htmlspecialchars_decode($send_mailts, ENT_QUOTES);
+
+// Replace <p> tags with newline characters
+$text_content = preg_replace('/<p>(.*?)<\/p>/', "$1\n", $html_content);
+
+// Replace <br> and <br/> tags with newline characters
+$text_content = preg_replace('/<br\s*\/?>/', "\n", $text_content);
+
+// Remove any remaining HTML tags
+$text_content = strip_tags($text_content);
+
+// Convert escaped newline characters to actual newline characters
+// $text_content = str_replace(['\r\n', '\n'], "\n", $text_content);
+
+// Output the resulting text
+$text_content1= nl2br($text_content);
+
+       $response=  $this->data['send_mail_template']=$text_content1;
+        // print_r($this->data['send_mail_template']);die;
+    }
+
+    echo json_encode($response);
+
     }
 
 }

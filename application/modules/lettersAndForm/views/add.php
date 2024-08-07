@@ -40,7 +40,7 @@
                                 <div class="form-group">
                                     
                                     <div class="col-md-12">
-                                    <textarea name="detail" id="body" rows="10"></textarea>
+                                    <textarea name="details" id="body" rows="10"></textarea>
                                         <!-- <input type="text" class="form-control" name="detail" id="detail" placeholder="detail" /> -->
                                     </div>
                                 </div>
@@ -68,33 +68,112 @@
 <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
 
 <script>
-    // Initialize CKEditor
-    // CKEDITOR.replace('body');
-
+    CKEDITOR.plugins.addExternal('countryselector', '/path/to/ckeditor/plugins/countryselector/', 'plugin.js');
+    CKEDITOR.plugins.addExternal('patientselector', '/path/to/ckeditor/plugins/patientselector/', 'plugin.js');
+    
     CKEDITOR.replace('body', {
-    // Custom configuration options
-    toolbar: [
-        { name: 'document', items: ['Source', '-', 'NewPage', 'Preview', '-', 'Templates'] },
-        { name: 'clipboard', items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'] },
-        { name: 'editing', items: ['Find', 'Replace', '-', 'SelectAll', '-', 'SpellChecker'] },
-        '/',
-        { name: 'basicstyles', items: ['Bold', 'Italic', 'Underline', '-', 'RemoveFormat'] },
-        { name: 'paragraph', items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote'] },
-        { name: 'insert', items: ['Image', 'Table', 'HorizontalRule', 'SpecialChar'] },
-        '/',
-        { name: 'styles', items: ['Styles', 'Format'] },
-        { name: 'colors', items: ['TextColor', 'BGColor'] },
-        { name: 'tools', items: ['Maximize'] },
-'/',
+        extraPlugins: 'countryselector,patientselector',
+        toolbar: [
+            { name: 'document', items: ['Source', '-', 'NewPage', 'Preview', '-', 'Templates'] },
+            { name: 'clipboard', items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'] },
+            { name: 'editing', items: ['Find', 'Replace', '-', 'SelectAll', '-', 'SpellChecker'] },
+            '/',
+            { name: 'basicstyles', items: ['Bold', 'Italic', 'Underline', '-', 'RemoveFormat'] },
+            { name: 'paragraph', items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote'] },
+            { name: 'insert', items: ['Image', 'Table', 'HorizontalRule', 'SpecialChar'] },
+            '/',
+            { name: 'styles', items: ['Styles', 'Format'] },
+            { name: 'colors', items: ['TextColor', 'BGColor'] },
+            { name: 'tools', items: ['Maximize'] },
+            '/',
+            { name: 'custom', items: ['CountrySelector','Patient'] }  // Add the custom dropdown here
+        ],
+        height: 300
+    });
 
-        { name: 'templates', items: ['templates', 'templates'] },
-        { name: 'colors', items: ['TextColor', 'BGColor'] },
-        { name: 'tools', items: ['Maximize'] }
-    ],
-    height: 300
+
+    CKEDITOR.plugins.add('countryselector', {
+    init: function(editor) {
+        editor.ui.addRichCombo('CountrySelector', {
+            label: 'Insert Template',
+            title: 'Insert Template',
+            voiceLabel: 'Insert Template',
+            className: 'cke_format',
+            multiSelect: false,
+
+            panel: {
+                css: [CKEDITOR.skin.getPath('editor')].concat(editor.config.contentsCss),
+                voiceLabel: editor.lang.panelVoiceLabel
+            },
+
+            init: function() {
+                
+                var countries = [ <?php  echo $send_mail_template;?>
+                   
+                ];
+
+                for (var i = 0; i < countries.length; i++) {
+                    this.add(countries[i], countries[i], countries[i]);
+                }
+            },
+
+            onClick: function(value) {
+                var id = value;
+                // alert(id);
+
+            $.ajax({
+            url: '<?php echo base_url(); ?>'+ "lettersAndForm/getAllEmailTemplate",
+            type: 'POST',
+            data: {id:id},
+            success: function (data, textStatus, jqXHR) {
+                // alert(data);
+                // editor.html(data);
+                editor.insertText(data);
+               
+                    }
+                });
+
+               
+                // editor.insertText(value);
+            }
+        });
+    }
 });
 
+CKEDITOR.plugins.add('patientselector', {
+    init: function(editor) {
+        editor.ui.addRichCombo('Patient', {
+            label: 'Patient',
+            title: 'Patient',
+            voiceLabel: 'Patient',
+            className: 'cke_format1',
+            multiSelect: false,
+
+            panel: {
+                css: [CKEDITOR.skin.getPath('editor')].concat(editor.config.contentsCss),
+                voiceLabel: editor.lang.panelVoiceLabel
+            },
+
+            init: function() {
+                var countries = [
+                    'United States', 'Canada', 'United Kingdom', 'Australia', 'Germany', 'France', 'India', 'China', 'Japan', 'Russia'
+                ];
+
+                for (var i = 0; i < countries.length; i++) {
+                    this.add(countries[i], countries[i], countries[i]);
+                }
+            },
+
+            onClick: function(value) {
+                editor.insertText(value);
+            }
+        });
+    }
+});
+
+
 </script>
+
 
 
 
