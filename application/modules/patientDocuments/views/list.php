@@ -321,6 +321,8 @@
 
 <div class="row mt-4">
     <div class="col-md-12">
+  
+
         <div class="">
             <div class="card-body p-4" style="background-color:#FFFF; border-radius:6px">
                 <div class="row">
@@ -359,12 +361,19 @@
                         <div class="col-sm-8 col-md-10">
                         <input type="hidden" name="folder_id" id="folder_id" value="<?php echo $folder->id;?>">
 
+                        <?php if(!empty($results_files)){?>
                         <a href="javascript:void(0)"  onclick="open_modal_documents_gallery('<?php echo $modelFileGallery; ?>')" class="dropdown-item" id="patient_ids">
                         <i class="fas fa-folder" styple=""></i> 
                         <span class="folder-name"><Strong> <?php echo $folder->folder_name; ?></Strong></span> <br>
                         <span>Created <Strong> <?php $createAt = date_format(date_create($folder->create_date), 'd/m/Y'); 
                         echo $createAt; ?></Strong></span>
                         </a>
+                        <?php }else{?>
+                            <i class="fas fa-folder" styple=""></i> 
+                        <span class="folder-name"><Strong> <?php echo $folder->folder_name; ?></Strong></span> <br>
+                        <span>Created <Strong> <?php $createAt = date_format(date_create($folder->create_date), 'd/m/Y'); 
+                        echo $createAt; ?></Strong></span>
+                            <?php }?>
                         </div>
 
                         <div class="col-sm-2 col-md-2">

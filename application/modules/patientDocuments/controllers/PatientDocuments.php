@@ -78,6 +78,20 @@ class PatientDocuments extends Common_Controller {
 
             $this->data['results'] = $results_row;
            
+
+            $patient_id=  decoding($_GET['id']);
+// print_r($patient_id);die;
+
+            // $folder_id = $this->input->post('folder_id');
+       
+            $option = array(
+                'table' => 'vendor_sale_patient_document_uploads',
+                'where' => array('patient_id' => $patient_id),
+                // 'single' => true
+            );
+            $results_files = $this->common_model->customGet($option);
+            $this->data['results_files'] = $results_files;
+
           
             $this->load->admin_render('list', $this->data, 'inner_script');
         }
@@ -418,8 +432,7 @@ $response = array('status' => 1, 'message' => "Successfully added", 'url' =>base
     
             $patient_id=  $this->input->post('id');
 // print_r($patient_id);die;
-            // $this->data['title'] = "Edit " . $this->title;
-        // $this->data['formUrl'] = $this->router->fetch_class() . "/update";
+
             $folder_id = $this->input->post('folder_id');
         if (!empty($patient_id)) {
             $option = array(
@@ -428,11 +441,14 @@ $response = array('status' => 1, 'message' => "Successfully added", 'url' =>base
                 // 'single' => true
             );
             $results_row = $this->common_model->customGet($option);
-            // print_r($results_row);die;
+          
             if (!empty($results_row)) {
+
+                
                 $this->data['results'] = $results_row;
                 $this->load->view('show_file_list', $this->data);
             } else {
+                
                 $this->session->set_flashdata('error', lang('not_found'));
                 redirect($this->router->fetch_class());
             }
