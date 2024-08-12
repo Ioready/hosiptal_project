@@ -1,5 +1,7 @@
 
 <script src="https://cdn.ckeditor.com/4.18.0/standard/ckeditor.js"></script>
+
+
 <style>
     .modal-footer .btn + .btn {
     margin-bottom: 5px !important;

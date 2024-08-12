@@ -6,8 +6,8 @@ class PatientDocuments extends Common_Controller {
 
     public $data = array();
     public $file_data = "";
-    public $_table = 'culture_source';
-    public $_tables = 'letters_and_form';
+    public $_table = 'patient_document_folder';
+    public $_tables = 'patient_document_folder';
     // public $_tables = 'clinic';
     
     public $title = "Patient Documents";
@@ -28,6 +28,8 @@ class PatientDocuments extends Common_Controller {
         $this->data['pageTitle'] = "Add " . $this->title;
         $this->data['parent'] = $this->router->fetch_class();
         $this->data['model'] = $this->router->fetch_class();
+        $this->data['modelFileGallery'] = $this->router->fetch_class()."/fileGallery";
+        
         $this->data['title'] = $this->title;
         $this->data['tablePrefix'] = 'vendor_sale_' . $this->_table;
         $this->data['table'] = $this->_table;
@@ -71,19 +73,9 @@ class PatientDocuments extends Common_Controller {
             ),
             'single' => true
         );
-        $option['where']['P.id'] = $id;
-        $results_row = $this->common_model->customGet($option);
-        // if (!empty($results_row)) {
-        //     print_r($results_row);die;
+            $option['where']['P.id'] = $id;
+            $results_row = $this->common_model->customGet($option);
 
-        //     $results_row->md_steward_response = clone $results_row;
-
-
-        //     $filteredData = $this->applyAlgo($results_row);
-        // }else{
-        //     $filteredData = $results_row;
-        // }
-           
             $this->data['results'] = $results_row;
            
           
@@ -109,7 +101,7 @@ class PatientDocuments extends Common_Controller {
         
         
         
- $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+        $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 
     if($this->ion_auth->is_subAdmin()){
 
@@ -191,11 +183,122 @@ class PatientDocuments extends Common_Controller {
         $this->load->view('add', $this->data);
     }
 
+
+    function open_modal_documents() {
+        $this->data['title'] = "Add " . $this->title;
+        $this->data['formUrlPDF'] = $this->router->fetch_class() . "/addPatientPdf";
+        $this->data['patient_id'] = $this->input->post('id');
+        $this->data['initial_dx'] = $this->common_model->customGet(array('table' => 'initial_dx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
+        $this->data['culture_source'] = $this->common_model->customGet(array('table' => 'culture_source', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
+        $this->data['organism'] = $this->common_model->customGet(array('table' => 'organism', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
+        $this->data['precautions'] = $this->common_model->customGet(array('table' => 'precautions', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
+        $this->data['initial_rx'] = $this->common_model->customGet(array('table' => 'initial_rx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
+        
+
+        $id=  $this->input->post('id');
+        //    print_r($id);die;
+            $option = array(
+                'table' => 'vendor_sale_patient_document_folder',
+                'select' =>'vendor_sale_patient_document_folder`.*,vendor_sale_users.first_name,vendor_sale_users.last_name',
+                'join' => array(
+                    array('vendor_sale_users', 'vendor_sale_patient_document_folder.user_id=vendor_sale_users.id', 'left'),
+                ),
+                
+                'where' => array('vendor_sale_patient_document_folder.patient_id' => $id)
+            );
+    
+            $this->data['folder_name'] = $this->common_model->customGet($option);
+
+        
+        
+        $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+
+    if($this->ion_auth->is_subAdmin()){
+
+        $option = array(
+            'table' => ' doctors',
+            'select' => 'doctors.*',
+            'join' => array(
+                array('users', 'doctors.user_id=users.id', 'left'),
+            ),
+            
+            'where' => array(
+                'users.delete_status' => 0,
+                'doctors.user_id'=>$CareUnitID
+            ),
+            'single' => true,
+        );
+
+        $datadoctors = $this->common_model->customGet($option);
+
+
+    $option = array(
+            'table' => ' doctors',
+            'select' => 'users.*',
+            'join' => array(
+                array('users', 'doctors.user_id=users.id', 'left'),
+                array('user_profile UP', 'UP.user_id=users.id', 'left'),
+                // array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
+                
+            ),
+            
+            'where' => array(
+                'users.delete_status' => 0,
+                'doctors.facility_user_id'=>$datadoctors->facility_user_id
+            ),
+            'order' => array('users.id' => 'desc'),
+        );
+        $this->data['doctors'] = $this->common_model->customGet($option);
+
+
+        $this->data['send_mail_template'] = $this->common_model->customGet(array('table' => 'send_mail_template', 'select' => 'send_mail_template.*', 'where' => array('user_id' =>$datadoctors->facility_user_id)));
+
+        
+
+    } else if ($this->ion_auth->is_facilityManager()) {
+        
+        $option = array(
+            'table' => ' doctors',
+            'select' => 'users.*',
+            'join' => array(
+                array('users', 'doctors.user_id=users.id', 'left'),
+                array('user_profile UP', 'UP.user_id=users.id', 'left'),
+                array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
+                
+            ),
+            
+            'where' => array(
+                'users.delete_status' => 0,
+                'doctors.facility_user_id'=>$CareUnitID
+            ),
+            'order' => array('users.id' => 'desc'),
+        );
+        $this->data['doctors'] = $this->common_model->customGet($option);
+
+        $send_mail_template = $this->common_model->customGet(array('table' => 'send_mail_template', 'select' => 'send_mail_template.app_name', 'where' => array('user_id' =>$CareUnitID)));
+       $$template_name =[];
+        foreach($send_mail_template as $key=>$datavalues){
+            $template_name[$key] =  $datavalues->app_name;
+
+       } 
+
+       $send_mailt=  implode(', ', array_map(function($val){return sprintf("'%s'", $val);}, $template_name));
+
+
+       $this->data['send_mail_template']=$send_mailt;
+        // print_r($this->data['send_mail_template']);die;
+    }
+        
+    // print_r($this->data['doctors']);die;
+        $this->load->view('uploads_file', $this->data);
+    }
+
     /**
      * @method menu_category_add
      * @description add dynamic rows
      * @return array
      */
+    
     public function add() {
 
         $this->form_validation->set_rules('folder_name', "folder_name", 'required|trim');
@@ -223,11 +326,124 @@ $response = array('status' => 1, 'message' => "Successfully added", 'url' =>base
         echo json_encode($response);
     }
 
+
+    public function addPatientPdf()
+
+        {
+            $this->form_validation->set_rules('folder_id', "folder id", 'required|trim');
+            $this->form_validation->set_rules('file', 'File');
+    
+            if ($this->form_validation->run() == true) {
+    
+                $this->load->library('upload');
+                $image = array();
+                $ImageCount = count($_FILES['image_name']['name']);
+                for ($i = 0; $i < $ImageCount; $i++) {
+    
+                    $_FILES['file']['name'] = $_FILES['image_name']['name'][$i];
+                    $_FILES['file']['type'] = $_FILES['image_name']['type'][$i];
+                    $_FILES['file']['tmp_name'] = $_FILES['image_name']['tmp_name'][$i];
+                    $_FILES['file']['error'] = $_FILES['image_name']['error'][$i];
+                    $_FILES['file']['size'] = $_FILES['image_name']['size'][$i];
+    
+                    // File upload configuration
+                    $uploadPath = 'uploads/file/';
+                    $config['upload_path'] = $uploadPath;
+                    $config['allowed_types'] = 'pdf|jpg|jpeg|png|ods|odt|doc|txt|docx|csv|xlsx|xls|ppt|pptx';
+                    $config['max_size'] = 102400 * 2000;
+                    $config['file_name'] = $_FILES['files']['name'][$i];
+                    // Load and initialize upload library
+                    $this->load->library('upload', $config);
+                    $this->upload->initialize($config);
+    
+                    // Upload file to server $image = $this->input->post('file');
+    
+                    if ($this->upload->do_upload('file')) {
+                        $uploadData = $this->upload->data();
+                        $image = 'uploads/file/' . $uploadData['file_name'];
+                    } else {
+                        $image = "";
+                    }
+                    if (!$image) {
+                        $response = array('status' => 0, 'message' => $this->filedata['error']);
+                    } else {
+                        $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+                        $options_data = array(
+                   
+                            'patient_id' => $this->input->post('patient_id'),
+                            'user_id' => $CareUnitID,
+                            'facility_user_id' => $CareUnitID,
+                            'folder_id' => $this->input->post('folder_id'),
+                            'file_name' => $image,
+                            'is_active' => 1,
+                            'create_date' => datetime()
+                        );
+                        $option = array('table' => 'vendor_sale_patient_document_uploads', 'data' => $options_data);
+                        // $this->common_model->customInsert($option);
+
+    
+                        // $option = array('table' => $this->_table, 'data' => $options_data);
+    
+                        if ($this->common_model->customInsert($option)) {
+                            $response = array('status' => 1, 'message' => "Successfully added", 'url' => base_url($this->router->fetch_class()));
+                        } else {
+                            $response = array('status' => 0, 'message' => "Failed to add");
+                        }
+                    }
+                }
+            } else {
+                $messages = (validation_errors()) ? validation_errors() : '';
+                $response = array('status' => 0, 'message' => $messages);
+            }
+            echo json_encode($response);
+        }
+
     /**
      * @method menu_category_edit
      * @description edit dynamic rows
      * @return array
      */
+
+     public function fileGallery(){
+
+            $this->data['title'] = "View " . $this->title;
+            $this->data['back'] = $this->router->fetch_class();
+            $this->data['patient_id'] = $this->input->post('id');
+            $this->data['initial_dx'] = $this->common_model->customGet(array('table' => 'initial_dx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
+            $this->data['culture_source'] = $this->common_model->customGet(array('table' => 'culture_source', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
+            $this->data['organism'] = $this->common_model->customGet(array('table' => 'organism', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
+            $this->data['precautions'] = $this->common_model->customGet(array('table' => 'precautions', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
+            $this->data['initial_rx'] = $this->common_model->customGet(array('table' => 'initial_rx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
+            
+    
+            $patient_id=  $this->input->post('id');
+// print_r($patient_id);die;
+            // $this->data['title'] = "Edit " . $this->title;
+        // $this->data['formUrl'] = $this->router->fetch_class() . "/update";
+            $folder_id = $this->input->post('folder_id');
+        if (!empty($patient_id)) {
+            $option = array(
+                'table' => 'vendor_sale_patient_document_uploads',
+                'where' => array('folder_id' => $folder_id,'patient_id'=>$patient_id),
+                // 'single' => true
+            );
+            $results_row = $this->common_model->customGet($option);
+            // print_r($results_row);die;
+            if (!empty($results_row)) {
+                $this->data['results'] = $results_row;
+                $this->load->view('show_file_list', $this->data);
+            } else {
+                $this->session->set_flashdata('error', lang('not_found'));
+                redirect($this->router->fetch_class());
+            }
+        } else {
+            $this->session->set_flashdata('error', lang('not_found'));
+            redirect($this->router->fetch_class());
+        }
+
+     }
+
+
     public function edit() {
         $this->data['title'] = "Edit " . $this->title;
         $this->data['formUrl'] = $this->router->fetch_class() . "/update";

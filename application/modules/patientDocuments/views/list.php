@@ -336,7 +336,7 @@
                 <a href="javascript:void(0)"  onclick="open_modal('<?php echo $model; ?>')" class="dropdown-item" id="patient_ids">
                <b> New Folder </b>
                     </a>
-                    <a href="javascript:void(0)"  onclick="open_modal('<?php echo $model; ?>')" class="dropdown-item" id="patient_ids">
+                    <a href="javascript:void(0)"  onclick="open_modal_documents('<?php echo $model; ?>')" class="dropdown-item" id="patient_ids">
                <b> Upload File</b></a>
                 </div>
                 </div>
@@ -357,12 +357,14 @@
             
                         <?php foreach($list as $folder){ ?>
                         <div class="col-sm-8 col-md-10">
-                        <i class="fas fa-folder" ></i> 
+                        <input type="hidden" name="folder_id" id="folder_id" value="<?php echo $folder->id;?>">
+
+                        <a href="javascript:void(0)"  onclick="open_modal_documents_gallery('<?php echo $modelFileGallery; ?>')" class="dropdown-item" id="patient_ids">
+                        <i class="fas fa-folder" styple=""></i> 
                         <span class="folder-name"><Strong> <?php echo $folder->folder_name; ?></Strong></span> <br>
                         <span>Created <Strong> <?php $createAt = date_format(date_create($folder->create_date), 'd/m/Y'); 
-echo $createAt; 
-?>
-</Strong></span>
+                        echo $createAt; ?></Strong></span>
+                        </a>
                         </div>
 
                         <div class="col-sm-2 col-md-2">

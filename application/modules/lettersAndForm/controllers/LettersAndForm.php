@@ -334,49 +334,18 @@ $response = array('status' => 1, 'message' => "Successfully added", 'url' =>base
         );
         $this->data['doctors'] = $this->common_model->customGet($option);
 
-        $send_mail_template = $this->common_model->customGet(array('table' => 'send_mail_template', 'select' => 'send_mail_template.description', 'where' => array('user_id' =>$CareUnitID,'app_name'=>$id)));
-       $template_name =[];
-        foreach($send_mail_template as $key=>$datavalues){
-            $template_name[$key] =  $datavalues->description;
+       $optionData = array('table' => 'send_mail_template', 'select' => 'send_mail_template.description', 'where' => array('user_id' =>$CareUnitID,'app_name'=>$id),
+       'single' => true,
+    );
 
-       } 
-    //    print_r($template_name);die;
-    //    $send_mailts= json_decode($template_name, true);
-    //    $send_mailts=  implode(" ", $template_name);
+        $send_mail_template = $this->common_model->customGet($optionData);
+    
 
-//        $cleaned_content = str_replace(['<p>', '</p>'], '', $send_mailts);
-
-// // Remove \r\n and \n
-// $cleaned_content = str_replace(["\r\n", "\n"], '', $send_mailts);
-
-// // Optionally remove &nbsp; if needed
-// $cleaned_content = str_replace('&nbsp;', '', $send_mailts);
-
-
-
-// $html_content = htmlspecialchars_decode($template_name, ENT_QUOTES);
-// print_r($html_content);die;
-// Replace <p> tags with newline characters
-$text_content = preg_replace('/<p>(.*?)<\/p>/', "$1\n", $template_name);
-
-// Replace <br> and <br/> tags with newline characters
-$text_content = preg_replace('/<br\s*\/?>/', "\n", $text_content);
-
-// Remove any remaining HTML tags
-// $text_content = strip_tags($text_content);
-
-// Convert escaped newline characters to actual newline characters
-// $text_content = str_replace(['\r\n', '\n'], "\n", $text_content);
-
-// Output the resulting text
-// $text_content1= nl2br($text_content);
-$send_mailts=  implode(', ', array_map(function($val){return sprintf("%s", $val);}, $text_content));
-// $send_mailts=  implode(" ", $text_content);
-       $response=  $this->data['send_mail_template']=$send_mailts;
+       $response= $send_mail_template->description;
         // print_r($this->data['send_mail_template']);die;
     }
 
-    echo json_encode($response);
+    echo $response;
 
     }
 
