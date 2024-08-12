@@ -36,7 +36,34 @@
                            
 
                             <div class="col-md-12" >
-                            <label class="control-label">letter body</label>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                    <label class="control-label">letter body</label>
+                                    
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <!-- <button class="btn" style="border: 1px solid; background-color: green;">Save As draft</button> -->
+                                    
+                                    </div>
+                                    <div class="col-sm-3">
+                                    <!-- <button class="btn" style="border: 1px solid; background-color: white;">Restore Preview</button> -->
+                                    
+                                    </div>
+                                    <div class="col-sm-3">
+
+                                        <select name="" id="" class="form-control">
+                                            <option value="Awaiting Review">Awaiting Review</option>
+                                            <option value="Awaiting Currection">Awaiting Currection</option>
+                                            <option value="Completed">Completed</option>
+                                            
+                                        </select>
+
+                                    </div>
+
+                                </div>
+                            
+
+                            
                                 <div class="form-group">
                                     
                                     <div class="col-md-12">
@@ -72,6 +99,20 @@
     CKEDITOR.plugins.addExternal('patientselector', '/path/to/ckeditor/plugins/patientselector/', 'plugin.js');
     
     CKEDITOR.replace('body', {
+        allowedContent: true,
+        on: {
+        instanceReady: function( ev ) {
+            // Output paragraphs as <p>Text</p>.
+            this.dataProcessor.writer.setRules( 'p', {
+                indent: false,
+                breakBeforeOpen: true,
+                breakAfterOpen: false,
+                breakBeforeClose: false,
+                breakAfterClose: true
+            });
+        }
+    },
+
         extraPlugins: 'countryselector,patientselector',
         toolbar: [
             { name: 'document', items: ['Source', '-', 'NewPage', 'Preview', '-', 'Templates'] },
@@ -128,6 +169,36 @@
             success: function (data, textStatus, jqXHR) {
                 // alert(data);
                 // editor.html(data);
+
+                var writer = editor.dataProcessor.writer;
+
+// The character sequence to use for every indentation step.
+writer.indentationChars = '\t';
+
+// The way to close self-closing tags, like <br/>.
+writer.selfClosingEnd = ' />';
+
+// The character sequence to be used for line breaks.
+writer.lineBreakChars = '\n';
+
+// The writing rules for the <p> tag.
+writer.setRules( 'p', {
+    // Indicates that this tag causes indentation on line breaks inside of it.
+    indent: true,
+
+    // Inserts a line break before the <p> opening tag.
+    breakBeforeOpen: true,
+
+    // Inserts a line break after the <p> opening tag.
+    breakAfterOpen: true,
+
+    // Inserts a line break before the </p> closing tag.
+    breakBeforeClose: false,
+
+    // Inserts a line break after the </p> closing tag.
+    breakAfterClose: true
+} );
+
                 editor.insertText(data);
                
                     }

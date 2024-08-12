@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class LettersAndForm extends Common_Controller {
+class PatientDocuments extends Common_Controller {
 
     public $data = array();
     public $file_data = "";
@@ -10,7 +10,7 @@ class LettersAndForm extends Common_Controller {
     public $_tables = 'letters_and_form';
     // public $_tables = 'clinic';
     
-    public $title = "Letters And Form";
+    public $title = "Patient Documents";
 
     public function __construct() {
         parent::__construct();
@@ -38,20 +38,57 @@ class LettersAndForm extends Common_Controller {
        $id=  decoding($_GET['id']);
     //    print_r($id);die;
         $option = array(
-            'table' => 'letters_and_form',
-            'select' =>'letters_and_form`.*,vendor_sale_users.first_name,vendor_sale_users.last_name',
+            'table' => 'vendor_sale_patient_document_folder',
+            'select' =>'vendor_sale_patient_document_folder`.*,vendor_sale_users.first_name,vendor_sale_users.last_name',
             'join' => array(
-                array('vendor_sale_users', 'letters_and_form.user_id=vendor_sale_users.id', 'left'),
+                array('vendor_sale_users', 'vendor_sale_patient_document_folder.user_id=vendor_sale_users.id', 'left'),
             ),
             
-            'where' => array('letters_and_form.patient_id' => $id)
+            'where' => array('vendor_sale_patient_document_folder.patient_id' => $id)
         );
 
-
         $this->data['list'] = $this->common_model->customGet($option);
-        // print_r($this->data['list']);die;
-        $this->load->admin_render('list', $this->data, 'inner_script');
-    }
+
+        $option = array(
+            'table' => 'patient P',
+            'select' => 'P.total_days_of_patient_stay,P.infection_surveillance_checklist,P.date_of_start_abx,P.md_patient_status,P.id ,P.patient_id,P.name as patient_name,P.address,P.room_number,P.symptom_onset,P.md_stayward_consult,P.criteria_met,P.md_stayward_response,P.psa,P.created_date,'
+                . 'P.care_unit_id,CI.name as care_unit_name,P.doctor_id,P.culture_source,P.organism,P.precautions,CS.name as culture_source_name,Org.name as organism_name,Pre.name as precautions_name,DOC.name as doctor_name,P.md_steward_id,U.first_name as md_steward,'
+                . 'PC.initial_rx,IRX.name as initial_rx_name,PC.initial_dx,IDX.name as initial_dx_name,PC.initial_dot,'
+                . 'PC.new_initial_rx,IRX2.name as new_initial_rx_name,PC.new_initial_dx,IDX2.name as new_initial_dx_name,PC.new_initial_dot,PC.additional_comment_option,PC.comment,U.email as patient_email,U.email as password, U.phone as patient_phone_number,U.date_of_birth,U.gender,U.phone_code',
+            'join' => array(
+                array('care_unit CI', 'CI.id=P.care_unit_id', 'left'),
+                array('doctors DOC', 'DOC.id=P.doctor_id', 'left'),
+                array('users U', 'U.id=P.user_id', 'left'),
+                array('patient_consult PC', 'PC.patient_id=P.id', 'left'),
+                array('initial_rx IRX', 'IRX.id=PC.initial_rx', 'left'),
+                array('initial_dx IDX', 'IDX.id=PC.initial_dx', 'left'),
+                array('culture_source CS', 'CS.name=P.culture_source', 'left'),
+                array('organism Org', 'Org.name=P.organism', 'left'),
+                array('precautions Pre', 'Pre.name=P.precautions', 'left'),
+                array('initial_rx IRX2', 'IRX2.id=PC.new_initial_rx', 'left'),
+                array('initial_dx IDX2', 'IDX2.id=PC.new_initial_dx', 'left'),
+                
+            ),
+            'single' => true
+        );
+        $option['where']['P.id'] = $id;
+        $results_row = $this->common_model->customGet($option);
+        // if (!empty($results_row)) {
+        //     print_r($results_row);die;
+
+        //     $results_row->md_steward_response = clone $results_row;
+
+
+        //     $filteredData = $this->applyAlgo($results_row);
+        // }else{
+        //     $filteredData = $results_row;
+        // }
+           
+            $this->data['results'] = $results_row;
+           
+          
+            $this->load->admin_render('list', $this->data, 'inner_script');
+        }
 
     /**
      * @method open_model
@@ -161,30 +198,24 @@ class LettersAndForm extends Common_Controller {
      */
     public function add() {
 
-        // print_r($this->input->post());die;
-        $this->form_validation->set_rules('details', "details", 'required|trim');
+        $this->form_validation->set_rules('folder_name', "folder_name", 'required|trim');
         if ($this->form_validation->run() == true) {
            
-           
             $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
-           
+        
                 $options_data = array(
                    
                     'patient_id' => $this->input->post('patient_id'),
                     'user_id' => $CareUnitID,
                     'facility_user_id' => $CareUnitID,
-                    'details' => $this->input->post('details'),
+                    'folder_name' => $this->input->post('folder_name'),
                     'is_active' => 1,
                     'create_date' => datetime()
                 );
-                // print_r($options_data);die;
-                $option = array('table' => 'vendor_sale_letters_and_form', 'data' => $options_data);
-                if ($this->common_model->customInsert($option)) {
+                $option = array('table' => 'vendor_sale_patient_document_folder', 'data' => $options_data);
+                $this->common_model->customInsert($option);
 $response = array('status' => 1, 'message' => "Successfully added", 'url' =>base_url($this->router->fetch_class()));
-                } else {
-                    $response = array('status' => 0, 'message' => "Failed to add");
-                }
-           
+                
         } else {
             $messages = (validation_errors()) ? validation_errors() : '';
             $response = array('status' => 0, 'message' => $messages);

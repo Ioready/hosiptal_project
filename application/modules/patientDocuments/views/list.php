@@ -2,10 +2,6 @@
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.js"></script>
 
-
-
- 
-
 <style>
 
 .btn {
@@ -124,6 +120,10 @@
     /* background-color:#00008B !important; */
     background:#00008B !important;
 }
+.folder-name{
+    font-size: medium;
+    font-weight: 900;
+}
 </style>
 <div id="page-content">
 <div class="block_list full">
@@ -153,7 +153,6 @@
                 <div class="widget-extra-full"><span class="h2 animation-expandOpen fw-bold text-dark"><?php echo $inactive;?></span></div>
             </a>
         </div>
-        
 
         <div class="col-sm-6 col-lg-2 mb-4">
         <a href="<?php echo base_url(). 'index.php/lettersAndForm?id=' . encoding($patient_id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
@@ -172,7 +171,7 @@
                     </a>
                 </div>
                 <div class="col-sm-6 col-lg-2 mb-4">
-                <a href="<?php echo base_url(). 'labs?id=' . encoding($patient_id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
+                <a href="<?php echo base_url(). 'labs?id=' . encoding($patient_id);?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
                         <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
                             <h4 style="font-size:16px; font-weight:600; color:white;">Labs</h4>
                         </div>
@@ -292,90 +291,107 @@
 
 
     <!-- Datatables Content -->
-    <div class="block full">
-        <div class="block-title ">
-            <h2 class="fw-bold"><strong><?php echo $title; ?></strong> Panel</h2>
-            <?php if ($this->ion_auth->is_facilityManager()) { ?>
-               
-                <input type="hidden" name="patient_id" id="patient_id" value="<?php echo $patient_id;?>">
-                <h2><a href="javascript:void(0)"  onclick="open_modal('<?php echo $model; ?>')" class="btn btn-sm btn-primary save-btn model-medication" id="<?php echo $patient_id;?>" value="<?php echo $patient_id;?>">
-                        <i class="gi gi-circle_plus"></i> <?php echo $title; ?> 
-                    </a></h2>
-            <?php } ?>
+
+
+    <div class="row mt-4">
+    <div class="col-md-12">
+        <div class="">
+            <div class="card-body p-4" style="background-color:#FFFF; border-radius:6px">
+            <div class="row">
+                    <div class="col-md-11">
+                        <h4 class="no-margins fw-bold"><?php echo $results->patient_name; ?></h4>
+                        <h6 class="text-dark fw-bold"><?php 
+                        $from = new DateTime($results->date_of_birth);
+                        $to   = new DateTime('today');
+                       
+                        echo $results->date_of_birth.'  |  '.$from->diff($to)->y.' Years  |  '.$results->gender;?></h6>
+                        <!-- <button type="button" class="btn btn-sm btn-primary save-btn btn-xs">Public</button> -->
+                        <h5 class="text-dark fw-bold"><i class="fa fa-home" > </i> <?php echo $results->address. ',  United Kingdom';?></h5>
+                        <h5 class="text-dark fw-bold"><i class="fa fa-phone" > </i> <?php echo $results->patient_phone_number. '('. $results->phone_code.')';?></h5>
+                    </div>
+                    <div class="col-md-1">
+                    <button class="Button Button--outline" onclick="printDiv()"><i class="fa fa-print" aria-hidden="true"></i></button>
+                        <!-- <img src="<?php echo base_url(); ?>uploads/user.png" style="height: 65px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);" alt=""> -->
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="table-responsive">
-            <table id="common_datatable_menucat" class="table table-vcenter table-condensed table-bordered text-center">
-                <thead>
-                <tr>
-                        <th class="text-center" style="font-size:14px;">Sr. No</th>
-                        <th class="text-center" style="font-size:14px;">Type</th>
-                        <th class="text-center" style="font-size:14px;">Name</th>
-                        <th class="text-center" style="font-size:14px;">Details</th>
-                        <th class="text-center" style="font-size:14px;">Last Recorded</th>
-                        <th class="text-center" style="font-size:14px;">Last Prescribed</th>
-                        <th class="text-center" style="font-size:14px;">Review</th>
-                        <th class="text-center" style="font-size:14px;">Created date</th>
-                        <!-- <th class="text-center" style="font-size:14px;">Status</th> -->
-                        <th class="text-center" style="font-size:14px;"><?php echo lang('action'); ?></th>
-                    </tr>
-                    <!-- <tr >
-                        <th  class="text-center fw-bold" style="background-color:#DBEAFF;font-size:1.3rem;width:15%;;">Sr. No</th>
-                        <th  class="text-center fw-bold"  style="background-color:#DBEAFF;font-size:1.3rem;width:60%;;">Name</th>
-                        <th  class="text-center fw-bold" style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('action'); ?></th>
-                    </tr> -->
-                </thead>
-                <tbody>
-                    <?php
-                    if (isset($list) && !empty($list)):
-                        $rowCount = 0;
-                        foreach ($list as $rows):
-                            $rowCount++;
+    </div> 
+</div>
 
-                            // print_r($rows);die;
-                            ?>
-                            <tr>
-                                <td><?php echo $rowCount; ?></td>            
-                                <td><?php echo $rows->type; ?></td>
-                                <td><?php echo $rows->name; ?></td>
-                                <td><?php echo $rows->detail; ?></td>
-                                <td><?php echo $rows->last_recorded; ?></td>
-                                <td><?php echo $rows->last_prescribed; ?></td>
-                                <td><?php echo $rowCount; ?></td>
-                                <td><?php echo $rows->create_date; ?></td>
-                               
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="">
+            <div class="card-body p-4" style="background-color:#FFFF; border-radius:6px">
+                <div class="row">
+            <?php if ($this->ion_auth->is_facilityManager()) { ?>
+                
+                <input type="hidden" name="patient_id" id="patient_id" value="<?php echo $patient_id;?>">
 
-                                <td class="actions">
-                                    <a href="javascript:void(0)" class="btn btn-xs btn-default" onclick="editFn('<?php echo $model; ?>', 'edit', '<?php echo encoding($rows->id) ?>', '<?php echo $model; ?>');"><i class="fa fa-pencil"></i></a>
-                                    <?php if ($rows->is_active == 1) { ?>
-                                        <a href="javascript:void(0)" class="btn btn-xs btn-success" onclick="editStatusFn('<?php echo $tablePrefix; ?>', 'id', '<?php echo encoding($rows->id); ?>', '<?php echo $rows->is_active; ?>','<?php echo $rows->name; ?>')" title="Inactive Now"><i class="fa fa-check"></i></a>
-                                    <?php } else { ?>
-                                        <a href="javascript:void(0)" class="btn btn-xs btn-danger" onclick="editStatusFn('<?php echo $tablePrefix; ?>', 'id', '<?php echo encoding($rows->id); ?>', '<?php echo $rows->is_active; ?>','<?php echo $rows->name; ?>')" title="Active Now"><i class="fa fa-times"></i></a>
-                                    <?php } ?>
-                                    <a href="javascript:void(0)" onclick="deleteFn('<?php echo $table; ?>', 'id', '<?php echo encoding($rows->id); ?>', '<?php echo $model; ?>','','<?php echo $rows->name; ?>')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
-                                </td>
-                            </tr>
-                            <?php
-                        endforeach;
-                    endif;
-                    ?>
-                </tbody>
-            </table>
+                <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle save-btn btn-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:white;">
+                    New
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a href="javascript:void(0)"  onclick="open_modal('<?php echo $model; ?>')" class="dropdown-item" id="patient_ids">
+               <b> New Folder </b>
+                    </a>
+                    <a href="javascript:void(0)"  onclick="open_modal('<?php echo $model; ?>')" class="dropdown-item" id="patient_ids">
+               <b> Upload File</b></a>
+                </div>
+                </div>
+
+            <?php } ?>
+                </div>
+            </div>
         </div>
     </div>
+</div>
+
+
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="">
+            <div class="card-body p-4" style="background-color:#FFFF; border-radius:6px">
+                <div class="row">
+            
+                        <?php foreach($list as $folder){ ?>
+                        <div class="col-sm-8 col-md-10">
+                        <i class="fas fa-folder" ></i> 
+                        <span class="folder-name"><Strong> <?php echo $folder->folder_name; ?></Strong></span> <br>
+                        <span>Created <Strong> <?php $createAt = date_format(date_create($folder->create_date), 'd/m/Y'); 
+echo $createAt; 
+?>
+</Strong></span>
+                        </div>
+
+                        <div class="col-sm-2 col-md-2">
+                       ....  
+                       <i class="fas fa-thin fa-star"></i>
+                        </div>
+                        <?php }?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br>
+<br>
+
     <!-- END Datatables Content -->
 </div>
 <!-- END Page Content -->
 <div id="form-modal-box"></div>
 </div>
 
-<!-- <script>
+<script>
     $(document).ready(function() {
-  $('.model-medication').click(function() {
-   
-   var id = $(this).attr('id');
-   alert(id);
-  $('#patient_id_data').val(id);
+  $('#patient_ids').click(function() {
+   var patientsdata = $('#patient_id').val();
+  
+  $('#patient_id_data').val(patientsdata);
 
   });
 });
-</script> -->
+</script>
