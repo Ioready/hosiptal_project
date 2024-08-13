@@ -75,13 +75,9 @@ class PatientDocuments extends Common_Controller {
         );
             $option['where']['P.id'] = $id;
             $results_row = $this->common_model->customGet($option);
-
             $this->data['results'] = $results_row;
-           
-
             $patient_id=  decoding($_GET['id']);
-// print_r($patient_id);die;
-
+            // print_r($patient_id);die;
             // $folder_id = $this->input->post('folder_id');
        
             $option = array(

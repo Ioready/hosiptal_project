@@ -125,107 +125,13 @@
 
     <?php if ($this->ion_auth->is_admin() or $this->ion_auth->is_subAdmin() or $this->ion_auth->is_facilityManager()) { ?>
         <div class="block full">
-            <div class="row text-center">
-                <div class="col-sm-6 col-lg-12">
-                </div>
-                <div class="col-sm-6 col-lg-12">
-                    <div class="panel panel-default">
-                        <div >
-                            
-                            <ul class="nav nav-pills nav-fill nav-tabss mt-4" id="pills-tab" role="tablist" >
-                                <li class="nav-item">
-                                <a href="<?php echo site_url('patient'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "patient") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide text-dark">Patient</span></a>
-                                    <!-- <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-1" role="tab">Practice Contacts</a> -->
-                                </li>
-                                <li class="nav-item">
-                                
-                                <a href="<?php echo base_url() . 'index.php/patient/summary?id=' . encoding($results->id); ?>" data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark">Summary</span></a>
-
-                                </li>
-                                <!-- <li class="nav-item">
-                                <a href="<?php echo site_url('patient/consultationTemplates'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "consultationTemplates") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide text-dark">Consultation Templates</span></a>
-                                    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-2" role="tab"></a>
-                                </li> -->
-                                <li class="nav-item">
-                                <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($results->id); ?>"data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark"> Consultation Templates</span></a>
-                                    <!-- <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-2" role="tab"></a> -->
-                                </li>
-                                <li class="nav-item">
-                                
-                                <a href="<?php echo base_url() . 'index.php/patient/communication?id=' . encoding($results->id); ?>" data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark">Communication</span></a>
-                                </li>
-                                
-                            </ul>
-                        </div> 
-
-                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="=" crossorigin="anonymous" />
-                <div class="m-4">
-                    <div class="row">
-                        <div class="col-md-3 col-lg-3">
-                            <div class="card l-bg-cherry">
-                                <div class="card-statistic-3 m-4">
-                            
-                                    <div class="card-icon card-icon-large"><i class="fas fa-tint" style="font-size:3em;"></i></div> <!-- Using fa-tint icon -->
-<div class="mb-4">
-    <h4 class="card-title mb-0">Blood Group</h4>
-    <h4 class="text-center fw-bold m-2">A+</h4>
-</div>
-
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-md-3 col-lg-3">
-            <div class="card l-bg-blue-dark">
-                <div class="card-statistic-3 m-4">
-                <div class="card-icon card-icon-large"><i class="fas fa-heartbeat" style="font-size:3em;"></i></div> <!-- Using fa-heartbeat icon -->
-<div class="mb-4">
-    <h4 class="card-title mb-0">Blood Pressure</h4>
-    <h4 class="text-center fw-bold m-2">120/80</h4>
-</div>
-
-
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-md-3 col-lg-3">
-            <div class="card l-bg-green-dark">
-                <div class="card-statistic-3 m-4">
-                <div class="card-icon card-icon-large"><i class="fas fa-heartbeat" style="font-size:3em;"></i></div> <!-- Using fa-heartbeat icon -->
-<div class="mb-4">
-    <h4 class="card-title mb-0">Hert rate</h4>
-    <h4 class="text-center fw-bold m-2">120/80</h4>
-</div>
-
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-3 col-lg-3">
-            <div class="card l-bg-orange-dark">
-                <div class="card-statistic-3 m-4">
-                <div class="card-icon card-icon-large"><i class="fas fa-thermometer-half" style="font-size:3em;"></i></div> <!-- Using fa-thermometer-half icon -->
-<div class="mb-4">
-    <h4 class="card-title mb-0">Temperature</h4>
-    <h4 class="text-center fw-bold m-2">98.6°F</h4> <!-- Example temperature value in Fahrenheit -->
-</div>
-
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-
-                            
+            <!-- <div class="row text-center">
+ 
                             <div class="panel-body">
-                            
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
 
     <?php } ?>

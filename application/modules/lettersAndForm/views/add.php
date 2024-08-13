@@ -2,6 +2,7 @@
 <script src="https://cdn.ckeditor.com/4.18.0/standard/ckeditor.js"></script>
 
 
+
 <style>
     .modal-footer .btn + .btn {
     margin-bottom: 5px !important;
@@ -75,8 +76,6 @@
                                 </div>
                             </div>
 
-                            
-                            
                             <div class="space-22"></div>
                         </div>
                     </div>
@@ -134,7 +133,6 @@
         height: 300
     });
 
-
     CKEDITOR.plugins.add('countryselector', {
     init: function(editor) {
         editor.ui.addRichCombo('CountrySelector', {
@@ -174,32 +172,20 @@
 
                 var writer = editor.dataProcessor.writer;
 
-// The character sequence to use for every indentation step.
-writer.indentationChars = '\t';
+                    writer.indentationChars = '\t';
 
-// The way to close self-closing tags, like <br/>.
-writer.selfClosingEnd = ' />';
+                    writer.selfClosingEnd = ' />';
 
-// The character sequence to be used for line breaks.
-writer.lineBreakChars = '\n';
+                    writer.lineBreakChars = '\n';
 
-// The writing rules for the <p> tag.
-writer.setRules( 'p', {
-    // Indicates that this tag causes indentation on line breaks inside of it.
-    indent: true,
-
-    // Inserts a line break before the <p> opening tag.
-    breakBeforeOpen: true,
-
-    // Inserts a line break after the <p> opening tag.
-    breakAfterOpen: true,
-
-    // Inserts a line break before the </p> closing tag.
-    breakBeforeClose: false,
-
-    // Inserts a line break after the </p> closing tag.
-    breakAfterClose: true
-} );
+                    writer.setRules( 'p', {
+                    
+                        indent: true,
+                        breakBeforeOpen: true,
+                        breakAfterOpen: true,
+                        breakBeforeClose: false,
+                        breakAfterClose: true
+                    } );
 
                 editor.insertText(data);
                

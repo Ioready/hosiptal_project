@@ -309,10 +309,7 @@ $response = array('status' => 1, 'message' => "Successfully added", 'url' =>base
         );
         $this->data['doctors'] = $this->common_model->customGet($option);
 
-
         $this->data['send_mail_template'] = $this->common_model->customGet(array('table' => 'send_mail_template', 'select' => 'send_mail_template.*', 'where' => array('user_id' =>$datadoctors->facility_user_id)));
-
-        
 
     } else if ($this->ion_auth->is_facilityManager()) {
         
@@ -339,9 +336,7 @@ $response = array('status' => 1, 'message' => "Successfully added", 'url' =>base
     );
 
         $send_mail_template = $this->common_model->customGet($optionData);
-    
-
-       $response= $send_mail_template->description;
+        $response= $send_mail_template->description;
         // print_r($this->data['send_mail_template']);die;
     }
 

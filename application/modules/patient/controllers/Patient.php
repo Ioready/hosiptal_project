@@ -2309,20 +2309,23 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
         $this->data['parent'] = $this->title;
         $this->data['title'] = $this->title;
         $this->data['formUrl'] = $this->router->fetch_class() . "/update";
+
         $id = decoding($_GET['id']);
+
+        // print_r($id);die;
         if (!empty($id)) {
 
             $option = array(
                 'table' => 'patient P',
-                'select' => 'P.total_days_of_patient_stay,P.infection_surveillance_checklist,P.date_of_start_abx,P.md_patient_status,P.id ,P.patient_id,P.name as patient_name,P.address,P.room_number,P.symptom_onset,P.md_stayward_consult,P.criteria_met,P.md_stayward_response,P.psa,P.created_date,'
+                'select' => 'P.total_days_of_patient_stay,P.infection_surveillance_checklist,P.date_of_start_abx,P.md_patient_status,P.id ,P.patient_id,U.first_name as patient_first_name,U.last_name as patient_last_name,P.address,P.room_number,P.symptom_onset,P.md_stayward_consult,P.criteria_met,P.md_stayward_response,P.psa,P.created_date,'
                     . 'P.care_unit_id,CI.name as care_unit_name,P.doctor_id,P.culture_source,P.organism,P.precautions,CS.name as culture_source_name,Org.name as organism_name,Pre.name as precautions_name,DOC.name as doctor_name,P.md_steward_id,U.first_name as md_steward,'
                     . 'PC.initial_rx,IRX.name as initial_rx_name,PC.initial_dx,IDX.name as initial_dx_name,PC.initial_dot,'
-                    . 'PC.new_initial_rx,IRX2.name as new_initial_rx_name,PC.new_initial_dx,IDX2.name as new_initial_dx_name,PC.new_initial_dot,PC.additional_comment_option,PC.comment,U.email as patient_email,U.email as password',
+                    . 'PC.new_initial_rx,IRX2.name as new_initial_rx_name,PC.new_initial_dx,IDX2.name as new_initial_dx_name,PC.new_initial_dot,PC.additional_comment_option,PC.comment,U.email as patient_email,U.email as password,U.gender,U.*',
                 'join' => array(
-                    array('care_unit CI', 'CI.id=P.care_unit_id', 'inner'),
-                    array('doctors DOC', 'DOC.id=P.doctor_id', 'inner'),
-                    array('users U', 'U.id=P.md_steward_id', 'left'),
-                    array('patient_consult PC', 'PC.patient_id=P.id', 'inner'),
+                    array('care_unit CI', 'CI.id=P.care_unit_id', 'left'),
+                    array('doctors DOC', 'DOC.id=P.doctor_id', 'left'),
+                    array('users U', 'U.id=P.user_id', 'left'),
+                    array('patient_consult PC', 'PC.patient_id=P.id', 'left'),
                     array('initial_rx IRX', 'IRX.id=PC.initial_rx', 'left'),
                     array('initial_dx IDX', 'IDX.id=PC.initial_dx', 'left'),
                     array('culture_source CS', 'CS.name=P.culture_source', 'left'),
@@ -2335,15 +2338,17 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
             );
             $option['where']['P.id'] = $id;
             $results_row = $this->common_model->customGet($option);
+            
             if (!empty($results_row)) {
 
                 $results_row->md_steward_response = clone $results_row;
 
-
                 $filteredData = $this->applyAlgo($results_row);
                 // echo"<pre>"; print_r($filteredData); die;
                 $this->data['results'] = $filteredData;
-                $this->load->admin_render('edit', $this->data, 'inner_script');
+                // print_r($this->data['results']);die;
+                $this->load->admin_render('edit_patient', $this->data, 'inner_script');
+                // $this->load->admin_render('edit', $this->data, 'inner_script');
             } else {
                 $this->session->set_flashdata('error', lang('not_found'));
                 redirect('patient');
