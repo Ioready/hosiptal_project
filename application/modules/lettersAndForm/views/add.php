@@ -1,6 +1,8 @@
 
 <script src="https://cdn.ckeditor.com/4.18.0/standard/ckeditor.js"></script>
 
+<!-- <script src="https://cdn.ckeditor.com/ckeditor.js"></script> -->
+
 
 
 <style>
@@ -109,7 +111,7 @@
                 breakBeforeOpen: true,
                 breakAfterOpen: false,
                 breakBeforeClose: false,
-                breakAfterClose: true
+                breakAfterClose: true,
             });
         }
     },
