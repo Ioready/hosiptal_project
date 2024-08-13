@@ -94,7 +94,8 @@ $year = date('Y', $timestamp);
 $month = date('m', $timestamp);
 $day = date('d', $timestamp);
 
-echo "Year: $year, Month: $month, Day: $day"; ?>
+// echo "Year: $year, Month: $month, Day: $day";
+ ?>
                 <label class="control-label">Date Of Birth</label>
                 <input type="text" class="form-control" name="day" id="day" placeholder="Day" maxlength="2" value="<?php echo $day;?>"/>
             </div>
