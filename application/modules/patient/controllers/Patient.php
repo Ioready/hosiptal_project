@@ -199,7 +199,7 @@ class Patient extends Common_Controller
     }
 
     public function summary(){
-        $id = decoding($_GET['id']);
+        $this->data['patient_id'] = decoding($_GET['id']);
             $this->data['parent'] = $this->title;
             $this->data['title'] = $this->title;
 
@@ -431,7 +431,7 @@ class Patient extends Common_Controller
                 $this->data['results'] = $filteredData;
             }
         }
-
+        
         
         $this->load->admin_render('consultation', $this->data, 'inner_script');
     }
@@ -3179,8 +3179,9 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
                 $this->data['states'] = $this->common_model->customGet($option);
 
                 // print_r($this->data['users']);die;
-
-        $this->load->admin_render('add_consultation', $this->data, 'inner_script');
+                
+                $this->load->admin_render('patient_consultation', $this->data, 'inner_script');
+        // $this->load->admin_render('add_consultation', $this->data, 'inner_script');
     }
 
     public function addConsult() {

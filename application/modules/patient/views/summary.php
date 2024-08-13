@@ -240,68 +240,11 @@
                 </div>
             </div>
 
-            <div class="row text-center">
+            <!-- <div class="row text-center">
                 
                 <div class="col-sm-6 col-lg-12">
                     <div class="panel panel-default">
-                    <!-- <div> 
-                        <ul class="nav nav-pills nav-fill nav-tabss mt-4" id="pills-tab" role="tablist" >
-                            <li class="nav-item">
-                            <a href="<?php echo site_url('patient'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "patient") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide text-dark">Patient</span></a>
-                            </li>
-                            <li class="nav-item">
-                            <a href="<?php echo base_url() . 'index.php/patient/summary?id=' . encoding($results->id); ?>" data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark">Summary</span></a>
-                            </li>
-                            
-                            <li class="nav-item">
-                            <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($results->id); ?>"data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark"> Consultation</span></a>
-                                
-                            </li>
-                            <li class="nav-item">
-                            <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($results->id); ?>"data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark"> Medications</span></a>
-                                
-                            </li>
-                            <li class="nav-item">
-                            <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($results->id); ?>"data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark"> Letters and forms</span></a>
-                                
-                            </li>
-
-                            <li class="nav-item">
-                            <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($results->id); ?>"data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark"> Prescriptions</span></a>
-                                
-                            </li>
-
-                            <li class="nav-item">
-                            <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($results->id); ?>"data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark"> Labs</span></a>
-                                
-                            </li>
-
-                            <li class="nav-item">
-                            <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($results->id); ?>"data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark"> Invoices</span></a>
-                                
-                            </li>
-
-                            <li class="nav-item">
-                            <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($results->id); ?>"data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark"> Account statements</span></a>
-                                
-                            </li>
-
-                            <li class="nav-item">
-                            
-                            <a href="<?php echo base_url() . 'index.php/patient/communication?id=' . encoding($results->id); ?>" data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark">Communication</span></a>
-                            </li>
-
-                            <li class="nav-item">
-                            
-                            <a href="<?php echo base_url() . 'index.php/patient/communication?id=' . encoding($results->id); ?>" data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark">Documents</span></a>
-                            </li>
-                            <li class="nav-item">
-                            
-                            <a href="<?php echo base_url() . 'index.php/patient/communication?id=' . encoding($results->id); ?>" data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark">Logs</span></a>
-                            </li>
-                            
-                        </ul>
-                    </div>  -->
+                   
 
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="=" crossorigin="anonymous" />
                 <div class="m-4">
@@ -310,7 +253,7 @@
                             <div class="card l-bg-cherry">
                                 <div class="card-statistic-3 m-4">
                             
-                                    <div class="card-icon card-icon-large"><i class="fas fa-tint" style="font-size:3em;"></i></div> <!-- Using fa-tint icon -->
+                                    <div class="card-icon card-icon-large"><i class="fas fa-tint" style="font-size:3em;"></i></div> 
                                     <div class="mb-4">
                                         <h4 class="card-title mb-0">Blood Group</h4>
                                         <h4 class="text-center fw-bold m-2">A+</h4>
@@ -321,7 +264,7 @@
                         <div class="col-md-3 col-lg-3">
                             <div class="card l-bg-blue-dark">
                                 <div class="card-statistic-3 m-4">
-                                    <div class="card-icon card-icon-large"><i class="fas fa-heartbeat" style="font-size:3em;"></i></div> <!-- Using fa-heartbeat icon -->
+                                    <div class="card-icon card-icon-large"><i class="fas fa-heartbeat" style="font-size:3em;"></i></div> 
                                     <div class="mb-4">
                                         <h4 class="card-title mb-0">Blood Pressure</h4>
                                         <h4 class="text-center fw-bold m-2">120/80</h4>
@@ -332,7 +275,7 @@
                         <div class="col-md-3 col-lg-3">
                             <div class="card l-bg-green-dark">
                                 <div class="card-statistic-3 m-4">
-                                    <div class="card-icon card-icon-large"><i class="fas fa-heartbeat" style="font-size:3em;"></i></div> <!-- Using fa-heartbeat icon -->
+                                    <div class="card-icon card-icon-large"><i class="fas fa-heartbeat" style="font-size:3em;"></i></div> 
                                     <div class="mb-4">
                                         <h4 class="card-title mb-0">Hert rate</h4>
                                         <h4 class="text-center fw-bold m-2">120/80</h4>
@@ -343,10 +286,10 @@
                         <div class="col-md-3 col-lg-3">
                             <div class="card l-bg-orange-dark">
                                 <div class="card-statistic-3 m-4">
-                                    <div class="card-icon card-icon-large"><i class="fas fa-thermometer-half" style="font-size:3em;"></i></div> <!-- Using fa-thermometer-half icon -->
+                                    <div class="card-icon card-icon-large"><i class="fas fa-thermometer-half" style="font-size:3em;"></i></div> 
                                     <div class="mb-4">
                                         <h4 class="card-title mb-0">Temperature</h4>
-                                        <h4 class="text-center fw-bold m-2">98.6°F</h4> <!-- Example temperature value in Fahrenheit -->
+                                        <h4 class="text-center fw-bold m-2">98.6°F</h4> 
                                     </div>
                                 </div>
                             </div>
@@ -356,7 +299,7 @@
                     </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
 
     <?php } ?>
@@ -384,6 +327,7 @@
                     </div>
                     <div class="col-md-1">
                     <button class="Button Button--outline" onclick="printDiv()"><i class="fa fa-print" aria-hidden="true"></i></button>
+                    <a href="<?php echo base_url() . 'patient/edit?id=' . encoding($results->id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-pencil"></i></a>
                         <!-- <img src="<?php echo base_url(); ?>uploads/user.png" style="height: 65px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);" alt=""> -->
                     </div>
                 </div>

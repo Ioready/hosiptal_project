@@ -43,33 +43,34 @@
 
                                 <div class="row">
                                     
-    <?php foreach ($results as $image){ ?>
-        <div class="col-md-4">
-            <div class="panel panel-default bootcards-file">
-                <div class="list-group">
-                    <div class="list-group-item">
-                        <a href="#">
-                            <i class="icon-file-pdf"></i>
-                        </a>
-                        <h4 class="list-group-item-heading">
-    <?php if (strtoupper(pathinfo($image->file_name, PATHINFO_EXTENSION)) == 'PDF') { ?>
-        <a href="#">
-            <span class="pdf-icon">
-                <img src="https://logowik.com/content/uploads/images/638_pdf_icon.jpg" alt="PDF Icon" style="width: -webkit-fill-available;">
-            </span>
-        </a>
-    <?php } ?>
-</h4>
+                                    <?php foreach ($results as $image){ ?>
+                                        <div class="col-md-4">
+                                            <div class="panel panel-default bootcards-file">
+                                                <div class="list-group">
+                                                    <div class="list-group-item">
+                                                        <a href="#">
+                                                            <i class="icon-file-pdf"></i>
+                                                        </a>
+                                                        <h4 class="list-group-item-heading">
+                                    <?php if (strtoupper(pathinfo($image->file_name, PATHINFO_EXTENSION)) == 'PDF') { ?>
+                                        <a href="#">
+                                            <span class="pdf-icon">
+                                                <img src="https://logowik.com/content/uploads/images/638_pdf_icon.jpg" alt="PDF Icon" style="width: -webkit-fill-available;">
+                                            </span>
+                                        </a>
+                                    <?php } ?>
+                                </h4>
 
-                        <p class="list-group-item-text"><strong><?= strtoupper(pathinfo($image->file_name, PATHINFO_EXTENSION)) ?></strong></p>
+                        <!-- <p class="list-group-item-text"><strong><?= strtoupper(pathinfo($image->file_name, PATHINFO_EXTENSION)) ?></strong></p> -->
                         
                     </div>
                 </div>
                 <div class="panel-footer">
                     <div class="btn-group btn-group-justified">
                         <div class="btn-group">
-                            <a href="<?= base_url($image->file_name); ?>" download class="btn btn-default">
-                                <i class="fa fa-arrow-down"></i> Download
+                        <a href="<?= base_url($image->file_name); ?>" class="btn btn-default" target="_blank">
+                            <!-- <a href="<?= base_url($image->file_name); ?>" download class="btn btn-default" > -->
+                                <i class="fa fa-eye"></i> View
                             </a>
                         </div>
                     </div>
