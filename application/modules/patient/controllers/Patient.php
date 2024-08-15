@@ -2066,7 +2066,6 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
                     'user_id' =>$insert_user_id,
                     'created_date' => date('Y-m-d H:i:s')
                     
-
                 )
             );
 
@@ -2310,6 +2309,173 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
         $this->data['title'] = $this->title;
         $this->data['formUrl'] = $this->router->fetch_class() . "/update";
 
+        $option = array('table' => 'countries','select' => '*','where'=>array('shortname'=>'GB'));
+        $this->data['countries'] = $this->common_model->customGet($option);
+
+        $option = array('table' => 'states',
+                    'select' => '*');
+                $this->data['states'] = $this->common_model->customGet($option);
+
+     
+                $AdminCareUnitID = isset($_SESSION['admin_care_unit_id']) ? $_SESSION['admin_care_unit_id'] : '';
+
+                $option = array('table' => 'care_unit', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc'));
+                if (!empty($AdminCareUnitID)) {
+                    $option['where']['id']  = $AdminCareUnitID;
+                }
+                $this->data['care_unit'] = $this->common_model->customGet($option);
+        
+                $option = array('table' => 'countries','select' => '*','where'=>array('shortname'=>'GB'));
+                $this->data['countries'] = $this->common_model->customGet($option);
+        
+                $option = array('table' => 'states',
+                            'select' => '*');
+                        $this->data['states'] = $this->common_model->customGet($option);
+        
+        
+        
+                $this->data['careUnitss'] = json_decode($AdminCareUnitID);
+        
+                $careUnitDatas = array();
+                foreach ($this->data['careUnitss'] as $value) {
+        
+                    $option = array(
+                        'table' => 'care_unit',
+                        'select' => 'care_unit.id,care_unit.name',
+                        'where' => array('care_unit.id' => $value)
+                    );
+                    $careUnitDatas[] = $this->common_model->customGet($option);
+                }
+                $arraySingle = call_user_func_array('array_merge', $careUnitDatas);
+                $this->data['careUnitsUser'] = $arraySingle;
+                //print_r($arraySingle);die;
+                // print_r($this->data['careUnitsUser']);die;
+                $user_id = $this->session->userdata('user_id');
+        
+                $option3 = array(
+                    'table' => 'doctors',
+                    'select' => 'doctors.*',
+                    'where' => array(
+                        'doctors.delete_status' => 0,
+                        'doctors.user_id'=> $user_id
+                    ),
+                    'single'=>true,
+                );
+        
+                $this->hospital = $this->common_model->customGet($option3);
+                $this->hospital->facility_user_id;
+                $this->data['initial_dx'] = $this->common_model->customGet(array('table' => 'initial_dx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
+                $this->data['culture_source'] = $this->common_model->customGet(array('table' => 'culture_source', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
+                $this->data['organism'] = $this->common_model->customGet(array('table' => 'organism', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
+                $this->data['precautions'] = $this->common_model->customGet(array('table' => 'precautions', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
+                $this->data['initial_rx'] = $this->common_model->customGet(array('table' => 'initial_rx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
+                // $this->data['doctors'] = $this->common_model->customGet(array('table' => 'doctors', 'select' => 'id,name', 'where' => array('is_active' => 1, 'facility_user_id'=>$this->hospital->facility_user_id, 'delete_status' => 0), 'order' => array('name' => 'asc')));
+                
+        
+        
+                
+                // $option = array(
+        
+                //     'table' => 'users',
+                //     'select' => 'users.id, CONCAT(first_name," ",last_name) as doctor_name, doctors.facility_user_id', 
+                //     'join' => array(
+                //         array('doctors', 'doctors.user_id = users.id', 'inner'),
+                //     ),
+                //     'where' => array(
+                //         'users.delete_status' => 0,
+                //         'doctors.facility_user_id' => $this->hospital->facility_user_id
+                //     ),
+                // );
+                
+        
+                // $this->data['doctors'] = $this->common_model->customGet($option);
+        
+        
+        $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+        
+            if($this->ion_auth->is_subAdmin()){
+        
+                $option = array(
+                    'table' => ' doctors',
+                    'select' => 'doctors.*',
+                    'join' => array(
+                        array('users', 'doctors.user_id=users.id', 'left'),
+                    ),
+                    
+                    'where' => array(
+                        'users.delete_status' => 0,
+                        'doctors.user_id'=>$CareUnitID
+                    ),
+                    'single' => true,
+                );
+        
+                $datadoctors = $this->common_model->customGet($option);
+        
+        
+            $option = array(
+                    'table' => ' doctors',
+                    'select' => 'users.*',
+                    'join' => array(
+                        array('users', 'doctors.user_id=users.id', 'left'),
+                        array('user_profile UP', 'UP.user_id=users.id', 'left'),
+                        // array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
+                        
+                    ),
+                    
+                    'where' => array(
+                        'users.delete_status' => 0,
+                        'doctors.facility_user_id'=>$datadoctors->facility_user_id
+                    ),
+                    'order' => array('users.id' => 'desc'),
+                );
+                $this->data['doctors'] = $this->common_model->customGet($option);
+                // print_r($datadoctors->facility_user_id);die;
+        
+            } else if ($this->ion_auth->is_facilityManager()) {
+                
+                $option = array(
+                    'table' => ' doctors',
+                    'select' => 'users.*',
+                    'join' => array(
+                        array('users', 'doctors.user_id=users.id', 'left'),
+                        array('user_profile UP', 'UP.user_id=users.id', 'left'),
+                        array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
+                        
+                    ),
+                    
+                    'where' => array(
+                        'users.delete_status' => 0,
+                        'doctors.facility_user_id'=>$CareUnitID
+                    ),
+                    'order' => array('users.id' => 'desc'),
+                );
+                $this->data['doctors'] = $this->common_model->customGet($option);
+            }
+        
+        
+                // echo "<pre>";
+                // print_r($this->data['staward']);
+                // die;
+                $option2 = array(
+                    'table' => USERS . ' as user',
+                    'select' => 'user.*,group.name as group_name,UP.doc_file',
+                    'join' => array(
+                        array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                        array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left'),
+                        array('user_profile UP', 'UP.user_id=user.id', 'inner')
+                    ),
+                    'order' => array('user.id' => 'ASC'),
+                    'where' => array(
+                        'user.delete_status' => 0,
+                        'group.id' => 6
+                    ),
+                    'order' => array('user.first_name' => 'ASC')
+                );
+        
+                $this->data['stawardss'] = $this->common_model->customGet($option2);
+
+
+        
         $id = decoding($_GET['id']);
 
         // print_r($id);die;
@@ -2320,7 +2486,7 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
                 'select' => 'P.total_days_of_patient_stay,P.infection_surveillance_checklist,P.date_of_start_abx,P.md_patient_status,P.id ,P.patient_id,U.first_name as patient_first_name,U.last_name as patient_last_name,P.address,P.room_number,P.symptom_onset,P.md_stayward_consult,P.criteria_met,P.md_stayward_response,P.psa,P.created_date,'
                     . 'P.care_unit_id,CI.name as care_unit_name,P.doctor_id,P.culture_source,P.organism,P.precautions,CS.name as culture_source_name,Org.name as organism_name,Pre.name as precautions_name,DOC.name as doctor_name,P.md_steward_id,U.first_name as md_steward,'
                     . 'PC.initial_rx,IRX.name as initial_rx_name,PC.initial_dx,IDX.name as initial_dx_name,PC.initial_dot,'
-                    . 'PC.new_initial_rx,IRX2.name as new_initial_rx_name,PC.new_initial_dx,IDX2.name as new_initial_dx_name,PC.new_initial_dot,PC.additional_comment_option,PC.comment,U.email as patient_email,U.email as password,U.gender,U.*',
+                    . 'PC.new_initial_rx,IRX2.name as new_initial_rx_name,PC.new_initial_dx,IDX2.name as new_initial_dx_name,PC.new_initial_dot,PC.additional_comment_option,PC.comment,U.email as patient_email,U.email as password,U.gender,U.*,PCR.*,PBD.*,PNS.*,UAS.*',
                 'join' => array(
                     array('care_unit CI', 'CI.id=P.care_unit_id', 'left'),
                     array('doctors DOC', 'DOC.id=P.doctor_id', 'left'),
@@ -2332,7 +2498,15 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
                     array('organism Org', 'Org.name=P.organism', 'left'),
                     array('precautions Pre', 'Pre.name=P.precautions', 'left'),
                     array('initial_rx IRX2', 'IRX2.id=PC.new_initial_rx', 'left'),
-                    array('initial_dx IDX2', 'IDX2.id=PC.new_initial_dx', 'left')
+                    array('initial_dx IDX2', 'IDX2.id=PC.new_initial_dx', 'left'),
+                    array('patient_communication_relation PCR', 'PCR.user_id=U.id', 'left'),
+
+                    array('patient_billing_detail PBD', 'PCR.user_id=U.id', 'left'),
+                    array('notifications PNS', 'PNS.user_id=U.id', 'left'),
+                    array('user_address UAS', 'UAS.user_id=U.id', 'left'),
+                    
+
+
                 ),
                 'single' => true
             );
@@ -2544,12 +2718,14 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
         $id = decoding($this->input->post('id'));
         $AdminCareUnitID = isset($_SESSION['admin_care_unit_id']) ? $_SESSION['admin_care_unit_id'] : '';
 
-        $option = array('table' => 'care_unit', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc'));
+        $option = array(
+            'table' => 'care_unit',
+             'select' => 'id,name',
+             'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc'));
         if (!empty($AdminCareUnitID)) {
             $option['where']['id']  = $AdminCareUnitID;
         }
         $this->data['care_unit'] = $this->common_model->customGet($option);
-
 
         $this->data['careUnitss'] = json_decode($AdminCareUnitID);
 
@@ -2561,11 +2737,11 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
                 'select' => 'care_unit.id,care_unit.name',
                 'where' => array('care_unit.id' => $value)
             );
-            $careUnitDatas[] = $this->common_model->customGet($option);
+        $careUnitDatas[] = $this->common_model->customGet($option);
         }
         $arraySingle = call_user_func_array('array_merge', $careUnitDatas);
         $this->data['careUnitsUser'] = $arraySingle;
-
+// print_r($this->data['careUnitsUser']);die;
 
         $this->data['initial_dx'] = $this->common_model->customGet(array('table' => 'initial_dx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
         $this->data['culture_source'] = $this->common_model->customGet(array('table' => 'culture_source', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
@@ -2573,6 +2749,91 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
         $this->data['precautions'] = $this->common_model->customGet(array('table' => 'precautions', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
         $this->data['initial_rx'] = $this->common_model->customGet(array('table' => 'initial_rx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
         $this->data['doctors'] = $this->common_model->customGet(array('table' => 'doctors', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
+
+        
+$CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+
+if($this->ion_auth->is_subAdmin()){
+
+    $option = array(
+        'table' => ' doctors',
+        'select' => 'doctors.*',
+        'join' => array(
+            array('users', 'doctors.user_id=users.id', 'left'),
+        ),
+        
+        'where' => array(
+            'users.delete_status' => 0,
+            'doctors.user_id'=>$CareUnitID
+        ),
+        'single' => true,
+    );
+
+    $datadoctors = $this->common_model->customGet($option);
+
+
+$option = array(
+        'table' => ' doctors',
+        'select' => 'users.*',
+        'join' => array(
+            array('users', 'doctors.user_id=users.id', 'left'),
+            array('user_profile UP', 'UP.user_id=users.id', 'left'),
+            // array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
+            
+        ),
+        
+        'where' => array(
+            'users.delete_status' => 0,
+            'doctors.facility_user_id'=>$datadoctors->facility_user_id
+        ),
+        'order' => array('users.id' => 'desc'),
+    );
+    $this->data['doctors'] = $this->common_model->customGet($option);
+    // print_r($datadoctors->facility_user_id);die;
+
+} else if ($this->ion_auth->is_facilityManager()) {
+    
+    $option = array(
+        'table' => ' doctors',
+        'select' => 'users.*',
+        'join' => array(
+            array('users', 'doctors.user_id=users.id', 'left'),
+            array('user_profile UP', 'UP.user_id=users.id', 'left'),
+            array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
+            
+        ),
+        
+        'where' => array(
+            'users.delete_status' => 0,
+            'doctors.facility_user_id'=>$CareUnitID
+        ),
+        'order' => array('users.id' => 'desc'),
+    );
+    $this->data['doctors'] = $this->common_model->customGet($option);
+}
+
+
+    // echo "<pre>";
+    // print_r($this->data['staward']);
+    // die;
+    $option2 = array(
+        'table' => USERS . ' as user',
+        'select' => 'user.*,group.name as group_name,UP.doc_file',
+        'join' => array(
+            array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+            array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left'),
+            array('user_profile UP', 'UP.user_id=user.id', 'inner')
+        ),
+        'order' => array('user.id' => 'ASC'),
+        'where' => array(
+            'user.delete_status' => 0,
+            'group.id' => 6
+        ),
+        'order' => array('user.first_name' => 'ASC')
+    );
+
+    $this->data['stawardss'] = $this->common_model->customGet($option2);
+
         $option = array(
             'table' => 'users U',
             'select' => 'U.id,CONCAT(first_name," ",last_name) name',
@@ -2617,9 +2878,6 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 
         $this->data['stawardsss'] = $this->common_model->customGet($option2);
 
-
-
-
         if (!empty($id)) {
             $option = array(
                 'table' => 'patient P',
@@ -2646,6 +2904,7 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
             $results_row = $this->common_model->customGet($option);
             if (!empty($results_row)) {
                 $this->data['results'] = $results_row;
+               
                 $this->load->view('update', $this->data);
             } else {
                 $this->session->set_flashdata('error', lang('not_found'));
@@ -2664,60 +2923,71 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
      */
     public function update()
     {
-        $this->form_validation->set_rules('name', 'Name', 'trim');
-        $this->form_validation->set_rules('address', 'Address', 'trim');
-        $this->form_validation->set_rules('room_number', 'Room Number', 'trim');
-        $this->form_validation->set_rules('symptom_onset', 'Infection Onset', 'trim|required|in_list[Hospital,Facility]');
-        // $this->form_validation->set_rules('culture_source', 'Culture Source', 'trim|required|in_list[NA,Sputum,Stool,Wound,Urine,Blood,Nares]');
-        //$this->form_validation->set_rules('organism', 'organism', 'trim|required|in_list[NA,Candida,C. auris,Citrobacter,Cdiff,Coag Neg Staph,COVID-19,Enterobacter,Enterococcus,Ecoli,ESBL ecoli,ESBL klebsiella,Klebsiella,MDRO,MRSA,MSSA,Proteus,Pseudomonas,Streptococcus,VRE,Other]');
+        $this->form_validation->set_rules('first_name', 'first_name', 'trim');
+        $this->form_validation->set_rules('last_name', 'last_name', 'trim');
+        // $this->form_validation->set_rules('title', 'title', 'trim');
+        $this->form_validation->set_rules('day', 'day', 'trim|required');
+        $this->form_validation->set_rules('month', 'month', 'trim|required');
+       
 
-        $this->form_validation->set_rules('care_unit_id', 'Care Unit', 'trim|required|numeric');
-        $this->form_validation->set_rules('doctor_id', 'Provider Doctor', 'trim|required|numeric');
-        $this->form_validation->set_rules('md_steward_id', 'MD Steward', 'trim|required');
-        // $this->form_validation->set_rules('md_stayward_consult', 'MD Stayward Consult', 'trim|required|in_list[Yes,No]');
-        // $this->form_validation->set_rules('criteria_met', 'Criteria Met', 'trim|required|in_list[Yes,No]');
-        if ($this->input->post('infection_surveillance_checklist') != 'N/A') {
-            $this->form_validation->set_rules('criteria_met', 'Criteria Met', 'trim|required|in_list[Yes,No]');
-        }
-        $this->form_validation->set_rules('initial_rx', 'Initial RX', 'trim|required|numeric');
-        $this->form_validation->set_rules('initial_dx', 'Initial DX', 'trim|required|numeric');
-        $this->form_validation->set_rules('culture_source', 'Culture Source', 'trim|required');
-        $this->form_validation->set_rules('organism', 'Organism', 'trim|required');
-        $this->form_validation->set_rules('precautions', 'Precautions', 'trim|required');
-        $this->form_validation->set_rules('initial_dot', 'Days of Therapy', 'trim|required|numeric');
-        $this->form_validation->set_rules('new_initial_rx', 'New Initial RX', 'trim');
-        $this->form_validation->set_rules('new_initial_dx', 'New Initial DX', 'trim');
-        $this->form_validation->set_rules('new_initial_dot', 'New Days of Therapy', 'trim');
-        $this->form_validation->set_rules('additional_comment_option[]', 'Additional Comment', 'trim');
 
-        $this->form_validation->set_rules('infection_surveillance_checklist', 'Infection Surveillance Checklist', 'trim');
-        $this->form_validation->set_rules('md_stayward_response', 'MD Stayward Response', 'trim');
-        $this->form_validation->set_rules('psa', 'PSA(Provider Steward Agreement', 'trim');
         $where_id = $this->input->post('id');
+
         if ($this->form_validation->run() == FALSE) :
             $messages = (validation_errors()) ? validation_errors() : '';
             $response = array('status' => 0, 'message' => $messages);
         else :
+
+            $patient_id = $this->common_model->customGet(array('table' => 'patient', 'select' => 'id,user_id', 'where' => array('id' => $where_id),
+        'single'=>true));
+
+
+        $day = $this->input->post('day');
+        $month = $this->input->post('month');
+        $year = $this->input->post('year');
+
+            $userdata = array(
+                'table' => 'users',
+                'data' => array(
+                'first_name' => $this->input->post('first_name') ? $this->input->post('first_name') : null,
+                'last_name' => $this->input->post('last_name') ? $this->input->post('last_name') : null,
+                //'team_code' => $code,
+                'login_id' => $x ? $x : null,
+                'username' => $code ? $code : null,
+                'date_of_birth' => $year.'-'.$month.'-'.$day,
+                // 'date_of_birth' => (!empty($this->input->post('date_of_birth'))) ? date('Y-m-d', strtotime($this->input->post('date_of_birth'))) : date('Y-m-d'),
+                // 'profile_pic' => $image,
+                'phone' => $this->input->post('phone_number') ? $this->input->post('phone_number') : null,
+                'phone_code' => $this->input->post('phone_type') ? $this->input->post('phone_type') : null,
+                'care_unit_id' => $this->input->post('care_unit_id') ? $this->input->post('care_unit_id') : null,
+                'zipcode_access' => $this->input->post('zipcode') ? $this->input->post('zipcode') : null,
+                'email_verify' => 1,
+                'is_pass_token' => $this->input->post('password') ? $this->input->post('password') : null,
+                'created_on' => strtotime(datetime())),
+            'where' => array('id' => $patient_id->user_id)
+        );
+        $this->common_model->customupdate($userdata);
+
             $option = array(
                 'table' => 'patient',
                 'data' => array(
-                    'name' => ucwords($this->input->post('name')),
-                    'address' => ucwords($this->input->post('address')),
+                    'name' => ucwords($this->input->post('first_name')) ? $this->input->post('first_name') : null,
+                    'address' => ucwords($this->input->post('address')) ? $this->input->post('address') : null,
                     'room_number' => (!empty($this->input->post('room_number'))) ? $this->input->post('room_number') : null,
-                    'symptom_onset' => $this->input->post('symptom_onset'),
-                    'culture_source' => $this->input->post('culture_source'),
-                    'organism' => $this->input->post('organism'),
-                    'precautions' => $this->input->post('precautions'),
-                    'care_unit_id' => $this->input->post('care_unit_id'),
-                    'doctor_id' => $this->input->post('doctor_id'),
+                    'symptom_onset' => $this->input->post('symptom_onset') ? $this->input->post('symptom_onset') : null,
+                    'culture_source' => $this->input->post('culture_source') ? $this->input->post('culture_source') : null,
+                    'organism' => $this->input->post('organism') ? $this->input->post('organism') : null,
+                    'precautions' => $this->input->post('precautions') ? $this->input->post('precautions') : null,
+                    'care_unit_id' => $this->input->post('care_unit_id') ? $this->input->post('care_unit_id') : null,
+                    'doctor_id' => $this->input->post('doctor_id') ? $this->input->post('doctor_id') : null,
                     'md_steward_id' => (!empty($this->input->post('md_steward_id'))) ? $this->input->post('md_steward_id') : null,
                     //'md_stayward_consult' => $this->input->post('md_stayward_consult'),
-                    'criteria_met' => $this->input->post('criteria_met'),
+                    'criteria_met' => $this->input->post('criteria_met') ? $this->input->post('criteria_met') : null,
                     'md_stayward_response' => (!empty($this->input->post('md_stayward_response'))) ? $this->input->post('md_stayward_response') : null,
                     'psa' => (!empty($this->input->post('psa'))) ? $this->input->post('psa') : null,
-                    'infection_surveillance_checklist' => $this->input->post('infection_surveillance_checklist'),
+                    'infection_surveillance_checklist' => $this->input->post('infection_surveillance_checklist') ? $this->input->post('infection_surveillance_checklist') : null,
                     'total_days_of_patient_stay' => (!empty($this->input->post('total_days_of_patient_stay'))) ? $this->input->post('total_days_of_patient_stay') : 0,
-                    'date_of_start_abx' => date('Y-m-d', strtotime($this->input->post('date_of_start_abx'))),
+                    'date_of_start_abx' => date('Y-m-d', strtotime($this->input->post('date_of_start_abx'))) ? $this->input->post('date_of_start_abx') : null,
                     //'pct' => (!empty($this->input->post('pct'))) ? $this->input->post('pct') : null,
                     'updated_date' => date('Y-m-d H:i:s')
                 ),
@@ -2731,9 +3001,9 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
                     // 'culture_source' => (!empty($this->input->post('culture_source'))) ? $this->input->post('culture_source') : null,
                     'initial_rx' => (!empty($this->input->post('initial_rx'))) ? $this->input->post('initial_rx') : null,
                     'initial_dot' => (!empty($this->input->post('initial_dot'))) ? $this->input->post('initial_dot') : null,
-                    'new_initial_rx' => (!empty($this->input->post('new_initial_rx'))) ? $this->input->post('new_initial_rx') : $this->input->post('initial_rx'),
-                    'new_initial_dx' => (!empty($this->input->post('new_initial_dx'))) ? $this->input->post('new_initial_dx') : $this->input->post('initial_dx'),
-                    'new_initial_dot' => (!empty($this->input->post('new_initial_dot'))) ? $this->input->post('new_initial_dot') : $this->input->post('initial_dot'),
+                    'new_initial_rx' => (!empty($this->input->post('new_initial_rx'))) ? $this->input->post('new_initial_rx') : null,
+                    'new_initial_dx' => (!empty($this->input->post('new_initial_dx'))) ? $this->input->post('new_initial_dx') : null,
+                    'new_initial_dot' => (!empty($this->input->post('new_initial_dot'))) ? $this->input->post('new_initial_dot') :null,
                     'additional_comment_option' => (!empty($this->input->post('additional_comment_option'))) ? json_encode($this->input->post('additional_comment_option')) : null
                 ),
                 'where' => array('patient_id' => $where_id)
@@ -3154,6 +3424,7 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
     }
 
     function open_consult() {
+
         $this->data['parent'] = $this->title;
         $this->data['title'] = "Add " . $this->title;
         $this->data['formUrlConsult'] = $this->router->fetch_class() . "/addConsult";
@@ -3176,7 +3447,7 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
         $this->data['countries'] = $this->common_model->customGet($option);
         $option = array('table' => 'states',
                     'select' => '*');
-                $this->data['states'] = $this->common_model->customGet($option);
+        $this->data['states'] = $this->common_model->customGet($option);
 
                 // print_r($this->data['users']);die;
                 

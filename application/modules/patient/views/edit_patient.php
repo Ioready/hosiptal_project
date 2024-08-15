@@ -39,6 +39,9 @@
         </div>
         <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url($formUrl) ?>" enctype="multipart/form-data">
 
+        
+        <input type="hidden"  name="id"  id='name' value="<?php echo $results->patient_id; ?>" /> 
+
        <div class="alert alert-danger" id="error-box" style="display: none;"></div>
          <div class="form-body">
             
@@ -88,13 +91,13 @@
             <div class="col-md-12">
 
                 <?php $date =  $results->date_of_birth;;
-$timestamp = strtotime($date);
+                $timestamp = strtotime($date);
 
-$year = date('Y', $timestamp);
-$month = date('m', $timestamp);
-$day = date('d', $timestamp);
+                $year = date('Y', $timestamp);
+                $month = date('m', $timestamp);
+                $day = date('d', $timestamp);
 
- ?>
+                ?>
                 <label class="control-label">Date Of Birth</label>
                 <input type="text" class="form-control" name="day" id="day" placeholder="Day" maxlength="2" value="<?php echo $day;?>"/>
             </div>
@@ -466,18 +469,18 @@ $day = date('d', $timestamp);
                         <div class="col-md-2" style="padding-right: 0;">
                             <select class="form-control" name="death_month" id="death_month">
                                 <option value="">Select Month</option>
-                                <option value="01" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>January</option>
-                                <option value="02" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>February</option>
-                                <option value="03" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>March</option>
-                                <option value="04" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>April</option>
-                                <option value="05" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>May</option>
-                                <option value="06" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>June</option>
-                                <option value="07" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>July</option>
-                                <option value="08" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>August</option>
-                                <option value="09" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>September</option>
-                                <option value="10" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>October</option>
-                                <option value="11" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>November</option>
-                                <option value="12" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>December</option>
+                                <option value="01" <?php echo ($results->phone_code == "01") ? "selected" : ""; ?>>January</option>
+                                <option value="02" <?php echo ($results->phone_code == "02") ? "selected" : ""; ?>>February</option>
+                                <option value="03" <?php echo ($results->phone_code == "03") ? "selected" : ""; ?>>March</option>
+                                <option value="04" <?php echo ($results->phone_code == "04") ? "selected" : ""; ?>>April</option>
+                                <option value="05" <?php echo ($results->phone_code == "05") ? "selected" : ""; ?>>May</option>
+                                <option value="06" <?php echo ($results->phone_code == "06") ? "selected" : ""; ?>>June</option>
+                                <option value="07" <?php echo ($results->phone_code == "07") ? "selected" : ""; ?>>July</option>
+                                <option value="08" <?php echo ($results->phone_code == "08") ? "selected" : ""; ?>>August</option>
+                                <option value="09" <?php echo ($results->phone_code == "09") ? "selected" : ""; ?>>September</option>
+                                <option value="10" <?php echo ($results->phone_code == "10") ? "selected" : ""; ?>>October</option>
+                                <option value="11" <?php echo ($results->phone_code == "11") ? "selected" : ""; ?>>November</option>
+                                <option value="12" <?php echo ($results->phone_code == "12") ? "selected" : ""; ?>>December</option>
                             </select>
                         </div>
                         <div class="col-md-2">
@@ -548,19 +551,19 @@ $day = date('d', $timestamp);
                 
                     <div class="form-group">
                         <div class="col-md-12">
-                            <input type="checkbox" id="receive_emails" name="receive_emails" class="custom-control-input" value="receive_emails"  value="<?php echo $results->receive_emails;?>">
+                            <input type="checkbox" id="receive_emails" name="receive_emails" class="custom-control-input" value="receive_emails" <?php echo ($results->receive_emails=='receive_emails' ? 'checked' : '');?>>
                             <label class="custom-control-label check-labels" for="customRadioInline1">Receive emails</label>
                         </div>
                         <div class="col-md-12">
-                            <input type="checkbox" id="receive_sms_messages" name="receive_sms_messages" class="custom-control-input" value="receive_sms_messages">
+                            <input type="checkbox" id="receive_sms_messages" name="receive_sms_messages" class="custom-control-input" value="receive_sms_messages" <?php echo ($results->receive_sms_messages=='receive_sms_messages' ? 'checked' : '');?>>
                             <label class="custom-control-label check-labels" for="customRadioInline2">Receive SMS messages</label>                                      
                         </div>
                         <div class="col-md-12">
-                            <input type="checkbox" id="has_consented_to_promotional_marketing" name="has_consented_to_promotional_marketing" class="custom-control-input" value="has_consented_to_promotional_marketing">
+                            <input type="checkbox" id="has_consented_to_promotional_marketing" name="has_consented_to_promotional_marketing" class="custom-control-input" value="has_consented_to_promotional_marketing" <?php echo ($results->has_consented_to_promotional_marketing=='has_consented_to_promotional_marketing' ? 'checked' : '');?>>
                             <label class="custom-control-label check-labels" for="customRadioInline2">Has consented to promotional marketing</label>                                      
                         </div>
                         <div class="col-md-12">
-                            <input type="checkbox" id="receive_payment_reminders" name="receive_payment_reminders" class="custom-control-input" value="receive_payment_reminders">
+                            <input type="checkbox" id="receive_payment_reminders" name="receive_payment_reminders" class="custom-control-input" value="receive_payment_reminders" <?php echo ($results->receive_payment_reminders=='receive_payment_reminders' ? 'checked' : '');?>>
                             <label class="custom-control-label check-labels" for="customRadioInline2">Receive payment reminders</label>                                      
                         </div>
                     </div>
@@ -571,15 +574,15 @@ $day = date('d', $timestamp);
                 
                     <div class="form-group">
                         <div class="col-md-12">
-                            <input type="radio" id="privacy_policy_no_response" name="privacy_policy" class="custom-control-input" value="no_response"  value="<?php echo $results->privacy_policy;?>">
+                            <input type="radio" id="privacy_policy_no_response" name="privacy_policy" class="custom-control-input" value="no_response" <?php echo ($results->privacy_policy=='no_response' ? 'checked' : '');?>>
                             <label class="custom-control-label check-labels" for="customRadioInline1">No response</label>
                         </div>
                         <div class="col-md-12">
-                            <input type="radio" id="privacy_policy_accepted" name="privacy_policy" class="custom-control-input" value="accepted">
+                            <input type="radio" id="privacy_policy_accepted" name="privacy_policy" class="custom-control-input" value="accepted" <?php echo ($results->privacy_policy=='accepted' ? 'checked' : '');?>>
                             <label class="custom-control-label check-labels" for="customRadioInline2">Accepted</label>                                      
                         </div>
                         <div class="col-md-12">
-                            <input type="radio" id="privacy_policy_rejected" name="privacy_policy" class="custom-control-input" value="rejected">
+                            <input type="radio" id="privacy_policy_rejected" name="privacy_policy" class="custom-control-input" value="rejected" <?php echo ($results->privacy_policy=='rejected' ? 'checked' : '');?>>
                             <label class="custom-control-label check-labels" for="customRadioInline2">Rejected</label>                                      
                         </div>
                     </div>
@@ -1145,10 +1148,10 @@ $day = date('d', $timestamp);
                                                         <div class="col-md-9">
                                                             <select id="additional_comment_option" name="additional_comment_option[]" onchange="isDirty(this.value)" class="form-control multiple-select select-chosen" size="1" multiple="multiple">
                                                                 <option value="" disabled>Please select</option>
-                                                                <option value="Does not meet Loeb/ McGeer Criteria"<?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?> >Does not meet Loeb/ McGeer Criteria</option>
-                                                                <option value="Consider shorter antibiotic course" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>Consider shorter antibiotic course</option>
-                                                                <option value="Antibiotics not recommended" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>Antibiotics not recommended</option>
-                                                                <option value="Other/Free Text" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>Other/Free Text</option>
+                                                                <option value="Does not meet Loeb/ McGeer Criteria"<?php echo ($results->additional_comment_option == "Does not meet Loeb/ McGeer Criteria") ? "selected" : ""; ?> >Does not meet Loeb/ McGeer Criteria</option>
+                                                                <option value="Consider shorter antibiotic course" <?php echo ($results->additional_comment_option == "Consider shorter antibiotic course") ? "selected" : ""; ?>>Consider shorter antibiotic course</option>
+                                                                <option value="Antibiotics not recommended" <?php echo ($results->additional_comment_option == "Antibiotics not recommended") ? "selected" : ""; ?>>Antibiotics not recommended</option>
+                                                                <option value="Other/Free Text" <?php echo ($results->additional_comment_option == "Other/Free Text") ? "selected" : ""; ?>>Other/Free Text</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -2334,4 +2337,20 @@ function getCities(stateId) {
     // Example response data (replace with actual AJAX response)
     var response = <?php echo json_encode($response); ?>;
     handleResponse(response);
+</script>
+
+
+<script type="text/javascript">
+$("#contact-form").submit(function(e) {
+  $.ajax({
+         type: "POST",
+         url: '',
+         data: $("#submit1").serialize(), // serializes the form's elements.
+         success: function(data)
+         {
+             $("#contact-form").html("<h2 style='color:#2E8B57;text-align:center;'><b>Mail Sent Successfully....!!!</b></h2>");
+         }
+       });
+  e.preventDefault(); // avoid to execute the actual submit of the form.
+});
 </script>
