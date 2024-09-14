@@ -1,4 +1,4 @@
-<script src="//cdn.ckeditor.com/4.20.0/standard/ckeditor.js"></script>
+<script src="<?php echo base_url() . 'backend_asset/admin/js/' ?>helpers/ckeditor/ckeditor.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.js"></script>
 <!-- Page content -->
 <div id="page-content">

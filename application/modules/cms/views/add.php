@@ -1,5 +1,6 @@
 <!--  <div id="commonModal" class="modal fade" role="dialog"> -->
 <script src="<?php echo base_url() . 'backend_asset/admin/js/' ?>helpers/ckeditor/ckeditor.js"></script> 
+
  <div id="commonModal" class="modal fade" role="dialog">
     <div class="modal-dialog ">
         <div class="modal-content modal-lg">

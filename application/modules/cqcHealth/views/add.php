@@ -92,8 +92,7 @@
     </div><!-- /.modal-dialog -->
 
 </div>
-<script src="https://cdn.ckeditor.com/4.17.2/standard/ckeditor.js"></script>
-<!-- <script src="https://cdn.ckeditor.com/4.24.0-lts/standard/ckeditor.js"></script> -->
+<script src="<?php echo base_url() . 'backend_asset/admin/js/' ?>helpers/ckeditor/ckeditor.js"></script>
 
 <script>
   // Initialize CKEditor

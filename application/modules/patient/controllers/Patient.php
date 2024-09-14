@@ -289,14 +289,15 @@ class Patient extends Common_Controller
 
 
     public function communication(){
-        $id = decoding($_GET['id']);
+
+            $this->data['parent_id'] = $_GET['id'];
             $this->data['parent'] = $this->title;
             $this->data['title'] = $this->title;
 
             $this->data['formUrl'] = $this->router->fetch_class() . "/update";
+            $this->data['formUrlSms'] = $this->router->fetch_class() . "/communicationSendSms";
             $id = decoding($_GET['id']);
 
-            
             if (!empty($id)) {
 
                 $option = array(
@@ -327,12 +328,15 @@ class Patient extends Common_Controller
                 if (!empty($results_row)) {
 
                     $results_row->md_steward_response = clone $results_row;
-
-
                     $filteredData = $this->applyAlgo($results_row);
-                    // echo"<pre>"; 
-                    // print_r($filteredData); die;
                     $this->data['results'] = $filteredData;
+                    
+                    $optionSms = array(
+                        'table' => 'patient_sms_communication',
+                         'select' => 'patient_sms_communication.*',
+                        'where' => array('patient_id' => $id),
+                    );
+                    $this->data['sms_results'] = $this->common_model->customGet($optionSms);
                     $this->load->admin_render('communication', $this->data, 'inner_script');
                 } else {
                     $this->session->set_flashdata('error', lang('not_found'));
@@ -345,6 +349,62 @@ class Patient extends Common_Controller
             }
 
         // $this->load->admin_render('summary', $this->data, 'inner_script');
+    }
+
+    function communicationSendSms() {
+
+        $data = $this->input->post();
+        // print_r($data);die;
+        $return['code'] = 200;
+        // $this->form_validation->set_rules('email', 'Email Id', 'trim|required|valid_email|is_unique[' . USERS . '.email]');
+        // $this->form_validation->set_rules('mobile', 'Mobile Number', 'trim|required|numeric|min_length[10]|max_length[11]|is_unique[' . USERS . '.phone]');
+        // $this->form_validation->set_rules('patient_sms_comment', 'patient_sms_comment', 'trim|required');
+        // if ($this->form_validation->run() == FALSE) {
+        //     $error = $this->form_validation->rest_first_error_string();
+        //     $return['status'] = 0;
+        //     $return['message'] = $error;
+        // } else {
+            // $email = extract_value($data, 'email', '');
+            $phone = extract_value($data, 'mobile', '');
+            $genOtp = mt_rand(100000, 999999);
+            $option = array(
+                'table' => 'users',
+                'where' => array('otp' => $genOtp),
+            );
+            $alreadyUsedOtp = $this->common_model->customGet($option);
+           
+
+            $login_session_key = get_guid();
+
+            $option = array(
+                'table' => 'patient_sms_communication',
+                'data' => array(
+                    'patient_id'=>$data['patient_id'],
+                    'phone' => $phone,
+                    'facility_user_id'=>$data['md_steward_id'],
+                    'patient_sms_comment' => $data['patient_sms_comment'],
+                    'birthdaytime' => $data['birthdaytime'],
+                ),
+            );
+            $this->common_model->customInsert($option);
+
+            $postfields = array('mobile' => $phone,
+                'message' => "Your patient send information " . $data['patient_sms_comment'],
+            );
+
+            // print_r($postfields);die;
+            $this->smsSend($postfields);
+
+        // }
+        // $this->response($return);
+    //     $response = ['status' => '1', 'message' => 'SMS sent successfully'];
+    // echo json_encode($response);
+   $patientId= encoding($data['patient_id']);
+    $response = array('status' => 1, 'show_redirection_alert' => $show_redirection_alert, 'message' => "Successfully added", 'url' => $redirect_to);
+    $this->session->set_flashdata('error', $response);
+    redirect($this->router->fetch_class().'/communication/?id='.$patientId);
+    
+        // redirect('patient');
     }
 
 

@@ -549,25 +549,6 @@ class Tasks extends Common_Controller
         $this->data['organism'] = $this->common_model->customGet(array('table' => 'organism', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
         $this->data['precautions'] = $this->common_model->customGet(array('table' => 'precautions', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
         $this->data['initial_rx'] = $this->common_model->customGet(array('table' => 'initial_rx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
-        // $this->data['doctors'] = $this->common_model->customGet(array('table' => 'doctors', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
-        // $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
-        // $option = array(
-        //     'table' => ' doctors',
-        //     'select' => 'users.*,doctors_qualification.*',
-        //     'join' => array(
-        //         array('users', 'doctors.user_id=users.id', 'left'),
-        //         array('user_profile UP', 'UP.user_id=users.id', 'left'),
-        //         array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
-                
-        //     ),
-            
-        //     'where' => array(
-        //         'users.delete_status' => 0,
-        //         'doctors.facility_user_id'=>$CareUnitID
-        //     ),
-        //     'order' => array('users.id' => 'desc'),
-        // );
-        // $data['doctors'] = $this->common_model->customGet($option);
        
 
         $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
@@ -633,47 +614,16 @@ class Tasks extends Common_Controller
             $this->data['doctors'] = $this->common_model->customGet($option);
         }
        
-        // $option = array(
-        //     'table' => 'users U',
-        //     'select' => 'U.id,CONCAT(first_name," ",last_name) name',
-        //     'join' => array('users_groups as UG' => 'UG.user_id=U.id'),
-        //     'where' => array('U.active' => 1, 'U.delete_status' => 0, 'UG.group_id' => 3),
-        //     'order' => array('first_name' => 'asc')
-        // );
-        // $option = array(
-        //     'table' => USERS . ' as user',
-        //     'select' => 'user.*,group.name as group_name,UP.doc_file',
-        //     'join' => array(
-        //         array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
-        //         array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left'),
-        //         array('user_profile UP', 'UP.user_id=user.id', 'left')
-        //     ),
-        //     'order' => array('user.id' => 'ASC'),
-        //     'where' => array(
-        //         'user.delete_status' => 0, 'user.id' => $_SESSION['user_id'],
-        //         'group.id' => 5
-        //     ),
-        //     'order' => array('user.first_name' => 'ASC')
-        // );
+       
 
         $user_id = $this->session->userdata('user_id');
         $option = array(
-
-            // 'table' => 'users',
-            // 'select' => 'users.id, CONCAT(first_name," ",last_name) as doctor_name, doctors.facility_user_id', 
-            // 'join' => array(
-            //     array('doctors', 'doctors.user_id = users.id', 'inner'),
-            // ),
-            // 'where' => array(
-            //     'users.delete_status' => 0,
-            //     'doctors.facility_user_id' => $user_id
-            // ),
             'table' => 'users',
             'select' => 'users.*', 
             
             'where' => array(
                 'users.delete_status' => 0,
-                // 'doctors.facility_user_id' => $user_id
+                
             ),
         );
         

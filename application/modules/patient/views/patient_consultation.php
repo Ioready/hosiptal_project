@@ -97,7 +97,15 @@
                                             <div class="col-md-12">
                                                 <div class="col-md-12">
                                                     <label class=""><Strong>Problem heading</Strong></label>
-                                                    <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('Internal name');?>" />
+                                                    <div class="input-group mb-3">
+                                                        <input type="search" class="form-control" placeholder="Search ......" aria-label="Search for allergies" id="allergySearch" style="width: 95%;">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text">
+                                                                <i class="fa fa-search" style="height: 24px; text-align: justify; padding-top: inherit; font-size: medium;color: gray;"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <!-- <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('Internal name');?>" /> -->
                                                 </div>
                                             </div>
 
@@ -176,7 +184,15 @@
                                                         <div class="col-md-12">
                                                             <div class="col-md-12">
                                                                 <label class=""><Strong>Problem</Strong></label>
-                                                                <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('Internal name');?>" />
+                                                                <div class="input-group mb-3">
+                                                        <input type="search" class="form-control" placeholder="Search ......" aria-label="Search for allergies" id="allergySearch" style="width: 95%;">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text">
+                                                                <i class="fa fa-search" style="height: 24px; text-align: justify; padding-top: inherit; font-size: medium;color: gray;"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                                <!-- <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('Internal name');?>" /> -->
                                                             </div>
                                                         </div>
 
@@ -208,6 +224,13 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    <div class="col-md-12">
+                                        <div class="col-md-12">
+                                            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+                                            <label for="vehicle1"> Show in summery</label><br>
+                                        </div>
+                               
+                                    </div>
                                                 </div>
 
                                         <br>
@@ -233,30 +256,38 @@
                                             <div class="col-md-12">
                                                 <div class="col-md-12">
                                                     <label class=""><Strong>Examination</Strong></label>
-                                                    <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('Internal name');?>" />
+                                                    <div class="input-group mb-3">
+                                                        <input type="search" class="form-control" placeholder="Search ......" aria-label="Search for allergies" id="allergySearch" style="width: 95%;">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text">
+                                                                <i class="fa fa-search" style="height: 24px; text-align: justify; padding-top: inherit; font-size: medium;color: gray;"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <!-- <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('Internal name');?>" /> -->
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-4">
+                                            <div class="col-md-12">
                                                 <div class="col-md-12">
-                                                    <label class="">Since</label>
+                                                    <label class="">Value</label>
                                                     <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('Internal name');?>" />
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-4">
+                                            <!-- <div class="col-md-4">
                                                 <div class="col-md-12">
                                                     <label class="">Condition Type</label>
                                                     <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('Internal name');?>" />
                                                 </div>
-                                            </div>
+                                            </div> -->
 
-                                            <div class="col-md-4">
+                                            <!-- <div class="col-md-4">
                                                 <div class="col-md-12">
                                                     <label class="">Condition significance</label>
                                                     <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('Internal name');?>" />
                                                 </div>
-                                            </div>
+                                            </div> -->
 
                                             <div class="col-md-12">
                                                 <div class="col-md-12">
@@ -285,33 +316,39 @@
                                         <div class="col-md-11" style="border: 3px groove; border-redius: 5px; border-radius: 10px; padding: 16px; margin-left: 31px;">
 
                                
-                                            <div class="col-md-12">
+                                            <!-- <div class="col-md-12">
                                                 <div class="col-md-12">
                                                     <label class=""><Strong>Allergy</Strong></label>
                                                     <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('Internal name');?>" />
                                                 </div>
-                                            </div>
+                                            </div> -->
 
-                                            <div class="col-md-4">
+                                            <div class="col-md-6">
                                                 <div class="col-md-12">
-                                                    <label class="">Since</label>
-                                                    <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('Internal name');?>" />
+                                                    <label for="allergySearch">Allergy</label>
+                                                    <div class="input-group mb-3">
+                                                        <input type="search" class="form-control" placeholder="Search ......" aria-label="Search for allergies" id="allergySearch" style="width: 236px;">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text">
+                                                                <i class="fa fa-search" style="height: 24px; text-align: justify; padding-top: inherit; font-size: medium;color: gray;"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-4">
+
+                                            <div class="col-md-6">
                                                 <div class="col-md-12">
-                                                    <label class="">Condition Type</label>
-                                                    <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('Internal name');?>" />
+                                                    <label class="">Severity</label>
+                                                    <select name="" id="" class="form-control">
+                                                        <option value="">Select Severity</option>
+                                                    </select>
+                                                    <!-- <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('Internal name');?>" /> -->
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-4">
-                                                <div class="col-md-12">
-                                                    <label class="">Condition significance</label>
-                                                    <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('Internal name');?>" />
-                                                </div>
-                                            </div>
+                                           
 
                                             <div class="col-md-12">
                                                 <div class="col-md-12">
@@ -320,6 +357,13 @@
                                             </div>
                                             </div>
                                         </div>
+                                        <div class="col-md-12">
+                                        <div class="col-md-12">
+                                            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+                                            <label for="vehicle1"> Show in summery</label><br>
+                                        </div>
+                               
+                                    </div>
                                     </div>
 
                                     <br>
@@ -341,10 +385,18 @@
                                         <div class="col-md-11" style="border: 3px groove; border-redius: 5px; border-radius: 10px; padding: 16px; margin-left: 31px;">
 
                                
-                                            <div class="col-md-12">
+                                            <div class="col-md-8">
                                                 <div class="col-md-12">
                                                     <label class=""><Strong>Medical History</Strong></label>
-                                                    <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('Internal name');?>" />
+                                                    <div class="input-group mb-3">
+                                                        <input type="search" class="form-control" placeholder="Search ......" aria-label="Search for allergies" id="allergySearch" style="width: 90%;">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text">
+                                                                <i class="fa fa-search" style="height: 24px; text-align: justify; padding-top: inherit; font-size: medium;color: gray;"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <!-- <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('Internal name');?>" /> -->
                                                 </div>
                                             </div>
 
@@ -355,19 +407,19 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-4">
+                                            <!-- <div class="col-md-4">
                                                 <div class="col-md-12">
                                                     <label class="">Condition Type</label>
                                                     <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('Internal name');?>" />
                                                 </div>
-                                            </div>
+                                            </div> -->
 
-                                            <div class="col-md-4">
+                                            <!-- <div class="col-md-4">
                                                 <div class="col-md-12">
                                                     <label class="">Condition significance</label>
                                                     <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('Internal name');?>" />
                                                 </div>
-                                            </div>
+                                            </div> -->
 
                                             <div class="col-md-12">
                                                 <div class="col-md-12">
@@ -400,18 +452,30 @@
                                             <div class="col-md-12">
                                                 <div class="col-md-12">
                                                     <label class=""><Strong>Family History</Strong></label>
-                                                    <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('Internal name');?>" />
+
+                                                    <div class="input-group mb-3">
+                                                        <input type="search" class="form-control" placeholder="Search ......" aria-label="Search for allergies" id="allergySearch" style="width: 95%;">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text">
+                                                                <i class="fa fa-search" style="height: 24px; text-align: justify; padding-top: inherit; font-size: medium;color: gray;"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <!-- <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('Internal name');?>" /> -->
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-4">
+                                            <div class="col-md-6">
                                                 <div class="col-md-12">
-                                                    <label class="">Since</label>
-                                                    <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('Internal name');?>" />
+                                                    <label class="">Relationship</label>
+                                                    <select name="" id="" class="form-control">
+                                                        <option value="">Please select</option>
+                                                    </select>
+                                                    <!-- <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('Internal name');?>" /> -->
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-4">
+                                            <!-- <div class="col-md-4">
                                                 <div class="col-md-12">
                                                     <label class="">Condition Type</label>
                                                     <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('Internal name');?>" />
@@ -423,7 +487,7 @@
                                                     <label class="">Condition significance</label>
                                                     <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('Internal name');?>" />
                                                 </div>
-                                            </div>
+                                            </div> -->
 
                                             <div class="col-md-12">
                                                 <div class="col-md-12">
@@ -477,7 +541,15 @@
                                             <div class="col-md-12">
                                                 <div class="col-md-12">
                                                     <label class=""><Strong>Examination</Strong></label>
-                                                    <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('Internal name');?>" />
+                                                    <div class="input-group mb-3">
+                                                        <input type="search" class="form-control" placeholder="Search ......" aria-label="Search for allergies" id="allergySearch" style="width: 95%;">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text">
+                                                                <i class="fa fa-search" style="height: 24px; text-align: justify; padding-top: inherit; font-size: medium;color: gray;"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <!-- <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('Internal name');?>" /> -->
                                                 </div>
                                             </div>
 
@@ -539,7 +611,15 @@
                                                         <div class="col-md-12">
                                                             <div class="col-md-12">
                                                                 <label class=""><Strong>Problem</Strong></label>
-                                                                <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('Internal name');?>" />
+                                                                <div class="input-group mb-3">
+                                                        <input type="search" class="form-control" placeholder="Search ......" aria-label="Search for allergies" id="allergySearch" style="width: 95%;">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text">
+                                                                <i class="fa fa-search" style="height: 24px; text-align: justify; padding-top: inherit; font-size: medium;color: gray;"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                                <!-- <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('Internal name');?>" /> -->
                                                             </div>
                                                         </div>
 
@@ -603,7 +683,15 @@
                                             <div class="col-md-12">
                                                 <div class="col-md-12">
                                                     <label class=""><Strong>Examination</Strong></label>
-                                                    <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('Internal name');?>" />
+                                                    <div class="input-group mb-3">
+                                                        <input type="search" class="form-control" placeholder="Search ......" aria-label="Search for allergies" id="allergySearch" style="width: 95%;">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text">
+                                                                <i class="fa fa-search" style="height: 24px; text-align: justify; padding-top: inherit; font-size: medium;color: gray;"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <!-- <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('Internal name');?>" /> -->
                                                 </div>
                                             </div>
 
@@ -657,7 +745,15 @@
                                             <div class="col-md-12">
                                                 <div class="col-md-12">
                                                     <label class=""><Strong>allergy</Strong></label>
-                                                    <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('Internal name');?>" />
+                                                    <div class="input-group mb-3">
+                                                        <input type="search" class="form-control" placeholder="Search ......" aria-label="Search for allergies" id="allergySearch" style="width: 95%;">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text">
+                                                                <i class="fa fa-search" style="height: 24px; text-align: justify; padding-top: inherit; font-size: medium;color: gray;"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <!-- <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('Internal name');?>" /> -->
                                                 </div>
                                             </div>
 
@@ -711,7 +807,15 @@
                                             <div class="col-md-12">
                                                 <div class="col-md-12">
                                                     <label class=""><Strong>Medical History</Strong></label>
-                                                    <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('Internal name');?>" />
+                                                    <div class="input-group mb-3">
+                                                        <input type="search" class="form-control" placeholder="Search ......" aria-label="Search for allergies" id="allergySearch" style="width: 95%;">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text">
+                                                                <i class="fa fa-search" style="height: 24px; text-align: justify; padding-top: inherit; font-size: medium;color: gray;"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <!-- <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('Internal name');?>" /> -->
                                                 </div>
                                             </div>
 
@@ -774,7 +878,15 @@
                                             <div class="col-md-12">
                                                 <div class="col-md-12">
                                                     <label class=""><Strong>Family History</Strong></label>
-                                                    <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('Internal name');?>" />
+                                                    <div class="input-group mb-3">
+                                                        <input type="search" class="form-control" placeholder="Search ......" aria-label="Search for allergies" id="allergySearch" style="width: 95%;">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text">
+                                                                <i class="fa fa-search" style="height: 24px; text-align: justify; padding-top: inherit; font-size: medium;color: gray;"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <!-- <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('Internal name');?>" /> -->
                                                 </div>
                                             </div>
 
@@ -834,7 +946,15 @@
                                             <div class="col-md-12">
                                                 <div class="col-md-12">
                                                     <label class=""><Strong>Social</Strong></label>
-                                                    <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('Internal name');?>" />
+                                                    <div class="input-group mb-3">
+                                                        <input type="search" class="form-control" placeholder="Search ......" aria-label="Search for allergies" id="allergySearch" style="width: 95%;">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text">
+                                                                <i class="fa fa-search" style="height: 24px; text-align: justify; padding-top: inherit; font-size: medium;color: gray;"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <!-- <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('Internal name');?>" /> -->
                                                 </div>
                                             </div>
 
@@ -907,7 +1027,15 @@
                                             <div class="col-md-12">
                                                 <div class="col-md-12">
                                                     <label class=""><Strong>Medication</Strong></label>
-                                                    <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('Internal name');?>" />
+                                                    <div class="input-group mb-3">
+                                                        <input type="search" class="form-control" placeholder="Search ......" aria-label="Search for allergies" id="allergySearch" style="width: 95%;">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text">
+                                                                <i class="fa fa-search" style="height: 24px; text-align: justify; padding-top: inherit; font-size: medium;color: gray;"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <!-- <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('Internal name');?>" /> -->
                                                 </div>
                                             </div>
 
@@ -971,7 +1099,15 @@
                                             <div class="col-md-12">
                                                 <div class="col-md-12">
                                                     <label class=""><Strong>Product</Strong></label>
-                                                    <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('Internal name');?>" />
+                                                    <div class="input-group mb-3">
+                                                        <input type="search" class="form-control" placeholder="Search ......" aria-label="Search for allergies" id="allergySearch" style="width: 95%;">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text">
+                                                                <i class="fa fa-search" style="height: 24px; text-align: justify; padding-top: inherit; font-size: medium;color: gray;"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <!-- <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('Internal name');?>" /> -->
                                                 </div>
                                             </div>
 

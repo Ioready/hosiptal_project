@@ -659,6 +659,18 @@ bootbox.confirm({
         });
     }
 
+    var open_model_form = function (controller) {
+        $.ajax({
+            url: '<?php echo base_url(); ?>' + controller + "/open_model_form",
+            type: 'POST',
+            data: {'<?php echo $this->security->get_csrf_token_name(); ?>': '<?php echo $this->security->get_csrf_hash(); ?>'},
+            success: function (data, textStatus, jqXHR) {
+                $('#form-modal-box').html(data);
+                $("#commonModal").modal('show');
+            }
+        });
+    }
+
     
     /** end script in application **/
 

@@ -5,11 +5,9 @@
 
         var form_name = this.form.id;
         if (form_name == '[object HTMLInputElement]')
-            form_name = 'addFormAjax';
+            form_name = 'addFormAjaxId';
         $("#" + form_name).validate({
-            rules: {
-                name: "required",
-            },
+           
             submitHandler: function (form) {
                 jQuery(form).ajaxSubmit({
                 });

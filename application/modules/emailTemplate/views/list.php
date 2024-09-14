@@ -200,10 +200,7 @@
 </div>
 <div id="form-modal-box"></div>
 <!-- CKEditor JS (CDN) -->
-<script src="https://cdn.ckeditor.com/4.17.2/standard/ckeditor.js"></script>
-<!-- <script src="https://cdn.ckeditor.com/4.24.0-lts/standard/ckeditor.js"></script> -->
-<!-- <script src="https://cdn.ckeditor.com/ckeditor5/18.0.0/classic/ckeditor.js"></script> -->
-<!-- <script src="https://cdn.ckeditor.com/4.24.0-lts/standard/ckeditor.js"></script> -->
+<script src="<?php echo base_url() . 'backend_asset/admin/js/' ?>helpers/ckeditor/ckeditor.js"></script>
 
 
 <script>

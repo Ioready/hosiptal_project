@@ -528,7 +528,8 @@
             <div class="card-body p-4" style="background-color:#FFFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);border-radius:20px">
                 <div class="row">
                     <div class="col-md-10 mt-4">
-                    <button class="btn btn-success" style="background:#0e5670;" type="button">SMS</button> 
+                    <!-- <button class="btn btn-success" style="background:#0e5670;" type="button">SMS</button>  -->
+                    <button type="button" class="btn btn-md btn-primary sendmail mt-2 fw-bold" style="background: #337ab7; float:left" data-toggle="modal" data-target="#SendSmsModal" data-whatever="@mdo" >SMS</button>
                 <!-- <button class="btn btn-default" type="button">Email</button> -->
                 <button type="button" class="btn btn-md btn-primary sendmail mt-2 fw-bold" style="background: #337ab7" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" >Email</button>
                                         </div>
@@ -560,29 +561,98 @@
     <div class="col-md-12">
         <div class="">
             <div class="card-body p-4" style="background-color:#FFFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);border-radius:20px">
-                <div class="row">
+            
+            <div class="row">
                 <h2 class="no-margins fw-bold m-4">Sent</h2>
-                    <div class="col-md-11">                      
+
+                <?php foreach($sms_results as $sms){?>
+                    <div class="col-md-10">                      
                         <h5 class="text-dark fw-bold">Sms Message</h5>           
-                    </div>
-                    <div class="col-md-1">
+        
+                        <span>Sent on <Strong> <?php $createAt = date_format(date_create($sms->birthdaytime), 'd/m/Y'); 
+                        echo $createAt; ?></Strong> <Strong> <?php echo $sms->patient_sms_comment; ?></Strong> </span>
+                            </div>
+                       <div class="col-md-2">
                 <button  type="button" class="btn btn-md fw-bold bg-dark text-white" style=" border: 1px solid green;">Sent</button>
                     </div>
-                </div>
 
-                <div class="row mt-2">
-                    <div class="col-md-11">
-                        <h5 class="no-margins fw-bold">Sms Message</h5>            
-                    </div>
-                    <div class="col-md-1">
-                <button  type="button" class="btn btn-md fw-bold bg-white" style=" border: 1px solid green;">Sent</button> 
-                    </div>
+               <?php }?>
                 </div>
-
             </div>
         </div>
     </div> 
 </div>
+
+
+<div class="modal fade" id="SendSmsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+      <button type="button" class="close" style="margin-top:-40px;" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h3 class="modal-title fw-bold" style="text-align:center;" id="exampleModalLabel">SMS <?php echo $results->patient_phone_number;?></h3>        
+      </div> 
+      <div class="modal-body1">
+        <form  method="post" id="contact-sms-form" data-toggle="validator" role="form" action=" "  enctype="multipart/form-data">
+       
+         </br>
+          <div class="form-group">
+          <input type="hidden" id="mobile" name="mobile" value="<?php echo $results->patient_phone_number;?>">
+            <p style="padding: 10px; background-color: antiquewhite;"><span style="padding-right: 5px;"><i class="fas fa-question-circle"></i></span><span>There is a cost associated with each SMS Message. for more information, click <a href="#">here</a></span></p>
+          <label for="recipient-name" class="col-form-label">Comment:</label>
+          <textarea name="patient_sms_comment" id="patient_sms_comment" cols="20" rows="4" class="form-control"></textarea>
+            <label for="recipient-name" class="col-form-label">Schedule the message (Optional)</label>
+            <input type="text" id="datepicker" name="birthdaytime" class="form-control">
+            <!-- <input id="to_email" type="email" name="to_email" multiple required="required" data-error="Valid email is required." placeholder="To Email Address" class="form-control" > -->
+            <div class="help-block with-errors"></div>
+
+           <div class="modal_popup">
+           <input type="text" name="patient_id"  id='patient_id' value="<?php echo $results->id; ?>" /> 
+           <input  name="md_steward_id"  id='md_steward_id' value="<?php echo $results->md_steward_id; ?>" /> 
+
+           <?php if(empty($results->room_number)){ ?>
+           <input  name="room_number"  id='room_number' value="NULL" /> 
+           <?php   } else{ ?>
+           <input  name="room_number"  id='room_number' value="<?php echo $results->room_number; ?>" /> 
+            <?php } ?>
+           <input  name="care_unit_name"  id='care_unit_name' value="<?php echo ucwords($results->care_unit_name); ?>" /> 
+           <input  name="doctor_name"  id='doctor_name' value="<?php echo ucwords($results->doctor_name); ?>" /> 
+           <input  name="symptom_onset"  id='symptom_onset' value="<?php echo $results->symptom_onset; ?>" /> 
+           <input  name="culture_source_name"  id='culture_source_name' value="<?php echo $results->culture_source_name; ?>" /> 
+           <input  name="organism_name"  id='organism_name' value="<?php echo $results->organism_name; ?>" /> 
+           <input  name="precautions_name"  id='precautions_name' value="<?php echo $results->precautions_name; ?>" /> 
+           <input  name="md_steward"  id='md_steward' value="<?php echo ucwords($results->md_steward); ?>" /> 
+           <input  name="date_of_start_abx"  id='date_of_start_abx' value="<?php echo date('m/d/Y',strtotime($results->date_of_start_abx)); ?>" /> 
+           <input  name="initial_rx_name"  id='initial_rx_name' value="<?php echo $results->initial_rx_name; ?>" /> 
+           <input  name="initial_dx_name"  id='initial_dx_name' value="<?php echo $results->initial_dx_name; ?>" /> 
+           <input  name="initial_dot"  id='initial_dot' value="<?php echo $results->initial_dot; ?>" /> 
+           <input  name="infection_surveillance_checklist"  id='infection_surveillance_checklist' value="<?php echo $results->infection_surveillance_checklist; ?>" /> 
+           <input  name="criteria_met"  id='criteria_met' value="<?php echo $results->criteria_met; ?>" /> 
+           <input  name="md_stayward_response"  id='md_stayward_response' value="<?php echo $results->md_stayward_response; ?>" /> 
+           <input  name="new_initial_rx_name"  id='new_initial_rx_name' value="<?php echo $results->new_initial_rx_name; ?>" /> 
+           <input  name="psa"  id='psa' value="<?php echo $results->psa; ?>" /> 
+           <input  name="new_initial_dx_name"  id='new_initial_dx_name' value="<?php echo $results->new_initial_dx_name; ?>" /> 
+           <input  name="new_initial_dot"  id='new_initial_dot' value="<?php echo $results->new_initial_dot; ?>" /> 
+          <!--  <input  name="pct"  id='pct' value="<?php echo $results->pct; ?>" />  -->
+           <input  name="additional_comment_option"  id='additional_comment_option' value="<?php echo str_replace( array('[','"',']') , ''  , $results->additional_comment_option); ?>" /> 
+           
+
+        </div>
+          </div>
+          <br>
+          <div class="modal-footer mailmodel">
+              <button type="submit" name="submit"  id="submitSmskk"  class="btn btn-primary" style="background: #337ab7">Send</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Leave without saving</button>
+      </div>
+
+        </form>
+      </div>
+     
+    </div>
+  </div>
+</div>
+
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -660,6 +730,14 @@
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+        $(document).ready(() => {
+            $("#datepicker").datepicker().
+                datepicker("setDate", "today");
+        });
+    </script>
+
 <script>
 $(document).ready(function(){
   // Add click event listener to all td elements with class 'day-cell'
@@ -951,6 +1029,30 @@ $("#contact-form").submit(function(e) {
   e.preventDefault(); // avoid to execute the actual submit of the form.
 });
 </script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#contact-sms-form").submit(function(e) {
+            e.preventDefault(); // prevent default form submission
+
+            $.ajax({
+                type: 'POST',
+                url: '<?php echo base_url($formUrlSms); ?>',
+                data: $(this).serialize(), // serialize the form's elements
+                success: function(response) {
+                    $("#contact-sms-form").html("<h2 style='color:#2E8B57;text-align:center;'><b>Sms Sent Successfully....!!!</b></h2>");
+                    window.location.reload();
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText); // Log any errors for debugging
+                    alert("There was an error sending the SMS. Please try again.");
+                }
+            });
+        });
+    });
+    </script>
+
+
 
 
 

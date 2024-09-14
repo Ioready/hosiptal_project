@@ -584,4 +584,14 @@ class Common_model extends MY_Model {
             return false;
         }
     }
+
+    function insert($table, $data){
+        $this->db->insert($table,$data);
+        $num = $this->db->insert_id();
+        if($num){
+            return $num;
+            }else{
+            return FALSE;
+        }
+    }
 }

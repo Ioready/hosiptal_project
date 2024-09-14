@@ -19,8 +19,9 @@
 </style>
 <div id="commonModal" class="modal fade bd-example-modal-lg" role="dialog">
     <div class="modal-dialog modal-lg">
+        
         <div class="modal-content">
-            <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url($formUrl) ?>" enctype="multipart/form-data">
+            <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url($formUrlData) ?>" enctype="multipart/form-data">
             <div class="modal-header text-center">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                         <h2 class="modal-title"><i class="fa fa-pencil"></i> <?php echo (isset($title)) ? ucwords($title) : "" ?></h2>
@@ -38,6 +39,7 @@
                     <div class="alert alert-danger" id="error-box" style="display: none"></div>
                     <div class="form-body">
                     <div class="form-body">
+
                         <div class="row">
                             <div class="col-md-12" >
                                 <div class="form-group">
@@ -50,10 +52,10 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-12" >
+                            <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-sm-3">
-                                    <label class="control-label">letter body</label>
+                                    <label class="control-label">Form</label>
                                     
                                     </div>
                                     <div class="col-sm-3">
@@ -106,10 +108,11 @@
                     <button  style="background: #337ab7" type="submit" id="submit" class="btn btn-sm btn-primary m-2" ><?php echo lang('submit_btn');?></button>
                 </div>
             </form>
+
         </div> <!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 
-   
+    <div id="form-modal-box"></div>
 </div>
 
 <script>

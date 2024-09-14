@@ -84,7 +84,7 @@
 </script>
 
  <!-- CKEditor JS (CDN) -->
- <script src="https://cdn.ckeditor.com/4.17.2/standard/ckeditor.js"></script>
+ <script src="<?php echo base_url() . 'backend_asset/admin/js/' ?>helpers/ckeditor/ckeditor.js"></script>
 
 <script>
   // Initialize CKEditor
