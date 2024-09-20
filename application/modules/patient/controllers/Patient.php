@@ -3540,24 +3540,74 @@ $option = array(
 
         $this->data['patient_id'] = decoding($_GET['id']);
         $id = decoding($_GET['id']);
-        // print_r($id);die;
-        $option = "SELECT `vendor_sale_users`.`id`,`vendor_sale_users`.`first_name`, 
-        `vendor_sale_users`.`last_name`
-        FROM `vendor_sale_users` 
-        LEFT JOIN `vendor_sale_users_groups` ON `vendor_sale_users_groups`.`user_id` = `vendor_sale_users`.`id`
-        LEFT JOIN `vendor_sale_groups` ON `vendor_sale_groups`.`id` = `vendor_sale_users_groups`.`group_id`
-        WHERE `vendor_sale_users`.`delete_status` = 0 and `vendor_sale_users_groups`.`group_id` = 5
-        ORDER BY `vendor_sale_users`.`first_name` ASC";
-        
-        $this->data['users'] = $this->common_model->customQuery($option);
+        // print_r($this->data['patient_id']);die;
+        $role_name = $this->input->post('role_name');
 
-        $option = array('table' => 'countries',
-            'select' => '*'
+        $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+
+        if($LoginID != 1 && $LoginID != NULL ){
+            $x = $LoginID;
+        }
+        
+        $this->data['roles'] = array(
+            'role_name' => $role_name
         );
-        $this->data['countries'] = $this->common_model->customGet($option);
-        $option = array('table' => 'states',
-                    'select' => '*');
-        $this->data['states'] = $this->common_model->customGet($option);
+        if ($vendor_profile_activate == "No") {
+            $vendor_profile_activate = 0;
+        } else {
+            $vendor_profile_activate = 1;
+        }
+
+        $id = decoding($_GET['id']);
+
+        $optionheader = array(
+            'table' => 'vendor_sale_patient_consultation',
+            'select' => 'vendor_sale_patient_consultation.*,vendor_sale_users.first_name,vendor_sale_users.last_name',
+            'join' => array(
+                array('vendor_sale_patient', 'vendor_sale_patient.id=vendor_sale_patient_consultation.patient_id','left'),
+                array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_patient.user_id','left')
+            ),
+            'where' => array('vendor_sale_patient_consultation.patient_id' => $id)
+        );
+        
+
+        $this->data['list'] = $this->common_model->customGet($optionheader);
+        // print_r($this->data['list']); die;
+        
+        if (!empty($id)) {
+
+            $option = array(
+                'table' => 'patient P',
+                'select' => 'P.total_days_of_patient_stay,P.infection_surveillance_checklist,P.date_of_start_abx,P.md_patient_status,P.id ,P.patient_id,P.name as patient_name,P.address,P.room_number,P.symptom_onset,P.md_stayward_consult,P.criteria_met,P.md_stayward_response,P.psa,P.created_date,'
+                    . 'P.care_unit_id,CI.name as care_unit_name,P.doctor_id,P.culture_source,P.organism,P.precautions,CS.name as culture_source_name,Org.name as organism_name,Pre.name as precautions_name,DOC.name as doctor_name,P.md_steward_id,U.first_name as md_steward,'
+                    . 'PC.initial_rx,IRX.name as initial_rx_name,PC.initial_dx,IDX.name as initial_dx_name,PC.initial_dot,'
+                    . 'PC.new_initial_rx,IRX2.name as new_initial_rx_name,PC.new_initial_dx,IDX2.name as new_initial_dx_name,PC.new_initial_dot,PC.additional_comment_option,PC.comment,U.email as patient_email,U.email as password, U.phone as patient_phone_number,U.date_of_birth,U.gender,U.phone_code',
+                'join' => array(
+                    array('care_unit CI', 'CI.id=P.care_unit_id', 'left'),
+                    array('doctors DOC', 'DOC.id=P.doctor_id', 'left'),
+                    array('users U', 'U.id=P.user_id', 'left'),
+                    array('patient_consult PC', 'PC.patient_id=P.id', 'left'),
+                    array('initial_rx IRX', 'IRX.id=PC.initial_rx', 'left'),
+                    array('initial_dx IDX', 'IDX.id=PC.initial_dx', 'left'),
+                    array('culture_source CS', 'CS.name=P.culture_source', 'left'),
+                    array('organism Org', 'Org.name=P.organism', 'left'),
+                    array('precautions Pre', 'Pre.name=P.precautions', 'left'),
+                    array('initial_rx IRX2', 'IRX2.id=PC.new_initial_rx', 'left'),
+                    array('initial_dx IDX2', 'IDX2.id=PC.new_initial_dx', 'left'),
+                    
+                ),
+                'single' => true
+            );
+            $option['where']['P.id'] = $id;
+            $results_row = $this->common_model->customGet($option);
+
+            if (!empty($results_row)) {
+
+                $results_row->md_steward_response = clone $results_row;
+                $filteredData = $this->applyAlgo($results_row);
+                $this->data['results'] = $filteredData;
+            }
+        }
 
         $this->load->admin_render('consultation_invoice', $this->data, 'inner_script');
     }

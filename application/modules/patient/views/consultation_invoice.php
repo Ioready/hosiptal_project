@@ -306,7 +306,7 @@
         <div class="row text-center">
                 
                 <div class="col-sm-6 col-md-2 mb-4">
-                    <a href="<?php echo base_url() . 'index.php/patient/summary?id=' . encoding($results->id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 10px; ">
+                    <a href="<?php echo base_url() . 'index.php/patient/summary?id=' . encoding($patient_id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 10px; ">
                         <div class="widget-extra themed-background-dark"   style="background:#337ab7;">
                             <h4 style="font-size:14px; font-weight:600; color:white;">Summery</h4>
                         </div>
@@ -314,7 +314,7 @@
                     </a>
                 </div>
                 <div class="col-sm-6 col-lg-2 mb-4">
-                    <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($results->id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
+                    <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($patient_id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
                         <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
                             <h4 style="font-size:16px; font-weight:600; color:white;">Consultation</h4>
                         </div>
@@ -322,7 +322,7 @@
                     </a>
                 </div>
                 <div class="col-sm-6 col-lg-2 mb-4">
-                <a href="<?php echo base_url(). 'index.php/Medications?id=' . encoding($results->id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
+                <a href="<?php echo base_url(). 'index.php/Medications?id=' . encoding($patient_id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
                         <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
                             <h4 style="font-size:16px; font-weight:600; color:white;">Medications</h4>
                         </div>
@@ -331,7 +331,7 @@
                 </div>
 
                 <div class="col-sm-6 col-lg-2 mb-4">
-                <a href="<?php echo base_url(). 'index.php/lettersAndForm?id=' . encoding($results->id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
+                <a href="<?php echo base_url(). 'index.php/lettersAndForm?id=' . encoding($patient_id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
                         <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
                             <h4 style="font-size:16px; font-weight:600; color:white;">Letters and forms</h4>
                         </div>
@@ -339,7 +339,7 @@
                     </a>
                 </div>
                 <div class="col-sm-6 col-lg-2 mb-4">
-                <a href="<?php echo base_url(). 'index.php/patientPrescription?id=' . encoding($results->id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
+                <a href="<?php echo base_url(). 'index.php/patientPrescription?id=' . encoding($patient_id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
                         <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
                             <h4 style="font-size:16px; font-weight:600; color:white;">Prescriptions</h4>
                         </div>
@@ -347,7 +347,7 @@
                     </a>
                 </div>
                 <div class="col-sm-6 col-lg-2 mb-4">
-                <a href="<?php echo base_url(). 'index.php/labs?id=' . encoding($results->id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
+                <a href="<?php echo base_url(). 'index.php/labs?id=' . encoding($patient_id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
                         <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
                             <h4 style="font-size:16px; font-weight:600; color:white;">Labs</h4>
                         </div>
@@ -355,7 +355,7 @@
                     </a>
                 </div>
                 <div class="col-sm-6 col-lg-2 mb-4">
-                <a href="<?php echo base_url(). 'index.php/patient/consultationInvoice?id=' . encoding($results->id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
+                <a href="<?php echo base_url(). 'index.php/patient/consultationInvoice?id=' . encoding($patient_id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
                         <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
                             <h4 style="font-size:16px; font-weight:600; color:white;">Invoices</h4>
                         </div>
@@ -363,7 +363,7 @@
                     </a>
                 </div>
                 <div class="col-sm-6 col-lg-2 mb-4">
-                <a href="<?php echo base_url(). 'index.php/accountStatement?id=' . encoding($results->id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
+                <a href="<?php echo base_url(). 'index.php/accountStatement?id=' . encoding($patient_id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
                         <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
                             <h4 style="font-size:16px; font-weight:600; color:white;">Account statements</h4>
                         </div>
@@ -372,7 +372,7 @@
                 </div>
                 
                 <div class="col-sm-6 col-lg-2 mb-4">
-                <a href="<?php echo base_url() . 'index.php/patient/communication?id=' . encoding($results->id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
+                <a href="<?php echo base_url() . 'index.php/patient/communication?id=' . encoding($patient_id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
                         <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
                             <h4 style="font-size:16px; font-weight:600; color:white;">Communication</h4>
                         </div>
@@ -380,7 +380,7 @@
                     </a>
                 </div>
                 <div class="col-sm-6 col-lg-2 mb-4">
-                <a href="<?php echo base_url() . 'index.php/patientDocuments?id=' . encoding($results->id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
+                <a href="<?php echo base_url() . 'index.php/patientDocuments?id=' . encoding($patient_id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
                         <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
                             <h4 style="font-size:16px; font-weight:600; color:white;">Documents</h4>
                         </div>
@@ -388,7 +388,7 @@
                     </a>
                 </div>
                 <div class="col-sm-6 col-lg-2 mb-4">
-                <a href="<?php echo base_url() . 'index.php/patient/communication?id=' . encoding($results->id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
+                <a href="<?php echo base_url() . 'index.php/patient/communication?id=' . encoding($patient_id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
                         <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
                             <h4 style="font-size:16px; font-weight:600; color:white;">Logs</h4>
                         </div>
