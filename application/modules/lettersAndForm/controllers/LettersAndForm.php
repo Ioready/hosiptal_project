@@ -365,6 +365,148 @@ class LettersAndForm extends Common_Controller {
     }
 
 
+    function editBookingForm() {
+
+        $this->data['url'] = base_url() . $this->router->fetch_class();
+        $this->data['pageTitle'] = "Add " . $this->title;
+        $this->data['parent'] = $this->router->fetch_class();
+        $this->data['model'] = $this->router->fetch_class();
+        $this->data['formUrlData'] = $this->router->fetch_class() . "/updateBookingForm";
+        $this->data['title'] = $this->title;
+        $this->data['tablePrefix'] = 'vendor_sale_' . $this->_table;
+        $this->data['table'] = $this->_table;
+        $this->data['patient_id'] = decoding($_GET['id']);
+        $this->data['form_id'] = decoding($_GET['form_id']);
+        // print_r($this->data['patient_id']);die;
+        // $option = array('table' => $this->_tables);
+
+        $form_id=  decoding($_GET['form_id']);
+       $id=  decoding($_GET['id']);
+    //    print_r($form_id);die;
+    $option = array(
+        'table' => 'vendor_sale_booking_form',
+        'where' => array('id' => $form_id),
+        'single' => true
+    );
+    // $results_row = $this->common_model->customGet($option);
+
+
+        $this->data['result'] = $this->common_model->customGet($option);
+        // print_r($this->data['list']);die;
+        $this->load->admin_render('view_booking_form', $this->data, 'inner_script');
+                // $this->load->view('booking_form', $this->data, 'inner_script');
+    }
+
+
+
+    public function updateBookingForm() {
+
+        // print_r($this->input->post());die;
+        // $this->form_validation->set_rules('appointment_type', "appointment_type", 'required|trim');
+        // if ($this->form_validation->run() == true) {
+           
+            $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+           
+                $options_data = array(
+                   
+                    'patient_id' => $this->input->post('patient_id'),
+                    'facility_user_id' => $CareUnitID,
+                    'appointment_type' =>$this->input->post('appointment_type'),
+                    'completed_by' => $this->input->post('completed_by'),
+                    'completed_date' => $this->input->post('completed_date'),
+                    'empi_number' => $this->input->post('empi_number'),
+                    'nhs_number' => $this->input->post('nhs_number'),
+                    'nhs_referral' => $this->input->post('nhs_referral'),
+                    'gender' => $this->input->post('gender'),
+                    'title' => $this->input->post('title'),
+                    'first_name' => $this->input->post('first_name'),
+                    'surname' => $this->input->post('surname'),
+                    'dob' => $this->input->post('dob'),
+                    'contact' => $this->input->post('contact'),
+                    'email' => $this->input->post('email'),
+                    'address' => $this->input->post('address'),
+                    'player' => $this->input->post('player'),
+                    'sponsor_details' => $this->input->post('sponsor_details'),
+                    'insurer_information' => $this->input->post('insurer_information'),
+                    'insurer' => $this->input->post('insurer'),
+                    'policy_number' => $this->input->post('policy_number'),
+                    'authorisation_if_known' => $this->input->post('authorisation_if_known'),
+                    'next_of_kin_name' => $this->input->post('next_of_kin_name'),
+                    'next_of_kin_contact' => $this->input->post('next_of_kin_contact'),
+                    'interpreter_needed' => $this->input->post('interpreter_needed'),
+                    'interpreter_language' => $this->input->post('interpreter_language'),
+                    'ethnicity' => $this->input->post('ethnicity'),
+                    'complex_needs' => $this->input->post('complex_needs'),
+                    'details_of_complex_needs' => $this->input->post('details_of_complex_needs'),
+                    'co_morbidities' => $this->input->post('co_morbidities'),
+                    'details_of_co_morbidities' => $this->input->post('details_of_co_morbidities'),
+                    'dietary_requirements' => $this->input->post('dietary_requirements'),
+                    'admitting_consultant' => $this->input->post('admitting_consultant'),
+                    'admission_date' => $this->input->post('admission_date'),
+                    'admission_time' => $this->input->post('admission_time'),
+                    'location' => $this->input->post('location'),
+                    'procedure_date' => $this->input->post('procedure_date'),
+                    'procedure_time' => $this->input->post('procedure_time'),
+                    'surgeon' => $this->input->post('surgeon'),
+                    'surgeon_assistant' => $this->input->post('surgeon_assistant'),
+                    'anaesthetist' => $this->input->post('anaesthetist'),
+                    'referring_gp' => $this->input->post('referring_gp'),
+                    'gp_address' => $this->input->post('gp_address'),
+                    'medical_diagnosis_symptoms' => $this->input->post('medical_diagnosis_symptoms'),
+                    'procedure_description' => $this->input->post('procedure_description'),
+                    'side_of_surgery' => $this->input->post('side_of_surgery'),
+                    'duration' => $this->input->post('duration'),
+                    'type_of_anaesthesia' => $this->input->post('type_of_anaesthesia'),
+                    'length_of_stay' => $this->input->post('length_of_stay'),
+                    'special_requirements_instrumentation' => $this->input->post('special_requirements_instrumentation'),
+                    'relevant_previous_medical_history' => $this->input->post('relevant_previous_medical_history'),
+                    'pcu_required' => $this->input->post('pcu_required'),
+                    'itu_required' => $this->input->post('itu_required'),
+                    'image_intensifier_required' => $this->input->post('image_intensifier_required'),
+                    'tests_investigations_required' => $this->input->post('tests_investigations_required'),
+                    'procedure_urgency_category' => $this->input->post('procedure_urgency_category')
+                );
+
+                $option = array('table' => 'vendor_sale_booking_form', 'data' => $options_data, 'where' => array('id' => $this->input->post('form_id')));
+                if ($this->common_model->customUpdate($option)) {
+
+                $response = array('status' => 1, 'message' => "Successfully updated", 'url' =>base_url($this->router->fetch_class()));
+                } else {
+                    $response = array('status' => 0, 'message' => "Failed to updated");
+                }
+           
+        echo json_encode($response);
+    }
+
+
+    function deleteBookingForm() {
+
+        $this->data['url'] = base_url() . $this->router->fetch_class();
+        $this->data['pageTitle'] = "Add " . $this->title;
+        $this->data['parent'] = $this->router->fetch_class();
+        $this->data['model'] = $this->router->fetch_class();
+        $this->data['formUrlData'] = $this->router->fetch_class() . "/updateBookingForm";
+        $this->data['title'] = $this->title;
+        $this->data['tablePrefix'] = 'vendor_sale_' . $this->_table;
+        $this->data['table'] = $this->_table;
+        $this->data['patient_id'] = decoding($_GET['id']);
+        $this->data['form_id'] = decoding($_GET['form_id']);
+       
+        $form_id=  decoding($_GET['form_id']);
+        $id=  decoding($_GET['id']);
+    
+    $option = array(
+        'table' => 'vendor_sale_booking_form',
+        'where' => array('id' => $form_id),
+    );
+   
+        $this->common_model->customDelete($option);
+       
+        $this->session->set_flashdata('message', 'Deleted Successfully.');
+        redirect('lettersAndForm?id=' . encoding($id));
+       
+    }
+
     /**
      * @method menu_category_add
      * @description add dynamic rows

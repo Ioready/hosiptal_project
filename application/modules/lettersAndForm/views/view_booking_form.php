@@ -191,7 +191,7 @@
                     </a>
                 </div>
                 <div class="col-sm-6 col-lg-2 mb-4">
-                <a href="<?php echo base_url(). 'index.php/patient/consultationInvoice?id=' . encoding($patient_id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
+                <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($patient_id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
                         <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
                             <h4 style="font-size:16px; font-weight:600; color:white;">Invoices</h4>
                         </div>
@@ -285,20 +285,21 @@
             <div class="row">
 
             <input type="hidden" name="patient_id" id="patient_id" value="<?php echo $patient_id;?>">
+            <input type="hidden" name="form_id" id="form_id" value="<?php echo $form_id;?>">
                
                 <div class="col-md-4 mb-3">
                     <label for="name" class="form-label">1. Appointment Type</label>
 
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="appointment_type" name="appointment_type" value="Medical admission">
+                            <input type="checkbox" class="custom-control-input" id="appointment_type" name="appointment_type" value="Medical admission" <?php if (in_array('Medical admission', (array)$result->appointment_type)) echo 'checked'; ?>>
                             <label class="custom-control-label" for="appointment_type">Medical admission</label>
                         </div>
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="appointment_type" value="Surgical admission" name="amSnack">
+                            <input type="checkbox" class="custom-control-input" id="appointment_type" value="Surgical admission" name="appointment_type" <?php if (in_array('Surgical admission', (array)$result->appointment_type)) echo 'checked'; ?>>
                             <label class="custom-control-label" for="appointment_type" >Surgical admission</label>
                         </div>
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="appointment_type" value="Re-admission"  name="appointment_type">
+                            <input type="checkbox" class="custom-control-input" id="appointment_type" value="Re-admission"  name="appointment_type" <?php if (in_array('Re-admission', (array)$result->appointment_type)) echo 'checked'; ?>>
                             <label class="custom-control-label" for="pmSnack">Re-admission</label>
                         </div>
 
@@ -307,11 +308,11 @@
                
                 <div class="col-md-4 mb-3">
                     <label for="completed" class="form-label">2. Completed by</label>
-                    <input type="text" class="form-control" id="completed_by" name="completed_by" placeholder="Enter your Completed by" required>
+                    <input type="text" class="form-control" id="completed_by" name="completed_by" placeholder="Enter your Completed by" value="<?php echo $result->completed_by;?>" required>
                 </div>
                 <div class="col-md-4 mb-3">
                     <label for="date" class="form-label">3. Completed date</label>
-                    <input type="date" class="form-control" id="completed_date" name="completed_date" placeholder="Enter your Completed date" required>
+                    <input type="date" class="form-control" id="completed_date" name="completed_date" placeholder="Enter your Completed date" value="<?php echo $result->completed_date;?>" required>
                 </div>
             </div>
 
@@ -321,24 +322,24 @@
              
                 <div class="col-md-4 mb-3">
                     <label for="empi_number" class="form-label">4. EMPI Number</label>
-                    <input type="text" class="form-control" id="empi_number" name="empi_number" placeholder="Enter your EMPI number" required>
+                    <input type="text" class="form-control" id="empi_number" name="empi_number" placeholder="Enter your EMPI number" value="<?php echo $result->empi_number;?>" required>
                 </div>
               
                 <div class="col-md-4 mb-3">
                     <label for="bookingDate" class="form-label">5. NHS Number</label>
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="nhs_number" name="nhs_number" value="yes">
+                            <input type="checkbox" class="custom-control-input" id="nhs_number" name="nhs_number" value="yes" <?php if (in_array('yes', (array)$result->nhs_number)) echo 'checked'; ?>>
                             <label class="custom-control-label" for="nhs_number">Yes</label>
                         </div>
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="nhs_number" value="no" name="nhs_number">
+                            <input type="checkbox" class="custom-control-input" id="nhs_number" value="no" name="nhs_number" <?php if (in_array('no', (array)$result->nhs_number)) echo 'checked'; ?>>
                             <label class="custom-control-label" for="nhs_number" >No</label>
                         </div>
                         
                 </div>
                 <div class="col-md-4 mb-3">
                     <label for="nhs_referral" class="form-label">6. NHS Referral</label>
-                    <input type="text" class="form-control" id="nhs_referral" name="nhs_referral" required>
+                    <input type="text" class="form-control" id="nhs_referral" name="nhs_referral" value="<?php echo $result->nhs_referral;?>" required>
                 </div>
             </div>
 
@@ -348,15 +349,15 @@
                     <label for="bookingTime" class="form-label">7. Sex</label>
                     
                     <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="gender" name="gender" value="male">
+                            <input type="checkbox" class="custom-control-input" id="gender" name="gender" value="male" <?php if (in_array('male', (array)$result->gender)) echo 'checked'; ?>>
                             <label class="custom-control-label" for="pmMeal">Male</label>
                         </div>
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="gender" value="female" name="gender">
+                            <input type="checkbox" class="custom-control-input" id="gender" value="female" name="gender" <?php if (in_array('female', (array)$result->gender)) echo 'checked'; ?>>
                             <label class="custom-control-label" for="gender" >Female</label>
                         </div>
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="gender" value="gender" name="other">
+                            <input type="checkbox" class="custom-control-input" id="gender" value="gender" name="other" <?php if (in_array('other', (array)$result->gender)) echo 'checked'; ?>>
                             <label class="custom-control-label" for="gender" >Other</label>
                         </div>
 
@@ -364,12 +365,12 @@
                
                 <div class="col-md-4 mb-3">
                     <label for="title" class="form-label">8. Title</label>
-                    <input type="text" class="form-control" id="title" name="title" placeholder="Enter title" required>
+                    <input type="text" class="form-control" id="title" name="title" placeholder="Enter title" value="<?php echo $result->title;?>" required>
                 </div>
 
                 <div class="col-md-4 mb-3">
                     <label for="first_name" class="form-label">9. First name</label>
-                    <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Enter First name" required>
+                    <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Enter First name" value="<?php echo $result->first_name;?>" required>
                 </div>
             </div>
 
@@ -378,12 +379,12 @@
               
                 <div class="col-md-6 mb-3">
                     <label for="surname" class="form-label">10. Surname</label>
-                    <input type="text" class="form-control" id="surname" name="surname" required>
+                    <input type="text" class="form-control" id="surname" name="surname" value="<?php echo $result->surname;?>" required>
                 </div>
                
                 <div class="col-md-6 mb-3">
                     <label for="dob" class="form-label">11. date of birth</label>
-                    <input type="date" class="form-control" id="dob" name="dob" placeholder="Enter number of dob" required>
+                    <input type="date" class="form-control" id="dob" name="dob" placeholder="Enter number of dob" value="<?php echo $result->dob;?>" required>
                 </div>
 
             </div>
@@ -392,12 +393,12 @@
              
                 <div class="col-md-4 mb-3">
                     <label for="dob" class="form-label">12. Contact Number</label>
-                    <input type="number" class="form-control" id="contact" name="contact" placeholder="Enter number of guests" required>
+                    <input type="number" class="form-control" id="contact" name="contact" placeholder="Enter number of guests" value="<?php echo $result->contact;?>" required>
                 </div>
                
                 <div class="col-md-6 mb-3">
                     <label for="email" class="form-label">13. Email</label>
-                    <input type="text" class="form-control" id="email" name="email" placeholder="Enter number of guests" required>
+                    <input type="text" class="form-control" id="email" name="email" placeholder="Enter number of guests" value="<?php echo $result->email;?>" required>
                 </div>
 
                 
@@ -405,29 +406,29 @@
 
             <div class="mb-3">
                 <label for="requests" class="form-label">14. Address</label>
-                <textarea class="form-control" id="address" name="address" rows="3" placeholder="Enter any special requests"></textarea>
+                <textarea class="form-control" id="address" name="address" rows="3" placeholder="Enter any special requests" ><?php echo $result->address;?></textarea>
             </div>
 
             <div class="mb-3">
                 <label for="requests" class="form-label">15. Player</label>
 
                <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="player" name="player" value="self_play">
+                            <input type="checkbox" class="custom-control-input" id="player" name="player" value="self_play" <?php if (in_array('self_play', (array)$result->player)) echo 'checked'; ?>>
                             <label class="custom-control-label" for="player">Self Pay</label>
                         </div>
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="player" value="insurer" name="player">
+                            <input type="checkbox" class="custom-control-input" id="player" value="insurer" name="player" <?php if (in_array('insurer', (array)$result->player)) echo 'checked'; ?>>
                             <label class="custom-control-label" for="player" >Insurer</label>
                         </div>
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="player" value="sponsor" name="player">
+                            <input type="checkbox" class="custom-control-input" id="player" value="sponsor" name="player" <?php if (in_array('sponsor', (array)$result->player)) echo 'checked'; ?>>
                             <label class="custom-control-label" for="player" >Sponsor</label>
                         </div>
                 </div>
 
                 <div class="mb-3">
                 <label for="requests" class="form-label">16. Sponsor details</label>
-                <textarea class="form-control" id="sponsor_details" name="sponsor_details" rows="3" placeholder="Enter sponsor details"></textarea>
+                <textarea class="form-control" id="sponsor_details" name="sponsor_details" rows="3" placeholder="Enter sponsor details"><?php echo $result->sponsor_details;?></textarea>
                 </div>
                 <div class="mb-3">
                     <label for="requests" class="form-label">17. Insurer information from patient relationships</label>
@@ -435,8 +436,9 @@
                     <select name="insurer_information" id="insurer_information" class="form-control"> 
 
                     <option value="">select</option>
-                    <option value="insurer_information">insurer_information</option>
-                    </select>
+                    <option value="insurer_information" <?php if ($result->insurer_information == 'insurer_information') echo 'selected'; ?>>insurer_information</option>
+
+                </select>
                 </div>
 
 
@@ -444,17 +446,17 @@
              
                     <div class="col-md-4 mb-3">
                         <label for="insurer" class="form-label">18. insurer</label>
-                        <input type="text" class="form-control" id="insurer" name="insurer" required>
+                        <input type="text" class="form-control" id="insurer" name="insurer" value="<?php echo $result->insurer;?>" required>
                     </div>
                   
                     <div class="col-md-4 mb-3">
                         <label for="policy_number" class="form-label">19. Policy number/Quote reference</label>
-                        <input type="text" class="form-control" id="policy_number" name="policy_number" placeholder="Enter number of guests" required>
+                        <input type="text" class="form-control" id="policy_number" name="policy_number" placeholder="Enter number of guests" value="<?php echo $result->policy_number;?>" required>
                     </div>
 
                     <div class="col-md-4 mb-3">
                         <label for="authorisation_if_known" class="form-label">20. Authorisation, if known</label>
-                        <input type="text" class="form-control" id="authorisation_if_known" name="authorisation_if_known" placeholder="Enter number of guests" required>
+                        <input type="text" class="form-control" id="authorisation_if_known" name="authorisation_if_known" placeholder="Enter number of guests" value="<?php echo $result->authorisation_if_known;?>" required>
                     </div>
                 </div>
 
@@ -462,12 +464,12 @@
                 
                     <div class="col-md-6 mb-3">
                         <label for="next_of_kin_name" class="form-label">21. Next of kin name</label>
-                        <input type="text" class="form-control" id="next_of_kin_name" name="next_of_kin_name" required>
+                        <input type="text" class="form-control" id="next_of_kin_name" name="next_of_kin_name" value="<?php echo $result->next_of_kin_name;?>" required>
                     </div>
                     
                     <div class="col-md-6 mb-3">
                         <label for="next_of_kin_contact" class="form-label">22. Next of kin contact</label>
-                        <input type="text" class="form-control" id="next_of_kin_contact" name="next_of_kin_contact" placeholder="Enter number of guests" required>
+                        <input type="text" class="form-control" id="next_of_kin_contact" name="next_of_kin_contact" placeholder="Enter number of guests" value="<?php echo $result->next_of_kin_name;?>" required>
                     </div>
                 </div>
 
@@ -477,11 +479,11 @@
                         <label for="bookingTime" class="form-label">23. Interpreter Needed</label>
                         
                         <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="interpreter_needed" name="interpreter_needed" value="yes">
+                                <input type="checkbox" class="custom-control-input" id="interpreter_needed" name="interpreter_needed" value="yes" <?php if (in_array('yes', (array)$result->interpreter_needed)) echo 'checked'; ?>>
                                 <label class="custom-control-label" for="interpreter_needed">Yes</label>
                             </div>
                             <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="interpreter_needed" value="no" name="interpreter_needed">
+                                <input type="checkbox" class="custom-control-input" id="interpreter_needed" value="no" name="interpreter_needed" <?php if (in_array('no', (array)$result->interpreter_needed)) echo 'checked'; ?>>
                                 <label class="custom-control-label" for="interpreter_needed" >No</label>
                             </div>
                             
@@ -490,13 +492,13 @@
                 
                     <div class="col-md-6 mb-3">
                         <label for="guests" class="form-label">24. interpreter Language</label>
-                        <input type="text" class="form-control" id="interpreter_language" name="interpreter_language" placeholder="Enter number of guests" required>
+                        <input type="text" class="form-control" id="interpreter_language" name="interpreter_language" placeholder="Enter number of guests" value="<?php echo $result->interpreter_language;?>" required>
                     </div>
                 </div>
 
             <div class="mb-3">
                 <label for="requests" class="form-label">25. Ethnicity</label>
-                <textarea class="form-control" id="ethnicity" name="ethnicity" rows="3" placeholder="Enter any special requests"></textarea>
+                <textarea class="form-control" id="ethnicity" name="ethnicity" rows="3" placeholder="Enter any special requests"><?php echo $result->ethnicity;?></textarea>
             </div>
 
                 <div class="row">
@@ -504,18 +506,18 @@
                         <label for="bookingTime" class="form-label">26. Complex Needs</label>
                         
                         <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="complex_needs" name="complex_needs" value="yes">
+                                <input type="checkbox" class="custom-control-input" id="complex_needs" name="complex_needs" value="yes" <?php if (in_array('yes', (array)$result->complex_needs)) echo 'checked'; ?>>
                                 <label class="custom-control-label" for="complex_needs">Yes</label>
                             </div>
                             <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="complex_needs" value="no" name="complex_needs">
+                                <input type="checkbox" class="custom-control-input" id="complex_needs" value="no" name="complex_needs" <?php if (in_array('no', (array)$result->complex_needs)) echo 'checked'; ?>>
                                 <label class="custom-control-label" for="amSnack" >No</label>
                             </div>
                     </div>
                 
                     <div class="col-md-6 mb-3">
                         <label for="guests" class="form-label">27. Details Of Complex Needs</label>
-                        <input type="text" class="form-control" id="details_of_complex_needs" name="details_of_complex_needs" placeholder="Enter number of guests" required>
+                        <input type="text" class="form-control" id="details_of_complex_needs" name="details_of_complex_needs" placeholder="Enter number of guests" value="<?php echo $result->details_of_complex_needs;?>" required>
                     </div>
                 </div>
 
@@ -525,41 +527,41 @@
                         <label for="bookingTime" class="form-label">28. Co-Morbidities</label>
                         
                         <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="co_morbidities" name="co_morbidities" value="yes" >
+                                <input type="checkbox" class="custom-control-input" id="co_morbidities" name="co_morbidities" value="yes" <?php if (in_array('yes', (array)$result->co_morbidities)) echo 'checked'; ?>>
                                 <label class="custom-control-label" for="pmMeal">Yes</label>
                             </div>
                             <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="co_morbidities" value="no" name="co_morbidities">
+                                <input type="checkbox" class="custom-control-input" id="co_morbidities" value="no" name="co_morbidities" <?php if (in_array('no', (array)$result->co_morbidities)) echo 'checked'; ?>>
                                 <label class="custom-control-label" for="co_morbidities" >No</label>
                             </div>
                     </div>
                 
                     <div class="col-md-6 mb-3">
                         <label for="details_of_co_morbidities" class="form-label">29. Details Of Co-Morbidities</label>
-                        <input type="text" class="form-control" id="details_of_co_morbidities" name="details_of_co_morbidities" placeholder="Enter number of details of co-morbidities" required>
+                        <input type="text" class="form-control" id="details_of_co_morbidities" name="details_of_co_morbidities" placeholder="Enter number of details of co-morbidities" value="<?php echo $result->details_of_co_morbidities;?>" required>
                     </div>
                 </div>
 
                 <div class="mb-3">
                     <label for="requests" class="form-label">30. Dietary requirements</label>
-                    <textarea class="form-control" id="dietary_requirements" name="dietary_requirements" rows="3" placeholder="Enter any special requests"></textarea>
+                    <textarea class="form-control" id="dietary_requirements" name="dietary_requirements" rows="3" placeholder="Enter any special requests"><?php echo $result->dietary_requirements;?></textarea>
                 </div>
 
                 <div class="row">
                
                     <div class="col-md-4 mb-3">
                         <label for="admitting_consultant" class="form-label">31. Admitting Consultant</label>
-                        <input type="text" class="form-control" id="admitting_consultant" name="admitting_consultant" required>
+                        <input type="text" class="form-control" id="admitting_consultant" name="admitting_consultant" value="<?php echo $result->admitting_consultant;?>" required>
                     </div>
                     
                     <div class="col-md-4 mb-3">
                         <label for="guests" class="form-label">32. Admission Date</label>
-                        <input type="date" class="form-control" id="admission_date" name="admission_date" placeholder="Enter number of guests" required>
+                        <input type="date" class="form-control" id="admission_date" name="admission_date" placeholder="Enter number of guests" value="<?php echo $result->admission_date;?>" required>
                     </div>
 
                     <div class="col-md-4 mb-3">
                         <label for="admission_time" class="form-label">33. Admission Time</label>
-                        <input type="time" class="form-control" id="admission_time" name="admission_time" placeholder="Enter number of guests" required>
+                        <input type="time" class="form-control" id="admission_time" name="admission_time" placeholder="Enter number of guests" value="<?php echo $result->admission_time;?>" required>
                     </div>
                 </div>
 
@@ -568,16 +570,16 @@
                     <div class="col-md-4 mb-3">
                         <label for="bookingTime" class="form-label">34. Location</label>
                         <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="location" name="location" value="Theatre">
+                                <input type="checkbox" class="custom-control-input" id="location" name="location" value="Theatre" <?php if (in_array('Theatre', (array)$result->location)) echo 'checked'; ?>>
                                 <label class="custom-control-label" for="location">Theatre</label>
                         </div>
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="location" value="Cath Lab" name="location">
+                            <input type="checkbox" class="custom-control-input" id="location" value="Cath Lab" name="location" <?php if (in_array('Cath Lab', (array)$result->location)) echo 'checked'; ?>>
                             <label class="custom-control-label" for="amSnack" >Cath Lab</label>
                         </div>
 
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="location" value="MPU" name="location">
+                            <input type="checkbox" class="custom-control-input" id="location" value="MPU" name="location" <?php if (in_array('MPU', (array)$result->location)) echo 'checked'; ?>>
                             <label class="custom-control-label" for="amSnack" >MPU</label>
                         </div>
 
@@ -585,12 +587,12 @@
                     
                     <div class="col-md-4 mb-3">
                         <label for="guests" class="form-label">35. Procedure Date</label>
-                        <input type="date" class="form-control" id="procedure_date" name="procedure_date" placeholder="Enter Procedure Date" required>
+                        <input type="date" class="form-control" id="procedure_date" name="procedure_date" placeholder="Enter Procedure Date" value="<?php echo $result->procedure_date;?>" required>
                     </div>
 
                     <div class="col-md-4 mb-3">
                         <label for="guests" class="form-label">36. Procedure Time</label>
-                        <input type="time" class="form-control" id="procedure_time" name="procedure_time" placeholder="Enter Procedure Time" required>
+                        <input type="time" class="form-control" id="procedure_time" name="procedure_time" placeholder="Enter Procedure Time" value="<?php echo $result->procedure_time;?>" required>
                     </div>
                 </div>
 
@@ -600,30 +602,30 @@
               
                     <div class="col-md-4 mb-3">
                         <label for="bookingTime" class="form-label">37. Surgeon</label>
-                        <input type="text" class="form-control" id="surgeon" name="surgeon" placeholder="Enter Surgeon" required>
+                        <input type="text" class="form-control" id="surgeon" name="surgeon" placeholder="Enter Surgeon" value="<?php echo $result->surgeon;?>" required>
 
                     </div>
                    
                     <div class="col-md-4 mb-3">
                         <label for="guests" class="form-label">38. Surgeon Assistant</label>
-                        <input type="text" class="form-control" id="surgeon_assistant" name="surgeon_assistant" placeholder="Enter Surgeon Assistant" required>
+                        <input type="text" class="form-control" id="surgeon_assistant" name="surgeon_assistant" placeholder="Enter Surgeon Assistant" value="<?php echo $result->surgeon_assistant;?>" required>
                     </div>
 
                     <div class="col-md-4 mb-3">
                         <label for="guests" class="form-label">39. Anaesthetist</label>
-                        <input type="text" class="form-control" id="anaesthetist" name="anaesthetist" placeholder="Enter Anaesthetist" required>
+                        <input type="text" class="form-control" id="anaesthetist" name="anaesthetist" placeholder="Enter Anaesthetist" value="<?php echo $result->anaesthetist;?>" required>
                     </div>
                 </div>
 
 
                 <div class="mb-3">
                     <label for="requests" class="form-label">40. Referring GP</label>
-                    <textarea class="form-control" id="referring_gp" name="referring_gp" rows="3" placeholder="Enter Referring GP"></textarea>
+                    <textarea class="form-control" id="referring_gp" name="referring_gp" rows="3" placeholder="Enter Referring GP" value="<?php echo $result->referring_gp;?>"></textarea>
                 </div>
 
                 <div class="mb-3">
                     <label for="requests" class="form-label">41. GP Address</label>
-                    <textarea class="form-control" id="gp_address" name="gp_address" rows="3" placeholder="Enter GP Address"></textarea>
+                    <textarea class="form-control" id="gp_address" name="gp_address" rows="3" placeholder="Enter GP Address" ><?php echo $result->gp_address;?></textarea>
                 </div>
 
 
@@ -631,20 +633,20 @@
               
                     <div class="col-md-6 mb-3">
                         <label for="bookingTime" class="form-label">42. Medical Diagnosis/Symptoms</label>
-                        <input type="text" class="form-control" id="medical_diagnosis_symptoms" name="medical_diagnosis_symptoms" placeholder="Enter number of guests" required>
+                        <input type="text" class="form-control" id="medical_diagnosis_symptoms" name="medical_diagnosis_symptoms" placeholder="Enter number of guests" value="<?php echo $result->medical_diagnosis_symptoms;?>" required>
 
                     </div>
                     
                     <div class="col-md-6 mb-3">
                         <label for="guests" class="form-label">43. Procedure Description</label>
                         <span>Please list in order of Major to minor</span>
-                        <input type="text" class="form-control" id="procedure_description" name="procedure_description" placeholder="Enter Procedure Description" required>
+                        <input type="text" class="form-control" id="procedure_description" name="procedure_description" placeholder="Enter Procedure Description" value="<?php echo $result->procedure_description;?>" required>
                     </div>
 
                 </div>
 
 
-                <div class="row">
+                <!-- <div class="row">
                 
                     <div class="col-md-12 mb-3">
                         <label for="bookingTime" class="form-label">44. Side Of Surgery</label>
@@ -663,11 +665,38 @@
                         </div>
 
                     </div>
-                </div>
+                </div> -->
+
+                <div class="row">
+    <div class="col-md-12 mb-3">
+        <label for="bookingTime" class="form-label">44. Side Of Surgery</label>
+        
+        <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="side_of_surgery_left" name="side_of_surgery" value="left" 
+                <?php if (in_array('left', (array)$result->side_of_surgery)) echo 'checked'; ?>>
+            <label class="custom-control-label" for="side_of_surgery_left">Left</label>
+        </div>
+        
+        <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="side_of_surgery_right" name="side_of_surgery" value="right" 
+                <?php if (in_array('right', (array)$result->side_of_surgery)) echo 'checked'; ?>>
+            <label class="custom-control-label" for="side_of_surgery_right">Right</label>
+        </div>
+
+        <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="side_of_surgery_bilateral" name="side_of_surgery" value="bilateral" 
+                <?php if (in_array('bilateral', (array)$result->side_of_surgery)) echo 'checked'; ?>>
+            <label class="custom-control-label" for="side_of_surgery_bilateral">Bilateral</label>
+        </div>
+
+    </div>
+</div>
+
+
 
                 <div class="mb-3">
                     <label for="requests" class="form-label">45. Duration</label>
-                    <textarea class="form-control" id="duration" name="duration" rows="3" placeholder="Enter Duration"></textarea>
+                    <textarea class="form-control" id="duration" name="duration" rows="3" placeholder="Enter Duration"><?php echo $result->duration;?></textarea>
                 </div>
 
                 <div class="row">
@@ -675,21 +704,21 @@
                     <div class="col-md-12 mb-3">
                         <label for="bookingTime" class="form-label">46. Type Of Anaesthesia</label>
                         <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="type_of_anaesthesia" name="type_of_anaesthesia" value="General">
+                                <input type="checkbox" class="custom-control-input" id="type_of_anaesthesia" name="type_of_anaesthesia" value="General" <?php if (in_array('General', (array)$result->type_of_anaesthesia)) echo 'checked'; ?>>
                                 <label class="custom-control-label" for="pmMeal">General</label>
                         </div>
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="type_of_anaesthesia" value="Local" name="type_of_anaesthesia">
+                            <input type="checkbox" class="custom-control-input" id="type_of_anaesthesia" value="Local" name="type_of_anaesthesia" <?php if (in_array('Local', (array)$result->type_of_anaesthesia)) echo 'checked'; ?>>
                             <label class="custom-control-label" for="amSnack" >Local</label>
                         </div>
 
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="type_of_anaesthesia" value="Regional" name="type_of_anaesthesia">
+                            <input type="checkbox" class="custom-control-input" id="type_of_anaesthesia" value="Regional" name="type_of_anaesthesia" <?php if (in_array('Regional', (array)$result->type_of_anaesthesia)) echo 'checked'; ?>>
                             <label class="custom-control-label" for="amSnack" >Regional</label>
                         </div>
 
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="type_of_anaesthesia" value="Sedation" name="type_of_anaesthesia">
+                            <input type="checkbox" class="custom-control-input" id="type_of_anaesthesia" value="Sedation" name="type_of_anaesthesia" <?php if (in_array('Sedation', (array)$result->type_of_anaesthesia)) echo 'checked'; ?>>
                             <label class="custom-control-label" for="amSnack" >Sedation</label>
                         </div>
 
@@ -698,17 +727,17 @@
 
                 <div class="mb-3">
                     <label for="requests" class="form-label">47. Length of Stay</label>
-                    <textarea class="form-control" id="length_of_stay" name="length_of_stay" rows="3" placeholder="Enter Length of Stay"></textarea>
+                    <textarea class="form-control" id="length_of_stay" name="length_of_stay" rows="3" placeholder="Enter Length of Stay"><?php echo $result->length_of_stay;?></textarea>
                 </div>
 
                 <div class="mb-3">
                     <label for="requests" class="form-label">48. Special Requirements/Instrumentation for theatres</label>
-                    <textarea class="form-control" id="special_requirements_instrumentation" name="special_requirements_instrumentation" rows="3" cols="8" placeholder="Enter any special requests"></textarea>
+                    <textarea class="form-control" id="special_requirements_instrumentation" name="special_requirements_instrumentation" rows="3" cols="8" placeholder="Enter any special requests"><?php echo $result->special_requirements_instrumentation;?></textarea>
                 </div>
 
                 <div class="mb-3">
                     <label for="requests" class="form-label">49. Relevant Previous Medical History</label>
-                    <textarea class="form-control" id="relevant_previous_medical_history" name="relevant_previous_medical_history" rows="3" cols="8" placeholder="Enter Relevant Previous Medical History"></textarea>
+                    <textarea class="form-control" id="relevant_previous_medical_history" name="relevant_previous_medical_history" rows="3" cols="8" placeholder="Enter Relevant Previous Medical History"><?php echo $result->relevant_previous_medical_history;?></textarea>
                 </div>
 
 
@@ -717,7 +746,7 @@
                     <div class="col-md-12 mb-3">
                         <label for="bookingTime" class="form-label">50. PCU Required</label>
                         <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="pcu_required" name="pcu_required" value="yes">
+                                <input type="checkbox" class="custom-control-input" id="pcu_required" name="pcu_required" value="yes" <?php if (in_array('yes', (array)$result->pcu_required)) echo 'checked'; ?>>
                                 <label class="custom-control-label" for="pmMeal">Yes</label>
                         </div>
                         
@@ -729,7 +758,7 @@
                     <div class="col-md-12 mb-3">
                         <label for="bookingTime" class="form-label">51. ITU Required</label>
                         <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="itu_required" name="itu_required" value="yes">
+                                <input type="checkbox" class="custom-control-input" id="itu_required" name="itu_required" value="yes" <?php if (in_array('yes', (array)$result->itu_required)) echo 'checked'; ?>>
                                 <label class="custom-control-label" for="pmMeal">Yes</label>
                         </div>
                         
@@ -741,7 +770,7 @@
                     <div class="col-md-12 mb-3">
                         <label for="bookingTime" class="form-label">52. Image Intensifier Required</label>
                         <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="image_intensifier_required" name="image_intensifier_required" value="yes">
+                                <input type="checkbox" class="custom-control-input" id="image_intensifier_required" name="image_intensifier_required" value="yes" <?php if (in_array('yes', (array)$result->image_intensifier_required)) echo 'checked'; ?>>
                                 <label class="custom-control-label" for="image_intensifier_required">Yes</label>
                         </div>
                         
@@ -753,7 +782,7 @@
                     <div class="col-md-12 mb-3">
                         <label for="bookingTime" class="form-label">53. Tests/Investigations Required</label>
                         <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="tests_investigations_required" name="tests_investigations_required" value="yes">
+                                <input type="checkbox" class="custom-control-input" id="tests_investigations_required" name="tests_investigations_required" value="yes" <?php if (in_array('yes', (array)$result->tests_investigations_required)) echo 'checked'; ?>>
                                 <label class="custom-control-label" for="pmMeal">Yes</label>
                         </div>
                         
@@ -763,7 +792,7 @@
                 
                 <div class="mb-3">
                     <label for="requests" class="form-label">54. Procedure Urgency Category</label>
-                    <textarea class="form-control" id="procedure_urgency_category" name="procedure_urgency_category" rows="3" cols="8" placeholder="Enter any special requests"></textarea>
+                    <textarea class="form-control" id="procedure_urgency_category" name="procedure_urgency_category" rows="3" cols="8" placeholder="Enter any special requests"><?php echo $result->procedure_urgency_category;?></textarea>
                 </div>
 
             <div class="text-center">

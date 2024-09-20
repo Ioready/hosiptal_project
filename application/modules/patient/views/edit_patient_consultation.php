@@ -1,17 +1,7 @@
-<!-- Page content -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.js"></script>
+
 <style>
-   .save-btn{
-    /* font-weight:700; */
-    /* color:white; */
-    /* font-size: 1.5rem; */
-    /* padding: 0.6rem 2.25rem !important; */
-    background-color: #a7afb7 !important;
-    background:none;
-}
-.save-btn:hover{
-    color:white;
-    background:#00008B !important;
-}
+
 .btn {
     margin: 1px 0;
     background-color: #b9adad;
@@ -29,14 +19,6 @@
 .modal-body1 {
     padding: 0px 15px;
 }
-.modal-appointment {
-    padding-left: 15px;
-}
-.appointment-status {
-    font-weight: 900 !important;
-    font-size: 14px;
-}
-
 .sendmail{
     float: right;
     margin: -41px 0;
@@ -124,201 +106,36 @@
     color: #fff;
 }
 </style>
+
 <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            padding: 20px;
-        }
-
-        .container {
-            /* display: flex;
-            max-width: 1200px;
-            margin: auto;
-            background-color: white;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); */
-
-            display: flex;
-            max-width: 1100px;
-            margin: auto;
-            background-color: white;
-        }
-    /* border-radius: 10px; */
-    /* box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-        }
-
-        /* Left side list */
-        .left-panel {
-            flex: 1;
-            border-right: 1px solid #e5e5e5;
-            padding: 20px;
-        }
-
-        .left-panel .header {
-            margin-bottom: 20px;
-        }
-
-        .note-list {
-            list-style-type: none;
-        }
-
-        .note-list li {
-            padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .note-list li:hover {
-            background-color: #f0f0f0;
-        }
-
-        .note-list li.active {
-            background-color: #d1f5e0;
-        }
-
-        .note-title {
-            font-weight: bold;
-        }
-
-        .note-meta {
-            font-size: 12px;
-            color: #777;
-        }
-
-        .consultation-note {
-            font-size: 12px;
-            color: #00897b;
-            font-weight: bold;
-            text-decoration: underline;
-            cursor: pointer;
-        }
-
-        /* Right side details */
-        .right-panel {
-            flex: 2;
-            padding: 20px;
-        }
-
-        .right-panel .note-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .right-panel .note-details {
-            background-color: #f9f9f9;
-            border-radius: 5px;
-            padding: 20px;
-        }
-
-        .note-heading {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .note-meta-details {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 10px;
-        }
-
-        .problem-heading {
-            font-size: 16px;
-            font-weight: bold;
-            margin-top: 10px;
-            margin-bottom: 5px;
-        }
-
-        .note-content {
-            font-size: 14px;
-            color: #333;
-        }
-
-        /* Action buttons */
-        .actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        .actions button {
-            padding: 10px 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: #f5f5f5;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .actions button:hover {
-            background-color: #e0e0e0;
-        }
-
-        .display-buttons {
-            display: flex;
-            justify-content: flex-end;
-            margin-bottom: 10px;
-        }
-
-        .display-buttons button {
-            padding: 10px;
-            margin-left: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: #f5f5f5;
-            cursor: pointer;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-            }
-
-            .left-panel {
-                border-right: none;
-                border-bottom: 1px solid #e5e5e5;
-                padding-bottom: 10px;
-            }
-
-            .right-panel {
-                padding-top: 10px;
-            }
-        }
-
-        .actions a {
-            padding: 10px 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: #f5f5f5;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            color: black;
-        }
-    </style>
+    .save-btn{
+    font-weight:700;
+    font-size: 1.5rem;
+    padding: 0.6rem 2.25rem;
+    background:#337ab7;
+}
+.save-btn:hover{
+    /* background-color:#00008B !important; */
+    background:#00008B !important;
+}
+.folder-name{
+    font-size: medium;
+    font-weight: 900;
+}
+</style>
+<!-- Page content -->
 <div id="page-content">
-    <!-- Datatables Header -->
+    <!-- Breadcrumbs -->
     <ul class="breadcrumb breadcrumb-top">
-        <li>
-            <a href="<?php echo site_url('pwfpanel'); ?>">Home</a>
-        </li>
-        <li>
-            <a href="<?php echo site_url($model); ?>"><?php echo $title; ?></a>
-        </li>
+        <li><a href="<?php echo site_url('pwfpanel');?>">Home</a></li>
+        <li><a href="<?php echo site_url('patient/consultationTemplates');?>">Consultation Template</a></li>
     </ul>
-   
-    <!-- END Quick Stats -->
-    <?php if ($this->ion_auth->is_admin() or $this->ion_auth->is_subAdmin() or $this->ion_auth->is_facilityManager()) { ?>
-        <div class="block full">
+
+    <!-- Consultation Template Panel -->
+    <div class="block full">
+
+
+    <div class="block full">
 
 
         <div class="row text-center">
@@ -559,235 +376,68 @@
                 </div>
             </div>
         </div>
-    </div> 
-</div>
+        <br><br>
+    </div>
 
-    <?php } ?>
-    <!-- Datatables Content -->
-    <!-- Datatables Content -->
-    <div class="block full">
 
-          <!-- <div class="block-title">
-            <?php if ($this->ion_auth->is_subAdmin()) { ?>
-                <h2>
-                <input type="text" name="patient_id" id="patient_id" value="<?php echo $patient_id;?>">
-                    <a href="<?php echo base_url().'index.php/' . $this->router->fetch_class(); ?>/open_consult" class="btn btn-sm btn-primary" style="background: #337ab7">
-                        <i class="gi gi-circle_plus"></i> <?php echo 'New'; ?>
-                    </a></h2>
-            <?php }else if($this->ion_auth->is_facilityManager()){ ?>
-                    <h2>
-                    <input type="hidden" name="patient_id" id="patient_id" value="<?php echo $patient_id;?>">
-                    <a href="<?php echo base_url() . $this->router->fetch_class(); ?>/open_consult?id=<?php echo encoding($patient_id);?>" class="btn btn-sm btn-primary" style="background: #337ab7">
-                        <i class="gi gi-circle_plus"></i> <?php echo 'New'; ?>
-                    </a></h2>
-                <?php } ?>
-          </div> -->
 
-        
-    
-
-        <div class="container">
-    <!-- Left panel: List of consultation notes -->
-    <div class="left-panel">
-        <div class="header">
 
         <div class="block-title">
-            <?php if ($this->ion_auth->is_subAdmin()) { ?>
-                <h2>
-                <input type="text" name="patient_id" id="patient_id" value="<?php echo $patient_id;?>">
-                    <a href="<?php echo base_url().'index.php/' . $this->router->fetch_class(); ?>/open_consult" class="btn btn-sm btn-primary" style="background: #337ab7">
-                        <i class="gi gi-circle_plus"></i> <?php echo 'New'; ?>
-                    </a></h2>
-            <?php }else if($this->ion_auth->is_facilityManager()){ ?>
-                    <h2>
-                    <input type="hidden" name="patient_id" id="patient_id" value="<?php echo $patient_id;?>">
-                    <a href="<?php echo base_url() . $this->router->fetch_class(); ?>/open_consult?id=<?php echo encoding($patient_id);?>" class="btn btn-sm btn-primary" style="background: #337ab7">
-                        <i class="gi gi-circle_plus"></i> <?php echo 'New'; ?>
-                    </a></h2>
-                <?php } ?>
-          </div>
-
-            <!-- <button style="background-color: #007B83; color: white; padding: 10px; border: none; border-radius: 5px;">New</button> -->
+            <h2><strong>Consultation Template</strong> Panel</h2>
         </div>
-        <ul class="note-list">
 
-        <?php
-                      
-                        $rowCount = 0;
-                        foreach ($list as $rows) :
-                            $rowCount++;
-                        ?>
-            <li class="active">
-                <div class="note-title" onclick="viewConsultationDetails(<?php echo $rows->id; ?>)"><?php echo $rows->first_name. ' '. $rows->last_name; ?></div>
-                <div class="note-meta"><?php echo $rows->create_date; ?></div>
-                <div class="consultation-note"><?php echo $rows->type; ?> <?php echo $rows->comment; ?></div>
-            </li>
-
-            <!-- <li>
-                <div class="note-title">Kirti Moholkar</div>
-                <div class="note-meta">30 Jul 2024, 20:39</div>
-                <div class="consultation-note">Consultation note</div>
-            </li> -->
-            <!-- <li>
-                <div class="note-title">Kirti Moholkar</div>
-                <div class="note-meta">30 Jul 2024, 20:38</div>
-                <div class="consultation-note">Consultation note</div>
-            </li>
-            <li>
-                <div class="note-title">Kirti Moholkar</div>
-                <div class="note-meta">30 Jul 2024, 20:36</div>
-                <div class="consultation-note">Consultation note</div>
-            </li>
-            <li>
-                <div class="note-title">Kirti Moholkar</div>
-                <div class="note-meta">21 Jun 2024, 15:50</div>
-                <div class="consultation-note">Knee pain</div>
-            </li> -->
-            <?php
-                        endforeach;
-                    
-                    ?>
-        </ul>
+        <div class="form-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Consultation Type & Date -->
+                    <div class="form-group row">
+                        <div class="col-md-4">
+                            <label for="consultationType">Consultation Type</label>
+                            <select name="consultationType" id="consultationType" class="form-control">
+                                <option value="">Doctor Consultation</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="consultationDate">Date</label>
+                            <input type="date" name="date" id="consultationDate" class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- Right panel: Details of the selected consultation -->
-    <div class="right-panel">
-        <div class="display-buttons">
-            <button>Display all</button>
-            <button>Print all</button>
-        </div>
-        <!-- <div id="consultation_details"></div> -->
+    <!-- Form Submission Section -->
+    <div class="block full">
+        <!-- <form id="addFormAjax" method="post" action="<?php echo base_url($formUrlConsult) ?>" enctype="multipart/form-data">
+            <div class="alert alert-danger" id="error-box" style="display: none"></div>
+             -->
 
-        <div class="note-header">
-            <div>
-            
-                <div class="note-meta-details" id="consultation_details">Kirti Moholkar, 30 Jul 2024, 20:46</div>
-                <div class="note-heading">Nurse consultation</div>
-                <div class="consultation-note">Consultation note</div>
-            </div>
-            <div class="actions" id="edit_consultation_id" style="margin-left: 164px;">
-                <!-- <a href = "<?php echo site_url('patient/editConsultation'); ?>" >Edit</a>
-                <button onclick="sendEmail()">Email</button>
-                <button onclick="printConsultation()">Print</button> -->
-                <!-- <button onclick="sendEmail()">Email</button> -->
-                <!-- <button type="button" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" >Email</button>
-                <button onclick="printConsultation()">Print</button> -->
+            <div class="form-body">
+                <div class="row">
+                    <!-- Buttons for Form Sections -->
+                    <div class="col-md-8" >
+                        <div class="btn-group mb-4" role="group">
+                            <button type="button" id="btn-complaint" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Presenting Complaint</button>
+                            <button type="button" id="btn-problem" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Problem Heading</button>
+                            <button type="button" id="btn-exam" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Examination</button>
+                            <button type="button" id="btn-allergy" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Allergy</button>
+                            <button type="button" id="btn-medical-history" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Medical History</button>
+                            <button type="button" id="btn-family-history" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Family History</button>
+                            <button type="button" id="btn-social" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Social</button>
+                            <button type="button" id="btn-medication" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Medication</button>
+                            <button type="button" id="btn-product" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Product</button>
+                            <button type="button" id="btn-comment" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Comment</button>
+                        </div>
 
-            </div>
-            <div class="actions">
-            <button type="button" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" >Email</button>
-                <button onclick="printConsultation()">Print</button>
-            </div>
-
-        </div>
-
-        <div class="note-details">
-            <div class="problem-heading">Free notes</div>
-            <div class="note-content">Headache site, Since: 01/07/2024, Acute, Minor. The patient was happy and did want an MRI.</div>
-        </div>
-
-
-    </div>
-</div>
-    <!-- END Datatables Content -->
-</div>
-<!-- END Page Content -->
-<div id="form-modal-box"></div>
-
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-      <button type="button" class="close" style="margin-top:-40px;" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <h3 class="modal-title fw-bold" style="text-align:center;" id="exampleModalLabel">Mail Complete Information of Patient </h3>        
-      </div>
-      <div class="modal-body1">
-        <form  method="post" id="contact-form" data-toggle="validator" role="form" action="" enctype="multipart/form-data">
-       
-
-         </br>
-          <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Mail Id:</label>
-            <input id="to_email" type="email" name="to_email" multiple required="required" data-error="Valid email is required." placeholder="To Email Address" class="form-control" >
-            <div class="help-block with-errors"></div>
-
-           <div class="modal_popup">
-           <input  name="id"  id='name' value="<?php echo $results->patient_id; ?>" /> 
-           <?php if(empty($results->room_number)){ ?>
-           <input  name="room_number"  id='room_number' value="NULL" /> 
-           <?php   } else{ ?>
-           <input  name="room_number"  id='room_number' value="<?php echo $results->room_number; ?>" /> 
-            <?php } ?>
-           <input  name="care_unit_name"  id='care_unit_name' value="<?php echo ucwords($results->care_unit_name); ?>" /> 
-           <input  name="doctor_name"  id='doctor_name' value="<?php echo ucwords($results->doctor_name); ?>" /> 
-           <input  name="symptom_onset"  id='symptom_onset' value="<?php echo $results->symptom_onset; ?>" /> 
-           <input  name="culture_source_name"  id='culture_source_name' value="<?php echo $results->culture_source_name; ?>" /> 
-           <input  name="organism_name"  id='organism_name' value="<?php echo $results->organism_name; ?>" /> 
-           <input  name="precautions_name"  id='precautions_name' value="<?php echo $results->precautions_name; ?>" /> 
-           <input  name="md_steward"  id='md_steward' value="<?php echo ucwords($results->md_steward); ?>" /> 
-           <input  name="date_of_start_abx"  id='date_of_start_abx' value="<?php echo date('m/d/Y',strtotime($results->date_of_start_abx)); ?>" /> 
-           <input  name="initial_rx_name"  id='initial_rx_name' value="<?php echo $results->initial_rx_name; ?>" /> 
-           <input  name="initial_dx_name"  id='initial_dx_name' value="<?php echo $results->initial_dx_name; ?>" /> 
-           <input  name="initial_dot"  id='initial_dot' value="<?php echo $results->initial_dot; ?>" /> 
-           <input  name="infection_surveillance_checklist"  id='infection_surveillance_checklist' value="<?php echo $results->infection_surveillance_checklist; ?>" /> 
-           <input  name="criteria_met"  id='criteria_met' value="<?php echo $results->criteria_met; ?>" /> 
-           <input  name="md_stayward_response"  id='md_stayward_response' value="<?php echo $results->md_stayward_response; ?>" /> 
-           <input  name="new_initial_rx_name"  id='new_initial_rx_name' value="<?php echo $results->new_initial_rx_name; ?>" /> 
-           <input  name="psa"  id='psa' value="<?php echo $results->psa; ?>" /> 
-           <input  name="new_initial_dx_name"  id='new_initial_dx_name' value="<?php echo $results->new_initial_dx_name; ?>" /> 
-           <input  name="new_initial_dot"  id='new_initial_dot' value="<?php echo $results->new_initial_dot; ?>" /> 
-          <!--  <input  name="pct"  id='pct' value="<?php echo $results->pct; ?>" />  -->
-           <input  name="additional_comment_option"  id='additional_comment_option' value="<?php echo str_replace( array('[','"',']') , ''  , $results->additional_comment_option); ?>" /> 
-           
-
-        </div>
-          </div>
-          <br>
-          <div class="modal-footer mailmodel">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" name="submit"  id="submit1"  class="btn btn-primary" style="background: #337ab7">Send Mail</button>
-      </div>
-
-        </form>
-      </div>
-     
-    </div>
-  </div>
-</div>
-
-
-<!-- Edit Consultation  -->
-
-<div class="modal fade  bd-example-modal-lg" id="exampleModalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-      <button type="button" class="close" style="margin-top:-40px;" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <h3 class="modal-title fw-bold" style="text-align:center;" id="exampleModalLabel">Edit Consultation </h3>        
-      </div>
-      <div class="modal-body1">
-        <form  method="post" id="contact-form" data-toggle="validator" role="form" action="" enctype="multipart/form-data">
-       
-
-         </br>
-          <div class="form-group">
-            
-           
-           <!-- Dynamic Form Sections -->
-           <!-- <div id="form-sections"> -->
-           
+                        
+                        <!-- Dynamic Form Sections -->
+                        <div id="form-sections">
                         <div id="form-complaint" class="form-section" style="display:none;">
                         <form id="addFormAjax" method="post" action="<?php echo base_url($formUrlConsult) ?>" enctype="multipart/form-data">
                             <div class="alert alert-danger" id="error-box" style="display: none"></div>
             
-                            <input type="text" class="form-control" name="patient_id" id="patient_id" value="<?php echo encoding($patient_id);?>" placeholder="Enter Complaint">
-                           
-                            <!-- <input type="text" class="form-control consultationType" name="consultationType" id="consultationType"> -->
-                            <input type="hidden" class="form-control consultationId" name="consultationId" id="consultationId" >
+                            <input type="hidden" class="form-control" name="patient_id" id="patient_id" value="<?php echo encoding($patient_id);?>" placeholder="Enter Complaint">
                            
                             <!-- Presenting Complaint -->
                             
@@ -798,7 +448,6 @@
                                 <button type="submit" id="submit" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Save</button>
                         </form>
                         </div>
-                  
                             <!-- Problem Heading -->
 
                             
@@ -806,7 +455,7 @@
 
                             <form id="addFormAjax" method="post" action="<?php echo base_url($formUrlConsult) ?>" enctype="multipart/form-data">
                             <div class="alert alert-danger" id="error-box" style="display: none"></div>
-                            <input type="hidden" class="form-control consultationId" name="consultationId" id="consultationId" >
+            
                             <input type="hidden" class="form-control" name="patient_id" id="patient_id" value="<?php echo encoding($patient_id);?>" placeholder="Enter Complaint">
                            
                                 <h4>Problem Heading</h4>
@@ -855,7 +504,7 @@
                             <div id="form-exam" class="form-section" style="display:none;">
                             <form id="addFormAjax" method="post" action="<?php echo base_url($formUrlConsult) ?>" enctype="multipart/form-data">
                             <div class="alert alert-danger" id="error-box" style="display: none"></div>
-                            <input type="hidden" class="form-control consultationId" name="consultationId" id="consultationId" >
+            
                             <input type="hidden" class="form-control" name="patient_id" id="patient_id" value="<?php echo encoding($patient_id);?>" placeholder="Enter Complaint">
                            
 
@@ -881,18 +530,18 @@
                                 <button type="submit" id="submit" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Save</button>
                             </form>
                             </div>
-                          
+
                             <!-- Allergy -->
                             <div id="form-allergy" class="form-section" style="display:none;">
                             <form id="addFormAjax" method="post" action="<?php echo base_url($formUrlConsult) ?>" enctype="multipart/form-data">
                             <div class="alert alert-danger" id="error-box" style="display: none"></div>
-                            <input type="hidden" class="form-control consultationId" name="consultationId" id="consultationId" >
+            
                             <input type="hidden" class="form-control" name="patient_id" id="patient_id" value="<?php echo encoding($patient_id);?>" placeholder="Enter Complaint">
                            
                                 <h4>Allergy</h4>
                                 <div class="row">
                                 <input type="hidden" class="form-control" name="type" id="type" value="allergy" placeholder="Enter Complaint">
-                                <input type="hidden" class="form-control consultationId" name="consultationId" id="consultationId" >
+                            
                                     <div class="col-md-11" style="border: 3px groove; border-radius: 10px; padding: 16px; margin-left: 31px;">
                                         <label for="allergySearch">Allergy</label>
                                         <div class="input-group mb-3">
@@ -916,12 +565,12 @@
                                 <button type="submit" id="submit" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Save</button>
                             </form>
                             </div>
-                            
+
                             <!-- Medical History -->
                             <div id="form-medical-history" class="form-section" style="display:none;">
                             <form id="addFormAjax" method="post" action="<?php echo base_url($formUrlConsult) ?>" enctype="multipart/form-data">
                             <div class="alert alert-danger" id="error-box" style="display: none"></div>
-                            <input type="hidden" class="form-control consultationId" name="consultationId" id="consultationId" >
+            
                             <input type="hidden" class="form-control" name="patient_id" id="patient_id" value="<?php echo encoding($patient_id);?>" placeholder="Enter Complaint">
                            
                                 <h4>Medical History</h4>
@@ -962,7 +611,7 @@
                                 <button type="submit" id="submit" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Save</button>
                                 </form>
                             </div>
-                           
+
                             <!-- Family History -->
                             <div id="form-family-history" class="form-section" style="display:none;">
                             <form id="addFormAjax" method="post" action="<?php echo base_url($formUrlConsult) ?>" enctype="multipart/form-data">
@@ -973,7 +622,6 @@
 
                                 <h4>Family History</h4>
                                 <div class="row">
-                                <input type="hidden" class="form-control consultationId" name="consultationId" id="consultationId" >
                                 <input type="hidden" class="form-control" name="type" id="type" value="family_history" placeholder="Enter Complaint">
                             
                                     <div class="col-md-11" style="border: 3px groove; border-radius: 10px; padding: 16px; margin-left: 31px;">
@@ -999,7 +647,7 @@
                                 <button type="submit" id="submit" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Save</button>
                                 </form>
                             </div>
-                            
+
                             <!-- Social -->
                             <div id="form-social" class="form-section" style="display:none;">
 
@@ -1011,7 +659,7 @@
                                 <h4>Social</h4>
                                 <div class="row">
                                 <input type="hidden" class="form-control" name="type" id="type" value="social" placeholder="Enter Complaint">
-                                <input type="hidden" class="form-control consultationId" name="consultationId" id="consultationId" >
+                            
                                     <div class="col-md-11" style="border: 3px groove; border-radius: 10px; padding: 16px; margin-left: 31px;">
                                         <label><strong>Social</strong></label>
                                         <div class="input-group mb-3">
@@ -1043,7 +691,7 @@
                                 <button type="submit" id="submit" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Save</button>
                                 </form>
                             </div>
-                         
+
                             <!-- Medication -->
                             <div id="form-medication" class="form-section" style="display:none;">
                             <form id="addFormAjax" method="post" action="<?php echo base_url($formUrlConsult) ?>" enctype="multipart/form-data">
@@ -1054,7 +702,7 @@
                                 <h4>Medication</h4>
                                 <div class="row">
                                 <input type="hidden" class="form-control" name="type" id="type" value="medication" placeholder="Enter Complaint">
-                                <input type="hidden" class="form-control consultationId" name="consultationId" id="consultationId" >
+                            
                                     <div class="col-md-11" style="border: 3px groove; border-radius: 10px; padding: 16px; margin-left: 31px;">
                                         <label><strong>Medication</strong></label>
                                         <div class="input-group mb-3">
@@ -1089,7 +737,7 @@
                                 <button type="submit" id="submit" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Save</button>
                                 </form>
                             </div>
-                            
+
                             <!-- Product -->
                             <div id="form-product" class="form-section" style="display:none;">
                             <form id="addFormAjax" method="post" action="<?php echo base_url($formUrlConsult) ?>" enctype="multipart/form-data">
@@ -1101,7 +749,7 @@
                                 <h4>Product</h4>
                                 <div class="row">
                                 <input type="hidden" class="form-control" name="type" id="type" value="product" placeholder="Enter Complaint">
-                                <input type="hidden" class="form-control consultationId" name="consultationId" id="consultationId" >
+                            
                                     <div class="col-md-11" style="border: 3px groove; border-radius: 10px; padding: 16px; margin-left: 31px;">
                                         <label><strong>Product</strong></label>
                                         <div class="input-group mb-3">
@@ -1137,7 +785,7 @@
                                 <button type="submit" id="submit" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Save</button>
                                 </form>
                             </div>
-                            
+
                             <!-- Comment -->
                             <div id="form-comment" class="form-section" style="display:none;">
 
@@ -1145,402 +793,116 @@
                             <div class="alert alert-danger" id="error-box" style="display: none"></div>
             
                             <input type="hidden" class="form-control" name="patient_id" id="patient_id" value="<?php echo encoding($patient_id);?>" placeholder="Enter Complaint">
-                            <input type="hidden" class="form-control consultationId" name="consultationId" id="consultationId" >
+                           
 
                                 <h4>Comment</h4>
                                 <textarea class="form-control" placeholder="Enter Comment" name="comment" id="comment"></textarea>
 
                                 <button type="submit" id="submit" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Save</button>                                </form>
                             </div>
-                           
                         </div>
-                    <!-- </div> -->
+                    </div>
 
+                    <!-- Snapshot Section -->
+                    <div class="col-md-4">
+                        <strong>Snapshot</strong>
+                        <ul>
+                            <li>Problem Heading</li>
+                            <li>Medical History</li>
+                            <li>Medication</li>
+                            <li>Product</li>
+                            <li>Family History</li>
+                            <li>Social</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
 
-          <br>
-          <div class="modal-footer mailmodel">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" name="submit"  id="submit1"  class="btn btn-primary" style="background: #337ab7">Save</button>
-      </div>
-
+            <div class="text-right mt-4">
+                <!-- <button type="submit" id="submit" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Save</button> -->
+            </div>
         </form>
-      </div>
-     
     </div>
-  </div>
 </div>
 
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-$(document).ready(function(){
-  // Add click event listener to all td elements with class 'day-cell'
-  $('.day-cell').click(function(){
-    // Get time and day values from data attributes
-    var time = $(this).data('time');
-    var day = $(this).data('day');
-    // Set hidden input values
-    $('#selectedTime').val(time);
-    $('#selectedDay').val(day);
-    // Submit the form
-    $('#timeSlotForm').submit();
-  });
-});
-</script>
-<script>
-$(document).ready(function(){
-  // Add click event listener to all td elements with class 'time-cell'
-  $('.time-cell').click(function(){
-    // Toggle 'highlight' class on click
-    $(this).toggleClass('highlight');
-  });
-
-  // Add click event listener to all td elements with class 'day-cell'
-  $('.day-cell').click(function(){
-    // Toggle 'highlight' class on click
-    $(this).toggleClass('highlight');
-  });
-
-  
-});
-</script>
-
+<!-- CSS for Human Body and Additional Styling -->
 <style>
-.highlight {
-    background-color: yellow; /* Change this to the desired highlight color */
-  }
+    .form-section{
+        margin:20px;
+    }
+    /* Human Body SVG Styles */
+    .human-body {
+        width: 207px;
+        position: relative;
+        padding-top: 146px;
+        margin: 0 auto;
+    }
 
-header h1,
-header p {
-  margin: 0;
-}
-footer {
-  padding: 7vh 5vw;
-  border-top: 1px solid #ddd;
-}
-aside {
-  padding: 7vh 5vw;
-}
-.primary {
-  overflow: auto;
-  scroll-snap-type: both mandatory;
-  height: 80vh;
-}
-@media (min-width: 40em) {
-  main {
-    display: flex;
-  }
-  aside {
-    flex: 0 1 20vw;
-    order: 1;
-    border-right: 1px solid #ddd;
-  }
-  .primary {
-    order: 2;
-  }
-}
-table {
-  border-collapse: collapse;
-  border: 0;
-}
-th,
-td {
-  border: 1px solid #aaa;
-  background-clip: padding-box;
-  scroll-snap-align: start;
-}
-tbody tr:last-child th,
-tbody tr:last-child td {
-  border-bottom: 0;
-}
-thead {
-  z-index: 1000;
-  position: relative;
-}
-th,
-td {
-  padding: 0.6rem;
-  min-width: 6rem;
-  text-align: left;
-  margin: 0;
-}
-thead th {
-  position: sticky;
-  top: 0;
-  border-top: 0;
-  background-clip: padding-box;
-}
-thead th.pin {
-  left: 0;
-  z-index: 1001;
-  border-left: 0;
-}
-tbody th {
-  background-clip: padding-box;
-  border-left: 0;
-}
-tbody {
-  z-index: 10;
-  position: relative;
-}
-tbody th {
-  position: sticky;
-  left: 0;
-}
-thead th,
-tbody th {
-  background-color: #f8f8f8;
-}
+    .human-body svg:hover path {
+        fill: #ff7d16;
+        cursor: pointer;
+    }
+
+    .human-body svg {
+        fill: #57c9d5;
+    }
 </style>
 
-
+<!-- JavaScript for Handling Button Clicks and Form Visibility -->
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-    checkboxes.forEach(function(checkbox) {
-    checkbox.addEventListener('click', function() {
-        checkboxes.forEach(function(cb) {
-        cb.parentNode.parentNode.classList.remove('selected');
+    $(document).ready(function() {
+        // Hide all forms initially
+        $('.form-section').hide();
+
+        // Button click handlers to show corresponding forms
+        $('#btn-complaint').click(function() {
+            $('.form-section').hide();
+            $('#form-complaint').show();
         });
-        if (this.checked) {
-        this.parentNode.parentNode.classList.add('selected');
-        const selectedTime = this.getAttribute('data-time');
-        const selectedDay = this.getAttribute('data-day');
-        console.log(`Selected time: ${selectedTime}, Selected day: ${selectedDay}`);
-        }
-    });
-    });
-});
-</script>
 
-
-
-<script type="text/javascript">
-    $('#date').datepicker({
-        startView: 2,
-        todayBtn: "linked",
-        keyboardNavigation: false,
-        forceParse: false,
-        calendarWeeks: true,
-        autoclose: true,
-        endDate:'today'       
-    });
-/*    $("#zipcode").select2({
-        allowClear: true
-    });*/
-</script>
-
-<style>
-    .user-setting{
-        background-color: antiquewhite;
-        padding: 13px;
-        border-radius: 5px;
-        border: 1px solid #df9595;
-    }
-
-    .btnPrevious,
-.btnNext{
-	display: inline-block;
-	border: 1px solid #444348;
-	border-radius: 3px;
-	margin: 5px;
-	color: #444348;
-	font-size: 14px;
-	padding: 10px 15px;
-	cursor: pointer;
-}
-
-.nav-tabss {
-    margin-bottom: 0;
-    padding-left: 0;
-    list-style: none;
-    /* width: 316px; */
-    border-radius: inherit;
-    font-weight: 900;
-}
-.nav-tab-appointment{
-    margin-bottom: 0;
-    padding-left: 0;
-    list-style: none;
-    /* width: 553px; */
-    padding: 20px;
-    border-radius: inherit;
-    background-color:white;
-
-}
-.nav-tab-appointment.active-link{
-    margin-bottom: 0;
-    padding-left: 0;
-    list-style: none;
-    width: 553px;
-    padding: 20px;
-    border-radius: inherit;
-    background-color:white;
-
-}
-
-.nav-pills-second{
-    background-color:white;
-}
-.nav-pills-second>li {
-    float: left;
-}
-.nav-pills-second.ul li:active .underline {
-	transition: none;
-	background-color: red;
-}
-
-.nav-link>a.active.underline {
-	width: 100%;
-	background-color: red;
-}
-.new-contact{
-    background-color: darkslategray;
-    color: white;
-    font-weight: 900;
-    width: 88px;
-}
-a.new-contact:hover{
-    /* background-color: #d9416c !important; */
-    color: white;
-    font-weight: 900;
-    width: 88px;
-}
-</style>
-
-<style>
-    /* Custom styles for dropdown */
-.select-dropdown {
-    position: relative;
-}
-
-/* Custom styles for search input */
-.input-group-search {
-    position: relative;
-}
-
-/* Adjust the dropdown and search input width as needed */
-.select-dropdown .btn-secondary,
-.input-group-search .form-control {
-    width: 100%;
-}
-
-
-
-</style>
-<script>
-
-$(document).ready(function() {
-    // Toggle dropdown on button click
-    $('[data-testid="button__dropdown--sort-menu"]').click(function() {
-        $(this).toggleClass('active');
-        // Toggle dropdown menu visibility
-        $(this).next('.ListViewMenu__buttonGroup___MY6Wh').toggle();
-    });
-
-    // Handle search button click
-    $('.btn-search').click(function() {
-        // Get search input value
-        var searchTerm = $(this).closest('.input-group').find('.form-control').val();
-        // Perform search operation with the searchTerm
-        console.log('Search term:', searchTerm);
-    });
-});
-
-</script>
-<script>
-   
-    // Function to handle Print button click
-    function printConsultation() {
-        window.print();  // This will trigger the browser's print dialog
-    }
-
-    // Existing function to view consultation details via AJAX
-    function viewConsultationDetails(consultation_id) {
-        $.ajax({
-            url: "<?php echo site_url('patient/fetchViewConsultation'); ?>",
-            method: "POST",
-            data: { consultation_id: consultation_id },
-            dataType: "json",
-            success: function(data) {
-
-                var consultationDetails = data.first_name + ' ' + data.last_name + ', ' + data.create_date;
-                $('#consultation_details').html(consultationDetails);
-                $('.note-content').html(data.presenting_complaint + ', Since: ' + data.since + ', ' + data.condition_type + ', ' + data.condition_significance);
-                
-                // edit consultation 
-
-                var presenting_complaint=  data.presenting_complaint;
-                var search=  data.search;
-                var since=  data.since;
-                var condition_type=  data.condition_type;
-                var comment=  data.comment;
-                var value=  data.value;
-                var severity=  data.severity;
-                var condition_significance=  data.condition_significance;
-                var relationship=  data.relationship;
-                var showSummary=  data.showSummary;
-                
-                var id = data.id;  // Assuming this is fetched from your AJAX response
-                // var action = '<a href="javascript:void(0)" onclick="open_model_forms(\'' + <?php echo json_encode($model); ?> + '\')" class="dropdown-item" id="patient_ids">Edit</a> ';
-                var action = '<button type="button" data-toggle="modal" data-target="#exampleModalEdit" ' +
-             'data-whatever="@mdo" data-type="' + data.type + '" data-id="' + data.id + '">Edit</button>';
-
-                    $('#edit_consultation_id').html(action);
-                    $('#exampleModalEdit').on('show.bs.modal', function (event) {
-                    var button = $(event.relatedTarget); // Button that triggered the modal
-                    var type = button.data('type');      // Extract info from data-* attributes
-                    var id = button.data('id');          // Extract the consultation id
-
-                    // Update the modal content with the consultation type and id
-                    
-                    $('.consultationType').val(type);  // Insert type into modal
-                    $('.consultationId').val(id);
-
-                    if(type == 'product'){
-                            $('#form-product').css("display","block");
-                    }
-                    if(type == 'medication'){
-                            $('#form-medication').css("display","block");
-                    }
-                    if(type == 'social'){
-                            $('#form-social').css("display","block");
-                    }
-                    if(type == 'family_history'){
-                            $('#form-family-history').css("display","block");
-                    }
-                    if(type == 'medical_history'){
-                            $('#form-medical-history').css("display","block");
-                    }
-                    if(type == 'allergy'){
-                            $('#form-allergy').css("display","block");
-                    }
-                    if(type == 'examination'){
-                            $('#form-exam').css("display","block");
-                    }
-                    if(type == 'problem_heading'){
-                            $('#form-problem').css("display","block");
-                    }
-                    if(type == 'presenting_complaint'){
-                            $('#form-complaint').css("display","block");
-                    }
-                    if(type == 'comment'){
-                            $('#form-comment').css("display","block");
-                    }
-                        // Insert id into modal
-                    });
-
-            },
-            error: function(xhr, status, error) {
-                console.error('AJAX Error:', status, error);
-            }
+        $('#btn-problem').click(function() {
+            $('.form-section').hide();
+            $('#form-problem').show();
         });
-    }
 
+        $('#btn-exam').click(function() {
+            $('.form-section').hide();
+            $('#form-exam').show();
+        });
+
+        $('#btn-allergy').click(function() {
+            $('.form-section').hide();
+            $('#form-allergy').show();
+        });
+
+        $('#btn-medical-history').click(function() {
+            $('.form-section').hide();
+            $('#form-medical-history').show();
+        });
+
+        $('#btn-family-history').click(function() {
+            $('.form-section').hide();
+            $('#form-family-history').show();
+        });
+
+        $('#btn-social').click(function() {
+            $('.form-section').hide();
+            $('#form-social').show();
+        });
+
+        $('#btn-medication').click(function() {
+            $('.form-section').hide();
+            $('#form-medication').show();
+        });
+
+        $('#btn-product').click(function() {
+            $('.form-section').hide();
+            $('#form-product').show();
+        });
+
+        $('#btn-comment').click(function() {
+            $('.form-section').hide();
+            $('#form-comment').show();
+        });
+    });
 </script>
-
-
-
-
-
-

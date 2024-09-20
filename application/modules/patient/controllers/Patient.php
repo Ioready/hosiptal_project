@@ -412,8 +412,9 @@ class Patient extends Common_Controller
         $this->data['parent'] = $this->title;
         $this->data['title'] = $this->title;
         $this->data['model'] = $this->router->fetch_class();
+        $this->data['patient_id'] = decoding($_GET['id']);
         $id = decoding($_GET['id']);
-        
+        // print_r($id);die;
         $role_name = $this->input->post('role_name');
 
         $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
@@ -431,22 +432,16 @@ class Patient extends Common_Controller
             $vendor_profile_activate = 1;
         }
 
-        // $optionheader = array(
-        //     'table' => 'vendor_sale_user_consultation_setting',
-        //     'select' => 'vendor_sale_user_consultation_setting`.*',
-        //     'join' => array(
-        //         array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_user_consultation_setting.user_id','left')
-        //     ),
-        //     'where' => array('vendor_sale_user_consultation_setting.user_id' => $LoginID)
-        // );
         $id = decoding($_GET['id']);
+
         $optionheader = array(
-            'table' => 'vendor_sale_user_consultation_setting',
-            'select' => 'vendor_sale_user_consultation_setting`.*',
+            'table' => 'vendor_sale_patient_consultation',
+            'select' => 'vendor_sale_patient_consultation.*,vendor_sale_users.first_name,vendor_sale_users.last_name',
             'join' => array(
-                array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_user_consultation_setting.user_id','left')
+                array('vendor_sale_patient', 'vendor_sale_patient.id=vendor_sale_patient_consultation.patient_id','left'),
+                array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_patient.user_id','left')
             ),
-            'where' => array('vendor_sale_user_consultation_setting.patient_id' => $id)
+            'where' => array('vendor_sale_patient_consultation.patient_id' => $id)
         );
         
 
@@ -483,11 +478,7 @@ class Patient extends Common_Controller
             if (!empty($results_row)) {
 
                 $results_row->md_steward_response = clone $results_row;
-
-
                 $filteredData = $this->applyAlgo($results_row);
-                // echo"<pre>"; 
-                // print_r($filteredData); die;
                 $this->data['results'] = $filteredData;
             }
         }
@@ -495,6 +486,31 @@ class Patient extends Common_Controller
         
         $this->load->admin_render('consultation', $this->data, 'inner_script');
     }
+
+
+    public function fetchViewConsultation() {
+        $consultation = '';
+        $query = $this->input->post('consultation_id');
+        if ($query) {
+            $optionheader = array(
+                'table' => 'vendor_sale_patient_consultation',
+                'select' => 'vendor_sale_patient_consultation.*,vendor_sale_users.first_name,vendor_sale_users.last_name',
+                'join' => array(
+                    array('vendor_sale_patient', 'vendor_sale_patient.id=vendor_sale_patient_consultation.patient_id','left'),
+                    array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_patient.user_id','left')
+                ),
+                'where' => array('vendor_sale_patient_consultation.id' => $query),
+                'single' => true,
+            );
+           
+            $results = $this->common_model->customGet($optionheader);
+        
+            // print_r($results);
+            echo json_encode($results);
+
+        }
+    }
+    
     
 
     public function patientMedication($vendor_profile_activate = "No") {
@@ -3490,7 +3506,9 @@ $option = array(
         $this->data['formUrlConsult'] = $this->router->fetch_class() . "/addConsult";
         $this->data['formUrlModel'] = $this->router->fetch_class() . "/addQuestion";
 
-        
+        $this->data['patient_id'] = decoding($_GET['id']);
+        $id = decoding($_GET['id']);
+        // print_r($id);die;
         $option = "SELECT `vendor_sale_users`.`id`,`vendor_sale_users`.`first_name`, 
         `vendor_sale_users`.`last_name`
         FROM `vendor_sale_users` 
@@ -3509,61 +3527,227 @@ $option = array(
                     'select' => '*');
         $this->data['states'] = $this->common_model->customGet($option);
 
-                // print_r($this->data['users']);die;
-                
-                $this->load->admin_render('patient_consultation', $this->data, 'inner_script');
-        // $this->load->admin_render('add_consultation', $this->data, 'inner_script');
+        $this->load->admin_render('patient_consultation', $this->data, 'inner_script');
     }
 
+
+    function consultationInvoice() {
+
+        $this->data['parent'] = $this->title;
+        $this->data['title'] = "Add " . $this->title;
+        $this->data['formUrlConsult'] = $this->router->fetch_class() . "/addConsult";
+        $this->data['formUrlModel'] = $this->router->fetch_class() . "/addQuestion";
+
+        $this->data['patient_id'] = decoding($_GET['id']);
+        $id = decoding($_GET['id']);
+        // print_r($id);die;
+        $option = "SELECT `vendor_sale_users`.`id`,`vendor_sale_users`.`first_name`, 
+        `vendor_sale_users`.`last_name`
+        FROM `vendor_sale_users` 
+        LEFT JOIN `vendor_sale_users_groups` ON `vendor_sale_users_groups`.`user_id` = `vendor_sale_users`.`id`
+        LEFT JOIN `vendor_sale_groups` ON `vendor_sale_groups`.`id` = `vendor_sale_users_groups`.`group_id`
+        WHERE `vendor_sale_users`.`delete_status` = 0 and `vendor_sale_users_groups`.`group_id` = 5
+        ORDER BY `vendor_sale_users`.`first_name` ASC";
+        
+        $this->data['users'] = $this->common_model->customQuery($option);
+
+        $option = array('table' => 'countries',
+            'select' => '*'
+        );
+        $this->data['countries'] = $this->common_model->customGet($option);
+        $option = array('table' => 'states',
+                    'select' => '*');
+        $this->data['states'] = $this->common_model->customGet($option);
+
+        $this->load->admin_render('consultation_invoice', $this->data, 'inner_script');
+    }
+
+    
     public function addConsult() {
 
         // echo "<pre>";
-        
-
         // print_r($this->input->post());die;
         // echo "</pre>";
 
 
         $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
-        $this->form_validation->set_rules('internal_name', "internal_name", 'required|trim');
-
+        $this->form_validation->set_rules('type', "type", 'required|trim');
         if ($this->form_validation->run() == true) {
-            // $this->filedata['status'] = 1;
+           
+            if($this->input->post('type')=='product'){
+
             
-            // if ($this->filedata['status'] == 0) {
-            //     $response = array('status' => 0, 'message' => $this->filedata['error']);
-            // }
-            // } else {
-            
+            $options_data = array(
+                'patient_id'=> decoding($this->input->post('patient_id')),
+                'facility_user_id'=> $LoginID,
+                'type' => $this->input->post('type'),
+                'search' => $this->input->post('search'),  
+                'since' => $this->input->post('since'),                
+                'condition_type' => $this->input->post('condition_type'),                
+                'condition_significance' => $this->input->post('condition_significance'),                
+                'comment' => $this->input->post('comment'),                              
+                'showSummary' => $this->input->post('showSummary'),                
+            );
+            $option = array('table' => 'vendor_sale_consultation_product', 'data' => $options_data);
+            $this->common_model->customInsert($option);
+
+        }else if($this->input->post('type')=='medication'){
+            $options_data = array(
+                'patient_id'=> decoding($this->input->post('patient_id')),
+                'facility_user_id'=> $LoginID,
+                'type' => $this->input->post('type'),
+                'search' => $this->input->post('search'),  
+                'since' => $this->input->post('since'),                
+                'condition_type' => $this->input->post('condition_type'),                
+                'condition_significance' => $this->input->post('condition_significance'),                
+                'comment' => $this->input->post('comment'),                               
+                'showSummary' => $this->input->post('showSummary'),                
+            );
+            $option = array('table' => 'vendor_sale_consultation_medication', 'data' => $options_data);
+            $this->common_model->customInsert($option);
+        }else if($this->input->post('type')=='social'){
+            $options_data = array(
+                'patient_id'=> decoding($this->input->post('patient_id')),
+                'facility_user_id'=> $LoginID,
+                'type' => $this->input->post('type'),
+                'search' => $this->input->post('search'),  
+                'since' => $this->input->post('since'),                
+                'condition_type' => $this->input->post('condition_type'),                
+                'condition_significance' => $this->input->post('condition_significance'),                
+                'comment' => $this->input->post('comment'),                             
+                'showSummary' => $this->input->post('showSummary'),                
+            );
+            $option = array('table' => 'vendor_sale_consultation_social', 'data' => $options_data);
+            $this->common_model->customInsert($option);
+        }else if($this->input->post('type')=='family_history'){
+            $options_data = array(
+                'patient_id'=> decoding($this->input->post('patient_id')),
+                'facility_user_id'=> $LoginID,
+                'type' => $this->input->post('type'),
+                'search' => $this->input->post('search'),                 
+                'comment' => $this->input->post('comment'),                               
+                'relationship' => $this->input->post('relationship'),                
+                'showSummary' => $this->input->post('showSummary'),                
+            );
+            $option = array('table' => 'vendor_sale_consultation_family_history', 'data' => $options_data);
+            $this->common_model->customInsert($option);
+        }else if($this->input->post('type')=='medical_history'){
+            $options_data = array(
+                'patient_id'=> decoding($this->input->post('patient_id')),
+                'facility_user_id'=> $LoginID,
+                'type' => $this->input->post('type'),
+                'search' => $this->input->post('search'),  
+                'since' => $this->input->post('since'),                
+                'condition_type' => $this->input->post('condition_type'),                
+                'condition_significance' => $this->input->post('condition_significance'),                
+                'comment' => $this->input->post('comment'),                           
+                'showSummary' => $this->input->post('showSummary'),                
+            );
+            $option = array('table' => 'vendor_sale_consultation_medical_history', 'data' => $options_data);
+            $this->common_model->customInsert($option);
+        }else if($this->input->post('type')=='allergy'){
+            $options_data = array(
+                'patient_id'=> decoding($this->input->post('patient_id')),
+                'facility_user_id'=> $LoginID,
+                'type' => $this->input->post('type'),
+                'search' => $this->input->post('search'),           
+                'comment' => $this->input->post('comment'),                               
+                'severity' => $this->input->post('severity'),                               
+                'showSummary' => $this->input->post('showSummary'),                
+            );
+            $option = array('table' => 'vendor_sale_consultation_allergy', 'data' => $options_data);
+            $this->common_model->customInsert($option);
+        }else if($this->input->post('type')=='examination'){
+            $options_data = array(
+                'patient_id'=> decoding($this->input->post('patient_id')),
+                'facility_user_id'=> $LoginID,
+                'type' => $this->input->post('type'),
+                
+                'search' => $this->input->post('search'),             
+                'comment' => $this->input->post('comment'),                
+                'value' => $this->input->post('value'),                
+                            
+            );
+            $option = array('table' => 'vendor_sale_consultation_examination', 'data' => $options_data);
+            $this->common_model->customInsert($option);
+        // }
+        // else if($this->input->post('type')=='problem_heading'){
+        //     $options_data = array(
+        //         'patient_id'=> decoding($this->input->post('patient_id')),
+        //         'facility_user_id'=> $LoginID,
+        //         'type' => $this->input->post('type'),
+        //         'search' => $this->input->post('search'),  
+        //         'since' => $this->input->post('since'),                
+        //         'condition_type' => $this->input->post('condition_type'),                
+        //         'condition_significance' => $this->input->post('condition_significance'),                
+        //         'comment' => $this->input->post('comment'),                             
+        //         'showSummary' => $this->input->post('showSummary'),                
+        //     );
+        //     $option = array('table' => 'vendor_sale_consultation_problem_heading', 'data' => $options_data);
+        //     $this->common_model->customInsert($option);
+
+        // }else if($this->input->post('type')=='presenting_complaint'){
+        //     $options_data = array(
+        //         'patient_id'=> decoding($this->input->post('patient_id')),
+        //         'facility_user_id'=> $LoginID,
+        //         'type' => $this->input->post('type'),
+        //         'search' => $this->input->post('search'),  
+        //         'since' => $this->input->post('since'),                
+        //         'condition_type' => $this->input->post('condition_type'),                
+        //         'condition_significance' => $this->input->post('condition_significance'),                
+        //         'comment' => $this->input->post('comment'),                               
+        //         'showSummary' => $this->input->post('showSummary'),                
+        //     );
+        //     $option = array('table' => 'vendor_sale_consultation_presenting_complaint', 'data' => $options_data);
+        //     $this->common_model->customInsert($option);
+        }else if($this->input->post('type')=='medication'){
+            $options_data = array(
+                'patient_id'=> decoding($this->input->post('patient_id')),
+                'facility_user_id'=> $LoginID,
+                'type' => $this->input->post('type'),
+                'search' => $this->input->post('search'),  
+                'since' => $this->input->post('since'),                
+                'condition_type' => $this->input->post('condition_type'),                
+                'condition_significance' => $this->input->post('condition_significance'),                
+                'comment' => $this->input->post('comment'),                             
+                'showSummary' => $this->input->post('showSummary'),                
+            );
+            $option = array('table' => 'vendor_sale_consultation_medication', 'data' => $options_data);
+            $this->common_model->customInsert($option);
+        }
+        // }else if($this->input->post('type')=='comment'){
+        //     $options_data = array(
+        //         'patient_id'=> decoding($this->input->post('patient_id')),
+        //         'facility_user_id'=> $LoginID,
+        //         'type' => $this->input->post('type'),
+        //         'search' => $this->input->post('search'),  
+        //         'since' => $this->input->post('since'),                
+        //         'condition_type' => $this->input->post('condition_type'),                
+        //         'condition_significance' => $this->input->post('condition_significance'),                
+        //         'comment' => $this->input->post('comment'),                                
+        //         'showSummary' => $this->input->post('showSummary'),                
+        //     );
+        //     $option = array('table' => 'vendor_sale_consultation_comment', 'data' => $options_data);
+        //     $this->common_model->customInsert($option);
+        // }
+
                 $options_data = array(
-                    'user_id'=> $LoginID,
-                    'internal_name' => $this->input->post('internal_name'),
-                    'name' => $this->input->post('name'),
-                    'question' => json_encode($this->input->post('question')),  
-                    'diagram_url' => $this->input->post('diagram_url'),                
+                    'patient_id'=> decoding($this->input->post('patient_id')),
+                    'facility_user_id'=> $LoginID,
+                    'type' => $this->input->post('type'),
+                    'presenting_complaint' => $this->input->post('presenting_complaint'),
+                    'search' => $this->input->post('search'),  
+                    'since' => $this->input->post('since'),                
+                    'condition_type' => $this->input->post('condition_type'),                
+                    'condition_significance' => $this->input->post('condition_significance'),                
+                    'comment' => $this->input->post('comment'),                
+                    'value' => $this->input->post('value'),                
+                    'severity' => $this->input->post('severity'),                
+                    'relationship' => $this->input->post('relationship'),                
+                    'showSummary' => $this->input->post('showSummary'),                
                 );
-                $option = array('table' => 'vendor_sale_user_consultation_setting', 'data' => $options_data);
-                $this->common_model->customInsert($option);
-
-               $consultation_id = $this->db->insert_id();
-
-
-               $custome_name = $this->input->post('custome_name');
-               $response_type = $this->input->post('response_type');
-
-                $options_data = array(
-                    'custome_name' => $custome_name,
-                    'response_type' => $response_type
-                );
-
-                $options_data1 = array(
-                    'consultation_id' => $consultation_id,
-                    'question_name' => json_encode($options_data),
-                    'question' => json_encode($this->input->post('question')),                    
-                );
-                $option1 = array('table' => 'vendor_sale_consultation_question', 'data' => $options_data1);
-
-                if ($this->common_model->customInsert($option1)) {
+                $option = array('table' => 'vendor_sale_patient_consultation', 'data' => $options_data);
+                if ($this->common_model->customInsert($option)) {
                     
                    
 
@@ -3578,6 +3762,7 @@ $option = array(
         }
         echo json_encode($response);
     }
+
 
     public function addQuestion() {
 

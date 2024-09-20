@@ -191,21 +191,21 @@
                     </a>
                 </div>
                 <div class="col-sm-6 col-lg-2 mb-4">
-                <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($patient_id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
+                <a href="<?php echo base_url(). 'index.php/patient/consultationInvoice?id=' . encoding($patient_id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
                         <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
                             <h4 style="font-size:16px; font-weight:600; color:white;">Invoices</h4>
                         </div>
                         <div class="widget-extra-full"><span class="h2 animation-expandOpen fw-bold text-dark"><?php echo $inactive;?></span></div>
                     </a>
                 </div>
-                <div class="col-sm-6 col-lg-2 mb-4">
+                <!-- <div class="col-sm-6 col-lg-2 mb-4">
                 <a href="<?php echo base_url(). 'index.php/accountStatement?id=' . encoding($patient_id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
                     <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
                             <h4 style="font-size:16px; font-weight:600; color:white;">Account statements</h4>
                         </div>
                         <div class="widget-extra-full"><span class="h2 animation-expandOpen fw-bold text-dark"><?php echo $inactive;?></span></div>
                     </a>
-                </div>
+                </div> -->
                 
                 <div class="col-sm-6 col-lg-2 mb-4">
                 <a href="<?php echo base_url() . 'index.php/patient/communication?id=' . encoding($patient_id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
@@ -223,15 +223,7 @@
                         <div class="widget-extra-full"><span class="h2 animation-expandOpen fw-bold text-dark"><?php echo $inactive;?></span></div>
                     </a>
                 </div>
-                <div class="col-sm-6 col-lg-2 mb-4">
-                <a href="<?php echo base_url() . 'index.php/patient/communication?id=' . encoding($patient_id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
-                        <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
-                            <h4 style="font-size:16px; font-weight:600; color:white;">Logs</h4>
-                        </div>
-                        <div class="widget-extra-full"><span class="h2 animation-expandOpen fw-bold text-dark"><?php echo $inactive;?></span></div>
-                    </a>
-               
-                </div>
+                
     </div>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="=" crossorigin="anonymous" />
@@ -287,11 +279,34 @@
                 <input type="hidden" name="folder_id" id="folder_id" value="<?php echo $folder->id;?>">
                 <span><b><?php echo $folder->template_id; ?></b></span><br>
                 <span>Created <?php echo date_format(date_create($folder->create_date), 'd/m/Y'); ?> | <strong><?php echo $folder->first_name . ' ' . $folder->last_name; ?></strong></span>
-                <span style="background-color:#e9dab9; border-radius: 6px; float:right;" >&nbsp;<?php echo $folder->type; ?>&nbsp;&nbsp;</span>
-                
+                <span style="float:right;" ><span style="background-color:#e9dab9; border-radius: 6px;"> &nbsp;<?php echo $folder->type; ?>&nbsp;&nbsp;</span>&nbsp;&nbsp;
+               
+                            <div class="dots" id="dotsMenu<?php echo $folder->id;?>">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
+
+                            <div class="menu" id="menuDropdown<?php echo $folder->id;?>">
+                                <div>
+                                    <ul>
+                                        <li><a href="#" class="link">Update Status</a></li>
+                                        <li><a href="#" class="link">Edit</a></li>
+                                        <li><a href="#" class="link">Delete</a></li>
+                                        <li><a href="#" class="link">Share</a></li>
+                                        <li><a href="#" class="link">Email</a></li>
+                                        <li><a href="#" class="link">Duplicates</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+</span>
+               
+
             </div>
             
             <?php } ?>
+
+               
         </span>
     </div>
 
@@ -302,9 +317,35 @@
         
             <div class="col-sm-12 col-md-12" style="padding: 15px; border-block-end-style: inset;">
                 <input type="hidden" name="folder_id" id="folder_id" value="<?php echo $folder->id;?>">
-                <span><b><?php echo $folder->appointment_type; ?></b></span><br>
+                <span><b><?php echo $folder->title; ?></b></span><br>
                 <span>Created <?php echo date_format(date_create($folder->create_date), 'd/m/Y'); ?> | <strong><?php echo $folder->first_name . ' ' . $folder->last_name; ?></strong></span>
-                <span style="float:right;">...</span>
+                <!-- <span style="float:right;">...</span> -->
+
+                <!-- <span id="dropdownMenuButton" class="dropdown-toggle" style="cursor: pointer; float:right;">...</span> -->
+    
+
+                            <div class="dots" id="dotsMenu<?php echo $folder->id;?>" style="cursor: pointer; float:right;">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
+
+                            <div class="menu" id="menuDropdown<?php echo $folder->id;?>">
+                                <div >
+                                    <ul>
+                                        
+                                    <li> <a href="<?php echo base_url().'index.php/lettersAndForm/editBookingForm?id=' . encoding($patient_id) . '&form_id=' . encoding($folder->id); ?>" class="link">Edit</a></li>
+
+                                        <li>
+                                        <a href="<?php echo base_url().'index.php/lettersAndForm/deleteBookingForm?id=' . encoding($patient_id) . '&form_id=' . encoding($folder->id); ?>" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+
+                                            <!-- <a href="<?php //echo base_url().'index.php/lettersAndForm/deleteBookingForm?id=' . encoding($patient_id) . '&form_id=' . encoding($folder->id); ?>" class="link">Delete</a> -->
+                                        </li>
+                                        
+                                    </ul>
+                                </div>
+                            </div>
+
             </div>
 
        
