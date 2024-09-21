@@ -514,7 +514,7 @@ class Patient extends Common_Controller
 
         }
     }
-    
+
     
 
     public function patientMedication($vendor_profile_activate = "No") {
@@ -3881,6 +3881,75 @@ $option = array(
             $response = array('status' => 0, 'message' => $messages);
         }
         echo json_encode($response);
+    }
+
+
+    public function updateConsultation()
+    {
+
+    //    echo "<pre>";
+    //     print_r($this->input->post());die;
+    //     echo "</pre>";
+        $where_id = $this->input->post('consultationId');
+
+        $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+        $this->form_validation->set_rules('type', "type", 'required|trim');
+        if ($this->form_validation->run() == true) {
+           
+            // $option = array(
+            //     'table' => 'vendor_sale_patient_consultation',
+            //     'data' => array(
+            //         'initial_dx' => (!empty($this->input->post('initial_dx'))) ? $this->input->post('initial_dx') : null,
+            //         // 'culture_source' => (!empty($this->input->post('culture_source'))) ? $this->input->post('culture_source') : null,
+            //         'initial_rx' => (!empty($this->input->post('initial_rx'))) ? $this->input->post('initial_rx') : null,
+            //         'initial_dot' => (!empty($this->input->post('initial_dot'))) ? $this->input->post('initial_dot') : null,
+            //         'new_initial_rx' => (!empty($this->input->post('new_initial_rx'))) ? $this->input->post('new_initial_rx') : null,
+            //         'new_initial_dx' => (!empty($this->input->post('new_initial_dx'))) ? $this->input->post('new_initial_dx') : null,
+            //         'new_initial_dot' => (!empty($this->input->post('new_initial_dot'))) ? $this->input->post('new_initial_dot') :null,
+            //         'additional_comment_option' => (!empty($this->input->post('additional_comment_option'))) ? json_encode($this->input->post('additional_comment_option')) : null
+            //     ),
+            //     'where' => array('id' => $where_id)
+            // );
+
+            $option = array(
+                'table' => 'vendor_sale_patient_consultation',
+                'data' => array(
+                // 'patient_id'=> decoding($this->input->post('patient_id')),
+                // 'facility_user_id'=> $LoginID,
+                // 'consultation_type' => $this->input->post('consultationType'),
+                // 'consultation_date' => $this->input->post('consultation_date'),
+                'type' => $this->input->post('type'),
+                'presenting_complaint' => $this->input->post('presenting_complaint'),
+                'search' => $this->input->post('search'),  
+                'since' => $this->input->post('since'),                
+                'condition_type' => $this->input->post('condition_type'),                
+                'condition_significance' => $this->input->post('condition_significance'),                
+                'comment' => $this->input->post('comment'),                
+                'value' => $this->input->post('value'),                
+                'severity' => $this->input->post('severity'),                
+                'relationship' => $this->input->post('relationship'),                
+                'showSummary' => $this->input->post('showSummary'),
+            ),      
+            'where' => array('id' => $where_id)          
+            );
+
+            // $Update = $this->common_model->customupdate($option);
+           
+            if ($this->common_model->customupdate($option)) {
+                    
+                   
+
+                $response = array('status' => 1, 'message' => "Successfully Updated", 'url' => base_url($this->router->fetch_class()));
+            } else {
+                $response = array('status' => 0, 'message' => "Failed to Updated");
+            }
+        // }
+    } else {
+        $messages = (validation_errors()) ? validation_errors() : '';
+        $response = array('status' => 0, 'message' => $messages);
+    }
+    echo json_encode($response);
+
     }
 
 

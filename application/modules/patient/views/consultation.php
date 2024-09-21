@@ -712,7 +712,7 @@
         <h3 class="modal-title fw-bold" style="text-align:center;" id="exampleModalLabel">Edit Consultation </h3>        
       </div>
       <div class="modal-body1">
-        <form  method="post" id="contact-form" data-toggle="validator" role="form" action="" enctype="multipart/form-data">
+        <!-- <form  method="post" id="contact-form" data-toggle="validator" role="form" action="" enctype="multipart/form-data"> -->
        
 
          </br>
@@ -723,7 +723,7 @@
            <!-- <div id="form-sections"> -->
            
                         <div id="form-complaint" class="form-section" style="display:none;">
-                        <form id="addFormAjax" method="post" action="<?php echo base_url($formUrlConsult) ?>" enctype="multipart/form-data">
+                        <form id="addFormAjax" method="post" action="<?php echo base_url('patient/updateConsultation') ?>" enctype="multipart/form-data">
                             <div class="alert alert-danger" id="error-box" style="display: none"></div>
             
                             <input type="hidden" class="form-control" name="patient_id" id="patient_id" value="<?php echo encoding($patient_id);?>" placeholder="Enter Complaint">
@@ -1101,8 +1101,8 @@
 
           <br>
           <div class="modal-footer mailmodel">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" name="submit"  id="submit1"  class="btn btn-primary" style="background: #337ab7">Save</button>
+        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" name="submit"  id="submit1"  class="btn btn-primary" style="background: #337ab7">Save</button> -->
       </div>
 
         </form>
