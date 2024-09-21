@@ -137,7 +137,7 @@
             padding: 20px;
         }
 
-        .container {
+        .container-data {
             /* display: flex;
             max-width: 1200px;
             margin: auto;
@@ -280,7 +280,7 @@
         }
 
         @media (max-width: 768px) {
-            .container {
+            .container-data {
                 flex-direction: column;
             }
 
@@ -528,7 +528,7 @@
         
     
 
-        <div class="container">
+        <div class="container-data">
     <!-- Left panel: List of consultation notes -->
     <div class="left-panel">
         <div class="header">
