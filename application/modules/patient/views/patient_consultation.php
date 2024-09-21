@@ -390,7 +390,7 @@
                                             <div class="form-group row">
                                                 <div class="col-md-4">
                                                     <label for="consultationType">Consultation Type</label>
-                                                    <select name="consultationType" id="consultationType" class="form-control">
+                                                    <select name="consultationType" id="consultationType" class="form-control" required>
                                                         <option value="">Doctor Consultation</option>
 
                                                         <?php if (!empty($doctors)) {
@@ -402,7 +402,7 @@
                                                 </div>
                                                 <div class="col-md-3">
                                                     <label for="consultationDate">Date</label>
-                                                    <input type="datetime-local" name="consultation_date" id="consultation_date" class="form-control">
+                                                    <input type="datetime-local" name="consultation_date" id="consultation_date" class="form-control" required>
                                                 </div>
                                             </div>
                                     </div>
@@ -410,7 +410,7 @@
 
                             
                                 <h4>Presenting Complaint</h4>
-                                <input type="text" class="form-control" name="presenting_complaint" id="presenting_complaint" placeholder="Enter Complaint">
+                                <input type="text" class="form-control" name="presenting_complaint" id="presenting_complaint" placeholder="Enter Complaint" required>
                                 <input type="hidden" class="form-control" name="type" id="type" value="presenting_complaint" placeholder="Enter Complaint">
                             
                                 <button type="submit" id="submit" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Save</button>
@@ -432,7 +432,7 @@
                                             <div class="form-group row">
                                                 <div class="col-md-4">
                                                     <label for="consultationType">Consultation Type</label>
-                                                    <select name="consultationType" id="consultationType" class="form-control">
+                                                    <select name="consultationType" id="consultationType" class="form-control" required>
                                                         <option value="">Doctor Consultation</option>
 
                                                         <?php if (!empty($doctors)) {
@@ -444,7 +444,7 @@
                                                 </div>
                                                 <div class="col-md-3">
                                                     <label for="consultationDate">Date</label>
-                                                    <input type="datetime-local" name="consultation_date" id="consultation_date" class="form-control">
+                                                    <input type="datetime-local" name="consultation_date" id="consultation_date" class="form-control" required>
                                                 </div>
                                             </div>
                                     </div>
@@ -461,7 +461,8 @@
                                     <div class="col-md-11" style="border: 3px groove; border-radius: 10px; padding: 16px; margin-left: 31px;">
                                         <label><strong>Problem</strong></label>
                                         <div class="input-group mb-3">
-                                            <input type="search" name="search" class="form-control" placeholder="Search ..." id="problemSearch">
+                                            <input type="search" name="search" class="form-control" placeholder="Search ..." id="problemSearch" required>
+                                            <div id="result_problem"></div>
                                             <div class="input-group-append">
                                                 <span class="input-group-text"><i class="fa fa-search"></i></span>
                                             </div>
@@ -470,19 +471,19 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <label>Since</label>
-                                                <input type="text" name="since" id="since" class="form-control">
+                                                <input type="datetime-local" name="since" id="since" class="form-control" required>
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Condition Type</label>
-                                                <input type="text" name="condition_type" id="condition_type" class="form-control">
+                                                <input type="text" name="condition_type" id="condition_type" class="form-control" required>
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Condition Significance</label>
-                                                <input type="text" name="condition_significance" id="condition_significance" class="form-control">
+                                                <input type="text" name="condition_significance" id="condition_significance" class="form-control" required>
                                             </div>
                                         </div>
                                         <label>Comment</label>
-                                        <textarea class="form-control" rows="4" name="comment" id="comment"></textarea>
+                                        <textarea class="form-control" rows="4" name="comment" id="comment" required></textarea>
                                         <div>
                                             <input type="checkbox" id="showSummary" name="showSummary">
                                             <label for="showSummary"> Show in summary</label>
@@ -507,7 +508,7 @@
                                             <div class="form-group row">
                                                 <div class="col-md-4">
                                                     <label for="consultationType">Consultation Type</label>
-                                                    <select name="consultationType" id="consultationType" class="form-control">
+                                                    <select name="consultationType" id="consultationType" class="form-control" required>
                                                         <option value="">Doctor Consultation</option>
 
                                                         <?php if (!empty($doctors)) {
@@ -519,7 +520,7 @@
                                                 </div>
                                                 <div class="col-md-3">
                                                     <label for="consultationDate">Date</label>
-                                                    <input type="datetime-local" name="consultation_date" id="consultation_date" class="form-control">
+                                                    <input type="datetime-local" name="consultation_date" id="consultation_date" class="form-control" required>
                                                 </div>
                                             </div>
                                     </div>
@@ -533,16 +534,17 @@
                                     <div class="col-md-11" style="border: 3px groove; border-radius: 10px; padding: 16px; margin-left: 31px;">
                                         <label><strong>Examination</strong></label>
                                         <div class="input-group mb-3">
-                                            <input type="search" class="form-control" placeholder="Search ..." id="examSearch" name="search">
+                                            <input type="search" class="form-control" placeholder="Search ..." id="examSearch" name="search" required>
+                                            <div id="result_examination"></div>
                                             <div class="input-group-append">
                                                 <span class="input-group-text"><i class="fa fa-search"></i></span>
                                             </div>
                                         </div>
 
                                         <label>Value</label>
-                                        <input type="text" class="form-control" name="value" id="value">
+                                        <input type="text" class="form-control" name="value" id="value" required>
                                         <label>Comment</label>
-                                        <textarea class="form-control" name="comment" id="comment" rows="4"></textarea>
+                                        <textarea class="form-control" name="comment" id="comment" rows="4" required></textarea>
                                     </div>
                                 </div>
                                 <button type="submit" id="submit" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Save</button>
@@ -563,7 +565,7 @@
                                             <div class="form-group row">
                                                 <div class="col-md-4">
                                                     <label for="consultationType">Consultation Type</label>
-                                                    <select name="consultationType" id="consultationType" class="form-control">
+                                                    <select name="consultationType" id="consultationType" class="form-control" required>
                                                         <option value="">Doctor Consultation</option>
 
                                                         <?php if (!empty($doctors)) {
@@ -575,7 +577,7 @@
                                                 </div>
                                                 <div class="col-md-3">
                                                     <label for="consultationDate">Date</label>
-                                                    <input type="datetime-local" name="consultation_date" id="consultation_date" class="form-control">
+                                                    <input type="datetime-local" name="consultation_date" id="consultation_date" class="form-control" required>
                                                 </div>
                                             </div>
                                     </div>
@@ -589,17 +591,18 @@
                                     <div class="col-md-11" style="border: 3px groove; border-radius: 10px; padding: 16px; margin-left: 31px;">
                                         <label for="allergySearch">Allergy</label>
                                         <div class="input-group mb-3">
-                                            <input type="search" class="form-control" placeholder="Search allergies" id="allergySearch" name="search">
+                                            <input type="search" class="form-control" placeholder="Search allergies" id="allergySearch" name="search" required>
+                                            <div id="result_allergy"></div>
                                             <div class="input-group-append">
                                                 <span class="input-group-text"><i class="fa fa-search"></i></span>
                                             </div>
                                         </div>
                                         <label>Severity</label>
-                                        <select class="form-control" name="severity" id="severity">
+                                        <select class="form-control" name="severity" id="severity" required>
                                             <option value="severity">Select Severity</option>
                                         </select>
                                         <label>Comment</label>
-                                        <textarea class="form-control" rows="4" name="comment" id="comment"></textarea>
+                                        <textarea class="form-control" rows="4" name="comment" id="comment" required></textarea>
                                         <div>
                                             <input type="checkbox" id="allergySummary" name="allergySummary">
                                             <label for="allergySummary"> Show in summary</label>
@@ -624,7 +627,7 @@
                                             <div class="form-group row">
                                                 <div class="col-md-4">
                                                     <label for="consultationType">Consultation Type</label>
-                                                    <select name="consultationType" id="consultationType" class="form-control">
+                                                    <select name="consultationType" id="consultationType" class="form-control" required>
                                                         <option value="">Doctor Consultation</option>
 
                                                         <?php if (!empty($doctors)) {
@@ -636,7 +639,7 @@
                                                 </div>
                                                 <div class="col-md-3">
                                                     <label for="consultationDate">Date</label>
-                                                    <input type="datetime-local" name="consultation_date" id="consultation_date" class="form-control">
+                                                    <input type="datetime-local" name="consultation_date" id="consultation_date" class="form-control" required>
                                                 </div>
                                             </div>
                                     </div>
@@ -650,7 +653,8 @@
                                     <div class="col-md-11" style="border: 3px groove; border-radius: 10px; padding: 16px; margin-left: 31px;">
                                         <label><strong>Medical History</strong></label>
                                         <div class="input-group mb-3">
-                                            <input type="search" class="form-control" placeholder="Search ..." id="medicalHistorySearch" name="search">
+                                            <input type="search" class="form-control" placeholder="Search ..." id="medicalHistorySearch" name="search" required>
+                                            <div id="result_medical_history"></div>
                                             <div class="input-group-append">
                                                 <span class="input-group-text"><i class="fa fa-search"></i></span>
                                             </div>
@@ -659,19 +663,19 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <label>Since</label>
-                                                <input type="text" class="form-control" name="since" id="since">
+                                                <input type="datetime-local" class="form-control" name="since" id="since" required>
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Condition Type</label>
-                                                <input type="text" class="form-control" name="condition_type" id="condition_type">
+                                                <input type="text" class="form-control" name="condition_type" id="condition_type" required>
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Condition Significance</label>
-                                                <input type="text" class="form-control" name="condition_significance" id="condition_significance">
+                                                <input type="text" class="form-control" name="condition_significance" id="condition_significance" required>
                                             </div>
                                         </div>
                                         <label>Comment</label>
-                                        <textarea class="form-control" rows="4" name="comment" id="comment"></textarea>
+                                        <textarea class="form-control" rows="4" name="comment" id="comment" required></textarea>
                                         <div>
                                             <input type="checkbox" id="medicalHistorySummary" name="medicalHistorySummary">
                                             <label for="medicalHistorySummary"> Show in summary</label>
@@ -696,7 +700,7 @@
                                             <div class="form-group row">
                                                 <div class="col-md-4">
                                                     <label for="consultationType">Consultation Type</label>
-                                                    <select name="consultationType" id="consultationType" class="form-control">
+                                                    <select name="consultationType" id="consultationType" class="form-control" required>
                                                         <option value="">Doctor Consultation</option>
 
                                                         <?php if (!empty($doctors)) {
@@ -708,7 +712,7 @@
                                                 </div>
                                                 <div class="col-md-3">
                                                     <label for="consultationDate">Date</label>
-                                                    <input type="datetime-local" name="consultation_date" id="consultation_date" class="form-control">
+                                                    <input type="datetime-local" name="consultation_date" id="consultation_date" class="form-control" required>
                                                 </div>
                                             </div>
                                     </div>
@@ -721,17 +725,26 @@
                                     <div class="col-md-11" style="border: 3px groove; border-radius: 10px; padding: 16px; margin-left: 31px;">
                                         <label for="familyHistorySearch">Family History</label>
                                         <div class="input-group mb-3">
-                                            <input type="search" class="form-control" placeholder="Search ..." id="familyHistorySearch" name="search">
+                                            <input type="search" class="form-control" placeholder="Search ..." id="familyHistorySearch" name="search" required>
+                                            <div id="result_family_history"></div>
                                             <div class="input-group-append">
                                                 <span class="input-group-text"><i class="fa fa-search"></i></span>
                                             </div>
                                         </div>
                                         <label>Relationship</label>
-                                        <select class="form-control" name="relationship" id="relationship">
+                                        <select class="form-control" name="relationship" id="relationship" required>
                                             <option value="relationship">Please select</option>
+                                            <option value="parent">Parent</option>
+                                            <option value="sibling">Sibling</option>
+                                            <option value="friend">Friend</option>
+                                            <option value="son">Son</option>
+                                            <option value="daughter">Daughter</option>
+                                            <option value="father">Father</option>
+                                            <option value="mother">Mother</option>
+                                            <option value="other">Other</option>
                                         </select>
                                         <label>Comment</label>
-                                        <textarea class="form-control" rows="4" name="comment" id="comment"></textarea>
+                                        <textarea class="form-control" rows="4" name="comment" id="comment" required></textarea>
                                         <div>
                                             <input type="checkbox" id="familyHistorySummary" name="familyHistorySummary">
                                             <label for="familyHistorySummary"> Show in summary</label>
@@ -756,7 +769,7 @@
                                             <div class="form-group row">
                                                 <div class="col-md-4">
                                                     <label for="consultationType">Consultation Type</label>
-                                                    <select name="consultationType" id="consultationType" class="form-control">
+                                                    <select name="consultationType" id="consultationType" class="form-control" required>
                                                         <option value="">Doctor Consultation</option>
 
                                                         <?php if (!empty($doctors)) {
@@ -768,7 +781,7 @@
                                                 </div>
                                                 <div class="col-md-3">
                                                     <label for="consultationDate">Date</label>
-                                                    <input type="datetime-local" name="consultation_date" id="consultation_date" class="form-control">
+                                                    <input type="datetime-local" name="consultation_date" id="consultation_date" class="form-control" required>
                                                 </div>
                                             </div>
                                     </div>
@@ -782,7 +795,8 @@
                                     <div class="col-md-11" style="border: 3px groove; border-radius: 10px; padding: 16px; margin-left: 31px;">
                                         <label><strong>Social</strong></label>
                                         <div class="input-group mb-3">
-                                            <input type="search" class="form-control" placeholder="Search ..." id="socialSearch" name="search">
+                                            <input type="search" class="form-control" placeholder="Search ..." id="socialSearch" name="search" required>
+                                            <div id="result_social"></div>
                                             <div class="input-group-append">
                                                 <span class="input-group-text"><i class="fa fa-search"></i></span>
                                             </div>
@@ -791,19 +805,19 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <label>Since</label>
-                                                <input type="text" class="form-control" name="since" id="since">
+                                                <input type="datetime-local" class="form-control" name="since" id="since" required>
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Condition Type</label>
-                                                <input type="text" class="form-control" name="condition_type" id="condition_type">
+                                                <input type="text" class="form-control" name="condition_type" id="condition_type" required>
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Condition Significance</label>
-                                                <input type="text" class="form-control" name="condition_significance" id="condition_significance">
+                                                <input type="text" class="form-control" name="condition_significance" id="condition_significance" required>
                                             </div>
                                         </div>
                                         <label>Comment</label>
-                                        <textarea class="form-control" rows="4" name="comment" id="comment"></textarea>
+                                        <textarea class="form-control" rows="4" name="comment" id="comment" required></textarea>
                                     </div>
                                 </div>
 
@@ -824,7 +838,7 @@
                                             <div class="form-group row">
                                                 <div class="col-md-4">
                                                     <label for="consultationType">Consultation Type</label>
-                                                    <select name="consultationType" id="consultationType" class="form-control">
+                                                    <select name="consultationType" id="consultationType" class="form-control" required>
                                                         <option value="">Doctor Consultation</option>
 
                                                         <?php if (!empty($doctors)) {
@@ -836,7 +850,7 @@
                                                 </div>
                                                 <div class="col-md-3">
                                                     <label for="consultationDate">Date</label>
-                                                    <input type="datetime-local" name="consultation_date" id="consultation_date" class="form-control">
+                                                    <input type="datetime-local" name="consultation_date" id="consultation_date" class="form-control" required>
                                                 </div>
                                             </div>
                                     </div>
@@ -850,7 +864,8 @@
                                     <div class="col-md-11" style="border: 3px groove; border-radius: 10px; padding: 16px; margin-left: 31px;">
                                         <label><strong>Medication</strong></label>
                                         <div class="input-group mb-3">
-                                            <input type="search" class="form-control" placeholder="Search ..." id="medicationSearch" name="search">
+                                            <input type="search" class="form-control" placeholder="Search ..." id="medicationSearch" name="search" required>
+                                            <div id="result_medication"></div>
                                             <div class="input-group-append">
                                                 <span class="input-group-text"><i class="fa fa-search"></i></span>
                                             </div>
@@ -859,21 +874,21 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <label>Since</label>
-                                                <input type="text" class="form-control" name="search" id="search">
+                                                <input type="datetime-local" class="form-control" name="since" id="since" required>
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Condition Type</label>
-                                                <input type="text" class="form-control" name="condition_type" id="condition_type">
+                                                <input type="text" class="form-control" name="condition_type" id="condition_type" required>
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Condition Significance</label>
-                                                <input type="text" class="form-control" name="condition_significance" id="condition_significance">
+                                                <input type="text" class="form-control" name="condition_significance" id="condition_significance" required>
                                             </div>
                                         </div>
                                         <label>Comment</label>
-                                        <textarea class="form-control" rows="4" name="comment" id="comment"></textarea>
+                                        <textarea class="form-control" rows="4" name="comment" id="comment" required></textarea>
                                         <div>
-                                            <input type="checkbox" id="medicationSummary" name="medicationSummary">
+                                            <input type="checkbox" id="medicationSummary" name="medicationSummary" >
                                             <label for="medicationSummary"> Show in summary</label>
                                         </div>
                                     </div>
@@ -896,7 +911,7 @@
                                             <div class="form-group row">
                                                 <div class="col-md-4">
                                                     <label for="consultationType">Consultation Type</label>
-                                                    <select name="consultationType" id="consultationType" class="form-control">
+                                                    <select name="consultationType" id="consultationType" class="form-control" required>
                                                         <option value="">Doctor Consultation</option>
 
                                                         <?php if (!empty($doctors)) {
@@ -908,7 +923,7 @@
                                                 </div>
                                                 <div class="col-md-3">
                                                     <label for="consultationDate">Date</label>
-                                                    <input type="datetime-local" name="consultation_date" id="consultation_date" class="form-control">
+                                                    <input type="datetime-local" name="consultation_date" id="consultation_date" class="form-control" required>
                                                 </div>
                                             </div>
                                     </div>
@@ -921,7 +936,8 @@
                                     <div class="col-md-11" style="border: 3px groove; border-radius: 10px; padding: 16px; margin-left: 31px;">
                                         <label><strong>Product</strong></label>
                                         <div class="input-group mb-3">
-                                            <input type="search" class="form-control" placeholder="Search ..." id="productSearch" name="search">
+                                            <input type="search" class="form-control" placeholder="Search ..." id="productSearch" name="search" required>
+                                            <div id="result_product"></div>
                                             <div class="input-group-append">
                                                 <span class="input-group-text"><i class="fa fa-search"></i></span>
                                             </div>
@@ -930,19 +946,19 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <label>Since</label>
-                                                <input type="text" class="form-control" name="since" id="since">
+                                                <input type="datetime-local" class="form-control" name="since" id="since" required>
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Condition Type</label>
-                                                <input type="text" class="form-control" name="condition_type" id="condition_type">
+                                                <input type="text" class="form-control" name="condition_type" id="condition_type" required>
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Condition Significance</label>
-                                                <input type="text" class="form-control" name="condition_significance" id="condition_significance">
+                                                <input type="text" class="form-control" name="condition_significance" id="condition_significance" required>
                                             </div>
                                         </div>
                                         <label>Comment</label>
-                                        <textarea class="form-control" rows="4" name="comment" id="comment"></textarea>
+                                        <textarea class="form-control" rows="4" name="comment" id="comment" required></textarea>
                                         <div>
                                             <input type="checkbox" id="productSummary" name="productSummary">
                                             <label for="productSummary"> Show in summary</label>
@@ -988,11 +1004,12 @@
 
 
                                 <h4>Comment</h4>
-                                <textarea class="form-control" placeholder="Enter Comment" name="comment" id="comment"></textarea>
+                                <textarea class="form-control" placeholder="Enter Comment" name="comment" id="comment" required></textarea>
 
                                 <button type="submit" id="submit" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Save</button>                                </form>
                             </div>
                         </div>
+                         </form>
                     </div>
 
                     <!-- Snapshot Section -->
@@ -1013,7 +1030,7 @@
             <div class="text-right mt-4">
                 <!-- <button type="submit" id="submit" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Save</button> -->
             </div>
-        </form>
+        <!-- </form> -->
     </div>
 </div>
 
@@ -1098,3 +1115,257 @@
         });
     });
 </script>
+
+<!-- problem heading script -->
+
+<script>
+    $(document).ready(function() {
+        $("#problemSearch").keyup(function() {
+            var query = $(this).val();
+            if (query != '') {
+                $.ajax({
+                    url: "<?php echo site_url('patient/fetch'); ?>",
+                    method: "POST",
+                    data: {query: query},
+                    success: function(data) {
+                        $('#result_problem').html(data);
+                    }
+                });
+            } else {
+                $('#result_problem').html('');
+            }
+        });
+    });
+</script>
+
+<script>
+    function getSearchProblem() {
+        var searchValue = document.getElementById("consultation_problem_heading").value;
+
+        document.getElementById("problemSearch").value = searchValue;
+    }
+</script>
+
+<!-- Consultation Examination script -->
+
+<script>
+    $(document).ready(function() {
+        $("#examSearch").keyup(function() {
+            var query = $(this).val();
+            if (query != '') {
+                $.ajax({
+                    url: "<?php echo site_url('patient/fetchExamination'); ?>",
+                    method: "POST",
+                    data: {query: query},
+                    success: function(data) {
+                        $('#result_examination').html(data);
+                    }
+                });
+            } else {
+                $('#result_examination').html('');
+            }
+        });
+    });
+</script>
+
+<script>
+    function getSearchExamination() {
+        var searchValue = document.getElementById("consultation_examination").value;
+
+        document.getElementById("examSearch").value = searchValue;
+    }
+</script>
+
+
+<!-- Consultation Allergy script -->
+
+<script>
+    $(document).ready(function() {
+        $("#allergySearch").keyup(function() {
+            var query = $(this).val();
+            if (query != '') {
+                $.ajax({
+                    url: "<?php echo site_url('patient/fetchAllergy'); ?>",
+                    method: "POST",
+                    data: {query: query},
+                    success: function(data) {
+                        $('#result_allergy').html(data);
+                    }
+                });
+            } else {
+                $('#result_allergy').html('');
+            }
+        });
+    });
+</script>
+
+<script>
+    function getSearchAllergy() {
+        var searchValue = document.getElementById("consultation_allergy").value;
+
+        document.getElementById("allergySearch").value = searchValue;
+    }
+</script>
+
+<!-- Consultation Medical History script -->
+
+<script>
+    $(document).ready(function() {
+        $("#medicalHistorySearch").keyup(function() {
+            var query = $(this).val();
+            if (query != '') {
+                $.ajax({
+                    url: "<?php echo site_url('patient/fetchMedicalHistory'); ?>",
+                    method: "POST",
+                    data: {query: query},
+                    success: function(data) {
+                        $('#result_medical_history').html(data);
+                    }
+                });
+            } else {
+                $('#result_medical_history').html('');
+            }
+        });
+    });
+</script>
+
+<script>
+    function getSearchconsultationMedicalHistory() {
+        var searchValue = document.getElementById("consultation_medical_history").value;
+
+        document.getElementById("medicalHistorySearch").value = searchValue;
+    }
+</script>
+
+
+<!-- Consultation Medical History script -->
+
+<script>
+    $(document).ready(function() {
+        $("#familyHistorySearch").keyup(function() {
+            var query = $(this).val();
+            if (query != '') {
+                $.ajax({
+                    url: "<?php echo site_url('patient/fetchFamilyHistory'); ?>",
+                    method: "POST",
+                    data: {query: query},
+                    success: function(data) {
+                        $('#result_family_history').html(data);
+                    }
+                });
+            } else {
+                $('#result_family_history').html('');
+            }
+        });
+    });
+</script>
+
+<script>
+    function getSearchconsultationFamilyHistory() {
+        var searchValue = document.getElementById("consultation_family_history").value;
+
+        document.getElementById("familyHistorySearch").value = searchValue;
+    }
+</script>
+
+<!-- Consultation Social script -->
+
+<script>
+    $(document).ready(function() {
+        $("#socialSearch").keyup(function() {
+            var query = $(this).val();
+            if (query != '') {
+                $.ajax({
+                    url: "<?php echo site_url('patient/fetchSocial'); ?>",
+                    method: "POST",
+                    data: {query: query},
+                    success: function(data) {
+                        $('#result_social').html(data);
+                    }
+                });
+            } else {
+                $('#result_social').html('');
+            }
+        });
+    });
+</script>
+
+<script>
+    function getSearchconsultationSocial() {
+        var searchValue = document.getElementById("consultation_social").value;
+
+        document.getElementById("socialSearch").value = searchValue;
+    }
+</script>
+
+
+<!-- Consultation Medication script -->
+
+<script>
+    $(document).ready(function() {
+        $("#medicationSearch").keyup(function() {
+            var query = $(this).val();
+            if (query != '') {
+                $.ajax({
+                    url: "<?php echo site_url('patient/fetchMedication'); ?>",
+                    method: "POST",
+                    data: {query: query},
+                    success: function(data) {
+                        $('#result_medication').html(data);
+                    }
+                });
+            } else {
+                $('#result_medication').html('');
+            }
+        });
+    });
+</script>
+
+<script>
+    function getSearchconsultationMedication() {
+        var searchValue = document.getElementById("consultation_medication").value;
+
+        document.getElementById("medicationSearch").value = searchValue;
+    }
+</script>
+
+
+<!-- Consultation Product script -->
+
+<script>
+    $(document).ready(function() {
+        $("#productSearch").keyup(function() {
+            var query = $(this).val();
+            if (query != '') {
+                $.ajax({
+                    url: "<?php echo site_url('patient/fetchProduct'); ?>",
+                    method: "POST",
+                    data: {query: query},
+                    success: function(data) {
+                        $('#result_product').html(data);
+                    }
+                });
+            } else {
+                $('#result_product').html('');
+            }
+        });
+    });
+</script>
+
+<script>
+    function getSearchconsultationProduct() {
+        var searchValue = document.getElementById("consultation_product").value;
+
+        document.getElementById("productSearch").value = searchValue;
+    }
+</script>
+
+
+
+
+
+
+
+
+
+

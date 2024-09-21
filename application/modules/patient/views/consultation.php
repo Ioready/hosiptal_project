@@ -746,7 +746,7 @@
                             
                             <div id="form-problem" class="form-section" style="display:none;">
 
-                            <form id="addFormAjax" method="post" action="<?php echo base_url($formUrlConsult) ?>" enctype="multipart/form-data">
+                            <form id="addFormAjax" method="post" action="<?php echo base_url('patient/updateConsultation') ?>" enctype="multipart/form-data">
                             <div class="alert alert-danger" id="error-box" style="display: none"></div>
                             <input type="hidden" class="form-control consultationId" name="consultationId" id="consultationId" >
                             <input type="hidden" class="form-control" name="patient_id" id="patient_id" value="<?php echo encoding($patient_id);?>" placeholder="Enter Complaint">
@@ -770,7 +770,7 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <label>Since</label>
-                                                <input type="text" name="since" id="since" class="form-control">
+                                                <input type="datetime-local" name="since" id="since" class="form-control">
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Condition Type</label>
@@ -795,7 +795,7 @@
 
                             <!-- Examination -->
                             <div id="form-exam" class="form-section" style="display:none;">
-                            <form id="addFormAjax" method="post" action="<?php echo base_url($formUrlConsult) ?>" enctype="multipart/form-data">
+                            <form id="addFormAjax" method="post" action="<?php echo base_url('patient/updateConsultation') ?>" enctype="multipart/form-data">
                             <div class="alert alert-danger" id="error-box" style="display: none"></div>
                             <input type="hidden" class="form-control consultationId" name="consultationId" id="consultationId" >
                             <input type="hidden" class="form-control" name="patient_id" id="patient_id" value="<?php echo encoding($patient_id);?>" placeholder="Enter Complaint">
@@ -826,7 +826,7 @@
                           
                             <!-- Allergy -->
                             <div id="form-allergy" class="form-section" style="display:none;">
-                            <form id="addFormAjax" method="post" action="<?php echo base_url($formUrlConsult) ?>" enctype="multipart/form-data">
+                            <form id="addFormAjax" method="post" action="<?php echo base_url('patient/updateConsultation') ?>" enctype="multipart/form-data">
                             <div class="alert alert-danger" id="error-box" style="display: none"></div>
                             <input type="hidden" class="form-control consultationId" name="consultationId" id="consultationId" >
                             <input type="hidden" class="form-control" name="patient_id" id="patient_id" value="<?php echo encoding($patient_id);?>" placeholder="Enter Complaint">
@@ -861,7 +861,7 @@
                             
                             <!-- Medical History -->
                             <div id="form-medical-history" class="form-section" style="display:none;">
-                            <form id="addFormAjax" method="post" action="<?php echo base_url($formUrlConsult) ?>" enctype="multipart/form-data">
+                            <form id="addFormAjax" method="post" action="<?php echo base_url('patient/updateConsultation') ?>" enctype="multipart/form-data">
                             <div class="alert alert-danger" id="error-box" style="display: none"></div>
                             <input type="hidden" class="form-control consultationId" name="consultationId" id="consultationId" >
                             <input type="hidden" class="form-control" name="patient_id" id="patient_id" value="<?php echo encoding($patient_id);?>" placeholder="Enter Complaint">
@@ -882,7 +882,7 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <label>Since</label>
-                                                <input type="text" class="form-control" name="since" id="since">
+                                                <input type="datetime-local" class="form-control" name="since" id="since">
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Condition Type</label>
@@ -907,7 +907,7 @@
                            
                             <!-- Family History -->
                             <div id="form-family-history" class="form-section" style="display:none;">
-                            <form id="addFormAjax" method="post" action="<?php echo base_url($formUrlConsult) ?>" enctype="multipart/form-data">
+                            <form id="addFormAjax" method="post" action="<?php echo base_url('patient/updateConsultation') ?>" enctype="multipart/form-data">
                             <div class="alert alert-danger" id="error-box" style="display: none"></div>
             
                             <input type="hidden" class="form-control" name="patient_id" id="patient_id" value="<?php echo encoding($patient_id);?>" placeholder="Enter Complaint">
@@ -945,7 +945,7 @@
                             <!-- Social -->
                             <div id="form-social" class="form-section" style="display:none;">
 
-                            <form id="addFormAjax" method="post" action="<?php echo base_url($formUrlConsult) ?>" enctype="multipart/form-data">
+                            <form id="addFormAjax" method="post" action="<?php echo base_url('patient/updateConsultation') ?>" enctype="multipart/form-data">
                             <div class="alert alert-danger" id="error-box" style="display: none"></div>
             
                             <input type="hidden" class="form-control" name="patient_id" id="patient_id" value="<?php echo encoding($patient_id);?>" placeholder="Enter Complaint">
@@ -966,7 +966,7 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <label>Since</label>
-                                                <input type="text" class="form-control" name="since" id="since">
+                                                <input type="datetime-local" class="form-control" name="since" id="since">
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Condition Type</label>
@@ -988,7 +988,7 @@
                          
                             <!-- Medication -->
                             <div id="form-medication" class="form-section" style="display:none;">
-                            <form id="addFormAjax" method="post" action="<?php echo base_url($formUrlConsult) ?>" enctype="multipart/form-data">
+                            <form id="addFormAjax" method="post" action="<?php echo base_url('patient/updateConsultation') ?>" enctype="multipart/form-data">
                             <div class="alert alert-danger" id="error-box" style="display: none"></div>
             
                             <input type="hidden" class="form-control" name="patient_id" id="patient_id" value="<?php echo encoding($patient_id);?>" placeholder="Enter Complaint">
@@ -1009,7 +1009,7 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <label>Since</label>
-                                                <input type="text" class="form-control" name="since" id="since">
+                                                <input type="datetime-local" class="form-control" name="since" id="since">
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Condition Type</label>
@@ -1034,7 +1034,7 @@
                             
                             <!-- Product -->
                             <div id="form-product" class="form-section" style="display:none;">
-                            <form id="addFormAjax" method="post" action="<?php echo base_url($formUrlConsult) ?>" enctype="multipart/form-data">
+                            <form id="addFormAjax" method="post" action="<?php echo base_url('patient/updateConsultation') ?>" enctype="multipart/form-data">
                             <div class="alert alert-danger" id="error-box" style="display: none"></div>
             
                             <input type="hidden" class="form-control" name="patient_id" id="patient_id" value="<?php echo encoding($patient_id);?>" placeholder="Enter Complaint">
@@ -1056,7 +1056,7 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <label>Since</label>
-                                                <input type="text" class="form-control" name="since" id="since">
+                                                <input type="datetime-local" class="form-control" name="since" id="since">
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Condition Type</label>
@@ -1083,7 +1083,7 @@
                             <!-- Comment -->
                             <div id="form-comment" class="form-section" style="display:none;">
 
-                            <form id="addFormAjax" method="post" action="<?php echo base_url($formUrlConsult) ?>" enctype="multipart/form-data">
+                            <form id="addFormAjax" method="post" action="<?php echo base_url('patient/updateConsultation') ?>" enctype="multipart/form-data">
                             <div class="alert alert-danger" id="error-box" style="display: none"></div>
             
                             <input type="hidden" class="form-control" name="patient_id" id="patient_id" value="<?php echo encoding($patient_id);?>" placeholder="Enter Complaint">

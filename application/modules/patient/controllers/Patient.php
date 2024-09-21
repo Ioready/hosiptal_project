@@ -3788,21 +3788,21 @@ $option = array(
             );
             $option = array('table' => 'vendor_sale_consultation_examination', 'data' => $options_data);
             $this->common_model->customInsert($option);
-        // }
-        // else if($this->input->post('type')=='problem_heading'){
-        //     $options_data = array(
-        //         'patient_id'=> decoding($this->input->post('patient_id')),
-        //         'facility_user_id'=> $LoginID,
-        //         'type' => $this->input->post('type'),
-        //         'search' => $this->input->post('search'),  
-        //         'since' => $this->input->post('since'),                
-        //         'condition_type' => $this->input->post('condition_type'),                
-        //         'condition_significance' => $this->input->post('condition_significance'),                
-        //         'comment' => $this->input->post('comment'),                             
-        //         'showSummary' => $this->input->post('showSummary'),                
-        //     );
-        //     $option = array('table' => 'vendor_sale_consultation_problem_heading', 'data' => $options_data);
-        //     $this->common_model->customInsert($option);
+        }
+        else if($this->input->post('type')=='problem_heading'){
+            $options_data = array(
+                'patient_id'=> decoding($this->input->post('patient_id')),
+                'facility_user_id'=> $LoginID,
+                'type' => $this->input->post('type'),
+                'search' => $this->input->post('search'),  
+                'since' => $this->input->post('since'),                
+                'condition_type' => $this->input->post('condition_type'),                
+                'condition_significance' => $this->input->post('condition_significance'),                
+                'comment' => $this->input->post('comment'),                             
+                'showSummary' => $this->input->post('showSummary'),                
+            );
+            $option = array('table' => 'vendor_sale_consultation_problem_heading', 'data' => $options_data);
+            $this->common_model->customInsert($option);
 
         // }else if($this->input->post('type')=='presenting_complaint'){
         //     $options_data = array(
@@ -3896,28 +3896,10 @@ $option = array(
         $this->form_validation->set_rules('type', "type", 'required|trim');
         if ($this->form_validation->run() == true) {
            
-            // $option = array(
-            //     'table' => 'vendor_sale_patient_consultation',
-            //     'data' => array(
-            //         'initial_dx' => (!empty($this->input->post('initial_dx'))) ? $this->input->post('initial_dx') : null,
-            //         // 'culture_source' => (!empty($this->input->post('culture_source'))) ? $this->input->post('culture_source') : null,
-            //         'initial_rx' => (!empty($this->input->post('initial_rx'))) ? $this->input->post('initial_rx') : null,
-            //         'initial_dot' => (!empty($this->input->post('initial_dot'))) ? $this->input->post('initial_dot') : null,
-            //         'new_initial_rx' => (!empty($this->input->post('new_initial_rx'))) ? $this->input->post('new_initial_rx') : null,
-            //         'new_initial_dx' => (!empty($this->input->post('new_initial_dx'))) ? $this->input->post('new_initial_dx') : null,
-            //         'new_initial_dot' => (!empty($this->input->post('new_initial_dot'))) ? $this->input->post('new_initial_dot') :null,
-            //         'additional_comment_option' => (!empty($this->input->post('additional_comment_option'))) ? json_encode($this->input->post('additional_comment_option')) : null
-            //     ),
-            //     'where' => array('id' => $where_id)
-            // );
 
             $option = array(
                 'table' => 'vendor_sale_patient_consultation',
                 'data' => array(
-                // 'patient_id'=> decoding($this->input->post('patient_id')),
-                // 'facility_user_id'=> $LoginID,
-                // 'consultation_type' => $this->input->post('consultationType'),
-                // 'consultation_date' => $this->input->post('consultation_date'),
                 'type' => $this->input->post('type'),
                 'presenting_complaint' => $this->input->post('presenting_complaint'),
                 'search' => $this->input->post('search'),  
@@ -3952,6 +3934,168 @@ $option = array(
 
     }
 
+    public function fetch() {
+        $output = '';
+        $query = $this->input->post('query');
+        if ($query) {
+            $results = $this->common_model->fetchConsultProblem($query);
+            // print_r($results);die;
+            $output .= '<select class="form-control select2" name="consultation_problem_heading" id="consultation_problem_heading" onclick="getSearchProblem()">';
+            if (!empty($results)) {
+                foreach ($results as $row) {
+                    $output .= '<option value="'.$row['search'].'">'.$row['search'].'</option>';
+                   
+                }
+            } else {
+                $output .= '<option>No Data Found</option>';
+            }
+            $output .= '</select>';
+            echo $output;
+        }
+    }
+
+    public function fetchExamination() {
+        $output = '';
+        $query = $this->input->post('query');
+        if ($query) {
+            $results = $this->common_model->fetchConsultExamination($query);
+            // print_r($results);die;
+            $output .= '<select class="form-control select2" name="consultation_examination" id="consultation_examination" onclick="getSearchExamination()">';
+            if (!empty($results)) {
+                foreach ($results as $row) {
+                    $output .= '<option value="'.$row['search'].'">'.$row['search'].'</option>';
+                   
+                }
+            } else {
+                $output .= '<option>No Data Found</option>';
+            }
+            $output .= '</select>';
+            echo $output;
+        }
+    }
+
+
+    public function fetchAllergy() {
+        $output = '';
+        $query = $this->input->post('query');
+        if ($query) {
+            $results = $this->common_model->fetchConsultAllergy($query);
+            // print_r($results);die;
+            $output .= '<select class="form-control select2" name="consultation_allergy" id="consultation_allergy" onclick="getSearchAllergy()">';
+            if (!empty($results)) {
+                foreach ($results as $row) {
+                    $output .= '<option value="'.$row['search'].'">'.$row['search'].'</option>';
+                   
+                }
+            } else {
+                $output .= '<option>No Data Found</option>';
+            }
+            $output .= '</select>';
+            echo $output;
+        }
+    }
+    public function fetchMedicalHistory() {
+        $output = '';
+        $query = $this->input->post('query');
+        if ($query) {
+            $results = $this->common_model->fetchConsultMedicalHistory($query);
+            // print_r($results);die;
+            $output .= '<select class="form-control select2" name="consultation_medical_history" id="consultation_medical_history" onclick="getSearchconsultationMedicalHistory()">';
+            if (!empty($results)) {
+                foreach ($results as $row) {
+                    $output .= '<option value="'.$row['search'].'">'.$row['search'].'</option>';
+                   
+                }
+            } else {
+                $output .= '<option>No Data Found</option>';
+            }
+            $output .= '</select>';
+            echo $output;
+        }
+    }
+
+    public function fetchFamilyHistory() {
+        $output = '';
+        $query = $this->input->post('query');
+        if ($query) {
+            $results = $this->common_model->fetchConsultFamilyHistory($query);
+            // print_r($results);die;
+            $output .= '<select class="form-control select2" name="consultation_family_history" id="consultation_family_history" onclick="getSearchconsultationFamilyHistory()">';
+            if (!empty($results)) {
+                foreach ($results as $row) {
+                    $output .= '<option value="'.$row['search'].'">'.$row['search'].'</option>';
+                   
+                }
+            } else {
+                $output .= '<option>No Data Found</option>';
+            }
+            $output .= '</select>';
+            echo $output;
+        }
+    }
+
+
+    public function fetchSocial() {
+        $output = '';
+        $query = $this->input->post('query');
+        if ($query) {
+            $results = $this->common_model->fetchConsultSocial($query);
+            // print_r($results);die;
+            $output .= '<select class="form-control select2" name="consultation_social" id="consultation_social" onclick="getSearchconsultationSocial()">';
+            if (!empty($results)) {
+                foreach ($results as $row) {
+                    $output .= '<option value="'.$row['search'].'">'.$row['search'].'</option>';
+                   
+                }
+            } else {
+                $output .= '<option>No Data Found</option>';
+            }
+            $output .= '</select>';
+            echo $output;
+        }
+    }
+
+
+    public function fetchMedication() {
+        $output = '';
+        $query = $this->input->post('query');
+        if ($query) {
+            $results = $this->common_model->fetchConsultMedication($query);
+            // print_r($results);die;
+            $output .= '<select class="form-control select2" name="consultation_medication" id="consultation_medication" onclick="getSearchconsultationMedication()">';
+            if (!empty($results)) {
+                foreach ($results as $row) {
+                    $output .= '<option value="'.$row['search'].'">'.$row['search'].'</option>';
+                   
+                }
+            } else {
+                $output .= '<option>No Data Found</option>';
+            }
+            $output .= '</select>';
+            echo $output;
+        }
+    }
+
+    public function fetchProduct() {
+        $output = '';
+        $query = $this->input->post('query');
+        if ($query) {
+            $results = $this->common_model->fetchConsultProduct($query);
+            // print_r($results);die;
+            $output .= '<select class="form-control select2" name="consultation_product" id="consultation_product" onclick="getSearchconsultationProduct()">';
+            if (!empty($results)) {
+                foreach ($results as $row) {
+                    $output .= '<option value="'.$row['search'].'">'.$row['search'].'</option>';
+                   
+                }
+            } else {
+                $output .= '<option>No Data Found</option>';
+            }
+            $output .= '</select>';
+            echo $output;
+        }
+    }
+    
 
     public function addQuestion() {
 

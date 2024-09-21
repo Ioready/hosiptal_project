@@ -594,4 +594,277 @@ class Common_model extends MY_Model {
             return FALSE;
         }
     }
+
+
+    public function fetchConsultProblem($query) {
+
+        $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+       
+        if($this->ion_auth->is_subAdmin()){
+    
+            $option = array(
+                'table' => ' doctors',
+                'select' => 'doctors.*',
+                'join' => array(
+                    array('users', 'doctors.user_id=users.id', 'left'),
+                ),
+                'where' => array(
+                    'users.delete_status' => 0,
+                    'doctors.user_id'=>$CareUnitID
+                ),
+                'single' => true,
+            );
+    
+            $datadoctors = $this->common_model->customGet($option);
+            $this->db->like('search', $query);
+        $this->db->where('type', 'problem_heading');
+        $query = $this->db->get('vendor_sale_consultation_problem_heading');
+
+        } else if ($this->ion_auth->is_facilityManager()) {
+            
+            $this->db->like('search', $query);
+            $this->db->where('type', 'problem_heading');
+            // $this->db->limit(1); 
+            $query = $this->db->get('vendor_sale_consultation_problem_heading');
+        }
+        return $query->result_array(); // Ensure result_array() is used
+    }
+
+    public function fetchConsultExamination($query) {
+
+        $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+       
+        if($this->ion_auth->is_subAdmin()){
+    
+            $option = array(
+                'table' => ' doctors',
+                'select' => 'doctors.*',
+                'join' => array(
+                    array('users', 'doctors.user_id=users.id', 'left'),
+                ),
+                'where' => array(
+                    'users.delete_status' => 0,
+                    'doctors.user_id'=>$CareUnitID
+                ),
+                'single' => true,
+            );
+    
+            $datadoctors = $this->common_model->customGet($option);
+            $this->db->like('search', $query);
+       
+        $query = $this->db->get('vendor_sale_consultation_examination');
+
+        } else if ($this->ion_auth->is_facilityManager()) {
+            
+            $this->db->like('search', $query);
+            
+            $query = $this->db->get('vendor_sale_consultation_examination');
+        }
+        return $query->result_array(); // Ensure result_array() is used
+    }
+
+
+    public function fetchConsultAllergy($query) {
+
+        $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+       
+        if($this->ion_auth->is_subAdmin()){
+    
+            $option = array(
+                'table' => ' doctors',
+                'select' => 'doctors.*',
+                'join' => array(
+                    array('users', 'doctors.user_id=users.id', 'left'),
+                ),
+                'where' => array(
+                    'users.delete_status' => 0,
+                    'doctors.user_id'=>$CareUnitID
+                ),
+                'single' => true,
+            );
+    
+            $datadoctors = $this->common_model->customGet($option);
+            $this->db->like('search', $query);
+       
+        $query = $this->db->get('vendor_sale_consultation_allergy');
+
+        } else if ($this->ion_auth->is_facilityManager()) {
+            
+            $this->db->like('search', $query);
+            
+            $query = $this->db->get('vendor_sale_consultation_allergy');
+        }
+        return $query->result_array(); // Ensure result_array() is used
+    }
+
+
+    public function fetchConsultMedicalHistory($query) {
+
+        $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+       
+        if($this->ion_auth->is_subAdmin()){
+    
+            $option = array(
+                'table' => ' doctors',
+                'select' => 'doctors.*',
+                'join' => array(
+                    array('users', 'doctors.user_id=users.id', 'left'),
+                ),
+                'where' => array(
+                    'users.delete_status' => 0,
+                    'doctors.user_id'=>$CareUnitID
+                ),
+                'single' => true,
+            );
+    
+            $datadoctors = $this->common_model->customGet($option);
+            $this->db->like('search', $query);
+       
+        $query = $this->db->get('vendor_sale_consultation_medical_history');
+
+        } else if ($this->ion_auth->is_facilityManager()) {
+            
+            $this->db->like('search', $query);
+            
+            $query = $this->db->get('vendor_sale_consultation_medical_history');
+        }
+        return $query->result_array(); // Ensure result_array() is used
+    }
+
+    public function fetchConsultFamilyHistory($query) {
+
+        $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+       
+        if($this->ion_auth->is_subAdmin()){
+    
+            $option = array(
+                'table' => ' doctors',
+                'select' => 'doctors.*',
+                'join' => array(
+                    array('users', 'doctors.user_id=users.id', 'left'),
+                ),
+                'where' => array(
+                    'users.delete_status' => 0,
+                    'doctors.user_id'=>$CareUnitID
+                ),
+                'single' => true,
+            );
+    
+            $datadoctors = $this->common_model->customGet($option);
+            $this->db->like('search', $query);
+       
+        $query = $this->db->get('vendor_sale_consultation_family_history');
+
+        } else if ($this->ion_auth->is_facilityManager()) {
+            
+            $this->db->like('search', $query);
+            
+            $query = $this->db->get('vendor_sale_consultation_family_history');
+        }
+        return $query->result_array(); // Ensure result_array() is used
+    }
+
+    public function fetchConsultSocial($query) {
+
+        $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+       
+        if($this->ion_auth->is_subAdmin()){
+    
+            $option = array(
+                'table' => ' doctors',
+                'select' => 'doctors.*',
+                'join' => array(
+                    array('users', 'doctors.user_id=users.id', 'left'),
+                ),
+                'where' => array(
+                    'users.delete_status' => 0,
+                    'doctors.user_id'=>$CareUnitID
+                ),
+                'single' => true,
+            );
+    
+            $datadoctors = $this->common_model->customGet($option);
+            $this->db->like('search', $query);
+       
+        $query = $this->db->get('vendor_sale_consultation_social');
+
+        } else if ($this->ion_auth->is_facilityManager()) {
+            
+            $this->db->like('search', $query);
+            
+            $query = $this->db->get('vendor_sale_consultation_social');
+        }
+        return $query->result_array(); // Ensure result_array() is used
+    }
+
+
+    public function fetchConsultMedication($query) {
+
+        $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+       
+        if($this->ion_auth->is_subAdmin()){
+    
+            $option = array(
+                'table' => ' doctors',
+                'select' => 'doctors.*',
+                'join' => array(
+                    array('users', 'doctors.user_id=users.id', 'left'),
+                ),
+                'where' => array(
+                    'users.delete_status' => 0,
+                    'doctors.user_id'=>$CareUnitID
+                ),
+                'single' => true,
+            );
+    
+            $datadoctors = $this->common_model->customGet($option);
+            $this->db->like('search', $query);
+       
+        $query = $this->db->get('vendor_sale_consultation_medication');
+
+        } else if ($this->ion_auth->is_facilityManager()) {
+            
+            $this->db->like('search', $query);
+            
+            $query = $this->db->get('vendor_sale_consultation_medication');
+        }
+        return $query->result_array(); // Ensure result_array() is used
+    }
+
+
+    public function fetchConsultProduct($query) {
+
+        $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+       
+        if($this->ion_auth->is_subAdmin()){
+    
+            $option = array(
+                'table' => ' doctors',
+                'select' => 'doctors.*',
+                'join' => array(
+                    array('users', 'doctors.user_id=users.id', 'left'),
+                ),
+                'where' => array(
+                    'users.delete_status' => 0,
+                    'doctors.user_id'=>$CareUnitID
+                ),
+                'single' => true,
+            );
+    
+            $datadoctors = $this->common_model->customGet($option);
+            $this->db->like('search', $query);
+       
+        $query = $this->db->get('vendor_sale_consultation_product');
+
+        } else if ($this->ion_auth->is_facilityManager()) {
+            
+            $this->db->like('search', $query);
+            
+            $query = $this->db->get('vendor_sale_consultation_product');
+        }
+        return $query->result_array(); // Ensure result_array() is used
+    }
+
+
+    
 }
