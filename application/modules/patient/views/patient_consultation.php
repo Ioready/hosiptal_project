@@ -141,7 +141,7 @@
         <div class="row text-center">
                 
                 <div class="col-sm-6 col-md-2 mb-4">
-                    <a href="<?php echo base_url() . 'index.php/patient/summary?id=' . encoding($results->id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 10px; ">
+                    <a href="<?php echo base_url() . 'index.php/patient/summary?id=' . encoding($patient_id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 10px; ">
                         <div class="widget-extra themed-background-dark"   style="background:#337ab7;">
                             <h4 style="font-size:14px; font-weight:600; color:white;">Summery</h4>
                         </div>
@@ -149,7 +149,7 @@
                     </a>
                 </div>
                 <div class="col-sm-6 col-lg-2 mb-4">
-                    <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($results->id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
+                    <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($patient_id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
                         <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
                             <h4 style="font-size:16px; font-weight:600; color:white;">Consultation</h4>
                         </div>
@@ -157,7 +157,7 @@
                     </a>
                 </div>
                 <div class="col-sm-6 col-lg-2 mb-4">
-                <a href="<?php echo base_url(). 'index.php/Medications?id=' . encoding($results->id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
+                <a href="<?php echo base_url(). 'index.php/Medications?id=' . encoding($patient_id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
                         <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
                             <h4 style="font-size:16px; font-weight:600; color:white;">Medications</h4>
                         </div>
@@ -166,7 +166,7 @@
                 </div>
 
                 <div class="col-sm-6 col-lg-2 mb-4">
-                <a href="<?php echo base_url(). 'index.php/lettersAndForm?id=' . encoding($results->id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
+                <a href="<?php echo base_url(). 'index.php/lettersAndForm?id=' . encoding($patient_id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
                         <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
                             <h4 style="font-size:16px; font-weight:600; color:white;">Letters and forms</h4>
                         </div>
@@ -174,7 +174,7 @@
                     </a>
                 </div>
                 <div class="col-sm-6 col-lg-2 mb-4">
-                <a href="<?php echo base_url(). 'index.php/patientPrescription?id=' . encoding($results->id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
+                <a href="<?php echo base_url(). 'index.php/patientPrescription?id=' . encoding($patient_id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
                         <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
                             <h4 style="font-size:16px; font-weight:600; color:white;">Prescriptions</h4>
                         </div>
@@ -182,7 +182,7 @@
                     </a>
                 </div>
                 <div class="col-sm-6 col-lg-2 mb-4">
-                <a href="<?php echo base_url(). 'index.php/labs?id=' . encoding($results->id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
+                <a href="<?php echo base_url(). 'index.php/labs?id=' . encoding($patient_id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
                         <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
                             <h4 style="font-size:16px; font-weight:600; color:white;">Labs</h4>
                         </div>
@@ -190,7 +190,7 @@
                     </a>
                 </div>
                 <div class="col-sm-6 col-lg-2 mb-4">
-                <a href="<?php echo base_url(). 'index.php/patient/consultationInvoice?id=' . encoding($results->id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
+                <a href="<?php echo base_url(). 'index.php/patient/consultationInvoice?id=' . encoding($patient_id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
                         <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
                             <h4 style="font-size:16px; font-weight:600; color:white;">Invoices</h4>
                         </div>
@@ -198,7 +198,7 @@
                     </a>
                 </div>
                 <div class="col-sm-6 col-lg-2 mb-4">
-                <a href="<?php echo base_url(). 'index.php/accountStatement?id=' . encoding($results->id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
+                <a href="<?php echo base_url(). 'index.php/accountStatement?id=' . encoding($patient_id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
                         <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
                             <h4 style="font-size:16px; font-weight:600; color:white;">Account statements</h4>
                         </div>
@@ -207,7 +207,7 @@
                 </div>
                 
                 <div class="col-sm-6 col-lg-2 mb-4">
-                <a href="<?php echo base_url() . 'index.php/patient/communication?id=' . encoding($results->id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
+                <a href="<?php echo base_url() . 'index.php/patient/communication?id=' . encoding($patient_id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
                         <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
                             <h4 style="font-size:16px; font-weight:600; color:white;">Communication</h4>
                         </div>
@@ -215,7 +215,7 @@
                     </a>
                 </div>
                 <div class="col-sm-6 col-lg-2 mb-4">
-                <a href="<?php echo base_url() . 'index.php/patientDocuments?id=' . encoding($results->id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
+                <a href="<?php echo base_url() . 'index.php/patientDocuments?id=' . encoding($patient_id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
                         <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
                             <h4 style="font-size:16px; font-weight:600; color:white;">Documents</h4>
                         </div>
@@ -223,7 +223,7 @@
                     </a>
                 </div>
                 <div class="col-sm-6 col-lg-2 mb-4">
-                <a href="<?php echo base_url() . 'index.php/patient/communication?id=' . encoding($results->id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
+                <a href="<?php echo base_url() . 'index.php/patient/communication?id=' . encoding($patient_id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
                         <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
                             <h4 style="font-size:16px; font-weight:600; color:white;">Logs</h4>
                         </div>
@@ -238,65 +238,7 @@
                 
                 <div class="col-sm-6 col-lg-12">
                     <div class="panel panel-default">
-                    <!-- <div> 
-                        <ul class="nav nav-pills nav-fill nav-tabss mt-4" id="pills-tab" role="tablist" >
-                            <li class="nav-item">
-                            <a href="<?php echo site_url('patient'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "patient") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide text-dark">Patient</span></a>
-                            </li>
-                            <li class="nav-item">
-                            <a href="<?php echo base_url() . 'index.php/patient/summary?id=' . encoding($results->id); ?>" data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark">Summary</span></a>
-                            </li>
-                            
-                            <li class="nav-item">
-                            <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($results->id); ?>"data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark"> Consultation</span></a>
-                                
-                            </li>
-                            <li class="nav-item">
-                            <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($results->id); ?>"data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark"> Medications</span></a>
-                                
-                            </li>
-                            <li class="nav-item">
-                            <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($results->id); ?>"data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark"> Letters and forms</span></a>
-                                
-                            </li>
-
-                            <li class="nav-item">
-                            <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($results->id); ?>"data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark"> Prescriptions</span></a>
-                                
-                            </li>
-
-                            <li class="nav-item">
-                            <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($results->id); ?>"data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark"> Labs</span></a>
-                                
-                            </li>
-
-                            <li class="nav-item">
-                            <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($results->id); ?>"data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark"> Invoices</span></a>
-                                
-                            </li>
-
-                            <li class="nav-item">
-                            <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($results->id); ?>"data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark"> Account statements</span></a>
-                                
-                            </li>
-
-                            <li class="nav-item">
-                            
-                            <a href="<?php echo base_url() . 'index.php/patient/communication?id=' . encoding($results->id); ?>" data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark">Communication</span></a>
-                            </li>
-
-                            <li class="nav-item">
-                            
-                            <a href="<?php echo base_url() . 'index.php/patient/communication?id=' . encoding($results->id); ?>" data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark">Documents</span></a>
-                            </li>
-                            <li class="nav-item">
-                            
-                            <a href="<?php echo base_url() . 'index.php/patient/communication?id=' . encoding($results->id); ?>" data-toggle="tooltip"><span class="sidebar-nav-mini-hide text-dark">Logs</span></a>
-                            </li>
-                            
-                        </ul>
-                    </div>  -->
-
+                   
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="=" crossorigin="anonymous" />
                 <div class="m-4">
                     <div class="row">
@@ -431,23 +373,7 @@
                         </div>
 
                         
-                        <div class="row">
-                <div class="col-md-12">
-                    <!-- Consultation Type & Date -->
-                    <div class="form-group row">
-                        <div class="col-md-4">
-                            <label for="consultationType">Consultation Type</label>
-                            <select name="consultationType" id="consultationType" class="form-control">
-                                <option value="">Doctor Consultation</option>
-                            </select>
-                        </div>
-                        <div class="col-md-3">
-                            <label for="consultationDate">Date</label>
-                            <input type="date" name="date" id="consultationDate" class="form-control">
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
                         <!-- Dynamic Form Sections -->
                         <div id="form-sections">
                         <div id="form-complaint" class="form-section" style="display:none;">
@@ -457,6 +383,31 @@
                             <input type="hidden" class="form-control" name="patient_id" id="patient_id" value="<?php echo encoding($patient_id);?>" placeholder="Enter Complaint">
                            
                             <!-- Presenting Complaint -->
+
+                            <div class="row">
+                                    <div class="col-md-12">
+                                            <!-- Consultation Type & Date -->
+                                            <div class="form-group row">
+                                                <div class="col-md-4">
+                                                    <label for="consultationType">Consultation Type</label>
+                                                    <select name="consultationType" id="consultationType" class="form-control">
+                                                        <option value="">Doctor Consultation</option>
+
+                                                        <?php if (!empty($doctors)) {
+                                                                    foreach ($doctors as $doctor) { ?>
+                                                                            <option value="<?php echo $doctor->id; ?>"><?php echo $doctor->first_name. ' '.$doctor->last_name; ?></option>
+                                                        <?php } } ?>
+
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="consultationDate">Date</label>
+                                                    <input type="datetime-local" name="consultation_date" id="consultation_date" class="form-control">
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>
+
                             
                                 <h4>Presenting Complaint</h4>
                                 <input type="text" class="form-control" name="presenting_complaint" id="presenting_complaint" placeholder="Enter Complaint">
@@ -474,7 +425,32 @@
                             <div class="alert alert-danger" id="error-box" style="display: none"></div>
             
                             <input type="hidden" class="form-control" name="patient_id" id="patient_id" value="<?php echo encoding($patient_id);?>" placeholder="Enter Complaint">
-                           
+                                                                        
+                                <div class="row">
+                                    <div class="col-md-12">
+                                            <!-- Consultation Type & Date -->
+                                            <div class="form-group row">
+                                                <div class="col-md-4">
+                                                    <label for="consultationType">Consultation Type</label>
+                                                    <select name="consultationType" id="consultationType" class="form-control">
+                                                        <option value="">Doctor Consultation</option>
+
+                                                        <?php if (!empty($doctors)) {
+                                                                    foreach ($doctors as $doctor) { ?>
+                                                                            <option value="<?php echo $doctor->id; ?>"><?php echo $doctor->first_name. ' '.$doctor->last_name; ?></option>
+                                                        <?php } } ?>
+
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="consultationDate">Date</label>
+                                                    <input type="datetime-local" name="consultation_date" id="consultation_date" class="form-control">
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>
+
+
                                 <h4>Problem Heading</h4>
                                 <div class="row">
                                     <span style="padding: 10px; margin-left: 25px;"><b>Problem</b></span>
@@ -525,6 +501,31 @@
                             <input type="hidden" class="form-control" name="patient_id" id="patient_id" value="<?php echo encoding($patient_id);?>" placeholder="Enter Complaint">
                            
 
+                            <div class="row">
+                                    <div class="col-md-12">
+                                            <!-- Consultation Type & Date -->
+                                            <div class="form-group row">
+                                                <div class="col-md-4">
+                                                    <label for="consultationType">Consultation Type</label>
+                                                    <select name="consultationType" id="consultationType" class="form-control">
+                                                        <option value="">Doctor Consultation</option>
+
+                                                        <?php if (!empty($doctors)) {
+                                                                    foreach ($doctors as $doctor) { ?>
+                                                                            <option value="<?php echo $doctor->id; ?>"><?php echo $doctor->first_name. ' '.$doctor->last_name; ?></option>
+                                                        <?php } } ?>
+
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="consultationDate">Date</label>
+                                                    <input type="datetime-local" name="consultation_date" id="consultation_date" class="form-control">
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>
+
+
                                 <h4>Examination</h4>
                                 <div class="row">
                                 <input type="hidden" class="form-control" name="type" id="type" value="examination" placeholder="Enter Complaint">
@@ -555,6 +556,32 @@
             
                             <input type="hidden" class="form-control" name="patient_id" id="patient_id" value="<?php echo encoding($patient_id);?>" placeholder="Enter Complaint">
                            
+                                                                        
+                            <div class="row">
+                                    <div class="col-md-12">
+                                            <!-- Consultation Type & Date -->
+                                            <div class="form-group row">
+                                                <div class="col-md-4">
+                                                    <label for="consultationType">Consultation Type</label>
+                                                    <select name="consultationType" id="consultationType" class="form-control">
+                                                        <option value="">Doctor Consultation</option>
+
+                                                        <?php if (!empty($doctors)) {
+                                                                    foreach ($doctors as $doctor) { ?>
+                                                                            <option value="<?php echo $doctor->id; ?>"><?php echo $doctor->first_name. ' '.$doctor->last_name; ?></option>
+                                                        <?php } } ?>
+
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="consultationDate">Date</label>
+                                                    <input type="datetime-local" name="consultation_date" id="consultation_date" class="form-control">
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>
+
+
                                 <h4>Allergy</h4>
                                 <div class="row">
                                 <input type="hidden" class="form-control" name="type" id="type" value="allergy" placeholder="Enter Complaint">
@@ -590,6 +617,32 @@
             
                             <input type="hidden" class="form-control" name="patient_id" id="patient_id" value="<?php echo encoding($patient_id);?>" placeholder="Enter Complaint">
                            
+                                                                        
+                            <div class="row">
+                                    <div class="col-md-12">
+                                            <!-- Consultation Type & Date -->
+                                            <div class="form-group row">
+                                                <div class="col-md-4">
+                                                    <label for="consultationType">Consultation Type</label>
+                                                    <select name="consultationType" id="consultationType" class="form-control">
+                                                        <option value="">Doctor Consultation</option>
+
+                                                        <?php if (!empty($doctors)) {
+                                                                    foreach ($doctors as $doctor) { ?>
+                                                                            <option value="<?php echo $doctor->id; ?>"><?php echo $doctor->first_name. ' '.$doctor->last_name; ?></option>
+                                                        <?php } } ?>
+
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="consultationDate">Date</label>
+                                                    <input type="datetime-local" name="consultation_date" id="consultation_date" class="form-control">
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>
+
+
                                 <h4>Medical History</h4>
                                 <div class="row">
                                 <input type="hidden" class="form-control" name="type" id="type" value="medical_history" placeholder="Enter Complaint">
@@ -637,6 +690,30 @@
                             <input type="hidden" class="form-control" name="patient_id" id="patient_id" value="<?php echo encoding($patient_id);?>" placeholder="Enter Complaint">
                            
 
+                            <div class="row">
+                                    <div class="col-md-12">
+                                            <!-- Consultation Type & Date -->
+                                            <div class="form-group row">
+                                                <div class="col-md-4">
+                                                    <label for="consultationType">Consultation Type</label>
+                                                    <select name="consultationType" id="consultationType" class="form-control">
+                                                        <option value="">Doctor Consultation</option>
+
+                                                        <?php if (!empty($doctors)) {
+                                                                    foreach ($doctors as $doctor) { ?>
+                                                                            <option value="<?php echo $doctor->id; ?>"><?php echo $doctor->first_name. ' '.$doctor->last_name; ?></option>
+                                                        <?php } } ?>
+
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="consultationDate">Date</label>
+                                                    <input type="datetime-local" name="consultation_date" id="consultation_date" class="form-control">
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>
+
                                 <h4>Family History</h4>
                                 <div class="row">
                                 <input type="hidden" class="form-control" name="type" id="type" value="family_history" placeholder="Enter Complaint">
@@ -672,7 +749,32 @@
                             <div class="alert alert-danger" id="error-box" style="display: none"></div>
             
                             <input type="hidden" class="form-control" name="patient_id" id="patient_id" value="<?php echo encoding($patient_id);?>" placeholder="Enter Complaint">
-                           
+                                                                        
+                            <div class="row">
+                                    <div class="col-md-12">
+                                            <!-- Consultation Type & Date -->
+                                            <div class="form-group row">
+                                                <div class="col-md-4">
+                                                    <label for="consultationType">Consultation Type</label>
+                                                    <select name="consultationType" id="consultationType" class="form-control">
+                                                        <option value="">Doctor Consultation</option>
+
+                                                        <?php if (!empty($doctors)) {
+                                                                    foreach ($doctors as $doctor) { ?>
+                                                                            <option value="<?php echo $doctor->id; ?>"><?php echo $doctor->first_name. ' '.$doctor->last_name; ?></option>
+                                                        <?php } } ?>
+
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="consultationDate">Date</label>
+                                                    <input type="datetime-local" name="consultation_date" id="consultation_date" class="form-control">
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>
+
+
                                 <h4>Social</h4>
                                 <div class="row">
                                 <input type="hidden" class="form-control" name="type" id="type" value="social" placeholder="Enter Complaint">
@@ -715,7 +817,32 @@
                             <div class="alert alert-danger" id="error-box" style="display: none"></div>
             
                             <input type="hidden" class="form-control" name="patient_id" id="patient_id" value="<?php echo encoding($patient_id);?>" placeholder="Enter Complaint">
-                           
+                                                                        
+                            <div class="row">
+                                    <div class="col-md-12">
+                                            <!-- Consultation Type & Date -->
+                                            <div class="form-group row">
+                                                <div class="col-md-4">
+                                                    <label for="consultationType">Consultation Type</label>
+                                                    <select name="consultationType" id="consultationType" class="form-control">
+                                                        <option value="">Doctor Consultation</option>
+
+                                                        <?php if (!empty($doctors)) {
+                                                                    foreach ($doctors as $doctor) { ?>
+                                                                            <option value="<?php echo $doctor->id; ?>"><?php echo $doctor->first_name. ' '.$doctor->last_name; ?></option>
+                                                        <?php } } ?>
+
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="consultationDate">Date</label>
+                                                    <input type="datetime-local" name="consultation_date" id="consultation_date" class="form-control">
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>
+
+
                                 <h4>Medication</h4>
                                 <div class="row">
                                 <input type="hidden" class="form-control" name="type" id="type" value="medication" placeholder="Enter Complaint">
@@ -762,6 +889,30 @@
             
                             <input type="hidden" class="form-control" name="patient_id" id="patient_id" value="<?php echo encoding($patient_id);?>" placeholder="Enter Complaint">
                            
+
+                            <div class="row">
+                                    <div class="col-md-12">
+                                            <!-- Consultation Type & Date -->
+                                            <div class="form-group row">
+                                                <div class="col-md-4">
+                                                    <label for="consultationType">Consultation Type</label>
+                                                    <select name="consultationType" id="consultationType" class="form-control">
+                                                        <option value="">Doctor Consultation</option>
+
+                                                        <?php if (!empty($doctors)) {
+                                                                    foreach ($doctors as $doctor) { ?>
+                                                                            <option value="<?php echo $doctor->id; ?>"><?php echo $doctor->first_name. ' '.$doctor->last_name; ?></option>
+                                                        <?php } } ?>
+
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="consultationDate">Date</label>
+                                                    <input type="datetime-local" name="consultation_date" id="consultation_date" class="form-control">
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>
 
                                 <h4>Product</h4>
                                 <div class="row">
@@ -810,7 +961,31 @@
                             <div class="alert alert-danger" id="error-box" style="display: none"></div>
             
                             <input type="hidden" class="form-control" name="patient_id" id="patient_id" value="<?php echo encoding($patient_id);?>" placeholder="Enter Complaint">
-                           
+                                                                        
+                            <div class="row">
+                                    <div class="col-md-12">
+                                            <!-- Consultation Type & Date -->
+                                            <div class="form-group row">
+                                                <div class="col-md-4">
+                                                    <label for="consultationType">Consultation Type</label>
+                                                    <select name="consultationType" id="consultationType" class="form-control" required>
+                                                        <option value="">Doctor Consultation</option>
+
+                                                        <?php if (!empty($doctors)) {
+                                                                    foreach ($doctors as $doctor) { ?>
+                                                                            <option value="<?php echo $doctor->id; ?>"><?php echo $doctor->first_name. ' '.$doctor->last_name; ?></option>
+                                                        <?php } } ?>
+
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="consultationDate">Date</label>
+                                                    <input type="datetime-local" name="consultation_date" id="consultation_date" class="form-control" required>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>
+
 
                                 <h4>Comment</h4>
                                 <textarea class="form-control" placeholder="Enter Comment" name="comment" id="comment"></textarea>
