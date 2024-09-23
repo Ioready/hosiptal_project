@@ -400,7 +400,7 @@
   $('.model-medication').click(function() {
    
    var id = $(this).attr('id');
-   alert(id);
+//    alert(id);
   $('#patient_id_data').val(id);
 
   });

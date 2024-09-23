@@ -414,7 +414,7 @@ class Patient extends Common_Controller
         $this->data['model'] = $this->router->fetch_class();
         $this->data['patient_id'] = decoding($_GET['id']);
         $id = decoding($_GET['id']);
-        // print_r($id);die;
+        
         $role_name = $this->input->post('role_name');
 
         $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
@@ -509,7 +509,7 @@ class Patient extends Common_Controller
            
             $results = $this->common_model->customGet($optionheader);
         
-            // print_r($results);
+            
             echo json_encode($results);
 
         }
@@ -839,8 +839,7 @@ class Patient extends Common_Controller
         }
         $arraySingle = call_user_func_array('array_merge', $careUnitDatas);
         $this->data['careUnitsUser'] = $arraySingle;
-        //print_r($arraySingle);die;
-        // print_r($this->data['careUnitsUser']);die;
+       
         $user_id = $this->session->userdata('user_id');
 
         $option3 = array(
@@ -1141,7 +1140,6 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
         }
 
 
-        // print_r($patientList);die;
         $print_array = array();
         if (!empty($patientList)) {
             foreach ($patientList as $Row) {
@@ -1236,9 +1234,7 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
                     'NewInitialDOT' => $Row->new_initial_dot
                 );
             }
-            // echo "<pre>";
-            // print_r($print_array);
-            // die;
+           
             if (!empty($print_array)) {
                 //$fp = fopen('PatientList.csv', 'w');
                 // Define the CSV filename based on the selected month and year
@@ -1346,7 +1342,6 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
             $patientList = $this->common_model->customQuery($Sql);
         }
 
-        // print_r($patientList);die;
         $print_array = array();
 
         if (!empty($patientList)) {

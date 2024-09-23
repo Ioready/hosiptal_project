@@ -34,25 +34,12 @@ class Medications extends Common_Controller {
         $this->data['table'] = $this->_table;
         $this->data['patient_id'] = decoding($_GET['id']);
         $this->data['id'] = $_GET['id'];
-        // print_r($this->data['patient_id']);die;
-        // $option = array('table' => $this->_tables);
-
+        
        $id=  decoding($_GET['id']);
-        // $option = array(
-        //     'table' => 'patient_medications',
-        //     'select' => 'patient_medications`.*,vendor_sale_initial_rx.name',
-        //     'join' => array(
-        //         array('vendor_sale_initial_rx', 'vendor_sale_initial_rx.id=patient_medications.medication_name','left')
-        //     ),
-        //     'where' => array('patient_medications.patient_id' => $id)
-        // );
-
+      
         $option = array(
             'table' => 'vendor_sale_patient_consultation',
             'select' => 'vendor_sale_patient_consultation`.*,vendor_sale_users.first_name,vendor_sale_users.last_name,vendor_sale_doctors.name as doctor_name',
-            // 'join' => array(
-            //     array('vendor_sale_initial_rx', 'vendor_sale_initial_rx.id=patient_medications.medication_name','left')
-            // ),
             'join' => array(
                     array('vendor_sale_patient', 'vendor_sale_patient.id=vendor_sale_patient_consultation.patient_id','left'),
                     array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_patient.user_id','left'),
@@ -78,9 +65,8 @@ class Medications extends Common_Controller {
     function open_model() {
         $this->data['title'] = "Add " . $this->title;
         $this->data['formUrl'] = $this->router->fetch_class() . "/add";
-        // $this->data['patient_id'] = $this->input->post('id');
         $this->data['patient_id'] = decoding($_GET['id']);
-        // print_r($this->data['patient_id']);
+        
         $this->data['initial_rx'] = $this->common_model->customGet(array('table' => 'initial_rx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
 
         
@@ -111,7 +97,7 @@ class Medications extends Common_Controller {
                 'join' => array(
                     array('users', 'doctors.user_id=users.id', 'left'),
                     array('user_profile UP', 'UP.user_id=users.id', 'left'),
-                    // array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
+                    
                     
                 ),
                 
@@ -122,7 +108,7 @@ class Medications extends Common_Controller {
                 'order' => array('users.id' => 'desc'),
             );
             $this->data['doctors'] = $this->common_model->customGet($option);
-            // print_r($datadoctors->facility_user_id);die;
+            
     
         } else if ($this->ion_auth->is_facilityManager()) {
             
@@ -144,7 +130,7 @@ class Medications extends Common_Controller {
             );
             $this->data['doctors'] = $this->common_model->customGet($option);
         }
-        // print_r($this->data['doctors']);die;
+        
         
 
         $this->load->view('add', $this->data);
@@ -157,26 +143,12 @@ class Medications extends Common_Controller {
      */
     public function add() {
 
-        // echo $this->input->post('patient_id');die;
-        // print_r($this->input->post());die;
         $this->form_validation->set_rules('type', "type", 'required|trim');
         if ($this->form_validation->run() == true) {
            
            
             $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
-                // $options_data = array(
-                //     'user_id' => $CareUnitID,
-                //     'patient_id' => $this->input->post('patient_id'),
-                //     'type' => $this->input->post('type'),
-                //     'medication_name' => $this->input->post('medication_name'),
-                //     'detail' => $this->input->post('detail'),
-                //     'last_recorded' => $this->input->post('last_recorded'),
-                //     'last_prescribed' => $this->input->post('last_prescribed'),
-                //     'facility_user_id' => $CareUnitID,
-                //     'is_active' => 1,
-                //     'create_date' => datetime()
-                // );
-                // 
+              
                 $options_data = array(
                     'patient_id'=> decoding($this->input->post('patient_id')),
                     'facility_user_id'=> $LoginID,
@@ -195,18 +167,7 @@ class Medications extends Common_Controller {
                     'showSummary' => $this->input->post('showSummary'),                
                 );
                 $option = array('table' => $this->_tables, 'data' => $options_data);
-        //         if ($this->common_model->customInsert($option)) {
-        //             $response = array('status' => 1, 'message' => "Successfully added", 'url' => base_url($this->router->fetch_class()));
-        //         } else {
-        //             $response = array('status' => 0, 'message' => "Failed to add");
-        //         }
-           
-        // } else {
-        //     $messages = (validation_errors()) ? validation_errors() : '';
-        //     $response = array('status' => 0, 'message' => $messages);
-        // }
-        // echo json_encode($response);
-        
+      
 
                         if ($this->common_model->customInsert($option)) {
 
