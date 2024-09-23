@@ -369,9 +369,7 @@
                                 </td> -->
 
                                 <td class="actions">
-                                <a href="javascript:void(0)" class="btn btn-xs" style="color:white; background: linear-gradient(to right, rgba(71, 74, 127, 1) 0%, rgb(43 178 136) 100%);" onclick="editFn('<?php echo $model; ?>', 'edit', '<?php echo encoding($rows->id) ?>', '<?php echo $model; ?>');" title="Edit" aria-label="Edit">
-    <i class="fa fa-pencil"></i> Edit
-</a>
+                                <a href="javascript:void(0)" class="btn btn-xs" style="color:white; background: linear-gradient(to right, rgba(71, 74, 127, 1) 0%, rgb(43 178 136) 100%);" onclick="editFn('<?php echo $model; ?>', 'edit', '<?php echo encoding($rows->id) ?>', '<?php echo $model; ?>');" title="Edit" aria-label="Edit"><i class="fa fa-pencil"></i> Edit</a>
 
                                     <!-- <a href="javascript:void(0)" class="btn btn-xs btn-default" onclick="editFn('<?php echo $model; ?>', 'edit', '<?php echo encoding($rows->id) ?>', '<?php echo $model; ?>');"><i class="fa fa-pencil"></i></a> -->
                                     <?php if ($rows->status == 1) { ?>
