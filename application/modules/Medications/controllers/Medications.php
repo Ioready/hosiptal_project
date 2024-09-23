@@ -6,8 +6,9 @@ class Medications extends Common_Controller {
 
     public $data = array();
     public $file_data = "";
-    public $_table = 'culture_source';
-    public $_tables = 'patient_medications';
+    // public $_table = 'culture_source';
+    // public $_tables = 'patient_medications';
+    public $_tables = 'patient_consultation';
     // public $_tables = 'clinic';
     
     public $title = "Medications";
@@ -37,17 +38,35 @@ class Medications extends Common_Controller {
         // $option = array('table' => $this->_tables);
 
        $id=  decoding($_GET['id']);
+        // $option = array(
+        //     'table' => 'patient_medications',
+        //     'select' => 'patient_medications`.*,vendor_sale_initial_rx.name',
+        //     'join' => array(
+        //         array('vendor_sale_initial_rx', 'vendor_sale_initial_rx.id=patient_medications.medication_name','left')
+        //     ),
+        //     'where' => array('patient_medications.patient_id' => $id)
+        // );
+
         $option = array(
-            'table' => 'patient_medications',
-            'select' => 'patient_medications`.*,vendor_sale_initial_rx.name',
+            'table' => 'vendor_sale_patient_consultation',
+            'select' => 'vendor_sale_patient_consultation`.*,vendor_sale_users.first_name,vendor_sale_users.last_name,vendor_sale_doctors.name as doctor_name',
+            // 'join' => array(
+            //     array('vendor_sale_initial_rx', 'vendor_sale_initial_rx.id=patient_medications.medication_name','left')
+            // ),
             'join' => array(
-                array('vendor_sale_initial_rx', 'vendor_sale_initial_rx.id=patient_medications.medication_name','left')
-            ),
-            'where' => array('patient_medications.patient_id' => $id)
+                    array('vendor_sale_patient', 'vendor_sale_patient.id=vendor_sale_patient_consultation.patient_id','left'),
+                    array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_patient.user_id','left'),
+                    array('vendor_sale_doctors', 'doctors.user_id=vendor_sale_patient_consultation.consultation_type','left'),
+                ),
+            'where' => array('vendor_sale_patient_consultation.patient_id' => $id,'type'=>'medication'),
+            'order_by'=>array('vendor_sale_patient_consultation.id','desc')
+            
         );
 
-
         $this->data['list'] = $this->common_model->customGet($option);
+
+
+        // print_r($this->data);die;
         $this->load->admin_render('list', $this->data, 'inner_script');
     }
 
@@ -59,9 +78,75 @@ class Medications extends Common_Controller {
     function open_model() {
         $this->data['title'] = "Add " . $this->title;
         $this->data['formUrl'] = $this->router->fetch_class() . "/add";
-        $this->data['patient_id'] = $this->input->post('id');
+        // $this->data['patient_id'] = $this->input->post('id');
+        $this->data['patient_id'] = decoding($_GET['id']);
         // print_r($this->data['patient_id']);
         $this->data['initial_rx'] = $this->common_model->customGet(array('table' => 'initial_rx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
+
+        
+        $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+        
+        if($this->ion_auth->is_subAdmin()){
+    
+            $option = array(
+                'table' => ' doctors',
+                'select' => 'doctors.*',
+                'join' => array(
+                    array('users', 'doctors.user_id=users.id', 'left'),
+                ),
+                
+                'where' => array(
+                    'users.delete_status' => 0,
+                    'doctors.user_id'=>$CareUnitID
+                ),
+                'single' => true,
+            );
+    
+            $datadoctors = $this->common_model->customGet($option);
+    
+    
+        $option = array(
+                'table' => ' doctors',
+                'select' => 'users.*',
+                'join' => array(
+                    array('users', 'doctors.user_id=users.id', 'left'),
+                    array('user_profile UP', 'UP.user_id=users.id', 'left'),
+                    // array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
+                    
+                ),
+                
+                'where' => array(
+                    'users.delete_status' => 0,
+                    'doctors.facility_user_id'=>$datadoctors->facility_user_id
+                ),
+                'order' => array('users.id' => 'desc'),
+            );
+            $this->data['doctors'] = $this->common_model->customGet($option);
+            // print_r($datadoctors->facility_user_id);die;
+    
+        } else if ($this->ion_auth->is_facilityManager()) {
+            
+            $option = array(
+                'table' => ' doctors',
+                'select' => 'users.*',
+                'join' => array(
+                    array('users', 'doctors.user_id=users.id', 'left'),
+                    array('user_profile UP', 'UP.user_id=users.id', 'left'),
+                    array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
+                    
+                ),
+                
+                'where' => array(
+                    'users.delete_status' => 0,
+                    'doctors.facility_user_id'=>$CareUnitID
+                ),
+                'order' => array('users.id' => 'desc'),
+            );
+            $this->data['doctors'] = $this->common_model->customGet($option);
+        }
+        // print_r($this->data['doctors']);die;
+        
+
         $this->load->view('add', $this->data);
     }
 
@@ -78,31 +163,65 @@ class Medications extends Common_Controller {
         if ($this->form_validation->run() == true) {
            
            
-            $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+            $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+                // $options_data = array(
+                //     'user_id' => $CareUnitID,
+                //     'patient_id' => $this->input->post('patient_id'),
+                //     'type' => $this->input->post('type'),
+                //     'medication_name' => $this->input->post('medication_name'),
+                //     'detail' => $this->input->post('detail'),
+                //     'last_recorded' => $this->input->post('last_recorded'),
+                //     'last_prescribed' => $this->input->post('last_prescribed'),
+                //     'facility_user_id' => $CareUnitID,
+                //     'is_active' => 1,
+                //     'create_date' => datetime()
+                // );
+                // 
                 $options_data = array(
-                    'user_id' => $CareUnitID,
-                    'patient_id' => $this->input->post('patient_id'),
+                    'patient_id'=> decoding($this->input->post('patient_id')),
+                    'facility_user_id'=> $LoginID,
+                    'consultation_type' => $this->input->post('consultationType'),
+                    'consultation_date' => $this->input->post('consultation_date'),
                     'type' => $this->input->post('type'),
-                    'medication_name' => $this->input->post('medication_name'),
-                    'detail' => $this->input->post('detail'),
-                    'last_recorded' => $this->input->post('last_recorded'),
-                    'last_prescribed' => $this->input->post('last_prescribed'),
-                    'facility_user_id' => $CareUnitID,
-                    'is_active' => 1,
-                    'create_date' => datetime()
+                    'presenting_complaint' => $this->input->post('presenting_complaint'),
+                    'search' => $this->input->post('search'),  
+                    'since' => $this->input->post('since'),                
+                    'condition_type' => $this->input->post('condition_type'),                
+                    'condition_significance' => $this->input->post('condition_significance'),                
+                    'comment' => $this->input->post('comment'),                
+                    'value' => $this->input->post('value'),                
+                    'severity' => $this->input->post('severity'),                
+                    'relationship' => $this->input->post('relationship'),                
+                    'showSummary' => $this->input->post('showSummary'),                
                 );
                 $option = array('table' => $this->_tables, 'data' => $options_data);
-                if ($this->common_model->customInsert($option)) {
-                    $response = array('status' => 1, 'message' => "Successfully added", 'url' => base_url($this->router->fetch_class()));
-                } else {
-                    $response = array('status' => 0, 'message' => "Failed to add");
-                }
+        //         if ($this->common_model->customInsert($option)) {
+        //             $response = array('status' => 1, 'message' => "Successfully added", 'url' => base_url($this->router->fetch_class()));
+        //         } else {
+        //             $response = array('status' => 0, 'message' => "Failed to add");
+        //         }
            
-        } else {
-            $messages = (validation_errors()) ? validation_errors() : '';
-            $response = array('status' => 0, 'message' => $messages);
-        }
-        echo json_encode($response);
+        // } else {
+        //     $messages = (validation_errors()) ? validation_errors() : '';
+        //     $response = array('status' => 0, 'message' => $messages);
+        // }
+        // echo json_encode($response);
+        
+
+                        if ($this->common_model->customInsert($option)) {
+
+                            $response = array('status' => 1, 'message' => "Successfully add medication", 'url' => base_url($this->router->fetch_class()));
+                        } else {
+                            $response = array('status' => 0, 'message' => "Failed to Updated");
+                        }
+                    // }
+                } else {
+                    $messages = (validation_errors()) ? validation_errors() : '';
+                    $response = array('status' => 0, 'message' => $messages);
+                }
+                
+                echo json_encode($response);
+
     }
 
     /**
@@ -113,14 +232,85 @@ class Medications extends Common_Controller {
     public function edit() {
         $this->data['title'] = "Edit " . $this->title;
         $this->data['formUrl'] = $this->router->fetch_class() . "/update";
+        // $this->data['patient_id'] = decoding($_GET['id']);
+        
+        // $this->data['patient_id'] = $this->input->post('id');
+
+        // print_r($this->data['patient_id']);die;
+        $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+        
+        if($this->ion_auth->is_subAdmin()){
+    
+            $option = array(
+                'table' => ' doctors',
+                'select' => 'doctors.*',
+                'join' => array(
+                    array('users', 'doctors.user_id=users.id', 'left'),
+                ),
+                
+                'where' => array(
+                    'users.delete_status' => 0,
+                    'doctors.user_id'=>$CareUnitID
+                ),
+                'single' => true,
+            );
+    
+            $datadoctors = $this->common_model->customGet($option);
+    
+    
+        $option = array(
+                'table' => ' doctors',
+                'select' => 'users.*',
+                'join' => array(
+                    array('users', 'doctors.user_id=users.id', 'left'),
+                    array('user_profile UP', 'UP.user_id=users.id', 'left'),
+                    // array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
+                    
+                ),
+                
+                'where' => array(
+                    'users.delete_status' => 0,
+                    'doctors.facility_user_id'=>$datadoctors->facility_user_id
+                ),
+                'order' => array('users.id' => 'desc'),
+            );
+            $this->data['doctors'] = $this->common_model->customGet($option);
+            // print_r($datadoctors->facility_user_id);die;
+    
+        } else if ($this->ion_auth->is_facilityManager()) {
+            
+            $option = array(
+                'table' => ' doctors',
+                'select' => 'users.*',
+                'join' => array(
+                    array('users', 'doctors.user_id=users.id', 'left'),
+                    array('user_profile UP', 'UP.user_id=users.id', 'left'),
+                    array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
+                    
+                ),
+                
+                'where' => array(
+                    'users.delete_status' => 0,
+                    'doctors.facility_user_id'=>$CareUnitID
+                ),
+                'order' => array('users.id' => 'desc'),
+            );
+            $this->data['doctors'] = $this->common_model->customGet($option);
+        }
+
+
+
         $id = decoding($this->input->post('id'));
+        
         if (!empty($id)) {
             $option = array(
-                'table' => $this->_table,
+                'table' => $this->_tables,
                 'where' => array('id' => $id),
                 'single' => true
             );
+           
             $results_row = $this->common_model->customGet($option);
+            // print_r($results_row);die;
             if (!empty($results_row)) {
                 $this->data['results'] = $results_row;
                 $this->load->view('edit', $this->data);
@@ -141,40 +331,42 @@ class Medications extends Common_Controller {
      */
     public function update() {
 
-        $this->form_validation->set_rules('name', "Name", 'required|trim');
-        $where_id = $this->input->post('id');
-        if ($this->form_validation->run() == FALSE):
-            $messages = (validation_errors()) ? validation_errors() : '';
-            $response = array('status' => 0, 'message' => $messages);
-        else:
-            $this->filedata['status'] = 1;
-            $image = $this->input->post('exists_image');
-
-            if (!empty($_FILES['image']['name'])) {
-                $this->filedata = $this->commonUploadImage($_POST, 'submenu', 'image');
-                if ($this->filedata['status'] == 1) {
-                    $image = 'uploads/submenu/' . $this->filedata['upload_data']['file_name'];
-                    delete_file($this->input->post('exists_image'), FCPATH);
-                }
-            }
-            if ($this->filedata['status'] == 0) {
-                $response = array('status' => 0, 'message' => $this->filedata['error']);
-            } else {
-
-                $options_data = array(
-                    'name' => $this->input->post('name')
-                );
-                $option = array(
-                    'table' => $this->_table,
-                    'data' => $options_data,
-                    'where' => array('id' => $where_id)
-                );
-                $update = $this->common_model->customUpdate($option);
+        $where_id = $this->input->post('consultationId');
+    // print_r($where_id);
+        // Proceed with the update logic directly, without form validation
+        if ($where_id) {
+    
+            $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+    
+            $options_data = array(
+                'consultation_type' => $this->input->post('consultationType'),
+                'consultation_date' => $this->input->post('consultation_date'),
+                'type' => $this->input->post('type'),
+                'search' => $this->input->post('search'),  
+                'since' => $this->input->post('since'),                
+                'condition_type' => $this->input->post('condition_type'),                
+                'condition_significance' => $this->input->post('condition_significance'),                
+                'comment' => $this->input->post('comment')
+            );
+    
+            $option = array(
+                'table' => 'vendor_sale_patient_consultation',
+                'data' => $options_data,
+                'where' => array('id' => $where_id)
+            );
+    
+            if ($this->common_model->customUpdate($option)) {
                 $response = array('status' => 1, 'message' => "Successfully updated", 'url' => base_url($this->router->fetch_class()));
+            } else {
+                $response = array('status' => 0, 'message' => "Failed to Update");
             }
-        endif;
-
+    
+        } else {
+            $response = array('status' => 0, 'message' => "No ID provided");
+        }
+    
         echo json_encode($response);
     }
+    
 
 }

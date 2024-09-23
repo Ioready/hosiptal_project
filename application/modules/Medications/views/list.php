@@ -308,16 +308,21 @@
                 <thead>
                 <tr>
                         <th class="text-center" style="font-size:14px;">Sr. No</th>
-                        <th class="text-center" style="font-size:14px;">Type</th>
-                        <th class="text-center" style="font-size:14px;">Name</th>
-                        <th class="text-center" style="font-size:14px;">Details</th>
-                        <th class="text-center" style="font-size:14px;">Last Recorded</th>
-                        <th class="text-center" style="font-size:14px;">Last Prescribed</th>
-                        <th class="text-center" style="font-size:14px;">Review</th>
+                        <!-- <th class="text-center" style="font-size:14px;">Type</th> -->
+                        <th class="text-center" style="font-size:14px;">Consultation type</th>
+                        <th class="text-center" style="font-size:14px;">Search</th>
+                        <th class="text-center" style="font-size:14px;">Since</th>
+                        <th class="text-center" style="font-size:14px;">Condition Type</th>
+                        <th class="text-center" style="font-size:14px;">Condition Significance</th>
+                        <th class="text-center" style="font-size:14px;">comment</th>
                         <th class="text-center" style="font-size:14px;">Created date</th>
                         <!-- <th class="text-center" style="font-size:14px;">Status</th> -->
                         <th class="text-center" style="font-size:14px;"><?php echo lang('action'); ?></th>
                     </tr>
+
+
+                
+
                     <!-- <tr >
                         <th  class="text-center fw-bold" style="background-color:#DBEAFF;font-size:1.3rem;width:15%;;">Sr. No</th>
                         <th  class="text-center fw-bold"  style="background-color:#DBEAFF;font-size:1.3rem;width:60%;;">Name</th>
@@ -334,25 +339,49 @@
                             // print_r($rows);die;
                             ?>
                             <tr>
-                                <td><?php echo $rowCount; ?></td>            
+                                <!-- <td><?php echo $rowCount; ?></td>            
                                 <td><?php echo $rows->type; ?></td>
                                 <td><?php echo $rows->name; ?></td>
                                 <td><?php echo $rows->detail; ?></td>
                                 <td><?php echo $rows->last_recorded; ?></td>
                                 <td><?php echo $rows->last_prescribed; ?></td>
                                 <td><?php echo $rowCount; ?></td>
+                                <td><?php echo $rows->create_date; ?></td> -->
+
+                                <td><?php echo $rowCount; ?></td>            
+                                <td><?php echo $rows->doctor_name; ?></td>
+                                <td><?php echo $rows->search; ?></td>
+                                <td><?php echo $rows->since; ?></td>
+                                <td><?php echo $rows->condition_type; ?></td>
+                                <td><?php echo $rows->condition_significance; ?></td>
+                                <td><?php echo $rows->comment; ?></td>
                                 <td><?php echo $rows->create_date; ?></td>
                                
 
-                                <td class="actions">
+                                <!-- <td class="actions">
                                     <a href="javascript:void(0)" class="btn btn-xs btn-default" onclick="editFn('<?php echo $model; ?>', 'edit', '<?php echo encoding($rows->id) ?>', '<?php echo $model; ?>');"><i class="fa fa-pencil"></i></a>
-                                    <?php if ($rows->is_active == 1) { ?>
-                                        <a href="javascript:void(0)" class="btn btn-xs btn-success" onclick="editStatusFn('<?php echo $tablePrefix; ?>', 'id', '<?php echo encoding($rows->id); ?>', '<?php echo $rows->is_active; ?>','<?php echo $rows->name; ?>')" title="Inactive Now"><i class="fa fa-check"></i></a>
+                                    <?php if ($rows->status == 1) { ?>
+                                        <a href="javascript:void(0)" class="btn btn-xs btn-success" onclick="editStatusFn('<?php echo $tablePrefix; ?>', 'id', '<?php echo encoding($rows->id); ?>', '<?php echo $rows->status; ?>','<?php echo $rows->name; ?>')" title="Inactive Now"><i class="fa fa-check"></i></a>
                                     <?php } else { ?>
-                                        <a href="javascript:void(0)" class="btn btn-xs btn-danger" onclick="editStatusFn('<?php echo $tablePrefix; ?>', 'id', '<?php echo encoding($rows->id); ?>', '<?php echo $rows->is_active; ?>','<?php echo $rows->name; ?>')" title="Active Now"><i class="fa fa-times"></i></a>
+                                        <a href="javascript:void(0)" class="btn btn-xs btn-danger" onclick="editStatusFn('<?php echo $tablePrefix; ?>', 'id', '<?php echo encoding($rows->id); ?>', '<?php echo $rows->status; ?>','<?php echo $rows->name; ?>')" title="Active Now"><i class="fa fa-times"></i></a>
                                     <?php } ?>
                                     <a href="javascript:void(0)" onclick="deleteFn('<?php echo $table; ?>', 'id', '<?php echo encoding($rows->id); ?>', '<?php echo $model; ?>','','<?php echo $rows->name; ?>')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+                                </td> -->
+
+                                <td class="actions">
+                                <a href="javascript:void(0)" class="btn btn-xs" style="color:white; background: linear-gradient(to right, rgba(71, 74, 127, 1) 0%, rgb(43 178 136) 100%);" onclick="editFn('<?php echo $model; ?>', 'edit', '<?php echo encoding($rows->id) ?>', '<?php echo $model; ?>');" title="Edit" aria-label="Edit">
+    <i class="fa fa-pencil"></i> Edit
+</a>
+
+                                    <!-- <a href="javascript:void(0)" class="btn btn-xs btn-default" onclick="editFn('<?php echo $model; ?>', 'edit', '<?php echo encoding($rows->id) ?>', '<?php echo $model; ?>');"><i class="fa fa-pencil"></i></a> -->
+                                    <?php if ($rows->status == 1) { ?>
+                                        <!-- <a href="javascript:void(0)" class="btn btn-xs btn-success" onclick="editStatusFn('<?php echo $tablePrefix; ?>', 'id', '<?php echo encoding($rows->id); ?>', '<?php echo $rows->status; ?>','<?php echo $rows->name; ?>')" title="Inactive Now"><i class="fa fa-check"></i></a> -->
+                                    <?php } else { ?>
+                                        <!-- <a href="javascript:void(0)" class="btn btn-xs btn-danger" onclick="editStatusFn('<?php echo $tablePrefix; ?>', 'id', '<?php echo encoding($rows->id); ?>', '<?php echo $rows->status; ?>','<?php echo $rows->name; ?>')" title="Active Now"><i class="fa fa-times"></i></a> -->
+                                    <?php } ?>
+                                    <!-- <a href="javascript:void(0)" onclick="deleteFn('<?php echo $table; ?>', 'id', '<?php echo encoding($rows->id); ?>', '<?php echo $model; ?>','','<?php echo $rows->name; ?>')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a> -->
                                 </td>
+
                             </tr>
                             <?php
                         endforeach;
@@ -368,7 +397,7 @@
 <div id="form-modal-box"></div>
 </div>
 
-<!-- <script>
+<script>
     $(document).ready(function() {
   $('.model-medication').click(function() {
    
@@ -378,4 +407,4 @@
 
   });
 });
-</script> -->
+</script>

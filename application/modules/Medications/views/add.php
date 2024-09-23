@@ -17,77 +17,71 @@
                         <img src="<?php //echo base_url().'backend_asset/images/Preloader_2.gif';?>" class="loaders-img" class="img-responsive">
                     </div> -->
                     <div class="alert alert-danger" id="error-box" style="display: none"></div>
-                    <div class="form-body">
-                    <div class="form-body">
-                        <div class="row">
-                            <div class="col-md-12" >
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">Patient Name</label>
-                                    
-                                    <div class="col-md-9">
-                                    <h4 class="no-margins fw-bold"></h4>
-                                        <input type="hidden" name="patient_id" value="<?php print_r($this->data['patient_id']);?>" />
-                                    </div>
-                                </div>
-                            </div>
+                    <!-- <div class="form-body"> -->
 
-                            <div class="col-md-12" >
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label hover_me">Type</label>
-                                    <div class="col-md-9">
-                                    
-                                        <input type="text" class="form-control" name="type" id="type" placeholder="Type" />
-                                    </div>
-                                </div>
-                            </div>
-                            
-
-                            <div class="col-md-12" >
+                    <div class="form-body">
+                        
+                                         <input type="hidden" class="form-control" name="patient_id" id="patient_id" value="<?php echo encoding($patient_id);?>" placeholder="Enter Complaint">
                            
-                            
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">Antibiotic Name</label>
-                                    <div class="col-md-9">
-                                    <select id="framework" name="medication_name" class="form-control">
-                                    
-                                    <?php foreach ($initial_rx as $category) { ?>
-                                    <option value="<?php echo $category->id; ?>"><?php echo $category->name; ?></option>
-                                    <?php } ?>
-                                    </select>
-                                </div>
-                                </div>
-                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                        <!-- Consultation Type & Date -->
+                                                        <div class="form-group row">
+                                                            <div class="col-md-6">
+                                                                <label for="consultationType">Consultation Type</label>
+                                                                <select name="consultationType" id="consultationType" class="form-control" required>
+                                                                    <option value="">Doctor Consultation</option>
 
-                            <div class="col-md-12" >
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">Details</label>
-                                    <div class="col-md-9">
-                                    <textarea name="detail" id="detail" rows="4" cols="45"></textarea>
-                                        <!-- <input type="text" class="form-control" name="detail" id="detail" placeholder="detail" /> -->
-                                    </div>
-                                </div>
-                            </div>
+                                                                    <?php if (!empty($doctors)) {
+                                                                                foreach ($doctors as $doctor) { ?>
+                                                                                        <option value="<?php echo $doctor->id; ?>"><?php echo $doctor->first_name. ' '.$doctor->last_name; ?></option>
+                                                                    <?php } } ?>
 
-                            <div class="col-md-12" >
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">Last Recorded</label>
-                                    <div class="col-md-9">
-                                        <input type="text" class="form-control" name="last_recorded" id="last_recorded" placeholder="Last Recorded" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12" >
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">Last Prescribed</label>
-                                    <div class="col-md-9">
-                                        <input type="text" class="form-control" name="last_prescribed" id="last_prescribed" placeholder="Last Prescribed" />
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="space-22"></div>
-                        </div>
-                    </div>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label for="consultationDate">Date</label>
+                                                                <input type="datetime-local" name="consultation_date" id="consultation_date" class="form-control" required>
+                                                            </div>
+                                                        </div>
+                                                </div>
+                                            </div>
+
+                                        <div class="row">
+                                        <input type="hidden" class="form-control" name="type" id="type" value="medication" placeholder="Enter Complaint">
+                                        <input type="hidden" class="form-control consultationId" name="consultationId" id="consultationId" >
+                                            <div class="col-md-11" style="border: 3px groove; border-radius: 10px; padding: 16px; margin-left: 31px;">
+                                             <label><strong>Medication</strong></label>
+                                            <div class="input-group mb-3">
+                                                <input type="search" class="form-control" placeholder="Search ..." id="medicationSearch" name="search">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text"><i class="fa fa-search"></i></span>
+                                                </div>
+                                            </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label>Since</label>
+                                                        <input type="datetime-local" class="form-control" name="since" id="since">
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label>Condition Type</label>
+                                                        <input type="text" class="form-control" name="condition_type" id="condition_type">
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label>Condition Significance</label>
+                                                        <input type="text" class="form-control" name="condition_significance" id="condition_significance">
+                                                    </div>
+                                                </div>
+                                                <label>Comment</label>
+                                                <textarea class="form-control" rows="4" name="comment" id="comment"></textarea>
+                                                <div>
+                                                    <input type="checkbox" id="medicationSummary" name="medicationSummary">
+                                                    <label for="medicationSummary"> Show in summary</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                  
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -100,12 +94,6 @@
 
    
 </div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
-  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css" />
 
 <script type="text/javascript">
   $(document).ready(function(){

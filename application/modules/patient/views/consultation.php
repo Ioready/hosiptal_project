@@ -988,47 +988,47 @@
                          
                             <!-- Medication -->
                             <div id="form-medication" class="form-section" style="display:none;">
-                            <form id="addFormAjax" method="post" action="<?php echo base_url('patient/updateConsultation') ?>" enctype="multipart/form-data">
-                            <div class="alert alert-danger" id="error-box" style="display: none"></div>
+                                <form id="addFormAjax" method="post" action="<?php echo base_url('patient/updateConsultation') ?>" enctype="multipart/form-data">
+                                    <div class="alert alert-danger" id="error-box" style="display: none"></div>
             
-                            <input type="hidden" class="form-control" name="patient_id" id="patient_id" value="<?php echo encoding($patient_id);?>" placeholder="Enter Complaint">
+                                         <input type="hidden" class="form-control" name="patient_id" id="patient_id" value="<?php echo encoding($patient_id);?>" placeholder="Enter Complaint">
                            
-                                <h4>Medication</h4>
-                                <div class="row">
-                                <input type="hidden" class="form-control" name="type" id="type" value="medication" placeholder="Enter Complaint">
-                                <input type="hidden" class="form-control consultationId" name="consultationId" id="consultationId" >
-                                    <div class="col-md-11" style="border: 3px groove; border-radius: 10px; padding: 16px; margin-left: 31px;">
-                                        <label><strong>Medication</strong></label>
-                                        <div class="input-group mb-3">
-                                            <input type="search" class="form-control" placeholder="Search ..." id="medicationSearch" name="search">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text"><i class="fa fa-search"></i></span>
-                                            </div>
-                                        </div>
-
+                                         <h4>Medication</h4>
                                         <div class="row">
-                                            <div class="col-md-4">
-                                                <label>Since</label>
-                                                <input type="datetime-local" class="form-control" name="since" id="since">
+                                        <input type="hidden" class="form-control" name="type" id="type" value="medication" placeholder="Enter Complaint">
+                                        <input type="hidden" class="form-control consultationId" name="consultationId" id="consultationId" >
+                                            <div class="col-md-11" style="border: 3px groove; border-radius: 10px; padding: 16px; margin-left: 31px;">
+                                             <label><strong>Medication</strong></label>
+                                            <div class="input-group mb-3">
+                                                <input type="search" class="form-control" placeholder="Search ..." id="medicationSearch" name="search">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text"><i class="fa fa-search"></i></span>
+                                                </div>
                                             </div>
-                                            <div class="col-md-4">
-                                                <label>Condition Type</label>
-                                                <input type="text" class="form-control" name="condition_type" id="condition_type">
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label>Condition Significance</label>
-                                                <input type="text" class="form-control" name="condition_significance" id="condition_significance">
+
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label>Since</label>
+                                                        <input type="datetime-local" class="form-control" name="since" id="since">
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label>Condition Type</label>
+                                                        <input type="text" class="form-control" name="condition_type" id="condition_type">
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label>Condition Significance</label>
+                                                        <input type="text" class="form-control" name="condition_significance" id="condition_significance">
+                                                    </div>
+                                                </div>
+                                                <label>Comment</label>
+                                                <textarea class="form-control" rows="4" name="comment" id="comment"></textarea>
+                                                <div>
+                                                    <input type="checkbox" id="medicationSummary" name="medicationSummary">
+                                                    <label for="medicationSummary"> Show in summary</label>
+                                                </div>
                                             </div>
                                         </div>
-                                        <label>Comment</label>
-                                        <textarea class="form-control" rows="4" name="comment" id="comment"></textarea>
-                                        <div>
-                                            <input type="checkbox" id="medicationSummary" name="medicationSummary">
-                                            <label for="medicationSummary"> Show in summary</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <button type="submit" id="submit" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Save</button>
+                                    <button type="submit" id="submit" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Save</button>
                                 </form>
                             </div>
                             
@@ -1085,7 +1085,7 @@
 
                             <form id="addFormAjax" method="post" action="<?php echo base_url('patient/updateConsultation') ?>" enctype="multipart/form-data">
                             <div class="alert alert-danger" id="error-box" style="display: none"></div>
-            
+                            <input type="hidden" class="form-control" name="type" id="type" value="comment" placeholder="Enter Complaint">
                             <input type="hidden" class="form-control" name="patient_id" id="patient_id" value="<?php echo encoding($patient_id);?>" placeholder="Enter Complaint">
                             <input type="hidden" class="form-control consultationId" name="consultationId" id="consultationId" >
 
