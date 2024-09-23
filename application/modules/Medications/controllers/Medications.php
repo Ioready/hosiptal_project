@@ -8,7 +8,7 @@ class Medications extends Common_Controller {
     public $file_data = "";
     // public $_table = 'culture_source';
     // public $_tables = 'patient_medications';
-    public $_tables = 'patient_consultation';
+    public $_tables = 'vendor_sale_patient_consultation';
     // public $_tables = 'clinic';
     
     public $title = "Medications";
@@ -45,8 +45,8 @@ class Medications extends Common_Controller {
                     array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_patient.user_id','left'),
                     array('vendor_sale_doctors', 'doctors.user_id=vendor_sale_patient_consultation.consultation_type','left'),
                 ),
-            'where' => array('vendor_sale_patient_consultation.patient_id' => $id,'type'=>'medication'),
-            'order_by'=>array('vendor_sale_patient_consultation.id','desc')
+            'where' => array('vendor_sale_patient_consultation.patient_id' => $id,'type'=>'medication')
+            
             
         );
 
@@ -65,8 +65,10 @@ class Medications extends Common_Controller {
     function open_model() {
         $this->data['title'] = "Add " . $this->title;
         $this->data['formUrl'] = $this->router->fetch_class() . "/add";
-        $this->data['patient_id'] = decoding($_GET['id']);
+        $this->data['patient_id'] = $this->input->post('id');
+        $this->data['id'] = decoding($_GET['id']);
         
+// print_r($this->input->post('id'));die;
         $this->data['initial_rx'] = $this->common_model->customGet(array('table' => 'initial_rx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
 
         
