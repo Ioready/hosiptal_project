@@ -508,7 +508,7 @@ class Patient extends Common_Controller
             );
            
             $results = $this->common_model->customGet($optionheader);
-        
+        // print_r($results);die;
             
             echo json_encode($results);
 

@@ -151,6 +151,20 @@ class Medications extends Common_Controller {
            
             $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
               
+            $options_medication = array(
+                'patient_id'=> decoding($this->input->post('patient_id')),
+                'facility_user_id'=> $LoginID,
+                'type' => $this->input->post('type'),
+                'search' => $this->input->post('search'),  
+                'since' => $this->input->post('since'),                
+                'condition_type' => $this->input->post('condition_type'),                
+                'condition_significance' => $this->input->post('condition_significance'),                
+                'comment' => $this->input->post('comment'),                             
+                'showSummary' => $this->input->post('showSummary'),                
+            );
+            $optionMedication = array('table' => 'vendor_sale_consultation_medication', 'data' => $options_medication);
+            $this->common_model->customInsert($optionMedication);
+
                 $options_data = array(
                     'patient_id'=> decoding($this->input->post('patient_id')),
                     'facility_user_id'=> $LoginID,
@@ -331,5 +345,25 @@ class Medications extends Common_Controller {
         echo json_encode($response);
     }
     
+    public function fetchMedication() {
+        $output = '';
+        $query = $this->input->post('query');
+        print_r($query);die;
+        if ($query) {
+            $results = $this->common_model->fetchConsultMedication($query);
+            // print_r($results);die;
+            $output .= '<select class="form-control select2" name="consultation_medication" id="consultation_medication" onclick="getSearchconsultationMedication()">';
+            if (!empty($results)) {
+                foreach ($results as $row) {
+                    $output .= '<option value="'.$row['search'].'">'.$row['search'].'</option>';
+                   
+                }
+            } else {
+                $output .= '<option>No Data Found</option>';
+            }
+            $output .= '</select>';
+            echo $output;
+        }
+    }
 
 }

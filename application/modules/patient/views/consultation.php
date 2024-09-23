@@ -559,10 +559,11 @@
                         foreach ($list as $rows) :
                             $rowCount++;
                         ?>
-            <li class="active">
-                <div class="note-title" onclick="viewConsultationDetails(<?php echo $rows->id; ?>)"><?php echo $rows->first_name. ' '. $rows->last_name; ?></div>
+            <li class="active" onclick="viewConsultationDetails(<?php echo $rows->id; ?>)">
+                <div class="note-title"><?php echo $rows->first_name. ' '. $rows->last_name; ?></div>
                 <div class="note-meta"><?php echo $rows->create_date; ?></div>
-                <div class="consultation-note"><?php echo $rows->type; ?> <?php echo $rows->comment; ?></div>
+                <div class="consultation-note" ><?php echo $rows->search; ?></div>
+                <div class="consultation-note" ><?php echo $rows->type; ?> <?php echo $rows->comment; ?></div>
             </li>
 
             <!-- <li>
@@ -706,7 +707,7 @@
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-      <button type="button" class="close" style="margin-top:-40px;" data-dismiss="modal" aria-label="Close">
+      <button type="button" class="close" style="margin-top:-40px;" data-dismiss="modal" aria-label="Close" onclick="closeAndReload()">
           <span aria-hidden="true">&times;</span>
         </button>
         <h3 class="modal-title fw-bold" style="text-align:center;" id="exampleModalLabel">Edit Consultation </h3>        
@@ -770,19 +771,19 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <label>Since</label>
-                                                <input type="datetime-local" name="since" id="since" class="form-control">
+                                                <input type="datetime-local" name="since" id="since" class="form-control problem-heading-since">
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Condition Type</label>
-                                                <input type="text" name="condition_type" id="condition_type" class="form-control">
+                                                <input type="text" name="condition_type" id="condition_type" class="form-control problem-heading-condition-type">
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Condition Significance</label>
-                                                <input type="text" name="condition_significance" id="condition_significance" class="form-control">
+                                                <input type="text" name="condition_significance" id="condition_significance" class="form-control problem-heading-condition-significance">
                                             </div>
                                         </div>
                                         <label>Comment</label>
-                                        <textarea class="form-control" rows="4" name="comment" id="comment"></textarea>
+                                        <textarea class="form-control problem-heading-comment" rows="4" name="comment" id="comment"></textarea>
                                         <div>
                                             <input type="checkbox" id="showSummary" name="showSummary">
                                             <label for="showSummary"> Show in summary</label>
@@ -817,7 +818,7 @@
                                         <label>Value</label>
                                         <input type="text" class="form-control" name="value" id="value">
                                         <label>Comment</label>
-                                        <textarea class="form-control" name="comment" id="comment" rows="4"></textarea>
+                                        <textarea class="form-control examination-comment" name="comment" id="comment" rows="4"></textarea>
                                     </div>
                                 </div>
                                 <button type="submit" id="submit" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Save</button>
@@ -844,11 +845,13 @@
                                             </div>
                                         </div>
                                         <label>Severity</label>
-                                        <select class="form-control" name="severity" id="severity">
+                                        <select class="form-control allergy-severity" name="severity" id="severity">
                                             <option value="severity">Select Severity</option>
+                                            <option value="severity1"> Severity 1</option>
+                                            <option value="severity2"> Severity 2</option>
                                         </select>
                                         <label>Comment</label>
-                                        <textarea class="form-control" rows="4" name="comment" id="comment"></textarea>
+                                        <textarea class="form-control allergy-comment" rows="4" name="comment" id="comment"></textarea>
                                         <div>
                                             <input type="checkbox" id="allergySummary" name="allergySummary">
                                             <label for="allergySummary"> Show in summary</label>
@@ -882,19 +885,19 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <label>Since</label>
-                                                <input type="datetime-local" class="form-control" name="since" id="since">
+                                                <input type="datetime-local" class="form-control medical-history-since" name="since" id="since">
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Condition Type</label>
-                                                <input type="text" class="form-control" name="condition_type" id="condition_type">
+                                                <input type="text" class="form-control medical-history-condition-type" name="condition_type" id="condition_type">
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Condition Significance</label>
-                                                <input type="text" class="form-control" name="condition_significance" id="condition_significance">
+                                                <input type="text" class="form-control medical-history-condition-significance" name="condition_significance" id="condition_significance">
                                             </div>
                                         </div>
                                         <label>Comment</label>
-                                        <textarea class="form-control" rows="4" name="comment" id="comment"></textarea>
+                                        <textarea class="form-control medical-history-comment" rows="4" name="comment" id="comment"></textarea>
                                         <div>
                                             <input type="checkbox" id="medicalHistorySummary" name="medicalHistorySummary">
                                             <label for="medicalHistorySummary"> Show in summary</label>
@@ -927,11 +930,20 @@
                                             </div>
                                         </div>
                                         <label>Relationship</label>
-                                        <select class="form-control" name="relationship" id="relationship">
+                                        <select class="form-control family-history-relationship" name="relationship" id="relationship">
+                                            <!-- <option value="relationship">Please select</option> -->
                                             <option value="relationship">Please select</option>
+                                            <option value="parent">Parent</option>
+                                            <option value="sibling">Sibling</option>
+                                            <option value="friend">Friend</option>
+                                            <option value="son">Son</option>
+                                            <option value="daughter">Daughter</option>
+                                            <option value="father">Father</option>
+                                            <option value="mother">Mother</option>
+                                            <option value="other">Other</option>
                                         </select>
                                         <label>Comment</label>
-                                        <textarea class="form-control" rows="4" name="comment" id="comment"></textarea>
+                                        <textarea class="form-control family-comment" rows="4" name="comment" id="comment"></textarea>
                                         <div>
                                             <input type="checkbox" id="familyHistorySummary" name="familyHistorySummary">
                                             <label for="familyHistorySummary"> Show in summary</label>
@@ -966,19 +978,19 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <label>Since</label>
-                                                <input type="datetime-local" class="form-control" name="since" id="since">
+                                                <input type="datetime-local" class="form-control social-since" name="since" id="since">
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Condition Type</label>
-                                                <input type="text" class="form-control" name="condition_type" id="condition_type">
+                                                <input type="text" class="form-control social-condition-type" name="condition_type" id="condition_type">
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Condition Significance</label>
-                                                <input type="text" class="form-control" name="condition_significance" id="condition_significance">
+                                                <input type="text" class="form-control social-condition-significance" name="condition_significance" id="condition_significance">
                                             </div>
                                         </div>
                                         <label>Comment</label>
-                                        <textarea class="form-control" rows="4" name="comment" id="comment"></textarea>
+                                        <textarea class="form-control social-comment" rows="4" name="comment" id="comment"></textarea>
                                     </div>
                                 </div>
 
@@ -1009,19 +1021,19 @@
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <label>Since</label>
-                                                        <input type="datetime-local" class="form-control" name="since" id="since">
+                                                        <input type="datetime-local" class="form-control medication-since" name="since" id="since">
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label>Condition Type</label>
-                                                        <input type="text" class="form-control" name="condition_type" id="condition_type">
+                                                        <input type="text" class="form-control medication-condition-type" name="condition_type" id="condition_type">
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label>Condition Significance</label>
-                                                        <input type="text" class="form-control" name="condition_significance" id="condition_significance">
+                                                        <input type="text" class="form-control medication-condition-significance" name="condition_significance" id="condition_significance">
                                                     </div>
                                                 </div>
                                                 <label>Comment</label>
-                                                <textarea class="form-control" rows="4" name="comment" id="comment"></textarea>
+                                                <textarea class="form-control medication-comment" rows="4" name="comment" id="comment"></textarea>
                                                 <div>
                                                     <input type="checkbox" id="medicationSummary" name="medicationSummary">
                                                     <label for="medicationSummary"> Show in summary</label>
@@ -1056,19 +1068,19 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <label>Since</label>
-                                                <input type="datetime-local" class="form-control" name="since" id="since">
+                                                <input type="datetime-local" class="form-control product-since" name="since" id="since">
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Condition Type</label>
-                                                <input type="text" class="form-control" name="condition_type" id="condition_type">
+                                                <input type="text" class="form-control product-condition-type" name="condition_type" id="condition_type">
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Condition Significance</label>
-                                                <input type="text" class="form-control" name="condition_significance" id="condition_significance">
+                                                <input type="text" class="form-control product-condition-significance" name="condition_significance" id="condition_significance">
                                             </div>
                                         </div>
                                         <label>Comment</label>
-                                        <textarea class="form-control" rows="4" name="comment" id="comment"></textarea>
+                                        <textarea class="form-control product-comment" rows="4" name="comment" id="comment"></textarea>
                                         <div>
                                             <input type="checkbox" id="productSummary" name="productSummary">
                                             <label for="productSummary"> Show in summary</label>
@@ -1427,16 +1439,57 @@ $(document).ready(function() {
                 var relationship=  data.relationship;
                 var showSummary=  data.showSummary;
                 var id = data.id; 
-
+// alert(since);
                 
                 $('#presenting_complaint').val(presenting_complaint);
-                $('#since').val(since);
-                $('#condition_type').val(condition_type);
-                $('#comment').val(comment);
+                // $('#since').val(since);
+                $('.medication-since').val(since);
+                $('.product-since').val(since);
+                $('.social-since').val(since);
+                $('.medical-history-since').val(since);
+                $('.problem-heading-since').val(since);
+               
+
+                // $('#condition_type').val(condition_type);
+                $('.problem-heading-condition-type').val(condition_type);
+                $('.medical-history-condition-type').val(condition_type);
+                $('.social-condition-type').val(condition_type);
+                $('.medication-condition-type').val(condition_type);
+                $('.product-condition-type').val(condition_type);
+
+                // $('#comment').val(comment);
+
+                $('.problem-heading-comment').val(comment);
+                $('.medical-history-comment').val(comment);
+                $('.social-comment').val(comment);
+                $('.medication-comment').val(comment);
+                $('.product-comment').val(comment);
+                // $('#comment').val(comment);
+                // $('#comment').val(comment);
+
                 $('#value').val(value);
-                $('#severity').val(severity);
-                $('#condition_significance').val(condition_significance);
-                $('#relationship').val(relationship);
+                // $('.problem-heading-severity').val(severity);
+                // $('.medical-history-severity').val(severity);
+                // $('.social-severity').val(severity);
+                // $('.medication-severity').val(severity);
+                // $('.product-severity').val(severity);
+
+                $(".allergy-severity option[value='" + severity + "']").prop("selected", true);
+                // $('#severity').val(severity);
+                // $('#severity').val(severity);
+
+                $('.problem-heading-condition-significance').val(condition_significance);
+                $('.medical-history-condition-significance').val(condition_significance);
+                $('.social-condition-significance').val(condition_significance);
+                $('.medication-condition-significance').val(condition_significance);
+                $('.product-condition-significance').val(condition_significance);
+
+                
+                // $('#condition_significance').val(condition_significance);
+
+                // $('#relationship').val(relationship);
+                $(".family-history-relationship option[value='" + relationship + "']").prop("selected", true);
+
                 $('#showSummary').val(showSummary);
                 $('#id').val(id);
 
@@ -1505,6 +1558,12 @@ $(document).ready(function() {
         });
     }
 
+    function closeAndReload() {
+    $('#myModal').modal('hide'); // Closes the modal
+    setTimeout(function() {
+        window.location.reload(); // Reloads the window after closing the modal
+    }, 500); // Adds a slight delay to ensure modal closes before reload
+}
 </script>
 
 

@@ -393,3 +393,31 @@
   });
 });
 </script>
+
+<script>
+    $(document).ready(function() {
+        $("#medicationSearch").keyup(function() {
+            var query = $(this).val();
+            if (query != '') {
+                $.ajax({
+                    url: "<?php echo site_url('medications/fetchMedication'); ?>",
+                    method: "POST",
+                    data: {query: query},
+                    success: function(data) {
+                        $('#result_medication').html(data);
+                    }
+                });
+            } else {
+                $('#result_medication').html('');
+            }
+        });
+    });
+</script>
+
+<script>
+    function getSearchconsultationMedication() {
+        var searchValue = document.getElementById("consultation_medication").value;
+
+        document.getElementById("medicationSearch").value = searchValue;
+    }
+</script>

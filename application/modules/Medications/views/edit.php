@@ -60,7 +60,8 @@
                                             <div class="col-md-11" style="border: 3px groove; border-radius: 10px; padding: 16px; margin-left: 31px;">
                                              <label><strong>Medication</strong></label>
                                             <div class="input-group mb-3">
-                                                <input type="search" class="form-control" placeholder="Search ..." id="medicationSearch" name="search" value="<?php echo $results->search; ?>">
+                                                <input type="search" class="form-control medicationSearch" placeholder="Search ..." id="medicationSearch" name="search" value="<?php echo $results->search; ?>">
+                                                <div id="result_medication"></div>
                                                 <div class="input-group-append">
                                                     <span class="input-group-text"><i class="fa fa-search"></i></span>
                                                 </div>
@@ -106,3 +107,29 @@
         </div> <!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div>
+<script>
+    $(document).ready(function() {
+        $("#medicationSearch").keyup(function() {
+            var query = $(this).val();
+            if (query != '') {
+                $.ajax({
+                    url: "<?php echo site_url('medications/fetchMedication'); ?>",
+                    method: "POST",
+                    data: {query: query},
+                    success: function(data) {
+                        $('#result_medication').html(data);
+                    }
+                });
+            } else {
+                $('#result_medication').html('');
+            }
+        });
+    });
+</script>
+<script>
+    function getSearchconsultationMedication() {
+        var searchValue = document.getElementById("consultation_medication").value;
+
+        document.getElementById("medicationSearch").value = searchValue;
+    }
+</script>
