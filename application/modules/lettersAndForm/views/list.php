@@ -302,7 +302,8 @@
                                     <ul>
                                         <li><a href="#" class="link">Update Status</a></li>
                                         <li><a href="#" class="link">Edit</a></li>
-                                        <li><a href="#" class="link">Delete</a></li>
+                                        <li><a href="<?php echo base_url().'index.php/lettersAndForm/deleteLetters?id=' . encoding($patient_id) . '&form_id=' . encoding($folder->id); ?>" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+                                        </li>
                                         <li><a href="#" class="link">Share</a></li>
                                         <li><a href="#" class="link">Email</a></li>
                                         <li><a href="#" class="link">Duplicates</a></li>

@@ -876,6 +876,33 @@ $response = array('status' => 1, 'message' => "Successfully added", 'url' =>base
         }
     }
     
+    function deleteLetters() {
+
+        $this->data['url'] = base_url() . $this->router->fetch_class();
+        $this->data['pageTitle'] = "Add " . $this->title;
+        $this->data['parent'] = $this->router->fetch_class();
+        $this->data['model'] = $this->router->fetch_class();
+        $this->data['formUrlData'] = $this->router->fetch_class() . "/updateBookingForm";
+        $this->data['title'] = $this->title;
+        $this->data['tablePrefix'] = 'vendor_sale_' . $this->_table;
+        $this->data['table'] = $this->_table;
+        $this->data['patient_id'] = decoding($_GET['id']);
+        $this->data['form_id'] = decoding($_GET['form_id']);
+       
+        $form_id=  decoding($_GET['form_id']);
+        $id=  decoding($_GET['id']);
+    
+    $option = array(
+        'table' => 'vendor_sale_letters_and_form',
+        'where' => array('id' => $form_id),
+    );
+   
+        $this->common_model->customDelete($option);
+       
+        $this->session->set_flashdata('message', 'Deleted Successfully.');
+        redirect('lettersAndForm?id=' . encoding($id));
+       
+    }
 
 
 }
