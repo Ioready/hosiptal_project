@@ -296,7 +296,7 @@
     <?php } ?>
 </div>
 <br><br>
-<div class="container show-grid">
+    <div class="container show-grid">
   <div class="row">
     <div class="col-sm-6" style="border-right:none;"> <span for="" class="text-success"><strong> < Letters </strong></span></div>
     <div class="col-sm-1 no-border" style="width: auto;"> <?php if($result->type == 'Completed'){ ?>
@@ -332,7 +332,7 @@
         </select>
     </div>
 </div>
-
+</div>
 
 </div>
 
