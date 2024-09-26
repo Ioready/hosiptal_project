@@ -296,7 +296,7 @@
     <?php } ?>
 </div>
     <br><br>
-<div class="container show-grid">
+<div class="show-grid">
   <div class="row">
     <div class="col-sm-6" style="border-right:none;"> <span for="" class="text-success"><strong> < Letters </strong></span></div>
     <div class="col-sm-1 no-border" style="width: auto;"> <?php if($result->type == 'Completed'){ ?>
@@ -334,7 +334,7 @@
     </div>
 </div>
 
-<div class="container show-grid">
+<div class="show-grid">
   
   <div class="row">
     <div class="col-sm-10"><label for="">Page:</label><select name="" id=""><option value="1">1</option></select> <label for="">Of 2</label></div>
@@ -343,7 +343,7 @@
   
 </div>
 
-    <div class="container mt-5">
+    <div class="mt-5">
         
         <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url($formUrlData) ?>" enctype="multipart/form-data">
 
