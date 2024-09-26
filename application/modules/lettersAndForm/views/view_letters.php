@@ -298,7 +298,8 @@
     <br><br>
 <div class="show-grid">
   <div class="row">
-    <div class="col-sm-6" style="border-right:none;"> <span for="" class="text-success"><strong> < Letters </strong></span></div>
+    <div class="col-sm-6" style="border-right:none;"><a href="<?php echo base_url(). 'index.php/lettersAndForm?id=' . encoding($patient_id); ?>">
+    <span for="" class="text-success"><strong> < Letters </strong></span> </a></div>
     <div class="col-sm-1 no-border" style="width: auto;"> <?php if($result->type == 'Completed'){ ?>
 
                 <button type="button" class="btn" style="background-color: lightgreen;"><b><?php echo $result->type;?></b></button>
