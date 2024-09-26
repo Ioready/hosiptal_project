@@ -223,6 +223,14 @@
                         <div class="widget-extra-full"><span class="h2 animation-expandOpen fw-bold text-dark"><?php echo $inactive;?></span></div>
                     </a>
                 </div>
+                <div class="col-sm-6 col-lg-2 mb-4">
+                <a href="<?php echo base_url() . 'index.php/patient/communication?id=' . encoding($patient_id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
+                        <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
+                            <h4 style="font-size:16px; font-weight:600; color:white;">Logs</h4>
+                        </div>
+                        <div class="widget-extra-full"><span class="h2 animation-expandOpen fw-bold text-dark"><?php echo $inactive;?></span></div>
+                    </a>
+                </div>
                 
     </div>
 
@@ -238,13 +246,14 @@
         <div class="block-title ">
 
             <ul class="nav nav-pills nav-fill nav-tabss" id="pills-tab" role="tablist" style="width: fit-content;">
-                <li onclick="toggleDisplay()" class="nav-item">
+                <!-- <li onclick="toggleDisplay()" class="nav-item">
                     <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#letters_id" role="tab">Letters</a>
                 </li>
                 <li onclick="toggleHidden()" class="nav-item">
                     <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#forms_id" role="tab">Forms</a>
-                </li>
+                </li> -->
                 
+                <a href="<?php echo base_url(). 'index.php/lettersAndForm?id=' . encoding($patient_id); ?>"  style="color: black;padding: 9px;font-weight: 900;background-color: ghostwhite;"> Back to Letters</a>
             </ul>
         
         </div>
@@ -766,9 +775,9 @@
                     <textarea class="form-control" id="procedure_urgency_category" name="procedure_urgency_category" rows="3" cols="8" placeholder="Enter any special requests"></textarea>
                 </div>
 
-            <div class="text-center">
-                <button type="submit" type="submit" class="btn btn-primary">Book Now</button>
-            </div>
+                <div class="text-center">
+                <button type="submit" type="submit" class="btn" style="background-color: #2e8cdd; color:white;">Book Now</button>
+                </div>
         </form>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

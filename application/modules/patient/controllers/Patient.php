@@ -485,6 +485,68 @@ class Patient extends Common_Controller
                 $this->data['results'] = $filteredData;
             }
         }
+
+
+        $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+        
+        if($this->ion_auth->is_subAdmin()){
+    
+            $option = array(
+                'table' => ' doctors',
+                'select' => 'doctors.*',
+                'join' => array(
+                    array('users', 'doctors.user_id=users.id', 'left'),
+                ),
+                
+                'where' => array(
+                    'users.delete_status' => 0,
+                    'doctors.user_id'=>$CareUnitID
+                ),
+                'single' => true,
+            );
+    
+            $datadoctors = $this->common_model->customGet($option);
+    
+    
+        $option = array(
+                'table' => ' doctors',
+                'select' => 'users.*',
+                'join' => array(
+                    array('users', 'doctors.user_id=users.id', 'left'),
+                    array('user_profile UP', 'UP.user_id=users.id', 'left'),
+                    // array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
+                    
+                ),
+                
+                'where' => array(
+                    'users.delete_status' => 0,
+                    'doctors.facility_user_id'=>$datadoctors->facility_user_id
+                ),
+                'order' => array('users.id' => 'desc'),
+            );
+            $this->data['doctors'] = $this->common_model->customGet($option);
+            // print_r($datadoctors->facility_user_id);die;
+    
+        } else if ($this->ion_auth->is_facilityManager()) {
+            
+            $option = array(
+                'table' => ' doctors',
+                'select' => 'users.*',
+                'join' => array(
+                    array('users', 'doctors.user_id=users.id', 'left'),
+                    array('user_profile UP', 'UP.user_id=users.id', 'left'),
+                    array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
+                    
+                ),
+                
+                'where' => array(
+                    'users.delete_status' => 0,
+                    'doctors.facility_user_id'=>$CareUnitID
+                ),
+                'order' => array('users.id' => 'desc'),
+            );
+            $this->data['doctors'] = $this->common_model->customGet($option);
+        }
         
         
         $this->load->admin_render('consultation', $this->data, 'inner_script');
@@ -3895,6 +3957,8 @@ $option = array(
             $option = array(
                 'table' => 'vendor_sale_patient_consultation',
                 'data' => array(
+                'consultation_type' => $this->input->post('consultationType'),
+                'consultation_date' => $this->input->post('consultation_date'),
                 'type' => $this->input->post('type'),
                 'presenting_complaint' => $this->input->post('presenting_complaint'),
                 'search' => $this->input->post('search'),  

@@ -136,6 +136,16 @@
 .nav-pills .nav-link.active{
     background-color:white!important;
 }
+.no-border {
+    border-left: none!important;
+    border-right: none!important;
+}
+.letter-type{
+    background-color: antiquewhite;
+    padding: 11px;
+    /* margin-top: 12px; */
+    padding-top: initial;
+}
 </style>
 <div id="page-content">
 <div class="block_list full">
@@ -223,6 +233,14 @@
                         <div class="widget-extra-full"><span class="h2 animation-expandOpen fw-bold text-dark"><?php echo $inactive;?></span></div>
                     </a>
                 </div>
+                <div class="col-sm-6 col-lg-2 mb-4">
+                <a href="<?php echo base_url() . 'index.php/patient/communication?id=' . encoding($patient_id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
+                        <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
+                            <h4 style="font-size:16px; font-weight:600; color:white;">Logs</h4>
+                        </div>
+                        <div class="widget-extra-full"><span class="h2 animation-expandOpen fw-bold text-dark"><?php echo $inactive;?></span></div>
+                    </a>
+                </div>
                 
     </div>
 
@@ -233,335 +251,148 @@
             <!-- </div> -->
 
     <!-- Datatables Content -->
-<div class="block full">
-    <div class="block-title">
-        <ul class="nav nav-pills nav-fill nav-tabss" id="pills-tab" role="tablist" style="width: fit-content;">
-            <li onclick="showLetters()" class="nav-item">
-                <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#letters_id" role="tab">Letters</a>
-            </li>
-            <li onclick="showForms()" class="nav-item">
-                <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#forms_id" role="tab">Forms</a>
-            </li>
-        </ul>
-    </div>
+    <div class="block full">
 
-    <div class="">
-        <?php if ($this->ion_auth->is_facilityManager()) { ?>
-            <div class="row">
-                <div class="col-sm-3 col-md-3">
-                    <input type="hidden" name="patient_id" id="patient_id" value="<?php echo $patient_id;?>">
-                    <a href="javascript:void(0)" onclick="open_modal('<?php echo $model; ?>')" class="btn btn-sm btn-secondary nav-tab-appointment tab-pane-second active" id="letters_id_btn" style="background-color:#337ab7;width: fit-content;border-radius: 4px;">
-                        <?php echo "New letter"; ?>
-                    </a>
+<div class="block-title ">
 
-                    <button type="button" data-toggle="modal" data-target="#sidebar-right" class="btn navbar-btn pull-left btn btn-sm btn-secondary tab-pane-second" id="forms_id_btn" style="display:none; background-color:#337ab7;">New forms</button>
-                </div>
-                <div class="col-sm-5 col-md-5">
-
-                </div>
-                <div class="col-sm-4 col-md-4">
-                    <button style="background-color: white;border-radius: 6px;padding-left: 22px;padding-right: 22px;">All</button>
-                    <button style="background-color: white;border-radius: 6px;padding-left: 12px;padding-right: 12px;">Created Date</button>
-                    <button style="background-color: white;border-radius: 6px;padding-left: 12px;padding-right: 12px;">
-                        <span><i class="fa fa-light fa-border-all"></i></span>
-                    </button>
-                </div>
-            </div>
-        <?php } ?>
-    </div>
-    <br><br>
-
-    <!-- Letters list -->
-    <div class="row nav-tab-appointment tab-pane-second-list active" id="letters_id">
-        <span class="" >
-        <?php foreach($list as $folder){ ?>
-            <div class="row">
-
-            
-            <div class="col-sm-11 col-md-11" style="padding: 15px; border-block-end-style: inset;">
-               
-            <a href="<?php echo base_url().'index.php/lettersAndForm/viewLetters?id=' . encoding($patient_id) . '&form_id=' . encoding($folder->id); ?>" class="link">
-            <div style="color:black;">
-                <input type="hidden" name="folder_id" id="folder_id" value="<?php echo $folder->id;?>">
-                <span><b><?php echo $folder->template_id; ?></b></span><br>
-                <span>Created <?php echo date_format(date_create($folder->create_date), 'd/m/Y'); ?> | <strong><?php echo $folder->first_name . ' ' . $folder->last_name; ?></strong></span>
-                <span style="float:right;" ><span style="background-color:#e9dab9; border-radius: 6px;"> &nbsp;<?php echo $folder->type; ?>&nbsp;&nbsp;</span>&nbsp;&nbsp;
-                </div>
-            </a>
-                </div>
-                <div class="col-sm-1 col-md-1" style="padding: 15px; border-block-end-style: inset; margin-left: auto;">
-              
-                            <div class="dots" id="dotsMenu<?php echo $folder->id;?>">
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                            </div>
-
-                            <div class="menu" id="menuDropdown<?php echo $folder->id;?>">
-                                <div>
-                                    <ul>
-                                        <li><a href="#" class="link">Update Status</a></li>
-                                        <li><a href="#" class="link">Edit</a></li>
-                                        <li><a href="#" class="link">Delete</a></li>
-                                        <li><a href="#" class="link">Share</a></li>
-                                        <li><a href="#" class="link">Email</a></li>
-                                        <li><a href="#" class="link">Duplicates</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-</span>
-               
-
-            </div>
-            </div>
-            <?php } ?>
-
-               
-        </span>
-    </div>
-
-    <!-- Forms list -->
-    <div class="row nav-tab-appointment tab-pane-second-list" id="forms_id" style="display: none;">
-    <span class="" >
-        <?php foreach($form_list as $folder){ ?>
+    <ul class="nav nav-pills nav-fill nav-tabss" id="pills-tab" role="tablist" style="width: fit-content;">
+        <!-- <li onclick="toggleDisplay()" class="nav-item">
+            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#letters_id" role="tab">Letters</a>
+        </li>
+        <li onclick="toggleHidden()" class="nav-item">
+            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#forms_id" role="tab">Forms</a>
+        </li> -->
+        <a href="<?php echo base_url(). 'index.php/lettersAndForm?id=' . encoding($patient_id); ?>"  style="color: black;padding: 9px;font-weight: 900;background-color: ghostwhite;"> Back to Letters
+        </a>
         
-            <div class="col-sm-12 col-md-12" style="padding: 15px; border-block-end-style: inset;">
-                <input type="hidden" name="folder_id" id="folder_id" value="<?php echo $folder->id;?>">
-                <span><b><?php echo $folder->title; ?></b></span><br>
-                <span>Created <?php echo date_format(date_create($folder->create_date), 'd/m/Y'); ?> | <strong><?php echo $folder->first_name . ' ' . $folder->last_name; ?></strong></span>
-                <!-- <span style="float:right;">...</span> -->
+    </ul>
 
-                <!-- <span id="dropdownMenuButton" class="dropdown-toggle" style="cursor: pointer; float:right;">...</span> -->
+</div>
+
+
+<div class="">
     
+    <?php if ($this->ion_auth->is_facilityManager()) { ?>
+        <div class="row">
+        <div class="col-sm-8 col-md-8">
+        <input type="hidden" name="patient_id" id="patient_id" value="<?php echo $patient_id;?>">
+        <h3><strong> Letters</strong></h3>
+            <!-- <a href="javascript:void(0)"  onclick="open_modal('<?php echo $model; ?>')" class="btn btn-sm btn-secondary save-btn nav-tab-appointment tab-pane-second active" id="letters_id" style="background-color:#337ab7;">
+                <?php //echo "New letter"; ?> 
+            </a> -->
 
-                            <div class="dots" id="dotsMenu<?php echo $folder->id;?>" style="cursor: pointer; float:right;">
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                            </div>
 
-                            <div class="menu" id="menuDropdown<?php echo $folder->id;?>" style="margin-left: 1105px;">
-                                <div >
-                                    <ul>
-                                        
-                                    <li> <a href="<?php echo base_url().'index.php/lettersAndForm/editBookingForm?id=' . encoding($patient_id) . '&form_id=' . encoding($folder->id); ?>" class="link">Edit</a></li>
+            <!-- <button type="button" data-toggle="modal" data-target="#sidebar-right" class="btn btn-primary navbar-btn pull-left btn btn-sm btn-secondary save-btn tab-pane-second" id="forms_id" style="display:none; background-color:#337ab7;">New forms</button> -->
+    </div>
+            <!-- <div class="col-sm-4 col-md-4"> -->
+            <!-- <button style="background-color: white;border-radius: 6px;padding-left: 22px;padding-right: 22px;">All</button>
+            <button style="background-color: white;border-radius: 6px;padding-left: 12px;padding-right: 12px;">Created Date</button>
+            <button style="background-color: white;border-radius: 6px;padding-left: 12px;padding-right: 12px;">
+            <span>
+            <i class="fa fa-light fa-border-all"></i></span>
+            </button>
+            </div>
+            </div> -->
+    <?php } ?>
+</div>
+<br><br>
+<div class="container show-grid">
+  <div class="row">
+    <div class="col-sm-6" style="border-right:none;"> <span for="" class="text-success"><strong> < Letters </strong></span></div>
+    <div class="col-sm-1 no-border" style="width: auto;"> <?php if($result->type == 'Completed'){ ?>
 
-                                        <li>
-                                        <a href="<?php echo base_url().'index.php/lettersAndForm/deleteBookingForm?id=' . encoding($patient_id) . '&form_id=' . encoding($folder->id); ?>" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+                <button type="button" class="btn" style="background-color: lightgreen;"><b><?php echo $result->type;?></b></button>
+            <?php }else if($result->type == 'Awaiting Review'){?>
+                <button type="button" class="btn" style="background-color: azure;"><b><?php echo $result->type;?></b></button>
+            <?php }else if($result->type == 'Awaiting Correction'){?>
+                <button type="button" class="btn" style="background-color: antiquewhite;"><b><?php echo $result->type;?></b></button>
 
-                                            <!-- <a href="<?php //echo base_url().'index.php/lettersAndForm/deleteBookingForm?id=' . encoding($patient_id) . '&form_id=' . encoding($folder->id); ?>" class="link">Delete</a> -->
-                                        </li>
-                                        
-                                    </ul>
-                                </div>
-                            </div>
+            <?php }else {?>
+                <button type="button" class="btn" style="background-color: coral;"><b><?php echo $result->type;?></b></button>
+            <?php }?>
+    </div>&nbsp;
+    <div class="col-sm-1 no-border"><button for="" type="button" class="btn btn-outline-success"><b><i class="fas fa-solid fa-share"></i> Share</b></button></div>
+    <div class="col-sm-1 no-border"><button type="button" class="btn btn-default"><b><i class="fas fa-regular fa-envelope"></i> Email</b></button></div>
+    <div class="col-sm-1 no-border"><button type="button" class="btn btn-outline-success"><b><i class="fas fa-solid fa-print"></i> Print</b></button></div>
+    <div class="col-sm-1 no-border"><button type="button" class="btn btn-outline-success"> <b><i class="fas fa-edit"></i> Edit</b></button></div>
+    <!-- <div class="col-sm-1 no-border"><span>...</span></div> -->
+    
+  </div>
+
+  <div class="row">
+    <div class="col-sm-10"><label for=""><?php echo $result->template_id;?></label></div>
+    <div class="col-sm-2">
+        <select name="status" id="statusDropdown" class="form-control" onchange="updateStatus('<?php echo $result->id; ?>')">
+        <option value="None" <?php echo ($result->type == 'None') ? 'selected' : ''; ?>>None</option>
+        <option value="Awaiting Review" <?php echo ($result->type == 'Awaiting Review') ? 'selected' : ''; ?>>Awaiting Review</option>
+        <option value="Awaiting Correction" <?php echo ($result->type == 'Awaiting Correction') ? 'selected' : ''; ?>>Awaiting Correction</option>
+        <option value="Completed" <?php echo ($result->type == 'Completed') ? 'selected' : ''; ?>>Completed</option>
+      
+
+        </select>
+    </div>
+</div>
+
+
+</div>
+
+
+<div class="container show-grid">
+  
+  <div class="row">
+    <div class="col-sm-10"><label for="">Page:</label><select name="" id=""><option value="1">1</option></select> <label for="">Of 2</label></div>
+    <div class="col-sm-2"><label for="">Zoom</label> <button type="button" class="btn btn-success" style="background-color: darkcyan;">+</button> &nbsp;&nbsp;<button type="button" class="btn btn-success" style="background-color: darkcyan;">-</button></div>
+  </div>
+  
+</div>
+
+<div class="container mt-5">
+        
+<form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url($formUrlData) ?>" enctype="multipart/form-data">
+
+            <div class="row">
+                <input type="hidden" name="patient_id" id="patient_id" value="<?php echo $patient_id;?>">
+                <input type="hidden" name="form_id" id="form_id" value="<?php echo $form_id;?>">
+                
+                <div class="col-md-12" style="background-color: ghostwhite;">
+                    <!-- <label for="letter_body" class="form-label">Letter Body:</label> -->
+                    <div style="background-color: white;padding: 98px;"><?php echo $result->details;?></div>
+                    <!-- <textarea name="letter_body" id="letter_body" rows="10" class="form-control" placeholder="Write your letter here..."> <?php echo $result->details;?></textarea> -->
+                </div>
+
 
             </div>
 
-       
-        <?php } ?>
-        </span>
+        </form>
     </div>
-</div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </div>
+   
 </div>
 
-<!-- JavaScript to Toggle between Lists -->
+
 <script>
-function showLetters() {
-    document.getElementById('letters_id').style.display = 'block';
-    document.getElementById('forms_id').style.display = 'none';
-    document.getElementById('letters_id_btn').style.display = 'block';
-    document.getElementById('forms_id_btn').style.display = 'none';
-}
+function updateStatus(id) {
+    var status = document.getElementById('statusDropdown').value;
+// alert(status);
+    // AJAX request to update status
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '<?php echo base_url("lettersAndForm/updateStatus"); ?>', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest'); // For AJAX detection
 
-function showForms() {
-    document.getElementById('letters_id').style.display = 'none';
-    document.getElementById('forms_id').style.display = 'block';
-    document.getElementById('letters_id_btn').style.display = 'none';
-    document.getElementById('forms_id_btn').style.display = 'block';
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            // alert('Status updated successfully');
+            window.location.reload();
+        }
+    };
+    
+    xhr.send('id=' + id + '&status=' + status);
 }
 </script>
 
-<!-- END Page Content -->
-<div id="form-modal-box"></div>
 
-
-
-
-
-<!-- Sidebar Right -->
-<div class="modal fade right" id="sidebar-right" tabindex="-1" role="dialog">
-<div class="modal-dialog modal-md" role="document">
-<div class="modal-content">
-<div class="modal-header">
-<button type="button" class="close" data-dismiss="modal" style="float:right;"><span aria-hidden="true">&times;</span></button><br>
-<h3 class="modal-title"> <strong>&nbsp;&nbsp;  Hospital Booking Forms </strong></h3>
-</div>
-<div class="modal-body">
-
-
-
-<hr>
-
-<div class="form-group hide">
-<div class="input-group">
-<input class="form-control" placeholder="Search">
-<span class="input-group-btn">
-<button class="btn btn-default" type="button"><i class="fa fa-fw fa-search"></i></button>
-</span>
-</div>
-</div>
-
-<div class="form-group has-feedback">
-<input type="text" class="form-control" id="search-right" placeholder="Search">
-<span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
-</div>
-
-<hr>
-
-<div class="btn-group-vertical center-block">
-
-<span><strong> All Forms</strong></span>
-
-
-<div class="toggled-off" style="border-block-end-style: inset;">
-<i class="fa fa-angle-down fa-fw" style="float:right"></i> 
-  <i class="fa fa-angle-up fa-fw" style="float:right"></i> 
-
-  <div class="toggle-title">
-  <h6><strong> BMI(Circle) - The Alexandra Hospital </strong></h6>
-  </div>
-  
-  <!-- end toggle-title --->
-  <div class="toggle-content"> 
-  <p><a href="<?php echo base_url() . 'index.php/lettersAndForm/bookingForm?id=' . encoding($patient_id); ?>" class="toggle-content-a"> <i class="fa fa-regular fa-file-excel"></i> booking form</a>
-    </p><p>
-    <a href="<?php echo base_url() . 'index.php/lettersAndForm/imagingRequestForm?id=' . encoding($patient_id); ?>" class="toggle-content-a"> <i class="fa fa-regular fa-file-excel"></i> Imaging Request Form</a>
-    </p>
-  </div>
-  
-  <!-- end section-toggle--> 
-   
-</div>
-<!-- end toggle-on-->
-
-<div class="toggled-off" style="border-block-end-style: inset;">
-<i class="fa fa-angle-down fa-fw" style="float:right"></i> 
-<i class="fa fa-angle-up fa-fw" style="float:right"></i> 
-
-  <div class="toggle-title">
-    
-    <h6><strong>Alliance Medical</strong></h6>
-   
-  </div>
-  <!-- end section-title --->
-  <div class="toggle-content"> 
-    <p style="color:red;">Comming Soon</p>
-  </div>
-  <!-- end toggle-content --> 
-</div>
-<!-- end toggle-on-->
-
-
-<div class="toggled-off" style="border-block-end-style: inset;">
-<i class="fa fa-angle-down fa-fw" style="float:right"></i> 
-<i class="fa fa-angle-up fa-fw" style="float:right"></i> 
-  <div class="toggle-title">
-    
-  <h6><strong>Automation test clinic</strong></h6>
-  </div>
-  <!-- end section-title --->
-  <div class="toggle-content"> 
-    <p style="color:red;">Comming Soon</p>
-  </div>
-  <!-- end toggle-content --> 
-</div>
-<!-- end toggle-on-->
-
-
-
-
-
-
-
-</div>
-
-</div>
-</div>
-</div>
-</div>
-</div>
-<script>
-        // toggle class show hide text section
-$(document).on('click', '.toggle-title', function() {
-    $(this).parent()
-        .toggleClass('toggled-on')
-        .toggleClass('toggled-off');
-});
-
-</script>
-<style>
-    .toggled-on .toggle-title {
-        cursor: pointer;
-        background-color: #e7f2f3;
-        /* height: 44px; */
-        padding: 7px;
-        border-radius: 4px;
-}
-
-    .toggled-on .toggle-content {
-
-    display: block;
-    margin-top: 7px;
-    border-radius: 10px;
-    padding-left: 20px
-    /* height: 30px; */
-}
-
-.toggle-content {
-    /* box-shadow: inset 0px 0px 10px #0c0b41;  */
-}
-
-.toggle-content p {
-    margin: 15px 0 15px 0;
-     background-color: aliceblue;
-     padding: 5px;
-}
-
-.toggled-on .fa-angle-down {
-    display: none; 
-}
-
-.toggle-content-a {
-    
-     color: #1bbae1 !important;
-}
-
-
-
-/* .toggle-title {
-   
-  cursor: pointer;
-    position: relative;
-    background-color: #c3e0e3;
-    height: 44px;
-    padding: 7px;
-} */
-
-.toggle-title i {
-    position: absolute;
-    left: 0;
-    font-size: 2.5em; 
-}
-
-.toggled-off .toggle-content {
-    display: none; 
-}
-
-.toggled-off .fa-angle-up {
-    display: none; 
-}
-</style>
 <script>
     $(document).ready(function() {
   $('#patient_ids').click(function() {
@@ -579,7 +410,6 @@ $(document).on('click', '.toggle-title', function() {
             $(".nav-tabss .nav-link").removeClass("active");
             $(this).addClass("active");
             $(".tab-pane-second").hide();
-            $(".tab-pane-second-list").hide();
             var targetPaneId = $(this).attr("href");
             $(targetPaneId).show();
         });
@@ -588,7 +418,6 @@ $(document).on('click', '.toggle-title', function() {
             $(".nav-tab-appointment .nav-link-second").removeClass("active");
             $(this).addClass("active");
             $(".tab-pane-second").hide();
-            $(".tab-pane-second-list").hide();
 
             var targetPaneId = $(this).data("target");
             $(targetPaneId).show();
@@ -612,6 +441,29 @@ $(document).on('click', '.toggle-title', function() {
 </script>
 
 <style>
+
+* {
+  box-sizing: border-box;
+}
+.show-grid {
+  padding: 10px;
+}
+
+.show-grid .row {
+  margin-bottom: 15px;
+}
+
+.show-grid [class^=col-] {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    /* background-color: #eee; */
+    /* background-color: rgba(86,61,124,.15); */
+    border: 1px solid #ddd;
+    border: 1px solid rgba(86,61,124,.2);
+}
+
+
+
     .btnPrevious,
 .btnNext{
 	display: inline-block;

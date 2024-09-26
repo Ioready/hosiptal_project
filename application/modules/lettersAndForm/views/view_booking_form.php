@@ -223,6 +223,14 @@
                         <div class="widget-extra-full"><span class="h2 animation-expandOpen fw-bold text-dark"><?php echo $inactive;?></span></div>
                     </a>
                 </div>
+                <div class="col-sm-6 col-lg-2 mb-4">
+                <a href="<?php echo base_url() . 'index.php/patient/communication?id=' . encoding($patient_id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
+                        <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
+                            <h4 style="font-size:16px; font-weight:600; color:white;">Logs</h4>
+                        </div>
+                        <div class="widget-extra-full"><span class="h2 animation-expandOpen fw-bold text-dark"><?php echo $inactive;?></span></div>
+                    </a>
+                </div>
                 
     </div>
 
@@ -235,46 +243,48 @@
     <!-- Datatables Content -->
     <div class="block full">
 
-        <div class="block-title ">
+<div class="block-title ">
 
-            <ul class="nav nav-pills nav-fill nav-tabss" id="pills-tab" role="tablist" style="width: fit-content;">
-                <li onclick="toggleDisplay()" class="nav-item">
-                    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#letters_id" role="tab">Letters</a>
-                </li>
-                <li onclick="toggleHidden()" class="nav-item">
-                    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#forms_id" role="tab">Forms</a>
-                </li>
-                
-            </ul>
+    <ul class="nav nav-pills nav-fill nav-tabss" id="pills-tab" role="tablist" style="width: fit-content;">
+        <!-- <li onclick="toggleDisplay()" class="nav-item">
+            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#letters_id" role="tab">Letters</a>
+        </li>
+        <li onclick="toggleHidden()" class="nav-item">
+            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#forms_id" role="tab">Forms</a>
+        </li> -->
+        <a href="<?php echo base_url(). 'index.php/lettersAndForm?id=' . encoding($patient_id); ?>"  style="color: black;padding: 9px;font-weight: 900;background-color: ghostwhite;"> Back to Letters
+        </a>
         
-        </div>
+    </ul>
+
+</div>
 
 
-        <div class="">
-            
-            <?php if ($this->ion_auth->is_facilityManager()) { ?>
-                <div class="row">
-                <div class="col-sm-8 col-md-8">
-                <input type="hidden" name="patient_id" id="patient_id" value="<?php echo $patient_id;?>">
-                <h3><strong> Booking Form</strong></h3>
-                    <!-- <a href="javascript:void(0)"  onclick="open_modal('<?php echo $model; ?>')" class="btn btn-sm btn-secondary save-btn nav-tab-appointment tab-pane-second active" id="letters_id" style="background-color:#337ab7;">
-                        <?php //echo "New letter"; ?> 
-                    </a> -->
+<div class="">
+    
+    <?php if ($this->ion_auth->is_facilityManager()) { ?>
+        <div class="row">
+        <div class="col-sm-8 col-md-8">
+        <input type="hidden" name="patient_id" id="patient_id" value="<?php echo $patient_id;?>">
+        <h3><strong> Booking Form</strong></h3>
+            <!-- <a href="javascript:void(0)"  onclick="open_modal('<?php echo $model; ?>')" class="btn btn-sm btn-secondary save-btn nav-tab-appointment tab-pane-second active" id="letters_id" style="background-color:#337ab7;">
+                <?php //echo "New letter"; ?> 
+            </a> -->
 
 
-                    <!-- <button type="button" data-toggle="modal" data-target="#sidebar-right" class="btn btn-primary navbar-btn pull-left btn btn-sm btn-secondary save-btn tab-pane-second" id="forms_id" style="display:none; background-color:#337ab7;">New forms</button> -->
+            <!-- <button type="button" data-toggle="modal" data-target="#sidebar-right" class="btn btn-primary navbar-btn pull-left btn btn-sm btn-secondary save-btn tab-pane-second" id="forms_id" style="display:none; background-color:#337ab7;">New forms</button> -->
+    </div>
+            <!-- <div class="col-sm-4 col-md-4"> -->
+            <!-- <button style="background-color: white;border-radius: 6px;padding-left: 22px;padding-right: 22px;">All</button>
+            <button style="background-color: white;border-radius: 6px;padding-left: 12px;padding-right: 12px;">Created Date</button>
+            <button style="background-color: white;border-radius: 6px;padding-left: 12px;padding-right: 12px;">
+            <span>
+            <i class="fa fa-light fa-border-all"></i></span>
+            </button>
             </div>
-                    <!-- <div class="col-sm-4 col-md-4"> -->
-                    <!-- <button style="background-color: white;border-radius: 6px;padding-left: 22px;padding-right: 22px;">All</button>
-                    <button style="background-color: white;border-radius: 6px;padding-left: 12px;padding-right: 12px;">Created Date</button>
-                    <button style="background-color: white;border-radius: 6px;padding-left: 12px;padding-right: 12px;">
-                    <span>
-                    <i class="fa fa-light fa-border-all"></i></span>
-                    </button>
-                    </div>
-                    </div> -->
-            <?php } ?>
-        </div>
+            </div> -->
+    <?php } ?>
+</div>
 <br><br>
 
 <div class="container mt-5">
@@ -796,7 +806,7 @@
                 </div>
 
             <div class="text-center">
-                <button type="submit" type="submit" class="btn btn-primary">Book Now</button>
+                <button type="submit" type="submit" class="btn" style="background-color: #2e8cdd; color:white;">Book Now</button>
             </div>
         </form>
     </div>

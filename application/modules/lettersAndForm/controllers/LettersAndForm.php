@@ -87,6 +87,7 @@ class LettersAndForm extends Common_Controller {
         
         
         
+
  $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 
     if($this->ion_auth->is_subAdmin()){
@@ -125,7 +126,7 @@ class LettersAndForm extends Common_Controller {
             'order' => array('users.id' => 'desc'),
         );
         $this->data['doctors'] = $this->common_model->customGet($option);
-
+        
 
         $this->data['send_mail_template'] = $this->common_model->customGet(array('table' => 'send_mail_template', 'select' => 'send_mail_template.*', 'where' => array('user_id' =>$datadoctors->facility_user_id)));
 
@@ -158,12 +159,45 @@ class LettersAndForm extends Common_Controller {
 
        } 
 
-       $send_mailt=  implode(', ', array_map(function($val){return sprintf("'%s'", $val);}, $template_name));
-       $this->data['send_mail_template']=$send_mailt;
+    //    $send_mailt=  implode(', ', array_map(function($val){return sprintf("'%s'", $val);}, $template_name));
+    //    $this->data['send_mail_template']=$send_mailt;
     }
+    // print_r($this->data['doctors']);die;
         $this->load->view('add', $this->data);
     }
 
+
+    function viewLetters() {
+
+        $this->data['url'] = base_url() . $this->router->fetch_class();
+        $this->data['pageTitle'] = "Add " . $this->title;
+        $this->data['parent'] = $this->router->fetch_class();
+        $this->data['model'] = $this->router->fetch_class();
+        $this->data['formUrlData'] = $this->router->fetch_class() . "/updateBookingForm";
+        $this->data['title'] = $this->title;
+        $this->data['tablePrefix'] = 'vendor_sale_' . $this->_table;
+        $this->data['table'] = $this->_table;
+        $this->data['patient_id'] = decoding($_GET['id']);
+        $this->data['form_id'] = decoding($_GET['form_id']);
+        // print_r($this->data['patient_id']);die;
+        // $option = array('table' => $this->_tables);
+
+        $form_id=  decoding($_GET['form_id']);
+       $id=  decoding($_GET['id']);
+    //    print_r($form_id);die;
+    $option = array(
+        'table' => 'vendor_sale_letters_and_form',
+        'where' => array('id' => $form_id),
+        'single' => true
+    );
+    // $results_row = $this->common_model->customGet($option);
+
+
+        $this->data['result'] = $this->common_model->customGet($option);
+        // print_r($this->data['list']);die;
+        $this->load->admin_render('view_letters', $this->data, 'inner_script');
+                // $this->load->view('booking_form', $this->data, 'inner_script');
+    }
 
 
     function open_model_form() {
@@ -698,5 +732,150 @@ $response = array('status' => 1, 'message' => "Successfully added", 'url' =>base
     echo $response;
 
     }
+
+
+    function imagingRequestForm() {
+
+        $this->data['url'] = base_url() . $this->router->fetch_class();
+        $this->data['pageTitle'] = "Add " . $this->title;
+        $this->data['parent'] = $this->router->fetch_class();
+        $this->data['model'] = $this->router->fetch_class();
+        $this->data['formUrlData'] = $this->router->fetch_class() . "/addImagingRequestForm";
+        $this->data['title'] = $this->title;
+        $this->data['tablePrefix'] = 'vendor_sale_' . $this->_table;
+        $this->data['table'] = $this->_table;
+        $this->data['patient_id'] = decoding($_GET['id']);
+        // print_r($this->data['patient_id']);die;
+        // $option = array('table' => $this->_tables);
+
+       $id=  decoding($_GET['id']);
+    //    print_r($id);die;
+        $option = array(
+            'table' => 'letters_and_form',
+            'select' =>'letters_and_form`.*,vendor_sale_users.first_name,vendor_sale_users.last_name',
+            'join' => array(
+                array('vendor_sale_users', 'letters_and_form.user_id=vendor_sale_users.id', 'left'),
+            ),
+            
+            'where' => array('letters_and_form.patient_id' => $id)
+        );
+
+
+        $this->data['list'] = $this->common_model->customGet($option);
+        // print_r($this->data['list']);die;
+        $this->load->admin_render('imaging_request_form', $this->data, 'inner_script');
+                // $this->load->view('booking_form', $this->data, 'inner_script');
+    }
+
+
+    public function addImagingRequestForm() {
+
+        // print_r($this->input->post());die;
+        // $this->form_validation->set_rules('appointment_type', "appointment_type", 'required|trim');
+        // if ($this->form_validation->run() == true) {
+           
+            $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+           
+                $options_data = array(
+                    'patient_id' => $this->input->post('patient_id'),
+                    'facility_user_id' => $CareUnitID,
+                    'surname' =>$this->input->post('surname'),
+                    'first_name' => $this->input->post('first_name'),
+                    'dob' => $this->input->post('dob'),
+                    'gender' => $this->input->post('gender'),
+                    'hospital_number' => $this->input->post('hospital_number'),
+                    'address' => $this->input->post('address'),
+                    'post_code' => $this->input->post('post_code'),
+                    'tel_home' => $this->input->post('tel_home'),
+                    'tel_mobile' => $this->input->post('tel_mobile'),
+                    'date_time' => $this->input->post('date_time'),
+                    'op' => $this->input->post('op'),
+                    'ip' => $this->input->post('ip'),
+                    'oxygen' => $this->input->post('oxygen'),
+                    'pregnant' => $this->input->post('pregnant'),
+                    'xray' => $this->input->post('xray'),
+                    'first_day_of_lmp' => $this->input->post('first_day_of_lmp'),
+                    'breastfeeding' => $this->input->post('breastfeeding'),
+                    'signature' => $this->input->post('signature'),
+                    'date' => $this->input->post('date'),
+                    'referrer_signature' => $this->input->post('referrer_signature'),
+                    'referrer_date' => $this->input->post('referrer_date'),
+                    'referrer_name_address' => $this->input->post('referrer_name_address'),
+                    'medication_required_allergies' => $this->input->post('medication_required_allergies'),
+                    'medication_required_medication' => $this->input->post('medication_required_medication'),
+                    'medication_required_dose' => $this->input->post('medication_required_dose'),
+                    'medication_required_date' => $this->input->post('medication_required_date'),
+                    'medication_required_signature' => $this->input->post('medication_required_signature'),
+                    'medication_required_gmc_no' => $this->input->post('medication_required_gmc_no'),
+                    'mri_patients_cardiac_pacemaker' => $this->input->post('mri_patients_cardiac_pacemaker'),
+                    'mri_patients_heart_valve' => $this->input->post('mri_patients_heart_valve'),
+                    'mri_patients_metal_fragments' => $this->input->post('mri_patients_metal_fragments'),
+                    'mri_patients_cranial_surgery' => $this->input->post('mri_patients_cranial_surgery'),
+                    'mri_patients_metal_body' => $this->input->post('mri_patients_metal_body'),
+                    'mri_patients_anti_coagulant' => $this->input->post('mri_patients_anti_coagulant'),
+                    'mri_patients_provide_egfr' => $this->input->post('mri_patients_provide_egfr'),
+                    'imaging_department_staff' => $this->input->post('imaging_department_staff'),
+                    'returned_check_id' => $this->input->post('returned_check_id'),
+                    'operator_use_patient_height' => $this->input->post('operator_use_patient_height'),
+                    'operator_use_patient_weight' => $this->input->post('operator_use_patient_weight'),
+                    'operator_use_kv' => $this->input->post('operator_use_kv'),
+                    'operator_use_mas' => $this->input->post('operator_use_mas'),
+                    'pperators_name_signature' => $this->input->post('pperators_name_signature'),
+                    'operators_number_of_exposures_films' => $this->input->post('operators_number_of_exposures_films'),
+                    'operators_dose_cgycm' => $this->input->post('operators_dose_cgycm'),
+                    'operators_fluoro_time' => $this->input->post('operators_fluoro_time'),
+                    'operators_examination_justified_name_signature' => $this->input->post('operators_examination_justified_name_signature'),
+                    'patient_holding_record_pregnancy' => $this->input->post('patient_holding_record_pregnancy'),
+                    'patient_holding_record_comforter_carer' => $this->input->post('patient_holding_record_comforter_carer'),
+                    'patient_holding_record_signature' => $this->input->post('patient_holding_record_signature'),
+                    'patient_holding_record_ffd' => $this->input->post('patient_holding_record_ffd'),
+                    'patient_holding_record_patient_carer_distance' => $this->input->post('patient_holding_record_patient_carer_distance'),
+                    'patient_holding_record_patient_dose' => $this->input->post('patient_holding_record_patient_dose'),
+                    'checklist_patient_id_check' => $this->input->post('checklist_patient_id_check'),
+                    'checklist_exam_justification' => $this->input->post('checklist_exam_justification'),
+                    'checklist_previous_exams' => $this->input->post('checklist_previous_exams'),
+                    'checklist_risk_explained' => $this->input->post('checklist_risk_explained'),
+                    'checklist_within_limits' => $this->input->post('checklist_within_limits'),
+                    'checklist_report_flagged' => $this->input->post('checklist_report_flagged'),
+                    'notes' => $this->input->post('notes'),
+                    'operator_comments' => $this->input->post('operator_comments'),
+                );
+                
+                $option = array('table' => 'vendor_sale_imaging_request_form', 'data' => $options_data);
+
+                // print_r($option);die;
+                if ($this->common_model->customInsert($option)) {
+
+                $response = array('status' => 1, 'message' => "Successfully added", 'url' =>base_url($this->router->fetch_class()));
+                } else {
+                    $response = array('status' => 0, 'message' => "Failed to add");
+                }
+           
+        echo json_encode($response);
+    }
+
+    public function updateStatus() {
+        $id = $this->input->post('id');
+        // print_r($id);die;
+        $options_data = array(
+            'type' => $this->input->post('status')
+        );
+        $option = array(
+            'table' => 'vendor_sale_letters_and_form',
+            'data' => $options_data,
+            'where' => array('id' => $id)
+        );
+        $update = $this->common_model->customUpdate($option);
+        $response = array('status' => 1, 'message' => "Successfully updated", 'url' => base_url($this->router->fetch_class()));
+
+    
+        if ($response) {
+            echo json_encode(['success' => true, 'message' => 'Status updated']);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Failed to update status']);
+        }
+    }
+    
+
 
 }

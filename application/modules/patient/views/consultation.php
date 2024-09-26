@@ -724,7 +724,33 @@
            <!-- <div id="form-sections"> -->
            
                         <div id="form-complaint" class="form-section" style="display:none;">
+
                         <form id="addFormAjax" method="post" action="<?php echo base_url('patient/updateConsultation') ?>" enctype="multipart/form-data">
+
+                        
+                        <div class="row">
+                                    <div class="col-md-12">
+                                            <!-- Consultation Type & Date -->
+                                            <div class="form-group row">
+                                                <div class="col-md-4">
+                                                    <label for="consultationType">Consultation Type</label>
+                                                    <select name="consultationType" id="consultationType" class="form-control" required>
+                                                        <option value="">Doctor Consultation</option>
+
+                                                        <?php if (!empty($doctors)) {
+                                                                    foreach ($doctors as $doctor) { ?>
+                                                                            <option value="<?php echo $doctor->id; ?>"><?php echo $doctor->first_name. ' '.$doctor->last_name; ?></option>
+                                                        <?php } } ?>
+
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="consultationDate">Date</label>
+                                                    <input type="datetime-local" name="consultation_date" id="consultation_date" class="form-control" required>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>
                             <div class="alert alert-danger" id="error-box" style="display: none"></div>
             
                             <input type="hidden" class="form-control" name="patient_id" id="patient_id" value="<?php echo encoding($patient_id);?>" placeholder="Enter Complaint">
@@ -1001,6 +1027,32 @@
                             <!-- Medication -->
                             <div id="form-medication" class="form-section" style="display:none;">
                                 <form id="addFormAjax" method="post" action="<?php echo base_url('patient/updateConsultation') ?>" enctype="multipart/form-data">
+
+                                
+                            <div class="row">
+                                    <div class="col-md-12">
+                                            <!-- Consultation Type & Date -->
+                                            <div class="form-group row">
+                                                <div class="col-md-4">
+                                                    <label for="consultationType">Consultation Type</label>
+                                                    <select name="consultationType" id="consultationType" class="form-control" required>
+                                                        <option value="">Doctor Consultation</option>
+
+                                                        <?php if (!empty($doctors)) {
+                                                                    foreach ($doctors as $doctor) { ?>
+                                                                            <option value="<?php echo $doctor->id; ?>"><?php echo $doctor->first_name. ' '.$doctor->last_name; ?></option>
+                                                        <?php } } ?>
+
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="consultationDate">Date</label>
+                                                    <input type="datetime-local" name="consultation_date" id="consultation_date" class="form-control consultation_date" required>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>
+
                                     <div class="alert alert-danger" id="error-box" style="display: none"></div>
             
                                          <input type="hidden" class="form-control" name="patient_id" id="patient_id" value="<?php echo encoding($patient_id);?>" placeholder="Enter Complaint">
@@ -1439,6 +1491,8 @@ $(document).ready(function() {
                 var relationship=  data.relationship;
                 var showSummary=  data.showSummary;
                 var id = data.id; 
+                var consultation_type = data.consultation_type; 
+                var consultation_date = data.consultation_date; 
 // alert(since);
                 
                 $('#presenting_complaint').val(presenting_complaint);
@@ -1468,13 +1522,14 @@ $(document).ready(function() {
                 // $('#comment').val(comment);
 
                 $('#value').val(value);
+                $('.consultation_date').val(consultation_date);
                 // $('.problem-heading-severity').val(severity);
                 // $('.medical-history-severity').val(severity);
                 // $('.social-severity').val(severity);
                 // $('.medication-severity').val(severity);
                 // $('.product-severity').val(severity);
 
-                $(".allergy-severity option[value='" + severity + "']").prop("selected", true);
+                $("#consultationType option[value='" + consultation_type + "']").prop("selected", true);
                 // $('#severity').val(severity);
                 // $('#severity').val(severity);
 
@@ -1502,6 +1557,8 @@ $(document).ready(function() {
                 $('#medicationSearch').val(search);
                 $('#productSearch').val(search);
 
+
+                $(".allergy-severity option[value='" + severity + "']").prop("selected", true);
 
                
                 var action = '<button type="button" data-toggle="modal" data-target="#exampleModalEdit" ' +

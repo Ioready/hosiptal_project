@@ -348,7 +348,7 @@ class Medications extends Common_Controller {
     public function fetchMedication() {
         $output = '';
         $query = $this->input->post('query');
-        print_r($query);die;
+        // print_r($query);die;
         if ($query) {
             $results = $this->common_model->fetchConsultMedication($query);
             // print_r($results);die;
