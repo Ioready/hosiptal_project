@@ -295,8 +295,8 @@
             </div> -->
     <?php } ?>
 </div>
-<br><br>
-    <div class="container show-grid">
+    <br><br>
+<div class="container show-grid">
   <div class="row">
     <div class="col-sm-6" style="border-right:none;"> <span for="" class="text-success"><strong> < Letters </strong></span></div>
     <div class="col-sm-1 no-border" style="width: auto;"> <?php if($result->type == 'Completed'){ ?>
@@ -311,6 +311,7 @@
                 <button type="button" class="btn" style="background-color: coral;"><b><?php echo $result->type;?></b></button>
             <?php }?>
     </div>&nbsp;
+
     <div class="col-sm-1 no-border"><button for="" type="button" class="btn btn-outline-success"><b><i class="fas fa-solid fa-share"></i> Share</b></button></div>
     <div class="col-sm-1 no-border"><button type="button" class="btn btn-default"><b><i class="fas fa-regular fa-envelope"></i> Email</b></button></div>
     <div class="col-sm-1 no-border"><button type="button" class="btn btn-outline-success"><b><i class="fas fa-solid fa-print"></i> Print</b></button></div>
@@ -319,23 +320,19 @@
     
   </div>
 
-  <div class="row">
-    <div class="col-sm-10"><label for=""><?php echo $result->template_id;?></label></div>
-    <div class="col-sm-2">
-        <select name="status" id="statusDropdown" class="form-control" onchange="updateStatus('<?php echo $result->id; ?>')">
-        <option value="None" <?php echo ($result->type == 'None') ? 'selected' : ''; ?>>None</option>
-        <option value="Awaiting Review" <?php echo ($result->type == 'Awaiting Review') ? 'selected' : ''; ?>>Awaiting Review</option>
-        <option value="Awaiting Correction" <?php echo ($result->type == 'Awaiting Correction') ? 'selected' : ''; ?>>Awaiting Correction</option>
-        <option value="Completed" <?php echo ($result->type == 'Completed') ? 'selected' : ''; ?>>Completed</option>
-      
-
-        </select>
+    <div class="row">
+        <div class="col-sm-10"><label for=""><?php echo $result->template_id;?></label></div>
+            <div class="col-sm-2">
+                <select name="status" id="statusDropdown" class="form-control" onchange="updateStatus('<?php echo $result->id; ?>')">
+                    <option value="None" <?php echo ($result->type == 'None') ? 'selected' : ''; ?>>None</option>
+                    <option value="Awaiting Review" <?php echo ($result->type == 'Awaiting Review') ? 'selected' : ''; ?>>Awaiting Review</option>
+                    <option value="Awaiting Correction" <?php echo ($result->type == 'Awaiting Correction') ? 'selected' : ''; ?>>Awaiting Correction</option>
+                    <option value="Completed" <?php echo ($result->type == 'Completed') ? 'selected' : ''; ?>>Completed</option>
+                </select>
+            </div>
+        </div>
     </div>
 </div>
-</div>
-
-</div>
-
 
 <div class="container show-grid">
   
@@ -346,9 +343,9 @@
   
 </div>
 
-<div class="container mt-5">
+    <div class="container mt-5">
         
-<form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url($formUrlData) ?>" enctype="multipart/form-data">
+        <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url($formUrlData) ?>" enctype="multipart/form-data">
 
             <div class="row">
                 <input type="hidden" name="patient_id" id="patient_id" value="<?php echo $patient_id;?>">
@@ -368,8 +365,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     </div>
    
-</div>
-
+<!-- </div>
+</div> -->
 
 <script>
 function updateStatus(id) {
