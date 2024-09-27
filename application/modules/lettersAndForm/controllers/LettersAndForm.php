@@ -28,11 +28,27 @@ class LettersAndForm extends Common_Controller {
         $this->data['pageTitle'] = "Add " . $this->title;
         $this->data['parent'] = $this->router->fetch_class();
         $this->data['model'] = $this->router->fetch_class();
+        $this->data['model_'] = $this->router->fetch_class();
         $this->data['title'] = $this->title;
         $this->data['tablePrefix'] = 'vendor_sale_' . $this->_table;
         $this->data['table'] = $this->_table;
         $this->data['patient_id'] = decoding($_GET['id']);
-        // print_r($this->data['patient_id']);die;
+        // $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+        
+        $CareUnitID = $_SESSION['user_id'];
+        $option = array(
+            'table' => ' users',
+            'select' => 'users.*',
+            'where' => array(
+                'users.delete_status' => 0,
+                'users.id'=>$CareUnitID
+            ),
+            'single' => true,
+        );
+
+        $this->data['careUnitID'] = $this->common_model->customGet($option);
+
+        // print_r($this->data['careUnitID']);die;
         // $option = array('table' => $this->_tables);
 
        $id=  decoding($_GET['id']);
@@ -65,6 +81,7 @@ class LettersAndForm extends Common_Controller {
         $this->data['form_list'] = $this->common_model->customGet($form_option);
         
         // print_r($this->data['list']);die;
+       
         $this->load->admin_render('list', $this->data, 'inner_script');
     }
 
@@ -83,28 +100,23 @@ class LettersAndForm extends Common_Controller {
         $this->data['precautions'] = $this->common_model->customGet(array('table' => 'precautions', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
         $this->data['initial_rx'] = $this->common_model->customGet(array('table' => 'initial_rx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
         
+        $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 
-        
-        
-        
+            if($this->ion_auth->is_subAdmin()){
 
- $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
-
-    if($this->ion_auth->is_subAdmin()){
-
-        $option = array(
-            'table' => ' doctors',
-            'select' => 'doctors.*',
-            'join' => array(
-                array('users', 'doctors.user_id=users.id', 'left'),
-            ),
-            
-            'where' => array(
-                'users.delete_status' => 0,
-                'doctors.user_id'=>$CareUnitID
-            ),
-            'single' => true,
-        );
+                $option = array(
+                    'table' => ' doctors',
+                    'select' => 'doctors.*',
+                    'join' => array(
+                        array('users', 'doctors.user_id=users.id', 'left'),
+                    ),
+                    
+                    'where' => array(
+                        'users.delete_status' => 0,
+                        'doctors.user_id'=>$CareUnitID
+                    ),
+                    'single' => true,
+                );
 
         $datadoctors = $this->common_model->customGet($option);
 
@@ -427,7 +439,7 @@ class LettersAndForm extends Common_Controller {
 
         $this->data['result'] = $this->common_model->customGet($option);
         // print_r($this->data['list']);die;
-        $this->load->admin_render('view_booking_form', $this->data, 'inner_script');
+        $this->load->admin_render('edit_booking_form', $this->data, 'inner_script');
                 // $this->load->view('booking_form', $this->data, 'inner_script');
     }
 
@@ -610,6 +622,10 @@ $response = array('status' => 1, 'message' => "Successfully added", 'url' =>base
         }
     }
 
+
+    
+
+   
     /**
      * @method menu_category_update
      * @description update dynamic rows
@@ -875,6 +891,94 @@ $response = array('status' => 1, 'message' => "Successfully added", 'url' =>base
             echo json_encode(['success' => false, 'message' => 'Failed to update status']);
         }
     }
+
+
+    function open_model_edit() {
+
+        $this->data['url'] = base_url() . $this->router->fetch_class();
+        $this->data['pageTitle'] = "Add " . $this->title;
+        $this->data['parent'] = $this->router->fetch_class();
+        $this->data['model'] = $this->router->fetch_class();
+        $this->data['formUrlData'] = $this->router->fetch_class() . "/updateLetters";
+        $this->data['title'] = $this->title;
+        $this->data['tablePrefix'] = 'vendor_sale_' . $this->_table;
+        $this->data['table'] = $this->_table;
+        $this->data['patient_id'] = decoding($_GET['id']);
+        $this->data['form_id'] = decoding($_GET['form_id']);
+        // print_r($this->data['patient_id']);die;
+        // $option = array('table' => $this->_tables);
+
+        $form_id=  decoding($_GET['form_id']);
+         $id=  decoding($_GET['id']);
+            //    print_r($form_id);die;
+        $option = array(
+        'table' => 'vendor_sale_letters_and_form',
+        'where' => array('id' => $form_id),
+        'single' => true
+        );
+   
+        $this->data['result'] = $this->common_model->customGet($option);
+        // print_r($this->data['list']);die;
+        $this->load->admin_render('edit', $this->data, 'inner_script');
+                // $this->load->view('booking_form', $this->data, 'inner_script');
+    }
+
+    
+
+
+    public function updateLetters() {
+
+        // print_r($this->input->post());die;
+        // $this->form_validation->set_rules('appointment_type', "appointment_type", 'required|trim');
+        // if ($this->form_validation->run() == true) {
+           
+            $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+           
+                $options_data = array(
+                    'type' => $this->input->post('type'),
+                    'details' => $this->input->post('details')
+                );
+
+                $option = array('table' => 'vendor_sale_letters_and_form', 'data' => $options_data, 'where' => array('id' => $this->input->post('form_id')));
+                if ($this->common_model->customUpdate($option)) {
+
+                $response = array('status' => 1, 'message' => "Successfully updated", 'url' =>base_url($this->router->fetch_class()));
+                } else {
+                    $response = array('status' => 0, 'message' => "Failed to updated");
+                }
+           
+        echo json_encode($response);
+    }
+
+    public function duplicateRow() {
+
+        $form_id=  decoding($_GET['form_id']);
+         $id=  decoding($_GET['id']);
+        $option = array(
+        'table' => 'vendor_sale_letters_and_form',
+        'where' => array('id' => $form_id),
+        'single' => true
+        );
+        $result = $this->common_model->customGet($option);
+    
+            // Insert the duplicate data
+            $new_row = (array) $result; // Convert to array for insertion
+            unset($new_row['id']);
+            unset($new_row['create_date']);  
+            
+            $option = array('table' => 'vendor_sale_letters_and_form', 'data' => $new_row);
+            if ($this->common_model->customInsert($option)) {
+                $response = array('status' => 1, 'message' => "Row duplicated successfully!", 'url' =>base_url($this->router->fetch_class()));
+            } else {
+                $response = array('status' => 0, 'message' => "Row not found");
+            }
+            echo json_encode($response);
+            $this->session->set_flashdata('message', 'Row duplicated successfully!');
+        redirect('lettersAndForm?id=' . encoding($id));
+        // echo json_encode($response);
+    }
+
+    
     
     function deleteLetters() {
 
@@ -902,6 +1006,40 @@ $response = array('status' => 1, 'message' => "Successfully added", 'url' =>base
         $this->session->set_flashdata('message', 'Deleted Successfully.');
         redirect('lettersAndForm?id=' . encoding($id));
        
+    }
+
+    
+
+    function viewBookingForm() {
+
+        $this->data['url'] = base_url() . $this->router->fetch_class();
+        $this->data['pageTitle'] = "Add " . $this->title;
+        $this->data['parent'] = $this->router->fetch_class();
+        $this->data['model'] = $this->router->fetch_class();
+        $this->data['formUrlData'] = $this->router->fetch_class() . "/updateBookingForm";
+        $this->data['title'] = $this->title;
+        $this->data['tablePrefix'] = 'vendor_sale_' . $this->_table;
+        $this->data['table'] = $this->_table;
+        $this->data['patient_id'] = decoding($_GET['id']);
+        $this->data['form_id'] = decoding($_GET['form_id']);
+        // print_r($this->data['patient_id']);die;
+        // $option = array('table' => $this->_tables);
+
+        $form_id=  decoding($_GET['form_id']);
+       $id=  decoding($_GET['id']);
+    //    print_r($form_id);die;
+    $option = array(
+        'table' => 'vendor_sale_booking_form',
+        'where' => array('id' => $form_id),
+        'single' => true
+    );
+    // $results_row = $this->common_model->customGet($option);
+
+
+        $this->data['result'] = $this->common_model->customGet($option);
+        // print_r($this->data['list']);die;
+        $this->load->admin_render('view_booking_form', $this->data, 'inner_script');
+                // $this->load->view('booking_form', $this->data, 'inner_script');
     }
 
 

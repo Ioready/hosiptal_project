@@ -230,7 +230,7 @@
       
     </div>
 
-            <!-- </div> -->
+    <!-- </div> -->
 
     <!-- Datatables Content -->
 <div class="block full">
@@ -300,19 +300,92 @@
                             <div class="menu" id="menuDropdown<?php echo $folder->id;?>">
                                 <div>
                                     <ul>
-                                        <li><a href="#" class="link">Update Status</a></li>
-                                        <li><a href="#" class="link">Edit</a></li>
+                                        <!-- <li>
+                                            <a href="#" class="link">Update Status
+
+                                            <select name="status" id="statusDropdown" class="form-control" onchange="updateStatus('<?php echo $result->id; ?>')">
+                                                <option value="None" <?php echo ($result->type == 'None') ? 'selected' : ''; ?>>None</option>
+                                                <option value="Awaiting Review" <?php echo ($result->type == 'Awaiting Review') ? 'selected' : ''; ?>>Awaiting Review</option>
+                                                <option value="Awaiting Correction" <?php echo ($result->type == 'Awaiting Correction') ? 'selected' : ''; ?>>Awaiting Correction</option>
+                                                <option value="Completed" <?php echo ($result->type == 'Completed') ? 'selected' : ''; ?>>Completed</option>
+                                            </select>
+                                            </a>
+                                    </li> -->
+
+                                    <li class="custom-dropdown">
+    <span class="link">Update Status</span>
+
+    <div class="custom-select-box">
+        <ul>
+            <li data-value="None" onclick="updateStatus('<?php echo $result->id; ?>', 'None')" name="status" id="statusDropdown">None</li>
+            <li data-value="Awaiting Review" onclick="updateStatus('<?php echo $result->id; ?>', 'Awaiting Review')" name="status" id="statusDropdown">Awaiting Review</li>
+            <li data-value="Awaiting Correction" onclick="updateStatus('<?php echo $result->id; ?>', 'Awaiting Correction')" name="status" id="statusDropdown">Awaiting Correction</li>
+            <li data-value="Completed" onclick="updateStatus('<?php echo $result->id; ?>', 'Completed')" name="status" id="statusDropdown">Completed</li>
+        </ul>
+    </div>
+</li>
+<style>
+    .custom-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.custom-select-box {
+    display: none;
+    position: absolute;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    min-width: 160px;
+    z-index: 1;
+}
+
+.custom-select-box ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.custom-select-box ul li {
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+.custom-select-box ul li:hover {
+    background-color: #f1f1f1;
+}
+
+.custom-dropdown:hover .custom-select-box {
+    display: block;
+}
+
+.optgroup ul {
+    display: none;
+    padding-left: 16px;
+}
+
+.optgroup:hover ul {
+    display: block;
+}
+
+</style>
+
+
+                                        <li><a href="<?php echo base_url().'index.php/lettersAndForm/open_model_edit?id=' . encoding($patient_id) . '&form_id=' . encoding($folder->id); ?>" class="link">Edit</a></li>
                                         <li><a href="<?php echo base_url().'index.php/lettersAndForm/deleteLetters?id=' . encoding($patient_id) . '&form_id=' . encoding($folder->id); ?>" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
                                         </li>
-                                        <li><a href="#" class="link">Share</a></li>
-                                        <li><a href="#" class="link">Email</a></li>
-                                        <li><a href="#" class="link">Duplicates</a></li>
+                                        <li><a data-toggle="modal" data-target="#shareModal" data-whatever="@mdo" >Share</a></li>
+                                        <li>
+                                        <a data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" >Email</a>
+                                            <!-- <a href="#" class="link">Email</a> -->
+                                        </li>
+                                        <li>
+                                        <a href="<?php echo base_url().'index.php/lettersAndForm/duplicateRow?id=' . encoding($patient_id) . '&form_id=' . encoding($folder->id); ?>" onclick="return confirm('Are you sure you want to Duplicate Row this item?');">Duplicate Row</a>
+                                            <!-- <a href="#" class="link">Duplicates</a> -->
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
-</span>
-               
-
+                        </span>
             </div>
             </div>
             <?php } ?>
@@ -385,7 +458,8 @@ function showForms() {
 
 <!-- END Page Content -->
 <div id="form-modal-box"></div>
-
+<div id="form-modal-box-edit"></div>
+<!-- commonModal -->
 
 
 
@@ -492,6 +566,187 @@ function showForms() {
 </div>
 </div>
 </div>
+<!-- send email -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+      <button type="button" class="close" style="margin-top:-40px;" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h3 class="modal-title fw-bold" style="text-align:center;" id="exampleModalLabel">Mail Complete Information of Patient </h3>        
+      </div>
+      <div class="modal-body1">
+        <form  method="post" id="contact-form" data-toggle="validator" role="form" action="" enctype="multipart/form-data">
+       
+
+         </br>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Mail Id:</label>
+            <input id="to_email" type="email" name="to_email" multiple required="required" data-error="Valid email is required." placeholder="To Email Address" class="form-control" >
+            <div class="help-block with-errors"></div>
+
+           <div class="modal_popup">
+           <input  name="id"  id='name' value="<?php echo $results->patient_id; ?>" /> 
+           <?php if(empty($results->room_number)){ ?>
+           <input  name="room_number"  id='room_number' value="NULL" /> 
+           <?php   } else{ ?>
+           <input  name="room_number"  id='room_number' value="<?php echo $results->room_number; ?>" /> 
+            <?php } ?>
+           <input  name="care_unit_name"  id='care_unit_name' value="<?php echo ucwords($results->care_unit_name); ?>" /> 
+           <input  name="doctor_name"  id='doctor_name' value="<?php echo ucwords($results->doctor_name); ?>" /> 
+           <input  name="symptom_onset"  id='symptom_onset' value="<?php echo $results->symptom_onset; ?>" /> 
+           <input  name="culture_source_name"  id='culture_source_name' value="<?php echo $results->culture_source_name; ?>" /> 
+           <input  name="organism_name"  id='organism_name' value="<?php echo $results->organism_name; ?>" /> 
+           <input  name="precautions_name"  id='precautions_name' value="<?php echo $results->precautions_name; ?>" /> 
+           <input  name="md_steward"  id='md_steward' value="<?php echo ucwords($results->md_steward); ?>" /> 
+           <input  name="date_of_start_abx"  id='date_of_start_abx' value="<?php echo date('m/d/Y',strtotime($results->date_of_start_abx)); ?>" /> 
+           <input  name="initial_rx_name"  id='initial_rx_name' value="<?php echo $results->initial_rx_name; ?>" /> 
+           <input  name="initial_dx_name"  id='initial_dx_name' value="<?php echo $results->initial_dx_name; ?>" /> 
+           <input  name="initial_dot"  id='initial_dot' value="<?php echo $results->initial_dot; ?>" /> 
+           <input  name="infection_surveillance_checklist"  id='infection_surveillance_checklist' value="<?php echo $results->infection_surveillance_checklist; ?>" /> 
+           <input  name="criteria_met"  id='criteria_met' value="<?php echo $results->criteria_met; ?>" /> 
+           <input  name="md_stayward_response"  id='md_stayward_response' value="<?php echo $results->md_stayward_response; ?>" /> 
+           <input  name="new_initial_rx_name"  id='new_initial_rx_name' value="<?php echo $results->new_initial_rx_name; ?>" /> 
+           <input  name="psa"  id='psa' value="<?php echo $results->psa; ?>" /> 
+           <input  name="new_initial_dx_name"  id='new_initial_dx_name' value="<?php echo $results->new_initial_dx_name; ?>" /> 
+           <input  name="new_initial_dot"  id='new_initial_dot' value="<?php echo $results->new_initial_dot; ?>" /> 
+          <!--  <input  name="pct"  id='pct' value="<?php echo $results->pct; ?>" />  -->
+           <input  name="additional_comment_option"  id='additional_comment_option' value="<?php echo str_replace( array('[','"',']') , ''  , $results->additional_comment_option); ?>" /> 
+           
+
+        </div>
+          </div>
+          <br>
+          <div class="modal-footer mailmodel">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" name="submit"  id="submit1"  class="btn btn-primary" style="background: #337ab7">Send Mail</button>
+      </div>
+
+        </form>
+      </div>
+     
+    </div>
+  </div>
+</div>
+
+<!-- share patient letters -->
+
+<div class="modal fade" id="shareModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+      <button type="button" class="close" style="margin-top:-40px;" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h3 class="modal-title fw-bold" style="text-align:center;" id="exampleModalLabel">Share Consultation Letters </h3>        
+      </div>
+      <div class="modal-body1">
+        <form  method="post" id="contact-form" data-toggle="validator" role="form" action="" enctype="multipart/form-data">
+       
+
+        <div class="form-group">
+            <label for="recipient-name" class="col-form-label"><strong> Share With:</strong></label><br>
+
+            <div class="form-check form-check-inline">
+                <input id="to_email1" type="radio" name="to_email" value="email1" required="required" class="form-check-input">
+                
+                <label class="form-check-label" for="to_email1"><?php echo $careUnitID->first_name. ' '.$careUnitID->last_name;?></label>
+            </div>
+
+            <div class="form-check form-check-inline">
+                <input id="to_email2" type="radio" name="to_email" value="email2" required="required" class="form-check-input">
+                <label class="form-check-label" for="to_email2">Contact</label>
+            </div>
+
+            <div class="help-block with-errors"></div>
+        </div>
+
+
+
+         </br>
+            <div class="form-group">
+                <!-- <label for="recipient-name" class="col-form-label">
+                    <Select class="form-control">
+
+                        <option value="">Select Contact</option>
+                    </Select>
+                </label> -->
+                <div class="form-group">
+                    <label for="contact-select" class="col-form-label">Select Contact:</label>
+
+                    <input id="to_email" type="email" name="to_email" multiple required="required" data-error="Valid email is required." placeholder="To Email Address" class="form-control" >
+                    <!-- <select id="contact-select" class="form-control">
+                        <option value="">Select Contact</option>
+                    </select> -->
+                </div>
+
+                 <!-- <input id="to_email" type="email" name="to_email" multiple required="required" data-error="Valid email is required." placeholder="To Email Address" class="form-control" > -->
+                <div class="help-block with-errors"></div>
+
+                <div class="modal_popup">
+                    <input  name="id"  id='name' value="<?php echo $results->patient_id; ?>" /> 
+                    <?php if(empty($results->room_number)){ ?>
+                    <input  name="room_number"  id='room_number' value="NULL" /> 
+                    <?php   } else{ ?>
+                    <input  name="room_number"  id='room_number' value="<?php echo $results->room_number; ?>" /> 
+                        <?php } ?>
+                    <input  name="care_unit_name"  id='care_unit_name' value="<?php echo ucwords($results->care_unit_name); ?>" /> 
+                    <input  name="doctor_name"  id='doctor_name' value="<?php echo ucwords($results->doctor_name); ?>" /> 
+                    <input  name="symptom_onset"  id='symptom_onset' value="<?php echo $results->symptom_onset; ?>" /> 
+                    <input  name="culture_source_name"  id='culture_source_name' value="<?php echo $results->culture_source_name; ?>" /> 
+                    <input  name="organism_name"  id='organism_name' value="<?php echo $results->organism_name; ?>" /> 
+                    <input  name="precautions_name"  id='precautions_name' value="<?php echo $results->precautions_name; ?>" /> 
+                    <input  name="md_steward"  id='md_steward' value="<?php echo ucwords($results->md_steward); ?>" /> 
+                    <input  name="date_of_start_abx"  id='date_of_start_abx' value="<?php echo date('m/d/Y',strtotime($results->date_of_start_abx)); ?>" /> 
+                    <input  name="initial_rx_name"  id='initial_rx_name' value="<?php echo $results->initial_rx_name; ?>" /> 
+                    <input  name="initial_dx_name"  id='initial_dx_name' value="<?php echo $results->initial_dx_name; ?>" /> 
+                    <input  name="initial_dot"  id='initial_dot' value="<?php echo $results->initial_dot; ?>" /> 
+                    <input  name="infection_surveillance_checklist"  id='infection_surveillance_checklist' value="<?php echo $results->infection_surveillance_checklist; ?>" /> 
+                    <input  name="criteria_met"  id='criteria_met' value="<?php echo $results->criteria_met; ?>" /> 
+                    <input  name="md_stayward_response"  id='md_stayward_response' value="<?php echo $results->md_stayward_response; ?>" /> 
+                    <input  name="new_initial_rx_name"  id='new_initial_rx_name' value="<?php echo $results->new_initial_rx_name; ?>" /> 
+                    <input  name="psa"  id='psa' value="<?php echo $results->psa; ?>" /> 
+                    <input  name="new_initial_dx_name"  id='new_initial_dx_name' value="<?php echo $results->new_initial_dx_name; ?>" /> 
+                    <input  name="new_initial_dot"  id='new_initial_dot' value="<?php echo $results->new_initial_dot; ?>" /> 
+                    <input  name="additional_comment_option"  id='additional_comment_option' value="<?php echo str_replace( array('[','"',']') , ''  , $results->additional_comment_option); ?>" /> 
+                    
+                </div>
+            </div>
+          <br>
+          <div class="modal-footer mailmodel">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" name="submit"  id="submit1"  class="btn btn-primary" style="background: #337ab7">Save as draft</button>
+        <button type="submit" name="submit"  id="submit1"  class="btn btn-primary" style="background: #337ab7">Share</button>
+      </div>
+
+        </form>
+      </div>
+     
+    </div>
+  </div>
+</div>
+<script>
+function updateStatus(id) {
+    var status = document.getElementById('statusDropdown').value;
+// alert(status);
+    // AJAX request to update status
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '<?php echo base_url("lettersAndForm/updateStatus"); ?>', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest'); // For AJAX detection
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            // alert('Status updated successfully');
+            window.location.reload();
+        }
+    };
+    
+    xhr.send('id=' + id + '&status=' + status);
+}
+</script>
+
 <script>
         // toggle class show hide text section
 $(document).on('click', '.toggle-title', function() {

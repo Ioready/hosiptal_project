@@ -255,17 +255,12 @@
 
 <div class="block-title ">
 
-    <ul class="nav nav-pills nav-fill nav-tabss" id="pills-tab" role="tablist" style="width: fit-content;">
-        <!-- <li onclick="toggleDisplay()" class="nav-item">
-            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#letters_id" role="tab">Letters</a>
-        </li>
-        <li onclick="toggleHidden()" class="nav-item">
-            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#forms_id" role="tab">Forms</a>
-        </li> -->
+    <!-- <ul class="nav nav-pills nav-fill nav-tabss" id="pills-tab" role="tablist" style="width: fit-content;">
+       
         <a href="<?php echo base_url(). 'index.php/lettersAndForm?id=' . encoding($patient_id); ?>"  style="color: black;padding: 9px;font-weight: 900;background-color: ghostwhite;"> Back to Letters
         </a>
         
-    </ul>
+    </ul> -->
 
 </div>
 

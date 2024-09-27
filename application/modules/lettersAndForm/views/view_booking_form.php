@@ -137,6 +137,202 @@
     background-color:white!important;
 }
 </style>
+
+<style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-bottom: 2px solid #ccc;
+}
+
+.left-section {
+    width: 50%;
+}
+
+h1 {
+    font-size: 24px;
+    color: #3b73cf;
+}
+
+.admission-types {
+    background-color: #d3d3d3;
+    padding: 10px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.right-section {
+    width: 45%;
+    text-align: right;
+}
+
+.logo h2 {
+    color: #3b73cf;
+    font-size: 18px;
+}
+
+.contact-info p {
+    font-size: 14px;
+    color: #333;
+}
+
+.completed-section {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    border-top: 1px solid #ccc;
+    margin-top: 10px;
+}
+
+.completed-section p {
+    font-size: 14px;
+}
+
+/* Patient Information Section */
+.patient-info {
+    margin: 20px;
+}
+
+.patient-info h2 {
+    color: #3b73cf;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.patient-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.patient-table td {
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.patient-table input[type="text"],
+.patient-table input[type="email"],
+.patient-table textarea {
+    width: 100%;
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.patient-table input[type="checkbox"],
+.patient-table input[type="radio"] {
+    margin-left: 5px;
+}
+
+/* Admission Information Styles */
+.admission-info {
+    margin: 20px;
+}
+
+.admission-info h2 {
+    color: #3b73cf;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.admission-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.admission-table td {
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.admission-table input[type="text"],
+.admission-table input[type="email"],
+.admission-table input[type="date"],
+.admission-table input[type="time"],
+.admission-table textarea {
+    width: 100%;
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.admission-table input[type="checkbox"] {
+    margin-left: 5px;
+}
+
+.admission-table textarea {
+    height: 60px;
+    resize: vertical;
+}
+
+/* Financial Information Styles */
+.financial-info {
+    margin: 20px;
+}
+
+.financial-info h2 {
+    color: #3b73cf;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.financial-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.financial-table td {
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.financial-table input[type="text"] {
+    width: 100%;
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.financial-table input[type="checkbox"] {
+    margin-left: 5px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+    }
+
+    .admission-info, .financial-info {
+        width: 100%;
+    }
+}
+
+</style>
+
 <div id="page-content">
 <div class="block_list full">
     <div class="row text-center">
@@ -292,522 +488,251 @@
 <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url($formUrlData) ?>" enctype="multipart/form-data">
         <!-- <form class="form-horizontal" role="form" id="" method="post" action="<?php echo base_url();?>LettersAndForm/addBookingForm"> -->
 
-            <div class="row">
-
-            <input type="hidden" name="patient_id" id="patient_id" value="<?php echo $patient_id;?>">
-            <input type="hidden" name="form_id" id="form_id" value="<?php echo $form_id;?>">
-               
-                <div class="col-md-4 mb-3">
-                    <label for="name" class="form-label">1. Appointment Type</label>
-
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="appointment_type" name="appointment_type" value="Medical admission" <?php if (in_array('Medical admission', (array)$result->appointment_type)) echo 'checked'; ?>>
-                            <label class="custom-control-label" for="appointment_type">Medical admission</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="appointment_type" value="Surgical admission" name="appointment_type" <?php if (in_array('Surgical admission', (array)$result->appointment_type)) echo 'checked'; ?>>
-                            <label class="custom-control-label" for="appointment_type" >Surgical admission</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="appointment_type" value="Re-admission"  name="appointment_type" <?php if (in_array('Re-admission', (array)$result->appointment_type)) echo 'checked'; ?>>
-                            <label class="custom-control-label" for="pmSnack">Re-admission</label>
-                        </div>
-
-                    
+       
+          
+            <!-- Header Section -->
+    <div class="header-container">
+        <!-- Left Section: Booking Form Title and Checkboxes -->
+        <div class="left-section">
+            <h1>Booking Form</h1>
+            <div class="admission-types">
+                <div class="checkbox-group">
+                    <label>Medical Admission</label>
+                    <input type="checkbox">
                 </div>
-               
-                <div class="col-md-4 mb-3">
-                    <label for="completed" class="form-label">2. Completed by</label>
-                    <input type="text" class="form-control" id="completed_by" name="completed_by" placeholder="Enter your Completed by" value="<?php echo $result->completed_by;?>" required>
+                <div class="checkbox-group">
+                    <label>Surgical Admission</label>
+                    <input type="checkbox">
                 </div>
-                <div class="col-md-4 mb-3">
-                    <label for="date" class="form-label">3. Completed date</label>
-                    <input type="date" class="form-control" id="completed_date" name="completed_date" placeholder="Enter your Completed date" value="<?php echo $result->completed_date;?>" required>
+                <div class="checkbox-group">
+                    <label>Re-admission</label>
+                    <input type="checkbox">
                 </div>
             </div>
-
-
-
-            <div class="row">
-             
-                <div class="col-md-4 mb-3">
-                    <label for="empi_number" class="form-label">4. EMPI Number</label>
-                    <input type="text" class="form-control" id="empi_number" name="empi_number" placeholder="Enter your EMPI number" value="<?php echo $result->empi_number;?>" required>
-                </div>
-              
-                <div class="col-md-4 mb-3">
-                    <label for="bookingDate" class="form-label">5. NHS Number</label>
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="nhs_number" name="nhs_number" value="yes" <?php if (in_array('yes', (array)$result->nhs_number)) echo 'checked'; ?>>
-                            <label class="custom-control-label" for="nhs_number">Yes</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="nhs_number" value="no" name="nhs_number" <?php if (in_array('no', (array)$result->nhs_number)) echo 'checked'; ?>>
-                            <label class="custom-control-label" for="nhs_number" >No</label>
-                        </div>
-                        
-                </div>
-                <div class="col-md-4 mb-3">
-                    <label for="nhs_referral" class="form-label">6. NHS Referral</label>
-                    <input type="text" class="form-control" id="nhs_referral" name="nhs_referral" value="<?php echo $result->nhs_referral;?>" required>
-                </div>
-            </div>
-
-            <div class="row">
-               
-                <div class="col-md-4 mb-3">
-                    <label for="bookingTime" class="form-label">7. Sex</label>
-                    
-                    <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="gender" name="gender" value="male" <?php if (in_array('male', (array)$result->gender)) echo 'checked'; ?>>
-                            <label class="custom-control-label" for="pmMeal">Male</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="gender" value="female" name="gender" <?php if (in_array('female', (array)$result->gender)) echo 'checked'; ?>>
-                            <label class="custom-control-label" for="gender" >Female</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="gender" value="gender" name="other" <?php if (in_array('other', (array)$result->gender)) echo 'checked'; ?>>
-                            <label class="custom-control-label" for="gender" >Other</label>
-                        </div>
-
-                </div>
-               
-                <div class="col-md-4 mb-3">
-                    <label for="title" class="form-label">8. Title</label>
-                    <input type="text" class="form-control" id="title" name="title" placeholder="Enter title" value="<?php echo $result->title;?>" required>
-                </div>
-
-                <div class="col-md-4 mb-3">
-                    <label for="first_name" class="form-label">9. First name</label>
-                    <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Enter First name" value="<?php echo $result->first_name;?>" required>
-                </div>
-            </div>
-
-
-            <div class="row">
-              
-                <div class="col-md-6 mb-3">
-                    <label for="surname" class="form-label">10. Surname</label>
-                    <input type="text" class="form-control" id="surname" name="surname" value="<?php echo $result->surname;?>" required>
-                </div>
-               
-                <div class="col-md-6 mb-3">
-                    <label for="dob" class="form-label">11. date of birth</label>
-                    <input type="date" class="form-control" id="dob" name="dob" placeholder="Enter number of dob" value="<?php echo $result->dob;?>" required>
-                </div>
-
-            </div>
-
-            <div class="row">
-             
-                <div class="col-md-4 mb-3">
-                    <label for="dob" class="form-label">12. Contact Number</label>
-                    <input type="number" class="form-control" id="contact" name="contact" placeholder="Enter number of guests" value="<?php echo $result->contact;?>" required>
-                </div>
-               
-                <div class="col-md-6 mb-3">
-                    <label for="email" class="form-label">13. Email</label>
-                    <input type="text" class="form-control" id="email" name="email" placeholder="Enter number of guests" value="<?php echo $result->email;?>" required>
-                </div>
-
-                
-            </div>
-
-            <div class="mb-3">
-                <label for="requests" class="form-label">14. Address</label>
-                <textarea class="form-control" id="address" name="address" rows="3" placeholder="Enter any special requests" ><?php echo $result->address;?></textarea>
-            </div>
-
-            <div class="mb-3">
-                <label for="requests" class="form-label">15. Player</label>
-
-               <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="player" name="player" value="self_play" <?php if (in_array('self_play', (array)$result->player)) echo 'checked'; ?>>
-                            <label class="custom-control-label" for="player">Self Pay</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="player" value="insurer" name="player" <?php if (in_array('insurer', (array)$result->player)) echo 'checked'; ?>>
-                            <label class="custom-control-label" for="player" >Insurer</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="player" value="sponsor" name="player" <?php if (in_array('sponsor', (array)$result->player)) echo 'checked'; ?>>
-                            <label class="custom-control-label" for="player" >Sponsor</label>
-                        </div>
-                </div>
-
-                <div class="mb-3">
-                <label for="requests" class="form-label">16. Sponsor details</label>
-                <textarea class="form-control" id="sponsor_details" name="sponsor_details" rows="3" placeholder="Enter sponsor details"><?php echo $result->sponsor_details;?></textarea>
-                </div>
-                <div class="mb-3">
-                    <label for="requests" class="form-label">17. Insurer information from patient relationships</label>
-                    <span>this information will populate the form. The format in the dropdown is insurer Name-policy Number-AuthorisationCode</span>
-                    <select name="insurer_information" id="insurer_information" class="form-control"> 
-
-                    <option value="">select</option>
-                    <option value="insurer_information" <?php if ($result->insurer_information == 'insurer_information') echo 'selected'; ?>>insurer_information</option>
-
-                </select>
-                </div>
-
-
-                <div class="row">
-             
-                    <div class="col-md-4 mb-3">
-                        <label for="insurer" class="form-label">18. insurer</label>
-                        <input type="text" class="form-control" id="insurer" name="insurer" value="<?php echo $result->insurer;?>" required>
-                    </div>
-                  
-                    <div class="col-md-4 mb-3">
-                        <label for="policy_number" class="form-label">19. Policy number/Quote reference</label>
-                        <input type="text" class="form-control" id="policy_number" name="policy_number" placeholder="Enter number of guests" value="<?php echo $result->policy_number;?>" required>
-                    </div>
-
-                    <div class="col-md-4 mb-3">
-                        <label for="authorisation_if_known" class="form-label">20. Authorisation, if known</label>
-                        <input type="text" class="form-control" id="authorisation_if_known" name="authorisation_if_known" placeholder="Enter number of guests" value="<?php echo $result->authorisation_if_known;?>" required>
-                    </div>
-                </div>
-
-                <div class="row">
-                
-                    <div class="col-md-6 mb-3">
-                        <label for="next_of_kin_name" class="form-label">21. Next of kin name</label>
-                        <input type="text" class="form-control" id="next_of_kin_name" name="next_of_kin_name" value="<?php echo $result->next_of_kin_name;?>" required>
-                    </div>
-                    
-                    <div class="col-md-6 mb-3">
-                        <label for="next_of_kin_contact" class="form-label">22. Next of kin contact</label>
-                        <input type="text" class="form-control" id="next_of_kin_contact" name="next_of_kin_contact" placeholder="Enter number of guests" value="<?php echo $result->next_of_kin_name;?>" required>
-                    </div>
-                </div>
-
-                <div class="row">
-                
-                    <div class="col-md-6 mb-3">
-                        <label for="bookingTime" class="form-label">23. Interpreter Needed</label>
-                        
-                        <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="interpreter_needed" name="interpreter_needed" value="yes" <?php if (in_array('yes', (array)$result->interpreter_needed)) echo 'checked'; ?>>
-                                <label class="custom-control-label" for="interpreter_needed">Yes</label>
-                            </div>
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="interpreter_needed" value="no" name="interpreter_needed" <?php if (in_array('no', (array)$result->interpreter_needed)) echo 'checked'; ?>>
-                                <label class="custom-control-label" for="interpreter_needed" >No</label>
-                            </div>
-                            
-
-                    </div>
-                
-                    <div class="col-md-6 mb-3">
-                        <label for="guests" class="form-label">24. interpreter Language</label>
-                        <input type="text" class="form-control" id="interpreter_language" name="interpreter_language" placeholder="Enter number of guests" value="<?php echo $result->interpreter_language;?>" required>
-                    </div>
-                </div>
-
-            <div class="mb-3">
-                <label for="requests" class="form-label">25. Ethnicity</label>
-                <textarea class="form-control" id="ethnicity" name="ethnicity" rows="3" placeholder="Enter any special requests"><?php echo $result->ethnicity;?></textarea>
-            </div>
-
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="bookingTime" class="form-label">26. Complex Needs</label>
-                        
-                        <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="complex_needs" name="complex_needs" value="yes" <?php if (in_array('yes', (array)$result->complex_needs)) echo 'checked'; ?>>
-                                <label class="custom-control-label" for="complex_needs">Yes</label>
-                            </div>
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="complex_needs" value="no" name="complex_needs" <?php if (in_array('no', (array)$result->complex_needs)) echo 'checked'; ?>>
-                                <label class="custom-control-label" for="amSnack" >No</label>
-                            </div>
-                    </div>
-                
-                    <div class="col-md-6 mb-3">
-                        <label for="guests" class="form-label">27. Details Of Complex Needs</label>
-                        <input type="text" class="form-control" id="details_of_complex_needs" name="details_of_complex_needs" placeholder="Enter number of guests" value="<?php echo $result->details_of_complex_needs;?>" required>
-                    </div>
-                </div>
-
-
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="bookingTime" class="form-label">28. Co-Morbidities</label>
-                        
-                        <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="co_morbidities" name="co_morbidities" value="yes" <?php if (in_array('yes', (array)$result->co_morbidities)) echo 'checked'; ?>>
-                                <label class="custom-control-label" for="pmMeal">Yes</label>
-                            </div>
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="co_morbidities" value="no" name="co_morbidities" <?php if (in_array('no', (array)$result->co_morbidities)) echo 'checked'; ?>>
-                                <label class="custom-control-label" for="co_morbidities" >No</label>
-                            </div>
-                    </div>
-                
-                    <div class="col-md-6 mb-3">
-                        <label for="details_of_co_morbidities" class="form-label">29. Details Of Co-Morbidities</label>
-                        <input type="text" class="form-control" id="details_of_co_morbidities" name="details_of_co_morbidities" placeholder="Enter number of details of co-morbidities" value="<?php echo $result->details_of_co_morbidities;?>" required>
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="requests" class="form-label">30. Dietary requirements</label>
-                    <textarea class="form-control" id="dietary_requirements" name="dietary_requirements" rows="3" placeholder="Enter any special requests"><?php echo $result->dietary_requirements;?></textarea>
-                </div>
-
-                <div class="row">
-               
-                    <div class="col-md-4 mb-3">
-                        <label for="admitting_consultant" class="form-label">31. Admitting Consultant</label>
-                        <input type="text" class="form-control" id="admitting_consultant" name="admitting_consultant" value="<?php echo $result->admitting_consultant;?>" required>
-                    </div>
-                    
-                    <div class="col-md-4 mb-3">
-                        <label for="guests" class="form-label">32. Admission Date</label>
-                        <input type="date" class="form-control" id="admission_date" name="admission_date" placeholder="Enter number of guests" value="<?php echo $result->admission_date;?>" required>
-                    </div>
-
-                    <div class="col-md-4 mb-3">
-                        <label for="admission_time" class="form-label">33. Admission Time</label>
-                        <input type="time" class="form-control" id="admission_time" name="admission_time" placeholder="Enter number of guests" value="<?php echo $result->admission_time;?>" required>
-                    </div>
-                </div>
-
-                <div class="row">
-              
-                    <div class="col-md-4 mb-3">
-                        <label for="bookingTime" class="form-label">34. Location</label>
-                        <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="location" name="location" value="Theatre" <?php if (in_array('Theatre', (array)$result->location)) echo 'checked'; ?>>
-                                <label class="custom-control-label" for="location">Theatre</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="location" value="Cath Lab" name="location" <?php if (in_array('Cath Lab', (array)$result->location)) echo 'checked'; ?>>
-                            <label class="custom-control-label" for="amSnack" >Cath Lab</label>
-                        </div>
-
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="location" value="MPU" name="location" <?php if (in_array('MPU', (array)$result->location)) echo 'checked'; ?>>
-                            <label class="custom-control-label" for="amSnack" >MPU</label>
-                        </div>
-
-                    </div>
-                    
-                    <div class="col-md-4 mb-3">
-                        <label for="guests" class="form-label">35. Procedure Date</label>
-                        <input type="date" class="form-control" id="procedure_date" name="procedure_date" placeholder="Enter Procedure Date" value="<?php echo $result->procedure_date;?>" required>
-                    </div>
-
-                    <div class="col-md-4 mb-3">
-                        <label for="guests" class="form-label">36. Procedure Time</label>
-                        <input type="time" class="form-control" id="procedure_time" name="procedure_time" placeholder="Enter Procedure Time" value="<?php echo $result->procedure_time;?>" required>
-                    </div>
-                </div>
-
-
-
-                <div class="row">
-              
-                    <div class="col-md-4 mb-3">
-                        <label for="bookingTime" class="form-label">37. Surgeon</label>
-                        <input type="text" class="form-control" id="surgeon" name="surgeon" placeholder="Enter Surgeon" value="<?php echo $result->surgeon;?>" required>
-
-                    </div>
-                   
-                    <div class="col-md-4 mb-3">
-                        <label for="guests" class="form-label">38. Surgeon Assistant</label>
-                        <input type="text" class="form-control" id="surgeon_assistant" name="surgeon_assistant" placeholder="Enter Surgeon Assistant" value="<?php echo $result->surgeon_assistant;?>" required>
-                    </div>
-
-                    <div class="col-md-4 mb-3">
-                        <label for="guests" class="form-label">39. Anaesthetist</label>
-                        <input type="text" class="form-control" id="anaesthetist" name="anaesthetist" placeholder="Enter Anaesthetist" value="<?php echo $result->anaesthetist;?>" required>
-                    </div>
-                </div>
-
-
-                <div class="mb-3">
-                    <label for="requests" class="form-label">40. Referring GP</label>
-                    <textarea class="form-control" id="referring_gp" name="referring_gp" rows="3" placeholder="Enter Referring GP" value="<?php echo $result->referring_gp;?>"></textarea>
-                </div>
-
-                <div class="mb-3">
-                    <label for="requests" class="form-label">41. GP Address</label>
-                    <textarea class="form-control" id="gp_address" name="gp_address" rows="3" placeholder="Enter GP Address" ><?php echo $result->gp_address;?></textarea>
-                </div>
-
-
-                <div class="row">
-              
-                    <div class="col-md-6 mb-3">
-                        <label for="bookingTime" class="form-label">42. Medical Diagnosis/Symptoms</label>
-                        <input type="text" class="form-control" id="medical_diagnosis_symptoms" name="medical_diagnosis_symptoms" placeholder="Enter number of guests" value="<?php echo $result->medical_diagnosis_symptoms;?>" required>
-
-                    </div>
-                    
-                    <div class="col-md-6 mb-3">
-                        <label for="guests" class="form-label">43. Procedure Description</label>
-                        <span>Please list in order of Major to minor</span>
-                        <input type="text" class="form-control" id="procedure_description" name="procedure_description" placeholder="Enter Procedure Description" value="<?php echo $result->procedure_description;?>" required>
-                    </div>
-
-                </div>
-
-
-                <!-- <div class="row">
-                
-                    <div class="col-md-12 mb-3">
-                        <label for="bookingTime" class="form-label">44. Side Of Surgery</label>
-                        <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="side_of_surgery" name="side_of_surgery" value="left">
-                                <label class="custom-control-label" for="pmMeal">Left</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="side_of_surgery" value="right" name="side_of_surgery">
-                            <label class="custom-control-label" for="amSnack" >Right</label>
-                        </div>
-
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="side_of_surgery" value="bilateral" name="side_of_surgery">
-                            <label class="custom-control-label" for="amSnack" >Bilateral</label>
-                        </div>
-
-                    </div>
-                </div> -->
-
-                <div class="row">
-    <div class="col-md-12 mb-3">
-        <label for="bookingTime" class="form-label">44. Side Of Surgery</label>
-        
-        <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" id="side_of_surgery_left" name="side_of_surgery" value="left" 
-                <?php if (in_array('left', (array)$result->side_of_surgery)) echo 'checked'; ?>>
-            <label class="custom-control-label" for="side_of_surgery_left">Left</label>
-        </div>
-        
-        <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" id="side_of_surgery_right" name="side_of_surgery" value="right" 
-                <?php if (in_array('right', (array)$result->side_of_surgery)) echo 'checked'; ?>>
-            <label class="custom-control-label" for="side_of_surgery_right">Right</label>
         </div>
 
-        <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" id="side_of_surgery_bilateral" name="side_of_surgery" value="bilateral" 
-                <?php if (in_array('bilateral', (array)$result->side_of_surgery)) echo 'checked'; ?>>
-            <label class="custom-control-label" for="side_of_surgery_bilateral">Bilateral</label>
+        <!-- Right Section: Contact Information -->
+        <div class="right-section">
+            <div class="logo">
+                <h2>Circle Health Group</h2>
+            </div>
+            <div class="contact-info">
+                <p>Tel: 0161 495 0747</p>
+                <p>Email: bookings.alexandra@circlehealthgroup.co.uk</p>
+                <p>For out of hours bookings, please ask for the Clinical on Site</p>
+            </div>
         </div>
-
     </div>
-</div>
 
+    <!-- Completed by and Date Section -->
+    <div class="completed-section">
+        <!-- <p>Completed by:</p>
+        <p>Date:</p> -->
+        <table class="patient-table">
+            <tr>
+                <td>Completed by:</td>
+                <td><input type="text" value="Moholkar"></td>
+                <td>Date:</td>
+                <td><input type="text" placeholder="Enter date"></td>
+            </tr>
+           
+           
+          
+        </table>
+    </div>
 
+    <!-- Patient Information Section -->
+    <div class="patient-info">
+        <h2>Patient Information</h2>
+        <table class="patient-table">
+            <tr>
+                <td>EMPI Number:</td>
+                <td><input type="text" placeholder="Enter EMPI Number"></td>
+                <td>NHS Referral?</td>
+                <td><input type="checkbox"> Yes <input type="checkbox"> No</td>
+            </tr>
+            <tr>
+                <td>Surname:</td>
+                <td><input type="text" value="Moholkar"></td>
+                <td>NHS Number:</td>
+                <td><input type="text" placeholder="Enter NHS Number"></td>
+            </tr>
+            <tr>
+                <td>First Name:</td>
+                <td><input type="text" value="Madhuri"></td>
+                <td>Next of Kin Name:</td>
+                <td><input type="text" placeholder="Enter Next of Kin"></td>
+            </tr>
+            <tr>
+                <td>Other Names:</td>
+                <td><input type="text" placeholder="Enter Other Names"></td>
+                <td>Next of Kin Contact:</td>
+                <td><input type="text" placeholder="Enter Next of Kin Contact"></td>
+            </tr>
+            <tr>
+                <td>Title:</td>
+                <td><input type="text" value="Mrs"></td>
+                <td>Interpreter Needed?</td>
+                <td><input type="checkbox"> Yes <input type="checkbox"> No</td>
+            </tr>
+            <tr>
+                <td>DOB:</td>
+                <td><input type="text" value="11/12/1974"></td>
+                <td>Language:</td>
+                <td><input type="text" placeholder="Enter Language"></td>
+            </tr>
+            <tr>
+                <td>Ethnicity:</td>
+                <td><input type="text" placeholder="Enter Ethnicity"></td>
+                <td>Complex Needs?</td>
+                <td><input type="checkbox"> Yes <input type="checkbox"> No</td>
+            </tr>
+            <tr>
+                <td>Sex:</td>
+                <td>
+                    <input type="radio" name="sex" value="male"> Male
+                    <input type="radio" name="sex" value="female"> Female
+                    <input type="radio" name="sex" value="other"> Other
+                </td>
+                <td>Details:</td>
+                <td><input type="text" placeholder="Enter Details"></td>
+            </tr>
+            <tr>
+                <td>Address:</td>
+                <td colspan="3">
+                    <input type="text" value="30 Twatling Road Barnt Green, Birmingham, B45 8HT, United Kingdom">
+                </td>
+            </tr>
+            <tr>
+                <td>Contact Number:</td>
+                <td colspan="3"><input type="text" value="07581 175216 (Mobile)"></td>
+            </tr>
+            <tr>
+                <td>Contact E-mail:</td>
+                <td colspan="3"><input type="email" placeholder="Enter Email"></td>
+            </tr>
+            <tr>
+                <td>Co-Morbidities?</td>
+                <td><input type="checkbox"> Yes <input type="checkbox"> No</td>
+                <td>Details:</td>
+                <td><input type="text" placeholder="Enter Details"></td>
+            </tr>
+            <tr>
+                <td>Dietary Requirements:</td>
+                <td colspan="3"><input type="text" placeholder="Enter Dietary Requirements"></td>
+            </tr>
+        </table>
+    </div>
 
-                <div class="mb-3">
-                    <label for="requests" class="form-label">45. Duration</label>
-                    <textarea class="form-control" id="duration" name="duration" rows="3" placeholder="Enter Duration"><?php echo $result->duration;?></textarea>
-                </div>
+    <!-- Admission Information Section -->
+    <div class="admission-info">
+        <h2>Admission Information</h2>
+        <table class="admission-table">
+            <tr>
+                <td>Location:</td>
+                <td>
+                    <input type="checkbox"> Theatre
+                    <input type="checkbox"> Cath Lab
+                    <input type="checkbox"> MPU
+                </td>
+                <td>Admitting Consultant:</td>
+                <td><input type="text" placeholder="Enter Consultant"></td>
+            </tr>
+            <tr>
+                <td>Admission Date:</td>
+                <td><input type="date"></td>
+                <td>Surgeon:</td>
+                <td><input type="text" placeholder="Enter Surgeon"></td>
+            </tr>
+            <tr>
+                <td>Admission Time:</td>
+                <td><input type="time"></td>
+                <td>Anaesthetist:</td>
+                <td><input type="text" placeholder="Enter Anaesthetist"></td>
+            </tr>
+            <tr>
+                <td>Procedure Date:</td>
+                <td><input type="date"></td>
+                <td>Surgeon Assistant:</td>
+                <td><input type="text" placeholder="Enter Surgeon Assistant"></td>
+            </tr>
+            <tr>
+                <td>Procedure Time:</td>
+                <td><input type="time"></td>
+                <td>Referring GP:</td>
+                <td><input type="text" placeholder="Enter Referring GP"></td>
+            </tr>
+            <tr>
+                <td>Medical Diagnosis/Symptoms:</td>
+                <td colspan="3"><textarea placeholder="Enter Medical Diagnosis/Symptoms"></textarea></td>
+            </tr>
+            <tr>
+                <td>Procedure Description and Codes:</td>
+                <td colspan="3"><textarea placeholder="Enter Procedure Details"></textarea></td>
+            </tr>
+            <tr>
+                <td>Side of Surgery:</td>
+                <td>
+                    <input type="checkbox"> Left
+                    <input type="checkbox"> Right
+                    <input type="checkbox"> Bilateral
+                </td>
+                <td>Image Intensifier Required?</td>
+                <td><input type="checkbox"></td>
+            </tr>
+            <tr>
+                <td>Type of Anaesthesia:</td>
+                <td>
+                    <input type="checkbox"> General
+                    <input type="checkbox"> Local
+                    <input type="checkbox"> Regional
+                    <input type="checkbox"> Sedation
+                </td>
+                <td>Tests/Investigations Required:</td>
+                <td><input type="checkbox"></td>
+            </tr>
+            <tr>
+                <td>Length of Stay:</td>
+                <td><input type="text" placeholder="Enter Length of Stay"></td>
+                <td>PCU Required?</td>
+                <td><input type="checkbox"> Yes <input type="checkbox"> No</td>
+            </tr>
+            <tr>
+                <td>Special Requirements/Instrumentation for Theatres:</td>
+                <td colspan="3"><textarea placeholder="Enter Requirements"></textarea></td>
+            </tr>
+            <tr>
+                <td>Relevant Previous Medical History:</td>
+                <td colspan="3"><textarea placeholder="Enter Medical History"></textarea></td>
+            </tr>
+        </table>
+    </div>
 
-                <div class="row">
-                
-                    <div class="col-md-12 mb-3">
-                        <label for="bookingTime" class="form-label">46. Type Of Anaesthesia</label>
-                        <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="type_of_anaesthesia" name="type_of_anaesthesia" value="General" <?php if (in_array('General', (array)$result->type_of_anaesthesia)) echo 'checked'; ?>>
-                                <label class="custom-control-label" for="pmMeal">General</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="type_of_anaesthesia" value="Local" name="type_of_anaesthesia" <?php if (in_array('Local', (array)$result->type_of_anaesthesia)) echo 'checked'; ?>>
-                            <label class="custom-control-label" for="amSnack" >Local</label>
-                        </div>
+    <!-- Financial Information Section -->
+    <div class="financial-info">
+        <h2>Financial Information</h2>
+        <table class="financial-table">
+            <tr>
+                <td>Self-Pay:</td>
+                <td><input type="checkbox"></td>
+                <td>Insurer Name:</td>
+                <td><input type="text" placeholder="Enter Insurer Name"></td>
+            </tr>
+            <tr>
+                <td>Insured:</td>
+                <td><input type="checkbox"></td>
+                <td>Policy Number:</td>
+                <td><input type="text" placeholder="Enter Policy Number"></td>
+            </tr>
+            <tr>
+                <td>Sponsored:</td>
+                <td><input type="checkbox"></td>
+                <td>Sponsor:</td>
+                <td><input type="text" placeholder="Enter Sponsor Name"></td>
+            </tr>
+        </table>
+    </div>
 
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="type_of_anaesthesia" value="Regional" name="type_of_anaesthesia" <?php if (in_array('Regional', (array)$result->type_of_anaesthesia)) echo 'checked'; ?>>
-                            <label class="custom-control-label" for="amSnack" >Regional</label>
-                        </div>
-
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="type_of_anaesthesia" value="Sedation" name="type_of_anaesthesia" <?php if (in_array('Sedation', (array)$result->type_of_anaesthesia)) echo 'checked'; ?>>
-                            <label class="custom-control-label" for="amSnack" >Sedation</label>
-                        </div>
-
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="requests" class="form-label">47. Length of Stay</label>
-                    <textarea class="form-control" id="length_of_stay" name="length_of_stay" rows="3" placeholder="Enter Length of Stay"><?php echo $result->length_of_stay;?></textarea>
-                </div>
-
-                <div class="mb-3">
-                    <label for="requests" class="form-label">48. Special Requirements/Instrumentation for theatres</label>
-                    <textarea class="form-control" id="special_requirements_instrumentation" name="special_requirements_instrumentation" rows="3" cols="8" placeholder="Enter any special requests"><?php echo $result->special_requirements_instrumentation;?></textarea>
-                </div>
-
-                <div class="mb-3">
-                    <label for="requests" class="form-label">49. Relevant Previous Medical History</label>
-                    <textarea class="form-control" id="relevant_previous_medical_history" name="relevant_previous_medical_history" rows="3" cols="8" placeholder="Enter Relevant Previous Medical History"><?php echo $result->relevant_previous_medical_history;?></textarea>
-                </div>
-
-
-                <div class="row">
-                
-                    <div class="col-md-12 mb-3">
-                        <label for="bookingTime" class="form-label">50. PCU Required</label>
-                        <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="pcu_required" name="pcu_required" value="yes" <?php if (in_array('yes', (array)$result->pcu_required)) echo 'checked'; ?>>
-                                <label class="custom-control-label" for="pmMeal">Yes</label>
-                        </div>
-                        
-                    </div>
-                </div>
-
-                <div class="row">
-                
-                    <div class="col-md-12 mb-3">
-                        <label for="bookingTime" class="form-label">51. ITU Required</label>
-                        <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="itu_required" name="itu_required" value="yes" <?php if (in_array('yes', (array)$result->itu_required)) echo 'checked'; ?>>
-                                <label class="custom-control-label" for="pmMeal">Yes</label>
-                        </div>
-                        
-                    </div>
-                </div>
-
-                <div class="row">
-                
-                    <div class="col-md-12 mb-3">
-                        <label for="bookingTime" class="form-label">52. Image Intensifier Required</label>
-                        <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="image_intensifier_required" name="image_intensifier_required" value="yes" <?php if (in_array('yes', (array)$result->image_intensifier_required)) echo 'checked'; ?>>
-                                <label class="custom-control-label" for="image_intensifier_required">Yes</label>
-                        </div>
-                        
-                    </div>
-                </div>
-
-                <div class="row">
-                
-                    <div class="col-md-12 mb-3">
-                        <label for="bookingTime" class="form-label">53. Tests/Investigations Required</label>
-                        <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="tests_investigations_required" name="tests_investigations_required" value="yes" <?php if (in_array('yes', (array)$result->tests_investigations_required)) echo 'checked'; ?>>
-                                <label class="custom-control-label" for="pmMeal">Yes</label>
-                        </div>
-                        
-                    </div>
-                </div>
-
-                
-                <div class="mb-3">
-                    <label for="requests" class="form-label">54. Procedure Urgency Category</label>
-                    <textarea class="form-control" id="procedure_urgency_category" name="procedure_urgency_category" rows="3" cols="8" placeholder="Enter any special requests"><?php echo $result->procedure_urgency_category;?></textarea>
-                </div>
-
-            <div class="text-center">
-                <button type="submit" type="submit" class="btn" style="background-color: #2e8cdd; color:white;">Book Now</button>
-            </div>
         </form>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

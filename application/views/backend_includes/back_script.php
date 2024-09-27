@@ -299,6 +299,17 @@
         });
     }
 
+    var open_modal_edit_letters = function (controller, id) {
+        $.ajax({
+            url: '<?php echo base_url(); ?>' + controller + "/open_model_edit" + "?id=" + id,
+            type: 'POST',
+            data: {'<?php echo $this->security->get_csrf_token_name(); ?>': '<?php echo $this->security->get_csrf_hash(); ?>'},
+            success: function (data, textStatus, jqXHR) {
+                $('#form-modal-box-edit').html(data);
+                $("#commonModal").modal('show');
+            }
+        });
+    }
     
 
     var deleteFn = function (table, field, id, ctrl, method, txt) {
