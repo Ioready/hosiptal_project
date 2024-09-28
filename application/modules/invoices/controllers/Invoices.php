@@ -548,4 +548,63 @@ class Invoices extends Common_Controller {
         echo $response;
     }
 
+    public function managements(){
+
+        // print_r('jkjdkskjsd');die;
+        
+            $this->data['parent'] = $this->title;
+            $this->data['title'] = $this->title;
+            $this->data['model'] = $this->router->fetch_class();
+            $role_name = $this->input->post('role_name');
+    
+            $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+    
+            if($LoginID != 1 && $LoginID != NULL ){
+                $x = $LoginID;
+            }
+            
+            $this->data['roles'] = array(
+                'role_name' => $role_name
+            );
+            if ($vendor_profile_activate == "No") {
+                $vendor_profile_activate = 0;
+            } else {
+                $vendor_profile_activate = 1;
+            }
+    
+            $option1 ="SELECT `vendor_sale_doctor_invoice`.`id`,`vendor_sale_doctor_invoice`.`header`, `vendor_sale_doctor_invoice`.`start_date`,`vendor_sale_doctor_invoice`.`practitioner`,
+            `vendor_sale_doctor_invoice`.`patient`, 
+            `vendor_sale_doctor_invoice`.`billing_to`,
+            `vendor_sale_doctor_invoice`.`note_comment`,
+            `vendor_sale_doctor_invoice`.`created_at`,
+            `vendor_sale_doctor_invoice`.`total`,
+            `vendor_sale_doctor_invoice`.`user_id`,`vendor_sale_doctor_invoice`.`interal_comment`,`vendor_sale_doctor_invoice`.`status`
+            FROM `vendor_sale_doctor_invoice` 
+            LEFT JOIN `vendor_sale_users` ON 
+            `vendor_sale_users`.`id` = `vendor_sale_doctor_invoice`.`user_id`
+            WHERE `vendor_sale_doctor_invoice`.`status` = 0  and
+            `vendor_sale_doctor_invoice`.`user_id` =$LoginID
+            ORDER BY `vendor_sale_doctor_invoice`.`id` DESC";
+            
+            // $option1 ="SELECT `vendor_sale_contactus`.`title`, 
+            // `vendor_sale_contactus`.`id`, 
+            // `vendor_sale_contactus`.`description`,
+            // `vendor_sale_contactus`.`is_active`,
+            // `vendor_sale_contactus`.`create_date`,
+            // `vendor_sale_users`.`first_name`,
+            // `vendor_sale_users`.`last_name`,
+            // `vendor_sale_contactus`.`facility_manager_id`
+            // FROM `vendor_sale_contactus` 
+            // LEFT JOIN `vendor_sale_users` ON 
+            // `vendor_sale_users`.`id` = `vendor_sale_contactus`.`facility_manager_id`
+            // WHERE `vendor_sale_contactus`.`delete_status` = 0  and
+            // `vendor_sale_contactus`.`facility_manager_id` =$LoginID
+            // ORDER BY `vendor_sale_contactus`.`id` DESC";
+            
+            $this->data['management'] = $this->common_model->customQuery($option1);
+    
+            $this->load->admin_render('management', $this->data, 'inner_script');
+        
+    }
+
 }

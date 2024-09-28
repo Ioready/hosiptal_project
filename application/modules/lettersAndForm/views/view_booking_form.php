@@ -1,145 +1,9 @@
 <!-- Page content -->
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.js"></script>
-
-
-
- 
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
 <style>
-
-.btn {
-    margin: 1px 0;
-    background-color: #b9adad;
-}
-
-.modal_popup{
-    display: none;
-}
-
-.form-group {
-    margin-bottom: 10px;
-}
-
-
-.modal-body1 {
-    padding: 0px 15px;
-}
-.sendmail{
-    float: right;
-    margin: -41px 0;
-}
-
-.mailmodel{
-    margin-left:-15px;
-    margin-right:-15px;
-}
-
-@media only screen and (min-width: 668px) and (max-width: 1600px) {
-        .sendmail{
-            margin-top: -17px;
-                 }  
-    }
-
-    @media only screen and (max-width: 600px) {
-        .sendmail{
-            margin-top: -32px;
-                 }  
-       
-        }
-
-
-        .card {
-    background-color: #fff;
-    border-radius: 10px;
-    border: none;
-    position: relative;
-    /* margin-bottom: 30px; */
-    box-shadow: 0 0.46875rem 2.1875rem rgba(90,97,105,0.1), 0 0.9375rem 1.40625rem rgba(90,97,105,0.1), 0 0.25rem 0.53125rem rgba(90,97,105,0.12), 0 0.125rem 0.1875rem rgba(90,97,105,0.1);
-}
-.l-bg-cherry {
-    background: linear-gradient(to right, #337a, #337a) !important;
-    color: #fff;
-}
-
-.l-bg-blue-dark {
-    background: linear-gradient(to right, #337a, #337a) !important;
-    color: #fff;
-}
-
-.l-bg-green-dark {
-    background: linear-gradient(to right, #337a, #337a) !important;
-    color: #fff;
-}
-
-.l-bg-orange-dark {
-    background: linear-gradient(to right, #337a, #337a) !important;
-    color: #fff;
-}
-
-.card .card-statistic-3 .card-icon-large .fas, .card .card-statistic-3 .card-icon-large .far, .card .card-statistic-3 .card-icon-large .fab, .card .card-statistic-3 .card-icon-large .fal {
-    font-size: 110px;
-}
-
-.card .card-statistic-3 .card-icon {
-    /* text-align: center;
-    line-height: 50px;
-    margin-left: 15px;
-    color: #000;
-    position: absolute;
-    right: -5px;
-    top: 20px;
-    opacity: 0.1; */
-}
-
-.l-bg-cyan {
-    background: linear-gradient(135deg, #289cf5, #84c0ec) !important;
-    color: #fff;
-}
-
-.l-bg-green {
-    background: linear-gradient(135deg, #23bdb8 0%, #43e794 100%) !important;
-    color: #fff;
-}
-
-.l-bg-orange {
-    background: linear-gradient(to right, #f9900e, #ffba56) !important;
-    color: #fff;
-}
-
-.l-bg-cyan {
-    background: linear-gradient(135deg, #289cf5, #84c0ec) !important;
-    color: #fff;
-}
-</style>
-
-<style>
-    .save-btn{
-    font-weight:700;
-    font-size: 1.5rem;
-    padding: 0.6rem 2.25rem;
-    background:#337ab7;
-}
-.save-btn:hover{
-    /* background-color:#00008B !important; */
-    background:#00008B !important;
-}
-
-.lettersform:hover {
-  background-color: #def1f3;
-}
-
-.nav-link{
-    color: black!important;
-    font-weight: 900!important;
-}
-.nav-pills .nav-link.active{
-    background-color:white!important;
-}
-</style>
-
-<style>
-    * {
+ * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -331,6 +195,15 @@ h1 {
     }
 }
 
+  /* Additional styling for PDF generation */
+  @media print {
+            body {
+                width: 100%;
+            }
+           
+        }
+
+
 </style>
 
 <div id="page-content">
@@ -437,21 +310,17 @@ h1 {
             <!-- </div> -->
 
     <!-- Datatables Content -->
+
+    
     <div class="block full">
 
 <div class="block-title ">
 
-    <ul class="nav nav-pills nav-fill nav-tabss" id="pills-tab" role="tablist" style="width: fit-content;">
-        <!-- <li onclick="toggleDisplay()" class="nav-item">
-            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#letters_id" role="tab">Letters</a>
-        </li>
-        <li onclick="toggleHidden()" class="nav-item">
-            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#forms_id" role="tab">Forms</a>
-        </li> -->
         <a href="<?php echo base_url(). 'index.php/lettersAndForm?id=' . encoding($patient_id); ?>"  style="color: black;padding: 9px;font-weight: 900;background-color: ghostwhite;"> Back to Letters
         </a>
         
-    </ul>
+        <button onclick="generatePDF()" class="btn btn-outline-success" style="margin-left: 65%;"> <i class="fa fa-edit"></i> Edit</button>
+        <button onclick="generatePDF()" class="btn btn-outline-success"> <i class="fa fa-download"></i> Download</button>
 
 </div>
 
@@ -462,35 +331,29 @@ h1 {
         <div class="row">
         <div class="col-sm-8 col-md-8">
         <input type="hidden" name="patient_id" id="patient_id" value="<?php echo $patient_id;?>">
-        <h3><strong> Booking Form</strong></h3>
-            <!-- <a href="javascript:void(0)"  onclick="open_modal('<?php echo $model; ?>')" class="btn btn-sm btn-secondary save-btn nav-tab-appointment tab-pane-second active" id="letters_id" style="background-color:#337ab7;">
-                <?php //echo "New letter"; ?> 
-            </a> -->
-
-
+        <!-- <h3><strong> Booking Form</strong></h3> -->
             <!-- <button type="button" data-toggle="modal" data-target="#sidebar-right" class="btn btn-primary navbar-btn pull-left btn btn-sm btn-secondary save-btn tab-pane-second" id="forms_id" style="display:none; background-color:#337ab7;">New forms</button> -->
     </div>
-            <!-- <div class="col-sm-4 col-md-4"> -->
-            <!-- <button style="background-color: white;border-radius: 6px;padding-left: 22px;padding-right: 22px;">All</button>
-            <button style="background-color: white;border-radius: 6px;padding-left: 12px;padding-right: 12px;">Created Date</button>
-            <button style="background-color: white;border-radius: 6px;padding-left: 12px;padding-right: 12px;">
-            <span>
-            <i class="fa fa-light fa-border-all"></i></span>
-            </button>
-            </div>
-            </div> -->
+            
     <?php } ?>
 </div>
-<br><br>
 
-<div class="mt-5">
+<div class="mt-5" id="content">
         
-<form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url($formUrlData) ?>" enctype="multipart/form-data">
-        <!-- <form class="form-horizontal" role="form" id="" method="post" action="<?php echo base_url();?>LettersAndForm/addBookingForm"> -->
+<div class="show-grid border border-light">
+  
+  <div class="row">
+    <div class="col-sm-10"><label for="">Page:</label><select name="" id=""><option value="1">1</option></select> <label for="">Of 2</label></div>
+    <div class="col-sm-2"><label for="">Zoom</label> <button type="button" class="btn btn-success" style="background-color: darkcyan;">+</button> &nbsp;&nbsp;<button type="button" class="btn btn-success" style="background-color: darkcyan;">-</button></div>
+  </div>
+  
+</div>
+  <!-- Button to generate PDF -->
+  <!-- <button onclick="generatePDF()"> <i class="fa fa-download"></i>Download</button> -->
 
-       
-          
-            <!-- Header Section -->
+<!-- Booking form content wrapped in a div for capturing -->
+<div id="booking-form">
+    <!-- Header Section -->
     <div class="header-container">
         <!-- Left Section: Booking Form Title and Checkboxes -->
         <div class="left-section">
@@ -498,15 +361,15 @@ h1 {
             <div class="admission-types">
                 <div class="checkbox-group">
                     <label>Medical Admission</label>
-                    <input type="checkbox">
+                    <input type="checkbox" <?php echo $result->appointment_type =='Medical Admission' ? 'checked':'';?>>
                 </div>
                 <div class="checkbox-group">
                     <label>Surgical Admission</label>
-                    <input type="checkbox">
+                    <input type="checkbox" <?php echo $result->appointment_type =='Surgical Admission' ? 'checked':'';?>>
                 </div>
                 <div class="checkbox-group">
                     <label>Re-admission</label>
-                    <input type="checkbox">
+                    <input type="checkbox" <?php echo $result->appointment_type =='Re-admission' ? 'checked':'';?>>
                 </div>
             </div>
         </div>
@@ -526,18 +389,13 @@ h1 {
 
     <!-- Completed by and Date Section -->
     <div class="completed-section">
-        <!-- <p>Completed by:</p>
-        <p>Date:</p> -->
         <table class="patient-table">
             <tr>
                 <td>Completed by:</td>
-                <td><input type="text" value="Moholkar"></td>
+                <td><input type="text" value="<?php echo $result->completed_by?>"></td>
                 <td>Date:</td>
-                <td><input type="text" placeholder="Enter date"></td>
+                <td><input type="text" placeholder="Enter date" value="<?php echo $result->completed_date?>"></td>
             </tr>
-           
-           
-          
         </table>
     </div>
 
@@ -547,79 +405,80 @@ h1 {
         <table class="patient-table">
             <tr>
                 <td>EMPI Number:</td>
-                <td><input type="text" placeholder="Enter EMPI Number"></td>
+                <td><input type="text" placeholder="Enter EMPI Number" value="<?php echo $result->empi_number?>"></td>
                 <td>NHS Referral?</td>
-                <td><input type="checkbox"> Yes <input type="checkbox"> No</td>
+                <td><input type="text" placeholder="Enter NHS Number" value="<?php echo $result->nhs_referral?>"></td>
             </tr>
             <tr>
                 <td>Surname:</td>
-                <td><input type="text" value="Moholkar"></td>
+                <td><input type="text" value="<?php echo $result->surname?>"></td>
                 <td>NHS Number:</td>
-                <td><input type="text" placeholder="Enter NHS Number"></td>
+                <td><input type="checkbox" <?php echo $result->nhs_number =='yes' ? 'checked':'';?>> Yes <input type="checkbox" <?php echo $result->nhs_number =='no' ? 'checked':'';?>> No</td>
+    
             </tr>
             <tr>
                 <td>First Name:</td>
-                <td><input type="text" value="Madhuri"></td>
+                <td><input type="text" value="<?php echo $result->first_name?>"></td>
                 <td>Next of Kin Name:</td>
-                <td><input type="text" placeholder="Enter Next of Kin"></td>
+                <td><input type="text" placeholder="Enter Next of Kin" value="<?php echo $result->next_of_kin_name?>" ></td>
             </tr>
             <tr>
                 <td>Other Names:</td>
-                <td><input type="text" placeholder="Enter Other Names"></td>
+                <td><input type="text" placeholder="Enter Other Names" value="<?php echo $result->first_name?>"></td>
                 <td>Next of Kin Contact:</td>
-                <td><input type="text" placeholder="Enter Next of Kin Contact"></td>
+                <td><input type="text" placeholder="Enter Next of Kin Contact" value="<?php echo $result->next_of_kin_contact?>"></td>
             </tr>
             <tr>
                 <td>Title:</td>
-                <td><input type="text" value="Mrs"></td>
+                <td><input type="text" value="<?php echo $result->title?>"></td>
                 <td>Interpreter Needed?</td>
-                <td><input type="checkbox"> Yes <input type="checkbox"> No</td>
+                <td><input type="checkbox" <?php echo $result->interpreter_needed =='yes' ? 'checked':'';?>> Yes <input type="checkbox" <?php echo $result->interpreter_needed =='yes' ? 'checked':'';?>> No</td>
             </tr>
             <tr>
                 <td>DOB:</td>
-                <td><input type="text" value="11/12/1974"></td>
+                <td><input type="text" value="<?php echo $result->dob?>"></td>
                 <td>Language:</td>
-                <td><input type="text" placeholder="Enter Language"></td>
+                <td><input type="text" placeholder="Enter Language" value="<?php echo $result->interpreter_language?>"></td>
             </tr>
             <tr>
                 <td>Ethnicity:</td>
-                <td><input type="text" placeholder="Enter Ethnicity"></td>
+                <td><input type="text" placeholder="Enter Ethnicity" value="<?php echo $result->ethnicity?>"></td>
                 <td>Complex Needs?</td>
-                <td><input type="checkbox"> Yes <input type="checkbox"> No</td>
+                <td><input type="checkbox" <?php echo $result->complex_needs =='yes' ? 'checked':'';?>> Yes <input type="checkbox" <?php echo $result->complex_needs =='yes' ? 'checked':'';?>> No</td>
             </tr>
             <tr>
                 <td>Sex:</td>
                 <td>
-                    <input type="radio" name="sex" value="male"> Male
-                    <input type="radio" name="sex" value="female"> Female
-                    <input type="radio" name="sex" value="other"> Other
+                    <input type="radio" name="sex" value="male" <?php echo $result->gender =='male' ? 'checked':'';?>> Male
+                    <input type="radio" name="sex" value="female" <?php echo $result->gender =='female' ? 'checked':'';?>> Female
+                    <input type="radio" name="sex" value="other" <?php echo $result->gender =='other' ? 'checked':'';?>> Other
                 </td>
                 <td>Details:</td>
-                <td><input type="text" placeholder="Enter Details"></td>
+                <td><input type="text" placeholder="Enter Details" value="<?php echo $result->details_of_complex_needs?>"></td>
             </tr>
             <tr>
                 <td>Address:</td>
                 <td colspan="3">
-                    <input type="text" value="30 Twatling Road Barnt Green, Birmingham, B45 8HT, United Kingdom">
+                    <input type="text" value="<?php echo $result->address?>">
                 </td>
             </tr>
             <tr>
                 <td>Contact Number:</td>
-                <td colspan="3"><input type="text" value="07581 175216 (Mobile)"></td>
+                <td colspan="3"><input type="text" value="<?php echo $result->contact?>"></td>
             </tr>
             <tr>
                 <td>Contact E-mail:</td>
-                <td colspan="3"><input type="email" placeholder="Enter Email"></td>
+                <td colspan="3"><input type="email" placeholder="Enter Email" value="<?php echo $result->email?>"></td>
             </tr>
             <tr>
                 <td>Co-Morbidities?</td>
-                <td><input type="checkbox"> Yes <input type="checkbox"> No</td>
+                <td><input type="checkbox" <?php echo $result->co_morbidities =='yes' ? 'checked':'';?>> Yes <input type="checkbox" <?php echo $result->co_morbidities =='yes' ? 'checked':'';?>> No</td>
                 <td>Details:</td>
-                <td><input type="text" placeholder="Enter Details"></td>
+                <td><input type="text" placeholder="Enter Details" value="<?php echo $result->details_of_co_morbidities?>"></td>
             </tr>
             <tr>
                 <td>Dietary Requirements:</td>
-                <td colspan="3"><input type="text" placeholder="Enter Dietary Requirements"></td>
+                <td colspan="3"><input type="text" placeholder="Enter Dietary Requirements" value="<?php echo $result->dietary_requirements?>"></td>
             </tr>
         </table>
     </div>
@@ -631,79 +490,79 @@ h1 {
             <tr>
                 <td>Location:</td>
                 <td>
-                    <input type="checkbox"> Theatre
-                    <input type="checkbox"> Cath Lab
-                    <input type="checkbox"> MPU
+                    <input type="checkbox" <?php echo $result->location =='Theatre' ? 'checked':'';?>> Theatre
+                    <input type="checkbox" <?php echo $result->location =='Cath Lab' ? 'checked':'';?>> Cath Lab
+                    <input type="checkbox" <?php echo $result->location =='MPU' ? 'checked':'';?>> MPU
                 </td>
                 <td>Admitting Consultant:</td>
-                <td><input type="text" placeholder="Enter Consultant"></td>
+                <td><input type="text" placeholder="Enter Consultant" value="<?php echo $result->admitting_consultant?>"></td>
             </tr>
             <tr>
                 <td>Admission Date:</td>
-                <td><input type="date"></td>
+                <td><input type="date" value="<?php echo $result->admission_date?>"></td>
                 <td>Surgeon:</td>
-                <td><input type="text" placeholder="Enter Surgeon"></td>
+                <td><input type="text" placeholder="Enter Surgeon" value="<?php echo $result->surgeon?>"></td>
             </tr>
             <tr>
                 <td>Admission Time:</td>
-                <td><input type="time"></td>
+                <td><input type="time" value="<?php echo $result->admission_time?>"></td>
                 <td>Anaesthetist:</td>
-                <td><input type="text" placeholder="Enter Anaesthetist"></td>
+                <td><input type="text" placeholder="Enter Anaesthetist" value="<?php echo $result->anaesthetist?>"></td>
             </tr>
             <tr>
                 <td>Procedure Date:</td>
-                <td><input type="date"></td>
+                <td><input type="date" value="<?php echo $result->procedure_date?>"></td>
                 <td>Surgeon Assistant:</td>
-                <td><input type="text" placeholder="Enter Surgeon Assistant"></td>
+                <td><input type="text" placeholder="Enter Surgeon Assistant" value="<?php echo $result->surgeon_assistant?>"></td>
             </tr>
             <tr>
                 <td>Procedure Time:</td>
-                <td><input type="time"></td>
+                <td><input type="time" value="<?php echo $result->procedure_time?>"></td>
                 <td>Referring GP:</td>
-                <td><input type="text" placeholder="Enter Referring GP"></td>
+                <td><input type="text" placeholder="Enter Referring GP" value="<?php echo $result->referring_gp;?>"></td>
             </tr>
             <tr>
                 <td>Medical Diagnosis/Symptoms:</td>
-                <td colspan="3"><textarea placeholder="Enter Medical Diagnosis/Symptoms"></textarea></td>
+                <td colspan="3"><textarea placeholder="Enter Medical Diagnosis/Symptoms"><?php echo $result->medical_diagnosis_symptoms?></textarea></td>
             </tr>
             <tr>
                 <td>Procedure Description and Codes:</td>
-                <td colspan="3"><textarea placeholder="Enter Procedure Details"></textarea></td>
+                <td colspan="3"><textarea placeholder="Enter Procedure Details"><?php echo $result->procedure_description?></textarea></td>
             </tr>
             <tr>
                 <td>Side of Surgery:</td>
                 <td>
-                    <input type="checkbox"> Left
-                    <input type="checkbox"> Right
-                    <input type="checkbox"> Bilateral
+                    <input type="checkbox" <?php echo $result->side_of_surgery =='left' ? 'checked':'';?>> Left
+                    <input type="checkbox" <?php echo $result->side_of_surgery =='right' ? 'checked':'';?>> Right
+                    <input type="checkbox" <?php echo $result->side_of_surgery =='bilateral' ? 'checked':'';?>> Bilateral
                 </td>
                 <td>Image Intensifier Required?</td>
-                <td><input type="checkbox"></td>
+                <td><input type="checkbox" <?php echo $result->image_intensifier_required =='yes' ? 'checked':'';?>></td>
             </tr>
             <tr>
                 <td>Type of Anaesthesia:</td>
                 <td>
-                    <input type="checkbox"> General
-                    <input type="checkbox"> Local
-                    <input type="checkbox"> Regional
-                    <input type="checkbox"> Sedation
+                    <input type="checkbox" <?php echo $result->type_of_anaesthesia =='General' ? 'checked':'';?>> General
+                    <input type="checkbox" <?php echo $result->type_of_anaesthesia =='Local' ? 'checked':'';?>> Local
+                    <input type="checkbox" <?php echo $result->type_of_anaesthesia =='Regional' ? 'checked':'';?>> Regional
+                    <input type="checkbox" <?php echo $result->type_of_anaesthesia =='Sedation' ? 'checked':'';?>> Sedation
                 </td>
                 <td>Tests/Investigations Required:</td>
-                <td><input type="checkbox"></td>
+                <td><input type="checkbox" <?php echo $result->tests_investigations_required =='yes' ? 'checked':'';?>></td>
             </tr>
             <tr>
                 <td>Length of Stay:</td>
-                <td><input type="text" placeholder="Enter Length of Stay"></td>
+                <td><input type="text" placeholder="Enter Length of Stay" value="<?php echo $result->length_of_stay?>"></td>
                 <td>PCU Required?</td>
-                <td><input type="checkbox"> Yes <input type="checkbox"> No</td>
+                <td><input type="checkbox" <?php echo $result->pcu_required =='yes' ? 'checked':'';?>> Yes <input type="checkbox" <?php echo $result->pcu_required =='no' ? 'checked':'';?>> No</td>
             </tr>
             <tr>
                 <td>Special Requirements/Instrumentation for Theatres:</td>
-                <td colspan="3"><textarea placeholder="Enter Requirements"></textarea></td>
+                <td colspan="3"><textarea placeholder="Enter Requirements"><?php echo $result->special_requirements_instrumentation?></textarea></td>
             </tr>
             <tr>
                 <td>Relevant Previous Medical History:</td>
-                <td colspan="3"><textarea placeholder="Enter Medical History"></textarea></td>
+                <td colspan="3"><textarea placeholder="Enter Medical History"><?php echo $result->relevant_previous_medical_history?></textarea></td>
             </tr>
         </table>
     </div>
@@ -714,26 +573,40 @@ h1 {
         <table class="financial-table">
             <tr>
                 <td>Self-Pay:</td>
-                <td><input type="checkbox"></td>
+                <td><input type="checkbox" <?php echo $result->nhs_number =='yes' ? 'checked':'';?>></td>
                 <td>Insurer Name:</td>
-                <td><input type="text" placeholder="Enter Insurer Name"></td>
+                <td><input type="text" placeholder="Enter Insurer Name" value="<?php echo $result->completed_date?>"></td>
             </tr>
             <tr>
                 <td>Insured:</td>
-                <td><input type="checkbox"></td>
+                <td><input type="checkbox" <?php echo $result->nhs_number =='yes' ? 'checked':'';?>></td>
                 <td>Policy Number:</td>
-                <td><input type="text" placeholder="Enter Policy Number"></td>
+                <td><input type="text" placeholder="Enter Policy Number" value="<?php echo $result->completed_date?>"></td>
             </tr>
             <tr>
                 <td>Sponsored:</td>
-                <td><input type="checkbox"></td>
+                <td><input type="checkbox" <?php echo $result->nhs_number =='yes' ? 'checked':'';?>></td>
                 <td>Sponsor:</td>
-                <td><input type="text" placeholder="Enter Sponsor Name"></td>
+                <td><input type="text" placeholder="Enter Sponsor Name" value="<?php echo $result->completed_date?>"></td>
             </tr>
         </table>
     </div>
+</div>
 
-        </form>
+<!-- JavaScript for PDF Generation -->
+<script>
+    function generatePDF() {
+        const element = document.getElementById('booking-form');
+        
+        html2pdf(element, {
+            margin: 10,
+            filename: 'booking-form.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        });
+    }
+</script>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     </div>
@@ -1083,3 +956,22 @@ h1 {
 	border:0;
 }
 </style>
+
+
+<script>
+    var doc = new jsPDF();
+    var specialElementHandlers = {
+        '#editor': function (element, renderer) {
+            return true;
+        }
+    };
+
+    $('#cmd').click(function () {
+        doc.fromHTML($('#content').html(), 15, 15, {
+            'width': 170,
+                'elementHandlers': specialElementHandlers
+        });
+        doc.save('sample-file.pdf');
+    });
+
+</script>

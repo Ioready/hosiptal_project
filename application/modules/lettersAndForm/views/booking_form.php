@@ -140,6 +140,213 @@
     background-color: cadetblue!important;
 }
 </style>
+
+
+<style>
+ * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-bottom: 2px solid #ccc;
+}
+
+.left-section {
+    width: 50%;
+}
+
+h1 {
+    font-size: 24px;
+    color: #3b73cf;
+}
+
+.admission-types {
+    background-color: #d3d3d3;
+    padding: 10px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.right-section {
+    width: 45%;
+    text-align: right;
+}
+
+.logo h2 {
+    color: #3b73cf;
+    font-size: 18px;
+}
+
+.contact-info p {
+    font-size: 14px;
+    color: #333;
+}
+
+.completed-section {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    border-top: 1px solid #ccc;
+    margin-top: 10px;
+}
+
+.completed-section p {
+    font-size: 14px;
+}
+
+/* Patient Information Section */
+.patient-info {
+    margin: 20px;
+}
+
+.patient-info h2 {
+    color: #3b73cf;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.patient-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.patient-table td {
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.patient-table input[type="text"],
+.patient-table input[type="email"],
+.patient-table textarea {
+    width: 100%;
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.patient-table input[type="checkbox"],
+.patient-table input[type="radio"] {
+    margin-left: 5px;
+}
+
+/* Admission Information Styles */
+.admission-info {
+    margin: 20px;
+}
+
+.admission-info h2 {
+    color: #3b73cf;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.admission-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.admission-table td {
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.admission-table input[type="text"],
+.admission-table input[type="email"],
+.admission-table input[type="date"],
+.admission-table input[type="time"],
+.admission-table textarea {
+    width: 100%;
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.admission-table input[type="checkbox"] {
+    margin-left: 5px;
+}
+
+.admission-table textarea {
+    height: 60px;
+    resize: vertical;
+}
+
+/* Financial Information Styles */
+.financial-info {
+    margin: 20px;
+}
+
+.financial-info h2 {
+    color: #3b73cf;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.financial-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.financial-table td {
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.financial-table input[type="text"] {
+    width: 100%;
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.financial-table input[type="checkbox"] {
+    margin-left: 5px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+    }
+
+    .admission-info, .financial-info {
+        width: 100%;
+    }
+}
+
+  /* Additional styling for PDF generation */
+  @media print {
+            body {
+                width: 100%;
+            }
+           
+        }
+
+
+</style>
+
+
 <div id="page-content">
 <div class="block_list full">
     <div class="row text-center">
@@ -244,35 +451,14 @@
     
     </div>
 
-    <div class="block full">
-    <div class="show-grid">
-  <div class="row">
-    <div class="col-sm-1" style="border-right:none;"><a href="<?php echo base_url(). 'index.php/lettersAndForm?id=' . encoding($patient_id); ?>">
-    <span for="" class="text-success"><strong> < Form </strong></span> </a></div>
-    
-
-    <div class="col-sm-2 no-border"><a href="<?php echo base_url().'index.php/lettersAndForm/viewBookingForm?id=' . encoding($patient_id) . '&form_id=' . encoding($folder->id); ?>" class="link"><button for="" type="button" class="btn btn-success save-preview"><b> Save and preview</b></button></a></div>
-    <div class="col-sm-2 no-border"><button type="button" class="btn btn-success save-preview"><b> Save as draft</b></button></div>
-
-    
-    <!-- <div class="col-sm-1 no-border"><span>...</span></div> -->
-    
-  </div>
-    
-</div>
 
     <!-- Datatables Content -->
     <div class="block full">
-
-    
-
         <div class="block-title ">
+            <a href="<?php echo base_url(). 'index.php/lettersAndForm?id=' . encoding($patient_id); ?>"  style="color: black;padding: 9px;font-weight: 900;background-color: ghostwhite;"> Back to Letters</a>
 
-            <!-- <ul class="nav nav-pills nav-fill nav-tabss" id="pills-tab" role="tablist" style="width: fit-content;">
-               
-                <a href="<?php echo base_url(). 'index.php/lettersAndForm?id=' . encoding($patient_id); ?>"  style="color: black;padding: 9px;font-weight: 900;background-color: ghostwhite;"> Back to Letters</a>
-            </ul> -->
-        
+            <a href="<?php echo base_url().'index.php/lettersAndForm/viewBookingForm?id=' . encoding($patient_id) . '&form_id=' . encoding($folder->id); ?>" class="link"><button for="" type="button" class="btn btn-success save-preview"><b> Save and preview</b></button></a>
+            <button type="button" class="btn btn-success save-preview"><b> Save as draft</b></button>
         </div>
 
 
@@ -288,7 +474,6 @@
                     
             <?php } ?>
         </div>
-<br><br>
 
 
 <div class="show-grid">

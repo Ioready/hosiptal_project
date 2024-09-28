@@ -137,6 +137,33 @@
     background-color:white!important;
 }
 </style>
+<style>
+    .save-btn{
+    font-weight:700;
+    font-size: 1.5rem;
+    padding: 0.6rem 2.25rem;
+    background:#337ab7;
+}
+.save-btn:hover{
+    /* background-color:#00008B !important; */
+    background:#00008B !important;
+}
+
+.lettersform:hover {
+  background-color: #def1f3;
+}
+
+.nav-link{
+    color: black!important;
+    font-weight: 900!important;
+}
+.nav-pills .nav-link.active{
+    background-color:white!important;
+}
+.save-preview{
+    background-color: cadetblue!important;
+}
+</style>
 <div id="page-content">
 <div class="block_list full">
     <div class="row text-center">
@@ -234,28 +261,30 @@
                 
     </div>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="=" crossorigin="anonymous" />
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="=" crossorigin="anonymous" /> -->
       
     </div>
 
-            <!-- </div> -->
 
     <!-- Datatables Content -->
     <div class="block full">
 
-        <div class="block-title ">
+        <!-- <div class="block-title ">
 
-            <ul class="nav nav-pills nav-fill nav-tabss" id="pills-tab" role="tablist" style="width: fit-content;">
-                <!-- <li onclick="toggleDisplay()" class="nav-item">
-                    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#letters_id" role="tab">Letters</a>
-                </li>
-                <li onclick="toggleHidden()" class="nav-item">
-                    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#forms_id" role="tab">Forms</a>
-                </li> -->
-                
                 <a href="<?php echo base_url(). 'index.php/lettersAndForm?id=' . encoding($patient_id); ?>"  style="color: black;padding: 9px;font-weight: 900;background-color: ghostwhite;"> Back to Letters</a>
-            </ul>
+           
+
+               <a href="<?php echo base_url().'index.php/lettersAndForm/viewImagingRequestForm?id=' . encoding($patient_id) . '&form_id=' . encoding($folder->id); ?>" class="link"><button for="" type="button" class="btn btn-success save-preview"><b> Save and preview</b></button></a>
+                   
+                  <button type="button" class="btn btn-success save-preview"><b> Save as draft</b></button>
         
+        </div> -->
+
+        <div class="block-title ">
+            <a href="<?php echo base_url(). 'index.php/lettersAndForm?id=' . encoding($patient_id); ?>"  style="color: black;padding: 9px;font-weight: 900;background-color: ghostwhite;"> Back to Letters</a>
+
+            <a href="<?php echo base_url().'index.php/lettersAndForm/viewImagingRequestForm?id=' . encoding($patient_id) . '&form_id=' . encoding($folder->id); ?>" class="link"><button for="" type="button" class="btn btn-success save-preview"><b> Save and preview</b></button></a>
+            <button type="button" class="btn btn-success save-preview"><b> Save as draft</b></button>
         </div>
 
 
@@ -265,7 +294,7 @@
                 <div class="row">
                 <div class="col-sm-8 col-md-8">
                 <input type="hidden" name="patient_id" id="patient_id" value="<?php echo $patient_id;?>">
-                <h3><strong> Booking Form</strong></h3>
+                <h3><strong> Imaging Request Form</strong></h3>
                     <!-- <a href="javascript:void(0)"  onclick="open_modal('<?php echo $model; ?>')" class="btn btn-sm btn-secondary save-btn nav-tab-appointment tab-pane-second active" id="letters_id" style="background-color:#337ab7;">
                         <?php //echo "New letter"; ?> 
                     </a> -->

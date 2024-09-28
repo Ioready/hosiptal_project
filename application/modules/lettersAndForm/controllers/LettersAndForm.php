@@ -1,7 +1,7 @@
 <?php
 
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+use Dompdf\Dompdf;
 class LettersAndForm extends Common_Controller {
 
     public $data = array();
@@ -1025,22 +1025,61 @@ $response = array('status' => 1, 'message' => "Successfully added", 'url' =>base
         // print_r($this->data['patient_id']);die;
         // $option = array('table' => $this->_tables);
 
-        $form_id=  decoding($_GET['form_id']);
+        // $form_id=  decoding($_GET['form_id']);
+        $form_id=  '20';
        $id=  decoding($_GET['id']);
-    //    print_r($form_id);die;
-    $option = array(
-        'table' => 'vendor_sale_booking_form',
-        'where' => array('id' => $form_id),
-        'single' => true
-    );
-    // $results_row = $this->common_model->customGet($option);
+        //    print_r($form_id);die;
+        //  $option = array(
+        // 'table' => 'vendor_sale_booking_form',
+        // 'where' => array('id' => '20'),
+        // 'single' => true
+        // );
 
+        // $results_row = $this->common_model->customGet($option);
+
+        $option = array(
+            'table' => 'vendor_sale_booking_form',
+            'order' => array('id' => 'DESC'),  // Replace 'id' with the column you want to order by
+            'single' => true  // Ensure only the most recent record is fetched
+        );
 
         $this->data['result'] = $this->common_model->customGet($option);
-        // print_r($this->data['list']);die;
+        // print_r($this->data['result']);die;
         $this->load->admin_render('view_booking_form', $this->data, 'inner_script');
                 // $this->load->view('booking_form', $this->data, 'inner_script');
     }
 
+
+    function viewImagingRequestForm() {
+
+        $this->data['url'] = base_url() . $this->router->fetch_class();
+        $this->data['pageTitle'] = "Add " . $this->title;
+        $this->data['parent'] = $this->router->fetch_class();
+        $this->data['model'] = $this->router->fetch_class();
+        $this->data['formUrlData'] = $this->router->fetch_class() . "/updateBookingForm";
+        $this->data['title'] = $this->title;
+        $this->data['tablePrefix'] = 'vendor_sale_' . $this->_table;
+        $this->data['table'] = $this->_table;
+        $this->data['patient_id'] = decoding($_GET['id']);
+        $this->data['form_id'] = decoding($_GET['form_id']);
+        // print_r($this->data['patient_id']);die;
+        // $option = array('table' => $this->_tables);
+
+        $form_id=  decoding($_GET['form_id']);
+       $id=  decoding($_GET['id']);
+        
+        // $results_row = $this->common_model->customGet($option);
+        $option = array(
+            'table' => 'vendor_sale_imaging_request_form',
+            'order' => array('id' => 'DESC'),  // Replace 'id' with the column you want to order by
+            'single' => true  // Ensure only the most recent record is fetched
+        );
+
+        $this->data['result'] = $this->common_model->customGet($option);
+        // print_r($this->data['result']);die;
+        $this->load->admin_render('view_imaging_request_form', $this->data, 'inner_script');
+                // $this->load->view('booking_form', $this->data, 'inner_script');
+    }
+    
 
 }
