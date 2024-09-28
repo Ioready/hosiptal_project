@@ -586,7 +586,7 @@ hh
                                 </li>
 
                                 <li title="User management">
-                                    <a href="<?php echo site_url('users/index/Yes'); ?>" class="<?php echo (strtolower($this->router->fetch_class()) == "users" || strpos($parent, "UA") !== false || strpos($parent, "UH") !== false) ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/users.svg" height="23px" width="23px"><span class="sidebar-nav-mini-hide text-dark">Users Management</span></a>
+                                    <a href="<?php echo site_url('users/managements'); ?>" class="<?php echo (strtolower($this->router->fetch_class()) == "users" || strpos($parent, "UA") !== false || strpos($parent, "UH") !== false) ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/users.svg" height="23px" width="23px"><span class="sidebar-nav-mini-hide text-dark">Users Management</span></a>
                                 </li>
 
                                 <li title="Invoices">
