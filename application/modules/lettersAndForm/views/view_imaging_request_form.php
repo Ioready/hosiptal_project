@@ -651,7 +651,7 @@
 
 <div class="block-title ">
 
-    <a href="<?php echo base_url(). 'index.php/lettersAndForm?id=' . encoding($patient_id); ?>"  style="color: black;padding: 9px;font-weight: 900;background-color: ghostwhite;"> Back to Letters
+    <a href="<?php echo base_url(). 'index.php/lettersAndForm?id=' . encoding($patient_id); ?>"  style="color: black;padding: 9px;font-weight: 900;background-color: ghostwhite;"> Back to Form
         </a>
         
         <button onclick="generatePDF()" class="btn btn-outline-success" style="margin-left: 65%;"> <i class="fa fa-edit"></i> Edit</button>
@@ -717,41 +717,41 @@
                     <h2>Patient Information</h2>
                     <div class="form-group">
                         <label>Surname</label>
-                        <input type="text" value="Moholkar" value="<?php echo $result->surname?>" >
+                        <input type="text" value="<?php echo $result->surname?>" >
                     </div>
                     <div class="form-group">
                         <label>First name</label>
-                        <input type="text" value="<?php echo $result->surname?>">
+                        <input type="text" value="<?php echo $result->first_name?>">
                     </div>
                     <div class="form-group">
                         <label>DoB</label>
-                        <input type="text" value="<?php echo $result->surname?>">
+                        <input type="text" value="<?php echo $result->dob?>">
                     </div>
                     <div class="form-group radio-group">
                         <label>Male</label>
-                        <input type="radio" name="gender" >
+                        <input type="radio" name="gender" <?php echo $result->gender == 'male'?'checked':'';?>>
                         <label>Female</label>
-                        <input type="radio" name="gender" checked>
+                        <input type="radio" name="gender" <?php echo $result->gender == 'female'?'checked':'';?>>
                     </div>
                     <div class="form-group">
                         <label>Hospital number</label>
-                        <input type="text"  value="<?php echo $result->surname?>">
+                        <input type="text"  value="<?php echo $result->hospital_number?>">
                     </div>
                     <div class="form-group">
                         <label>Address</label>
-                        <input type="text"  value="<?php echo $result->surname?>">
+                        <input type="text"  value="<?php echo $result->address?>">
                     </div>
                     <div class="form-group">
                         <label>Post Code</label>
-                        <input type="text"  value="<?php echo $result->surname?>">
+                        <input type="text"  value="<?php echo $result->post_code?>">
                     </div>
                     <div class="form-group">
                         <label>Tel home</label>
-                        <input type="tel"  value="<?php echo $result->surname?>">
+                        <input type="tel"  value="<?php echo $result->tel_home?>">
                     </div>
                     <div class="form-group">
                         <label>Tel mobile</label>
-                        <input type="tel" value="<?php echo $result->surname?>">
+                        <input type="tel" value="<?php echo $result->tel_mobile?>">
                     </div>
                 </div>
     
@@ -762,19 +762,19 @@
                         <h2>Appointment</h2>
                         <div class="form-group">
                             <label>Date and Time</label>
-                            <input type="text" value="<?php echo $result->surname?>">
+                            <input type="text" value="<?php echo $result->date_time;?>">
                         </div>
                         <div class="form-group">
                             <label>OP</label>
-                            <input type="checkbox">
+                            <input type="checkbox" <?php echo $result->op =='op'?'checked':'';?>>
                             <label>IP</label>
-                            <input type="checkbox">
+                            <input type="checkbox" <?php echo $result->ip =='ip'?'checked':'';?>>
                             <label>Room No</label>
-                            <input type="text" value="<?php echo $result->surname?>">
+                            <input type="text" value="<?php echo $result->room_number;?>">
                         </div>
                         <div class="checkbox-group">
-                            <label><input type="checkbox">Oxygen</label>
-                            <label><input type="checkbox">Disability</label>
+                            <label><input type="checkbox" <?php echo $result->oxygen =='oxygen'?'checked':'';?>>Oxygen</label>
+                            <label><input type="checkbox" <?php echo $result->disability =='disability'?'checked':'';?>>Disability</label>
                         </div>
                     </div>
     
@@ -783,30 +783,30 @@
                         <h2>To be completed for female patients</h2>
                         <div class="form-group radio-group">
                             <label>Do you think you may be pregnant?</label>
-                            <label><input type="radio" name="pregnant"> Yes</label>
-                            <label><input type="radio" name="pregnant"> No</label>
+                            <label><input type="radio" name="pregnant" <?php echo $result->pregnant =='yes'?'checked':'';?>> Yes</label>
+                            <label><input type="radio" name="pregnant" <?php echo $result->pregnant =='no'?'checked':'';?>> No</label>
                         </div>
                         <div class="form-group">
                             <label>If Yes:</label>
-                            <label><input type="radio" name="xray"> X-ray now</label>
-                            <label><input type="radio" name="wait"> Wait for next LMP</label>
+                            <label><input type="radio" name="xray" <?php echo $result->xray =='x-ray'?'checked':'';?>> X-ray now</label>
+                            <label><input type="radio" name="wait" <?php echo $result->xray =='Wait for next LMP'?'checked':'';?>> Wait for next LMP</label>
                         </div>
                         <div class="form-group">
                             <label>1st day of LMP (date)</label>
-                            <input type="date" value="<?php echo $result->surname?>">
+                            <input type="date" value="<?php echo $result->first_day_of_lmp?>">
                         </div>
                         <div class="form-group radio-group">
                             <label>Are you breastfeeding?</label>
-                            <label><input type="radio" name="breastfeeding"> Yes</label>
-                            <label><input type="radio" name="breastfeeding"> No</label>
+                            <label><input type="radio" name="breastfeeding" <?php echo $result->breastfeeding =='yes'?'checked':'';?>> Yes</label>
+                            <label><input type="radio" name="breastfeeding" <?php echo $result->breastfeeding =='no'?'checked':'';?>> No</label>
                         </div>
                         <div class="form-group">
                             <label>Signature</label>
-                            <input type="text" value="<?php echo $result->surname?>">
+                            <input type="text" value="<?php echo $result->signature?>">
                         </div>
                         <div class="form-group">
                             <label>Date</label>
-                            <input type="date" value="<?php echo $result->surname?>">
+                            <input type="date" value="<?php echo $result->date?>">
                         </div>
                     </div>
                 </div>
@@ -845,15 +845,15 @@
                 <h3>Referrer's name and address (or stamp)</h3>
                 <div class="form-group inline1">
                     <label>Signature:</label>
-                    <input type="text" value="<?php echo $result->surname?>">
+                    <input type="text" value="<?php echo $result->referrer_signature?>">
                 </div>
                 <div class="form-group inline1">
                     <label>Date:</label>
-                    <input type="date" value="<?php echo $result->surname?>">
+                    <input type="date" value="<?php echo $result->referrer_date?>">
                 </div>
                 <div class="form-group inline1">
                     <label>Name/Address:</label>
-                    <input type="text" value="<?php echo $result->surname?>">
+                    <input type="text" value="<?php echo $result->referrer_name_address?>">
                 </div>
             </div>
         </div>
@@ -864,63 +864,63 @@
                 <h3>Medication Required (Referring Consultant to complete)</h3>
                 <div class="form-group1">
                     <label>Allergies:</label>
-                    <input type="text" value="<?php echo $result->surname?>">
+                    <input type="text" value="<?php echo $result->medication_required_allergies?>">
                 </div>
                 <div class="form-group1">
                     <label>Medication:</label>
-                    <input type="text" value="<?php echo $result->surname?>">
+                    <input type="text" value="<?php echo $result->medication_required_medication?>">
                 </div>
                 <div class="form-group1">
                     <label>Dose:</label>
-                    <input type="text" value="<?php echo $result->surname?>">
+                    <input type="text" value="<?php echo $result->medication_required_dose?>">
                 </div>
                 <div class="form-group1">
                     <label>Date:</label>
-                    <input type="date" value="<?php echo $result->surname?>">
+                    <input type="date" value="<?php echo $result->medication_required_date?>">
                 </div>
                 <div class="form-group inline1">
                     <label>Signature:</label>
-                    <input type="text" value="<?php echo $result->surname?>">
+                    <input type="text" value="<?php echo $result->medication_required_signature?>">
                 </div>
                 <div class="form-group inline1">
                     <label>GMC No:</label>
-                    <input type="text" value="<?php echo $result->surname?>">
-                </div>
+                    <input type="text" value="<?php echo $result->medication_required_gmc_no?>">
+                </div>medication_required_gmc_no
             </div>
             <div class="half-width-section1">
                 <h3>Additional information for MRI patients</h3>
                 <div class="mri-info1">
                     <label>Does the patient have a cardiac pacemaker?</label>
-                    <input type="radio" name="pacemaker" value="yes"> Yes
-                    <input type="radio" name="pacemaker" value="no"> No
+                    <input type="radio" name="pacemaker" value="yes" <?php echo $result->mri_patients_cardiac_pacemaker == 'yes'?'checked':'';?>> Yes
+                    <input type="radio" name="pacemaker" value="no" <?php echo $result->mri_patients_cardiac_pacemaker == 'no'?'checked':'';?>> No
                 </div>
                 <div class="mri-info1">
                     <label>Does the patient have heart valve replacements?</label>
-                    <input type="radio" name="heart-valve" value="yes"> Yes
-                    <input type="radio" name="heart-valve" value="no"> No
+                    <input type="radio" name="heart-valve" value="yes" <?php echo $result->mri_patients_heart_valve == 'yes'?'checked':'';?>> Yes
+                    <input type="radio" name="heart-valve" value="no" <?php echo $result->mri_patients_heart_valve == 'no'?'checked':'';?>> No
                 </div>
                 <div class="mri-info1">
                     <label>Has the patient any metal fragments in their eyes?</label>
-                    <input type="radio" name="metal-fragments" value="yes"> Yes
-                    <input type="radio" name="metal-fragments" value="no"> No
+                    <input type="radio" name="metal-fragments" value="yes" <?php echo $result->mri_patients_metal_fragments == 'yes'?'checked':'';?>> Yes
+                    <input type="radio" name="metal-fragments" value="no" <?php echo $result->mri_patients_metal_fragments == 'no'?'checked':'';?>> No
                 </div>
                 <div class="mri-info1">
                     <label>Has the patient had any cranial surgery?</label>
-                    <input type="radio" name="cranial-surgery" value="yes"> Yes
-                    <input type="radio" name="cranial-surgery" value="no"> No
+                    <input type="radio" name="cranial-surgery" value="yes" <?php echo $result->mri_patients_cranial_surgery == 'yes'?'checked':'';?>> Yes
+                    <input type="radio" name="cranial-surgery" value="no" <?php echo $result->mri_patients_cranial_surgery == 'no'?'checked':'';?>> No
                 </div>
                 <div class="mri-info1">
                     <label>Does the patient have any metal in their body?</label>
-                    <input type="radio" name="metal-body" value="yes"> Yes
-                    <input type="radio" name="metal-body" value="no"> No
+                    <input type="radio" name="metal-body" value="yes" <?php echo $result->mri_patients_metal_body == 'yes'?'checked':'';?>> Yes
+                    <input type="radio" name="metal-body" value="no" <?php echo $result->mri_patients_metal_body == 'no'?'checked':'';?>> No
                 </div>
                 <div class="form-group1">
                     <label>Is the patient on any anti-coagulant?</label>
-                    <input type="text" value="<?php echo $result->surname?>">
+                    <input type="text" value="<?php echo $result->mri_patients_anti_coagulant?>">
                 </div>
                 <div class="form-group1">
                     <label>If so state value or provide eGFR:</label>
-                    <input type="text" value="<?php echo $result->surname?>">
+                    <input type="text" value="<?php echo $result->mri_patients_provide_egfr?>">
                 </div>
             </div>
         </div>
@@ -934,7 +934,7 @@
             <!-- First Section -->
             <div class="form-section2">
                 <div class="form-header2">For completion by Imaging Department staff</div>
-                <textarea class="input-text" rows="2" placeholder="Enter protocol"> <?php echo $result->surname?></textarea>
+                <textarea class="input-text" rows="2" placeholder="Enter protocol"> <?php echo $result->imaging_department_staff?></textarea>
             </div>
     
             <!-- Second Section -->
@@ -942,8 +942,8 @@
                 <div class="form-header2">Person making exposure has checked the patient's ID</div>
                 <table class="form-table">
                     <tr>
-                        <th class="form-radio">YES <input type="radio" name="check_id" value="yes"></th>
-                        <th class="form-radio">NO <input type="radio" name="check_id" value="no"></th>
+                        <th class="form-radio">YES <input type="radio" name="check_id" <?php echo $result->returned_check_id =='yes'?'checked':'';?>></th>
+                        <th class="form-radio">NO <input type="radio" name="check_id" <?php echo $result->returned_check_id =='no'?'checked':'';?>></th>
                     </tr>
                 </table>
             </div>
@@ -954,31 +954,31 @@
                 <table class="form-table2">
                     <tr>
                         <td>Patient's height:</td>
-                        <td><input type="text" class="input-text" placeholder="Enter height" value="<?php echo $result->surname?>"></td>
+                        <td><input type="text" class="input-text" placeholder="Enter height" value="<?php echo $result->operator_use_patient_height?>"></td>
                         <td>Patient's weight:</td>
-                        <td><input type="text" class="input-text" placeholder="Enter weight" value="<?php echo $result->surname?>"></td>
+                        <td><input type="text" class="input-text" placeholder="Enter weight" value="<?php echo $result->operator_use_patient_weight?>"></td>
                     </tr>
                     <tr>
                         <td>kV:</td>
-                        <td><input type="text" class="input-text" placeholder="Enter kV" value="<?php echo $result->surname?>"></td>
+                        <td><input type="text" class="input-text" placeholder="Enter kV" value="<?php echo $result->operator_use_kv?>"></td>
                         <td>mAs:</td>
-                        <td><input type="text" class="input-text" placeholder="Enter mAs" value="<?php echo $result->surname?>"></td>
+                        <td><input type="text" class="input-text" placeholder="Enter mAs" value="<?php echo $result->operator_use_mas?>"></td>
                     </tr>
                     <tr>
                         <td>Operator's name & signature:</td>
-                        <td><input type="text" class="input-text" placeholder="Enter name/signature" value="<?php echo $result->surname?>"></td>
+                        <td><input type="text" class="input-text" placeholder="Enter name/signature" value="<?php echo $result->pperators_name_signature?>"></td>
                         <td>Number of exposures/films:</td>
-                        <td><input type="text" class="input-text" placeholder="Enter exposures" value="<?php echo $result->surname?>"></td>
+                        <td><input type="text" class="input-text" placeholder="Enter exposures" value="<?php echo $result->operators_number_of_exposures_films?>"></td>
                     </tr>
                     <tr>
                         <td>Dose (cGycm²):</td>
-                        <td><input type="text" class="input-text" placeholder="Enter dose" value="<?php echo $result->surname?>"></td>
+                        <td><input type="text" class="input-text" placeholder="Enter dose" value="<?php echo $result->operators_dose_cgycm?>"></td>
                         <td>Fluoro Time:</td>
-                        <td><input type="text" class="input-text" placeholder="Enter time" value="<?php echo $result->surname?>"></td>
+                        <td><input type="text" class="input-text" placeholder="Enter time" value="<?php echo $result->operators_fluoro_time?>"></td>
                     </tr>
                     <tr>
                         <td>Examination justified by: name & signature:</td>
-                        <td><input type="text" class="input-text" placeholder="Enter name/signature" value="<?php echo $result->surname?>"></td>
+                        <td><input type="text" class="input-text" placeholder="Enter name/signature" value="<?php echo $result->operators_examination_justified_name_signature?>"></td>
                         
                     </tr>
                 </table>
@@ -993,8 +993,8 @@
                 <div>Female comforters and carers only – I declare that I am not pregnant</div>
                 <table class="form-table2">
                     <tr>
-                        <th>Yes <input type="radio" name="pregnancy" value="yes"></th>
-                        <th>No <input type="radio" name="pregnancy" value="no"></th>
+                        <th>Yes <input type="radio" name="pregnancy" <?php echo $result->patient_holding_record_pregnancy =='yes'?'checked':'';?>></th>
+                        <th>No <input type="radio" name="pregnancy" <?php echo $result->patient_holding_record_pregnancy =='no'?'checked':'';?>></th>
                     </tr>
                 </table>
                 <table class="form-table2">
@@ -1006,19 +1006,19 @@
                         <th>Patient Dose</th>
                     </tr>
                     <tr>
-                        <td><input type="text" class="input-text" value="<?php echo $result->surname?>"></td>
-                        <td><input type="text" class="input-text" value="<?php echo $result->surname?>"></td>
-                        <td><input type="text" class="input-text" value="<?php echo $result->surname?>"></td>
-                        <td><input type="text" class="input-text" value="<?php echo $result->surname?>"></td>
-                        <td><input type="text" class="input-text" value="<?php echo $result->surname?>"></td>
+                        <td><input type="text" class="input-text" value="<?php echo $result->patient_holding_record_comforter_carer?>"></td>
+                        <td><input type="text" class="input-text" value="<?php echo $result->patient_holding_record_signature?>"></td>
+                        <td><input type="text" class="input-text" value="<?php echo $result->patient_holding_record_ffd?>"></td>
+                        <td><input type="text" class="input-text" value="<?php echo $result->patient_holding_record_patient_carer_distance?>"></td>
+                        <td><input type="text" class="input-text" value="<?php echo $result->patient_holding_record_patient_dose?>"></td>
                     </tr>
-                    <tr>
+                    <!-- <tr>
                         <td><input type="text" class="input-text" value="<?php echo $result->surname?>"></td>
                         <td><input type="text" class="input-text" value="<?php echo $result->surname?>"></td>
                         <td><input type="text" class="input-text" value="<?php echo $result->surname?>"></td>
                         <td><input type="text" class="input-text" value="<?php echo $result->surname?>"></td>
                         <td><input type="text" class="input-text" value="<?php echo $result->surname?>"></td>
-                    </tr>
+                    </tr> -->
                 </table>
             </div>
     
@@ -1067,34 +1067,34 @@
             <div class="section-title2">Checklist</div>
             <div class="checkbox-section2">
                 <div class="checkbox-item2">
-                    <input type="checkbox" id="id-check">
+                    <input type="checkbox" id="id-check" <?php echo $result->checklist_patient_id_check =='on'?'checked':'';?>>
                     <label for="id-check">Patient ID Check</label>
                 </div>
                 <div class="checkbox-item2">
-                    <input type="checkbox" id="exam-justification">
+                    <input type="checkbox" id="exam-justification" <?php echo $result->checklist_exam_justification =='on'?'checked':'';?>>
                     <label for="exam-justification">Exam Justification</label>
                 </div>
                 <div class="checkbox-item2">
-                    <input type="checkbox" id="previous-exams">
+                    <input type="checkbox" id="previous-exams" <?php echo $result->checklist_previous_exams =='on'?'checked':'';?>>
                     <label for="previous-exams">Previous Exams</label>
                 </div>
                 <div class="checkbox-item2">
-                    <input type="checkbox" id="risk-explained">
+                    <input type="checkbox" id="risk-explained" <?php echo $result->checklist_risk_explained =='on'?'checked':'';?>>
                     <label for="risk-explained">Radiation/Risk Explained</label>
                 </div>
                 <div class="checkbox-item2">
-                    <input type="checkbox" id="within-limits">
+                    <input type="checkbox" id="within-limits" <?php echo $result->checklist_within_limits =='on'?'checked':'';?>>
                     <label for="within-limits">Within DRL Limits</label>
                 </div>
                 <div class="checkbox-item2">
-                    <input type="checkbox" id="report-flagged">
+                    <input type="checkbox" id="report-flagged" <?php echo $result->checklist_report_flagged =='on'?'checked':'';?>>
                     <label for="report-flagged">Urgent Report Flagged</label>
                 </div>
             </div>
     
             <!-- Notes Section -->
             <div class="section-title2">Notes:</div>
-            <textarea class="notes-area2"></textarea>
+            <textarea class="notes-area2"><?php echo $result->notes;?></textarea>
     
             <!-- Patient Charges Section -->
             <div class="section-title2">Patient charges</div>
@@ -1135,7 +1135,7 @@
     
             <!-- Operator Comments Section -->
             <div class="section-title2">Operator Comments</div>
-            <textarea class="comments-area2"></textarea>
+            <textarea class="comments-area2"><?php echo $result->operator_comments;?></textarea>
         </div>
     </div>
       <!-- JavaScript for PDF Generation -->

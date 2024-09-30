@@ -401,7 +401,7 @@
         
             <div class="col-sm-12 col-md-12" style="padding: 15px; border-block-end-style: inset;">
                 <input type="hidden" name="folder_id" id="folder_id" value="<?php echo $folder->id;?>">
-                <span><b><?php echo $folder->title; ?></b></span><br>
+                <span><b><?php if(!empty($folder->title)){echo $folder->title;}else{ echo 'Imaging request form';} ?></b></span><br>
                 <span>Created <?php echo date_format(date_create($folder->create_date), 'd/m/Y'); ?> | <strong><?php echo $folder->first_name . ' ' . $folder->last_name; ?></strong></span>
                 <!-- <span style="float:right;">...</span> -->
 

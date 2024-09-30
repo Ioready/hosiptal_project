@@ -1,6 +1,7 @@
 <!-- Page content -->
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
 
 
 
@@ -8,10 +9,10 @@
 
 <style>
 
-.btn {
+/* .btn {
     margin: 1px 0;
     background-color: #b9adad;
-}
+} */
 
 .modal_popup{
     display: none;
@@ -243,24 +244,29 @@
     <!-- Datatables Content -->
     <div class="block full">
 
-<div class="block-title ">
+<!-- <div class="block-title "> -->
 
-    <ul class="nav nav-pills nav-fill nav-tabss" id="pills-tab" role="tablist" style="width: fit-content;">
-        <!-- <li onclick="toggleDisplay()" class="nav-item">
-            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#letters_id" role="tab">Letters</a>
-        </li>
-        <li onclick="toggleHidden()" class="nav-item">
-            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#forms_id" role="tab">Forms</a>
-        </li> -->
+    <!-- <ul class="nav nav-pills nav-fill nav-tabss" id="pills-tab" role="tablist" style="width: fit-content;">
+       
         <a href="<?php echo base_url(). 'index.php/lettersAndForm?id=' . encoding($patient_id); ?>"  style="color: black;padding: 9px;font-weight: 900;background-color: ghostwhite;"> Back to Letters
         </a>
         
-    </ul>
+    </ul> -->
 
+<!-- </div> -->
+<div class="block-title ">
+
+<a href="<?php echo base_url(). 'index.php/lettersAndForm?id=' . encoding($patient_id); ?>"  style="color: black;padding: 9px;font-weight: 900;background-color: ghostwhite;"> Back to Form
+</a>
+
+<!-- <button onclick="generatePDF()" class="btn btn-outline-success" style="margin-left: 65%;"> <i class="fa fa-edit"></i> Edit</button> -->
+<!-- <button onclick="generatePDF()" class="btn btn-success save-preview" style="margin-left: 82%;"> <i class="fa fa-download"></i> Download</button> -->
+
+<a href="<?php echo base_url().'index.php/lettersAndForm/viewBookingForm?id=' . encoding($patient_id) . '&form_id=' . encoding($form_id); ?>" class="link"><button for="" type="button" class="btn btn-success save-preview"><b> Save and preview</b></button></a>
 </div>
 
 
-<div class="">
+<div class="" id="booking-form">
     
     <?php if ($this->ion_auth->is_facilityManager()) { ?>
         <div class="row">
@@ -287,11 +293,14 @@
 </div>
 <br><br>
 
+
+
 <div class="container mt-5">
         
 <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url($formUrlData) ?>" enctype="multipart/form-data">
         <!-- <form class="form-horizontal" role="form" id="" method="post" action="<?php echo base_url();?>LettersAndForm/addBookingForm"> -->
 
+        <div>
             <div class="row">
 
             <input type="hidden" name="patient_id" id="patient_id" value="<?php echo $patient_id;?>">
@@ -808,12 +817,32 @@
             <div class="text-center">
                 <button type="submit" type="submit" class="btn" style="background-color: #2e8cdd; color:white;">Book Now</button>
             </div>
+        </div>
         </form>
     </div>
+
+    <script>
+    function generatePDF() {
+        const element = document.getElementById('booking-form');
+        
+        html2pdf(element, {
+            margin: 10,
+            filename: 'booking-form.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        });
+    }
+</script>
+    <!-- </div> -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> -->
     </div>
    
 </div>
+
+
 
 
 

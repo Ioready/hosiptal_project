@@ -316,11 +316,11 @@ h1 {
 
 <div class="block-title ">
 
-        <a href="<?php echo base_url(). 'index.php/lettersAndForm?id=' . encoding($patient_id); ?>"  style="color: black;padding: 9px;font-weight: 900;background-color: ghostwhite;"> Back to Letters
+        <a href="<?php echo base_url(). 'index.php/lettersAndForm?id=' . encoding($patient_id); ?>"  style="color: black;padding: 9px;font-weight: 900;background-color: ghostwhite;"> Back to Form
         </a>
         
-        <button onclick="generatePDF()" class="btn btn-outline-success" style="margin-left: 65%;"> <i class="fa fa-edit"></i> Edit</button>
-        <button onclick="generatePDF()" class="btn btn-outline-success"> <i class="fa fa-download"></i> Download</button>
+        <!-- <button onclick="generatePDF()" class="btn btn-outline-success" style="margin-left: 65%;"> <i class="fa fa-edit"></i> Edit</button> -->
+        <button onclick="generatePDF()" class="btn btn-outline-success" style="margin-left: 80%;"> <i class="fa fa-download"></i> Download</button>
 
 </div>
 
@@ -361,11 +361,11 @@ h1 {
             <div class="admission-types">
                 <div class="checkbox-group">
                     <label>Medical Admission</label>
-                    <input type="checkbox" <?php echo $result->appointment_type =='Medical Admission' ? 'checked':'';?>>
+                    <input type="checkbox" <?php echo $result->appointment_type =='Medical admission' ? 'checked':'';?>>
                 </div>
                 <div class="checkbox-group">
                     <label>Surgical Admission</label>
-                    <input type="checkbox" <?php echo $result->appointment_type =='Surgical Admission' ? 'checked':'';?>>
+                    <input type="checkbox" <?php echo $result->appointment_type =='Surgical admission' ? 'checked':'';?>>
                 </div>
                 <div class="checkbox-group">
                     <label>Re-admission</label>

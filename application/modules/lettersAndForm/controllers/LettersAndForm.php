@@ -66,16 +66,15 @@ class LettersAndForm extends Common_Controller {
 
         $this->data['list'] = $this->common_model->customGet($option);
 
-
-
         $form_option = array(
-            'table' => 'vendor_sale_booking_form',
-            'select' =>'vendor_sale_booking_form`.*,vendor_sale_users.first_name,vendor_sale_users.last_name',
+            'table' => 'vendor_sale_imaging_request_form',
+            'select' =>'vendor_sale_imaging_request_form`.*,vendor_sale_users.first_name,vendor_sale_users.last_name,vendor_sale_booking_form.title',
             'join' => array(
-                array('vendor_sale_users', 'vendor_sale_booking_form.patient_id=vendor_sale_users.id', 'left'),
+                array('vendor_sale_users', 'vendor_sale_imaging_request_form.patient_id=vendor_sale_users.id', 'left'),
+                array('vendor_sale_booking_form', 'vendor_sale_imaging_request_form.id=vendor_sale_booking_form.form_id', 'left'),
             ),
             
-            'where' => array('vendor_sale_booking_form.patient_id' => $id)
+            'where' => array('vendor_sale_imaging_request_form.patient_id' => $id)
         );
 
         $this->data['form_list'] = $this->common_model->customGet($form_option);
@@ -338,11 +337,28 @@ class LettersAndForm extends Common_Controller {
         // if ($this->form_validation->run() == true) {
            
             $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+
+            $optionsBooking = array(
+                   
+                'patient_id' => $this->input->post('patient_id'),
+                'facility_user_id' => $CareUnitID,
+                'form_type' =>'booking_form',
+                'gender' => $this->input->post('gender'),
+                'address' => $this->input->post('address'),
+                'first_name' => $this->input->post('first_name'),
+                'surname' => $this->input->post('surname'),
+                'dob' => $this->input->post('dob'),
+            );
+
+            $optionBookingForm = array('table' => 'vendor_sale_imaging_request_form', 'data' => $optionsBooking);
+            $this->common_model->customInsert($optionBookingForm);
+            $lastInsertedId = $this->db->insert_id();
            
                 $options_data = array(
                    
                     'patient_id' => $this->input->post('patient_id'),
                     'facility_user_id' => $CareUnitID,
+                    'form_id'=>$lastInsertedId,
                     'appointment_type' =>$this->input->post('appointment_type'),
                     'completed_by' => $this->input->post('completed_by'),
                     'completed_date' => $this->input->post('completed_date'),
@@ -427,36 +443,93 @@ class LettersAndForm extends Common_Controller {
         // $option = array('table' => $this->_tables);
 
         $form_id=  decoding($_GET['form_id']);
-       $id=  decoding($_GET['id']);
-    //    print_r($form_id);die;
-    $option = array(
-        'table' => 'vendor_sale_booking_form',
-        'where' => array('id' => $form_id),
-        'single' => true
-    );
-    // $results_row = $this->common_model->customGet($option);
+        $id=  decoding($_GET['id']);
 
+        $formType = array(
+            'table' => 'vendor_sale_imaging_request_form',
+            'where' => array('id' => $form_id),
+            'single' => true
+        );
 
-        $this->data['result'] = $this->common_model->customGet($option);
-        // print_r($this->data['list']);die;
-        $this->load->admin_render('edit_booking_form', $this->data, 'inner_script');
-                // $this->load->view('booking_form', $this->data, 'inner_script');
+        $formTypePatients = $this->common_model->customGet($formType);
+
+        $patientFormType = $formTypePatients->form_type;
+    // print_r($patientFormType);die;
+        if($patientFormType =='booking_form'){
+            $option = array(
+                'table' => 'vendor_sale_imaging_request_form',
+                'select'=>'vendor_sale_booking_form.*',
+                'join' => array(
+                        array('vendor_sale_booking_form', 'vendor_sale_imaging_request_form.id=vendor_sale_booking_form.form_id', 'left'),
+                    ),
+                'where' => array('vendor_sale_imaging_request_form.id' => $form_id),
+                'single' => true
+            );
+
+            $this->data['result'] = $this->common_model->customGet($option);
+            // print_r($this->data['result']);die;
+            $this->load->admin_render('edit_booking_form', $this->data, 'inner_script');
+
+        }else{
+            $option = array(
+                'table' => 'vendor_sale_imaging_request_form',
+                'select'=>'vendor_sale_imaging_request_form.*',
+                'join' => array(
+                        array('vendor_sale_booking_form', 'vendor_sale_imaging_request_form.id=vendor_sale_booking_form.form_id', 'left'),
+                    ),
+                'where' => array('vendor_sale_imaging_request_form.id' => $form_id),
+                'single' => true
+            );
+
+            $this->data['result'] = $this->common_model->customGet($option);
+            // print_r($this->data['result']);die;
+            $this->load->admin_render('edit_imaging_request_form', $this->data, 'inner_script');
+        }
+        // $this->data['result'] = $this->common_model->customGet($option);
+        // // print_r($this->data['result']);die;
+        // $this->load->admin_render('edit_booking_form', $this->data, 'inner_script');
+
+        
     }
 
 
 
     public function updateBookingForm() {
 
-        // print_r($this->input->post());die;
-        // $this->form_validation->set_rules('appointment_type', "appointment_type", 'required|trim');
-        // if ($this->form_validation->run() == true) {
-           
+        
             $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
-           
+            
+            $formType = array(
+                'table' => 'vendor_sale_imaging_request_form',
+                'where' => array('id' => $this->input->post('form_id')),
+                'single' => true
+            );
+    
+            $formTypePatients = $this->common_model->customGet($formType);
+            $patientFormType = $formTypePatients->form_type;
+
+        // print_r($patientFormType);die;
+            if($patientFormType =='booking_form'){
+
+                $optionsBooking = array(
+                   
+                    // 'patient_id' => $this->input->post('patient_id'),
+                    // 'facility_user_id' => $CareUnitID,
+                    'form_type' =>'booking_form',
+                    'gender' => $this->input->post('gender'),
+                    'address' => $this->input->post('address'),
+                    'first_name' => $this->input->post('first_name'),
+                    'surname' => $this->input->post('surname'),
+                    'dob' => $this->input->post('dob'),
+                );
+    
+                $optionBookingForm = array('table' => 'vendor_sale_imaging_request_form', 'data' => $optionsBooking, 'where' => array('id' => $this->input->post('form_id')));
+    
+                $this->common_model->customUpdate($optionBookingForm);
+
+
                 $options_data = array(
                    
-                    'patient_id' => $this->input->post('patient_id'),
-                    'facility_user_id' => $CareUnitID,
                     'appointment_type' =>$this->input->post('appointment_type'),
                     'completed_by' => $this->input->post('completed_by'),
                     'completed_date' => $this->input->post('completed_date'),
@@ -512,16 +585,101 @@ class LettersAndForm extends Common_Controller {
                     'tests_investigations_required' => $this->input->post('tests_investigations_required'),
                     'procedure_urgency_category' => $this->input->post('procedure_urgency_category')
                 );
+            
+                $option = array('table' => 'vendor_sale_booking_form', 'data' => $options_data, 'where' => array('form_id' => $this->input->post('form_id')));
 
-                $option = array('table' => 'vendor_sale_booking_form', 'data' => $options_data, 'where' => array('id' => $this->input->post('form_id')));
+                // print_r($option);die;
+                // $this->common_model->customUpdate($option);
+
                 if ($this->common_model->customUpdate($option)) {
 
-                $response = array('status' => 1, 'message' => "Successfully updated", 'url' =>base_url($this->router->fetch_class()));
-                } else {
-                    $response = array('status' => 0, 'message' => "Failed to updated");
-                }
-           
-        echo json_encode($response);
+                    $response = array('status' => 1, 'message' => "Successfully updated", 'url' =>base_url($this->router->fetch_class()));
+                    } else {
+                        $response = array('status' => 0, 'message' => "Failed to updated");
+                    }
+
+            }else{
+
+                $options_data = array(
+                    
+                    'surname' =>$this->input->post('surname'),
+                    'first_name' => $this->input->post('first_name'),
+                    'dob' => $this->input->post('dob'),
+                    'gender' => $this->input->post('gender'),
+                    'hospital_number' => $this->input->post('hospital_number'),
+                    'address' => $this->input->post('address'),
+                    'post_code' => $this->input->post('post_code'),
+                    'tel_home' => $this->input->post('tel_home'),
+                    'tel_mobile' => $this->input->post('tel_mobile'),
+                    'date_time' => $this->input->post('date_time'),
+                    'op' => $this->input->post('op'),
+                    'ip' => $this->input->post('ip'),
+                    'oxygen' => $this->input->post('oxygen'),
+                    'pregnant' => $this->input->post('pregnant'),
+                    'xray' => $this->input->post('xray'),
+                    'first_day_of_lmp' => $this->input->post('first_day_of_lmp'),
+                    'breastfeeding' => $this->input->post('breastfeeding'),
+                    'signature' => $this->input->post('signature'),
+                    'date' => $this->input->post('date'),
+                    'referrer_signature' => $this->input->post('referrer_signature'),
+                    'referrer_date' => $this->input->post('referrer_date'),
+                    'referrer_name_address' => $this->input->post('referrer_name_address'),
+                    'medication_required_allergies' => $this->input->post('medication_required_allergies'),
+                    'medication_required_medication' => $this->input->post('medication_required_medication'),
+                    'medication_required_dose' => $this->input->post('medication_required_dose'),
+                    'medication_required_date' => $this->input->post('medication_required_date'),
+                    'medication_required_signature' => $this->input->post('medication_required_signature'),
+                    'medication_required_gmc_no' => $this->input->post('medication_required_gmc_no'),
+                    'mri_patients_cardiac_pacemaker' => $this->input->post('mri_patients_cardiac_pacemaker'),
+                    'mri_patients_heart_valve' => $this->input->post('mri_patients_heart_valve'),
+                    'mri_patients_metal_fragments' => $this->input->post('mri_patients_metal_fragments'),
+                    'mri_patients_cranial_surgery' => $this->input->post('mri_patients_cranial_surgery'),
+                    'mri_patients_metal_body' => $this->input->post('mri_patients_metal_body'),
+                    'mri_patients_anti_coagulant' => $this->input->post('mri_patients_anti_coagulant'),
+                    'mri_patients_provide_egfr' => $this->input->post('mri_patients_provide_egfr'),
+                    'imaging_department_staff' => $this->input->post('imaging_department_staff'),
+                    'returned_check_id' => $this->input->post('returned_check_id'),
+                    'operator_use_patient_height' => $this->input->post('operator_use_patient_height'),
+                    'operator_use_patient_weight' => $this->input->post('operator_use_patient_weight'),
+                    'operator_use_kv' => $this->input->post('operator_use_kv'),
+                    'operator_use_mas' => $this->input->post('operator_use_mas'),
+                    'pperators_name_signature' => $this->input->post('pperators_name_signature'),
+                    'operators_number_of_exposures_films' => $this->input->post('operators_number_of_exposures_films'),
+                    'operators_dose_cgycm' => $this->input->post('operators_dose_cgycm'),
+                    'operators_fluoro_time' => $this->input->post('operators_fluoro_time'),
+                    'operators_examination_justified_name_signature' => $this->input->post('operators_examination_justified_name_signature'),
+                    'patient_holding_record_pregnancy' => $this->input->post('patient_holding_record_pregnancy'),
+                    'patient_holding_record_comforter_carer' => $this->input->post('patient_holding_record_comforter_carer'),
+                    'patient_holding_record_signature' => $this->input->post('patient_holding_record_signature'),
+                    'patient_holding_record_ffd' => $this->input->post('patient_holding_record_ffd'),
+                    'patient_holding_record_patient_carer_distance' => $this->input->post('patient_holding_record_patient_carer_distance'),
+                    'patient_holding_record_patient_dose' => $this->input->post('patient_holding_record_patient_dose'),
+                    'checklist_patient_id_check' => $this->input->post('checklist_patient_id_check'),
+                    'checklist_exam_justification' => $this->input->post('checklist_exam_justification'),
+                    'checklist_previous_exams' => $this->input->post('checklist_previous_exams'),
+                    'checklist_risk_explained' => $this->input->post('checklist_risk_explained'),
+                    'checklist_within_limits' => $this->input->post('checklist_within_limits'),
+                    'checklist_report_flagged' => $this->input->post('checklist_report_flagged'),
+                    'notes' => $this->input->post('notes'),
+                    'operator_comments' => $this->input->post('operator_comments'),
+                );
+    
+                // $optionBookingForm = array('table' => 'vendor_sale_imaging_request_form', 'data' => $optionsBooking);
+                $option = array('table' => 'vendor_sale_imaging_request_form', 'data' => $options_data, 'where' => array('id' => $this->input->post('form_id')));
+                // print_r($option);die;
+                // $this->common_model->customUpdate($optionBookingForm);
+
+                if ($this->common_model->customUpdate($option)) {
+
+                    $response = array('status' => 1, 'message' => "Successfully updated", 'url' =>base_url($this->router->fetch_class()));
+                    } else {
+                        $response = array('status' => 0, 'message' => "Failed to updated");
+                    }
+            }
+
+            
+               
+            echo json_encode($response);
     }
 
 
@@ -541,12 +699,27 @@ class LettersAndForm extends Common_Controller {
         $form_id=  decoding($_GET['form_id']);
         $id=  decoding($_GET['id']);
     
-    $option = array(
-        'table' => 'vendor_sale_booking_form',
+    // $option = array(
+    //     'table' => 'vendor_sale_booking_form',
+    //     'where' => array('id' => $form_id),
+    // );
+   
+    //     $this->common_model->customDelete($option);
+
+    $form_option = array(
+        'table' => 'vendor_sale_letters_and_form',
         'where' => array('id' => $form_id),
     );
-   
-        $this->common_model->customDelete($option);
+
+    $this->common_model->customDelete($form_option);
+
+    $option = array(
+        'table' => 'vendor_sale_imaging_request_form',
+        'where' => array('id' => $form_id),
+    );
+
+    $this->common_model->customDelete($option);
+    
        
         $this->session->set_flashdata('message', 'Deleted Successfully.');
         redirect('lettersAndForm?id=' . encoding($id));
@@ -1026,8 +1199,8 @@ $response = array('status' => 1, 'message' => "Successfully added", 'url' =>base
         // $option = array('table' => $this->_tables);
 
         // $form_id=  decoding($_GET['form_id']);
-        $form_id=  '20';
-       $id=  decoding($_GET['id']);
+        $form_id=  decoding($_GET['form_id']);
+       $patient_id=  decoding($_GET['id']);
         //    print_r($form_id);die;
         //  $option = array(
         // 'table' => 'vendor_sale_booking_form',
@@ -1037,14 +1210,39 @@ $response = array('status' => 1, 'message' => "Successfully added", 'url' =>base
 
         // $results_row = $this->common_model->customGet($option);
 
-        $option = array(
+        // $option = array(
+        //     'table' => 'vendor_sale_booking_form',
+        //     'order' => array('id' => 'DESC'),  // Replace 'id' with the column you want to order by
+        //     'single' => true  // Ensure only the most recent record is fetched
+        // );
+
+        if(!empty($form_id)){
+
+        $form_option = array(
+            'table' => 'vendor_sale_imaging_request_form',
+            'select' =>'vendor_sale_booking_form`.*,vendor_sale_users.first_name,vendor_sale_users.last_name,vendor_sale_booking_form.title',
+            'join' => array(
+                array('vendor_sale_users', 'vendor_sale_imaging_request_form.patient_id=vendor_sale_users.id', 'left'),
+                array('vendor_sale_booking_form', 'vendor_sale_imaging_request_form.id=vendor_sale_booking_form.form_id', 'left'),
+            ),
+            
+            'where' => array('vendor_sale_imaging_request_form.id' => $form_id),
+            'single' => true
+        );
+    }else{
+
+        $form_option = array(
             'table' => 'vendor_sale_booking_form',
+            'where' => array('vendor_sale_booking_form.patient_id' => $patient_id),
             'order' => array('id' => 'DESC'),  // Replace 'id' with the column you want to order by
             'single' => true  // Ensure only the most recent record is fetched
         );
+    }
 
-        $this->data['result'] = $this->common_model->customGet($option);
-        // print_r($this->data['result']);die;
+        // $this->data['form_list'] = $this->common_model->customGet($form_option);
+
+        $this->data['result'] = $this->common_model->customGet($form_option);
+        // print_r($this->data['result']);die; 
         $this->load->admin_render('view_booking_form', $this->data, 'inner_script');
                 // $this->load->view('booking_form', $this->data, 'inner_script');
     }
@@ -1066,14 +1264,27 @@ $response = array('status' => 1, 'message' => "Successfully added", 'url' =>base
         // $option = array('table' => $this->_tables);
 
         $form_id=  decoding($_GET['form_id']);
+        // print_r($form_id);die;
        $id=  decoding($_GET['id']);
         
         // $results_row = $this->common_model->customGet($option);
-        $option = array(
-            'table' => 'vendor_sale_imaging_request_form',
-            'order' => array('id' => 'DESC'),  // Replace 'id' with the column you want to order by
-            'single' => true  // Ensure only the most recent record is fetched
-        );
+        if( !empty($form_id)){
+            $option = array(
+                'table' => 'vendor_sale_imaging_request_form',
+                'where' => array('vendor_sale_imaging_request_form.id' => $form_id),
+                'single' => true  // Ensure only the most recent record is fetched
+            );
+
+        }else{
+            $option = array(
+                'table' => 'vendor_sale_imaging_request_form',
+                'order' => array('id' => 'DESC'),  // Replace 'id' with the column you want to order by
+                'single' => true  // Ensure only the most recent record is fetched
+            );
+
+        }
+
+        
 
         $this->data['result'] = $this->common_model->customGet($option);
         // print_r($this->data['result']);die;
