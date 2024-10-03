@@ -1,16 +1,132 @@
 <!-- Page content -->
+
+<style>
+        /* Custom Styles for Enhanced UI */
+        body {
+            background-color: #f4f6f9;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .container {
+            
+            max-width: 1100px;
+        }
+
+        .table-responsive {
+            margin-bottom: 20px;
+        }
+
+        /* Table with full border */
+        table.dataTable.table {
+            background-color:white;
+            border: 1px solid #dee2e6 !important;
+            border-collapse: collapse !important;
+        }
+
+        /* Table cell border */
+        .table td, .table th {
+            border: 1px solid #dee2e6;
+        }
+
+        /* Center header text */
+        .table th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+            color: #495057;
+            text-align: center !important;
+        }
+
+        .table tbody tr {
+            background-color: #fff;
+            transition: background-color 0.3s ease;
+        }
+
+        .table tbody tr:hover {
+            background-color: #f1f3f5;
+        }
+
+        /* Action Buttons */
+        .table-action {
+            cursor: pointer;
+            color: #0d6efd;
+        }
+
+        .table-action:hover {
+            color: #0b5ed7;
+        }
+
+        /* Badges */
+        .badge-outstanding {
+            background-color: #ffc107;
+            font-size: 12px;
+            color: white;
+            padding: 5px 8px;
+            border-radius: 10px;
+        }
+
+        /* Custom total, paid, outstanding layout */
+        .invoice-status {
+            line-height: 1.3;
+            text-align: center;
+        }
+
+        .invoice-status .total {
+            font-weight: bold;
+        }
+
+        .invoice-status .paid {
+            color: green;
+        }
+
+        .invoice-status .outstanding {
+            color: red;
+        }
+
+        /* Mobile Specific Styles */
+        @media (max-width: 767px) {
+            .table-responsive {
+                overflow-x: auto;
+            }
+
+            .container {
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+
+            table.dataTable.table {
+                width: 100%;
+                font-size: 14px;
+            }
+
+            .pagination {
+                justify-content: center;
+            }
+        }
+        .btn-primary {
+    /* --bs-btn-color: #fff;
+    --bs-btn-bg: #0d6efd;
+    --bs-btn-border-color: #0d6efd;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #0b5ed7;
+    --bs-btn-hover-border-color: #0a58ca;
+    --bs-btn-focus-shadow-rgb: 49, 132, 253;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #0a58ca;
+    --bs-btn-active-border-color: #0a53be;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: #0d6efd;
+    --bs-btn-disabled-border-color: #0d6efd; */
+    background:#0d6efd!important;
+    color:#fff;
+}
+    </style>
+
 <div id="page-content">
     <div class="block_list full">
       
     </div>
-    <!-- END Datatables Header -->
-
-    <!-- Quick Stats -->
-    <!-- <div class="block_list full">
-
-
-    </div> -->
-    <!-- END Quick Stats -->
+  
     <?php if ($this->ion_auth->is_admin() or $this->ion_auth->is_subAdmin() or $this->ion_auth->is_facilityManager()) { ?>
        
 
@@ -243,154 +359,133 @@
 
     <?php } ?>
     
-   
+    <div class="block full">
+        <!-- <div class="row text-center"> -->
+
+            <div class="mt-5">
+                <h2 class="mb-4">Invoice Management</h2>
+
+                <div class="d-flex justify-content-between mb-3 align-items-center flex-wrap">
+                    <button class="btn btn-primary">New Invoice +</button>
+                    <div class="mt-2">
+                        <label for="dateRange" class="me-2">Duration:</label>
+                        <input type="text" id="dateRange" class="form-control d-inline-block" style="width: 250px;" readonly>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table id="invoiceTable" class="table table-bordered table-hover align-middle text-center">
+                        <thead class="table-light text-center ">
+                        <tr>
+                            <th>Invoice</th>
+                            <th>Client</th>
+                            <th>Total</th>
+                            <th>Invoice Date</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>INV#002</td>
+                            <td>aditya urmaliya</td>
+                            <td>
+                                <div class="invoice-status">
+                                    <span class="total">Total: $0.00</span><br>
+                                    <span class="paid">Paid: $0.00</span><br>
+                                    <span class="outstanding">Outstanding: $0.00</span>
+                                </div>
+                            </td>
+                            <td>16-07-2024</td>
+                            <td>
+                                <span class="table-action" onclick="editInvoice()">✎ </span>
+                                <span class="table-action ms-3" onclick="deleteInvoice()">✖ </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>INV#001</td>
+                            <td>Yue Sun</td>
+                            <td>
+                                <div class="invoice-status">
+                                    <span class="total">Total: $0.00</span><br>
+                                    <span class="paid">Paid: $0.00</span><br>
+                                    <span class="outstanding">Outstanding: $0.00</span>
+                                </div>
+                            </td>
+                            <td>04-07-2024</td>
+                            <td>
+                                <span class="table-action" onclick="editInvoice()">✎ </span>
+                                <span class="table-action ms-3" onclick="deleteInvoice()">✖ </span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="black-screen" id="blackScreen"></div>
+
+                <!-- Edit Modal -->
+                <div class="modal fade" id="editModal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Edit Invoice</h5>
+                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Edit invoice details here.</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        <!-- </div> -->
+    </div>
     <!-- END Datatables Content -->
 </div>
 <!-- END Page Content -->
 <div id="form-modal-box"></div>
 
 
-<script type="text/javascript">
-    $('#date').datepicker({
-        startView: 2,
-        todayBtn: "linked",
-        keyboardNavigation: false,
-        forceParse: false,
-        calendarWeeks: true,
-        autoclose: true,
-        endDate:'today'       
-    });
-/*    $("#zipcode").select2({
-        allowClear: true
-    });*/
-</script>
-
-<style>
-    .btnPrevious,
-.btnNext{
-	display: inline-block;
-	border: 1px solid #444348;
-	border-radius: 3px;
-	margin: 5px;
-	color: #444348;
-	font-size: 14px;
-	padding: 10px 15px;
-	cursor: pointer;
-}
-
-.nav-tabss {
-    margin-bottom: 0;
-    padding-left: 0;
-    list-style: none;
-    width: 316px;
-    border-radius: inherit;
-    font-weight: 900;
-}
-.nav-tab-appointment{
-    margin-bottom: 0;
-    padding-left: 0;
-    list-style: none;
-    /* width: 553px; */
-    padding: 20px;
-    border-radius: inherit;
-    background-color:white;
-
-}
-.nav-tab-appointment.active-link{
-    margin-bottom: 0;
-    padding-left: 0;
-    list-style: none;
-    width: 553px;
-    padding: 20px;
-    border-radius: inherit;
-    background-color:white;
-
-}
-
-.nav-pills-second{
-    background-color:white;
-}
-.nav-pills-second>li {
-    float: left;
-}
-.nav-pills-second.ul li:active .underline {
-	transition: none;
-	background-color: red;
-}
-
-.nav-link>a.active.underline {
-	width: 100%;
-	background-color: red;
-}
-.new-contact{
-    background-color: darkslategray;
-    color: white;
-    font-weight: 900;
-    width: 88px;
-}
-a.new-contact:hover{
-    /* background-color: #d9416c !important; */
-    color: white;
-    font-weight: 900;
-    width: 88px;
-}
-</style>
-
-<style>
-    /* Custom styles for dropdown */
-.select-dropdown {
-    position: relative;
-}
-
-/* Custom styles for search input */
-.input-group-search {
-    position: relative;
-}
-
-/* Adjust the dropdown and search input width as needed */
-.select-dropdown .btn-secondary,
-.input-group-search .form-control {
-    width: 100%;
-}
-
-.save-btn{
-    font-weight:700;
-    font-size: 1.5rem;
-    padding: 0.6rem 2.25rem;
-    background:#337ab7;
-}
-.save-btn:hover{
-    /* background-color:#00008B !important; */
-    background:#00008B !important;
-}
-
-
-::-webkit-scrollbar {
- display:none;
-}
-
-</style>
 <script>
+    // Initialize DataTable with search and pagination
+    $(document).ready(function () {
+        $('#invoiceTable').DataTable({
+            "paging": true,
+            "searching": true,
+            "lengthChange": false,
+            "pageLength": 10
+        });
 
-$(document).ready(function() {
-    // Toggle dropdown on button click
-    $('[data-testid="button__dropdown--sort-menu"]').click(function() {
-        $(this).toggleClass('active');
-        // Toggle dropdown menu visibility
-        $(this).next('.ListViewMenu__buttonGroup___MY6Wh').toggle();
+        // Initialize date range picker
+        $('#dateRange').daterangepicker({
+            opens: 'left',
+            startDate: moment().subtract(89, 'days'),
+            endDate: moment(),
+            locale: {
+                format: 'DD-MM-YYYY'
+            }
+        });
+
+        $('#dateRange').on('apply.daterangepicker', function (ev, picker) {
+            console.log("Start Date: " + picker.startDate.format('DD-MM-YYYY'));
+            console.log("End Date: " + picker.endDate.format('DD-MM-YYYY'));
+        });
     });
 
-    // Handle search button click
-    $('.btn-search').click(function() {
-        // Get search input value
-        var searchTerm = $(this).closest('.input-group').find('.form-control').val();
-        // Perform search operation with the searchTerm
-        console.log('Search term:', searchTerm);
-    });
-});
+    // Placeholder edit function
+    function editInvoice() {
+        $('#editModal').modal('show');
+    }
 
+    // Placeholder delete function
+    function deleteInvoice() {
+        alert('Delete invoice action triggered.');
+    }
 </script>
-
-
-
-
