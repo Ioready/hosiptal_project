@@ -517,16 +517,18 @@ class Users extends Common_Controller
                     }
                     else
                     {
-                        echo "Failed to send email";
-                        show_error($this->email->print_debugger());             
-                            }
+                    echo "Failed to send email";
+                    show_error($this->email->print_debugger());             
+                        }
+
+                        
 // print_r($this->email->send());die;
 
 
                     // $this->sent_mail($email, $from, $subject, $template, $title);
 
-                    
-                    $response = array('status' => 1, 'message' => lang('user_success'), 'url' => base_url('users'));
+                    $response = array('status' => 1, 'message' => "Successfully added", 'url' => base_url($this->router->fetch_class()));
+                    // $response = array('status' => 1, 'message' => lang('user_success'), 'url' => base_url('users'));
                 } else {
                     $response = array('status' => 0, 'message' => lang('user_failed'));
                 }
@@ -585,7 +587,9 @@ class Users extends Common_Controller
     public function user_edit()
     {
         $this->data['title'] = lang("edit_user");
-        $id = decoding($_GET['id']);
+        // $id = decoding($_GET['id']);
+        $id = decoding($this->input->post('id')); // delete id
+        // print_r($id);die;
         if (!empty($id)) {
             /* $option = array(
               'table' => USERS . ' as user',
@@ -952,7 +956,15 @@ class Users extends Common_Controller
 
         $this->data['parent'] = "User";
         $this->data['title'] = "Users";
-        $this->data['status'] = ($status == "Yes") ? 1 : 0;
+        // $this->data['status'] = ($status == "Yes") ? 1 : 0;
+
+        $this->data['title'] = lang("add_user");
+        $option = array(
+            'table' => 'countries',
+            'select' => '*'
+        );
+        $this->data['countries'] = $this->common_model->customGet($option);
+
         $role_name = $this->input->post('role_name');
         $this->data['roles'] = array(
             'role_name' => $role_name
@@ -965,30 +977,347 @@ class Users extends Common_Controller
                 array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
             ),
             'order' => array('user.id' => 'DESC'),
-            'where' => array('user.email_verify' => 1),
-            'where_not_in' => array(
-                'group.id' => array(1, 2, 4, 5, 6, 7)
-            )
+            // 'where' => array('user.id' => $user_id),
+            // 'where_not_in' => array('group.id' => array(1, 2, 4,5,6,7))
         );
 
-        $this->data['active'] = count($this->common_model->customGet($option));
+        $this->data['list'] = $this->common_model->customGet($option);
 
-        $option = array(
-            'table' => USERS . ' as user',
-            'select' => 'user.*,group.name as group_name',
-            'join' => array(
-                array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
-                array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
-            ),
-            'order' => array('user.id' => 'DESC'),
-            'where' => array('user.email_verify' => 0),
-            'where_not_in' => array(
-                'group.id' => array(1, 2, 4, 5, 6, 7)
-            )
+        $optionRole = array(
+            'table' => USER_GROUPS . ' as groups',
+            'select' => 'groups.*',
+            // 'join' => array(USERS . ' as user' => 'user.id=groups.user_id'),
+            // 'where' => array('groups.group_id' => $roles->role_id, 'groups.organization_id' => $organization_id)
         );
+        $this->data['module_permission'] = $this->common_model->customGet($optionRole);
 
-        $this->data['inactive'] = count($this->common_model->customGet($option));
+
+        $optionRole = array(
+            'table' => 'vendor_sale_groups',
+            'select' => 'vendor_sale_groups.*',
+            // 'join' => array(USERS . ' as user' => 'user.id=groups.user_id'),
+            // 'where' => array('groups.group_id' => $roles->role_id, 'groups.organization_id' => $organization_id)
+            'order' => array('vendor_sale_groups.id' => 'DESC'),
+            // 'where' => array('user.id' => $user_id),
+            'where_not_in' => array('vendor_sale_groups.id' => array(1, 2, 4,6))
+        );
+        $this->data['roles_list'] = $this->common_model->customGet($optionRole);
+// print_r($this->data['roles_list']);die;
+
+// print_r($this->data['module_permission']);die;
 
         $this->load->admin_render('managements', $this->data, 'inner_script');
+    }
+
+
+      /**
+     * @method delUsers
+     * @description delete users
+     * @return array
+     */
+    public function deleteUsers()
+    {
+        $response = "";
+        $id = decoding($this->input->post('id')); // delete id
+        $table = $this->input->post('table'); //table name
+        $id_name = $this->input->post('id_name'); // table field name
+        
+        if (!empty($table) && !empty($id) && !empty($id_name)) {
+
+            $option = array(
+                'table' => $table,
+                'where' => array($id_name => $id),
+                'single' => true
+            );
+            $userDetails = $this->common_model->customGet($option);
+
+            if ($userDetails) {
+                $option = array(
+                    'table' => $table,
+                    'where' => array($id_name => $id)
+                );
+                $delete = $this->common_model->customDelete($option);
+
+                if ($delete) {
+                    $response = 200;
+                } else
+                    $response = 400;
+            }
+        } else {
+            $response = 400;
+        }
+        echo $response;
+    }
+
+
+    public function roles_add() {
+        
+        // validate form input
+       $this->form_validation->set_rules('role_name', lang('role_name'), 'required|trim|xss_clean');
+        $this->form_validation->set_rules('description', lang('description'), 'required|trim|xss_clean');
+        
+        if ($this->form_validation->run() == true) {
+                $role_name = $this->input->post('role_name');
+                $option_role = array(
+                    'table' => GROUPS,
+                    'where' => array('name' => $role_name)
+                );
+                $is_exists = $this->common_model->customGet($option_role);
+                /* check condition if role already exist or not */
+                if(empty($is_exists)){
+                    $options_data = array(
+                        'name' => $this->input->post('role_name'),
+                        'description' => $this->input->post('description'),
+                        'active' =>1
+                        
+                    );
+                $option = array('table' => GROUPS, 'data' => $options_data);
+                 if ($this->common_model->customInsert($option)) {
+
+                    $this->session->set_flashdata('message', lang('role_success'));
+                redirect($this->router->fetch_class().'/managements');
+
+                    // $response = array('status' => 1, 'message' => lang('role_success'), 'url' => base_url('users/managements'));
+
+                } else {
+                    $this->session->set_flashdata('message', lang('role_failed'));
+                redirect($this->router->fetch_class().'/managements');
+                    // $response = array('status' => 0, 'message' => lang('role_failed'));
+                }
+             }else {
+                $this->session->set_flashdata('message', lang('role_exist'));
+                redirect($this->router->fetch_class().'/managements');
+                    // $response = array('status' => 0, 'message' => lang('role_exist'));
+                }
+            }
+         else {
+            $messages = (validation_errors()) ? validation_errors() : '';
+            $response = array('status' => 0, 'message' => $messages);
+        }
+        echo json_encode($response);
+    }
+
+    /**
+     * @method user_edit
+     * @description edit dynamic rows
+     * @return array
+     */
+    public function roles_edit() {
+        $this->data['title'] = lang("edit_role");
+        $id = decoding($this->input->post('id'));
+        if (!empty($id)) {
+            $option = array(
+                'table' => GROUPS,
+                'where' => array('id' => $id),
+                'single' => true
+            );
+            $results_row = $this->common_model->customGet($option);
+            if (!empty($results_row)) {
+                $this->data['results'] = $results_row;
+                // $this->load->view('edit', $this->data);
+                $this->load->view('edit_role', $this->data);
+            } else {
+                $this->session->set_flashdata('error', lang('not_found'));
+                redirect('roles');
+            }
+        } else {
+            $this->session->set_flashdata('error', lang('not_found'));
+            redirect('users/managements');
+        }
+    }
+
+    /**
+     * @method roles_update
+     * @description update dynamic rows
+     * @return array
+     */
+    public function roles_update() {
+
+        $this->form_validation->set_rules('role_name', lang('role_name'), 'required|trim|xss_clean');
+        $this->form_validation->set_rules('description', lang('description'), 'required|trim|xss_clean');
+        
+
+        $where_id = $this->input->post('id');
+        if ($this->form_validation->run() == FALSE):
+            $messages = (validation_errors()) ? validation_errors() : '';
+            $response = array('status' => 0, 'message' => $messages);
+        else:
+
+              $role_name = $this->input->post('role_name');
+                $option_role = array(
+                    'table' => GROUPS,
+                    'where' => array('id!='=>$where_id,'name' => $role_name)
+                );
+                $is_exists = $this->common_model->customGet($option_role);
+                /* check condition if role already exist or not */
+              if(empty($is_exists)){
+                $options_data = array(
+                    'name' => $this->input->post('role_name'),
+                    'description' => $this->input->post('description')
+                    
+                );
+                
+                $option = array(
+                'table' => GROUPS,
+                'data' => $options_data,
+                'where' => array('id' => $where_id)
+               );
+                $update = $this->common_model->customUpdate($option);
+                $this->session->set_flashdata('message', lang('role_success_update'));
+                redirect($this->router->fetch_class().'/managements');
+
+                // $response = array('status' => 1, 'message' => lang('role_success_update'), 'url' => base_url('users/managements'));
+            }else{
+                $this->session->set_flashdata('message', lang('role_exist'));
+                redirect($this->router->fetch_class().'/managements');
+                $response = array('status' => 0, 'message' => lang('role_exist'));
+            }
+            
+        endif;
+
+        echo json_encode($response);
+    }
+
+    public function open_model_edit_user() {
+        $this->data['title'] = "Edit " . $this->title;
+        $this->data['formUrlUser'] = $this->router->fetch_class() . "/updateUserData";
+        $id = $this->input->post('id');
+
+        $option = array(
+            'table' => 'countries',
+            'select' => '*'
+        );
+        $this->data['countries'] = $this->common_model->customGet($option);
+
+    //    print_r($id);die;
+        if (!empty($id)) {
+            $option = array(
+                'table' => USERS,
+                'where' => array('id' => $id),
+                'single' => true
+            );
+            $results_row = $this->common_model->customGet($option);
+            if (!empty($results_row)) {
+                $this->data['results'] = $results_row;
+                $this->load->view('edit_user', $this->data);
+            } else {
+                $this->session->set_flashdata('error', lang('not_found'));
+                redirect($this->router->fetch_class());
+            }
+        } else {
+            $this->session->set_flashdata('error', lang('not_found'));
+            redirect($this->router->fetch_class());
+        }
+    }
+
+
+    /**
+     * @method user_update
+     * @description update dynamic rows
+     * @return array
+     */
+    public function updateUserData()
+    {
+
+        $this->form_validation->set_rules('first_name', lang('first_name'), 'required|trim|xss_clean');
+        $this->form_validation->set_rules('last_name', lang('last_name'), 'required|trim|xss_clean');
+        $this->form_validation->set_rules('user_email', lang('user_email'), 'required|trim|xss_clean');
+        $newpass = $this->input->post('new_password');
+        $user_email = $this->input->post('user_email');
+        if ($newpass != "") {
+            $this->form_validation->set_rules('new_password', 'New Password', 'trim|required|xss_clean|min_length[6]|max_length[14]');
+            //$this->form_validation->set_rules('confirm_password1', 'Confirm Password', 'trim|required|xss_clean|matches[new_password]');
+            if (!preg_match('/(?=.*[a-z])(?=.*[0-9]).{6,}/i', $this->input->post('new_password'))) {
+                $response = array('status' => 0, 'message' => "The Password Should be required alphabetic and numeric");
+                echo json_encode($response);
+                exit;
+            }
+        }
+
+        $where_id = $this->input->post('id');
+        if ($this->form_validation->run() == FALSE) :
+            $messages = (validation_errors()) ? validation_errors() : '';
+            $response = array('status' => 0, 'message' => $messages);
+        else :
+
+            $option = array(
+                'table' => USERS,
+                'select' => 'email',
+                'where' => array('email' => $user_email, 'id !=' => $where_id)
+            );
+            $is_unique_email = $this->common_model->customGet($option);
+
+            if (empty($is_unique_email)) {
+
+                $this->filedata['status'] = 1;
+                $image = $this->input->post('exists_image');
+
+                if (!empty($_FILES['user_image']['name'])) {
+                    $this->filedata = $this->commonUploadImage($_POST, 'users', 'user_image');
+
+                    if ($this->filedata['status'] == 1) {
+                        $image = 'uploads/users/' . $this->filedata['upload_data']['file_name'];
+                        unlink_file($this->input->post('exists_image'), FCPATH);
+                    }
+                }
+                if ($this->filedata['status'] == 0) {
+                    $response = array('status' => 0, 'message' => $this->filedata['error']);
+                } else {
+
+                    if (empty($newpass)) {
+                        $currentPass = $this->input->post('current_password');
+                    } else {
+                        $currentPass = $newpass;
+                    }
+
+                    $options_data = array(
+                        'first_name' => $this->input->post('first_name'),
+                        'last_name' => $this->input->post('last_name'),
+                        'date_of_birth' => (!empty($this->input->post('date_of_birth'))) ? date('Y-m-d', strtotime($this->input->post('date_of_birth'))) : "0000-00-00",
+                        'phone' => $this->input->post('phone_no'),
+                        'profile_pic' => $image,
+                        'email' => $user_email,
+                        'is_pass_token' => $currentPass,
+                    );
+
+                    $this->ion_auth->update($where_id, $options_data);
+
+
+                    $additional_data = array(
+                        'country' => $this->input->post('country'),
+                        'update_date' => date('Y-m-d H:i:s')
+                    );
+                    $this->db->where("user_id", $where_id);
+                    $this->db->update('vendor_sale_user_profile', $additional_data);
+
+                    if (!empty($image)) {
+                        $additional_data = array(
+                            'profile_pic' => $image
+                        );
+                        $this->db->where("user_id", $where_id);
+                        $this->db->update('vendor_sale_user_profile', $additional_data);
+                    }
+
+                    if ($newpass != "") {
+                        $pass_new = $this->common_model->encryptPassword($this->input->post('new_password'));
+                        $this->common_model->customUpdate(array('table' => 'users', 'data' => array('password' => $pass_new), 'where' => array('id' => $where_id)));
+                    }
+
+                    // $response = array('status' => 1, 'message' => "Successfully updated", 'url' =>base_url($this->router->fetch_class().'/managements'));
+                 
+                $this->session->set_flashdata('message', 'Successfully updated');
+                redirect($this->router->fetch_class().'/managements');
+                    // $response = array('status' => 1, 'message' => lang('user_success_update'), 'url' => base_url('users/managements'));
+                }
+            } else {
+                $this->session->set_flashdata('message', 'The email address already exists');
+                redirect($this->router->fetch_class().'/managements');
+
+                $response = array('status' => 0, 'message' => "The email address already exists");
+            }
+
+        endif;
+
+        echo json_encode($response);
     }
 }

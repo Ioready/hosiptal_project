@@ -3656,87 +3656,6 @@ $option = array(
     }
 
 
-    function consultationInvoice() {
-
-        $this->data['parent'] = $this->title;
-        $this->data['title'] = "Add " . $this->title;
-        $this->data['formUrlConsult'] = $this->router->fetch_class() . "/addConsult";
-        $this->data['formUrlModel'] = $this->router->fetch_class() . "/addQuestion";
-
-        $this->data['patient_id'] = decoding($_GET['id']);
-        $id = decoding($_GET['id']);
-        // print_r($this->data['patient_id']);die;
-        $role_name = $this->input->post('role_name');
-
-        $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
-
-        if($LoginID != 1 && $LoginID != NULL ){
-            $x = $LoginID;
-        }
-        
-        $this->data['roles'] = array(
-            'role_name' => $role_name
-        );
-        if ($vendor_profile_activate == "No") {
-            $vendor_profile_activate = 0;
-        } else {
-            $vendor_profile_activate = 1;
-        }
-
-        $id = decoding($_GET['id']);
-
-        $optionheader = array(
-            'table' => 'vendor_sale_patient_consultation',
-            'select' => 'vendor_sale_patient_consultation.*,vendor_sale_users.first_name,vendor_sale_users.last_name',
-            'join' => array(
-                array('vendor_sale_patient', 'vendor_sale_patient.id=vendor_sale_patient_consultation.patient_id','left'),
-                array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_patient.user_id','left')
-            ),
-            'where' => array('vendor_sale_patient_consultation.patient_id' => $id)
-        );
-        
-
-        $this->data['list'] = $this->common_model->customGet($optionheader);
-        // print_r($this->data['list']); die;
-        
-        if (!empty($id)) {
-
-            $option = array(
-                'table' => 'patient P',
-                'select' => 'P.total_days_of_patient_stay,P.infection_surveillance_checklist,P.date_of_start_abx,P.md_patient_status,P.id ,P.patient_id,P.name as patient_name,P.address,P.room_number,P.symptom_onset,P.md_stayward_consult,P.criteria_met,P.md_stayward_response,P.psa,P.created_date,'
-                    . 'P.care_unit_id,CI.name as care_unit_name,P.doctor_id,P.culture_source,P.organism,P.precautions,CS.name as culture_source_name,Org.name as organism_name,Pre.name as precautions_name,DOC.name as doctor_name,P.md_steward_id,U.first_name as md_steward,'
-                    . 'PC.initial_rx,IRX.name as initial_rx_name,PC.initial_dx,IDX.name as initial_dx_name,PC.initial_dot,'
-                    . 'PC.new_initial_rx,IRX2.name as new_initial_rx_name,PC.new_initial_dx,IDX2.name as new_initial_dx_name,PC.new_initial_dot,PC.additional_comment_option,PC.comment,U.email as patient_email,U.email as password, U.phone as patient_phone_number,U.date_of_birth,U.gender,U.phone_code',
-                'join' => array(
-                    array('care_unit CI', 'CI.id=P.care_unit_id', 'left'),
-                    array('doctors DOC', 'DOC.id=P.doctor_id', 'left'),
-                    array('users U', 'U.id=P.user_id', 'left'),
-                    array('patient_consult PC', 'PC.patient_id=P.id', 'left'),
-                    array('initial_rx IRX', 'IRX.id=PC.initial_rx', 'left'),
-                    array('initial_dx IDX', 'IDX.id=PC.initial_dx', 'left'),
-                    array('culture_source CS', 'CS.name=P.culture_source', 'left'),
-                    array('organism Org', 'Org.name=P.organism', 'left'),
-                    array('precautions Pre', 'Pre.name=P.precautions', 'left'),
-                    array('initial_rx IRX2', 'IRX2.id=PC.new_initial_rx', 'left'),
-                    array('initial_dx IDX2', 'IDX2.id=PC.new_initial_dx', 'left'),
-                    
-                ),
-                'single' => true
-            );
-            $option['where']['P.id'] = $id;
-            $results_row = $this->common_model->customGet($option);
-
-            if (!empty($results_row)) {
-
-                $results_row->md_steward_response = clone $results_row;
-                $filteredData = $this->applyAlgo($results_row);
-                $this->data['results'] = $filteredData;
-            }
-        }
-
-        $this->load->admin_render('consultation_invoice', $this->data, 'inner_script');
-    }
-
     
     public function addConsult() {
 
@@ -4250,4 +4169,213 @@ $option = array(
         }
         echo json_encode($data);
     }
+
+    function open_model_invoice() {
+        $this->data['title'] = "Add " . $this->title;
+        $this->data['formUrlInvoice'] = $this->router->fetch_class() . "/addPatientInvoice";
+
+        $this->data['patient_id'] = decoding($_GET['id']);
+        $id = $this->input->post('id');
+        $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+        // print_r($id);die;
+        $role_name = $this->input->post('role_name');
+
+        $optionPatient = array(
+            'table' => 'vendor_sale_users',
+            'select' => 'vendor_sale_patient.*',
+            'join' => array(
+                array('vendor_sale_patient', 'vendor_sale_users.id=vendor_sale_patient.user_id','left')
+            ),
+            'where' => array('vendor_sale_patient.id'=>$id),
+            'single'=>true,
+        );
+
+        $this->data['patient'] = $this->common_model->customGet($optionPatient);
+
+        $optionPractitioner = array(
+            'table' => 'vendor_sale_users',
+            'select' => 'vendor_sale_practitioner.*',
+            'join' => array(
+                array('vendor_sale_practitioner', 'vendor_sale_users.id=vendor_sale_practitioner.hospital_id','left')
+            ),
+            'where' => array('vendor_sale_users.id'=>$LoginID),
+            // 'single'=>true,
+        );
+
+        $this->data['practitioner'] = $this->common_model->customGet($optionPractitioner);
+
+// print_r($this->data['practitioner']);die;
+        
+
+        $this->load->view('add_invoice', $this->data);
+    }
+
+    function consultationInvoice() {
+
+        $this->data['parent'] = $this->title;
+        $this->data['title'] = "Add " . $this->title;
+        // $this->data['formUrlModel'] = $this->router->fetch_class() . "/addQuestion";
+        $this->data['model'] = $this->router->fetch_class();
+
+        $this->data['patient_id'] = decoding($_GET['id']);
+        $id = decoding($_GET['id']);
+        
+        // print_r($id);die;
+        $role_name = $this->input->post('role_name');
+
+        $optionPatient = array(
+            'table' => 'vendor_sale_users',
+            'select' => 'vendor_sale_patient.*',
+            'join' => array(
+                array('vendor_sale_patient', 'vendor_sale_users.id=vendor_sale_patient.user_id','left')
+            ),
+            'where' => array('vendor_sale_patient.id'=>$id),
+            'single'=>true,
+        );
+
+        $this->data['patient'] = $this->common_model->customGet($optionPatient);
+        $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+
+        if($LoginID != 1 && $LoginID != NULL ){
+            $x = $LoginID;
+        }
+        
+        $this->data['roles'] = array(
+            'role_name' => $role_name
+        );
+        if ($vendor_profile_activate == "No") {
+            $vendor_profile_activate = 0;
+        } else {
+            $vendor_profile_activate = 1;
+        }
+
+        $id = decoding($_GET['id']);
+
+        // $optionheader = array(
+        //     'table' => 'vendor_sale_patient_consultation',
+        //     'select' => 'vendor_sale_patient_consultation.*,vendor_sale_users.first_name,vendor_sale_users.last_name',
+        //     'join' => array(
+        //         array('vendor_sale_patient', 'vendor_sale_patient.id=vendor_sale_patient_consultation.patient_id','left'),
+        //         array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_patient.user_id','left')
+        //     ),
+        //     'where' => array('vendor_sale_patient_consultation.patient_id' => $id)
+        // );
+        
+        $optionheader = array(
+            'table' => 'vendor_sale_invoice',
+            'select' => 'vendor_sale_invoice.*',
+            'where' => array('vendor_sale_invoice.patient_id' => $id)
+        );
+
+        
+
+        $this->data['list'] = $this->common_model->customGet($optionheader);
+        // print_r($this->data['list']); die;
+        
+        if (!empty($id)) {
+
+            $option = array(
+                'table' => 'patient P',
+                'select' => 'P.total_days_of_patient_stay,P.infection_surveillance_checklist,P.date_of_start_abx,P.md_patient_status,P.id ,P.patient_id,P.name as patient_name,P.address,P.room_number,P.symptom_onset,P.md_stayward_consult,P.criteria_met,P.md_stayward_response,P.psa,P.created_date,'
+                    . 'P.care_unit_id,CI.name as care_unit_name,P.doctor_id,P.culture_source,P.organism,P.precautions,CS.name as culture_source_name,Org.name as organism_name,Pre.name as precautions_name,DOC.name as doctor_name,P.md_steward_id,U.first_name as md_steward,'
+                    . 'PC.initial_rx,IRX.name as initial_rx_name,PC.initial_dx,IDX.name as initial_dx_name,PC.initial_dot,'
+                    . 'PC.new_initial_rx,IRX2.name as new_initial_rx_name,PC.new_initial_dx,IDX2.name as new_initial_dx_name,PC.new_initial_dot,PC.additional_comment_option,PC.comment,U.email as patient_email,U.email as password, U.phone as patient_phone_number,U.date_of_birth,U.gender,U.phone_code',
+                'join' => array(
+                    array('care_unit CI', 'CI.id=P.care_unit_id', 'left'),
+                    array('doctors DOC', 'DOC.id=P.doctor_id', 'left'),
+                    array('users U', 'U.id=P.user_id', 'left'),
+                    array('patient_consult PC', 'PC.patient_id=P.id', 'left'),
+                    array('initial_rx IRX', 'IRX.id=PC.initial_rx', 'left'),
+                    array('initial_dx IDX', 'IDX.id=PC.initial_dx', 'left'),
+                    array('culture_source CS', 'CS.name=P.culture_source', 'left'),
+                    array('organism Org', 'Org.name=P.organism', 'left'),
+                    array('precautions Pre', 'Pre.name=P.precautions', 'left'),
+                    array('initial_rx IRX2', 'IRX2.id=PC.new_initial_rx', 'left'),
+                    array('initial_dx IDX2', 'IDX2.id=PC.new_initial_dx', 'left'),
+                    
+                ),
+                'single' => true
+            );
+            $option['where']['P.id'] = $id;
+            $results_row = $this->common_model->customGet($option);
+
+            if (!empty($results_row)) {
+
+                $results_row->md_steward_response = clone $results_row;
+                $filteredData = $this->applyAlgo($results_row);
+                $this->data['results'] = $filteredData;
+            }
+        }
+
+        $this->load->admin_render('consultation_invoice', $this->data, 'inner_script');
+    }
+
+
+    public function addPatientInvoice() {
+
+
+        $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+        $this->form_validation->set_rules('patient', "patient", 'required|trim');
+       
+        if ($this->form_validation->run() == true) {
+            
+            $option = array(
+                'table' => 'vendor_sale_invoice',
+                'order' => array('id' => 'DESC'),
+                'single' => true
+            );
+            $query = $this->common_model->customGet($option);
+            
+            if (!empty($query)) {
+                $last_invoice_number = $query->id;
+                $new_invoice_number = 'INV-' . str_pad($last_invoice_number + 1, 5, '0', STR_PAD_LEFT);
+            } else {
+                // If there are no records, start with the first invoice number
+                $new_invoice_number = 'INV-00001';
+            }
+    
+            // print_r($new_invoice_number);die;
+
+                $options_data = array(
+                    'user_id'=> $LoginID,
+                    'facility_user_id'=> $LoginID,
+                    'patient_id' => $this->input->post('patient'),
+                    'invoice_number	' => $new_invoice_number,                         
+                    'invoice_date	' => $this->input->post('invoice_date'),                         
+                    'total_amount	' => $this->input->post('total_amount'),                         
+                    'header	' => $this->input->post('header	'),                         
+                    'billing_to' => $this->input->post('billing_to'),                         
+                    'practitioner' => $this->input->post('practitioner'),                         
+                    'notes' => $this->input->post('notes'),                         
+                    'internal_notes' => $this->input->post('internal_notes'),                         
+                );
+                // print_r($options_data);die;
+                $option = array('table' => 'vendor_sale_invoice', 'data' => $options_data);
+                if ($this->common_model->customInsert($option)) {
+                    
+
+                    // for ($i = 0; $i < count($descriptions); $i++) {
+                    //     $items_data[] = array(
+                    //         'description' => $descriptions[$i],
+                    //         'quantity' => $quantities[$i],
+                    //         'price' => $prices[$i],
+                    //     );
+                    // }
+            
+                    // $invoice_id = $this->Invoice_model->create_invoice($invoice_data, $items_data);
+
+                    $response = array('status' => 1, 'message' => "Successfully added", 'url' => base_url($this->router->fetch_class()));
+                } else {
+                    $response = array('status' => 0, 'message' => "Failed to add");
+                }
+            
+        } else {
+            $messages = (validation_errors()) ? validation_errors() : '';
+            $response = array('status' => 0, 'message' => $messages);
+        }
+        echo json_encode($response);
+    }
+
+    
+    
 }

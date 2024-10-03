@@ -299,6 +299,37 @@
         });
     }
 
+    $(document).on("click",".user-edit-data",function() {
+    // var open_modal_edit_user = function (controller) {
+        var id = $(this).attr("id");
+        // alert(id);
+        $.ajax({
+            url: '<?php echo base_url(); ?>'+"/users/open_model_edit_user",
+            type: 'POST',
+            data: {'<?php echo $this->security->get_csrf_token_name(); ?>': '<?php echo $this->security->get_csrf_hash(); ?>',id:id},
+            success: function (data, textStatus, jqXHR) {
+                $('#form-modal-box-user').html(data);
+                $("#commonModalUser").modal('show');
+            }
+        });
+    });
+
+
+    var open_model_invoice = function (controller) {
+        var id = $('#patient_id').val();
+        
+
+        $.ajax({
+            url: '<?php echo base_url(); ?>' + controller + "/open_model_invoice",
+            type: 'POST',
+            data: {'<?php echo $this->security->get_csrf_token_name(); ?>': '<?php echo $this->security->get_csrf_hash(); ?>',id:id},
+            success: function (data, textStatus, jqXHR) {
+                $('#form-modal-box').html(data);
+                $("#commonModal").modal('show');
+            }
+        });
+    }
+
     var open_modal_edit_letters = function (controller, id) {
         $.ajax({
             url: '<?php echo base_url(); ?>' + controller + "/open_model_edit" + "?id=" + id,

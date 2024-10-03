@@ -866,5 +866,28 @@ class Common_model extends MY_Model {
     }
 
 
+    public function create_invoice($invoice_data, $items_data) {
+        $this->db->insert('invoices', $invoice_data);
+        $invoice_id = $this->db->insert_id();
+
+        foreach ($items_data as $item) {
+            $item['invoice_id'] = $invoice_id;
+            $this->db->insert('invoice_items', $item);
+        }
+        return $invoice_id;
+    }
+
+    // Retrieve invoice details
+    public function get_invoice($invoice_id) {
+        $this->db->select('invoices.*, patients.name as patient_name, patients.email, patients.phone');
+        $this->db->join('patients', 'patients.id = invoices.patient_id');
+        return $this->db->where('invoices.id', $invoice_id)->get('invoices')->row();
+    }
+
+    // Retrieve invoice items
+    public function get_invoice_items($invoice_id) {
+        return $this->db->where('invoice_id', $invoice_id)->get('invoice_items')->result();
+    }
+    
     
 }

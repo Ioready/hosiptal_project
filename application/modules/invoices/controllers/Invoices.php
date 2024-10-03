@@ -7,8 +7,8 @@ class Invoices extends Common_Controller {
     public $data = array();
     public $file_data = "";
     // public $_table = 'contactus';
-    public $_table = 'doctor_invoice';
-    
+    // public $_table = 'doctor_invoice';
+    public $_table = 'vendor_sale_invoice';
     public $title = "Invoice";
 
     public function __construct() {
