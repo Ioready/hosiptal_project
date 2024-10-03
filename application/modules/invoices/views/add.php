@@ -1,163 +1,339 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.js"></script>
-<!-- Page content -->
-<div id="page-content">
-    <!-- Datatables Header -->
-    <ul class="breadcrumb breadcrumb-top">
-        <li>
-            <a href="<?php echo site_url('pwfpanel');?>">Home</a>
-        </li>
-        <li>
-            <a href="<?php echo site_url('invoices');?>">Invoices</a>
-        </li>
-    </ul>
-    <!-- END Datatables Header -->
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+<style>
+    .modal-footer .btn + .btn {
+        margin-bottom: 5px !important;
+        margin-left: 5px;
+    }
+</style>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <!-- Datatables Content -->
-    
-    
- 
-    
- <div class="block full">
-    <div class="block-title">
-        <h2><strong>Contacts</strong> Panel</h2>
-    </div>
-    <div class="modal-header">
-        <h3 class="modal-title"><strong>New Invoice</strong></h3>
-    </div>
-    <div class="alert alert-danger" id="error-box" style="display: none"></div>
-    <div class="form-body">
-        <div class="row">
-            <div class="modal-header">
-                <h4 class="modal-title"><strong>Invoice details</strong></h4>
-            </div>
-            <div class="show-hide" id="Membership">
-                <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url($formUrl) ?>" enctype="multipart/form-data">
-                    <br><br>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <!-- <div class="col-md-2"></div> -->
-                            <div class="col-md-12">
-                                <div class="col-md-4">
-                                    <label class="">Header</label>
-                                    <select id="header" name="header" class="form-control select2" size="1" placeholder="Choose a phone type">
-                                        <option value="" disabled selected>Select</option>
-                                        <option value="clinic">Droitwich Knee Clinic & Bromsgrove Private Clinic</option>
-                                        <!-- <option value="Yearly">Yearly</option> -->
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .patient-info {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .details {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .details span {
+            margin-right: 10px;
+        }
+
+        .expand-label {
+            color: #007B83;
+            cursor: pointer;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .expand-section {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .expand-section svg {
+            margin-right: 5px;
+        }
+
+        .save-invoice-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .save-button {
+            background-color: #00695C;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .total-amount {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .form-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .form-container .form-section {
+            flex: 1;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group select, .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .form-group textarea {
+            height: 80px;
+        }
+
+        .line-items-container {
+            margin-top: 30px;
+        }
+
+        .line-items-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .line-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .line-item div {
+            flex: 1;
+        }
+
+        .add-invoice-item {
+            background-color: #00695C;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .form-container {
+                flex-direction: column;
+            }
+
+            .save-invoice-section {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .save-button {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+<div id="commonModal" class="modal fade bd-example-modal-lg" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url($formUrl) ?>" enctype="multipart/form-data">
+                <div class="modal-header text-center">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h2 class="modal-title"><i class="fa fa-pencil"></i> <?php echo "Add invoice" ?></h2>
+                </div>
+                <div class="modal-body">
+                    <!-- <div class="loaders">
+                        <img src="<?php echo base_url() . 'backend_asset/images/Preloader_2.gif'; ?>" class="loaders-img" class="img-responsive">
+                    </div> -->
+                    <div class="alert alert-danger" id="error-box" style="display: none"></div>
+                    <div class="form-body">
+                        <div class="row">
+
+                       
+
+                        <!-- Invoice Form Section -->
+                        <div class="form-container">
+                            <!-- Invoice Form -->
+                            <div class="form-section">
+                                <h2>Create new Invoice</h2>
+                                <div class="form-group">
+                                    <label for="header">Header <span class="required" style="color:red;">*</span></label>
+                                    <select name="header" id="header" required>
+                                        <option value="Droitwich Knee Clinic & Bromsgrove P...">Droitwich Knee Clinic & Bromsgrove P...</option>
                                     </select>
                                 </div>
-                                <div class="col-md-4">
-                                    <label class="">Select Date</label>
-                                    <input type="datetime-local" class="form-control" name="start_date" id="start_date" placeholder="<?php echo lang('date');?>" />
+
+                                <div class="form-group">
+                                    <label for="select-date">Select Date <span class="required" style="color:red;">*</span></label>
+                                    <input type="date" name="invoice_date" id="invoice_date" required>
                                 </div>
-                                <div class="col-md-4">
-                                    <label class="">Practitioner (optional)</label>
-                                    <select id="practitioner" name="practitioner" class="form-control select2" size="1" placeholder="Choose a phone type">
-                                        <option value="" disabled selected>Select</option>
-                                        <option value="Monthely">Monthely</option>
-                                        <option value="Yearly">Yearly</option>
+
+                                <div class="form-group">
+                                    <label for="practitioner">Practitioner</label>
+                                    
+                                    <select name="practitioner" id="practitioner">
+                                    <?php  foreach($practitioner as $row){ ?>
+                                        <option value="<?php echo $row->id;?>"><?php echo $row->name;?></option>
+                                        <?php } ?>
                                     </select>
+                                    <!-- <input type="text" name="practitioner" id="practitioner" placeholder="Select Practitioner"> -->
+                                </div>
+                            </div>
+
+                            <!-- Billing and Comments -->
+                            <div class="form-section">
+                                <h2>Billing</h2>
+                                <div class="form-group">
+                                    <label for="patient">Patient <span style="color:red;">*</span></label>
+                                    
+                                    <select name="patient" id="patient">
+                                    <?php  foreach($patient as $row){ ?>
+                                        <option value="<?php echo $row->id;?>"><?php echo $row->name;?></option>
+                                        <?php } ?>
+                                    </select>
+
+                                    <!-- <input type="hidden" name="patient" id="patient" value="<?php echo $patient->id;?>"><h3><span><?php echo $patient->name;?></span></h3> -->
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="billing">Billing to <span style="color:red;">*</span></label>
+                                    <select name="billing_to" id="billing_to">
+                                    <option value="">Select Billing Type</option>
+                                    <option value="Self Pay">Self Pay</option>
+                                    <option value="Insurance">Insurance</option>
+                                    <option value="Medicare">Medicare</option>
+                                    <option value="Company">Company</option>
+                                    <option value="Government Program">Government Program</option>
+                                    <option value="Other">Other</option>
+                                    </select>
+                                </div>
+
+                                <h2>Comments</h2>
+                                <div class="form-group">
+                                    <label for="notes">Notes</label>
+                                    <textarea name="notes" id="notes" placeholder="Enter notes"></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="internal-notes">Internal notes</label>
+                                    <textarea name="internal_notes" id="internal_notes" placeholder="Enter internal notes"></textarea>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-12">
+
+                        
+                        <div class="panel panel-default">
+                        <!-- <div class="panel-heading">Dynamic Form Fields - Add & Remove Multiple fields</div> -->
+                        <div class="panel-heading">Item Description</div>
+                        <div class="panel-body">
+                        
+                        <div id="item_fields">
+                                
+                        </div>
+                        <div class="col-sm-3 nopadding">
                         <div class="form-group">
-                            <!-- <div class="col-md-2"></div> -->
-                            <div class="col-md-12">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title"><strong>Billing</strong></h4>
-                                        </div>
-                                        <div class="col-md-6 mt-2">
-                                            <label class="">Patient</label>
-                                            <input type="text" class="form-control" name="patient" id="patient" placeholder="<?php echo lang('patient');?>" />
-                                        </div>
-                                        <div class="col-md-6 mt-2">
-                                            <label class="">Billing to</label>
-                                            <input type="text" class="form-control" name="billing_to" id="billing_to" placeholder="<?php echo lang('billing_to');?>" />
-                                        </div>
-                                        <div class="modal-header">
-                                            <h4 class="modal-title"><strong>Comments</strong></h4>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <label class="">Notes (Optional)</label>
-                                            <textarea class="form-control" id="note_comment" name="note_comment" rows="5"></textarea>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <label class="">Internal notes (optional)</label>
-                                            <textarea class="form-control" id="interal_comment" name="interal_comment" rows="5"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title"><strong>Line items</strong></h4>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="col-md-5">
-                                                <button type="button" class="btn">
-                                                    <span class="glyphicon glyphicon-plus-sign"></span>
-                                                    Add invoice item
-                                                </button>
-                                                <!-- <a href="#"> -->
-                                                <!-- </a> -->
-                                            </div>
-                                            <label class="mt-2">Add invoice item</label>
-                                            <input type="text" disabled class="form-control" name="supplier" id="name" placeholder="<?php echo lang('Supplier');?>" />
-                                            <label class="">
-                                                <h5 class="modal-title"><strong>Total</strong> 0</h5>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
+                            <input type="text" class="form-control" id="products" name="products[]" value="" placeholder="Products">
+                        </div>
+                        </div>
+                        <div class="col-sm-3 nopadding">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="rate" name="rate[]" value="" placeholder="Rate">
+                        </div>
+                        </div>
+                        <div class="col-sm-3 nopadding">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="quantity" name="quantity[]" value="" placeholder="Quantity">
+                        </div>
+                        </div>
+                        <div class="col-sm-3 nopadding">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="price" name="price[]" value="" placeholder="Price">
+                        </div>
+                        </div>
+
+                        <div class="clear"></div>
+                        
+                        </div>
+  
                             </div>
+                            <!-- Total Amount at the bottom -->
+                            <div class="save-invoice-section">
+                                <div class="total-amount">
+                                    Total amount: £345.00
+                                </div>
+                                <button class="add-invoice-item" type="button"  onclick="education_fields();"> <span class="add-invoice-item" aria-hidden="true">+ Add invoice item</span> </button>
+
+                                <!-- <button type="button" id="submit" class="add-invoice-item">+ Add invoice item</button> -->
+
+                            </div>
+                            <input type="hidden" name="id" value="<?php echo $results->id; ?>" />
+
+                            <div class="space-22"></div>
                         </div>
                     </div>
-                    <div class="col-md-12">
-                        <div class="text-right">
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
+                    
+                    <button type="submit" id="submit" class="btn btn-sm btn-primary m-2"  style="background: #337ab7">Save invoice</button>
+                </div>
+            </form>
+        </div> <!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
 </div>
 
-<!-- END Datatables Content -->
-</div>
-<!-- END Page Content -->
-<script type="text/javascript">
-    $('#date_of_birth').datepicker({
-        startView: 2,
-        todayBtn: "linked",
-        keyboardNavigation: false,
-        forceParse: false,
-        calendarWeeks: true,
-        autoclose: true,
-        endDate:'today'       
-    });
-/*    $("#zipcode").select2({
-        allowClear: true
-    });*/
-</script>
 
 <script>
-// Get the current date and time in ISO 8601 format
-function getCurrentDateTime() {
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = ('0' + (now.getMonth() + 1)).slice(-2);
-    const day = ('0' + now.getDate()).slice(-2);
-    const hours = ('0' + now.getHours()).slice(-2);
-    const minutes = ('0' + now.getMinutes()).slice(-2);
-    const dateTimeString = `${year}-${month}-${day}T${hours}:${minutes}`;
-    return dateTimeString;
+    var room = 1;
+function education_fields() {
+ 
+    room++;
+    var objTo = document.getElementById('item_fields')
+    var divtest = document.createElement("div");
+	divtest.setAttribute("class", "form-group removeclass"+room);
+	var rdiv = 'removeclass'+room;
+    divtest.innerHTML = '<div class="col-sm-3 nopadding"><div class="form-group"> <input type="text" class="form-control" id="products" name="products[]" value="" placeholder="Products name"></div></div><div class="col-sm-2 nopadding"><div class="form-group"> <input type="text" class="form-control" id="rate" name="rate[]" value="" placeholder="Rate"></div></div><div class="col-sm-2 nopadding"><div class="form-group"> <input type="text" class="form-control" id="quantity" name="quantity[]" value="" placeholder="Quantity"></div></div><div class="col-sm-3 nopadding"><div class="form-group"> <input type="text" class="form-control" id="price" name="price[]" value="" placeholder="Price"></div></div> <div class="col-sm-2"><div class="form-group">  <button class="btn btn-danger" type="button" onclick="remove_education_fields('+ room +');"> <span class="glyphicon glyphicon-minus" aria-hidden="true">-</span> </button></div></div><div class="clear"></div>';
+    
+    objTo.appendChild(divtest)
 }
-
-// Set the value of the input field to the current date and time
-document.getElementById('start_date').value = getCurrentDateTime();
-
-
+   function remove_education_fields(rid) {
+	   $('.removeclass'+rid).remove();
+   }
 </script>

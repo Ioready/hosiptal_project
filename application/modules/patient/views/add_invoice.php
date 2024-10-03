@@ -179,153 +179,152 @@
                     <h2 class="modal-title"><i class="fa fa-pencil"></i> <?php echo "Add invoice" ?></h2>
                 </div>
                 <div class="modal-body">
-                    <div class="loaders">
+                    <!-- <div class="loaders">
                         <img src="<?php echo base_url() . 'backend_asset/images/Preloader_2.gif'; ?>" class="loaders-img" class="img-responsive">
-                    </div>
+                    </div> -->
                     <div class="alert alert-danger" id="error-box" style="display: none"></div>
                     <div class="form-body">
                         <div class="row">
 
                        
 
-    <!-- Invoice Form Section -->
-    <div class="form-container">
-        <!-- Invoice Form -->
-        <div class="form-section">
-            <h2>Create new Invoice</h2>
-            <div class="form-group">
-                <label for="header">Header <span class="required" style="color:red;">*</span></label>
-                <select name="header" id="header" required>
-                    <option value="Droitwich Knee Clinic & Bromsgrove P...">Droitwich Knee Clinic & Bromsgrove P...</option>
-                </select>
-            </div>
+                        <!-- Invoice Form Section -->
+                        <div class="form-container">
+                            <!-- Invoice Form -->
+                            <div class="form-section">
+                                <h2>Create new Invoice</h2>
+                                <div class="form-group">
+                                    <label for="header">Header <span class="required" style="color:red;">*</span></label>
+                                    <select name="header" id="header" required>
+                                        <option value="Droitwich Knee Clinic & Bromsgrove P...">Droitwich Knee Clinic & Bromsgrove P...</option>
+                                    </select>
+                                </div>
 
-            <div class="form-group">
-                <label for="select-date">Select Date <span class="required" style="color:red;">*</span></label>
-                <input type="date" name="invoice_date" id="invoice_date" required>
-            </div>
+                                <div class="form-group">
+                                    <label for="select-date">Select Date <span class="required" style="color:red;">*</span></label>
+                                    <input type="date" name="invoice_date" id="invoice_date" required>
+                                </div>
 
-            <div class="form-group">
-                <label for="practitioner">Practitioner</label>
-                
-                <select name="practitioner" id="practitioner">
-                <?php  foreach($practitioner as $row){ ?>
-                    <option value="<?php echo $row->id;?>"><?php echo $row->name;?></option>
-                    <?php } ?>
-                </select>
-                <!-- <input type="text" name="practitioner" id="practitioner" placeholder="Select Practitioner"> -->
-            </div>
-        </div>
+                                <div class="form-group">
+                                    <label for="practitioner">Practitioner</label>
+                                    
+                                    <select name="practitioner" id="practitioner">
+                                    <?php  foreach($practitioner as $row){ ?>
+                                        <option value="<?php echo $row->id;?>"><?php echo $row->name;?></option>
+                                        <?php } ?>
+                                    </select>
+                                    <!-- <input type="text" name="practitioner" id="practitioner" placeholder="Select Practitioner"> -->
+                                </div>
+                            </div>
 
-        <!-- Billing and Comments -->
-        <div class="form-section">
-            <h2>Billing</h2>
-            <div class="form-group">
-                <label for="patient">Patient <span style="color:red;">*</span></label>
-                
-                <input type="hidden" name="patient" id="patient" value="<?php echo $patient->id;?>"><h3><span><?php echo $patient->name;?></span></h3>
-            </div>
+                            <!-- Billing and Comments -->
+                            <div class="form-section">
+                                <h2>Billing</h2>
+                                <div class="form-group">
+                                    <label for="patient">Patient <span style="color:red;">*</span></label>
+                                    
+                                    <input type="hidden" name="patient" id="patient" value="<?php echo $patient->id;?>"><h3><span><?php echo $patient->name;?></span></h3>
+                                </div>
 
-            <div class="form-group">
-                <label for="billing">Billing to <span style="color:red;">*</span></label>
-                <select name="billing_to" id="billing_to">
-                    <option value="Self Pay">Self Pay</option>
-                </select>
-            </div>
+                                <div class="form-group">
+                                    <label for="billing">Billing to <span style="color:red;">*</span></label>
+                                    <select name="billing_to" id="billing_to">
+                                    <option value="">Select Billing Type</option>
+                                    <option value="Self Pay">Self Pay</option>
+                                    <option value="Insurance">Insurance</option>
+                                    <option value="Medicare">Medicare</option>
+                                    <option value="Company">Company</option>
+                                    <option value="Government Program">Government Program</option>
+                                    <option value="Other">Other</option>
+                                    </select>
+                                </div>
 
-            <h2>Comments</h2>
-            <div class="form-group">
-                <label for="notes">Notes</label>
-                <textarea name="notes" id="notes" placeholder="Enter notes"></textarea>
-            </div>
+                                <h2>Comments</h2>
+                                <div class="form-group">
+                                    <label for="notes">Notes</label>
+                                    <textarea name="notes" id="notes" placeholder="Enter notes"></textarea>
+                                </div>
 
-            <div class="form-group">
-                <label for="internal-notes">Internal notes</label>
-                <textarea name="internal_notes" id="internal_notes" placeholder="Enter internal notes"></textarea>
-            </div>
-        </div>
-    </div>
+                                <div class="form-group">
+                                    <label for="internal-notes">Internal notes</label>
+                                    <textarea name="internal_notes" id="internal_notes" placeholder="Enter internal notes"></textarea>
+                                </div>
+                            </div>
+                        </div>
 
-    <!-- Line Items Section -->
-    <div class="line-items-container">
-        <h2>Line items</h2>
-        <div class="line-item">
-            <div>
-                <p>MRI 1 Area</p>
-                <p>09/01/2023</p>
-            </div>
-            <div>
-                <p>£300.00 x 1</p>
-                <p>£300.00</p>
-            </div>
-        </div>
+                        <!-- Line Items Section -->
+                        <div class="line-items-container">
+                            <h2>Line items</h2>
+                            <div class="line-item">
+                                <div>
+                                    <p>MRI 1 Area</p>
+                                    <p>09/01/2023</p>
+                                </div>
+                                <div>
+                                    <p>£300.00 x 1</p>
+                                    <p>£300.00</p>
+                                </div>
+                            </div>
 
-        <div class="line-item">
-            <div>
-                <p>Physio Clinic Ref</p>
-                <p>13/01/2023</p>
-            </div>
-            <div>
-                <p>£45.00 x 1</p>
-                <p>£45.00</p>
-            </div>
-        </div>
+                            <div class="line-item">
+                                <div>
+                                    <p>Physio Clinic Ref</p>
+                                    <p>13/01/2023</p>
+                                </div>
+                                <div>
+                                    <p>£45.00 x 1</p>
+                                    <p>£45.00</p>
+                                </div>
+                            </div>
 
-        <!-- <button class="add-invoice-item">+ Add invoice item</button> -->
-    </div>
+                            <!-- <button class="add-invoice-item">+ Add invoice item</button> -->
+                        </div>
 
 
-    <div class="panel panel-default">
-  <!-- <div class="panel-heading">Dynamic Form Fields - Add & Remove Multiple fields</div> -->
-  <div class="panel-heading">Item Description</div>
-  <div class="panel-body">
+                        <div class="panel panel-default">
+                        <!-- <div class="panel-heading">Dynamic Form Fields - Add & Remove Multiple fields</div> -->
+                        <div class="panel-heading">Item Description</div>
+                        <div class="panel-body">
+                        
+                        <div id="education_fields">
+                                
+                                </div>
+                            <div class="col-sm-3 nopadding">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="products" name="products[]" value="" placeholder="Products">
+                        </div>
+                        </div>
+                        <div class="col-sm-3 nopadding">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="rate" name="rate[]" value="" placeholder="Rate">
+                        </div>
+                        </div>
+                        <div class="col-sm-3 nopadding">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="quantity" name="quantity[]" value="" placeholder="Quantity">
+                        </div>
+                        </div>
+                        <div class="col-sm-3 nopadding">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="price" name="price[]" value="" placeholder="Price">
+                        </div>
+                        </div>
+
+                        <div class="clear"></div>
+                        
+                        </div>
   
-  <div id="education_fields">
-          
-        </div>
-       <div class="col-sm-3 nopadding">
-  <div class="form-group">
-    <input type="text" class="form-control" id="products" name="products[]" value="" placeholder="Products">
-  </div>
-</div>
-<div class="col-sm-3 nopadding">
-  <div class="form-group">
-    <input type="text" class="form-control" id="rate" name="rate[]" value="" placeholder="Rate">
-  </div>
-</div>
-<div class="col-sm-3 nopadding">
-  <div class="form-group">
-    <input type="text" class="form-control" id="quantity" name="quantity[]" value="" placeholder="Quantity">
-  </div>
-</div>
-<div class="col-sm-3 nopadding">
-  <div class="form-group">
-    <input type="text" class="form-control" id="price" name="price[]" value="" placeholder="Price">
-  </div>
-</div>
+                            </div>
+                            <!-- Total Amount at the bottom -->
+                            <div class="save-invoice-section">
+                                <div class="total-amount">
+                                    Total amount: £345.00
+                                </div>
+                                <button class="add-invoice-item" type="button"  onclick="education_fields();"> <span class="add-invoice-item" aria-hidden="true">+ Add invoice item</span> </button>
 
-<div class="clear"></div>
-  
-  </div>
-  
-</div>
+                                <!-- <button type="button" id="submit" class="add-invoice-item">+ Add invoice item</button> -->
 
-
-    
-    <!-- Total Amount at the bottom -->
-    <div class="save-invoice-section">
-        <div class="total-amount">
-            Total amount: £345.00
-        </div>
-        <button class="add-invoice-item" type="button"  onclick="education_fields();"> <span class="add-invoice-item" aria-hidden="true">+ Add invoice item</span> </button>
-
-        <!-- <button type="button" id="submit" class="add-invoice-item">+ Add invoice item</button> -->
-
-    </div>
-
-   
-   
-
+                            </div>
                             <input type="hidden" name="id" value="<?php echo $results->id; ?>" />
 
                             <div class="space-22"></div>

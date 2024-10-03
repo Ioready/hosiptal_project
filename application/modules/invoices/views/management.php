@@ -103,23 +103,9 @@
             }
         }
         .btn-primary {
-    /* --bs-btn-color: #fff;
-    --bs-btn-bg: #0d6efd;
-    --bs-btn-border-color: #0d6efd;
-    --bs-btn-hover-color: #fff;
-    --bs-btn-hover-bg: #0b5ed7;
-    --bs-btn-hover-border-color: #0a58ca;
-    --bs-btn-focus-shadow-rgb: 49, 132, 253;
-    --bs-btn-active-color: #fff;
-    --bs-btn-active-bg: #0a58ca;
-    --bs-btn-active-border-color: #0a53be;
-    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-    --bs-btn-disabled-color: #fff;
-    --bs-btn-disabled-bg: #0d6efd;
-    --bs-btn-disabled-border-color: #0d6efd; */
-    background:#0d6efd!important;
-    color:#fff;
-}
+            background:#0d6efd!important;
+            color:#fff;
+        }
     </style>
 
 <div id="page-content">
@@ -366,7 +352,12 @@
                 <h2 class="mb-4">Invoice Management</h2>
 
                 <div class="d-flex justify-content-between mb-3 align-items-center flex-wrap">
-                    <button class="btn btn-primary">New Invoice +</button>
+                    <!-- <button class="btn btn-primary">New Invoice +</button> -->
+
+                    <h2><a href="javascript:void(0)"  onclick="open_modal('<?php echo $model; ?>')" class="btn btn-sm btn-primary save-btn" id="patient_ids">
+                        <i class="gi gi-circle_plus"></i> <?php echo $title; ?> 
+                    </a></h2>
+
                     <div class="mt-2">
                         <label for="dateRange" class="me-2">Duration:</label>
                         <input type="text" id="dateRange" class="form-control d-inline-block" style="width: 250px;" readonly>
@@ -385,38 +376,31 @@
                         </tr>
                         </thead>
                         <tbody>
+                            <?php foreach($invoice_list as $row){ ?>
                         <tr>
-                            <td>INV#002</td>
-                            <td>aditya urmaliya</td>
+                            <td><?php echo $row->invoice_number;?></td>
+                            <td><?php echo $row->patient_name;?></td>
                             <td>
                                 <div class="invoice-status">
-                                    <span class="total">Total: $0.00</span><br>
-                                    <span class="paid">Paid: $0.00</span><br>
-                                    <span class="outstanding">Outstanding: $0.00</span>
+                                    <span class="total">Total: $<?php echo $row->total_amount;?></span><br>
+                                    <span class="paid">Paid: $<?php echo $row->Paid;?></span><br>
+                                    <span class="outstanding">Outstanding: $<?php echo $row->Outstanding;?></span>
                                 </div>
                             </td>
-                            <td>16-07-2024</td>
+                            <td><?php echo date("d/m/Y", strtotime($row->invoice_date)); ?></td>
+
                             <td>
-                                <span class="table-action" onclick="editInvoice()">✎ </span>
-                                <span class="table-action ms-3" onclick="deleteInvoice()">✖ </span>
+                            <a href="javascript:void(0)" class="btn btn-xs btn-default" onclick="editFn('<?php echo $model; ?>', 'edit', '<?php echo encoding($row->id) ?>', '<?php echo $model; ?>');"><i class="fa fa-pencil"></i></a>
+                                     
+                                <!-- <span class="table-action" onclick="editInvoice()">✎ </span> -->
+                                <!-- <span class="table-action ms-3" onclick="deleteInvoice()">✖ </span> -->
+                                <!-- <span class="table-action ms-3" onclick="deleteFnInvoice()">✖ </span> -->
+                                <a href="javascript:void(0)" onclick="deleteFnInvoice('<?php echo GROUPS;?>','id','<?php echo encoding($row->id); ?>','invoices/managements')" class="on-default edit-row text-danger"><img width="20" src="<?php echo base_url().DELETE_ICON;?>" /></a>
+                                    
                             </td>
                         </tr>
-                        <tr>
-                            <td>INV#001</td>
-                            <td>Yue Sun</td>
-                            <td>
-                                <div class="invoice-status">
-                                    <span class="total">Total: $0.00</span><br>
-                                    <span class="paid">Paid: $0.00</span><br>
-                                    <span class="outstanding">Outstanding: $0.00</span>
-                                </div>
-                            </td>
-                            <td>04-07-2024</td>
-                            <td>
-                                <span class="table-action" onclick="editInvoice()">✎ </span>
-                                <span class="table-action ms-3" onclick="deleteInvoice()">✖ </span>
-                            </td>
-                        </tr>
+                        <?php }?>
+                        
                         </tbody>
                     </table>
                 </div>
@@ -424,8 +408,8 @@
                 <div class="black-screen" id="blackScreen"></div>
 
                 <!-- Edit Modal -->
-                <div class="modal fade" id="editModal" tabindex="-1" role="dialog">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal fade bd-example-modal-lg" id="editModal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title">Edit Invoice</h5>
@@ -434,8 +418,127 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <p>Edit invoice details here.</p>
-                            </div>
+                    
+                                <div class="alert alert-danger" id="error-box" style="display: none"></div>
+                                    <div class="form-body">
+                                        <div class="row">
+                                    <!-- Invoice Form Section -->
+                                        <div class="form-container">
+                                            <!-- Invoice Form -->
+                                            <div class="form-section">
+                                                <h2>Create new Invoice</h2>
+                                                <div class="form-group">
+                                                    <label for="header">Header <span class="required" style="color:red;">*</span></label>
+                                                    <select name="header" id="header" required>
+                                                        <option value="Droitwich Knee Clinic & Bromsgrove P...">Droitwich Knee Clinic & Bromsgrove P...</option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="select-date">Select Date <span class="required" style="color:red;">*</span></label>
+                                                    <input type="date" name="invoice_date" id="invoice_date" required>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="practitioner">Practitioner</label>
+                                                    
+                                                    <select name="practitioner" id="practitioner">
+                                                    <?php  foreach($practitioner as $row){ ?>
+                                                        <option value="<?php echo $row->id;?>"><?php echo $row->name;?></option>
+                                                        <?php } ?>
+                                                    </select>
+                                                    <!-- <input type="text" name="practitioner" id="practitioner" placeholder="Select Practitioner"> -->
+                                                </div>
+                                            </div>
+
+                                            <!-- Billing and Comments -->
+                                            <div class="form-section">
+                                                <h2>Billing</h2>
+                                                <div class="form-group">
+                                                    <label for="patient">Patient <span style="color:red;">*</span></label>
+                                                    
+                                                    <select name="patient" id="patient">
+                                                    <?php  foreach($patient as $row){ ?>
+                                                        <option value="<?php echo $row->id;?>"><?php echo $row->name;?></option>
+                                                        <?php } ?>
+                                                    </select>
+
+                                                    <!-- <input type="hidden" name="patient" id="patient" value="<?php echo $patient->id;?>"><h3><span><?php echo $patient->name;?></span></h3> -->
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="billing">Billing to <span style="color:red;">*</span></label>
+                                                    <select name="billing_to" id="billing_to">
+                                                        <option value="Self Pay">Self Pay</option>
+                                                    </select>
+                                                </div>
+
+                                                <h2>Comments</h2>
+                                                <div class="form-group">
+                                                    <label for="notes">Notes</label>
+                                                    <textarea name="notes" id="notes" placeholder="Enter notes"></textarea>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="internal-notes">Internal notes</label>
+                                                    <textarea name="internal_notes" id="internal_notes" placeholder="Enter internal notes"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    <!-- Line Items Section -->
+
+                                        <div class="panel panel-default">
+                                            <!-- <div class="panel-heading">Dynamic Form Fields - Add & Remove Multiple fields</div> -->
+                                            <div class="panel-heading">Item Description</div>
+                                            <div class="panel-body">
+                                            
+                                            <div id="education_fields">
+                                                    
+                                                    </div>
+                                                <div class="col-sm-3 nopadding">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" id="products" name="products[]" value="" placeholder="Products">
+                                            </div>
+                                            </div>
+                                            <div class="col-sm-3 nopadding">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" id="rate" name="rate[]" value="" placeholder="Rate">
+                                            </div>
+                                            </div>
+                                            <div class="col-sm-3 nopadding">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" id="quantity" name="quantity[]" value="" placeholder="Quantity">
+                                            </div>
+                                            </div>
+                                            <div class="col-sm-3 nopadding">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" id="price" name="price[]" value="" placeholder="Price">
+                                            </div>
+                                            </div>
+
+                                            <div class="clear"></div>
+                                            
+                                            </div>
+                    
+                                                </div>
+                                                <!-- Total Amount at the bottom -->
+                                                <div class="save-invoice-section">
+                                                    <div class="total-amount">
+                                                        Total amount: £345.00
+                                                    </div>
+                                                    <button class="add-invoice-item" type="button"  onclick="education_fields();"> <span class="add-invoice-item" aria-hidden="true">+ Add invoice item</span> </button>
+
+                                                    <!-- <button type="button" id="submit" class="add-invoice-item">+ Add invoice item</button> -->
+
+                                                </div>
+                                                <input type="hidden" name="id" value="<?php echo $results->id; ?>" />
+
+                                                <div class="space-22"></div>
+                                            </div>
+                                        <!-- </div> -->
+                                    </div>
+                                </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 <button type="button" class="btn btn-primary">Save changes</button>
@@ -452,6 +555,171 @@
 <!-- END Page Content -->
 <div id="form-modal-box"></div>
 
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .patient-info {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .details {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .details span {
+            margin-right: 10px;
+        }
+
+        .expand-label {
+            color: #007B83;
+            cursor: pointer;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .expand-section {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .expand-section svg {
+            margin-right: 5px;
+        }
+
+        .save-invoice-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .save-button {
+            background-color: #00695C;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .total-amount {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .form-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .form-container .form-section {
+            flex: 1;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group select, .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .form-group textarea {
+            height: 80px;
+        }
+
+        .line-items-container {
+            margin-top: 30px;
+        }
+
+        .line-items-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .line-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .line-item div {
+            flex: 1;
+        }
+
+        .add-invoice-item {
+            background-color: #00695C;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .form-container {
+                flex-direction: column;
+            }
+
+            .save-invoice-section {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .save-button {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
 
 <script>
     // Initialize DataTable with search and pagination
@@ -488,4 +756,21 @@
     function deleteInvoice() {
         alert('Delete invoice action triggered.');
     }
+</script>
+<script>
+    var room = 1;
+function education_fields() {
+ 
+    room++;
+    var objTo = document.getElementById('education_fields')
+    var divtest = document.createElement("div");
+	divtest.setAttribute("class", "form-group removeclass"+room);
+	var rdiv = 'removeclass'+room;
+    divtest.innerHTML = '<div class="col-sm-3 nopadding"><div class="form-group"> <input type="text" class="form-control" id="products" name="products[]" value="" placeholder="Products name"></div></div><div class="col-sm-3 nopadding"><div class="form-group"> <input type="text" class="form-control" id="rate" name="rate[]" value="" placeholder="Rate"></div></div><div class="col-sm-3 nopadding"><div class="form-group"> <input type="text" class="form-control" id="quantity" name="quantity[]" value="" placeholder="Quantity"></div></div><div class="col-sm-3 nopadding"><div class="col-sm-3 nopadding"><div class="form-group"> <input type="text" class="form-control" id="price" name="price[]" value="" placeholder="Price"></div></div><div class="col-sm-4 nopadding"> <button class="btn btn-danger" type="button" onclick="remove_education_fields('+ room +');"> <span class="glyphicon glyphicon-minus" aria-hidden="true">-</span> </button></div></div></div></div><div class="clear"></div>';
+    
+    objTo.appendChild(divtest)
+}
+   function remove_education_fields(rid) {
+	   $('.removeclass'+rid).remove();
+   }
 </script>
