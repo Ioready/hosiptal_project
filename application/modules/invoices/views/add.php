@@ -196,7 +196,11 @@
                                 <div class="form-group">
                                     <label for="header">Header <span class="required" style="color:red;">*</span></label>
                                     <select name="header" id="header" required>
-                                        <option value="Droitwich Knee Clinic & Bromsgrove P...">Droitwich Knee Clinic & Bromsgrove P...</option>
+                                    
+                                    <?php  foreach($doctors as $row){ ?>
+                                        <option value="<?php echo $row->id;?>"><?php echo $row->first_name.' '.$row->last_name;?></option>
+                                        <?php } ?>
+                                        <!-- <option value="Droitwich Knee Clinic & Bromsgrove P...">Droitwich Knee Clinic & Bromsgrove P...</option> -->
                                     </select>
                                 </div>
 

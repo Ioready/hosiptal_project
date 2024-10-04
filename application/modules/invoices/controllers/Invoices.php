@@ -363,10 +363,10 @@ class Invoices extends Common_Controller {
                     'user_id'=> $LoginID,
                     'facility_user_id'=> $LoginID,
                     'patient_id' => $this->input->post('patient'),
-                    'invoice_number	' => $new_invoice_number,                         
-                    'invoice_date	' => $this->input->post('invoice_date'),                         
-                    'total_amount	' => $this->input->post('total_amount'),                         
-                    'header	' => $this->input->post('header	'),                         
+                    'invoice_number' => $new_invoice_number,                         
+                    'invoice_date' => $this->input->post('invoice_date'),                         
+                    'total_amount' => $this->input->post('total_amount'),                         
+                    'header' => $this->input->post('header'),                         
                     'billing_to' => $this->input->post('billing_to'),                         
                     'practitioner' => $this->input->post('practitioner'),                         
                     'notes' => $this->input->post('notes'),                         
@@ -422,7 +422,7 @@ class Invoices extends Common_Controller {
                          
                         'total_amount'=> $total_prices->total_price,                                              
                         'Paid' => '0.00',                         
-                        'Outstanding' => '0.00',                                            
+                        'Outstanding' => $total_prices->total_price,                                            
                     );
                     $optionUpdate = array(
                         'table' => $this->_table,
@@ -886,22 +886,6 @@ class Invoices extends Common_Controller {
             //     $x = $LoginID;
             // }
 
-           
-
-            // $option = array(
-            //     'table' => 'vendor_sale_invoice',
-            //     'select' => 'vendor_sale_invoice.*, vendor_sale_patient.name as patient_name,vendor_sale_invoice_items.price',
-            //     'join' => array(
-            //         array('vendor_sale_patient', 'vendor_sale_patient.id = vendor_sale_invoice.patient_id ', 'left'),
-            //         array('vendor_sale_invoice_items', 'vendor_sale_invoice.id = vendor_sale_invoice_items.invoice_id ', 'left')
-            //     ),
-            //     'where' => array('vendor_sale_invoice.facility_user_id' =>$LoginID,'delete_status'=>0),
-            //     'order' => array('id' => 'DESC'),
-            // );
-
-
-            // $this->data['invoice_list'] =$this->common_model->customGet($option);
-
             $option = array(
                 'table' => 'vendor_sale_invoice',
                 'select' => 'vendor_sale_invoice.*, vendor_sale_patient.name as patient_name, SUM(vendor_sale_invoice_items.price) as total_price',
@@ -927,26 +911,258 @@ class Invoices extends Common_Controller {
                 $vendor_profile_activate = 1;
             }
     
-            // $option1 ="SELECT `vendor_sale_doctor_invoice`.`id`,`vendor_sale_doctor_invoice`.`header`, `vendor_sale_doctor_invoice`.`start_date`,`vendor_sale_doctor_invoice`.`practitioner`,
-            // `vendor_sale_doctor_invoice`.`patient`, 
-            // `vendor_sale_doctor_invoice`.`billing_to`,
-            // `vendor_sale_doctor_invoice`.`note_comment`,
-            // `vendor_sale_doctor_invoice`.`created_at`,
-            // `vendor_sale_doctor_invoice`.`total`,
-            // `vendor_sale_doctor_invoice`.`user_id`,`vendor_sale_doctor_invoice`.`interal_comment`,`vendor_sale_doctor_invoice`.`status`
-            // FROM `vendor_sale_doctor_invoice` 
-            // LEFT JOIN `vendor_sale_users` ON 
-            // `vendor_sale_users`.`id` = `vendor_sale_doctor_invoice`.`user_id`
-            // WHERE `vendor_sale_doctor_invoice`.`status` = 0  and
-            // `vendor_sale_doctor_invoice`.`user_id` =$LoginID
-            // ORDER BY `vendor_sale_doctor_invoice`.`id` DESC";
-            
-            // $this->data['management'] = $this->common_model->customQuery($option1);
-
-            // $id = decoding($_GET['id']);
     
             $this->load->admin_render('management', $this->data, 'inner_script');
         
     }
+
+    public function pay() {
+        $this->data['title'] = "Pay " . $this->title;
+        $this->data['formUrl'] = $this->router->fetch_class() . "/process";
+           
+        $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+
+        if($this->ion_auth->is_subAdmin()){
+
+            $option = array(
+                'table' => ' doctors',
+                'select' => 'doctors.*',
+                'join' => array(
+                    array('users', 'doctors.user_id=users.id', 'left'),
+                ),
+                
+                'where' => array(
+                    'users.delete_status' => 0,
+                    'doctors.user_id'=>$CareUnitID
+                ),
+                'single' => true,
+            );
+
+            $datadoctors = $this->common_model->customGet($option);
+
+
+            $option = array(
+                'table' => ' doctors',
+                'select' => 'users.*',
+                'join' => array(
+                    array('users', 'doctors.user_id=users.id', 'left'),
+                    array('user_profile UP', 'UP.user_id=users.id', 'left'),
+                    // array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
+                    
+                ),
+                
+                'where' => array(
+                    'users.delete_status' => 0,
+                    'doctors.facility_user_id'=>$datadoctors->facility_user_id
+                ),
+                'order' => array('users.id' => 'desc'),
+            );
+            $this->data['doctors'] = $this->common_model->customGet($option);
+
+
+
+
+            $this->data['patient_id'] = decoding($_GET['id']);
+            $id = $this->input->post('id');
+            $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+            
+            $role_name = $this->input->post('role_name');
+
+            $optionPatient = array(
+                'table' => 'vendor_sale_users',
+                'select' => 'vendor_sale_patient.*',
+                'join' => array(
+                    array('vendor_sale_patient', 'vendor_sale_users.id=vendor_sale_patient.user_id','left')
+                ),
+                'where' => array('vendor_sale_patient.md_steward_id'=>$datadoctors->facility_user_id),
+            
+            );
+
+            $this->data['patient'] = $this->common_model->customGet($optionPatient);
+
+            $optionPractitioner = array(
+                'table' => 'vendor_sale_users',
+                'select' => 'vendor_sale_practitioner.*',
+                'join' => array(
+                    array('vendor_sale_practitioner', 'vendor_sale_users.id=vendor_sale_practitioner.hospital_id','left')
+                ),
+                'where' => array('vendor_sale_practitioner.hospital_id'=>$datadoctors->facility_user_id),
+                // 'single'=>true,
+            );
+
+            $this->data['practitioner'] = $this->common_model->customGet($optionPractitioner);
+            // print_r($datadoctors->facility_user_id);die;
+
+        } else if ($this->ion_auth->is_facilityManager()) {
+            
+            $option = array(
+                'table' => ' doctors',
+                'select' => 'users.*',
+                'join' => array(
+                    array('users', 'doctors.user_id=users.id', 'left'),
+                    array('user_profile UP', 'UP.user_id=users.id', 'left'),
+                    array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
+                    
+                ),
+                
+                'where' => array(
+                    'users.delete_status' => 0,
+                    'doctors.facility_user_id'=>$CareUnitID
+                ),
+                'order' => array('users.id' => 'desc'),
+            );
+            $this->data['doctors'] = $this->common_model->customGet($option);
+
+            $this->data['patient_id'] = decoding($_GET['id']);
+            $id = $this->input->post('id');
+            $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+            // print_r($LoginID);die;
+            $role_name = $this->input->post('role_name');
+
+            $optionPatient = array(
+                'table' => 'vendor_sale_users',
+                'select' => 'vendor_sale_patient.*',
+                'join' => array(
+                    array('vendor_sale_patient', 'vendor_sale_users.id=vendor_sale_patient.user_id','left')
+                ),
+                'where' => array('vendor_sale_patient.md_steward_id'=>$LoginID),
+                
+            );
+
+            $this->data['patient'] = $this->common_model->customGet($optionPatient);
+
+            // print_r($this->data['patient']);die;
+
+            $optionPractitioner = array(
+                'table' => 'vendor_sale_users',
+                'select' => 'vendor_sale_practitioner.*',
+                'join' => array(
+                    array('vendor_sale_practitioner', 'vendor_sale_users.id=vendor_sale_practitioner.hospital_id','left')
+                ),
+                'where' => array('vendor_sale_practitioner.hospital_id'=>$CareUnitID),
+                // 'single'=>true,
+            );
+
+            $this->data['practitioner'] = $this->common_model->customGet($optionPractitioner);
+        }
+
+        $id = decoding($this->input->post('id'));
+        if (!empty($id)) {
+            // $option = array(
+            //     'table' => $this->_table,
+            //     'where' => array('id' => $id),
+            //     'single' => true
+            // );
+
+            $option = array(
+                'table' => 'vendor_sale_invoice',
+                'select' => 'vendor_sale_invoice.*, vendor_sale_patient.name as patient_name, vendor_sale_invoice_items.price as total_price,vendor_sale_invoice_items.product_name,,vendor_sale_invoice_items.rate,,vendor_sale_invoice_items.quantity,',
+                'join' => array(
+                    array('vendor_sale_patient', 'vendor_sale_patient.id = vendor_sale_invoice.patient_id ', 'left'),
+                    array('vendor_sale_invoice_items', 'vendor_sale_invoice.id = vendor_sale_invoice_items.invoice_id ', 'left')
+                ),
+                'where' => array('vendor_sale_invoice.id' => $id),
+                // 'group_by' => 'vendor_sale_invoice.id', // Group by invoice ID to get total price for each invoice
+                'order' => array('vendor_sale_invoice.id' => 'DESC'),
+                'single' => true
+
+            );
+            $results_row = $this->common_model->customGet($option);
+
+            $optionItem = array(
+                'table' => 'vendor_sale_invoice',
+                'select' => 'vendor_sale_invoice.*, vendor_sale_patient.name as patient_name, vendor_sale_invoice_items.price as total_price,vendor_sale_invoice_items.product_name,,vendor_sale_invoice_items.rate,,vendor_sale_invoice_items.quantity,',
+                'join' => array(
+                    array('vendor_sale_patient', 'vendor_sale_patient.id = vendor_sale_invoice.patient_id ', 'left'),
+                    array('vendor_sale_invoice_items', 'vendor_sale_invoice.id = vendor_sale_invoice_items.invoice_id ', 'left')
+                ),
+                'where' => array('vendor_sale_invoice_items.invoice_id' => $id),
+                // 'group_by' => 'vendor_sale_invoice.id', // Group by invoice ID to get total price for each invoice
+                'order' => array('vendor_sale_invoice.id' => 'DESC'),
+                
+
+            );
+            $resultsItem = $this->common_model->customGet($optionItem);
+
+            if (!empty($results_row)) {
+                $this->data['results'] = $results_row;
+                $this->data['resultsItem'] = $resultsItem;
+                // print_r($this->data['results']);die;
+                $this->load->view('pay', $this->data);
+            } else {
+                $this->session->set_flashdata('error', lang('not_found'));
+                redirect($this->router->fetch_class());
+            }
+        } else {
+            $this->session->set_flashdata('error', lang('not_found'));
+            redirect($this->router->fetch_class());
+        }
+    }
+
+    public function process() {
+        // Load necessary models or libraries for processing payment
+
+        $this->form_validation->set_rules('invoice_date', "invoice_date", 'required|trim');
+        // $where_id = $this->input->post('id');
+        $model = $this->input->post('model');
+        $id = $this->input->post('id');
+
+        if ($this->form_validation->run() == FALSE):
+            $messages = (validation_errors()) ? validation_errors() : '';
+            $response = array('status' => 0, 'message' => $messages);
+        else:
+            $this->filedata['status'] = 1;
+
+            if ($this->filedata['status'] == 0) {
+                $response = array('status' => 0, 'message' => $this->filedata['error']);
+            } else {
+
+        
+
+        // print_r($this->input->post());die;
+
+        $options_data = array(
+            // 'user_id'=> $LoginID,
+            // 'facility_user_id'=> $LoginID,
+            'patient_id' => $this->input->post('patient'),
+            'invoice_id	' => $this->input->post('id'),                       
+            'selected_date	' => $this->input->post('invoice_date'),                         
+            'pay_amount	' => $this->input->post('amount'),                                               
+            'payment_type' => $this->input->post('billing_to'),                         
+                                     
+        );
+        // print_r($options_data);die;
+        $option = array('table' => 'vendor_sale_invoice_pay', 'data' => $options_data);
+        $invoice_id= $this->common_model->customInsert($option);
+        
+
+        if (!empty($id)) {
+            $option = array(
+                'table' => 'vendor_sale_invoice',
+                'data' => array('vendor_sale_invoice.Paid' => $this->input->post('amount'),'vendor_sale_invoice.Outstanding' => '0.00'),
+                'where' => array('vendor_sale_invoice.id' => $id)
+            );
+            $delete = $this->common_model->customUpdate($option);
+
+        // Here you would typically call your payment gateway integration,
+        // for example, sending a request to PayPal, Stripe, etc.
+        // For now, let's just simulate a successful payment response.
+
+        // $response = [
+        //     'status' => 'success',
+        //     'message' => 'Payment was processed successfully'
+        // ];
+
+        // echo json_encode($response);
+        $response = array('status' => 1, 'message' => "Payment was processed successfully", 'url' => base_url('contactus/edit'), 'id' => encoding($this->input->post('id')));
+                
+            }
+        }
+        endif;
+    
+
+        echo json_encode($response);
+    
+}
 
 }

@@ -369,7 +369,7 @@
                         <thead class="table-light text-center ">
                         <tr>
                             <th>Invoice</th>
-                            <th>Client</th>
+                            <th>Patient</th>
                             <th>Total</th>
                             <th>Invoice Date</th>
                             <th>Action</th>
@@ -390,12 +390,17 @@
                             <td><?php echo date("d/m/Y", strtotime($row->invoice_date)); ?></td>
 
                             <td>
+                            <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Pay</button>
+                             -->
+                             <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Pay</button> -->
+
+                            <!-- <a href="javascript:void(0)" class="btn btn-xs btn-default" onclick="payFn('<?php echo $model; ?>', '<?php echo encoding($row->id); ?>');"><i class="fa fa-credit-card"></i> Pay</a> -->
+
+                            <?php if(empty($row->Paid)){?>
+                            <a href="javascript:void(0)" class="btn btn-primary" onclick="payFn('<?php echo $model; ?>', 'pay', '<?php echo encoding($row->id) ?>', '<?php echo $model; ?>');">Pay</a>
+                            <?php }?>
                             <a href="javascript:void(0)" class="btn btn-xs btn-default" onclick="editFn('<?php echo $model; ?>', 'edit', '<?php echo encoding($row->id) ?>', '<?php echo $model; ?>');"><i class="fa fa-pencil"></i></a>
-                                     
-                                <!-- <span class="table-action" onclick="editInvoice()">✎ </span> -->
-                                <!-- <span class="table-action ms-3" onclick="deleteInvoice()">✖ </span> -->
-                                <!-- <span class="table-action ms-3" onclick="deleteFnInvoice()">✖ </span> -->
-                                <a href="javascript:void(0)" onclick="deleteFnInvoice('<?php echo GROUPS;?>','id','<?php echo encoding($row->id); ?>','invoices/managements')" class="on-default edit-row text-danger"><img width="20" src="<?php echo base_url().DELETE_ICON;?>" /></a>
+                            <a href="javascript:void(0)" onclick="deleteFnInvoice('<?php echo GROUPS;?>','id','<?php echo encoding($row->id); ?>','invoices/managements')" class="on-default edit-row text-danger"><img width="20" src="<?php echo base_url().DELETE_ICON;?>" /></a>
                                     
                             </td>
                         </tr>
@@ -554,6 +559,9 @@
 </div>
 <!-- END Page Content -->
 <div id="form-modal-box"></div>
+<div id="form-modal-box-pay"></div>
+
+
 
 <style>
         * {

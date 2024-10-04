@@ -180,7 +180,8 @@
             <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url($formUrl) ?>" enctype="multipart/form-data">
                 <div class="modal-header text-center">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h2 class="modal-title"><i class="fa fa-pencil"></i> <?php echo "Add invoice" ?></h2>
+                    <h2 class="modal-title"><?php echo "Add Payment on account" ?></h2>
+                    <h4 style="margin-left: 233px;"><span><strong><?php echo $results->invoice_number;?></strong></span></h2>
                 </div>
                 <div class="modal-body">
                     
@@ -194,53 +195,13 @@
                         <div class="form-container">
                             <!-- Invoice Form -->
                             <div class="form-section">
-                                <h2>Create new Invoice</h2>
-                                <div class="form-group">
-                                    <label for="header">Header <span class="required" style="color:red;">*</span></label>
-                                    <select name="header" id="header" required>
-                                        
-                                    <?php  foreach($doctors as $row){ ?>
-                                        <option value="<?php echo $row->id;?>" <?php echo $results->header ==$row->id?'selected':'';?>><?php echo $row->first_name.' '.$row->last_name;?></option>
-                                        <?php } ?>
-                                    
-                                    <!-- <option value="Droitwich Knee Clinic & Bromsgrove P...">Droitwich Knee Clinic & Bromsgrove P...</option> -->
-                                    </select>
-                                </div>
-
+                                
                                 <div class="form-group">
                                     <label for="select-date">Select Date <span class="required" style="color:red;">*</span></label>
                                     <input type="date" name="invoice_date" id="invoice_date" value="<?php echo $results->invoice_date;?>">
                                 </div>
-
                                 <div class="form-group">
-                                    <label for="practitioner">Practitioner</label>
-                                    
-                                    <select name="practitioner" id="practitioner">
-                                    <?php  foreach($practitioner as $row){ ?>
-                                        <option value="<?php echo $row->id;?>" <?php echo $results->practitioner ==$row->id?'selected':''; ?>><?php echo $row->name;?></option>
-                                        <?php } ?>
-                                    </select>
-                                    <!-- <input type="text" name="practitioner" id="practitioner" placeholder="Select Practitioner"> -->
-                                </div>
-                            </div>
-
-                            <!-- Billing and Comments -->
-                            <div class="form-section">
-                                <h2>Billing</h2>
-                                <div class="form-group">
-                                    <label for="patient">Patient <span style="color:red;">*</span></label>
-                                    
-                                    <select name="patient" id="patient">
-                                    <?php  foreach($patient as $rows){ ?>
-                                        <option value="<?php echo $rows->id;?>" <?php echo $results->patient_id ==$rows->id?'selected':''; ?>><?php echo $rows->name;?></option>
-                                        <?php } ?>
-                                    </select>
-
-                                    <!-- <input type="hidden" name="patient" id="patient" value="<?php echo $patient->id;?>"><h3><span><?php echo $patient->name;?></span></h3> -->
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="billing">Billing to <span style="color:red;">*</span></label>
+                                    <label for="billing">Select Payment type <span style="color:red;">*</span></label>
                                     <select name="billing_to" id="billing_to">
                                     <option value="">Select Billing Type</option>
                                     <option value="Self Pay" <?php echo $results->billing_to =='Self Pay'?'selected':'';?>>Self Pay</option>
@@ -252,72 +213,62 @@
                                     </select>
                                 </div>
 
-                                <h2>Comments</h2>
                                 <div class="form-group">
-                                    <label for="notes">Notes</label>
-                                    <textarea name="notes" id="notes" placeholder="Enter notes"><?php echo $results->notes;?></textarea>
-                                </div>
+                                    <label for="notes">Amount</label>
+                                    <input type="text" name="amount" id="amount" placeholder="Enter Amount" value="<?php echo $results->total_amount; ?>" readOnly>
+                                    <button class="add-invoice-item" type="button" onclick="education_fields();">
+                                        <span aria-hidden="true">+ Add card</span>
+                                    </button>
 
-                                <div class="form-group">
-                                    <label for="internal-notes">Internal notes</label>
-                                    <textarea name="internal_notes" id="internal_notes" placeholder="Enter internal notes"><?php echo $results->internal_notes;?></textarea>
+                                    <!-- Card details will be added here -->
+                                    <div id="card-details-container"></div>
                                 </div>
+    
                             </div>
-                        </div>
 
-                        <!-- Line Items Section -->
-                      
-
-
-                        <div class="panel panel-default">
-                        <!-- <div class="panel-heading">Dynamic Form Fields - Add & Remove Multiple fields</div> -->
-                        <div class="panel-heading">Item Description</div>
-                        <div class="panel-body">
-                        
-                        <div id="edit_item_fields">
+                            <!-- Billing and Comments -->
+                            <div class="form-section">
                                 
-                                </div>
-                            <div class="col-sm-3 nopadding">
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="products" name="products[]" value="" placeholder="Products">
-                        </div>
-                        </div>
-                        <div class="col-sm-3 nopadding">
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="rate" name="rate[]" value="" placeholder="Rate">
-                        </div>
-                        </div>
-                        <div class="col-sm-3 nopadding">
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="quantity" name="quantity[]" value="" placeholder="Quantity">
-                        </div>
-                        </div>
-                        <div class="col-sm-3 nopadding">
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="price" name="price[]" value="" placeholder="Price">
-                        </div>
-                        </div>
+                                <div class="form-group">
+                                    <label for="patient">Patient Details<span style="color:red;">*</span></label>
+                                    <input type="hidden" name="patient" id="patient" value="<?php echo $results->patient_id;?>"><h3><span><?php echo $results->patient_name;?></span></h3>
 
-                        <div class="clear"></div>
-                        
-                        </div>
-  
+                                        <table border="1" cellspacing="0" cellpadding="10" style="width: 100%; border-collapse: collapse;">
+                                            <thead>
+                                                <tr>
+                                                    <th>Product Name</th>
+                                                    <th>Rate</th>
+                                                    <th>Quantity</th>
+                                                    <th>Total Price</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php foreach($resultsItem as $rows){ ?>
+                                                <tr>
+                                                    <td><?php echo $rows->product_name; ?></td>
+                                                    <td><?php echo $rows->rate; ?></td>
+                                                    <td><?php echo $rows->quantity; ?></td>
+                                                    <td><?php echo $rows->total_price; ?></td>
+                                                </tr>
+                                                <?php } ?>
+                                            </tbody>
+                                        </table>
+
+                                </div>
+
                             </div>
-                            <!-- Total Amount at the bottom -->
+                        </div>
+
                             <div class="save-invoice-section">
-                                <div class="total-amount">
-                                    Total amount: £<?php echo $results->total_amount; ?>
-
-                                </div>
-                                <button class="add-invoice-item" type="button"  onclick="education_fields();"> <span class="add-invoice-item" aria-hidden="true">+ Add invoice item</span> </button>
-
-                                <!-- <button type="button" id="submit" class="add-invoice-item">+ Add invoice item</button> -->
-
+                               
                             </div>
                             <input type="hidden" name="id" value="<?php echo $results->id; ?>" />
 
                             <div class="space-22"></div>
                         </div>
+                        <div class="total-amount">
+                                    Total amount: £<?php echo $results->total_amount; ?>
+                                </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -332,19 +283,71 @@
 
 
 <script>
-    var room = 1;
 function education_fields() {
- 
-    room++;
-    var objTo = document.getElementById('edit_item_fields')
-    var divtest = document.createElement("div");
-	divtest.setAttribute("class", "form-group removeclass"+room);
-	var rdiv = 'removeclass'+room;
-    divtest.innerHTML = '<div class="col-sm-3 nopadding"><div class="form-group"> <input type="text" class="form-control" id="products" name="products[]" value="" placeholder="Products name"></div></div><div class="col-sm-2 nopadding"><div class="form-group"> <input type="text" class="form-control" id="rate" name="rate[]" value="" placeholder="Rate"></div></div><div class="col-sm-2 nopadding"><div class="form-group"> <input type="text" class="form-control" id="quantity" name="quantity[]" value="" placeholder="Quantity"></div></div><div class="col-sm-3 nopadding"><div class="form-group"> <input type="text" class="form-control" id="price" name="price[]" value="" placeholder="Price"></div></div> <div class="col-sm-2"><div class="form-group">  <button class="btn btn-danger" type="button" onclick="remove_education_fields('+ room +');"> <span class="glyphicon glyphicon-minus" aria-hidden="true">-</span> </button></div></div><div class="clear"></div>';
-    
-    objTo.appendChild(divtest)
+    // Container where card details will be appended
+    var container = document.getElementById("card-details-container");
+
+    // Card details HTML structure
+    var cardDetails = `
+        <div class="card-details-group">
+            <label for="card-number">Card Number</label>
+            <input type="text" name="card_number[]" class="form-control" placeholder="Enter card number">
+
+            <label for="expiry-date">Expiry Date</label>
+            <input type="text" name="expiry_date[]" class="form-control" placeholder="MM/YY">
+
+            <label for="cvv">CVV</label>
+            <input type="text" name="cvv[]" class="form-control" placeholder="CVV">
+
+            <button type="button" class="remove-card" onclick="removeCard(this)">Remove Card</button>
+        </div>
+    `;
+
+    // Append card details to the container
+    container.insertAdjacentHTML("beforeend", cardDetails);
 }
-   function remove_education_fields(rid) {
-	   $('.removeclass'+rid).remove();
-   }
+
+// Function to remove a card field if needed
+function removeCard(button) {
+    button.parentElement.remove();
+}
+
 </script>
+<style>
+    .card-details-group {
+        margin-top: 20px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .remove-card {
+        margin-top: 10px;
+        color: red;
+        cursor: pointer;
+        background: none;
+        border: none;
+    }
+</style>
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+    table, th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+    th {
+        background-color: #f2f2f2;
+        text-align: left;
+    }
+    tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+    tr:hover {
+        background-color: #f1f1f1;
+    }
+</style>
+
