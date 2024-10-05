@@ -352,6 +352,8 @@ h1 {
   <!-- <button onclick="generatePDF()"> <i class="fa fa-download"></i>Download</button> -->
 
 <!-- Booking form content wrapped in a div for capturing -->
+
+
 <div id="booking-form">
     <!-- Header Section -->
     <div class="header-container">

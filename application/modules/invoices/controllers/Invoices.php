@@ -1139,7 +1139,7 @@ class Invoices extends Common_Controller {
         if (!empty($id)) {
             $option = array(
                 'table' => 'vendor_sale_invoice',
-                'data' => array('vendor_sale_invoice.Paid' => $this->input->post('amount'),'vendor_sale_invoice.Outstanding' => '0.00'),
+                'data' => array('vendor_sale_invoice.Paid' => $this->input->post('amount'),'vendor_sale_invoice.Outstanding' => '0.00','vendor_sale_invoice.status' => 'Paid'),
                 'where' => array('vendor_sale_invoice.id' => $id)
             );
             $delete = $this->common_model->customUpdate($option);
@@ -1163,6 +1163,80 @@ class Invoices extends Common_Controller {
 
         echo json_encode($response);
     
-}
+    }
+
+
+
+
+    public function pdfInvoice() {
+        $this->data['title'] = "PDF Invoice " . $this->title;
+        $this->data['formUrl'] = $this->router->fetch_class() . "/update";
+
+
+           
+        $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+
+
+        $id = decoding($this->input->post('id'));
+        // $id = decoding($this->input->post('pdfInvoice'));
+        // print_r($id);die;
+        if (!empty($id)) {
+            // $option = array(
+            //     'table' => $this->_table,
+            //     'where' => array('id' => $id),
+            //     'single' => true
+            // );
+
+            $option = array(
+                'table' => 'vendor_sale_invoice',
+                'select' => 'vendor_sale_invoice.*, vendor_sale_patient.name as patient_name, vendor_sale_users.email as patient_email, 
+                            SUM(vendor_sale_invoice_items.price) as total_price,vendor_sale_invoice_items.product_name,vendor_sale_invoice_items.rate,vendor_sale_invoice_items.quantity,vendor_sale_invoice_items.price',
+                'join' => array(
+                    array('vendor_sale_patient', 'vendor_sale_patient.id = vendor_sale_invoice.patient_id', 'left'),
+                    array('vendor_sale_users', 'vendor_sale_users.id = vendor_sale_patient.user_id', 'left'),
+                    array('vendor_sale_invoice_items', 'vendor_sale_invoice.id = vendor_sale_invoice_items.invoice_id', 'left')
+                ),
+                'where' => array('vendor_sale_invoice.id' => $id, 'vendor_sale_invoice.delete_status' => 0),
+                'group_by' => 'vendor_sale_invoice.id',
+                'order' => array('vendor_sale_invoice.id' => 'DESC'),
+                'single' => true
+            );
+            
+            // $results_row = $this->common_model->customGet($option);
+            
+
+            $results_row = $this->common_model->customGet($option);
+            if (!empty($results_row)) {
+                $this->data['results'] = $results_row;
+
+                $optionItem = array(
+                    'table' => 'vendor_sale_invoice',
+                    'select' => 'vendor_sale_invoice.*, vendor_sale_patient.name as patient_name, vendor_sale_invoice_items.price as total_price,vendor_sale_invoice_items.product_name,,vendor_sale_invoice_items.rate,,vendor_sale_invoice_items.quantity,',
+                    'join' => array(
+                        array('vendor_sale_patient', 'vendor_sale_patient.id = vendor_sale_invoice.patient_id ', 'left'),
+                        array('vendor_sale_invoice_items', 'vendor_sale_invoice.id = vendor_sale_invoice_items.invoice_id ', 'left')
+                    ),
+                    'where' => array('vendor_sale_invoice_items.invoice_id' => $id),
+                    // 'group_by' => 'vendor_sale_invoice.id', // Group by invoice ID to get total price for each invoice
+                    'order' => array('vendor_sale_invoice.id' => 'DESC'),
+                    
+    
+                );
+                $resultsItem = $this->common_model->customGet($optionItem);
+                $this->data['resultsItem'] = $resultsItem;
+                // print_r($this->data['resultsItem']);die;
+                $this->load->view('pdf_invoice', $this->data);
+            } else {
+                $this->session->set_flashdata('error', lang('not_found'));
+                redirect($this->router->fetch_class());
+            }
+        } else {
+            $this->session->set_flashdata('error', lang('not_found'));
+            redirect($this->router->fetch_class());
+        }
+    }
+
+   
+
 
 }
