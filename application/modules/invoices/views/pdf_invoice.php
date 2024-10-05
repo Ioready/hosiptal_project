@@ -85,7 +85,7 @@
                           <div class="my-5">
                                   <div class="invoice-header">
                                       <div>
-                                          <img src="your-logo.png" alt="Logo">
+                                          <img src="https://ioready.io/wp-content/uploads/2024/02/cropped-your_vision_ourinnovation__500_x_500_px_-removebg-preview.png" alt="Logo">
                                           <p class="invoice-info">
                                           ioready, 33-02, Persiaran Austin Heights, Taman Mount Austin, 81100 Johor Bahru, Johor, Malaysia
                                           </p>
@@ -200,6 +200,81 @@
         });
     }
 </script>
+
+<script>
+    // function generatePDF() {
+    //     const element = document.getElementById('patient-invoice');
+        
+    //     // Dynamically add the logo before generating PDF
+    //     const logo = document.createElement('img');
+    //     logo.src = 'https://ioready.io/wp-content/uploads/2024/02/cropped-your_vision_ourinnovation__500_x_500_px_-removebg-preview.png';
+    //     logo.style.maxWidth = '150px';
+    //     logo.style.display = 'block';
+    //     logo.style.margin = '0 auto';
+
+    //     // Insert the logo at the top of the invoice
+    //     element.insertBefore(logo, element.firstChild);
+
+    //     // Generate PDF
+    //     html2pdf(element, {
+    //         margin: 10,
+    //         filename: 'patient-invoice.pdf',
+    //         image: { type: 'jpeg', quality: 0.98 },
+    //         html2canvas: { scale: 2 },
+    //         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    //     });
+
+        // Optionally remove the logo from the DOM after PDF is generated
+    //     setTimeout(() => {
+    //         element.removeChild(logo);
+    //     }, 1000);
+    // }
+</script>
+
+<!-- <script>
+    function generatePDF() {
+        const element = document.getElementById('patient-invoice');
+
+        html2canvas(element).then((canvas) => {
+            const imgData = canvas.toDataURL('https://ioready.io/wp-content/uploads/2024/02/cropped-your_vision_ourinnovation__500_x_500_px_-removebg-preview.png');
+            
+            const pdf =  html2pdf(element, {
+            margin: 10,
+            filename: 'patient-invoice.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        });
+
+            // const pdf = new jsPDF('p', 'mm', 'a4');
+            const imgWidth = 210; // A4 page width in mm
+            const pageHeight = 297; // A4 page height in mm
+            const imgHeight = canvas.height * imgWidth / canvas.width;
+            let heightLeft = imgHeight;
+            let position = 0;
+
+            // Add the image to the PDF
+            pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+            heightLeft -= pageHeight;
+
+            // If the content is longer than one page
+            while (heightLeft >= 0) {
+                position = heightLeft - imgHeight;
+                pdf.addPage();
+                pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+            }
+
+            // Download the PDF
+            // pdf.save('patient-invoice.pdf');
+
+            
+        });
+        
+    }
+</script> -->
+
+
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
