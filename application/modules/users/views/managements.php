@@ -138,21 +138,21 @@
         <div class="block-title" >
             <!-- <h2 class="fw-bold text-dark">Users Panel</h2> -->
             <ul class="nav nav-tabs" id="userRoleTab" role="tablist">
-            <li class="nav-item" role="presentation">
-                <a class="nav-link active" id="user-tab" data-bs-toggle="tab" href="#user" role="tab" aria-controls="user"
-                    aria-selected="true">User</a>
-            </li>
-            <li class="nav-item" role="presentation">
-                <a class="nav-link" id="role-tab" data-bs-toggle="tab" href="#role" role="tab" aria-controls="role"
-                    aria-selected="false">Role & Permission</a>
-            </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link active" id="user-tab" data-bs-toggle="tab" href="#user" role="tab" aria-controls="user"
+                        aria-selected="true">User</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="role-tab" data-bs-toggle="tab" href="#role" role="tab" aria-controls="role"
+                        aria-selected="false">Role & Permission</a>
+                </li>
 
-            <li class="nav-item" role="presentation">
-                <a class="nav-link" id="role-tab" data-bs-toggle="tab" href="#module" role="tab" aria-controls="role"
-                    aria-selected="false">Module Permission</a>
-            </li>
-        </ul>
-        </div>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="role-tab" data-bs-toggle="tab" href="#module" role="tab" aria-controls="role"
+                        aria-selected="false">Module Permission</a>
+                </li>
+            </ul>
+    </div>
        
 
         <div class="table-responsive" >
@@ -194,7 +194,7 @@
                                         $rowCount = 0;
                                         foreach ($list as $rows):
                                             $rowCount++;
-                                            ?>
+                                    ?>
                                   <tr>
                                     <td><input type="checkbox"></td>
                                     <td class="text-center"><?php echo $rowCount; ?></td>            
@@ -341,507 +341,101 @@
             <h3>Group Permission</h3>
             <input type="text" class="form-control search-input" placeholder="Search...">
         </div>
+
+        <form class="form-horizontal p-4" role="form" id="addFormAjax" method="post" action="<?php echo base_url('users/rolePermission') ?>" enctype="multipart/form-data">
+                   
         <div class="row mb-4">
             <div class="col-md-4">
-                <input type="text" class="form-control" placeholder="Role" value="Doctor">
+                <label for="">Roles</label>
+                <select class="form-select" id="role_id" name="role">
+             
+                <!-- <option>Please Select</option> -->
+                <?php echo $module_permission->role_id; ?>
+               <?php foreach ($roles_list as $rows): ?>
+                <?php if($rows->name =='SubAdmin'){ ?>
+                    <option value="<?php echo $rows->id; ?>" <?php echo ($module_permission->role_id == $rows->id) ? 'selected' : ''; ?>><?php echo 'Doctor'; ?></option>
+                    <?php }else if($rows->name !='SubAdmin'){?>
+                        
+                        <!-- <option value="<?php echo $rows->id; ?>" <?php $module_permission->role_id ==$rows->id?'selected':''?>><?php echo $rows->name; ?></option> -->
+                        <option value="<?php echo $rows->id; ?>" <?php echo ($module_permission->role_id == $rows->id) ? 'selected' : ''; ?>><?php echo $rows->name; ?></option>
+
+                        <?php }?>
+                                   
+                <?php endforeach?>
+            </select>
+            
             </div>
             <div class="col-md-4">
-                <input type="text" class="form-control" placeholder="Description" value="Enter">
+                <!-- <label for="">Description</label>
+                <input type="text" class="form-control" placeholder="Description" value=""> -->
             </div>
-            <div class="col-md-4">
-                <button class="btn btn-success w-100">Update</button>
-            </div>
+            <!-- <div class="col-md-4"><br>
+                <button class="btn btn-success w-100" style="float:right;">Update</button>
+            </div> -->
         </div>
-        <div class="row">
-            <!-- Role Card -->
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-header">
-                        <span>Role</span>
-                        <div class="form-check form-switch permission-switch">
-                            <input class="form-check-input" type="checkbox" checked>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <table class="table permissions-table">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Permissions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>View All Records</td>
-                                    <td class="text-end"><input type="checkbox" id="selectAllRole" onclick="selectAll('role')" checked></td>
-                                </tr>
-                                <tr>
-                                    <td>View</td>
-                                    <td class="text-end"><input type="checkbox" class="role" checked></td>
-                                </tr>
-                                <tr>
-                                    <td>Create</td>
-                                    <td class="text-end"><input type="checkbox" class="role" checked></td>
-                                </tr>
-                                <tr>
-                                    <td>Delete</td>
-                                    <td class="text-end"><input type="checkbox" class="role" checked></td>
-                                </tr>
-                                <tr>
-                                    <td>Update</td>
-                                    <td class="text-end"><input type="checkbox" class="role" checked></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
 
-            <!-- User Card -->
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-header">
-                        <span>User</span>
-                        <div class="form-check form-switch permission-switch">
-                            <input class="form-check-input" type="checkbox" checked>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <table class="table permissions-table">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Permissions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>View All Records</td>
-                                    <td class="text-end"><input type="checkbox" id="selectAllUser" onclick="selectAll('user')" checked></td>
-                                </tr>
-                                <tr>
-                                    <td>View</td>
-                                    <td class="text-end"><input type="checkbox" class="user" checked></td>
-                                </tr>
-                                <tr>
-                                    <td>Create</td>
-                                    <td class="text-end"><input type="checkbox" class="user" checked></td>
-                                </tr>
-                                <tr>
-                                    <td>Delete</td>
-                                    <td class="text-end"><input type="checkbox" class="user" checked></td>
-                                </tr>
-                                <tr>
-                                    <td>Update</td>
-                                    <td class="text-end"><input type="checkbox" class="user" checked></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+                <div class="row">
 
-            <!-- Tasks Card -->
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-header">
-                        <span>Tasks</span>
-                        <div class="form-check form-switch permission-switch">
-                            <input class="form-check-input" type="checkbox" checked>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <table class="table permissions-table">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Permissions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>View All Records</td>
-                                    <td class="text-end"><input type="checkbox" id="selectAllTasks" onclick="selectAll('tasks')" checked></td>
-                                </tr>
-                                <tr>
-                                    <td>View</td>
-                                    <td class="text-end"><input type="checkbox" class="tasks" checked></td>
-                                </tr>
-                                <tr>
-                                    <td>Create</td>
-                                    <td class="text-end"><input type="checkbox" class="tasks" checked></td>
-                                </tr>
-                                <tr>
-                                    <td>Delete</td>
-                                    <td class="text-end"><input type="checkbox" class="tasks" checked></td>
-                                </tr>
-                                <tr>
-                                    <td>Update</td>
-                                    <td class="text-end"><input type="checkbox" class="tasks" checked></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+                    
+                    <?php foreach($module_list as $rows){?>
+                    <!-- Role Card -->
+                    <!-- formUrlPermission -->
 
-            <!-- Appointment Card -->
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-header">
-                        <span>Appointment</span>
-                        <div class="form-check form-switch permission-switch">
-                            <input class="form-check-input" type="checkbox" checked>
+                
+                        <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <span><?php echo $rows->menu_name;?></span>
+                                <div class="form-check form-switch permission-switch">
+                                    <input class="form-check-input servicecheck" type="checkbox" id="<?php echo $rows->menu_id;?>" name="menu_id[]" value="<?php echo $rows->menu_id;?>">
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <table class="table permissions-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Permissions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>View All Records</td>
+                                            <td class="text-end"><input type="checkbox" id="selectAllRole" onclick="selectAll('role')"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>View</td>
+                                            <td class="text-end"><input type="checkbox" class="role"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Create</td>
+                                            <td class="text-end"><input type="checkbox" class="role"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Delete</td>
+                                            <td class="text-end"><input type="checkbox" class="role"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Update</td>
+                                            <td class="text-end"><input type="checkbox" class="role"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                    </div>
-                    <div class="card-body">
-                        <table class="table permissions-table">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Permissions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>View All Records</td>
-                                    <td class="text-end"><input type="checkbox" id="selectAllAppointment" onclick="selectAll('appointment')" checked></td>
-                                </tr>
-                                <tr>
-                                    <td>View</td>
-                                    <td class="text-end"><input type="checkbox" class="appointment" checked></td>
-                                </tr>
-                                <tr>
-                                    <td>Create</td>
-                                    <td class="text-end"><input type="checkbox" class="appointment" checked></td>
-                                </tr>
-                                <tr>
-                                    <td>Delete</td>
-                                    <td class="text-end"><input type="checkbox" class="appointment" checked></td>
-                                </tr>
-                                <tr>
-                                    <td>Update</td>
-                                    <td class="text-end"><input type="checkbox" class="appointment" checked></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Patients Card -->
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-header">
-                        <span>Patients</span>
-                        <div class="form-check form-switch permission-switch">
-                            <input class="form-check-input" type="checkbox" checked>
                         </div>
-                    </div>
-                    <div class="card-body">
-                        <table class="table permissions-table">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Permissions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>View All Records</td>
-                                    <td class="text-end"><input type="checkbox" id="selectAllPatients" onclick="selectAll('patients')" checked></td>
-                                </tr>
-                                <tr>
-                                    <td>View</td>
-                                    <td class="text-end"><input type="checkbox" class="patients" checked></td>
-                                </tr>
-                                <tr>
-                                    <td>Create</td>
-                                    <td class="text-end"><input type="checkbox" class="patients" checked></td>
-                                </tr>
-                                <tr>
-                                    <td>Delete</td>
-                                    <td class="text-end"><input type="checkbox" class="patients" checked></td>
-                                </tr>
-                                <tr>
-                                    <td>Update</td>
-                                    <td class="text-end"><input type="checkbox" class="patients" checked></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+                    
+                    <?php }?>
 
-            <!-- Products Card -->
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-header">
-                        <span>Products</span>
-                        <div class="form-check form-switch permission-switch">
-                            <input class="form-check-input" type="checkbox" checked>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <table class="table permissions-table">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Permissions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>View All Records</td>
-                                    <td class="text-end"><input type="checkbox" id="selectAllProducts" onclick="selectAll('products')" checked></td>
-                                </tr>
-                                <tr>
-                                    <td>View</td>
-                                    <td class="text-end"><input type="checkbox" class="products" checked></td>
-                                </tr>
-                                <tr>
-                                    <td>Create</td>
-                                    <td class="text-end"><input type="checkbox" class="products" checked></td>
-                                </tr>
-                                <tr>
-                                    <td>Delete</td>
-                                    <td class="text-end"><input type="checkbox" class="products" checked></td>
-                                </tr>
-                                <tr>
-                                    <td>Update</td>
-                                    <td class="text-end"><input type="checkbox" class="products" checked></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    <button type="submit" id="submit"  class="btn btn-sm btn-primary" style="background:#337ab7;"><?php echo lang('submit_btn');?></button>
+                
+                    
+        
                 </div>
-            </div>
-
-            <!-- Labs Card -->
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-header">
-                        <span>Labs</span>
-                        <div class="form-check form-switch permission-switch">
-                            <input class="form-check-input" type="checkbox" checked>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <table class="table permissions-table">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Permissions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>View All Records</td>
-                                    <td class="text-end"><input type="checkbox" id="selectAllLabs" onclick="selectAll('labs')" checked></td>
-                                </tr>
-                                <tr>
-                                    <td>View</td>
-                                    <td class="text-end"><input type="checkbox" class="labs" checked></td>
-                                </tr>
-                                <tr>
-                                    <td>Create</td>
-                                    <td class="text-end"><input type="checkbox" class="labs" checked></td>
-                                </tr>
-                                <tr>
-                                    <td>Delete</td>
-                                    <td class="text-end"><input type="checkbox" class="labs" checked></td>
-                                </tr>
-                                <tr>
-                                    <td>Update</td>
-                                    <td class="text-end"><input type="checkbox" class="labs" checked></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Invoices Card -->
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-header">
-                        <span>Invoices</span>
-                        <div class="form-check form-switch permission-switch">
-                            <input class="form-check-input" type="checkbox" checked>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <table class="table permissions-table">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Permissions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>View All Records</td>
-                                    <td class="text-end"><input type="checkbox" id="selectAllInvoices" onclick="selectAll('invoices')" checked></td>
-                                </tr>
-                                <tr>
-                                    <td>View</td>
-                                    <td class="text-end"><input type="checkbox" class="invoices" checked></td>
-                                </tr>
-                                <tr>
-                                    <td>Create</td>
-                                    <td class="text-end"><input type="checkbox" class="invoices" checked></td>
-                                </tr>
-                                <tr>
-                                    <td>Delete</td>
-                                    <td class="text-end"><input type="checkbox" class="invoices" checked></td>
-                                </tr>
-                                <tr>
-                                    <td>Update</td>
-                                    <td class="text-end"><input type="checkbox" class="invoices" checked></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Settings Card -->
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-header">
-                        <span>Settings</span>
-                        <div class="form-check form-switch permission-switch">
-                            <input class="form-check-input" type="checkbox" checked>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <table class="table permissions-table">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Permissions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>View All Records</td>
-                                    <td class="text-end"><input type="checkbox" id="selectAllSettings" onclick="selectAll('settings')" checked></td>
-                                </tr>
-                                <tr>
-                                    <td>View</td>
-                                    <td class="text-end"><input type="checkbox" class="settings" checked></td>
-                                </tr>
-                                <tr>
-                                    <td>Create</td>
-                                    <td class="text-end"><input type="checkbox" class="settings" checked></td>
-                                </tr>
-                                <tr>
-                                    <td>Delete</td>
-                                    <td class="text-end"><input type="checkbox" class="settings" checked></td>
-                                </tr>
-                                <tr>
-                                    <td>Update</td>
-                                    <td class="text-end"><input type="checkbox" class="settings" checked></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Contacts Card -->
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-header">
-                        <span>Contacts</span>
-                        <div class="form-check form-switch permission-switch">
-                            <input class="form-check-input" type="checkbox" checked>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <table class="table permissions-table">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Permissions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>View All Records</td>
-                                    <td class="text-end"><input type="checkbox" id="selectAllContacts" onclick="selectAll('contacts')" checked></td>
-                                </tr>
-                                <tr>
-                                    <td>View</td>
-                                    <td class="text-end"><input type="checkbox" class="contacts" checked></td>
-                                </tr>
-                                <tr>
-                                    <td>Create</td>
-                                    <td class="text-end"><input type="checkbox" class="contacts" checked></td>
-                                </tr>
-                                <tr>
-                                    <td>Delete</td>
-                                    <td class="text-end"><input type="checkbox" class="contacts" checked></td>
-                                </tr>
-                                <tr>
-                                    <td>Update</td>
-                                    <td class="text-end"><input type="checkbox" class="contacts" checked></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Data Card -->
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-header">
-                        <span>Data</span>
-                        <div class="form-check form-switch permission-switch">
-                            <input class="form-check-input" type="checkbox" checked>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <table class="table permissions-table">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Permissions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>View All Records</td>
-                                    <td class="text-end"><input type="checkbox" id="selectAllData" onclick="selectAll('data')" checked></td>
-                                </tr>
-                                <tr>
-                                    <td>View</td>
-                                    <td class="text-end"><input type="checkbox" class="data" checked></td>
-                                </tr>
-                                <tr>
-                                    <td>Create</td>
-                                    <td class="text-end"><input type="checkbox" class="data" checked></td>
-                                </tr>
-                                <tr>
-                                    <td>Delete</td>
-                                    <td class="text-end"><input type="checkbox" class="data" checked></td>
-                                </tr>
-                                <tr>
-                                    <td>Update</td>
-                                    <td class="text-end"><input type="checkbox" class="data" checked></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-        </div>
                 
             </div>
 
-
+            </form>
 
 
             
@@ -941,7 +535,8 @@
                     </form> -->
 
                     <form class="form-horizontal p-4" role="form" id="addFormAjax" method="post" action="<?php echo base_url('users/users_add') ?>" enctype="multipart/form-data">
-        <div class="alert alert-danger" id="error-box" style="display: none"></div>
+        
+            <div class="alert alert-danger" id="error-box" style="display: none"></div>
         <div class="row">
     <div class="col-md-6">
         <div class="form-group me-2">
@@ -1022,6 +617,7 @@
     <div class="col-md-12">
         <div class="modal-footer">
             <button type="submit" id="submit"  class="btn btn-sm btn-primary" style="background:#337ab7;"><?php echo lang('submit_btn');?></button>
+        
         </div>
     </div>
 </div>
@@ -1141,7 +737,7 @@
     <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
 
-<script>
+    <script>
         // Initialize DataTables for both User and Role & Permission tables
         $(document).ready(function () {
             $('#userTable').DataTable();
@@ -1166,6 +762,108 @@
             return string.charAt(0).toUpperCase() + string.slice(1);
         }
     </script>
+    <script>
+        //----------------------------------------Menu setting ajax------------------------------------//
+	//   $("#role_id").change(function(){ 
+    //    var role = $("#role_id").val(); 
+    //    alert(role);
+    //       $.ajax({
+    //         url: '<?php echo base_url();?>users/managements',
+    //         data: {'role': role }, 
+    //         type: "post",
+            
+    //         success: function(data) {  
+                
+    //          	var json = $.parseJSON(data);
+                
+	// 			 $(".servicecheck").removeAttr('checked');
+	// 			 	$(data).each(function(i,val){ 
+	//                  	var svalue = val.menu_id; 
+    //                     alert(val.menu_id);
+	//                  	var myCheckbox = "#" + svalue; 
+	//                    	if ($(myCheckbox).attr('id') ==  svalue)
+	//                   	{ 	
+	//                     	$(myCheckbox).prop('checked', true); 	
+	//                   	}
+	                  	
+	//                   	else{
+	//                   		$(myCheckbox).prop('checked', false); 
+
+	//                   	}
+    //               	});  
+    //         }
+
+    //     });
+
+    // })
+    </script>
+
+    <!-- <script type="text/javascript">
+        $(document).on('change','#role_id',function(){
+            var role = $("#role_id").val(); 
+            alert(role);
+            
+            $.ajax({
+                url: '<?php echo base_url(); ?>users/managements',
+                data: { 'role': role }, 
+                type: "post",
+                dataType: 'json', // Ensure you receive JSON data
+                success: function(data) {  
+                    $(".servicecheck").prop('checked', false); // Uncheck all checkboxes initially
+
+                    $(data).each(function(i, val) { 
+                        var svalue = val.menu_id; 
+                        alert(svalue); // Debugging alert to verify menu_id
+                        var myCheckbox = "#" + svalue; 
+                        alert(myCheckbox);
+                        if ($(myCheckbox).attr('id') == svalue) { 	
+                            $(myCheckbox).prop('checked', true); 	
+                        }
+                    });
+                },
+                error: function(xhr, status, error) {
+                    alert("An error occurred: " + error); // Basic error handling
+                    console.log(xhr.responseText); // Log the response for debugging
+                }
+            });
+        });
+    </script> -->
+
+    <script type="text/javascript">
+    $(document).on('change', '#role_id', function() {
+        var role = $("#role_id").val(); 
+        alert(role);
+        
+        $.ajax({
+            url: '<?php echo base_url(); ?>users/managements',
+            data: { 'role': role }, 
+            type: "post",
+            dataType: 'json', // Automatically parses JSON
+            success: function(data) {  
+                $(".servicecheck").prop('checked', false); // Uncheck all checkboxes initially
+                
+                $(data).each(function(i, val) { 
+                    var svalue = val.menu_id; 
+                    alert(svalue); // Debugging alert to verify menu_id
+                    var myCheckbox = "#" + svalue; 
+                    alert(myCheckbox);
+
+                    // Check if the checkbox with this ID exists and then set it as checked
+                    if ($(myCheckbox).length) {  
+                        $(myCheckbox).prop('checked', true); 	
+                    }
+                });
+            },
+            error: function(xhr, status, error) {
+                alert("An error occurred: " + error); // Basic error handling
+                console.log(xhr.responseText); // Log the response for debugging
+            }
+        });
+    });
+</script>
+
+
+
 
 <!-- <style>
     ::-webkit-scrollbar {

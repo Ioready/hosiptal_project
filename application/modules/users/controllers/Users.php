@@ -956,6 +956,10 @@ class Users extends Common_Controller
 
         $this->data['parent'] = "User";
         $this->data['title'] = "Users";
+
+        $this->data['formUrlPermission'] = $this->router->fetch_class() . "/rolesPermission";
+         
+        
         // $this->data['status'] = ($status == "Yes") ? 1 : 0;
 
         $this->data['title'] = lang("add_user");
@@ -1002,13 +1006,84 @@ class Users extends Common_Controller
             'where_not_in' => array('vendor_sale_groups.id' => array(1, 2, 4,6))
         );
         $this->data['roles_list'] = $this->common_model->customGet($optionRole);
-// print_r($this->data['roles_list']);die;
+
+
+        $optionRole = array(
+            'table' => 'vendor_sale_menu',
+            'select' => 'vendor_sale_menu.*',
+            'order' => array('vendor_sale_menu.menu_id' => 'ASC')
+        );
+        $this->data['module_list'] = $this->common_model->customGet($optionRole);
+
+
+        // $option = array(
+        //     'table' => 'vendor_sale_roles_permission',
+        //     'data' => $data,
+        //     'where' => array('id' => $where_id)
+        //    );
+
+        //    $this->db->where('menu_id', $menu_id);
+
+        if($this->input->post()){
+            $role = $this->input->post('role');
+        
+           $optionRole = array(
+            'table' => 'vendor_sale_roles_permission',
+            'select' => 'vendor_sale_roles_permission.*',
+            'where'=>array('vendor_sale_roles_permission.role_id'=>$role)
+           
+        );
+        $module_permission = $this->common_model->customGet($optionRole);
+        // print_r($data['module_permission']);die;
+
+        // foreach ($module_permission as $value) {
+        //     // echo	$value->menu_name;
+        // }
+        // echo $data['module_permission'];
+        // $module_permissionData = json_decode($module_permission, true); // Decode JSON as associative array
+
+        // if ($module_permission === null && json_last_error() !== JSON_ERROR_NONE) {
+        //     echo 'Invalid JSON: ' . json_last_error_msg();
+        // } else {
+
+        // }
+        // $this->output
+        //  ->set_content_type('application/json')
+        //  ->set_output(json_encode($module_permission));
+
+        echo json_encode($module_permission);
+
+
+        // echo json_encode($module_permission);
+    }else{
+
+    }
 
 // print_r($this->data['module_permission']);die;
+        //    $existing = $this->db->get('vendor_sale_roles_permission')->row();
+
 
         $this->load->admin_render('managements', $this->data, 'inner_script');
     }
 
+
+    public function menu_settings_onchange(){
+        $role = $this->input->post('role');
+        //echo $role; die;
+        $where = array('hm_menu.status' => 1,'hm_menu.menu_parent'=>0, 'hm_menu_assg_role.status ='=>1,'hm_menu_assg_role.role'=>$role);
+        $select='hm_menu.*, hm_menu_assg_role.role';
+        $field1='menu_id';
+        $field2='menu_id';
+        $jointype='inner';
+        $orderby='menu_id';
+        $where2 = array('hm_menu.status' => 1, 'hm_menu_assg_role.status ='=>1,'hm_menu_assg_role.role'=>$role);
+        $data['get_menu_sidebar_child'] = $this->Common->get_menu_order('hm_menu','hm_menu_assg_role',$field1,$field2,$select,$jointype,$orderby,$where2);
+        foreach ($data['get_menu_sidebar_child'] as $value) {
+            // echo	$value->menu_name;
+        }
+        
+        echo json_encode($data['get_menu_sidebar_child']);
+    }
 
       /**
      * @method delUsers
@@ -1319,5 +1394,103 @@ class Users extends Common_Controller
         endif;
 
         echo json_encode($response);
+    }
+
+
+   
+        
+        
+        public function rolePermission() {
+           
+        //     echo '<pre>';
+        // print_r($this->input->post());die;
+        // echo '</pre>';
+
+            // $this->load->model('Permission_model');
+    
+            // Get form data
+            $menu_ids = $this->input->post('menu_id');
+            $permissions = [];
+    
+            // Loop through the menu_ids and save the permissions
+            if (!empty($menu_ids)) {
+                foreach ($menu_ids as $menu_id) {
+                    $permissions[$menu_id] = [
+                        'view_all' => $this->input->post('view_all_' . $menu_id) ? 1 : 0,
+                        'view'     => $this->input->post('view_' . $menu_id) ? 1 : 0,
+                        'create'   => $this->input->post('create_' . $menu_id) ? 1 : 0,
+                        'delete'   => $this->input->post('delete_' . $menu_id) ? 1 : 0,
+                        'update'   => $this->input->post('update_' . $menu_id) ? 1 : 0,
+                    ];
+                }
+    
+
+        // $menu_ids = $this->input->post('menu_id');
+        // $permissions = $this->input->post('role');
+        $role_id = $this->input->post('role');
+// print_r($role_id);die;
+        // Iterate over each menu and its permissions
+        foreach ($menu_ids as $menu_id) {
+            // if (isset($permissions[$menu_id])) {
+                $menu_permissions = $permissions[$menu_id]; // View, Create, Delete, etc.
+                // Insert or update permissions in the database
+                $data = [
+                    'menu_id' => $menu_id,
+                    'sum_menu' => json_encode($menu_permissions), // You can use a better structure as needed
+                    'role_id' => $role_id, // Assuming you're assigning these permissions to a role
+                ];              
+                $option = array(
+                    'table' => 'vendor_sale_roles_permission',
+                    'data' => $data,
+                    'where' => array('id' => $where_id)
+                   );
+
+                   $this->db->where('menu_id', $menu_id);
+                   $existing = $this->db->get('vendor_sale_roles_permission')->row();
+       
+                   if ($existing) {
+                       // Update existing permissions
+                       $this->db->where('menu_id', $menu_id);
+                       $update = $this->common_model->customUpdate($option);
+                    //    $this->db->update('permissions', $permission);
+                   } else {
+                       // Insert new permissions
+
+                       $data = [
+                        'menu_id' => $menu_id,
+                        'sum_menu' => json_encode($menu_permissions), // You can use a better structure as needed
+                        'role_id' => $role_id, // Assuming you're assigning these permissions to a role
+                    ];
+                  
+                    // $option = array(
+                    //     'table' => 'vendor_sale_roles_permission',
+                    //     'data' => $data
+                    //    );
+
+                    //    $permission['menu_id'] = $menu_id;
+
+                       $optionItem = array('table' => 'vendor_sale_roles_permission', 'data' => $data);
+                        $this->common_model->customInsert($optionItem);
+
+                    //    $this->db->insert('permissions', $option);
+                    //    $update = $this->common_model->customUpdate($option);
+                   }
+
+                   
+                    $this->session->set_flashdata('message', lang('role_success_update'));
+            // }
+            }
+
+                redirect($this->router->fetch_class().'/managements');
+
+                
+
+                // Save permissions to the database
+                // $this->Permission_model->updatePermissions($permissions);
+            
+    
+            // Redirect or show a success message
+            redirect('users/permissions');
+        }
     }
 }
