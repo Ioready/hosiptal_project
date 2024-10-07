@@ -347,9 +347,9 @@
         <div class="row mb-4">
             <div class="col-md-4">
                 <label for="">Roles</label>
-                <select class="form-select" id="role_id" name="role">
+                <select class="form-select" id="role_id" name="role" required>
              
-                <option>Please Select</option>
+                <option disabled>Please Select</option>
                 <?php echo $module_permission->role_id; ?>
                <?php foreach ($roles_list as $rows): ?>
                 <?php if($rows->name =='SubAdmin'){ ?>
@@ -378,52 +378,52 @@
 
                     
                 <?php foreach($module_list as $rows) { ?>
-    <div class="col-md-4">
-        <div class="card">
-            <div class="card-header">
-                <span><?php echo $rows->menu_name; ?></span>
-                <div class="form-check form-switch permission-switch">
-                    <input class="form-check-input servicecheck" type="checkbox" id="<?php echo $rows->menu_id; ?>" name="menu_id[]" value="<?php echo $rows->menu_id; ?>">
-                </div>
-            </div>
-            <div class="card-body">
-                <table class="table permissions-table">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Permissions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>View All Records</td>
-                            <td class="text-end">
-                                <!-- Use a JavaScript function with the menu_name as an argument -->
-                                <input type="checkbox" onclick="selectAll('<?php echo $rows->menu_key; ?>')">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>View</td>
-                            <td class="text-end"><input type="checkbox" class="role-checkbox <?php echo $rows->menu_key; ?>"></td>
-                        </tr>
-                        <tr>
-                            <td>Create</td>
-                            <td class="text-end"><input type="checkbox" class="role-checkbox <?php echo $rows->menu_key; ?>"></td>
-                        </tr>
-                        <tr>
-                            <td>Delete</td>
-                            <td class="text-end"><input type="checkbox" class="role-checkbox <?php echo $rows->menu_key; ?>"></td>
-                        </tr>
-                        <tr>
-                            <td>Update</td>
-                            <td class="text-end"><input type="checkbox" class="role-checkbox <?php echo $rows->menu_key; ?>"></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-<?php } ?>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <span><?php echo $rows->menu_name; ?></span>
+                                <div class="form-check form-switch permission-switch">
+                                    <input class="form-check-input servicecheck" type="checkbox" id="<?php echo $rows->menu_id; ?>" name="menu_id[]" value="<?php echo $rows->menu_id; ?>">
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <table class="table permissions-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Permissions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>View All Records</td>
+                                            <td class="text-end">
+                                                <!-- Use a JavaScript function with the menu_name as an argument -->
+                                                <input type="checkbox" onclick="selectAll('<?php echo $rows->menu_key; ?>')">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>View</td>
+                                            <td class="text-end"><input type="checkbox" class="role-checkbox <?php echo $rows->menu_key; ?>"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Create</td>
+                                            <td class="text-end"><input type="checkbox" class="role-checkbox <?php echo $rows->menu_key; ?>"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Delete</td>
+                                            <td class="text-end"><input type="checkbox" class="role-checkbox <?php echo $rows->menu_key; ?>"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Update</td>
+                                            <td class="text-end"><input type="checkbox" class="role-checkbox <?php echo $rows->menu_key; ?>"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <?php } ?>
 
 
                     <button type="submit" id="submit"  class="btn btn-sm btn-primary" style="background:#337ab7;"><?php echo lang('submit_btn');?></button>
