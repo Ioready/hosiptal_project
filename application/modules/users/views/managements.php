@@ -377,55 +377,54 @@
                 <div class="row">
 
                     
-                    <?php foreach($module_list as $rows){?>
-                    <!-- Role Card -->
-                    <!-- formUrlPermission -->
+                <?php foreach($module_list as $rows) { ?>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <span><?php echo $rows->menu_name; ?></span>
+                <div class="form-check form-switch permission-switch">
+                    <input class="form-check-input servicecheck" type="checkbox" id="<?php echo $rows->menu_id; ?>" name="menu_id[]" value="<?php echo $rows->menu_id; ?>">
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="table permissions-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Permissions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>View All Records</td>
+                            <td class="text-end">
+                                <!-- Use a JavaScript function with the menu_name as an argument -->
+                                <input type="checkbox" onclick="selectAll('<?php echo $rows->menu_key; ?>')">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>View</td>
+                            <td class="text-end"><input type="checkbox" class="role-checkbox <?php echo $rows->menu_key; ?>"></td>
+                        </tr>
+                        <tr>
+                            <td>Create</td>
+                            <td class="text-end"><input type="checkbox" class="role-checkbox <?php echo $rows->menu_key; ?>"></td>
+                        </tr>
+                        <tr>
+                            <td>Delete</td>
+                            <td class="text-end"><input type="checkbox" class="role-checkbox <?php echo $rows->menu_key; ?>"></td>
+                        </tr>
+                        <tr>
+                            <td>Update</td>
+                            <td class="text-end"><input type="checkbox" class="role-checkbox <?php echo $rows->menu_key; ?>"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+<?php } ?>
 
-                
-                        <div class="col-md-4">
-                        <div class="card">
-                            <div class="card-header">
-                                <span><?php echo $rows->menu_name;?></span>
-                                <div class="form-check form-switch permission-switch">
-                                    <input class="form-check-input servicecheck" type="checkbox" id="<?php echo $rows->menu_id;?>" name="menu_id[]" value="<?php echo $rows->menu_id;?>">
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <table class="table permissions-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Permissions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>View All Records</td>
-                                            <td class="text-end"><input type="checkbox" id="selectAllRole" onclick="selectAll('role')"></td>
-                                        </tr>
-                                        <tr>
-                                            <td>View</td>
-                                            <td class="text-end"><input type="checkbox" class="role"></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Create</td>
-                                            <td class="text-end"><input type="checkbox" class="role"></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Delete</td>
-                                            <td class="text-end"><input type="checkbox" class="role"></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Update</td>
-                                            <td class="text-end"><input type="checkbox" class="role"></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        </div>
-                    
-                    <?php }?>
 
                     <button type="submit" id="submit"  class="btn btn-sm btn-primary" style="background:#337ab7;"><?php echo lang('submit_btn');?></button>
                 
@@ -746,8 +745,8 @@
     </script>
 
 
-<script>
-        // JavaScript function to select all checkboxes in a card
+<!-- <script>
+        
         function selectAll(permissionGroup) {
             const checkboxes = document.querySelectorAll(`.${permissionGroup}`);
             const selectAllCheckbox = document.getElementById(`selectAll${capitalizeFirstLetter(permissionGroup)}`);
@@ -757,11 +756,30 @@
             });
         }
 
-        // Helper function to capitalize the first letter of the permission group
+        
         function capitalizeFirstLetter(string) {
             return string.charAt(0).toUpperCase() + string.slice(1);
         }
-    </script>
+    </script> -->
+
+
+    <script>
+function selectAll(menuName) {
+    // Get the state of the "View All Records" checkbox
+    var isChecked = event.target.checked; // Use 'event.target' to get the checkbox that triggered the event
+
+    // Select all checkboxes with the class corresponding to the menu name
+    var checkboxes = document.querySelectorAll('.role-checkbox.' + menuName);
+
+    // Iterate over the checkboxes and set their checked property
+    checkboxes.forEach(function(checkbox) {
+        checkbox.checked = isChecked; // Set the checkbox state based on "View All Records"
+    });
+}
+</script>
+
+
+
     <script>
         //----------------------------------------Menu setting ajax------------------------------------//
 	//   $("#role_id").change(function(){ 
