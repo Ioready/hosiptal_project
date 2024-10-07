@@ -349,7 +349,7 @@
                 <label for="">Roles</label>
                 <select class="form-select" id="role_id" name="role">
              
-                <!-- <option>Please Select</option> -->
+                <option>Please Select</option>
                 <?php echo $module_permission->role_id; ?>
                <?php foreach ($roles_list as $rows): ?>
                 <?php if($rows->name =='SubAdmin'){ ?>
