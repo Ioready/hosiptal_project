@@ -425,11 +425,8 @@
                     </div>
                     <?php } ?>
 
-
                     <button type="submit" id="submit"  class="btn btn-sm btn-primary" style="background:#337ab7;"><?php echo lang('submit_btn');?></button>
-                
-                    
-        
+            
                 </div>
                 
             </div>

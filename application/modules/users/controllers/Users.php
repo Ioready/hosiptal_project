@@ -527,17 +527,35 @@ class Users extends Common_Controller
 
                     // $this->sent_mail($email, $from, $subject, $template, $title);
 
-                    $response = array('status' => 1, 'message' => "Successfully added", 'url' => base_url($this->router->fetch_class()));
-                    // $response = array('status' => 1, 'message' => lang('user_success'), 'url' => base_url('users'));
-                } else {
-                    $response = array('status' => 0, 'message' => lang('user_failed'));
+        //             $response = array('status' => 1, 'message' => "Successfully added", 'url' => base_url($this->router->fetch_class()));
+        //             // $response = array('status' => 1, 'message' => lang('user_success'), 'url' => base_url('users'));
+        //         } else {
+        //             $response = array('status' => 0, 'message' => lang('user_failed'));
+        //         }
+        //     }
+        // } else {
+        //     $messages = (validation_errors()) ? validation_errors() : '';
+        //     $response = array('status' => 0, 'message' => $messages);
+        // }
+        // echo json_encode($response);
+
+        $this->session->set_flashdata('message', 'Successfully add');
+                redirect($this->router->fetch_class().'/managements');
+                    // $response = array('status' => 1, 'message' => lang('user_success_update'), 'url' => base_url('users/managements'));
                 }
             }
-        } else {
-            $messages = (validation_errors()) ? validation_errors() : '';
-            $response = array('status' => 0, 'message' => $messages);
-        }
+        
+            } else {
+                $this->session->set_flashdata('message', 'The email address already exists');
+                redirect($this->router->fetch_class().'/managements');
+
+                $response = array('status' => 0, 'message' => "The email address already exists");
+            }
+        // }
+        // endif;
+
         echo json_encode($response);
+
     }
 
     // public function sent_mail(){
@@ -1034,34 +1052,12 @@ class Users extends Common_Controller
            
         );
         $module_permission = $this->common_model->customGet($optionRole);
-        // print_r($data['module_permission']);die;
-
-        // foreach ($module_permission as $value) {
-        //     // echo	$value->menu_name;
-        // }
-        // echo $data['module_permission'];
-        // $module_permissionData = json_decode($module_permission, true); // Decode JSON as associative array
-
-        // if ($module_permission === null && json_last_error() !== JSON_ERROR_NONE) {
-        //     echo 'Invalid JSON: ' . json_last_error_msg();
-        // } else {
-
-        // }
-        // $this->output
-        //  ->set_content_type('application/json')
-        //  ->set_output(json_encode($module_permission));
 
         echo json_encode($module_permission);
 
-
-        // echo json_encode($module_permission);
     }else{
 
     }
-
-// print_r($this->data['module_permission']);die;
-        //    $existing = $this->db->get('vendor_sale_roles_permission')->row();
-
 
         $this->load->admin_render('managements', $this->data, 'inner_script');
     }

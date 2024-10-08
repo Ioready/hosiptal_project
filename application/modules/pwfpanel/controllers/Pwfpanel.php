@@ -550,7 +550,48 @@ if (!empty($week)) {
                    $data['total_patient_today'] = $this->common_model->customCount($option);
                 //    echo "login";
                 $this->load->admin_render('dashboard', $data);
-            } else {
+            
+        } else if ($this->ion_auth->is_user()) {
+
+
+            // $data['parent'] = "Dashboard";
+            $data['careUnit'] = $this->common_model->customCount(array('table' => 'care_unit', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0)));
+            $data['initial_dx'] = $this->common_model->customCount(array('table' => 'initial_dx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0)));
+            $data['initial_rx'] = $this->common_model->customCount(array('table' => 'initial_rx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0)));
+            $data['doctors'] = $this->common_model->customCount(array('table' => 'doctors', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0)));
+            $option = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.id',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left'),
+                    array('user_profile UP', 'UP.user_id=user.id', 'left')
+                ),
+                'order' => array('user.id' => 'ASC'),
+                'where' => array(
+                    'user.delete_status' => 0,
+                    'group.id' => 6
+                ),
+                'order' => array('user.id' => 'desc'),
+            );
+            $data['total_md_steward'] = $this->common_model->customCount($option);
+            $option = array(
+                'table' => "patient P",
+                'select' => "P.id"
+            );
+            // print_r($this->data['total_md_steward']);die;
+
+            $data['total_patient'] = $this->common_model->customCount($option);
+            $option = array(
+                'table' => "patient P",
+                'select' => "P.id",
+                'where' => array('DATE(created_date)' => date('Y-m-d'))
+            );
+
+            $data['total_patient_today'] = $this->common_model->customCount($option);
+         //    echo "login";
+         $this->load->admin_render('dashboard', $data);
+     } else {
                 $this->session->set_flashdata('message', 'You are not authorised to access administration');
                 // echo "not login";
                 redirect('pwfpanel/login', 'refresh');
@@ -890,7 +931,7 @@ if (!empty($week)) {
                 
                 $remember = (bool) $this->input->post('remember');
                 if ($this->ion_auth->login($this->input->post('identity'), $this->input->post('password'), $remember)) {
-
+                    
                     
                     if ($this->ion_auth->is_superAdmin()) {
                         
@@ -1062,10 +1103,75 @@ if (!empty($week)) {
                         $this->session->set_flashdata('error', 'Please input  token');
                         redirect('pwfpanel/login', 'refresh');
                     }
-                }else {
-                    $this->session->set_flashdata('error', 'Please input  token');
-                    redirect('pwfpanel/login', 'refresh');
                 }
+
+            // // }else {
+            // //     $this->session->set_flashdata('error', 'Please input  token');
+            // //     redirect('pwfpanel/login', 'refresh');
+            // }
+                } else if ($this->ion_auth->is_user()) {
+                    
+                                            
+                    
+
+                    $option = array(
+                        'table' => 'users',
+                        'select' => 'users.id,users.care_unit_id',
+                        'join' => array(
+                            'users_groups' => 'users_groups.user_id=users.id',
+                            'groups' => 'groups.id=users_groups.group_id'
+                        ),
+                        'where' => array(
+                            'users.email' => $this->input->post('identity'),
+                            'groups.id' => 3
+                        ),
+                    );
+                    $option1 = array(
+                        'table' => 'vendor_sale_hospital',
+                        'select' => 'token_uniq',
+                        'where' => array('email' => $this->input->post('identity')),
+                        'single' => true,
+                    );
+                    
+
+
+
+                    $result2 = $this->db->get_where($option1['table'], $option1['where'])->row();
+                   
+                                      
+                    $isAdmin = $this->common_model->customGet($option);
+                    
+                 
+                    if (!empty($isAdmin)) {
+                        $_SESSION['admin_care_unit_id'] = $isAdmin[0]->care_unit_id;
+                        $option = array(
+                            'table' => 'login_session',
+                            'where' => array(
+                                'user_id' => $isAdmin[0]->id
+                            ),
+                        );
+                        $isLogin = $this->common_model->customGet($option);
+                        
+                        if (!empty($isLogin) or empty($isLogin)) {
+
+                            $option = array(
+                                'table' => 'login_session',
+                                'data' => array(
+                                    'login_session_key' => get_guid(),
+                                    'user_id' => $isAdmin[0]->id,
+                                    'login_ip' => $_SERVER['REMOTE_ADDR'],
+                                    'last_login' => time()
+                                ),
+                            );
+                            $this->common_model->customInsert($option);
+                        }
+                    
+                    
+                        // print_r($isLogin);die;
+
+                    redirect('pwfpanel', 'refresh');
+                    }
+
                     } else if ($this->ion_auth->is_patient()) {
 
                         $option = array(
@@ -1120,6 +1226,7 @@ if (!empty($week)) {
                         }
                         redirect('pwfpanel', 'refresh');
                     }
+                    
                     if (empty($isAdmin)) {
                         $this->session->set_flashdata('message', "Incorrect Login");
                         redirect('pwfpanel/login');

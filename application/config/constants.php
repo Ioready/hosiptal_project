@@ -193,6 +193,10 @@ define("TRANSACTIONS_HISTORY", 'transactions_history');
 define("PAYMENT", 'payment');
 define("BANNER", 'banner');
 
+define("ROLE_PERMISSION", 'roles_permission');
+define("SIDE_MENU", 'menu');
+
+
 /* Admin fee percentage */
 define('FEE_PERCENT' ,'10');
 /*set time for match8*/

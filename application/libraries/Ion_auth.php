@@ -442,6 +442,8 @@ class Ion_auth
         return $this->in_group('Patient', $id);
     }
 
+
+	
 	/**
 	 * Check the compatibility with the server
 	 *

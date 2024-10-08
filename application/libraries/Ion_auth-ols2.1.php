@@ -518,6 +518,12 @@ class Ion_auth {
         return $this->in_group('asset_owner', $id);
     }
 
+    public function is_users($id = false) {
+        $this->ion_auth_model->trigger_events('is_users');
+
+        return $this->in_group('asset_owner', $id);
+    }
+
     /**
      * in_group
      *
