@@ -124,7 +124,7 @@
         </li>
     </ul>
    
-    <?php if ($this->ion_auth->is_admin() or $this->ion_auth->is_subAdmin() or $this->ion_auth->is_facilityManager()) { ?>
+    <?php if ($this->ion_auth->is_admin() or $this->ion_auth->is_subAdmin() or $this->ion_auth->is_user() or $this->ion_auth->is_facilityManager()) { ?>
         <div class="block full">
             <div class="row text-center">
                 <div class="col-sm-6 col-lg-12">

@@ -21,7 +21,7 @@ class Reports extends Common_Controller {
             //$this->session->set_flashdata('message', 'Your session has been expired');
             redirect('pwfpanel/login', 'refresh');
         } else {
-            if ($this->ion_auth->is_admin() || $this->ion_auth->is_subAdmin() || $this->ion_auth->is_facilityManager()) {
+            if ($this->ion_auth->is_admin() || $this->ion_auth->is_subAdmin() || $this->ion_auth->is_user() || $this->ion_auth->is_facilityManager()) {
 
                 $option = array('table' => USERS . ' as user',
                     'select' => 'user.*,group.name as group_name,UP.doc_file',

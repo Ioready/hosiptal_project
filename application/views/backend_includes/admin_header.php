@@ -479,12 +479,7 @@ hh
                                 </li>
                             <?php } elseif ($this->ion_auth->is_subAdmin()) { ?>
 
-
-
                                 <!-- <li>
-                                    <a href="<?php echo site_url('pwfpanel') ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "pwfpanel") ? "active" : "" ?>"><i class="gi gi-stopwatch sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Dashboard</span></a>
-                                </li> -->
-                                <li>
                                     <a href="<?php echo site_url('pwfpanel') ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "pwfpanel") ? "active" : "" ?>">
                                     <img src="<?php echo base_url(); ?>uploads/home.png" style="height:23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Dashboard</span></a>
                                 </li>
@@ -500,8 +495,6 @@ hh
                                     <a href="<?php echo site_url('patient'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "patient") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/patients.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Patients</span></a>
                                 </li>
 
-
-                                
                                 <li title="Tasks">
                                     <a href="<?php echo site_url('tasks'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "tasks") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/tasks.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Tasks</span></a>
                                 </li>
@@ -510,10 +503,6 @@ hh
                                     <a href="<?php echo site_url('notification/notification_list'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "notification") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/tasks.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">&nbsp;Aprove Appointment</span></a>
                                 </li>
                                 
-
-                                <!-- <li title="DayTimeSlot">
-                                    <a href="<?php echo site_url('dayTimeSlot'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "DayTimeSlot") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/labs.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp;Labs</span></a>
-                                </li> -->
                                 <li title="Attributes">
                                 <a href="<?php echo site_url('attributes'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "attributes") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/labs.svg" height="23px" width="23px"><span class="sidebar-nav-mini-hide text-dark">Attributes</span></a>
                                 </li>
@@ -533,22 +522,59 @@ hh
                                 <li title="Contact Us">
                                     <a href="<?php echo site_url('contactus'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "contactus") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/contact.svg" height="23px" width="23px"><span class="sidebar-nav-mini-hide text-dark">Contact Us</span></a>
                                 </li>
-                                <!-- <li title="Contact">
-                                    <a href="<?php echo site_url('contact'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "Contact") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/department.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp;Contacts</span></a>
-                                </li> -->
-
-                                <!-- <li title="Email Template">
-                <a href="<?php echo site_url('emailTemplate'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "emailTemplate") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/email.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Email Template</span></a>
-            </li> -->
-                               
+                                
                                 <li title="Email Template">
                                     <a href="<?php echo site_url('emailTemplate'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "emailTemplate") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/email.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Email Template</span></a>
                                 </li>
 
                                 <li title="Settings">
                                     <a href="<?php echo site_url('userSettings/index/Yes'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "userSettings") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/setting.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">&nbsp; Setting</span></a>
-                                </li>
+                                </li> -->
 
+
+                                <?php 
+                                            
+                                           
+                                            $user_id = $this->session->userdata('user_id');
+                                            
+                                                $option = array(
+                                                    'table' => USERS . ' as user',
+                                                    'select' => 'user.*,group.name as group_name,ugroup.group_id as role_id',
+                                                    'join' => array(
+                                                        array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                                                        array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                                                    ),
+                                                    'order' => array('user.id' => 'DESC'),
+                                                    'where' => array('user.id'=>$user_id),
+                                                    'single'=>true,
+                                                );
+                                        
+                                                $authUser = $this->common_model->customGet($option);
+                                                
+
+                                                $role = $authUser->role_id;
+                                            
+                                                $optionRole = array(
+                                                    'table' => ROLE_PERMISSION . ' as roles_permission', // Correct spacing before alias
+                                                    'select' => 'roles_permission.*, menu.menu_name, menu.menu_icons,menu.menu_path',    // Ensure column selection is correct
+                                                    'join' => array(
+                                                        array(SIDE_MENU . ' as menu', 'menu.menu_id = roles_permission.menu_id', 'left') // Correct join syntax with proper spacing
+                                                    ),
+                                                    'where' => array('roles_permission.role_id' => $role) // Where clause for role_id
+                                                );
+                                                
+                                            $module_permission = $this->common_model->customGet($optionRole);
+                                            // print_r($module_permission);die;
+                                            foreach ($module_permission as $item) { ?>
+                                            <li>
+                                                <!-- <a href="<?php echo base_url($item->menu_path); ?>"> url </a> -->
+                                                    
+                                                    <a href="<?php echo site_url($item->menu_path) ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == $item->menu_path) ? "active" : "" ?>">
+                                                    
+                                                    <img src="<?php echo base_url(); ?><?php echo $item->menu_icons; ?>" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark"><?php echo $item->menu_name; ?></span></a>
+                                                </a>
+                                            </li>
+                                        <?php } ?>
 
 
                             <?php } elseif ($this->ion_auth->is_facilityManager()) {  ?>
@@ -731,6 +757,18 @@ hh
                                     <img src="<?php echo base_url(); ?>uploads/home.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Dashboard</span></a>
                                 
                                 </li>
+
+                                <li title="Attributes">
+                                <a href="<?php echo site_url('attributes'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "attributes") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/labs.svg" height="23px" width="23px"><span class="sidebar-nav-mini-hide text-dark">Attributes</span></a>
+                                </li>
+                                <li title="Appointment Type">
+                                 <a href="<?php echo site_url('appointmentType'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "appointmentType") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/labs.svg" height="23px" width="23px"><span class="sidebar-nav-mini-hide text-dark">Appointment Type</span></a>
+                                </li>
+
+                                <li title="Type Of Stay">
+                                 <a href="<?php echo site_url('typeOfStay'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "typeOfStay") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/labs.svg" height="23px" width="23px"><span class="sidebar-nav-mini-hide text-dark">Type Of Stay</span></a>
+                                </li>
+                                
                                         <?php 
                                             
                                            
@@ -755,7 +793,7 @@ hh
                                             
                                                 $optionRole = array(
                                                     'table' => ROLE_PERMISSION . ' as roles_permission', // Correct spacing before alias
-                                                    'select' => 'roles_permission.*, menu.menu_name, menu.menu_icons',    // Ensure column selection is correct
+                                                    'select' => 'roles_permission.*, menu.menu_name, menu.menu_icons,menu.menu_path',    // Ensure column selection is correct
                                                     'join' => array(
                                                         array(SIDE_MENU . ' as menu', 'menu.menu_id = roles_permission.menu_id', 'left') // Correct join syntax with proper spacing
                                                     ),
@@ -763,12 +801,11 @@ hh
                                                 );
                                                 
                                             $module_permission = $this->common_model->customGet($optionRole);
-                                            // print_r($module_permission);die;
                                             
                                             foreach ($module_permission as $item) { ?>
                                             <li>
-                                                <!-- <a href="<?php echo base_url($item->menu_path); ?>"> -->
-                                                    <a href="<?php echo site_url($item->menu_path) ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == $item->menu_path) ? "active" : "" ?>">>
+                                               
+                                                    <a href="<?php echo site_url($item->menu_path) ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == $item->menu_path) ? "active" : "" ?>">
                                                     
                                                     <img src="<?php echo base_url(); ?><?php echo $item->menu_icons; ?>" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark"><?php echo $item->menu_name; ?></span></a>
                                                 </a>

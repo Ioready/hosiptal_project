@@ -275,8 +275,6 @@
                         </tr>
                     </thead>
                     <tbody>
-
-
                     
                     <?php
                     if (isset($roles_list) && !empty($roles_list)):
@@ -366,12 +364,9 @@
             
             </div>
             <div class="col-md-4">
-                <!-- <label for="">Description</label>
-                <input type="text" class="form-control" placeholder="Description" value=""> -->
+                
             </div>
-            <!-- <div class="col-md-4"><br>
-                <button class="btn btn-success w-100" style="float:right;">Update</button>
-            </div> -->
+            
         </div>
 
                 <div class="row">
@@ -398,25 +393,24 @@
                                         <tr>
                                             <td>View All Records</td>
                                             <td class="text-end">
-                                                <!-- Use a JavaScript function with the menu_name as an argument -->
-                                                <input type="checkbox" onclick="selectAll('<?php echo $rows->menu_key; ?>')">
+                                                <input type="checkbox" class="servicecheckviewAll" name="view_all" id="view_all" onclick="selectAll('<?php echo $rows->menu_key; ?>')">
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>View</td>
-                                            <td class="text-end"><input type="checkbox" class="role-checkbox <?php echo $rows->menu_key; ?>"></td>
+                                            <td class="text-end"><input type="checkbox" name="view" id="view"  class="role-checkbox <?php echo $rows->menu_key; ?> servicecheckView"></td>
                                         </tr>
                                         <tr>
                                             <td>Create</td>
-                                            <td class="text-end"><input type="checkbox" class="role-checkbox <?php echo $rows->menu_key; ?>"></td>
+                                            <td class="text-end"><input type="checkbox" name="create" id="create" class="role-checkbox <?php echo $rows->menu_key; ?> servicecheckCreate"></td>
                                         </tr>
                                         <tr>
                                             <td>Delete</td>
-                                            <td class="text-end"><input type="checkbox" class="role-checkbox <?php echo $rows->menu_key; ?>"></td>
+                                            <td class="text-end"><input type="checkbox" name="delete" id="delete" class="role-checkbox <?php echo $rows->menu_key; ?> servicecheckDelete"></td>
                                         </tr>
                                         <tr>
                                             <td>Update</td>
-                                            <td class="text-end"><input type="checkbox" class="role-checkbox <?php echo $rows->menu_key; ?>"></td>
+                                            <td class="text-end"><input type="checkbox" name="update" id="update" class="role-checkbox <?php echo $rows->menu_key; ?> servicecheckUpdate"></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -530,10 +524,10 @@
                         </div>
                     </form> -->
 
-                    <form class="form-horizontal p-4" role="form" id="addFormAjax" method="post" action="<?php echo base_url('users/users_add') ?>" enctype="multipart/form-data">
+    <form class="form-horizontal p-4" role="form" id="addFormAjax" method="post" action="<?php echo base_url('users/users_add') ?>" enctype="multipart/form-data">
         
-            <div class="alert alert-danger" id="error-box" style="display: none"></div>
-        <div class="row">
+    <div class="alert alert-danger" id="error-box" style="display: none"></div>
+    <div class="row">
     <div class="col-md-6">
         <div class="form-group me-2">
             <label class="control-label">First Name</label>
@@ -625,97 +619,55 @@
     </div>
 
     <!-- Add Role Modal (Similar to User) -->
-    <div class="modal fade" id="addRoleModal" tabindex="-1" aria-labelledby="addRoleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addRoleModalLabel">Create Role & Permission</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <!-- Form for adding Role & Permission goes here -->
-                    <!-- <form>
-                        <div class="form-group">
-                            <label for="roleName">Role Name</label>
-                            <input type="text" class="form-control" id="roleName" placeholder="Enter Role Name">
+            <div class="modal fade" id="addRoleModal" tabindex="-1" aria-labelledby="addRoleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="addRoleModalLabel">Create Role & Permission</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-
-                        <div class="form-group">
-                            <label for="description">Description</label>
-                            <textarea class="form-control" id="description" placeholder="Enter Role Description"></textarea>
-                        </div>
-
-                        <div class="d-flex justify-content-end mt-3">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-success ms-2">Save</button>
-                        </div>
-                    </form> -->
-
-                    <!-- <div class="modal-dialog">
-        <div class="modal-content"> -->
-            <!-- <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('users/users_add') ?>" enctype="multipart/form-data"> -->
-            <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('users/roles_add') ?>" enctype="multipart/form-data">
-                <!-- <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title"><?php echo (isset($title)) ? ucwords($title) : "" ?></h4>
-                </div> -->
-                <div class="modal-body">
-                    <!-- <div class="loaders">
-                        <img src="<?php echo base_url().'backend_asset/images/Preloader_2.gif';?>" class="loaders-img" class="img-responsive">
-                    </div> -->
-                    <div class="alert alert-danger" id="error-box" style="display: none"></div>
-                    <div class="form-body">
-                        <div class="row">
-                            <div class="col-md-12" >
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label"><?php echo lang('role_name');?></label>
-                                    <div class="col-md-9">
-                                        <input type="text" class="form-control" name="role_name" id="role_name" placeholder="<?php echo lang('role_name');?>" />
+                        <div class="modal-body">
+                
+                            <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('users/roles_add') ?>" enctype="multipart/form-data">
+                                
+                                <div class="modal-body">
+                                
+                                    <div class="alert alert-danger" id="error-box" style="display: none"></div>
+                                    <div class="form-body">
+                                        <div class="row">
+                                            <div class="col-md-12" >
+                                                <div class="form-group">
+                                                    <label class="col-md-3 control-label"><?php echo lang('role_name');?></label>
+                                                    <div class="col-md-9">
+                                                        <input type="text" class="form-control" name="role_name" id="role_name" placeholder="<?php echo lang('role_name');?>" />
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12" >
+                                                <div class="form-group">
+                                                    <label class="col-md-3 control-label"><?php echo lang('description');?></label>
+                                                    <div class="col-md-9">
+                                                        <textarea type="text" class="form-control" name="description" id="description" placeholder="<?php echo lang('description');?>"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="space-22"></div>
+                                        </div>
                                     </div>
-                                    <!-- <span class="help-block m-b-none col-md-offset-3"><i class="fa fa-arrow-circle-o-up"></i> <?php echo lang('english_note');?></span> -->
                                 </div>
-                            </div>
                             
-                            <div class="col-md-12" >
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label"><?php echo lang('description');?></label>
-                                    <div class="col-md-9">
-                                        <textarea type="text" class="form-control" name="description" id="description" placeholder="<?php echo lang('description');?>"></textarea>
-                                    </div>
-                                    <!-- <span class="help-block m-b-none col-md-offset-3"><i class="fa fa-arrow-circle-o-up"></i> <?php echo lang('english_note');?></span> -->
+                                <div class="d-flex justify-content-end mt-3">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-success ms-2">Save</button>
                                 </div>
-                            </div>
-                           
-                            <div class="space-22"></div>
+
+                            </form>
                         </div>
                     </div>
                 </div>
-                <!-- <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal"><?php echo lang('close_btn');?></button>
-                    <button type="submit" id="submit" class="<?php echo THEME_BUTTON;?>" ><?php echo lang('submit_btn');?></button>
-                </div> -->
-
-                <div class="d-flex justify-content-end mt-3">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-success ms-2">Save</button>
-                </div>
-
-            </form>
-        <!-- </div>
-    </div> -->
-
-
-                </div>
             </div>
         </div>
-    </div>
-
-
-        </div>
-
-       
-
-
         </div>
     </div>
     <!-- END Datatables Content -->
@@ -741,141 +693,124 @@
         });
     </script>
 
-
-<!-- <script>
-        
-        function selectAll(permissionGroup) {
-            const checkboxes = document.querySelectorAll(`.${permissionGroup}`);
-            const selectAllCheckbox = document.getElementById(`selectAll${capitalizeFirstLetter(permissionGroup)}`);
-
-            checkboxes.forEach((checkbox) => {
-                checkbox.checked = selectAllCheckbox.checked;
-            });
-        }
-
-        
-        function capitalizeFirstLetter(string) {
-            return string.charAt(0).toUpperCase() + string.slice(1);
-        }
-    </script> -->
-
-
     <script>
-function selectAll(menuName) {
-    // Get the state of the "View All Records" checkbox
-    var isChecked = event.target.checked; // Use 'event.target' to get the checkbox that triggered the event
+    function selectAll(menuName) {
+        // Get the state of the "View All Records" checkbox
+        var isChecked = event.target.checked; // Use 'event.target' to get the checkbox that triggered the event
 
-    // Select all checkboxes with the class corresponding to the menu name
-    var checkboxes = document.querySelectorAll('.role-checkbox.' + menuName);
+        // Select all checkboxes with the class corresponding to the menu name
+        var checkboxes = document.querySelectorAll('.role-checkbox.' + menuName);
 
-    // Iterate over the checkboxes and set their checked property
-    checkboxes.forEach(function(checkbox) {
-        checkbox.checked = isChecked; // Set the checkbox state based on "View All Records"
-    });
-}
-</script>
-
-
-
-    <script>
-        //----------------------------------------Menu setting ajax------------------------------------//
-	//   $("#role_id").change(function(){ 
-    //    var role = $("#role_id").val(); 
-    //    alert(role);
-    //       $.ajax({
-    //         url: '<?php echo base_url();?>users/managements',
-    //         data: {'role': role }, 
-    //         type: "post",
-            
-    //         success: function(data) {  
-                
-    //          	var json = $.parseJSON(data);
-                
-	// 			 $(".servicecheck").removeAttr('checked');
-	// 			 	$(data).each(function(i,val){ 
-	//                  	var svalue = val.menu_id; 
-    //                     alert(val.menu_id);
-	//                  	var myCheckbox = "#" + svalue; 
-	//                    	if ($(myCheckbox).attr('id') ==  svalue)
-	//                   	{ 	
-	//                     	$(myCheckbox).prop('checked', true); 	
-	//                   	}
-	                  	
-	//                   	else{
-	//                   		$(myCheckbox).prop('checked', false); 
-
-	//                   	}
-    //               	});  
-    //         }
-
-    //     });
-
-    // })
+        // Iterate over the checkboxes and set their checked property
+        checkboxes.forEach(function(checkbox) {
+            checkbox.checked = isChecked; // Set the checkbox state based on "View All Records"
+        });
+    }
     </script>
 
-    <!-- <script type="text/javascript">
-        $(document).on('change','#role_id',function(){
-            var role = $("#role_id").val(); 
-            alert(role);
-            
-            $.ajax({
-                url: '<?php echo base_url(); ?>users/managements',
-                data: { 'role': role }, 
-                type: "post",
-                dataType: 'json', // Ensure you receive JSON data
-                success: function(data) {  
-                    $(".servicecheck").prop('checked', false); // Uncheck all checkboxes initially
-
-                    $(data).each(function(i, val) { 
-                        var svalue = val.menu_id; 
-                        alert(svalue); // Debugging alert to verify menu_id
-                        var myCheckbox = "#" + svalue; 
-                        alert(myCheckbox);
-                        if ($(myCheckbox).attr('id') == svalue) { 	
-                            $(myCheckbox).prop('checked', true); 	
-                        }
-                    });
-                },
-                error: function(xhr, status, error) {
-                    alert("An error occurred: " + error); // Basic error handling
-                    console.log(xhr.responseText); // Log the response for debugging
-                }
-            });
-        });
-    </script> -->
-
+    
     <script type="text/javascript">
     $(document).on('change', '#role_id', function() {
         var role = $("#role_id").val(); 
-        alert(role);
-        
+       
         $.ajax({
-            url: '<?php echo base_url(); ?>users/managements',
+            url: '<?php echo base_url(); ?>users/menu_settings_onchange',  // Ensure URL is correct
             data: { 'role': role }, 
-            type: "post",
-            dataType: 'json', // Automatically parses JSON
-            success: function(data) {  
-                $(".servicecheck").prop('checked', false); // Uncheck all checkboxes initially
+            type: 'POST',
+            dataType: 'json', // Expecting JSON response from the server
+            success: function(data) {
+               
+                // Uncheck all checkboxes initially
+                $(".servicecheck").prop('checked', false);
+                $(".servicecheckviewall").prop('checked', false);
+                $(".servicecheckView").prop('checked', false);
+                $(".servicecheckCreate").prop('checked', false);
+                $(".servicecheckDelete").prop('checked', false);
+                $(".servicecheckUpdate").prop('checked', false);
                 
-                $(data).each(function(i, val) { 
-                    var svalue = val.menu_id; 
-                    alert(svalue); // Debugging alert to verify menu_id
-                    var myCheckbox = "#" + svalue; 
-                    alert(myCheckbox);
+                // Check if data is returned and in the correct format
+                if (Array.isArray(data)) {
+                    // Loop through the data returned from the server
+                    $.each(data, function(i, val) {
+                        var svalue = val.menu_id; // Assuming 'menu_id' is in the returned JSON
+                        var view = val.menu_view;
+                        var create = val.menu_create;
+                        var update = val.menu_update;
+                        var deletevalue = val.menu_delete;
+                        
+                        var myCheckbox = "#" + svalue; 
+                        var myview = "#" + view;
+                        var mycreate = "#" + create;
+                        var myupdate = "#" + update;
+                        var mydelete = "#" + deletevalue;
+                        console.log("Checkbox ID: " + myCheckbox); // Debugging: log checkbox ID
+                        console.log("CheckboxView ID: " + myview); // Debugging: log checkbox ID
+                        console.log("CheckboxCreate ID: " + mycreate); // Debugging: log checkbox ID
+                        console.log("CheckboxUpdate ID: " + myupdate); // Debugging: log checkbox ID
+                        console.log("CheckboxDelete ID: " + mydelete); // Debugging: log checkbox ID
+                        // console.log("Checkbox ID: " + myCheckbox); // Debugging: log checkbox ID
+                        
+                        // Check if the checkbox with this ID exists, then set it to checked
+                        if ($(myCheckbox).length) {
+                            $(myCheckbox).prop('checked', true); 	
+                        } else {
+                            console.log("Checkbox not found for ID: " + myCheckbox);
+                        }
 
-                    // Check if the checkbox with this ID exists and then set it as checked
-                    if ($(myCheckbox).length) {  
-                        $(myCheckbox).prop('checked', true); 	
-                    }
-                });
+                        // view checked
+
+//                         if ($(myview).length && $(myCheckbox).length) {
+//     $(myview).prop('checked', true);
+//     $(myCheckbox).prop('checked', true);
+// }
+                        if ($(myview).length && $(myCheckbox).length) {
+                            $('.servicecheckView').prop('checked', true); 
+                            $(myCheckbox).prop('checked', true);	
+                        } else {
+                            console.log("Checkbox not found for ID: " + myview);
+                        }
+
+                        // create checked
+
+                        if ($(mycreate).length) {
+                            $('.servicecheckCreate').prop('checked', true); 	
+                        } else {
+                            console.log("Checkbox not found for ID: " + mycreate);
+                        }
+
+                        // update checked
+
+                        if ($(myupdate).length) {
+                            $('.servicecheckUpdate').prop('checked', true); 	
+                        } else {
+                            console.log("Checkbox not found for ID: " + myupdate);
+                        }
+
+                        // delete checked
+
+                        if ($(mydelete).length) {
+                            $('.servicecheckDelete').prop('checked', true); 	
+                        } else {
+                            console.log("Checkbox not found for ID: " + mydelete);
+                        }
+                    });
+                } else {
+                    console.error('Unexpected data format', data);  // Error if data is not an array
+                }
             },
             error: function(xhr, status, error) {
-                alert("An error occurred: " + error); // Basic error handling
-                console.log(xhr.responseText); // Log the response for debugging
+                alert("An error occurred: " + error); // Notify user of error
+                console.log("Status: " + status);      // Log the error status
+                console.log("Error: " + error);        // Log the error details
+                console.log(xhr.responseText);         // Log the server response for debugging
             }
         });
     });
 </script>
+
+
+
+
 
 
 

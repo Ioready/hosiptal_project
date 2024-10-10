@@ -1,4 +1,4 @@
-<?php if ($this->ion_auth->is_superAdmin() || $this->ion_auth->is_admin() || $this->ion_auth->is_subAdmin() || $this->ion_auth->is_facilityManager()) { ?>
+<?php if ($this->ion_auth->is_superAdmin() || $this->ion_auth->is_admin() || $this->ion_auth->is_user() || $this->ion_auth->is_subAdmin() || $this->ion_auth->is_facilityManager()) { ?>
        <!-- Include chart.js for chart rendering -->
    
        
@@ -1370,6 +1370,320 @@
 
                                 
                    
+
+
+                    <?php } else if ($this->ion_auth->is_user()) { ?>
+
+                        
+<div class="panel-body">
+                        <form action="<?php echo site_url('pwfpanel'); ?>" name="patientForm" method="get">
+
+                        <div class="col-lg-3">
+                                <?php // print_r($careUnitsUser);die;
+                                ?>
+                                <select id="weeks" name="weeks" class="form-control select-2">
+                                   
+                                    <option value="">Select Week</option>
+                                        <option value="01">1 Week</option>
+                                        <option value="02">2 Week</option>
+                                        <option value="03">3 Week</option>
+                                        <option value="04">4 Week</option>
+                                        <option value="05">5 Week</option>
+                                       
+                                </select>
+                            </div>
+                            <div>
+                            <div class="col-lg-3">
+                            <select class="form-control" name="month" id="month">
+<option value="">Select Month</option>
+<?php
+// Get the selected month from the form data
+$selected_month = $_POST['month'] ?? '';
+
+// Array to map month numbers to month names
+$months = [
+    '01' => 'January',
+    '02' => 'February',
+    '03' => 'March',
+    '04' => 'April',
+    '05' => 'May',
+    '06' => 'June',
+    '07' => 'July',
+    '08' => 'August',
+    '09' => 'September',
+    '10' => 'October',
+    '11' => 'November',
+    '12' => 'December',
+];
+
+// Loop through the months array to create options
+foreach ($months as $month_num => $month_name) {
+    // Check if the current month is the selected month
+    $selected = ($month_num == $selected_month) ? 'selected' : '';
+
+    // Output each month as an option
+    echo "<option value='$month_num' $selected>$month_name</option>";
+}
+?>
+</select>
+                                </div>
+                                <div class="col-lg-2">
+                                <select class="form-control" name="year" id="year">
+                                        <?php
+                                        // Get the current year
+                                        $current_year = date("Y");
+
+                                        // Loop through years from 10 years ago to 10 years in the future
+                                        for ($i = $current_year - 10; $i <= $current_year + 10; $i++) {
+                                            // Check if the current iteration is the current year
+                                            $selected = ($i == $current_year) ? 'selected' : '';
+
+                                            // Output each year as an option
+                                            echo "<option value='$i' $selected>$i</option>";
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+
+                                <div class="col-sm-6 col-lg-1" style="margin-right: 8px;">
+                                    <input type="submit" name="search" class="btn btn-primary btn-sm save-btn" value="Search" />
+                                </div>
+                                
+
+                                <!-- <form action="<?php echo site_url('task'); ?>" name="patientFormExport" method="get"> -->
+                            <div class="col-sm-12 col-lg-2">
+                                <button type="submit" class="btn btn-primary btn-sm save-btn">
+                                    <fa class="fa fa-undo"></fa> Reset
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+        <div class="col-lg-4 dashboardBoxes">
+                <div style="background-color:#D0FAE4; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
+                    <!-- <div class="ibox-title">
+                    </div> -->
+                    <div class="ibox-content">
+                        <h1 class="no-margins"><?php echo $total_appointment; ?></h1>
+                        <h5 class="text-primary"><strong>Total Today Appointment</strong></h5>
+                    </div>
+                    <a href="<?php echo site_url('appointment'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "appointment") ? "active" : "" ?>">
+                    <img src="<?php echo base_url(); ?>uploads/appointment.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+                    </a>
+                </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 dashboardBoxes">
+            <div style="background-color:<?php echo $total_patient > 0 ? '#F9F5FF' : '#F9F5FF'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <h1 class="no-margins"><?php echo $total_patient; ?></h1>
+                    <h5 class="text-primary"><strong>Total Patient </strong></h5>
+                </div>
+                <a href="<?php echo site_url('patient'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "patient") ? "active" : "" ?>">
+                <img src="<?php echo base_url(); ?>uploads/user.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+                </a>
+            </div>
+        </div>
+
+                    
+
+
+       <div class="col-lg-4 dashboardBoxes">
+           <div style="background-color:#DAEBFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
+               <!-- <div class="ibox-title">
+               </div> -->
+               <div class="ibox-content">
+               <h1 class="no-margins">
+
+               <?php echo $doctors; ?>
+               </h1>
+               <h5 class="text-primary"><strong>Total Doctor</strong></h5>
+               </div>
+               <a href="<?php echo site_url('dataOperator'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "dataOperator") ? "active" : "" ?>">
+               <img src="<?php echo base_url(); ?>uploads/doctor.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+            </a>
+           </div>
+       </div>
+
+       <div class="col-lg-4 dashboardBoxes">
+           <div style="background-color:#FEE2E1; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);"  class="ibox float-e-margins">
+               <!-- <div class="ibox-title">
+               </div> -->
+               <div class="ibox-content">
+               <h1 class="no-margins">
+
+               <?php echo $careUnit; ?>
+               </h1>
+               <h5 class="text-primary"><strong>Total Care Unit Department</strong></h5>
+               </div>
+               <a href="<?php echo site_url('careUnit'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "careUnit") ? "active" : "" ?>">
+               <img src="<?php echo base_url(); ?>uploads/department.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+                </a>
+           </div>
+       </div>
+
+       <div class="col-lg-4 dashboardBoxes">
+           <div style="background-color:#BABCC; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
+               <!-- <div class="ibox-title">
+               </div> -->
+               <div class="ibox-content">
+               <h1 class="no-margins">
+
+               <?php echo $doctors; ?>
+               </h1>
+               <h5 class="text-primary"><strong>Total Operation</strong></h5>
+               </div>
+               <a href="<?php echo site_url('careUnit'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "careUnit") ? "active" : "" ?>">
+               <img src="<?php echo base_url(); ?>uploads/operation.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+                </a>
+            </div>
+       </div>
+
+       <div class="col-lg-4 dashboardBoxes">
+           <div style="background-color:#DAEBFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
+               <!-- <div class="ibox-title">
+               </div> -->
+               <div class="ibox-content">
+               <h1 class="no-margins">
+
+               <?php echo $initial_dx; ?>
+               </h1>
+               <h5 class="text-primary"><strong>Total Infections</strong></h5>
+               </div>
+               <a href="<?php echo site_url('initialDx'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "initialDx") ? "active" : "" ?>">
+               <img src="<?php echo base_url(); ?>uploads/Infections.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+                </a>
+           </div>
+       </div>
+
+
+       <div class="col-lg-4 dashboardBoxes">
+               <div style="background-color:#D0FAE4; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
+                   <!-- <div class="ibox-title">
+                   </div> -->
+                   <div class="ibox-content">
+                       <h1 class="no-margins"><?php echo $initial_rx; ?></h1>
+                       <h5 class="text-primary"><strong>Total Antibiotic</strong></h5>
+                   </div>
+                   <a href="<?php echo site_url('initialRx'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "initialRx") ? "active" : "" ?>">
+                   <img src="<?php echo base_url(); ?>uploads/Antibiotic.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+                    </a>
+               </div>
+       </div>
+
+                    
+
+       <div class="col-lg-4 col-md-6 dashboardBoxes">
+                            <div style="background-color:<?php echo $total_patient_today > 0 ? '#F9F5FF' : '#F9F5FF'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
+                                <div class="ibox-content">
+                                    <h1 class="no-margins"><?php echo $total_patient_today; ?></h1>
+                                    <h5 class="text-primary"><strong>Total Patient Today </strong></h5>
+                                </div>
+                                <a href="<?php echo site_url('patient'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "patient") ? "active" : "" ?>">
+                                <img src="<?php echo base_url(); ?>uploads/user.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+                                 </a>
+                            </div>
+                        </div>
+
+       <div class="col-lg-4 dashboardBoxes">
+           <div style="background-color:#DAEBFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
+               <div class="ibox-content">
+               <h1 class="no-margins">
+
+               <?php //echo $initial_dx; 
+               echo '0';
+               ?>
+               </h1>
+               <h5 class="text-primary"><strong>Total Earning</strong></h5>
+               </div>
+               <img src="<?php echo base_url(); ?>uploads/earning.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+           </div>
+       </div>
+
+                    <div class="row m-2">
+                <div class="col-lg-6 mt-4">
+                        <canvas id="myChart" style="width: 100%; height: 100%; background-color: #F9F5FF; padding: 15px;  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);"></canvas>
+                    </div>
+                    <div class="col-lg-6 mt-4">
+                        <canvas id="myChart2" style="width: 100%; height: 100%;  background-color: #FFFAEC; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);"></canvas>
+                    </div>   
+                </div>
+            
+
+
+                            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+                                                        <script>
+                            document.addEventListener("DOMContentLoaded", function() {
+                                const ctx = document.getElementById('myChart');
+                                new Chart(ctx, {
+                                    type: 'bar',
+                                    data: {
+                                        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                                        datasets: [{
+                                            label: '# of Votes',
+                                            data: [12, 19, 3, 5, 2, 3],
+                                            borderWidth: 2,
+                                            backgroundColor: [
+                                                'rgba(255, 99, 132, 0.9)',
+                                                'rgba(54, 162, 235, 0.9)',
+                                                'rgba(255, 205, 86, 0.9)',
+                                                'rgba(75, 192, 192, 0.9)',
+                                                'rgba(153, 102, 255, 0.9)',
+                                                'rgba(255, 159, 64, 0.9)'
+                                            ],
+                                            borderColor: [
+                                                'rgba(255, 99, 132, 1)',
+                                                'rgba(54, 162, 235, 1)',
+                                                'rgba(255, 205, 86, 1)',
+                                                'rgba(75, 192, 192, 1)',
+                                                'rgba(153, 102, 255, 1)',
+                                                'rgba(255, 159, 64, 1)'
+                                            ],
+                                        }]
+                                    },
+                                    options: {
+                                        scales: {
+                                            y: {
+                                                beginAtZero: true
+                                            }
+                                        },
+                                        maintainAspectRatio: false, // Allows chart to adjust its size based on the container size
+                                        responsive: true // Ensures chart responsiveness
+                                    }
+                                });
+
+                                const pie = document.getElementById('myChart2');
+                                const data = {
+                                    labels: [
+                                        'Red',
+                                        'Blue',
+                                        'Yellow'
+                                    ],
+                                    datasets: [{
+                                        label: 'My First Dataset',
+                                        data: [300, 50, 100],
+                                        backgroundColor: [
+                                            'rgb(255, 99, 132)',
+                                            'rgb(54, 162, 235)',
+                                            'rgb(255, 205, 86)'
+                                        ],
+                                        hoverOffset: 4
+                                    }]
+                                };
+                                const config = {
+                                    type: 'doughnut',
+                                    data: data,
+                                    options: {
+                                        maintainAspectRatio: false, // Allows chart to adjust its size based on the container size
+                                        responsive: true // Ensures chart responsiveness
+                                    }
+                                };
+                                new Chart(pie, config);
+                            });
+                        </script>
+
+
 
 
 
