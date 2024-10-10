@@ -197,7 +197,7 @@ transition: opacity 0.3s linear, right 0.3s ease-out;
         </h2> -->
         <div class="block full" style="border-radius:12px">
             <div class="block-title">
-                <?php if ($this->ion_auth->is_subAdmin()) { ?>
+                <?php if ($this->ion_auth->is_subAdmin() or $this->ion_auth->is_user()) { ?>
                     <h2 class="save-btn">
                         <a href="<?php echo base_url().'index.php/' . $this->router->fetch_class(); ?>/open_model" class="btn btn-sm btn-primary">
                             <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
@@ -219,7 +219,7 @@ transition: opacity 0.3s linear, right 0.3s ease-out;
             </div>
 
             <div class="modal-header text-center" style="display:flex;border-radius:10px; background-color:#FFFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);">
-                <?php if ($this->ion_auth->is_facilityManager()) { ?>
+                <?php if ($this->ion_auth->is_facilityManager() or $this->ion_auth->is_user()) { ?>
 
              <div class="col-sm-3 col-lg-3 col-md-3 m-4">
                 <div class="col-md-9">
@@ -395,7 +395,7 @@ transition: opacity 0.3s linear, right 0.3s ease-out;
                             </div>
                                 <div class="modal-body">
                                   
-                                    <?php if ($this->ion_auth->is_subAdmin() || $this->ion_auth->is_facilityManager()) { ?>
+                                    <?php if ($this->ion_auth->is_subAdmin() || $this->ion_auth->is_facilityManager() || $this->ion_auth->is_user()) { ?>
                                         <div class="full">
                                             <div class="row text-center">
                                                 <div id="wrapper">

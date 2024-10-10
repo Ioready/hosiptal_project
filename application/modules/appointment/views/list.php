@@ -43,7 +43,7 @@
     </div>
     <!-- END Quick Stats -->
 
-    <?php if ($this->ion_auth->is_admin() or $this->ion_auth->is_subAdmin() or $this->ion_auth->is_facilityManager()) { ?>
+    <?php if ($this->ion_auth->is_admin() or $this->ion_auth->is_subAdmin() or $this->ion_auth->is_user() or $this->ion_auth->is_facilityManager()) { ?>
         <div class="block full">
             <div class="row text-center">
                 <!--  <div class="col-sm-6 col-lg-12">
@@ -244,7 +244,7 @@
     <!-- Datatables Content -->
     <div class="block full">
         <div class="block-title">
-            <?php if ($this->ion_auth->is_subAdmin()) { ?>
+            <?php if ($this->ion_auth->is_subAdmin() or $this->ion_auth->is_user()) { ?>
                 <h2>
                     <a href="<?php echo base_url().'index.php/' . $this->router->fetch_class(); ?>/open_model" class="btn btn-sm btn-primary">
                         <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
