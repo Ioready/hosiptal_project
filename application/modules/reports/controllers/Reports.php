@@ -56,6 +56,8 @@ class Reports extends Common_Controller {
                 $this->load->admin_render('dashboards', $this->data, 'inner_script');
             } else if ($this->ion_auth->is_vendor()) {
                 $this->load->admin_render('dashboard', $this->data, 'inner_script');
+            }else if ($this->ion_auth->is_user()) {
+                $this->load->admin_render('dashboard', $this->data, 'inner_script');
             } else {
                 $this->session->set_flashdata('message', 'You are not authorised to access administration');
                 redirect('pwfpanel/login', 'refresh');

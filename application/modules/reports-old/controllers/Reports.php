@@ -21,7 +21,7 @@ class Reports extends Common_Controller {
             //$this->session->set_flashdata('message', 'Your session has been expired');
             redirect('pwfpanel/login', 'refresh');
         } else {
-            if ($this->ion_auth->is_admin() || $this->ion_auth->is_subAdmin() || $this->ion_auth->is_facilityManager()) {
+            if ($this->ion_auth->is_admin() || $this->ion_auth->is_subAdmin() || $this->ion_auth->is_user() || $this->ion_auth->is_facilityManager()) {
 
                 $option = array('table' => USERS . ' as user',
                     'select' => 'user.*,group.name as group_name,UP.doc_file',
@@ -55,6 +55,8 @@ class Reports extends Common_Controller {
                 $this->data['toatl_patient_days_average'] = ($total_days > 0) ? round(($total_antibiotic_days / $total_days) * 1000) : 0;
                 $this->load->admin_render('dashboards', $this->data, 'inner_script');
             } else if ($this->ion_auth->is_vendor()) {
+                $this->load->admin_render('dashboard', $this->data, 'inner_script');
+            }else if ($this->ion_auth->is_user()) {
                 $this->load->admin_render('dashboard', $this->data, 'inner_script');
             } else {
                 $this->session->set_flashdata('message', 'You are not authorised to access administration');

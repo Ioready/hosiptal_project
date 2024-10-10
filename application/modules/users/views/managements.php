@@ -709,7 +709,7 @@
     </script>
 
     
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
     $(document).on('change', '#role_id', function() {
         var role = $("#role_id").val(); 
        
@@ -758,6 +758,8 @@
                         }
 
                         // view checked
+                        if(svalue){
+
 
                         if ($(myview).length) {
                             $('.servicecheckView').prop('checked', true); 
@@ -788,6 +790,102 @@
                             $('.servicecheckDelete').prop('checked', true); 	
                         } else {
                             console.log("Checkbox not found for ID: " + mydelete);
+                        }
+
+                    }
+                    });
+                } else {
+                    console.error('Unexpected data format', data);  // Error if data is not an array
+                }
+            },
+            error: function(xhr, status, error) {
+                alert("An error occurred: " + error); // Notify user of error
+                console.log("Status: " + status);      // Log the error status
+                console.log("Error: " + error);        // Log the error details
+                console.log(xhr.responseText);         // Log the server response for debugging
+            }
+        });
+    });
+</script> -->
+
+<script type="text/javascript">
+    $(document).on('change', '#role_id', function() {
+        var role = $("#role_id").val(); 
+        
+        $.ajax({
+            url: '<?php echo base_url(); ?>users/menu_settings_onchange',  // Ensure URL is correct
+            data: { 'role': role }, 
+            type: 'POST',
+            dataType: 'json', // Expecting JSON response from the server
+            success: function(data) {
+                // Uncheck all checkboxes initially
+                $(".servicecheck").prop('checked', false);
+                $(".servicecheckviewall").prop('checked', false);
+                $(".servicecheckView").prop('checked', false);
+                $(".servicecheckCreate").prop('checked', false);
+                $(".servicecheckDelete").prop('checked', false);
+                $(".servicecheckUpdate").prop('checked', false);
+                
+                // Check if data is returned and in the correct format
+                if (Array.isArray(data)) {
+                    // Loop through the data returned from the server
+                    $.each(data, function(i, val) {
+                        var svalue = val.menu_id; // Assuming 'menu_id' is in the returned JSON
+                       
+
+                        // Ensure that 'menu_id' (svalue) is not empty before proceeding
+                        if (svalue) {
+
+                        var view = val.menu_view;
+                        var create = val.menu_create;
+                        var update = val.menu_update;
+                        var deletevalue = val.menu_delete;
+                        
+                        var myCheckbox = "#" + svalue; 
+                        var myview = "#" + view;
+                        var mycreate = "#" + create;
+                        var myupdate = "#" + update;
+                        var mydelete = "#" + deletevalue;
+
+
+                            // Check if the checkbox with this ID exists, then set it to checked
+                            if ($(myCheckbox).length) {
+                                $(myCheckbox).prop('checked', true); 	
+                            } else {
+                                console.log("Checkbox not found for ID: " + myCheckbox);
+                            }
+
+                            // Check 'view' if it's available and non-empty
+                            if (view && $(myview).length) {
+                                $('.servicecheckView').prop('checked', true); 
+                                $(myCheckbox).prop('checked', true);	
+                            } else {
+                                console.log("View checkbox not found for ID: " + myview);
+                            }
+
+                            // Check 'create' if it's available and non-empty
+                            if (create && $(mycreate).length) {
+                                $('.servicecheckCreate').prop('checked', true); 	
+                            } else {
+                                console.log("Create checkbox not found for ID: " + mycreate);
+                            }
+
+                            // Check 'update' if it's available and non-empty
+                            if (update && $(myupdate).length) {
+                                $('.servicecheckUpdate').prop('checked', true); 	
+                            } else {
+                                console.log("Update checkbox not found for ID: " + myupdate);
+                            }
+
+                            // Check 'delete' if it's available and non-empty
+                            if (deletevalue && $(mydelete).length) {
+                                $('.servicecheckDelete').prop('checked', true); 	
+                            } else {
+                                console.log("Delete checkbox not found for ID: " + mydelete);
+                            }
+
+                        } else {
+                            console.log("menu_id is empty or invalid for this entry.");
                         }
                     });
                 } else {

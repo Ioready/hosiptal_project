@@ -32,6 +32,8 @@ class Common_Controller extends MX_Controller {
             return true;
         } else if ($this->ion_auth->is_patient()) {
             return true;
+        }else if ($this->ion_auth->is_user()) {
+            return true;
         }
         else {
             $this->session->set_flashdata('message', 'You are not authorised to access administration');
