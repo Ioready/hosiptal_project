@@ -398,19 +398,19 @@
                                         </tr>
                                         <tr>
                                             <td>View</td>
-                                            <td class="text-end"><input type="checkbox" name="view" id="view"  class="role-checkbox <?php echo $rows->menu_key; ?> servicecheckView"></td>
+                                            <td class="text-end"><input type="checkbox" name="view" id="view"  class="role-checkbox <?php echo $rows->menu_key; ?> servicecheckView<?php echo $rows->menu_key; ?>"></td>
                                         </tr>
                                         <tr>
                                             <td>Create</td>
-                                            <td class="text-end"><input type="checkbox" name="create" id="create" class="role-checkbox <?php echo $rows->menu_key; ?> servicecheckCreate"></td>
+                                            <td class="text-end"><input type="checkbox" name="create" id="create" class="role-checkbox <?php echo $rows->menu_key; ?> servicecheckCreate<?php echo $rows->menu_key; ?>"></td>
                                         </tr>
                                         <tr>
                                             <td>Delete</td>
-                                            <td class="text-end"><input type="checkbox" name="delete" id="delete" class="role-checkbox <?php echo $rows->menu_key; ?> servicecheckDelete"></td>
+                                            <td class="text-end"><input type="checkbox" name="delete" id="delete" class="role-checkbox <?php echo $rows->menu_key; ?> servicecheckDelete<?php echo $rows->menu_key; ?>"></td>
                                         </tr>
                                         <tr>
                                             <td>Update</td>
-                                            <td class="text-end"><input type="checkbox" name="update" id="update" class="role-checkbox <?php echo $rows->menu_key; ?> servicecheckUpdate"></td>
+                                            <td class="text-end"><input type="checkbox" name="update" id="update" class="role-checkbox <?php echo $rows->menu_key; ?> servicecheckUpdate<?php echo $rows->menu_key; ?>"></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -820,6 +820,7 @@
             success: function(data) {
                 // Uncheck all checkboxes initially
                 $(".servicecheck").prop('checked', false);
+
                 $(".servicecheckviewall").prop('checked', false);
                 $(".servicecheckView").prop('checked', false);
                 $(".servicecheckCreate").prop('checked', false);
@@ -829,11 +830,77 @@
                 // Check if data is returned and in the correct format
                 if (Array.isArray(data)) {
                     // Loop through the data returned from the server
+                    // $.each(data, function(i, val) {
+                    //     var svalue = val.menu_id; // Assuming 'menu_id' is in the returned JSON
+                       
+
+                    //     // Ensure that 'menu_id' (svalue) is not empty before proceeding
+                    //     if (svalue) {
+
+                    //     var view = val.menu_view;
+                    //     var create = val.menu_create;
+                    //     var update = val.menu_update;
+                    //     var deletevalue = val.menu_delete;
+                        
+                    //     var myCheckbox = "#" + svalue; 
+                    //     var myview = "#" + view;
+                    //     var mycreate = "#" + create;
+                    //     var myupdate = "#" + update;
+                    //     var mydelete = "#" + deletevalue;
+
+
+                    //         // Check if the checkbox with this ID exists, then set it to checked
+                    //         if ($(myCheckbox).length) {
+                    //             $(myCheckbox).prop('checked', true); 	
+                    //         } else {
+                    //             console.log("Checkbox not found for ID: " + myCheckbox);
+                    //         }
+
+                    //         // Check 'view' if it's available and non-empty
+                    //         if (view && $(myview).length) {
+                    //             $('.servicecheckView').prop('checked', true); 
+                    //             $(myCheckbox).prop('checked', true);	
+                    //         } else {
+                    //             console.log("View checkbox not found for ID: " + myview);
+                    //         }
+
+                    //         // Check 'create' if it's available and non-empty
+                    //         if (create && $(mycreate).length) {
+                    //             $('.servicecheckCreate').prop('checked', true); 	
+                    //         } else {
+                    //             console.log("Create checkbox not found for ID: " + mycreate);
+                    //         }
+
+                    //         // Check 'update' if it's available and non-empty
+                    //         if (update && $(myupdate).length) {
+                    //             $('.servicecheckUpdate').prop('checked', true); 	
+                    //         } else {
+                    //             console.log("Update checkbox not found for ID: " + myupdate);
+                    //         }
+
+                    //         // Check 'delete' if it's available and non-empty
+                    //         if (deletevalue && $(mydelete).length) {
+                    //             $('.servicecheckDelete').prop('checked', true); 	
+                    //         } else {
+                    //             console.log("Delete checkbox not found for ID: " + mydelete);
+                    //         }
+
+                    //     } else {
+                    //         console.log("menu_id is empty or invalid for this entry.");
+                    //     }
+                    // });
+
+
+
+
+
                     $.each(data, function(i, val) {
                         var svalue = val.menu_id; // Assuming 'menu_id' is in the returned JSON
+                        var menu_key = val.menu_key; // Assuming 'menu_id' is in the returned JSON
                        
 
                         // Ensure that 'menu_id' (svalue) is not empty before proceeding
+
                         if (svalue) {
 
                         var view = val.menu_view;
@@ -842,46 +909,100 @@
                         var deletevalue = val.menu_delete;
                         
                         var myCheckbox = "#" + svalue; 
-                        var myview = "#" + view;
-                        var mycreate = "#" + create;
-                        var myupdate = "#" + update;
-                        var mydelete = "#" + deletevalue;
+                        
 
 
                             // Check if the checkbox with this ID exists, then set it to checked
                             if ($(myCheckbox).length) {
+
                                 $(myCheckbox).prop('checked', true); 	
-                            } else {
-                                console.log("Checkbox not found for ID: " + myCheckbox);
-                            }
+                            
+                                var myview = "#" + view;
+                                var mycreate = "#" + create;
+                                var myupdate = "#" + update;
+                                var mydelete = "#" + deletevalue;
+                                
+                            
+                            // if (view && $(myview).length || $(svalue).length){
+                            //     $('.servicecheckView').prop('checked', true ? false); 	
+                            // } 
 
+                            // if (create && $(mycreate).length || $(svalue).length) {
+                            //     $('.servicecheckCreate ').prop('checked', true ? false); 	
+                            // } 
+
+                            // if (update && $(myupdate).length || $(svalue).length) {
+                            //     $('.servicecheckUpdate').prop('checked', true ? false) ; 	
+                            // } 
+
+                            // if (deletevalue && $(mydelete).length || $(svalue).length) {
+                            //     $('.servicecheckDelete').prop('checked', true ? false); 	
+                            // } 
+                            
                             // Check 'view' if it's available and non-empty
-                            if (view && $(myview).length) {
-                                $('.servicecheckView').prop('checked', true); 
-                                $(myCheckbox).prop('checked', true);	
-                            } else {
-                                console.log("View checkbox not found for ID: " + myview);
-                            }
 
-                            // Check 'create' if it's available and non-empty
-                            if (create && $(mycreate).length) {
-                                $('.servicecheckCreate').prop('checked', true); 	
-                            } else {
-                                console.log("Create checkbox not found for ID: " + mycreate);
-                            }
+                            
+                                    // if ($(myview).length && $(svalue).length) {
+                                    //     $('.servicecheckView').prop('checked', true);  // Check the checkbox if the conditions are met
+                                    // } else {
+                                    //     $('.servicecheckView').prop('checked', false); // Uncheck if conditions are not met
+                                    // }
 
-                            // Check 'update' if it's available and non-empty
-                            if (update && $(myupdate).length) {
-                                $('.servicecheckUpdate').prop('checked', true); 	
-                            } else {
-                                console.log("Update checkbox not found for ID: " + myupdate);
-                            }
+                                    // // Check 'create' if it's available and non-empty
+                                    // if ($(mycreate).length && $(svalue).length) {
+                                    //     $('.servicecheckCreate').prop('checked', true); 	
+                                    // } else {
+                                    //     $('.servicecheckCreate').prop('checked', false); 
+                                    // }
 
-                            // Check 'delete' if it's available and non-empty
-                            if (deletevalue && $(mydelete).length) {
-                                $('.servicecheckDelete').prop('checked', true); 	
-                            } else {
-                                console.log("Delete checkbox not found for ID: " + mydelete);
+                                    // // Check 'update' if it's available and non-empty
+                                    // if (update && $(myupdate).length && $(svalue).length) {
+                                    //     $('.servicecheckUpdate').prop('checked', true); 	
+                                    // } else {
+                                    //     $('.servicecheckUpdate').prop('checked', false); 
+                                    // }
+
+                                    // // Check 'delete' if it's available and non-empty
+                                    // if (deletevalue && $(mydelete).length && $(svalue).length) {
+                                    //     $('.servicecheckDelete').prop('checked', true); 	
+                                    // } else {
+                                    //     $('.servicecheckDelete').prop('checked', false); 
+                                    // }
+
+
+                                    if (view && $(myview).length) {
+                                        $('.servicecheckView'+menu_key).prop('checked', true);  // Set checked to true if condition is met
+                                    } else {
+                                        $('.servicecheckView'+menu_key).prop('checked', false); // Otherwise, set it to false
+                                    }
+
+                                    if (create && $(mycreate).length) {
+                                        $('.servicecheckCreate'+menu_key).prop('checked', true);  // Set checked to true if condition is met
+                                    } else {
+                                        $('.servicecheckCreate'+menu_key).prop('checked', false); // Otherwise, set it to false
+                                    }
+
+                                    if (update && $(myupdate).length) {
+                                        $('.servicecheckUpdate'+menu_key).prop('checked', true);  // Set checked to true if condition is met
+                                    } else {
+                                        $('.servicecheckUpdate'+menu_key).prop('checked', false); // Otherwise, set it to false
+                                    }
+
+                                    if (deletevalue && $(mydelete).length) {
+                                        $('.servicecheckDelete'+menu_key).prop('checked', true);  // Set checked to true if condition is met
+                                    } else {
+                                        $('.servicecheckDelete'+menu_key).prop('checked', false); // Otherwise, set it to false
+                                    }
+
+
+
+                        } else {
+                            $(".servicecheckviewall").prop('checked', false);
+                            $(".servicecheckView").prop('checked', false);
+                            $(".servicecheckCreate").prop('checked', false);
+                            $(".servicecheckDelete").prop('checked', false);
+                            $(".servicecheckUpdate").prop('checked', false);
+                                console.log("Checkbox not found for ID: " + myCheckbox);
                             }
 
                         } else {

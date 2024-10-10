@@ -1055,12 +1055,19 @@ class Users extends Common_Controller
         
         $role = $this->input->post('role');
         
-        $optionRole = array(
-         'table' => 'vendor_sale_roles_permission',
-         'select' => 'vendor_sale_roles_permission.*',
-         'where'=>array('vendor_sale_roles_permission.role_id'=>$role)
+    //     $optionRole = array(
+    //      'table' => 'vendor_sale_roles_permission',
+    //      'select' => 'vendor_sale_roles_permission.*',
+    //      'where'=>array('vendor_sale_roles_permission.role_id'=>$role)
         
-     );
+    //  );
+    $optionRole = array(
+        'table' => 'vendor_sale_roles_permission',
+        'select' => 'vendor_sale_roles_permission.*,vendor_sale_menu.menu_key',
+        'join'=> array(array('vendor_sale_menu','vendor_sale_menu.menu_id=vendor_sale_roles_permission.menu_id','left')),
+        'where'=>array('vendor_sale_roles_permission.role_id'=>$role)
+       
+    );
      
      $module_permission= $this->common_model->customGet($optionRole);
 
@@ -1486,38 +1493,56 @@ class Users extends Common_Controller
 
                 
                 // Iterate through the menu_ids to update or insert permissions
-                foreach ($menu_ids as $menu_id) {
-                    // $permissions[$menu_id] = [
-                    //     'view_all'=> $this->input->post('view_all'),
-                    //     'view' => $this->input->post('view'),
-                    //     'create'=> $this->input->post('create'),
-                    //     'delete'=> $this->input->post('delete'),
-                    //     'update'=> $this->input->post('update'),
-                    // ];
-
-                    // $menu_permissions = $permissions[$menu_id];
-        
+                foreach ($menu_ids as $key =>$menu_id) {
+                  
                     // Prepare data for insertion/update
-                    if($this->input->post('view_all')=='on'){
+                    if($this->input->post('view_all')=='on' && $menu_id[$key]){
 
                     $data['menu_create'] = '1';
                     }else{
-                        $data['menu_create'] = '0'; 
+                        if($this->input->post('create') =='on' && $key){
+                            $data['menu_create'] = '1';
+                        }else{
+
+                            $data['menu_create'] = '0'; 
+                        }
                     }
-                    if($this->input->post('view_all')=='on'){
+                    if($this->input->post('view_all')=='on' && $menu_id[$key]){
                         $data['menu_view'] = '1';
                     }else{
-                        $data['menu_view'] = '0'; 
+                        if($this->input->post('view') =='on' && $key){
+                            $data['menu_view'] = '1';
+                        }else{
+
+                            $data['menu_view'] = '0'; 
+                        }
+
+                        // $data['menu_view'] = '0'; 
                     }
-                    if($this->input->post('view_all')=='on'){
+                    if($this->input->post('view_all')=='on' && $menu_id[$key]){
                         $data['menu_delete'] = '1';
                     }else{
-                        $data['menu_delete'] = '0'; 
+                        if($this->input->post('delete') =='on' && $key){
+                            $data['menu_delete'] = '1';
+                        }else{
+
+                            $data['menu_delete'] = '0'; 
+                        }
+
+                        // $data['menu_delete'] = '0'; 
                     }
-                    if($this->input->post('view_all')=='on'){
+                    if($this->input->post('view_all')=='on' && $menu_id[$key]){
                         $data['menu_update'] = '1';
                     }else{
-                        $data['menu_update'] = '0'; 
+
+                        if($this->input->post('update') =='on' && $key){
+                            $data['menu_update'] = '1';
+                        }else{
+
+                            $data['menu_update'] = '0'; 
+                        }
+
+                        // $data['menu_update'] = '0'; 
                     }
 
 
@@ -1541,19 +1566,24 @@ class Users extends Common_Controller
                         ],
                         'single' => true
                     ];
+                    
                     $existing = $this->common_model->customGet($option);
-        
+                    
                     // If permission exists, update it
                     if ($existing) {
+                        // print_r($existing);die;
                         // Delete the existing entry for this role and menu_id
                         $option = [
                             'table' => 'vendor_sale_roles_permission',
                             'where' => [
                                 'role_id' => $role_id,
-                                'menu_id' => $menu_id
+                                // 'menu_id' => $menu_id
                             ]
                         ];
+
+                        
                         $this->common_model->customDelete($option);
+                        // print_r($option);die;
                     }
         
                     // Insert new role-permission entry
