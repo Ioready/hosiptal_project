@@ -763,7 +763,7 @@
 //     $(myview).prop('checked', true);
 //     $(myCheckbox).prop('checked', true);
 // }
-                        if ($(myview).length && $(myCheckbox).length) {
+                        if ($(myview).length) {
                             $('.servicecheckView').prop('checked', true); 
                             $(myCheckbox).prop('checked', true);	
                         } else {
