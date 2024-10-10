@@ -1,4 +1,4 @@
-<?php if ($this->ion_auth->is_admin() || $this->ion_auth->is_subAdmin() || $this->ion_auth->is_facilityManager()) { ?>
+<?php if ($this->ion_auth->is_admin() || $this->ion_auth->is_subAdmin() || $this->ion_auth->is_user() || $this->ion_auth->is_facilityManager()) { ?>
 
     <style>
         /* .col-lg-4 {
