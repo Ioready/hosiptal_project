@@ -790,10 +790,10 @@ hh
                                                 </a>
                                             </li>
                                         <?php } ?>
-                                        
+
                                 <?php }elseif ($this->ion_auth->is_user()){?>
 
-                                    <li>
+                                    <!-- <li>
                                     <a href="<?php echo site_url('pwfpanel') ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "pwfpanel") ? "active" : "" ?>">
                                     <img src="<?php echo base_url(); ?>uploads/home.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Dashboard</span></a>
                                 
@@ -808,7 +808,7 @@ hh
 
                                 <li title="Type Of Stay">
                                  <a href="<?php echo site_url('typeOfStay'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "typeOfStay") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/labs.svg" height="23px" width="23px"><span class="sidebar-nav-mini-hide text-dark">Type Of Stay</span></a>
-                                </li>
+                                </li> -->
                                 
                                         <?php 
                                             

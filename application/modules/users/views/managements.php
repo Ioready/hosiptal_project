@@ -759,10 +759,6 @@
 
                         // view checked
 
-//                         if ($(myview).length && $(myCheckbox).length) {
-//     $(myview).prop('checked', true);
-//     $(myCheckbox).prop('checked', true);
-// }
                         if ($(myview).length) {
                             $('.servicecheckView').prop('checked', true); 
                             $(myCheckbox).prop('checked', true);	
