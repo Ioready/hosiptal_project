@@ -169,6 +169,10 @@
                 margin-bottom: 10px;
             }
         }
+        .form-horizontal .form-group {
+            margin-left: -5px;
+            margin-right: -22px;
+        }
     </style>
 <div id="commonModal" class="modal fade bd-example-modal-lg" role="dialog">
     <div class="modal-dialog modal-lg">
@@ -196,7 +200,11 @@
                                 <div class="form-group">
                                     <label for="header">Header <span class="required" style="color:red;">*</span></label>
                                     <select name="header" id="header" required>
-                                        <option value="Droitwich Knee Clinic & Bromsgrove P...">Droitwich Knee Clinic & Bromsgrove P...</option>
+                                    
+                                    <?php  foreach($doctors as $row){ ?>
+                                        <option value="<?php echo $row->id;?>"><?php echo $row->first_name.' '.$row->last_name;?></option>
+                                        <?php } ?>
+                                        <!-- <option value="Droitwich Knee Clinic & Bromsgrove P...">Droitwich Knee Clinic & Bromsgrove P...</option> -->
                                     </select>
                                 </div>
 
@@ -219,6 +227,19 @@
 
                             <!-- Billing and Comments -->
                             <div class="form-section">
+                                <!-- <h2>Billing</h2>
+                                <div class="form-group">
+                                    <label for="patient">Patient <span style="color:red;">*</span></label>
+                                    
+                                    <select name="patient" id="patient">
+                                    <?php  foreach($patient as $row){ ?>
+                                        <option value="<?php echo $row->id;?>"><?php echo $row->name;?></option>
+                                        <?php } ?>
+                                    </select>
+
+                                    
+                                </div> -->
+
                                 <h2>Billing</h2>
                                 <div class="form-group">
                                     <label for="patient">Patient <span style="color:red;">*</span></label>
@@ -252,73 +273,43 @@
                             </div>
                         </div>
 
-                        <!-- Line Items Section -->
-                        <div class="line-items-container">
-                            <h2>Line items</h2>
-                            <div class="line-item">
-                                <div>
-                                    <p>MRI 1 Area</p>
-                                    <p>09/01/2023</p>
-                                </div>
-                                <div>
-                                    <p>£300.00 x 1</p>
-                                    <p>£300.00</p>
-                                </div>
-                            </div>
-
-                            <div class="line-item">
-                                <div>
-                                    <p>Physio Clinic Ref</p>
-                                    <p>13/01/2023</p>
-                                </div>
-                                <div>
-                                    <p>£45.00 x 1</p>
-                                    <p>£45.00</p>
-                                </div>
-                            </div>
-
-                            <!-- <button class="add-invoice-item">+ Add invoice item</button> -->
-                        </div>
-
-
+                        
                         <div class="panel panel-default">
                         <!-- <div class="panel-heading">Dynamic Form Fields - Add & Remove Multiple fields</div> -->
                         <div class="panel-heading">Item Description</div>
                         <div class="panel-body">
-                        
-                        <div id="education_fields">
-                                
-                                </div>
-                            <div class="col-sm-3 nopadding">
+                                       
+                       <div class="col-sm-3 nopadding">
                         <div class="form-group">
                             <input type="text" class="form-control" id="products" name="products[]" value="" placeholder="Products">
                         </div>
-                        </div>
-                        <div class="col-sm-3 nopadding">
+                    </div>
+                    <div class="col-sm-3 nopadding">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="rate" name="rate[]" value="" placeholder="Rate">
+                            <input type="number" class="form-control" id="rate" name="rate[]" value="" placeholder="Rate" oninput="calculatePrice(this)">
                         </div>
-                        </div>
-                        <div class="col-sm-3 nopadding">
+                    </div>
+                    <div class="col-sm-3 nopadding">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="quantity" name="quantity[]" value="" placeholder="Quantity">
+                            <input type="number" class="form-control" id="quantity" name="quantity[]" value="" placeholder="Quantity" oninput="calculatePrice(this)">
                         </div>
-                        </div>
-                        <div class="col-sm-3 nopadding">
+                    </div>
+                    <div class="col-sm-3 nopadding">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="price" name="price[]" value="" placeholder="Price">
+                            <input type="number" class="form-control" id="price" name="price[]" value="" placeholder="Price" readonly>
                         </div>
-                        </div>
+                    </div>
 
-                        <div class="clear"></div>
-                        
-                        </div>
-  
+                            <div id="item_fields">
                             </div>
+                        </div>
+                        <!-- </div> -->
+  
                             <!-- Total Amount at the bottom -->
                             <div class="save-invoice-section">
                                 <div class="total-amount">
-                                    Total amount: £345.00
+                                    Total amount:  <input type="text" class="form-control" id="total_price" name="total_price" value="£ 0.00" readonly>
+                                    <!-- <span id="total_price"></span> -->
                                 </div>
                                 <button class="add-invoice-item" type="button"  onclick="education_fields();"> <span class="add-invoice-item" aria-hidden="true">+ Add invoice item</span> </button>
 
@@ -343,17 +334,57 @@
 
 
 <script>
+    function calculatePrice(element) {
+    // Find the parent element containing all inputs
+    var parent = element.closest('.form-group').parentElement.parentElement;
+    
+    // Get the rate and quantity fields
+    var rate = parent.querySelector('#rate').value;
+    var quantity = parent.querySelector('#quantity').value;
+
+    // Ensure rate and quantity are valid numbers
+    rate = parseFloat(rate) || 0;
+    quantity = parseFloat(quantity) || 0;
+
+    // Calculate the price
+    var price = rate * quantity;
+
+    // Update the price field
+    parent.querySelector('#price').value = price.toFixed(2); // display 2 decimal places
+
+    updateTotalPrice();
+    // parent.querySelector('#total_price').value = sum(price.toFixed(2));
+}
+
+function updateTotalPrice() {
+    var total = 0;
+    
+    // Loop through all price fields and sum their values
+    var prices = document.querySelectorAll('#price');
+    prices.forEach(function(priceField) {
+        var price = parseFloat(priceField.value) || 0;
+        total += price;
+    });
+
+    // Update the total price field
+    document.getElementById('total_price').value = '£ '+ total.toFixed(2);
+}
+
+
+</script>
+<script>
     var room = 1;
 function education_fields() {
  
     room++;
-    var objTo = document.getElementById('education_fields')
+    var objTo = document.getElementById('item_fields')
     var divtest = document.createElement("div");
 	divtest.setAttribute("class", "form-group removeclass"+room);
 	var rdiv = 'removeclass'+room;
-    divtest.innerHTML = '<div class="col-sm-3 nopadding"><div class="form-group"> <input type="text" class="form-control" id="products" name="products[]" value="" placeholder="Products name"></div></div><div class="col-sm-3 nopadding"><div class="form-group"> <input type="text" class="form-control" id="rate" name="rate[]" value="" placeholder="Rate"></div></div><div class="col-sm-3 nopadding"><div class="form-group"> <input type="text" class="form-control" id="quantity" name="quantity[]" value="" placeholder="Quantity"></div></div><div class="col-sm-3 nopadding"><div class="col-sm-3 nopadding"><div class="form-group"> <input type="text" class="form-control" id="price" name="price[]" value="" placeholder="Price"></div></div><div class="col-sm-4 nopadding"> <button class="btn btn-danger" type="button" onclick="remove_education_fields('+ room +');"> <span class="glyphicon glyphicon-minus" aria-hidden="true">-</span> </button></div></div></div></div><div class="clear"></div>';
+    divtest.innerHTML = '<div class="col-sm-3 nopadding"><div class="form-group"> <input type="text" class="form-control" id="products" name="products[]" value="" placeholder="Products name"></div></div><div class="col-sm-2 nopadding"><div class="form-group"> <input type="number" class="form-control" id="rate" name="rate[]" value="" placeholder="Rate" oninput="calculatePrice(this)"></div></div><div class="col-sm-2 nopadding"><div class="form-group"> <input type="number" class="form-control" id="quantity" name="quantity[]" value="" placeholder="Quantity" oninput="calculatePrice(this)"></div></div><div class="col-sm-3 nopadding"><div class="form-group"> <input type="text" class="form-control" id="price" name="price[]" value="" placeholder="Price" readonly></div></div> <div class="col-sm-2"><div class="form-group">  <button class="btn btn-danger" type="button" onclick="remove_education_fields('+ room +');"> <span class="glyphicon glyphicon-minus" aria-hidden="true">-</span> </button></div></div><div class="clear"></div>';
     
-    objTo.appendChild(divtest)
+    objTo.appendChild(divtest);
+    updateTotalPrice();
 }
    function remove_education_fields(rid) {
 	   $('.removeclass'+rid).remove();

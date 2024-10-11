@@ -170,8 +170,8 @@
             }
         }
         .form-horizontal .form-group {
-            margin-left: -5px;
-            margin-right: -22px;
+            margin-left: 0px!important;
+            /* margin-right: -15px; */
         }
     </style>
 <div id="commonModal" class="modal fade bd-example-modal-lg" role="dialog">
@@ -183,9 +183,7 @@
                     <h2 class="modal-title"><i class="fa fa-pencil"></i> <?php echo "Add invoice" ?></h2>
                 </div>
                 <div class="modal-body">
-                    <!-- <div class="loaders">
-                        <img src="<?php echo base_url() . 'backend_asset/images/Preloader_2.gif'; ?>" class="loaders-img" class="img-responsive">
-                    </div> -->
+                    
                     <div class="alert alert-danger" id="error-box" style="display: none"></div>
                     <div class="form-body">
                         <div class="row">
@@ -200,17 +198,18 @@
                                 <div class="form-group">
                                     <label for="header">Header <span class="required" style="color:red;">*</span></label>
                                     <select name="header" id="header" required>
-                                    
+                                        
                                     <?php  foreach($doctors as $row){ ?>
-                                        <option value="<?php echo $row->id;?>"><?php echo $row->first_name.' '.$row->last_name;?></option>
+                                        <option value="<?php echo $row->id;?>" <?php echo $results->header ==$row->id?'selected':'';?>><?php echo $row->first_name.' '.$row->last_name;?></option>
                                         <?php } ?>
-                                        <!-- <option value="Droitwich Knee Clinic & Bromsgrove P...">Droitwich Knee Clinic & Bromsgrove P...</option> -->
+                                    
+                                    <!-- <option value="Droitwich Knee Clinic & Bromsgrove P...">Droitwich Knee Clinic & Bromsgrove P...</option> -->
                                     </select>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="select-date">Select Date <span class="required" style="color:red;">*</span></label>
-                                    <input type="date" name="invoice_date" id="invoice_date" required>
+                                    <input type="date" name="invoice_date" id="invoice_date" value="<?php echo $results->invoice_date;?>">
                                 </div>
 
                                 <div class="form-group">
@@ -218,7 +217,7 @@
                                     
                                     <select name="practitioner" id="practitioner">
                                     <?php  foreach($practitioner as $row){ ?>
-                                        <option value="<?php echo $row->id;?>"><?php echo $row->name;?></option>
+                                        <option value="<?php echo $row->id;?>" <?php echo $results->practitioner ==$row->id?'selected':''; ?>><?php echo $row->name;?></option>
                                         <?php } ?>
                                     </select>
                                     <!-- <input type="text" name="practitioner" id="practitioner" placeholder="Select Practitioner"> -->
@@ -232,8 +231,8 @@
                                     <label for="patient">Patient <span style="color:red;">*</span></label>
                                     
                                     <select name="patient" id="patient">
-                                    <?php  foreach($patient as $row){ ?>
-                                        <option value="<?php echo $row->id;?>"><?php echo $row->name;?></option>
+                                    <?php  foreach($patient as $rows){ ?>
+                                        <option value="<?php echo $rows->id;?>" <?php echo $results->patient_id ==$rows->id?'selected':''; ?>><?php echo $rows->name;?></option>
                                         <?php } ?>
                                     </select>
 
@@ -244,68 +243,135 @@
                                     <label for="billing">Billing to <span style="color:red;">*</span></label>
                                     <select name="billing_to" id="billing_to">
                                     <option value="">Select Billing Type</option>
-                                    <option value="Self Pay">Self Pay</option>
-                                    <option value="Insurance">Insurance</option>
-                                    <option value="Medicare">Medicare</option>
-                                    <option value="Company">Company</option>
-                                    <option value="Government Program">Government Program</option>
-                                    <option value="Other">Other</option>
+                                    <option value="Self Pay" <?php echo $results->billing_to =='Self Pay'?'selected':'';?>>Self Pay</option>
+                                    <option value="Insurance" <?php echo $results->billing_to =='Insurance'?'selected':'';?>>Insurance</option>
+                                    <option value="Medicare" <?php echo $results->billing_to =='Medicare'?'selected':'';?>>Medicare</option>
+                                    <option value="Company" <?php echo $results->billing_to =='Company'?'selected':'';?>>Company</option>
+                                    <option value="Government Program" <?php echo $results->billing_to =='Government Program'?'selected':'';?>>Government Program</option>
+                                    <option value="Other" <?php echo $results->billing_to =='Other'?'selected':'';?>>Other</option>
                                     </select>
                                 </div>
 
                                 <h2>Comments</h2>
                                 <div class="form-group">
                                     <label for="notes">Notes</label>
-                                    <textarea name="notes" id="notes" placeholder="Enter notes"></textarea>
+                                    <textarea name="notes" id="notes" placeholder="Enter notes"><?php echo $results->notes;?></textarea>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="internal-notes">Internal notes</label>
-                                    <textarea name="internal_notes" id="internal_notes" placeholder="Enter internal notes"></textarea>
+                                    <textarea name="internal_notes" id="internal_notes" placeholder="Enter internal notes"><?php echo $results->internal_notes;?></textarea>
                                 </div>
                             </div>
                         </div>
 
-                        
+                        <!-- Line Items Section -->
+                      
+
+
                         <div class="panel panel-default">
                         <!-- <div class="panel-heading">Dynamic Form Fields - Add & Remove Multiple fields</div> -->
                         <div class="panel-heading">Item Description</div>
                         <div class="panel-body">
-                                       
-                       <div class="col-sm-3 nopadding">
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="products" name="products[]" value="" placeholder="Products">
-                        </div>
-                    </div>
-                    <div class="col-sm-3 nopadding">
-                        <div class="form-group">
-                            <input type="number" class="form-control" id="rate" name="rate[]" value="" placeholder="Rate" oninput="calculatePrice(this)">
-                        </div>
-                    </div>
-                    <div class="col-sm-3 nopadding">
-                        <div class="form-group">
-                            <input type="number" class="form-control" id="quantity" name="quantity[]" value="" placeholder="Quantity" oninput="calculatePrice(this)">
-                        </div>
-                    </div>
-                    <div class="col-sm-3 nopadding">
-                        <div class="form-group">
-                            <input type="number" class="form-control" id="price" name="price[]" value="" placeholder="Price" readonly>
-                        </div>
-                    </div>
+                        
+                        
 
-                            <div id="item_fields">
-                            </div>
+                        <!-- <?php foreach($results->invoice_item as $item){?>
+                        <div class="col-sm-3 nopadding">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="products" name="products[]" value="<?php echo $item->product_name?>" placeholder="Products">
                         </div>
-                        <!-- </div> -->
+                        </div>
+                        <div class="col-sm-3 nopadding">
+                        <div class="form-group">
+                            <input type="number" class="form-control" id="rate" name="rate[]" value="<?php echo $item->rate?>" placeholder="Rate" oninput="calculatePrice(this)">
+                        </div>
+                        </div>
+                        <div class="col-sm-3 nopadding">
+                        <div class="form-group">
+                            <input type="number" class="form-control" id="quantity" name="quantity[]" value="<?php echo $item->quantity?>" placeholder="Quantity" oninput="calculatePrice(this)">
+                        </div>
+                        </div>
+                        <div class="col-sm-3 nopadding">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="price" name="price[]" value="<?php echo $item->price?>" placeholder="Price" readonly>
+                        </div>
+                        </div>
+                        <?php }?> -->
+
+                        <?php if(!empty($results->invoice_item)){
+
+                        
+                        foreach($results->invoice_item as $item){ ?>
+                                <div class="row-container">
+                                    <div class="col-sm-3 nopadding">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="products" name="products[]" value="<?php echo $item->product_name ?>" placeholder="Products">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3 nopadding">
+                                        <div class="form-group">
+                                            <input type="number" class="form-control" id="rate" name="rate[]" value="<?php echo $item->rate ?>" placeholder="Rate" oninput="calculatePrice(this)">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3 nopadding">
+                                        <div class="form-group">
+                                            <input type="number" class="form-control" id="quantity" name="quantity[]" value="<?php echo $item->quantity ?>" placeholder="Quantity" oninput="calculatePrice(this)">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3 nopadding">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="price" name="price[]" value="<?php echo $item->price ?>" placeholder="Price" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php }}else{ ?>
+
+                                <div class="row-container">
+                                    <div class="col-sm-3 nopadding">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="products" name="products[]" value="" placeholder="Products">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3 nopadding">
+                                        <div class="form-group">
+                                            <input type="number" class="form-control" id="rate" name="rate[]" value="" placeholder="Rate" oninput="calculatePrice(this)">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3 nopadding">
+                                        <div class="form-group">
+                                            <input type="number" class="form-control" id="quantity" name="quantity[]" value="" placeholder="Quantity" oninput="calculatePrice(this)">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3 nopadding">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="price" name="price[]" value="" placeholder="Price" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="edit_item_fields">
+                                </div>
+
+                                <?php }?>
+                        <div class="clear"></div>
+                        
+                        </div>
+                        
+
   
+                            </div>
                             <!-- Total Amount at the bottom -->
                             <div class="save-invoice-section">
                                 <div class="total-amount">
-                                    Total amount:  <input type="text" class="form-control" id="total_price" name="total_price" value="£ 0.00" readonly>
-                                    <!-- <span id="total_price"></span> -->
+                                    Total amount: 
+                                    <!-- £<?php //echo $results->total_amount; ?> -->
+                                    <input type="text" class="form-control" id="total_price" name="total_price" value="£ <?php echo $results->total_amount; ?>" readonly>
                                 </div>
-                                <button class="add-invoice-item" type="button"  onclick="education_fields();"> <span class="add-invoice-item" aria-hidden="true">+ Add invoice item</span> </button>
+                                <?php if(empty($results->invoice_item)){ ?>
 
+                                <!-- <button class="add-invoice-item" type="button"  onclick="education_fields();"> <span class="add-invoice-item" aria-hidden="true">+ Add invoice item</span> </button> -->
+                                <?php }?>
                                 <!-- <button type="button" id="submit" class="add-invoice-item">+ Add invoice item</button> -->
 
                             </div>
@@ -326,14 +392,18 @@
 </div>
 
 
+
 <script>
-    function calculatePrice(element) {
-    // Find the parent element containing all inputs
-    var parent = element.closest('.form-group').parentElement.parentElement;
+
+
+function calculatePrice(element) {
     
-    // Get the rate and quantity fields
-    var rate = parent.querySelector('#rate').value;
-    var quantity = parent.querySelector('#quantity').value;
+    // Find the parent element containing all inputs for this row
+    var parent = element.closest('.row-container');  // Use a class like 'row-container' to group inputs
+    
+    // Get the rate and quantity fields within the same row
+    var rate = parent.querySelector('input[name="rate[]"]').value;
+    var quantity = parent.querySelector('input[name="quantity[]"]').value;
 
     // Ensure rate and quantity are valid numbers
     rate = parseFloat(rate) || 0;
@@ -341,12 +411,10 @@
 
     // Calculate the price
     var price = rate * quantity;
-
-    // Update the price field
-    parent.querySelector('#price').value = price.toFixed(2); // display 2 decimal places
-
+// alert(price);
+    // Update the price field within the same row
+    parent.querySelector('input[name="price[]"]').value = price.toFixed(2);
     updateTotalPrice();
-    // parent.querySelector('#total_price').value = sum(price.toFixed(2));
 }
 
 function updateTotalPrice() {
@@ -366,20 +434,47 @@ function updateTotalPrice() {
 
 </script>
 <script>
-    var room = 1;
+
 function education_fields() {
- 
     room++;
-    var objTo = document.getElementById('item_fields')
+    var objTo = document.getElementById('edit_item_fields');
     var divtest = document.createElement("div");
-	divtest.setAttribute("class", "form-group removeclass"+room);
-	var rdiv = 'removeclass'+room;
-    divtest.innerHTML = '<div class="col-sm-3 nopadding"><div class="form-group"> <input type="text" class="form-control" id="products" name="products[]" value="" placeholder="Products name"></div></div><div class="col-sm-2 nopadding"><div class="form-group"> <input type="number" class="form-control" id="rate" name="rate[]" value="" placeholder="Rate" oninput="calculatePrice(this)"></div></div><div class="col-sm-2 nopadding"><div class="form-group"> <input type="number" class="form-control" id="quantity" name="quantity[]" value="" placeholder="Quantity" oninput="calculatePrice(this)"></div></div><div class="col-sm-3 nopadding"><div class="form-group"> <input type="text" class="form-control" id="price" name="price[]" value="" placeholder="Price" readonly></div></div> <div class="col-sm-2"><div class="form-group">  <button class="btn btn-danger" type="button" onclick="remove_education_fields('+ room +');"> <span class="glyphicon glyphicon-minus" aria-hidden="true">-</span> </button></div></div><div class="clear"></div>';
+    divtest.setAttribute("class", "form-group removeclass" + room);
+    
+    var rdiv = 'removeclass' + room;
+    divtest.innerHTML = `
+        <div class="col-sm-3 nopadding">
+            <div class="form-group">
+                <input type="text" class="form-control" name="products[]" placeholder="Products name">
+            </div>
+        </div>
+        <div class="col-sm-2 nopadding">
+            <div class="form-group">
+                <input type="number" class="form-control" name="rate[]" placeholder="Rate" oninput="calculatePrice(this)">
+            </div>
+        </div>
+        <div class="col-sm-2 nopadding">
+            <div class="form-group">
+                <input type="number" class="form-control" name="quantity[]" placeholder="Quantity" oninput="calculatePrice(this)">
+            </div>
+        </div>
+        <div class="col-sm-3 nopadding">
+            <div class="form-group">
+                <input type="text" class="form-control" id="price" name="price[]" placeholder="Price" readonly>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group">
+                <button class="btn btn-danger" type="button" onclick="remove_education_fields(${room});">
+                    <span class="glyphicon glyphicon-minus" aria-hidden="true">-</span>
+                </button>
+            </div>
+        </div>
+        <div class="clear"></div>
+    `;
     
     objTo.appendChild(divtest);
     updateTotalPrice();
 }
-   function remove_education_fields(rid) {
-	   $('.removeclass'+rid).remove();
-   }
+
 </script>

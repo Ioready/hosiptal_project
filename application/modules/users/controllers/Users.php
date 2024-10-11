@@ -1496,21 +1496,21 @@ class Users extends Common_Controller
                 foreach ($menu_ids as $key =>$menu_id) {
                   
                     // Prepare data for insertion/update
-                    if($this->input->post('view_all')=='on' && $menu_id[$key]){
+                    if($this->input->post('view_all')=='on' && $menu_id){
 
                     $data['menu_create'] = '1';
                     }else{
-                        if($this->input->post('create') =='on' && $key){
+                        if($this->input->post('create') =='on'){
                             $data['menu_create'] = '1';
                         }else{
 
                             $data['menu_create'] = '0'; 
                         }
                     }
-                    if($this->input->post('view_all')=='on' && $menu_id[$key]){
+                    if($this->input->post('view_all')=='on' && $menu_id){
                         $data['menu_view'] = '1';
                     }else{
-                        if($this->input->post('view') =='on' && $key){
+                        if($this->input->post('view') =='on'){
                             $data['menu_view'] = '1';
                         }else{
 
@@ -1519,10 +1519,10 @@ class Users extends Common_Controller
 
                         // $data['menu_view'] = '0'; 
                     }
-                    if($this->input->post('view_all')=='on' && $menu_id[$key]){
+                    if($this->input->post('view_all')=='on' && $menu_id){
                         $data['menu_delete'] = '1';
                     }else{
-                        if($this->input->post('delete') =='on' && $key){
+                        if($this->input->post('delete') =='on'){
                             $data['menu_delete'] = '1';
                         }else{
 
@@ -1531,11 +1531,11 @@ class Users extends Common_Controller
 
                         // $data['menu_delete'] = '0'; 
                     }
-                    if($this->input->post('view_all')=='on' && $menu_id[$key]){
+                    if($this->input->post('view_all')=='on' && $menu_id){
                         $data['menu_update'] = '1';
                     }else{
 
-                        if($this->input->post('update') =='on' && $key){
+                        if($this->input->post('update') =='on'){
                             $data['menu_update'] = '1';
                         }else{
 
@@ -1580,7 +1580,6 @@ class Users extends Common_Controller
                                 // 'menu_id' => $menu_id
                             ]
                         ];
-
                         
                         $this->common_model->customDelete($option);
                         // print_r($option);die;
