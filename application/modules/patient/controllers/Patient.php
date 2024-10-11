@@ -4180,7 +4180,9 @@ $option = array(
         $this->data['formUrlInvoice'] = $this->router->fetch_class() . "/addPatientInvoice";
 
         $this->data['patient_id'] = decoding($_GET['id']);
-        $id = $this->input->post('id');
+        // $patient_id = decoding($_GET['id']);
+        // print_r($patient_id);die;
+        $patient_id = $this->input->post('id');
         $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
         // print_r($id);die;
         $role_name = $this->input->post('role_name');
@@ -4261,7 +4263,7 @@ $option = array(
                 'join' => array(
                     array('vendor_sale_patient', 'vendor_sale_users.id=vendor_sale_patient.user_id','left')
                 ),
-                'where' => array('vendor_sale_patient.md_steward_id'=>$datadoctors->facility_user_id),
+                'where' => array('vendor_sale_patient.id'=>$patient_id),
                 'single'=>true,
                
             );
@@ -4304,7 +4306,7 @@ $option = array(
             $this->data['patient_id'] = decoding($_GET['id']);
             $id = $this->input->post('id');
             $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
-            // print_r($LoginID);die;
+            // print_r($patient_id);die;
             $role_name = $this->input->post('role_name');
     
             $optionPatient = array(
@@ -4313,7 +4315,7 @@ $option = array(
                 'join' => array(
                     array('vendor_sale_patient', 'vendor_sale_users.id=vendor_sale_patient.user_id','left')
                 ),
-                'where' => array('vendor_sale_patient.md_steward_id'=>$LoginID),
+                'where' => array('vendor_sale_patient.id'=>$patient_id),
                 'single'=>true,
                 
             );
