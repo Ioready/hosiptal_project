@@ -4576,8 +4576,7 @@ $option = array(
             'join' => array(
                 array('users', 'doctors.user_id=users.id', 'left'),
                 array('user_profile UP', 'UP.user_id=users.id', 'left'),
-                // array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
-                
+                // array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),              
             ),
             
             'where' => array(
@@ -4589,9 +4588,8 @@ $option = array(
         $this->data['doctors'] = $this->common_model->customGet($option);
 
 
-
-
         $this->data['patient_id'] = decoding($_GET['id']);
+        
         $id = $this->input->post('id');
         $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
         
@@ -4645,23 +4643,10 @@ $option = array(
         $this->data['patient_id'] = decoding($_GET['id']);
         $id = $this->input->post('id');
         $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
-        // print_r($LoginID);die;
+        
         $role_name = $this->input->post('role_name');
 
-        $optionPatient = array(
-            'table' => 'vendor_sale_users',
-            'select' => 'vendor_sale_patient.*',
-            'join' => array(
-                array('vendor_sale_patient', 'vendor_sale_users.id=vendor_sale_patient.user_id','left')
-            ),
-            'where' => array('vendor_sale_patient.md_steward_id'=>$LoginID),
-            
-        );
-
-        $this->data['patient'] = $this->common_model->customGet($optionPatient);
-
-        // print_r($this->data['patient']);die;
-
+       
         $optionPractitioner = array(
             'table' => 'vendor_sale_users',
             'select' => 'vendor_sale_practitioner.*',
@@ -4676,6 +4661,7 @@ $option = array(
     }
 
         $id = decoding($this->input->post('id'));
+       
         if (!empty($id)) {
             
             $option = array(
@@ -4690,7 +4676,24 @@ $option = array(
                 'select'=>'vendor_sale_invoice_items.*',
                 'where' => array('vendor_sale_invoice_items.invoice_id' => $id),
             );
+
             $results_rowItem = $this->common_model->customGet($optionItem);
+
+           $patient_id = $results_row->patient_id;
+        //    print_r($patient_id);die;
+            $optionPatient = array(
+                'table' => 'vendor_sale_users',
+                'select' => 'vendor_sale_users.first_name,vendor_sale_users.last_name',
+                'join' => array(
+                    array('vendor_sale_patient', 'vendor_sale_users.id=vendor_sale_patient.user_id','left')
+                ),
+                'where' => array('vendor_sale_patient.id'=>$patient_id),
+                'single' => true
+            );
+    
+            $patient_data = $this->common_model->customGet($optionPatient);
+            $results_row->patient_item = $patient_data;
+
             // if (!is_array($results_rowItem)) {
             //     $results_row['invoice_item'] = array($results_rowItem); // Convert to array if necessary
             // }

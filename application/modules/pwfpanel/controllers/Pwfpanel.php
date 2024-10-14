@@ -27,7 +27,10 @@ class Pwfpanel extends Common_Controller
             //$this->session->set_flashdata('message', 'Your session has been expired');
             redirect('pwfpanel/login', 'refresh');
         } else {
-            
+
+            $AdminCareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+            // print_r($AdminCareUnitID);die;
+
             if ($this->ion_auth->is_superAdmin() || $this->ion_auth->is_admin() || $this->ion_auth->is_subAdmin() || $this->ion_auth->is_user()) {
                 // $data['parent'] = "Dashboard";
                 $user_id = $this->session->userdata('user_id');
@@ -241,9 +244,11 @@ class Pwfpanel extends Common_Controller
                 }
             
                
+
             }
              else if ($this->ion_auth->is_vendor()) {
                 $this->load->admin_render('vendorDashboard', $this->data, 'inner_script');
+
             } else if ($this->ion_auth->is_facilityManager()) {
 
                 $date = date("Y-m-d");   
@@ -553,7 +558,6 @@ class Pwfpanel extends Common_Controller
             
         } else if ($this->ion_auth->is_user()) {
 
-// print_r($this->ion_auth->is_user());die;
 
             $date = date("Y-m-d");
 
@@ -589,16 +593,6 @@ class Pwfpanel extends Common_Controller
                         $user_facility_counts = count($careunit_facility_counts);
                         $data['total_patient_doctors'] = $user_facility_counts;
 
-
-
-                //     $date = date("Y-m-d");
-                //     $AdminCareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
-                // $Sql = "SELECT vendor_sale_patient.operator_id FROM vendor_sale_patient WHERE vendor_sale_patient.doctor_id = $AdminCareUnitID";
-                // $careunit_facility_counts = $this->common_model->customQuery($Sql);
-                // $user_facility_counts = count($careunit_facility_counts);
-                // $data['total_patient_doctors'] = $user_facility_counts;
-
-
                 $AdminCareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
                 $Sql = "SELECT vendor_sale_patient.operator_id FROM vendor_sale_patient WHERE vendor_sale_patient.doctor_id = $AdminCareUnitID AND  DATE(created_date) = '$date'";
                 $careunit_facility_counts = $this->common_model->customQuery($Sql);
@@ -609,14 +603,66 @@ class Pwfpanel extends Common_Controller
                 $data['initial_dx_doctor'] = $this->common_model->customCount(array('table' => 'initial_dx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0)));
                 $data['initial_rx_doctor'] = $this->common_model->customCount(array('table' => 'initial_rx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0)));
 
-                
-
                 $this->load->admin_render('dashboard', $data);
+                
+             } else if ($this->ion_auth->is_all_roleslogin()) {
+                
+                $AdminCareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+// print_r($AdminCareUnitID);die;
+                    $date = date("Y-m-d");
+
+                    $AdminCareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+                    // print_r($AdminCareUnitID);die;
+                    $week = $this->input->get('weeks');
+                    $month = $this->input->get('month');
+                    $year = $this->input->get('year');
+
+                    $whereClause = '';
+                    if (!empty($week)) {
+                        $startDate = date("Y-m-d", strtotime("last monday", strtotime("+$week week")));
+                        $endDate = date("Y-m-d", strtotime("next sunday", strtotime("+$week week")));
+                        $whereClause = "AND created_date BETWEEN '$startDate' AND '$endDate'";
+
+                    } elseif (!empty($month) && !empty($year)) {
+                        $startDate = "$year-$month-01";
+                        $endDate = date("Y-m-t", strtotime($startDate)); // Last day of the month
+                        $whereClause = "AND created_date BETWEEN '$startDate' AND '$endDate'";
+                    
+                    } elseif (!empty($year)) {
+                        $whereClause = "AND YEAR(created_date) = '$year'";
+                    
+                    }
 
 
-        //  $this->load->admin_render('dashboard', $data);
+                    // Construct the SQL query
+                    $AdminCareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+                    $sql = "SELECT vendor_sale_patient.operator_id 
+                            FROM vendor_sale_patient 
+                            WHERE vendor_sale_patient.doctor_id = $AdminCareUnitID $whereClause";
+                            //  $sql .= $whereClause;
+                    $careunit_facility_counts = $this->common_model->customQuery($sql);
+                    $user_facility_counts = count($careunit_facility_counts);
+                    $data['total_patient_doctors'] = $user_facility_counts;
 
-     } else {
+            $AdminCareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+            $Sql = "SELECT vendor_sale_patient.operator_id FROM vendor_sale_patient WHERE vendor_sale_patient.doctor_id = $AdminCareUnitID AND  DATE(created_date) = '$date'";
+            $careunit_facility_counts = $this->common_model->customQuery($Sql);
+            $user_facility_counts = count($careunit_facility_counts);
+            $data['total_today_patient_doctors'] = $user_facility_counts;
+
+
+            $data['initial_dx_doctor'] = $this->common_model->customCount(array('table' => 'initial_dx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0)));
+            $data['initial_rx_doctor'] = $this->common_model->customCount(array('table' => 'initial_rx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0)));
+
+            // print_r($this->ion_auth->is_all_roleslogin());die;
+
+            $this->load->admin_render('dashboard', $data);
+
+
+    //  $this->load->admin_render('dashboard', $data);
+
+ } else {
+
                 $this->session->set_flashdata('message', 'You are not authorised to access administration');
                 // echo "not login";
                 redirect('pwfpanel/login', 'refresh');
@@ -1289,7 +1335,168 @@ class Pwfpanel extends Common_Controller
                         redirect('pwfpanel/login', 'refresh');
                     }
                     redirect('pwfpanel', 'refresh');
+                
+            } else if ($this->ion_auth->is_all_roleslogin()) {
+                    
+                                            
+                    
+
+                $option = array(
+                    'table' => 'users',
+                    'select' => 'users.id,users.care_unit_id',
+                    'join' => array(
+                        'users_groups' => 'users_groups.user_id=users.id',
+                        'groups' => 'groups.id=users_groups.group_id'
+                    ),
+                    'where' => array(
+                        'users.email' => $this->input->post('identity'),
+                        
+                    ),
+                    // 'where' => array(
+                    //     'users.email' => $this->input->post('identity'),
+                    //     'groups.id' => 3
+                    // ),
+                );
+                $option1 = array(
+                    'table' => 'vendor_sale_hospital',
+                    'select' => 'token_uniq',
+                    'where' => array('email' => $this->input->post('identity')),
+                    'single' => true,
+                );
+                
+
+
+
+                $result2 = $this->db->get_where($option1['table'], $option1['where'])->row();
+               
+                                  
+                $isAdmin = $this->common_model->customGet($option);
+                
+             
+                if (!empty($isAdmin)) {
+                    $_SESSION['admin_care_unit_id'] = $isAdmin[0]->care_unit_id;
+                    $option = array(
+                        'table' => 'login_session',
+                        'where' => array(
+                            'user_id' => $isAdmin[0]->id
+                        ),
+                    );
+                    $isLogin = $this->common_model->customGet($option);
+                    
+                    if (!empty($isLogin) or empty($isLogin)) {
+
+                        $option = array(
+                            'table' => 'login_session',
+                            'data' => array(
+                                'login_session_key' => get_guid(),
+                                'user_id' => $isAdmin[0]->id,
+                                'login_ip' => $_SERVER['REMOTE_ADDR'],
+                                'last_login' => time()
+                            ),
+                        );
+                        $this->common_model->customInsert($option);
+                    }
+                
+                
+                    // print_r($isLogin);die;
+
+                redirect('pwfpanel', 'refresh');
                 }
+
+                } else if ($this->ion_auth->is_patient()) {
+
+                    $option = array(
+                        'table' => 'users',
+                        'select' => 'users.id,users.care_unit_id',
+                        'join' => array(
+                            'users_groups' => 'users_groups.user_id=users.id',
+                            'groups' => 'groups.id=users_groups.group_id'
+                        ),
+                        'where' => array(
+                            'users.email' => $this->input->post('identity'),
+                            'groups.id' => 6
+                        ),
+                    );
+                    $option1 = array(
+                        'table' => 'vendor_sale_hospital',
+                        'select' => 'token_uniq',
+                        'where' => array('email' => $this->input->post('identity')),
+                        'single' => true,
+                    );
+                   
+                    $result2 = $this->db->get_where($option1['table'], $option1['where'])->row();
+                    if ($result2->token_uniq== $this->input->post('uniq_id')) {
+                    
+                    $isAdmin = $this->common_model->customGet($option);
+                    
+                    if (!empty($isAdmin)) {
+                        $_SESSION['admin_care_unit_id'] = $isAdmin[0]->care_unit_id;
+                        $option = array(
+                            'table' => 'login_session',
+                            'where' => array(
+                                'user_id' => $isAdmin[0]->id
+                            ),
+                        );
+                        $isLogin = $this->common_model->customGet($option);
+                        
+                        if (!empty($isLogin) or empty($isLogin)) {
+                            
+                            $option = array(
+                                'table' => 'login_session',
+                                'data' => array(
+                                    'login_session_key' => get_guid(),
+                                    'user_id' => $isAdmin[0]->id,
+                                    'login_ip' => $_SERVER['REMOTE_ADDR'],
+                                    'last_login' => time()
+                                ),
+                            );
+                            
+                            $this->common_model->customInsert($option);
+                            redirect('pwfpanel', 'refresh');
+                        }
+                    }
+                    redirect('pwfpanel', 'refresh');
+                }
+                
+                if (empty($isAdmin)) {
+                    $this->session->set_flashdata('message', "Incorrect Login");
+                    redirect('pwfpanel/login');
+                }
+                $this->session->set_flashdata('message', $this->ion_auth->messages());
+
+                $code = str_pad(rand(0, 999999), 6, '0', STR_PAD_LEFT);
+
+                // table update with 2fa code in current user mail id
+                // Update vendor_sale_users table with 2FA code
+                $userID = $this->ion_auth->get_user_id();
+
+                // Retrieve the email from the vendor_sale_users table using the user ID
+                $query = $this->db->get_where('vendor_sale_users', array('id' => $userID));
+                $result = $query->row();
+
+                // Check if a user was found and get the email
+                $email = isset($result->email) ? $result->email : '';
+
+
+                $updateData = array(
+                    'twofactor_code' => $code,
+                    'update_on' => date('Y-m-d H:i:s')
+                );
+                $this->db->where('id', $userID);
+                $this->db->update('vendor_sale_users', $updateData);
+                $isTwoFactorDone = $this->twoFactor($code, $email);
+                // die('kkk');
+
+                if ($isTwoFactorDone) {
+
+                    $this->load->view('pwfpanel/2fa', 'refresh');
+                } else {
+                    $this->session->set_flashdata('message', $this->ion_auth->errors());
+                    redirect('pwfpanel/login', 'refresh');
+                }
+                redirect('pwfpanel', 'refresh');
+            }
+
                 } else {
                     $this->session->set_flashdata('message', $this->ion_auth->errors());
                     redirect('pwfpanel/login', 'refresh');

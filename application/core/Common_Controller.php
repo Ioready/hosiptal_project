@@ -14,10 +14,12 @@ class Common_Controller extends MX_Controller {
     }
 
     public function is_auth_admin() {
+
         if (!$this->ion_auth->logged_in()) {
             $this->session->set_flashdata('message', 'Your session has been expired');
             // redirect('index.php/pwfpanel/login', 'refresh');
             redirect('pwfpanel/login', 'refresh');
+
         }else if ($this->ion_auth->is_superAdmin()) {
             return true;
         }else if ($this->ion_auth->is_admin()) {
@@ -33,6 +35,8 @@ class Common_Controller extends MX_Controller {
         } else if ($this->ion_auth->is_patient()) {
             return true;
         }else if ($this->ion_auth->is_user()) {
+            return true;
+        }else if($this->ion_auth->is_all_roleslogin()){
             return true;
         }
         else {

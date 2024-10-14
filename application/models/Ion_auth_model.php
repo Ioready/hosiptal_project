@@ -625,15 +625,14 @@ class Ion_auth_model extends CI_Model {
      * @author Mathew
      */
     public function identity_check($identity = '') {
+        
         $this->trigger_events('identity_check');
 
         if (empty($identity)) {
             return FALSE;
         }
 
-        return $this->db->where($this->identity_column, $identity)
-                        ->limit(1)
-                        ->count_all_results($this->tables['users']) > 0;
+        return $this->db->where($this->identity_column, $identity)->limit(1)->count_all_results($this->tables['users']) > 0;
     }
 
     /**

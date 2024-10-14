@@ -83,6 +83,22 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="role">Role</label>
+                                    <div class="col-md-7">
+                                    <select class="form-select" id="role" name="role">
+                                    
+                                    <?php foreach ($roles_list as $rows): ?>
+                                            <option value="<?php echo $rows->id; ?>" <?php echo $rows->id =$results->group_id?'selected':''?>><?php echo $rows->name; ?></option>
+                                                        
+                                        <?php endforeach?>
+                                    </select>
+                                    </div>
+                                </div>
+                            </div>
+
                                 <div class="col-md-12" >
                                 <div class="form-group">
                                     <label class="col-md-3 control-label"><?php echo lang('profile_image'); ?></label>

@@ -442,6 +442,20 @@ class Ion_auth
         return $this->in_group('Patient', $id);
     }
 
+	public function is_all_roleslogin($id = false) {
+
+        $this->ion_auth_model->trigger_events('is_all_roleslogin');
+
+		$groups = ['admin', 'editor', 'user','Nurse']; // You can add more roles here
+
+    // Check if the user belongs to any of the specified groups
+    // return $this->ion_auth->in_group($groups, $id);
+    // return $this->ion_auth->groups($groups, $id);
+	return $this->ion_auth_model->groups();
+
+        // return $this->in_group('Nurse', $id);
+    }
+
 
 	
 	/**

@@ -390,27 +390,35 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+
+
+                                    <!-- <input type="checkbox" name="view_all_<?php echo $rows->menu_id; ?>">
+<input type="checkbox" name="view_<?php echo $rows->menu_id; ?>">
+<input type="checkbox" name="create_<?php echo $rows->menu_id; ?>">
+<input type="checkbox" name="delete_<?php echo $rows->menu_id; ?>">
+<input type="checkbox" name="update_<?php echo $rows->menu_id; ?>"> -->
+
                                         <tr>
                                             <td>View All Records</td>
                                             <td class="text-end">
-                                                <input type="checkbox" class="servicecheckviewAll" name="view_all" id="view_all" onclick="selectAll('<?php echo $rows->menu_key; ?>')">
+                                                <input type="checkbox" class="servicecheckviewAll" name="view_all_<?php echo $rows->menu_id; ?>" id="view_all" onclick="selectAll('<?php echo $rows->menu_key; ?>')">
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>View</td>
-                                            <td class="text-end"><input type="checkbox" name="view" id="view"  class="role-checkbox <?php echo $rows->menu_key; ?> servicecheckView<?php echo $rows->menu_key; ?>"></td>
+                                            <td class="text-end"><input type="checkbox" name="view_<?php echo $rows->menu_id; ?>" id="view"  class="role-checkbox <?php echo $rows->menu_key; ?> servicecheckView<?php echo $rows->menu_key; ?>"></td>
                                         </tr>
                                         <tr>
                                             <td>Create</td>
-                                            <td class="text-end"><input type="checkbox" name="create" id="create" class="role-checkbox <?php echo $rows->menu_key; ?> servicecheckCreate<?php echo $rows->menu_key; ?>"></td>
+                                            <td class="text-end"><input type="checkbox" name="create_<?php echo $rows->menu_id; ?>" id="create" class="role-checkbox <?php echo $rows->menu_key; ?> servicecheckCreate<?php echo $rows->menu_key; ?>"></td>
                                         </tr>
                                         <tr>
                                             <td>Delete</td>
-                                            <td class="text-end"><input type="checkbox" name="delete" id="delete" class="role-checkbox <?php echo $rows->menu_key; ?> servicecheckDelete<?php echo $rows->menu_key; ?>"></td>
+                                            <td class="text-end"><input type="checkbox" name="delete_<?php echo $rows->menu_id; ?>" id="delete" class="role-checkbox <?php echo $rows->menu_key; ?> servicecheckDelete<?php echo $rows->menu_key; ?>"></td>
                                         </tr>
                                         <tr>
                                             <td>Update</td>
-                                            <td class="text-end"><input type="checkbox" name="update" id="update" class="role-checkbox <?php echo $rows->menu_key; ?> servicecheckUpdate<?php echo $rows->menu_key; ?>"></td>
+                                            <td class="text-end"><input type="checkbox" name="update_<?php echo $rows->menu_id; ?>" id="update" class="role-checkbox <?php echo $rows->menu_key; ?> servicecheckUpdate<?php echo $rows->menu_key; ?>"></td>
                                         </tr>
                                     </tbody>
                                 </table>

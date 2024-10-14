@@ -1,4 +1,4 @@
-<?php if ($this->ion_auth->is_superAdmin() || $this->ion_auth->is_admin() || $this->ion_auth->is_user() || $this->ion_auth->is_subAdmin() || $this->ion_auth->is_facilityManager()) { ?>
+<?php if ($this->ion_auth->is_superAdmin() || $this->ion_auth->is_admin() || $this->ion_auth->is_user() || $this->ion_auth->is_subAdmin() || $this->ion_auth->is_facilityManager() || $this->ion_auth->is_all_roleslogin()) { ?>
        <!-- Include chart.js for chart rendering -->
    
        
@@ -679,7 +679,7 @@
 
    
 
-<?php } else if ($this->ion_auth->is_facilityManager()) { ?>
+<?php } else if ($this->ion_auth->is_facilityManager() || $this->ion_auth->is_all_roleslogin()) { ?>
 
                         
     <div class="panel-body">

@@ -524,6 +524,12 @@ class Ion_auth {
         return $this->in_group('Users', $id);
     }
 
+    public function is_all_roleslogin($id = false) {
+        $this->ion_auth_model->trigger_events('is_all_roleslogin');
+
+        return $this->ion_auth_model->groups();
+    }
+
     /**
      * in_group
      *
