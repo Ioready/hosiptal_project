@@ -195,15 +195,32 @@ transition: opacity 0.3s linear, right 0.3s ease-out;
                 New Patient
             </a>
         </h2> -->
+        
+            
         <div class="block full" style="border-radius:12px">
             <div class="block-title">
-                <?php if ($this->ion_auth->is_subAdmin() or $this->ion_auth->is_user()) { ?>
+                <?php 
+                $all_permission = $this->ion_auth->is_permission();
+              
+                foreach($all_permission['form_permission'] as $permission){
+                   
+                    $menu_view =$permission->menu_view;
+                    $menu_create= $permission->menu_create;
+                    $menu_update= $permission->menu_update;
+                    $menu_delete =$permission->menu_delete;
+                    $menu_name =$permission->menu_name;
+                    if ($menu_name == 'Appointment') { 
+                    if($menu_create =='1'){
+
+                    
+                    ?>
                     <h2 class="save-btn">
                         <a href="<?php echo base_url().'index.php/' . $this->router->fetch_class(); ?>/open_model" class="btn btn-sm btn-primary">
                             <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
                         </a>
                     </h2>
-                <?php } else if($this->ion_auth->is_facilityManager()) { ?>
+
+                <?php } } } if($this->ion_auth->is_facilityManager()) { ?>
                     <h2 class="save-btn">
                         <a href="<?php echo base_url().'index.php/' . $this->router->fetch_class(); ?>/open_model" class="btn btn-sm btn-primary">
                             <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
@@ -219,7 +236,7 @@ transition: opacity 0.3s linear, right 0.3s ease-out;
             </div>
 
             <div class="modal-header text-center" style="display:flex;border-radius:10px; background-color:#FFFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);">
-                <?php if ($this->ion_auth->is_facilityManager() or $this->ion_auth->is_user()) { ?>
+                <?php if ($this->ion_auth->is_facilityManager()) { ?>
 
              <div class="col-sm-3 col-lg-3 col-md-3 m-4">
                 <div class="col-md-9">
@@ -238,7 +255,25 @@ transition: opacity 0.3s linear, right 0.3s ease-out;
                     <select id="departmentanddoctordata" name="departmentanddoctordata[]" class="multiselect-ui form-control dropdown-menu" multiple="multiple"></select>
                 </div>
             </div>
-            <?php } else if($this->ion_auth->is_subAdmin()) { ?>
+            <?php } 
+            //else if($this->ion_auth->is_subAdmin()) { 
+                ?>
+
+                <?php 
+                $all_permission = $this->ion_auth->is_permission();
+              
+                foreach($all_permission['form_permission'] as $permission){
+                   
+                    $menu_view =$permission->menu_view;
+                    $menu_create= $permission->menu_create;
+                    $menu_update= $permission->menu_update;
+                    $menu_delete =$permission->menu_delete;
+                    $menu_name =$permission->menu_name;
+                    if ($menu_name == 'Appointment') { 
+                    if($menu_create =='1'){
+
+                    
+                    ?>
 
                 <div class="col-sm-3 col-lg-3 col-md-3 m-4">
                     <div class="col-md-9">
@@ -259,7 +294,7 @@ transition: opacity 0.3s linear, right 0.3s ease-out;
                     </div>
 
                     
-                <?php } ?>
+                <?php } } } ?>
                
                 <div class="form-group save-btn">
                     <label for="datePicker">Select Date:</label>
@@ -394,8 +429,24 @@ transition: opacity 0.3s linear, right 0.3s ease-out;
                                 <h4 class="modal-title"> Appointments</h4>
                             </div>
                                 <div class="modal-body">
-                                  
-                                    <?php if ($this->ion_auth->is_subAdmin() || $this->ion_auth->is_facilityManager() || $this->ion_auth->is_user()) { ?>
+                                <?php 
+                $all_permission = $this->ion_auth->is_permission();
+                $viewAppointment =[];
+                foreach($all_permission['form_permission'] as $permission){
+                   
+                    $menu_view =$permission->menu_view;
+                    $menu_create= $permission->menu_create;
+                    $menu_update= $permission->menu_update;
+                    $menu_delete =$permission->menu_delete;
+                    $menu_name =$permission->menu_name;
+                    if ($menu_name == 'Appointment') { 
+                    if($menu_view =='1'){
+                        $viewAppointment[] =$menu_view;
+                    }}}
+                    
+                    ?>
+
+                                    <?php if ($this->ion_auth->is_subAdmin() || $this->ion_auth->is_facilityManager() || in_array('1',$viewAppointment)) { ?>
                                         <div class="full">
                                             <div class="row text-center">
                                                 <div id="wrapper">
@@ -846,13 +897,13 @@ transition: opacity 0.3s linear, right 0.3s ease-out;
 
                                                                             
 
-                                                                                <div class="tab-pane-second" id="pills-2" role="tabpanel" aria-labelledby="pills-profile-tab">
-                                                                                <div class="block full" style="width: 100%; max-width: 900px; margin-top: 40px;">
+                                            <div class="tab-pane-second" id="pills-2" role="tabpanel" aria-labelledby="pills-profile-tab">
+                                                <div class="block full" style="width: 100%; max-width: 900px; margin-top: 40px;">
 
                                                 <div class="block-title">
                                                     <h2 class="form-head"><strong> Availability</strong> Panel</h2>
                                                 </div>
-                                        <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('index.php/' .$formUrl) ?>" enctype="multipart/form-data">
+                                                    <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('index.php/' .$formUrl) ?>" enctype="multipart/form-data">
                                                     <!-- <div class="modal-header text-center">
                                                         <h4 class="modal-title"><img src="<?php echo base_url(); ?>uploads/form.svg" style="height: 20px;width:20px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt=""> Availability</h4>
                                                     </div> -->
@@ -1072,17 +1123,15 @@ transition: opacity 0.3s linear, right 0.3s ease-out;
 
     <?php } ?>
                                                
-                                        </div>
-                                    <div class="modal-footer">
+                                </div>
+                            <div class="modal-footer">
                                     <!-- <button type="button" class="btn btn-success">Save</button>
                                     <button type="button" class="btn btn-default close-btn" data-dismiss="modal">Close</button> -->
-                                    </div>
-                                </div>
-                            
-                            </div>
                         </div>
-                        
-
+                    </div>
+                            
+                </div>
+            </div>
         </div>
 
 

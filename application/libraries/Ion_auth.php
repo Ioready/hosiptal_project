@@ -446,16 +446,53 @@ class Ion_auth
 
         $this->ion_auth_model->trigger_events('is_all_roleslogin');
 
-		$groups = ['admin', 'editor', 'user','Nurse']; // You can add more roles here
+		// $userrole = $this->session->userdata('user_id');
+            
+		// $option = array(
+		// 	'table' => USER_GROUPS,
+		// 	'select' => 'group_id',
+		// 	'where' => array('user_id' => $userrole),
+		// 	'single'=>true,
 
-    // Check if the user belongs to any of the specified groups
-    // return $this->ion_auth->in_group($groups, $id);
-    // return $this->ion_auth->groups($groups, $id);
+		// );
+		// $role_assign = $this->common_model->customGet($option);
+
+		// $optionRole = array(
+		// 	'table' => 'vendor_sale_roles_permission',
+		// 	'select' => 'vendor_sale_roles_permission.*',
+		// 	'where' => array('role_id' => $role_assign->group_id)
+		// );
+		// $all_permission['form_permission'] = $this->common_model->customGet($optionRole);
+		
 	return $this->ion_auth_model->groups();
 
         // return $this->in_group('Nurse', $id);
+
+		
     }
 
+	public function is_permission($id = false) {
+		$userrole = $this->session->userdata('user_id');
+            
+		$option = array(
+			'table' => USER_GROUPS,
+			'select' => 'group_id',
+			'where' => array('user_id' => $userrole),
+			'single'=>true,
+
+		);
+		$role_assign = $this->common_model->customGet($option);
+
+		$optionRole = array(
+			'table' => 'vendor_sale_roles_permission',
+			'select' => 'vendor_sale_roles_permission.*,vendor_sale_menu.menu_name',
+			'join'=> array(array('vendor_sale_menu','vendor_sale_menu.menu_id=vendor_sale_roles_permission.menu_id','left')),
+			'where' => array('role_id' => $role_assign->group_id)
+		);
+		$all_permission['form_permission'] = $this->common_model->customGet($optionRole);
+		return $all_permission;
+	
+	}
 
 	
 	/**

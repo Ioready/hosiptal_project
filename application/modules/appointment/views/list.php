@@ -214,13 +214,7 @@
                                         </button>
                                     </div>
                                 </div>
-                                <!-- </form> -->
-
-                                <!-- <div class="col-sm-12 col-lg-1">
-                                    <button type="submit" value="Export" name="export" class="btn btn-success btn-sm">
-                                        <fa class="fa fa-file-pdf-o"></fa> Export
-                                    </button>
-                                </div> -->
+                                
                             </form>
 
 
@@ -244,7 +238,9 @@
     <!-- Datatables Content -->
     <div class="block full">
         <div class="block-title">
-            <?php if ($this->ion_auth->is_subAdmin() or $this->ion_auth->is_user()) { ?>
+            <?php 
+            
+            if ($this->ion_auth->is_subAdmin() or $this->ion_auth->is_user()) { ?>
                 <h2>
                     <a href="<?php echo base_url().'index.php/' . $this->router->fetch_class(); ?>/open_model" class="btn btn-sm btn-primary">
                         <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
@@ -267,6 +263,7 @@
             </ul>
         </div> -->
         <div class="table-responsive">
+            
             <table id="common_datatable_users" class="table table-vcenter table-condensed table-bordered">
                 <thead>
                     <tr>

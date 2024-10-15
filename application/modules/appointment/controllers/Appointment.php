@@ -101,7 +101,7 @@ class Appointment extends Common_Controller {
 
         $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 
-        if($this->ion_auth->is_subAdmin()){
+        if($this->ion_auth->is_all_roleslogin()){
 
             $option = array(
                 'table' => ' doctors',
@@ -111,7 +111,7 @@ class Appointment extends Common_Controller {
                 ),
                 'where' => array(
                     'users.delete_status' => 0,
-                    'doctors.user_id'=>$CareUnitID
+                    // 'doctors.user_id'=>$CareUnitID
                 ),
                 'single' => true,
             );
@@ -131,17 +131,16 @@ class Appointment extends Common_Controller {
                 
                 'where' => array(
                     'users.delete_status' => 0,
-                    'doctors.facility_user_id'=>$datadoctors->facility_user_id
+                    // 'doctors.facility_user_id'=>$datadoctors->facility_user_id
                 ),
                
             );
             $doctorsData = $this->common_model->customGet($optionDoctor);
 
-    
-
             $optionPractitioner = array(
                 'table' => 'practitioner',
-                'select' => '*', 'where' => array('hospital_id'=>$datadoctors->facility_user_id,'delete_status' => 0), 'order' => array('name' => 'ASC')
+                'select' => '*',
+                //  'where' => array('hospital_id'=>$datadoctors->facility_user_id,'delete_status' => 0), 'order' => array('name' => 'ASC')
             );
             $practitionerData = $this->common_model->customGet($optionPractitioner);
         $combinedData = array_merge($practitionerData,$doctorsData);
@@ -634,10 +633,10 @@ $this->data['all_appointment'] = $result->result();
 
         $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 
-        if($this->ion_auth->is_subAdmin()){
+        // if($this->ion_auth->is_subAdmin()){
+        if($this->ion_auth->is_all_roleslogin()){
 
-
- $option = array(
+$option = array(
                 'table' => ' doctors',
                 'select' => 'doctors.*',
                 'join' => array(
@@ -645,7 +644,7 @@ $this->data['all_appointment'] = $result->result();
                 ),
                 'where' => array(
                     'users.delete_status' => 0,
-                    'doctors.user_id'=>$CareUnitID
+                    // 'doctors.user_id'=>$CareUnitID
                 ),
                 'single' => true,
             );
@@ -665,7 +664,7 @@ $this->data['all_appointment'] = $result->result();
                 
                 'where' => array(
                     'users.delete_status' => 0,
-                    'doctors.facility_user_id'=>$datadoctors->facility_user_id
+                    // 'doctors.facility_user_id'=>$datadoctors->facility_user_id
                 ),
                
             );
@@ -675,7 +674,8 @@ $this->data['all_appointment'] = $result->result();
 
             $optionPractitioner = array(
                 'table' => 'practitioner',
-                'select' => '*', 'where' => array('hospital_id'=>$datadoctors->facility_user_id,'delete_status' => 0), 'order' => array('name' => 'ASC')
+                'select' => '*',
+                //  'where' => array('hospital_id'=>$datadoctors->facility_user_id,'delete_status' => 0), 'order' => array('name' => 'ASC')
             );
     
     
@@ -693,7 +693,7 @@ $this->data['all_appointment'] = $result->result();
                 ),
                 'where' => array(
                     'users.delete_status' => 0,
-                    'doctors.facility_user_id' => $datadoctors->facility_user_id
+                    // 'doctors.facility_user_id' => $datadoctors->facility_user_id
                 ),
                 'order' => array('users.id' => 'asc'),
             );
@@ -703,7 +703,7 @@ $this->data['all_appointment'] = $result->result();
                 'table' => 'practitioner',
                 'select' => '*',
                 'where' => array(
-                    'hospital_id' => $datadoctors->facility_user_id,
+                    // 'hospital_id' => $datadoctors->facility_user_id,
                     'delete_status' => 0
                 ),
                 'order' => array('name' => 'ASC')
@@ -715,7 +715,7 @@ $this->data['all_appointment'] = $result->result();
             $option = array(
                 'table' => 'clinic',
                 'select' => '*',
-                'where' => array('hospital_id' => $datadoctors->facility_user_id, 'delete_status' => 0),
+                // 'where' => array('hospital_id' => $datadoctors->facility_user_id, 'delete_status' => 0),
                 'order' => array('name' => 'ASC')
             );
             $practitioner = $this->common_model->customGet($option);
@@ -930,7 +930,8 @@ $this->data['results'] = $results;
 
         $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 
-    if($this->ion_auth->is_subAdmin()){
+    // if($this->ion_auth->is_subAdmin()){
+    if($this->ion_auth->is_all_roleslogin()){
 
         $option = array(
             'table' => ' doctors',
@@ -940,7 +941,7 @@ $this->data['results'] = $results;
             ),
             'where' => array(
                 'users.delete_status' => 0,
-                'doctors.user_id'=>$CareUnitID
+                // 'doctors.user_id'=>$CareUnitID
             ),
             'single' => true,
         );
@@ -955,7 +956,7 @@ $this->data['results'] = $results;
             ),
             'where' => array(
                 'users.delete_status' => 0,
-                'doctors.facility_user_id'=>$datadoctors->facility_user_id
+                // 'doctors.facility_user_id'=>$datadoctors->facility_user_id
             ),
             'order' => array('users.id' => 'desc'),
         );
@@ -963,14 +964,16 @@ $this->data['results'] = $results;
 
         $option = array(
             'table' => 'clinic',
-            'select' => '*', 'where' => array('hospital_id'=>$datadoctors->facility_user_id,'delete_status' => 0), 'order' => array('name' => 'ASC')
+            'select' => '*', 
+            // 'where' => array('hospital_id'=>$datadoctors->facility_user_id,'delete_status' => 0), 'order' => array('name' => 'ASC')
         );
         $this->data['clinic_location'] = $this->common_model->customGet($option);
 
 
         $option = array(
             'table' => 'practitioner',
-            'select' => '*', 'where' => array('hospital_id'=>$datadoctors->facility_user_id,'delete_status' => 0), 'order' => array('name' => 'ASC')
+            'select' => '*',
+            //  'where' => array('hospital_id'=>$datadoctors->facility_user_id,'delete_status' => 0), 'order' => array('name' => 'ASC')
         );
         $this->data['practitioner'] = $this->common_model->customGet($option);
 
@@ -1110,7 +1113,8 @@ $this->data['results'] = $results;
 
 $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 
-    if($this->ion_auth->is_subAdmin()){
+    // if($this->ion_auth->is_subAdmin()){
+    if($this->ion_auth->is_all_roleslogin()){
 
         $option = array(
             'table' => ' doctors',
@@ -1121,7 +1125,7 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
             
             'where' => array(
                 'users.delete_status' => 0,
-                'doctors.user_id'=>$CareUnitID
+                // 'doctors.user_id'=>$CareUnitID
             ),
             'single' => true,
         );
@@ -1141,7 +1145,7 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
             
             'where' => array(
                 'users.delete_status' => 0,
-                'doctors.facility_user_id'=>$datadoctors->facility_user_id
+                // 'doctors.facility_user_id'=>$datadoctors->facility_user_id
             ),
             'order' => array('users.id' => 'desc'),
         );
@@ -1208,7 +1212,8 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
     $operator_id = ($this->ion_auth->is_admin()) ? 0 : $this->session->userdata('user_id');
 
     
-    if($this->ion_auth->is_subAdmin()){
+    // if($this->ion_auth->is_subAdmin()){
+    if($this->ion_auth->is_all_roleslogin()){
 
         $option = array(
             'table' => ' doctors',
@@ -1935,7 +1940,8 @@ public function fetch() {
            
 
 $operator_id = ($this->ion_auth->is_admin()) ? 0 : $this->session->userdata('user_id');
-    if($this->ion_auth->is_subAdmin()){
+    // if($this->ion_auth->is_subAdmin()){
+    if($this->ion_auth->is_all_roleslogin()){
 
         $option = array(
             'table' => ' doctors',
@@ -1945,7 +1951,7 @@ $operator_id = ($this->ion_auth->is_admin()) ? 0 : $this->session->userdata('use
             ),
             'where' => array(
                 'users.delete_status' => 0,
-                'doctors.user_id'=>$operator_id
+                // 'doctors.user_id'=>$operator_id
             ),
             'single' => true,
         );
