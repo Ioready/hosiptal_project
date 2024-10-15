@@ -580,7 +580,7 @@
     <div class="col-md-12">
         <div class="form-group">
             <label for="role">Role</label>
-            <select class="form-select" id="role">
+            <select class="form-select" id="role" name="role">
                 <!-- <option>Manager</option>
                 <option>Doctor</option>
                 <option>Staff</option> -->

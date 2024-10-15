@@ -415,6 +415,8 @@ class Users extends Common_Controller
 
     public function users_add()
     {
+        
+
         $tables = $this->config->item('tables', 'ion_auth');
         $identity_column = $this->config->item('identity', 'ion_auth');
         $this->data['identity_column'] = $identity_column;
@@ -448,7 +450,7 @@ class Users extends Common_Controller
                 $username = explode('@', $this->input->post('user_email'));
                 $digits = 5;
                 $code = strtoupper(substr(preg_replace('/[^A-Za-z0-9\-]/', '', $username[0]), 0, 5)) . rand(pow(10, $digits - 1), pow(10, $digits) - 1);
-
+                $group_ids = $this->input->post('role');
                 $additional_data = array(
                     'first_name' => $this->input->post('first_name'),
                     'last_name' => $this->input->post('last_name'),
@@ -468,7 +470,8 @@ class Users extends Common_Controller
                     $user_id = $this->session->userdata('user_id');
                 } else {
 
-                    $insert_id = $this->ion_auth->register($identity, $password, $email, $additional_data, array(3));
+                  
+                    $insert_id = $this->ion_auth->register($identity, $password, $email, $additional_data, array($group_ids));
                 }
 
                 if ($insert_id) {
@@ -1689,6 +1692,7 @@ class Users extends Common_Controller
                     
                     $this->common_model->customDelete($option);
                 }
+                
                 // Loop through each menu_id and collect the permissions
                 foreach ($menu_ids as $menu_id) {
                     $permissions = [
