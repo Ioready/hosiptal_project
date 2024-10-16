@@ -74,7 +74,7 @@
                     $menu_delete =$permission->menu_delete;
                     $menu_name =$permission->menu_name;
                     // echo $menu_name;
-                    if ($menu_name == 'Appointment Type') { 
+                    if ($menu_name == 'Attributes') { 
                     if($menu_create =='1'){ ?>
 
         <div class="block-title ">
@@ -108,13 +108,16 @@
                                 <td><?php echo $rows->name; ?></td>
 
                                 <td class="actions">
+                                <?php if($menu_update =='1'){ ?>
                                     <a href="javascript:void(0)" class="btn btn-xs btn-default" onclick="editFn('<?php echo $model; ?>', 'edit', '<?php echo encoding($rows->id) ?>', '<?php echo $model; ?>');"><i class="fa fa-pencil"></i></a>
-                                    <?php if ($rows->is_active == 1) { ?>
+                                    <?php } if ($rows->is_active == 1) { ?>
                                         <a href="javascript:void(0)" class="btn btn-xs btn-success" onclick="editStatusFn('<?php echo $tablePrefix; ?>', 'id', '<?php echo encoding($rows->id); ?>', '<?php echo $rows->is_active; ?>','<?php echo $rows->name; ?>')" title="Inactive Now"><i class="fa fa-check"></i></a>
                                     <?php } else { ?>
                                         <a href="javascript:void(0)" class="btn btn-xs btn-danger" onclick="editStatusFn('<?php echo $tablePrefix; ?>', 'id', '<?php echo encoding($rows->id); ?>', '<?php echo $rows->is_active; ?>','<?php echo $rows->name; ?>')" title="Active Now"><i class="fa fa-times"></i></a>
-                                    <?php } ?>
+                                    <?php } if($menu_delete =='1'){?>
+                                    
                                     <a href="javascript:void(0)" onclick="deleteFn('<?php echo $table; ?>', 'id', '<?php echo encoding($rows->id); ?>', '<?php echo $model; ?>','','<?php echo $rows->name; ?>')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+                                    <?php } ?>
                                 </td>
                             </tr>
                             <?php

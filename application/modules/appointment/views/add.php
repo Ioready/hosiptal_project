@@ -99,8 +99,6 @@
     <?php //if ($this->ion_auth->is_subAdmin() || $this->ion_auth->is_facilityManager()) { ?>
         <div class="block full">
             <div class="row text-center">
-
-
                 <div id="wrapper">
                     <!-- Content Wrapper -->
                     <div id="content-wrapper" class="container d-flex flex-column">
@@ -109,6 +107,7 @@
                             <!-- Begin Page Content -->
                             <div class="container-fluid">
                                 <div class="tabControl">
+                                    
 <div class="container">
     <div class="row" >
         <div class="col">

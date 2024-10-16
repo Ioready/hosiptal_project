@@ -86,52 +86,63 @@ display:none;
     </ul>
     <!-- Datatables Content -->
     <div class="block full">
-        <div class="block-title">
-            <h2><strong><?php echo 'Risk Management Dashboard'; ?></strong></h2>
-            <?php if ($this->ion_auth->is_superAdmin()) { ?>
-                <h2><a href="javascript:void(0)"  onclick="open_modal('<?php echo $model; ?>')"  style="background-color:#337ab7;" class=" btn btn-sm  text-white">
-                        <i class="gi gi-circle_plus"></i> <?php echo "New Plan"; ?>
-                    </a></h2>
-            <?php }
-            else if($this->ion_auth->is_facilityManager()){ ?>
 
-                <!-- <h2><a href="javascript:void(0)"  onclick="open_modal('<?php echo $model; ?>')" class="btn btn-sm btn-primary">
-                        <i class="gi gi-circle_plus"></i> <?php //echo $title; ?>
-                    </a></h2> -->
+            <?php 
+                $all_permission = $this->ion_auth->is_permission();
+                if (!empty($all_permission['form_permission'])) {
+                foreach($all_permission['form_permission'] as $permission){
+                   
+                    $menu_view =$permission->menu_view;
+                    $menu_create= $permission->menu_create;
+                    $menu_update= $permission->menu_update;
+                    $menu_delete =$permission->menu_delete;
+                    $menu_name =$permission->menu_name;
+                    // echo $menu_name;
+                    if ($menu_name == 'CQC Health') { 
+                    if($menu_create =='1'){ ?>
 
-            <?php } ?>
+            <div class="block-title">
+                <h2><strong><?php echo 'Risk Management Dashboard'; ?></strong></h2>
+                <?php if ($this->ion_auth->is_superAdmin()) { ?>
+                    <h2><a href="javascript:void(0)"  onclick="open_modal('<?php echo $model; ?>')"  style="background-color:#337ab7;" class=" btn btn-sm  text-white">
+                            <i class="gi gi-circle_plus"></i> <?php echo "New Plan"; ?>
+                        </a></h2>
+                <?php }
+                else if($this->ion_auth->is_facilityManager()){ ?>
 
-        </div>
+                    <!-- <h2><a href="javascript:void(0)"  onclick="open_modal('<?php echo $model; ?>')" class="btn btn-sm btn-primary">
+                            <i class="gi gi-circle_plus"></i> <?php //echo $title; ?>
+                        </a></h2> -->
 
-        <!-- <h1>Risk Management Dashboard</h1> -->
-        <table class="risk-table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Risk Name</th>
-                <th>Description</th>
-                <th>Risk Level</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($risks as $risk): ?>
-                <tr class="risk-<?php echo $risk->risk_level; ?>">
-                    <td><?php echo $risk->id; ?></td>
-                    <td><?php echo $risk->risk_name; ?></td>
-                    <td><?php echo $risk->risk_description; ?></td>
-                    <td><?php echo ucfirst($risk->risk_level); ?></td>
-                </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
+                <?php } ?>
 
-    <div>
+            </div>
 
-    </div>
+            <?php } if($menu_view =='1'){?>
+            <table class="risk-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Risk Name</th>
+                        <th>Description</th>
+                        <th>Risk Level</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($risks as $risk): ?>
+                        <tr class="risk-<?php echo $risk->risk_level; ?>">
+                            <td><?php echo $risk->id; ?></td>
+                            <td><?php echo $risk->risk_name; ?></td>
+                            <td><?php echo $risk->risk_description; ?></td>
+                            <td><?php echo ucfirst($risk->risk_level); ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+            <div>
+            </div>
 
-    <!-- <div class="block full">
-            <div class="block-title"> -->
-                <div class="row">
+            <div class="row">
                     <div class="col-md-4 col-ls-4 col-sm-4">
                         <h2>Patient Report</h2>
                         <div>
@@ -151,73 +162,134 @@ display:none;
                         <div>
                         <canvas id="riskChart"></canvas>
                         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const ctx = document.getElementById('riskChart').getContext('2d');
-            const chartData = <?php echo $chart_data; ?>;
+            <script>
+               document.addEventListener('DOMContentLoaded', function() {
+               const ctx = document.getElementById('riskChart').getContext('2d');
+                 const chartData = <?php echo $chart_data; ?>;
+                    var myChart = new Chart(ctx, {
+                        type: 'pie',
+                        data: {
+                            labels: ["M", "T", "W", "T", "F", "S", "S"],
+                            datasets: [{
+                            backgroundColor: [
+                                "#2ecc71",
+                                "#3498db",
+                                "#95a5a6",
+                                "#9b59b6",
+                                "#f1c40f",
+                                "#e74c3c",
+                                "#34495e"
+                            ],
+                            
+                            data: [12, 19, 3, 17, 28, 24, 7]
+                            }]
+                        }
+                        });
+                        });
+                </script>
 
-        //     const riskChart = new Chart(ctx, {
-        //         type: 'pie',
-        //         data: {
-        //             labels: chartData.labels,
-        //             datasets: [{
-        //                 data: chartData.data,
-        //                 backgroundColor: [
-        //                     'red',    // Red
-        //                     'orange', // Amber
-        //                     'yellow', // Yellow
-        //                     'green'   // Green
-        //                 ]
-        //             }]
-        //         },
-        //         options: {
-        //             responsive: true,
-        //             plugins: {
-        //                 legend: {
-        //                     position: 'top',
-        //                 },
-        //                 title: {
-        //                     display: true,
-        //                     text: 'Patient Risk Levels'
-        //                 }
-        //             }
-        //         }
-        //     });
-        // });
+                </div>
+            </div>
+
+            <?php }}}} if($this->ion_auth->is_facilityManager()){?>
 
 
-        var myChart = new Chart(ctx, {
-  type: 'pie',
-  data: {
-    labels: ["M", "T", "W", "T", "F", "S", "S"],
-    datasets: [{
-      backgroundColor: [
-        "#2ecc71",
-        "#3498db",
-        "#95a5a6",
-        "#9b59b6",
-        "#f1c40f",
-        "#e74c3c",
-        "#34495e"
-      ],
-      
-      data: [12, 19, 3, 17, 28, 24, 7]
-    }]
-  }
-});
-});
-    </script>
+                <div class="block-title">
+            <h2><strong><?php echo 'Risk Management Dashboard'; ?></strong></h2>
+            <?php if ($this->ion_auth->is_superAdmin()) { ?>
+                <h2><a href="javascript:void(0)"  onclick="open_modal('<?php echo $model; ?>')"  style="background-color:#337ab7;" class=" btn btn-sm  text-white">
+                        <i class="gi gi-circle_plus"></i> <?php echo "New Plan"; ?>
+                    </a></h2>
+            <?php }
+            else if($this->ion_auth->is_facilityManager()){ ?>
 
+                <!-- <h2><a href="javascript:void(0)"  onclick="open_modal('<?php echo $model; ?>')" class="btn btn-sm btn-primary">
+                        <i class="gi gi-circle_plus"></i> <?php //echo $title; ?>
+                    </a></h2> -->
+
+            <?php } ?>
+
+           </div>
+            <table class="risk-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Risk Name</th>
+                        <th>Description</th>
+                        <th>Risk Level</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($risks as $risk): ?>
+                        <tr class="risk-<?php echo $risk->risk_level; ?>">
+                            <td><?php echo $risk->id; ?></td>
+                            <td><?php echo $risk->risk_name; ?></td>
+                            <td><?php echo $risk->risk_description; ?></td>
+                            <td><?php echo ucfirst($risk->risk_level); ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+            <div>
+            </div>
+            <div class="row">
+                    <div class="col-md-4 col-ls-4 col-sm-4">
+                        <h2>Patient Report</h2>
+                        <div>
+                            <canvas id="mypatientChart"></canvas>
                         </div>
                     </div>
 
+                    <div class="col-md-4 col-ls-4 col-sm-4">
+                        <!-- <h2>Patient Report</h2> -->
+                        <div>
+                            <canvas id="mypatientChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-ls-4 col-sm-4">
+                        <h2>Doctor Report</h2>
+                        <div>
+                        <canvas id="riskChart"></canvas>
+                        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script>
+               document.addEventListener('DOMContentLoaded', function() {
+               const ctx = document.getElementById('riskChart').getContext('2d');
+                 const chartData = <?php echo $chart_data; ?>;
+                    var myChart = new Chart(ctx, {
+                        type: 'pie',
+                        data: {
+                            labels: ["M", "T", "W", "T", "F", "S", "S"],
+                            datasets: [{
+                            backgroundColor: [
+                                "#2ecc71",
+                                "#3498db",
+                                "#95a5a6",
+                                "#9b59b6",
+                                "#f1c40f",
+                                "#e74c3c",
+                                "#34495e"
+                            ],
+                            
+                            data: [12, 19, 3, 17, 28, 24, 7]
+                            }]
+                        }
+                        });
+                        });
+                </script>
+
                 </div>
+            </div>
+
+                <?php }?>
+        </div>
         <!-- END Page Content -->
                 <div id="form-modal-box"></div>
         <!-- </div>
 
     </div> -->
 </div>
+
 
 
 <script>

@@ -137,7 +137,8 @@ class Notification extends Common_Controller {
         $this->data['title'] = "Notification";
 
     $operator_id = ($this->ion_auth->is_admin()) ? 0 : $this->session->userdata('user_id');
-    if($this->ion_auth->is_subAdmin()){
+
+    // if($this->ion_auth->is_all_roleslogin()){
 
         $option = array(
             'table' => ' doctors',
@@ -147,7 +148,7 @@ class Notification extends Common_Controller {
             ),
             'where' => array(
                 'users.delete_status' => 0,
-                'doctors.user_id'=>$operator_id
+                // 'doctors.user_id'=>$operator_ids
             ),
             'single' => true,
         );
@@ -155,45 +156,62 @@ class Notification extends Common_Controller {
                     $datadoctors = $this->common_model->customGet($option);
                 $hospitalAndDoctorId=  $datadoctors->facility_user_id;
 
-                $sql = "SELECT vendor_sale_notifications.*, 
-                vendor_sale_notifications.id AS notification_ids, 
-                vendor_sale_users.first_name, 
-                vendor_sale_users.email, 
-                vendor_sale_clinic_appointment.*, 
-                vendor_sale_clinic_appointment.theatre_date_time AS theatre_start_date_time,vendor_sale_clinic_appointment.type as appointment_type, vendor_sale_practitioner.name AS practitioner_name,userss.first_name as doctor_name FROM vendor_sale_notifications
-            LEFT JOIN vendor_sale_users ON vendor_sale_users.id = vendor_sale_notifications.patient_id 
-            LEFT JOIN vendor_sale_clinic_appointment ON vendor_sale_clinic_appointment.id = vendor_sale_notifications.clinic_appointment_id 
-            LEFT JOIN vendor_sale_practitioner ON vendor_sale_practitioner.id = vendor_sale_clinic_appointment.practitioner 
-            LEFT JOIN vendor_sale_users AS userss ON userss.id = vendor_sale_clinic_appointment.theatre_clinician
-            WHERE vendor_sale_notifications.user_id = $operator_id ORDER BY vendor_sale_notifications.id DESC";
-
-            $result = $this->db->query($sql);
-
-            $this->data['notifications'] = $result->result();
-
-    } else if ($this->ion_auth->is_facilityManager()) {
-        
-        
-            $hospitalAndDoctorId = $operator_id;
-
+            //     $sql = "SELECT vendor_sale_notifications.*, 
+            //     vendor_sale_notifications.id AS notification_ids, 
+            //     vendor_sale_users.first_name, 
+            //     vendor_sale_users.email, 
+            //     vendor_sale_clinic_appointment.*, 
+            //     vendor_sale_clinic_appointment.theatre_date_time AS theatre_start_date_time,vendor_sale_clinic_appointment.type as appointment_type, vendor_sale_practitioner.name AS practitioner_name,userss.first_name as doctor_name FROM vendor_sale_notifications
+            // LEFT JOIN vendor_sale_users ON vendor_sale_users.id = vendor_sale_notifications.patient_id 
+            // LEFT JOIN vendor_sale_clinic_appointment ON vendor_sale_clinic_appointment.id = vendor_sale_notifications.clinic_appointment_id 
+            // LEFT JOIN vendor_sale_practitioner ON vendor_sale_practitioner.id = vendor_sale_clinic_appointment.practitioner 
+            // LEFT JOIN vendor_sale_users AS userss ON userss.id = vendor_sale_clinic_appointment.theatre_clinician WHERE vendor_sale_notifications.user_id = $operator_id ORDER BY vendor_sale_notifications.id DESC";
             $sql = "SELECT vendor_sale_notifications.*, 
                 vendor_sale_notifications.id AS notification_ids, 
                 vendor_sale_users.first_name, 
                 vendor_sale_users.email, 
                 vendor_sale_clinic_appointment.*, 
-                vendor_sale_clinic_appointment.theatre_date_time AS theatre_start_date_time,vendor_sale_clinic_appointment.type as appointment_type, vendor_sale_practitioner.name AS practitioner_name,userss.first_name as doctor_name FROM vendor_sale_notifications
-            LEFT JOIN vendor_sale_users ON vendor_sale_users.id = vendor_sale_notifications.patient_id 
-            LEFT JOIN vendor_sale_clinic_appointment ON vendor_sale_clinic_appointment.id = vendor_sale_notifications.clinic_appointment_id 
-            LEFT JOIN vendor_sale_practitioner ON vendor_sale_practitioner.id = vendor_sale_clinic_appointment.practitioner 
-            LEFT JOIN vendor_sale_users as userss ON userss.id = vendor_sale_clinic_appointment.theatre_clinician
-            WHERE vendor_sale_notifications.facility_user_id = $hospitalAndDoctorId
-            ORDER BY vendor_sale_notifications.id DESC";
+                vendor_sale_clinic_appointment.theatre_date_time AS theatre_start_date_time,
+                vendor_sale_clinic_appointment.type AS appointment_type, 
+                vendor_sale_practitioner.name AS practitioner_name,
+                userss.first_name AS doctor_name 
+        FROM vendor_sale_notifications
+        LEFT JOIN vendor_sale_users ON vendor_sale_users.id = vendor_sale_notifications.patient_id 
+        LEFT JOIN vendor_sale_clinic_appointment ON vendor_sale_clinic_appointment.id = vendor_sale_notifications.clinic_appointment_id 
+        LEFT JOIN vendor_sale_practitioner ON vendor_sale_practitioner.id = vendor_sale_clinic_appointment.practitioner 
+        LEFT JOIN vendor_sale_users AS userss ON userss.id = vendor_sale_clinic_appointment.theatre_clinician  
+        ORDER BY notification_ids DESC";
+
+            // WHERE vendor_sale_notifications.user_id = $operator_id 
 
             $result = $this->db->query($sql);
 
-            $this->data['notifications'] =  $result->result();;
+            $this->data['notifications'] = $result->result();
+// print_r($this->data['notifications']);die;
+
+    // } elseif ($this->ion_auth->is_facilityManager()) {
+        
+        
+    //         $hospitalAndDoctorId = $operator_id;
+
+    //         $sql = "SELECT vendor_sale_notifications.*, 
+    //             vendor_sale_notifications.id AS notification_ids, 
+    //             vendor_sale_users.first_name, 
+    //             vendor_sale_users.email, 
+    //             vendor_sale_clinic_appointment.*, 
+    //             vendor_sale_clinic_appointment.theatre_date_time AS theatre_start_date_time,vendor_sale_clinic_appointment.type as appointment_type, vendor_sale_practitioner.name AS practitioner_name,userss.first_name as doctor_name FROM vendor_sale_notifications
+    //         LEFT JOIN vendor_sale_users ON vendor_sale_users.id = vendor_sale_notifications.patient_id 
+    //         LEFT JOIN vendor_sale_clinic_appointment ON vendor_sale_clinic_appointment.id = vendor_sale_notifications.clinic_appointment_id 
+    //         LEFT JOIN vendor_sale_practitioner ON vendor_sale_practitioner.id = vendor_sale_clinic_appointment.practitioner 
+    //         LEFT JOIN vendor_sale_users as userss ON userss.id = vendor_sale_clinic_appointment.theatre_clinician
+    //         WHERE vendor_sale_notifications.facility_user_id = $hospitalAndDoctorId
+    //         ORDER BY vendor_sale_notifications.id DESC";
+
+    //         $result = $this->db->query($sql);
+
+    //         $this->data['notifications'] =  $result->result();;
                             
-            } 
+    //         } 
 
         $this->load->admin_render('approve_appointment_list', $this->data, 'inner_script');
     }

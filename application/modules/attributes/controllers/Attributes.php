@@ -165,7 +165,9 @@ class Attributes extends Common_Controller {
         $this->data['title'] = 'clinic';
         $this->data['tablePrefix'] = 'vendor_sale_' . 'clinic';
         $this->data['table'] = 'clinic';
-        $option = array('table' => 'clinic', 'where' => array('hospital_id'=>$user_id,'delete_status' => 0),'order'=>array('name'=>'asc'));
+        $option = array('table' => 'clinic',
+        //  'where' => array('hospital_id'=>$user_id,'delete_status' => 0),
+         'order'=>array('name'=>'asc'));
         $this->data['list'] = $this->common_model->customGet($option);
         $this->load->admin_render('list_clinic', $this->data, 'inner_script');
     }
@@ -287,7 +289,9 @@ class Attributes extends Common_Controller {
         $this->data['title'] = $this->title;
         $this->data['tablePrefix'] = 'vendor_sale_' . 'practitioner';
         $this->data['table'] = 'practitioner';
-        $option = array('table' => 'practitioner', 'where' => array('hospital_id'=>$user_id,'delete_status' => 0),'order'=>array('name'=>'asc'));
+        $option = array('table' => 'practitioner', 
+        // 'where' => array('hospital_id'=>$user_id,'delete_status' => 0),
+        'order'=>array('name'=>'asc'));
         $this->data['list'] = $this->common_model->customGet($option);
         $this->load->admin_render('list_practitioner', $this->data, 'inner_script');
     }

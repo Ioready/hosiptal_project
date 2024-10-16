@@ -96,135 +96,152 @@ a.status-yellow {
 
     </div>
 </div>
+
 <?php 
-if ($this->ion_auth->is_subAdmin()) {
+                $all_permission = $this->ion_auth->is_permission();
+                if (!empty($all_permission['form_permission'])) {
+                foreach($all_permission['form_permission'] as $permission){
+                   
+                    $menu_view =$permission->menu_view;
+                    $menu_create= $permission->menu_create;
+                    $menu_update= $permission->menu_update;
+                    $menu_delete =$permission->menu_delete;
+                    $menu_name =$permission->menu_name;
+                    // echo $menu_name;
+                    if ($menu_name == 'Aprove Appointment') { 
+                    if($menu_view =='1'){ ?>
 
 
-?>
-<div class="wrapper wrapper-content animated fadeIn m-4">
 
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="ibox float-e-margins">
+            <div class="wrapper wrapper-content animated fadeIn m-4">
 
-                <div class="ibox-content">
-                    <div class="row">
-                        
-                        <div id="message"></div>
-                        <div class="col-sm-12">     
-                                <div class="table-responsive">
-                                <table id="appointmentTable" class="table table-striped custom-table">
-								<thead>
-									<tr>
-										<th>Appointment Type ID</th>
-										<th>Patient Name</th>
-										<th>Doctor Name</th>
-                                        <th>Practitioner Name</th>
-                                        <th>Clinician Name</th>
-										<th>Appointment Date</th>
-										<th>Appointment Time</th>
-										<th>Status</th>
-									</tr>
-								</thead>
-								<tbody>
-                                            <?php 
-                                                $formatted_time = date('Y-m-d');
-                                                foreach ($notifications as $notification): 
-                                                $appointmentTime = date('g:i A', strtotime($notification->start_date_appointment));
-                                                $end_date_appointment = date('g:i A', strtotime($notification->end_date_appointment));
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
 
-                                                // Out Of Office
-                                            
-                                                $out_start_time_at = date('g:i A', strtotime($notification->out_start_time_at));
-                                                $out_end_time_at = date('g:i A', strtotime($notification->out_end_time_at));
-                                                $out_of_office_comment = $notification->out_of_office_comment;
+                            <div class="ibox-content">
+                                <div class="row">
+                                    
+                                    <div id="message"></div>
+                                    <div class="col-sm-12">     
+                                            <div class="table-responsive">
+                                            <table id="appointmentTable" class="table table-striped custom-table">
+                                            <thead>
+                                                <tr> <th>ID</th>
+                                                    <th>Appointment Type ID</th>
+                                                    <th>Patient Name</th>
+                                                    <th>Doctor Name</th>
+                                                    <th>Practitioner Name</th>
+                                                    <th>Clinician Name</th>
+                                                    <th>Appointment Date</th>
+                                                    <th>Appointment Time</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                        <?php 
+                                                        
+                                                            $formatted_time = date('Y-m-d');
+                                                            foreach ($notifications as $key=>$notification): 
+                                                            $appointmentTime = date('g:i A', strtotime($notification->start_date_appointment));
+                                                            $end_date_appointment = date('g:i A', strtotime($notification->end_date_appointment));
 
-                                                // Availability
+                                                            // Out Of Office
+                                                        
+                                                            $out_start_time_at = date('g:i A', strtotime($notification->out_start_time_at));
+                                                            $out_end_time_at = date('g:i A', strtotime($notification->out_end_time_at));
+                                                            $out_of_office_comment = $notification->out_of_office_comment;
 
-                                                $start_date_availability = date('g:i A', strtotime($notification->start_date_availability));
-                                                $end_time_date_availability = date('g:i A', strtotime($notification->end_time_date_availability));
-                                                $out_of_office_comment = $notification->out_of_office_comment;
+                                                            // Availability
 
-                                                // theatre Appointment
+                                                            $start_date_availability = date('g:i A', strtotime($notification->start_date_availability));
+                                                            $end_time_date_availability = date('g:i A', strtotime($notification->end_time_date_availability));
+                                                            $out_of_office_comment = $notification->out_of_office_comment;
 
-                                                $theatre_date_time = date('g:i A', strtotime($notification->theatre_date_time));
-                                                $theatre_time_duration = $notification->theatre_time_duration;
+                                                            // theatre Appointment
+
+                                                            $theatre_date_time = date('g:i A', strtotime($notification->theatre_date_time));
+                                                            $theatre_time_duration = $notification->theatre_time_duration;
+                                                            
+                                                            $durationInSeconds = $theatre_time_duration * 60;
+                                                            $theatre_end_time = date('g:i A', strtotime($theatre_date_time . " +$durationInSeconds seconds"));
+                                                            $theatre_comment = $notification->theatre_comment;
+                                                            $theatre_clinician = $notification->theatre_clinician;
+
+                                                            $appointment_date = date('Y-m-d', strtotime($notification->start_date_appointment));
+
+                                                            $out_start_timeAt = date('Y-m-d', strtotime($notification->out_start_time_at));
+
+                                                            $start_dateAvailability = date('Y-m-d', strtotime($notification->start_date_availability));
+
+                                                            $theatre_dateTime = date('Y-m-d', strtotime($notification->theatre_date_time));
+                                                            $theatre_admission_date = date('Y-m-d', strtotime($notification->theatre_admission_date_time));
+                                                        ?>
+                                                <tr>
+                                                <td><?php echo $notification->notification_ids;?></td>
+                                                <td><?php echo $notification->appointment_type.'_'. $notification->clinic_appointment_id;?></td>
                                                 
-                                                $durationInSeconds = $theatre_time_duration * 60;
-                                                $theatre_end_time = date('g:i A', strtotime($theatre_date_time . " +$durationInSeconds seconds"));
-                                                $theatre_comment = $notification->theatre_comment;
-                                                $theatre_clinician = $notification->theatre_clinician;
-
-                                                $appointment_date = date('Y-m-d', strtotime($notification->start_date_appointment));
-
-                                                $out_start_timeAt = date('Y-m-d', strtotime($notification->out_start_time_at));
-
-                                                $start_dateAvailability = date('Y-m-d', strtotime($notification->start_date_availability));
-
-                                                $theatre_dateTime = date('Y-m-d', strtotime($notification->theatre_date_time));
-                                                $theatre_admission_date = date('Y-m-d', strtotime($notification->theatre_admission_date_time));
-                                            ?>
-									<tr>
-                                    <td><?php echo $notification->appointment_type.'_'. $notification->clinic_appointment_id;?></td>
-									
-										<td><img width="28" height="28" src="<?php echo base_url('/assets/img/user.jpg')?>" class="rounded-circle m-r-5" alt="" style="float:left"> &nbsp;  <?php echo $notification->first_name;?></td>
-                                        <td><?php echo $notification->doctor_name;?></td>
-										<td><?php echo $notification->practitioner_name;?></td>
-                                        <td><?php echo $notification->doctor_name;?></td>
-                                        <td><?php if(!empty($appointment_date)){
-                                            echo $appointment_date ?? '';
-                                        }else if(!empty($theatre_admission_date)){
-                                            echo $theatre_admission_date ?? '';
-                                        } else{
-                                            echo '';
-                                        }
-                                          ?></td>
-										<td>
-                                        <?php 
-                                            if ($appointment_date) {
-                                                
-                                                echo $appointmentTime . ' - ' . $end_date_appointment;
-                                            } elseif ($out_start_timeAt) {
-                                                echo $out_start_time_at . ' - ' .  $out_end_time_at;
-                                            } elseif ($start_dateAvailability) {
-                                                echo $start_date_availability . ' - ' .  $end_time_date_availability;
-                                            } elseif ($theatre_dateTime) {
-                                                echo $theatre_date_time . ' - ' .  $theatre_end_time;
-                                            }
-                                            ?>
-                                        </td>
-										<td>
-                                            <?php if($notification->appointment_status == 'Inactive'): ?>
-                                                <span class="custom-badge status-red">Inactive</span> 
-                                            <?php elseif($notification->appointment_status == 'Active'): ?>
-                                                <input type="hidden" class="notification-id" value="<?php echo $notification->notification_ids;?>">
-                                                <select class="statusDropdown custom-badge <?php echo ($notification->appointment_status == 'Active') ? 'status-green' : 'status-red'; ?>">
-                                                    <option value="Active"><strong>Active</strong></option>
-                                                    <option value="Inactive"><strong>Inactive</strong></option>
-                                                </select>
-                                            <?php else: ?>
-                                                <input type="hidden" class="notification-id" value="<?php echo $notification->notification_ids;?>">
-                                                <select class="statusDropdown custom-badge <?php echo ($notification->appointment_status == 'pending') ? 'status-red' : 'status-green'; ?>">
-                                                    <option disabled selected><strong  > Pending</strong></option>
-                                                    <option value="Active"><strong>Active</strong></option>
-                                                    <option value="Inactive"><strong>Inactive</strong></option>
-                                                </select>
-                                            <?php endif; ?>
-                                        </td>
-									</tr>
-                                    <?php endforeach; ?>
-								</tbody>
-							</table>
+                                                    <td><img width="28" height="28" src="<?php echo base_url('/assets/img/user.jpg')?>" class="rounded-circle m-r-5" alt="" style="float:left"> &nbsp;  <?php echo $notification->first_name;?></td>
+                                                    <td><?php echo $notification->doctor_name;?></td>
+                                                    <td><?php echo $notification->practitioner_name;?></td>
+                                                    <td><?php echo $notification->doctor_name;?></td>
+                                                    <td><?php if(!empty($appointment_date)){
+                                                        echo $appointment_date ?? '';
+                                                    }else if(!empty($theatre_admission_date)){
+                                                        echo $theatre_admission_date ?? '';
+                                                    } else{
+                                                        echo '';
+                                                    }
+                                                    ?></td>
+                                                    <td>
+                                                    <?php 
+                                                        if ($appointment_date) {
+                                                            
+                                                            echo $appointmentTime . ' - ' . $end_date_appointment;
+                                                        } elseif ($out_start_timeAt) {
+                                                            echo $out_start_time_at . ' - ' .  $out_end_time_at;
+                                                        } elseif ($start_dateAvailability) {
+                                                            echo $start_date_availability . ' - ' .  $end_time_date_availability;
+                                                        } elseif ($theatre_dateTime) {
+                                                            echo $theatre_date_time . ' - ' .  $theatre_end_time;
+                                                        }
+                                                        ?>
+                                                    </td>
+                                                    <td>
+                                                        <?php if($menu_update =='1'){
+                                                         if($notification->appointment_status == 'Inactive'): ?>
+                                                            <span class="custom-badge status-red">Inactive</span> 
+                                                        <?php elseif($notification->appointment_status == 'Active'): ?>
+                                                            <input type="hidden" class="notification-id" value="<?php echo $notification->notification_ids;?>">
+                                                            <select class="statusDropdown custom-badge <?php echo ($notification->appointment_status == 'Active') ? 'status-green' : 'status-red'; ?>">
+                                                                <option value="Active"><strong>Active</strong></option>
+                                                                <option value="Inactive"><strong>Inactive</strong></option>
+                                                            </select>
+                                                        <?php else: ?>
+                                                            <input type="hidden" class="notification-id" value="<?php echo $notification->notification_ids;?>">
+                                                            <select class="statusDropdown custom-badge <?php echo ($notification->appointment_status == 'pending') ? 'status-red' : 'status-green'; ?>">
+                                                                <option disabled selected><strong  > Pending</strong></option>
+                                                                <option value="Active"><strong>Active</strong></option>
+                                                                <option value="Inactive"><strong>Inactive</strong></option>
+                                                            </select>
+                                                        <?php endif; }?>
+                                                    </td>
+                                                </tr>
+                                                <?php endforeach; ?>
+                                            </tbody>
+                                        </table>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-    <?php 
-}else { ?>
+
+
+    <?php }}}} if ($this->ion_auth->is_facilityManager()){ ?>
+
    <div class="wrapper wrapper-content animated fadeIn m-4">
 
 
@@ -364,7 +381,9 @@ if ($this->ion_auth->is_subAdmin()) {
 
 
 </div>
+
 <?php } ?>
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- Include DataTables CSS -->

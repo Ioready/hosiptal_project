@@ -48,7 +48,7 @@
                     <div class="table-responsive">
             <table id="common_datatable_menucat" class="table table-vcenter table-condensed table-bordered text-center">
                 <thead>
-                    <tr >
+                    <tr>
                         <th  class="text-center fw-bold" style="background-color:#DBEAFF;font-size:1.3rem;width:15%;;">Sr. No</th>
                         <th  class="text-center fw-bold"  style="background-color:#DBEAFF;font-size:1.3rem;width:60%;;">Name</th>
                         <th  class="text-center fw-bold" style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('action'); ?></th>

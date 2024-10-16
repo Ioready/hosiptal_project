@@ -53,8 +53,8 @@ class DataOperator extends Common_Controller
                 array('care_unit CU', 'CU.id=user.care_unit_id', 'left'),
                 array('doctors AS d', 'd.user_id = user.id', 'left')
             ),
-           
-            'where' => array('user.delete_status' => 0, 'group.id' => 5, 'user.login_id' => $x),
+           'where' => array('user.delete_status' => 0, 'group.id' => 5),
+            // 'where' => array('user.delete_status' => 0, 'group.id' => 5, 'user.login_id' => $x),
             'order' => array('user.id' => 'desc')
         );
 
