@@ -201,7 +201,7 @@ class Tasks extends Common_Controller
 
     $userAuthID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 
-    if($this->ion_auth->is_subAdmin()){
+    // if($this->ion_auth->is_subAdmin()){
 
         $option = array(
             'table' => ' doctors',
@@ -212,7 +212,7 @@ class Tasks extends Common_Controller
             
             'where' => array(
                 'users.delete_status' => 0,
-                'doctors.user_id'=>$userAuthID
+                // 'doctors.user_id'=>$userAuthID
             ),
             'single' => true,
         );
@@ -232,7 +232,7 @@ class Tasks extends Common_Controller
                 
             ),
             //'group_by' => 't.patient_id'
-            'where'=> array('t.facility_user_id'=> $facility_id),
+            // 'where'=> array('t.facility_user_id'=> $facility_id),
              'order' => array('t.id' => 'desc'),
              
         );
@@ -253,40 +253,40 @@ class Tasks extends Common_Controller
         $this->data['list'] = $this->common_model->customGet($option);
 
 
-    } else if ($this->ion_auth->is_facilityManager()) {
+    // } else if ($this->ion_auth->is_facilityManager()) {
         
-        $option = array(
-            'table' => 'task t',
-            'select' => 't.id as task_id,t.task_name,t.patient_name,t.due_date as culture_source_name,t.type,t.priority,'
-                . 't.task_comment, cu.name as type_name, U.first_name as f_name, U.last_name as l_name',
-            'join' => array(
-                array('vendor_sale_care_unit cu', 'cu.id=t.type', 'left'),
-                array('users U', 'U.id=t.assign_to', 'left'),
+    //     $option = array(
+    //         'table' => 'task t',
+    //         'select' => 't.id as task_id,t.task_name,t.patient_name,t.due_date as culture_source_name,t.type,t.priority,'
+    //             . 't.task_comment, cu.name as type_name, U.first_name as f_name, U.last_name as l_name',
+    //         'join' => array(
+    //             array('vendor_sale_care_unit cu', 'cu.id=t.type', 'left'),
+    //             array('users U', 'U.id=t.assign_to', 'left'),
                 
-            ),
-            //'group_by' => 't.patient_id'
-            'where'=> array('t.facility_user_id'=> $userAuthID),
-            'order' => array('t.id' => 'desc'),
+    //         ),
+            
+    //         'where'=> array('t.facility_user_id'=> $userAuthID),
+    //         'order' => array('t.id' => 'desc'),
 
-        );
-             if (!empty($careUnitID)) {
-                $option['where']['t.type'] = $careUnitID;
-            }
-            if (!empty($AdminCareUnitID)) {
-                $option['where']['cu.id']  = $AdminCareUnitID;
-            }
-            if (!empty($from)) {
-                $option['where']['DATE(t.date_of_start_abx) >='] = $from;
-            }
-            if (!empty($to)) {
-                $option['where']['DATE(t.date_of_start_abx) <='] = $to;
-            }
-            $option['order'] = array('t.id' => 'desc');
-            $this->data['list'] = $this->common_model->customGet($option);
+    //     );
+    //          if (!empty($careUnitID)) {
+    //             $option['where']['t.type'] = $careUnitID;
+    //         }
+    //         if (!empty($AdminCareUnitID)) {
+    //             $option['where']['cu.id']  = $AdminCareUnitID;
+    //         }
+    //         if (!empty($from)) {
+    //             $option['where']['DATE(t.date_of_start_abx) >='] = $from;
+    //         }
+    //         if (!empty($to)) {
+    //             $option['where']['DATE(t.date_of_start_abx) <='] = $to;
+    //         }
+    //         $option['order'] = array('t.id' => 'desc');
+    //         $this->data['list'] = $this->common_model->customGet($option);
              
-        // );
+       
 
-    }
+    // }
 
         // $option = array(
         //     'table' => 'task t',

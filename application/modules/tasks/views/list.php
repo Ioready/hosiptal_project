@@ -170,23 +170,43 @@
     <?php } ?>
     <!-- Datatables Content -->
     <div class="block full">
+        
+    <?php 
+                $all_permission = $this->ion_auth->is_permission();
+                if (!empty($all_permission['form_permission'])) {
+                foreach($all_permission['form_permission'] as $permission){
+                   
+                    $menu_view =$permission->menu_view;
+                    $menu_create= $permission->menu_create;
+                    $menu_update= $permission->menu_update;
+                    $menu_delete =$permission->menu_delete;
+                    $menu_name =$permission->menu_name;
+                    // echo $menu_name;
+                    if ($menu_name == 'Tasks') { 
+                    if($menu_create =='1'){ ?>
+
         <div class="block-title">
             <h2><strong><?php echo $title; ?></strong> Panel</h2>
             <h2>
-                <!-- <a href="javascript:void(0)" onclick="open_modal('<?php
-                                                                    echo 'index.php/'.$model; ?>')" class="btn btn-sm btn-primary save-btn">
-                    <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
-                </a> -->
-                <!-- <a href="<?php echo base_url() . $this->router->fetch_class(); ?>/open_model" class="btn btn-sm btn-primary save-btn">
-                        <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
-                    </a></h2> -->
+               
                     <a href="#" class="btn btn-sm btn-primary save-btn" data-toggle="modal" data-target="#myModal" >
                         <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
                     </a>
-                    <!-- <button class="save-btn" type="button" style="border" data-toggle="modal" data-target="#myModal" ><?php echo $title; ?></button> -->
-            </h2>
+                </h2>
+            </div>
+            <?php }}}} if($this->ion_auth->is_facilityManager()){?>
 
+                <div class="block-title">
+            <h2><strong><?php echo $title; ?></strong> Panel</h2>
+            <h2>
+               
+                    <a href="#" class="btn btn-sm btn-primary save-btn" data-toggle="modal" data-target="#myModal" >
+                        <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
+                    </a>
+                </h2>
+            </div>
 
+                <?php }?>
             <div class="modal" id="myModal">
             <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -330,6 +350,19 @@
                     </div>
         </div>
 
+        <?php 
+                $all_permission = $this->ion_auth->is_permission();
+                if (!empty($all_permission['form_permission'])) {
+                foreach($all_permission['form_permission'] as $permission){
+                   
+                    $menu_view =$permission->menu_view;
+                    $menu_create= $permission->menu_create;
+                    $menu_update= $permission->menu_update;
+                    $menu_delete =$permission->menu_delete;
+                    $menu_name =$permission->menu_name;
+                    // echo $menu_name;
+                    if ($menu_name == 'Tasks') { 
+                    if($menu_create =='1'){ ?>
         <div class="table-responsive">
             <table id="common_datatable_menucat" class="table table-vcenter table-condensed table-bordered">
                 <thead>
@@ -477,6 +510,159 @@
                 </tbody>
             </table>
         </div>
+
+        <?php }}}} if($this->ion_auth->is_facilityManager()){?>
+
+            <div class="table-responsive">
+            <table id="common_datatable_menucat" class="table table-vcenter table-condensed table-bordered">
+                <thead>
+                    <tr>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem;width:40px !important">Sr. No</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem">Priority</th>
+                        
+                        <th style="background-color:#DBEAFF;font-size:1.3rem">Task Name</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem">Assign To</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem">Patient Name</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem">Type</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem">Task Comment</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem">Due Date</th>
+                        <!-- <th style="background-color:#DBEAFF;font-size:1.3rem">MD Steward</th> -->
+                        <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('action'); ?></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    //if(!empty($careUnitsUser_list)){
+
+
+                    if (!empty($careUnitsUser_list)) {
+                        $rowCount = 0;
+                        foreach ($careUnitsUser_list as $rows) {
+                            $rowCount++;
+                        
+                            // print_r($rows);die;
+                            
+                    ?>
+                            <tr>
+                                <td><?php echo $rowCount; ?></td>
+                                <td><?php if($rows->priority =="High"){ 
+                                    ?>
+                                    <label class="priority-label" data-priority="High">
+                                    <i class="fa fa-flag-o fa_custom"></i>
+                                    <?php
+                                    echo 'H'; 
+                                } else if($rows->priority =="Low"){
+                                    ?>
+                                    <label class="priority-label" data-priority="Low">
+                                    <i class="fa fa-flag-o fa_custom"></i>
+                                    <?php
+                                echo 'L';
+                                }else if($rows->priority =="Medium"){
+                                    ?>
+                                    <label class="priority-label" data-priority="Medium">
+                                    <i class="fa fa-flag-o fa_custom"></i>
+                                    <?php
+                                    
+                                    echo 'M';
+                                } ?></td>
+
+                                <td><?php echo $rows->task_name; ?></td>
+                                <td><?php echo $rows->f_name. ' '.$rows->l_name; ?></td>
+                                <td><?php echo $rows->patient_name; ?></td>
+                                <td><?php echo $rows->type_name; ?></td>
+                                <td><?php echo $rows->task_comment; ?></td>
+                                <td><?php echo $rows->culture_source_name; ?></td>
+
+                                <td>
+                                
+                                            <?php 
+                                            if ($this->ion_auth->is_subAdmin()){
+                    
+                                                if ($rows->task_status == 'Done'): ?>
+                                                    <input type="hidden" class="notification-id" value="<?php echo $rows->patient_id; ?>">
+                                                    <select class="statusDropdown custom-badge <?php echo ($rows->task_status == 'Done') ? 'status-green' : 'status-red'; ?>">
+                                                        <option value="Done" selected><strong>Done</strong></option>
+                                                        <option value="Pending"><strong>Pending</strong></option>
+                                                    </select>
+                                                <?php else: ?>
+                                                    <input type="hidden" class="notification-id" value="<?php echo $rows->patient_id; ?>">
+                                                    <select class="statusDropdown custom-badge <?php echo ($rows->task_status == 'Pending') ? 'status-red' : 'status-green'; ?>">
+                                                        <option value="Done"><strong>Done</strong></option>
+                                                        <option value="Pending" selected><strong>Pending</strong></option>
+                                                    </select>
+                                                <?php endif; 
+                                                
+
+                                             }else if($this->ion_auth->is_facilityManager()){ 
+                                                if($rows->task_status == 'Done'): ?>
+                                                <span class="custom-badge status-green"><?php echo $rows->task_status; ?></span> 
+                                                
+                                            <?php else: ?>
+                                                <span class="custom-badge status-red"><?php echo $rows->task_status; ?></span> 
+                                
+                                             <?php endif; } ?>
+                                        </td>
+                            </tr>
+
+                        <?php
+                        }
+                        //}
+                    } else {
+                        $rowCount = 0;
+                        foreach ($list as $rows) :
+                            $rowCount++;
+                        ?>
+                            <tr>
+                                
+                                <td><?php echo $rowCount; ?></td>
+                                <td><?php if($rows->priority =="High"){ 
+                                    ?>
+                                    <label class="priority-label" data-priority="High">
+                                    <i class="fa fa-flag-o fa_custom"></i>
+                                    <?php
+                                    echo 'H'; 
+                                } else if($rows->priority =="Low"){
+                                    ?>
+                                    <label class="priority-label" data-priority="Low">
+                                    <i class="fa fa-flag-o fa_custom"></i>
+                                    <?php
+                                echo 'L';
+                                }else if($rows->priority =="Medium"){
+                                    ?>
+                                    <label class="priority-label" data-priority="Medium">
+                                    <i class="fa fa-flag-o fa_custom"></i>
+                                    <?php
+                                    
+                                    echo 'M';
+                                } ?></td>
+
+                                <td><?php echo $rows->task_name; ?></td>
+                                <td><?php echo $rows->f_name. ' '.$rows->l_name; ?></td>
+                                <td><?php echo $rows->patient_name; ?></td>
+                                <td><?php echo $rows->type_name; ?></td>
+                                <td><?php echo $rows->task_comment; ?></td>
+                                <td><?php echo $rows->culture_source_name; ?></td>
+                                
+                                
+                                <td class="actions">
+                                    
+                                    <a href="javascript:void(0)" class="btn btn-default" onclick="editFn('index.php/tasks', 'edit_patient', '<?php echo encoding($rows->task_id) ?>', 'tasks');"><i class="fa fa-pencil"></i></a>
+                                    <a href="<?php echo base_url() . 'index.php/tasks/existing_list/' . $rows->task_id; ?>" target='_blank' data-toggle="tooltip" class="btn btn-default">View History</a>
+                                    <a href="javascript:void(0)" onclick="deletePatient('<?php echo $rows->task_id; ?>')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+
+                                </td>
+                            </tr>
+                    <?php
+                        endforeach;
+                    }
+                    ?>
+
+                </tbody>
+            </table>
+        </div>
+
+            <?php }?>
+
     </div>
 </div>
 <!-- END Datatables Content -->
