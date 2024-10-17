@@ -9,7 +9,7 @@
         </li>
     </ul>
 
-    <?php if ($this->ion_auth->is_admin() or $this->ion_auth->is_subAdmin() or $this->ion_auth->is_facilityManager()) { ?>
+    <?php if ($this->ion_auth->is_admin() or $this->ion_auth->is_subAdmin() or $this->ion_auth->is_facilityManager() or $this->ion_auth->is_all_roleslogin()) { ?>
         <div class="block full">
             <div class="row text-center">
                 <!--  <div class="col-sm-6 col-lg-12">
@@ -234,7 +234,150 @@
     <?php } ?>
     <!-- Datatables Content -->
     <div class="block full">
+
+    <?php 
+                $all_permission = $this->ion_auth->is_permission();
+                if (!empty($all_permission['form_permission'])) {
+                foreach($all_permission['form_permission'] as $permission){
+                   
+                    $menu_view =$permission->menu_view;
+                    $menu_create= $permission->menu_create;
+                    $menu_update= $permission->menu_update;
+                    $menu_delete =$permission->menu_delete;
+                    $menu_name =$permission->menu_name;
+                    // echo $menu_name;
+                    if ($menu_name == 'Organism') { 
+                        if ($menu_create =='1') {
+                     ?>
+
         <div class="block-title">
+            <h2><strong><?php echo $title; ?></strong> Panel</h2>
+            <!-- <h2><a href="javascript:void(0)" onclick="open_modal('<?php
+                                                                    echo 'index.php/'.$model; ?>')" class="btn save-btn btn-sm btn-primary">
+                    <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
+                </a></h2> -->
+                <h2>
+                    
+                    <a href="<?php echo base_url() . $this->router->fetch_class(); ?>/open_model" class="btn btn-sm btn-primary save-btn">
+                        <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
+                    </a></h2>
+
+        </div>
+
+        <?php } if($menu_view =='1'){ ?>
+        <div class="table-responsive">
+            <table id="common_datatable_menucat" class="table table-vcenter table-condensed table-bordered text-center">
+                <thead>
+                    <tr>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem;width:40px !important">Sr. No</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem">Date Of Start patient frist seen</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem">Patient ID</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem">Patient Name</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem">Specility</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem">Provider MD</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem">Diagnosis</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem">Room Number</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem">Complication</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem">Nect appointment</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem">Investigation</th>
+                        <!-- <th style="background-color:#DBEAFF;font-size:1.3rem">Culture Source</th> -->
+                        <th style="background-color:#DBEAFF;font-size:1.3rem">Lettercomplete/Notcomplete</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem">Invoice</th>
+                        <!-- <th style="background-color:#DBEAFF;font-size:1.3rem">MD Steward</th> -->
+                        <th style="background-color:#DBEAFF;font-size:1.3rem">Pending task</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('action'); ?></th>
+                    </tr>
+                </thead>
+                <tbody>
+
+
+                    <?php
+                    //if(!empty($careUnitsUser_list)){
+
+
+                    // if (!empty($careUnitsUser_list)) {
+                    //     $rowCount = 0;
+                    //     foreach ($careUnitsUser_list as $rows) {
+                    //         $rowCount++;
+                    ?>
+
+
+                            
+
+
+                        <?php
+                        // }
+                        //}
+                    // } else {
+                        $rowCount = 0;
+                        foreach ($list as $rows) :
+                            $rowCount++;
+                            
+                        ?>
+                            <tr>
+                                <td><?php echo $rowCount; ?></td>
+                                <td><?php echo date('m/d/Y', strtotime($rows->date_of_start_abx)); ?></td>
+                                <td><?php echo $rows->pid; ?></td>
+                                <td><?php echo $rows->patient_name; ?></td>
+                                <td><?php echo $rows->care_unit_name; ?></td>
+                                <td><?php echo $rows->doctor_name; ?></td>
+                                <td><?php echo $rows->initial_dx_name; ?></td>
+                                <td><?php echo $rows->room_number; ?></td>
+                                <?php if ($rows->symptom_onset == 'Facility') { ?>
+                                    <td><?php echo 'Facility/HAI'; ?></td>
+                                <?php } else if ($rows->symptom_onset == 'Hospital') { ?>
+                                    <td><?php echo 'Hospital/CAI'; ?></td>
+                                <?php } else { ?>
+                                    <td><?php echo 'NULL'; ?></td>
+                                <?php } ?>
+
+                                <td><?php echo $rows->total_days_of_patient_stay; ?></td>
+
+                                <?php if (!empty($rows->culture_source_name)) { ?>
+                                    <td><?php echo $rows->culture_source_name; ?></td>
+                                <?php } else { ?>
+                                    <td><?php echo 'NULL'; ?></td>
+                                <?php } ?>
+
+                                <?php if (!empty($rows->organism_name)) { ?>
+                                    <td><?php echo $rows->organism_name; ?></td>
+                                <?php } else { ?>
+                                    <td><?php echo 'NULL'; ?></td>
+                                <?php } ?>
+
+                                <td><?php echo $rows->initial_rx_name; ?></td>
+                                <td><?php echo ucfirst($rows->md_patient_status); ?></td>
+                    
+                            <td class="actions">
+                                <!-- <a href="javascript:void(0)" class="btn btn btn-xs  btn-warning" onclick="editFn('index.php/patient', 'edit_patient', '<?php echo encoding($rows->patient_id) ?>', 'patient');"> -->
+                                <!-- <i class="fa fa-pencil"></i>
+                                </a> -->
+                                <?php if($menu_update =='1'){ ?>
+
+                                <a href="<?php echo base_url() . 'patient/edit?id=' . encoding($rows->patient_id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-pencil"></i></a>
+                                <!-- <a href="<?php echo base_url() . 'patient/edit_parient?id=' . encoding($rows->patient_id); ?>" data-toggle="tooltip" class="btn btn-default" target="_blank"><i class="fa fa-pencil"></i></a> -->
+                                <!-- <a href="<?php echo base_url() . 'index.php/patient/existing_list/' . $rows->pid; ?>" target='_blank' data-toggle="tooltip" class="btn btn-default">View History</a> -->
+                                <!-- <a href="<?php echo base_url() . 'index.php/patient/existing_list/' . $rows->pid; ?>" target='_blank' data-toggle="tooltip" class="btn btn-xs  btn-success"><i class="fa fa-eye"></i></a> -->
+                                <!-- <a href="<?php echo base_url() . 'index.php/patient/patientDetails?id=' . encoding($rows->patient_id); ?>" data-toggle="tooltip" class="btn btn-xs btn-success"><i class="fa fa-eye"></i></a> -->
+                                <a href="<?php echo base_url() . 'index.php/patient/summary?id=' . encoding($rows->patient_id); ?>" data-toggle="tooltip" class="btn btn-xs btn-success"><i class="fa fa-eye"></i></a>
+                                <?php } if($menu_delete =='1'){ ?>
+                                <a href="javascript:void(0)" onclick="deletePatient('<?php echo $rows->patient_id; ?>')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+                                <?php }?>
+                            </td>
+
+                            </tr>
+                    <?php
+                        endforeach;
+                    // }
+                    ?>
+
+                </tbody>
+            </table>
+        </div>
+
+        <?php }}}} if($this->ion_auth->is_facilityManager()){?>
+
+            <div class="block-title">
             <h2><strong><?php echo $title; ?></strong> Panel</h2>
             <!-- <h2><a href="javascript:void(0)" onclick="open_modal('<?php
                                                                     echo 'index.php/'.$model; ?>')" class="btn save-btn btn-sm btn-primary">
@@ -331,19 +474,19 @@
                                 <td><?php echo $rows->initial_rx_name; ?></td>
                                 <td><?php echo ucfirst($rows->md_patient_status); ?></td>
                     
-      <td class="actions">
-    <!-- <a href="javascript:void(0)" class="btn btn btn-xs  btn-warning" onclick="editFn('index.php/patient', 'edit_patient', '<?php echo encoding($rows->patient_id) ?>', 'patient');"> -->
-      <!-- <i class="fa fa-pencil"></i>
-    </a> -->
-    <a href="<?php echo base_url() . 'patient/edit?id=' . encoding($rows->patient_id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-pencil"></i></a>
-    <!-- <a href="<?php echo base_url() . 'patient/edit_parient?id=' . encoding($rows->patient_id); ?>" data-toggle="tooltip" class="btn btn-default" target="_blank"><i class="fa fa-pencil"></i></a> -->
-    <!-- <a href="<?php echo base_url() . 'index.php/patient/existing_list/' . $rows->pid; ?>" target='_blank' data-toggle="tooltip" class="btn btn-default">View History</a> -->
-    <!-- <a href="<?php echo base_url() . 'index.php/patient/existing_list/' . $rows->pid; ?>" target='_blank' data-toggle="tooltip" class="btn btn-xs  btn-success"><i class="fa fa-eye"></i></a> -->
-    <!-- <a href="<?php echo base_url() . 'index.php/patient/patientDetails?id=' . encoding($rows->patient_id); ?>" data-toggle="tooltip" class="btn btn-xs btn-success"><i class="fa fa-eye"></i></a> -->
-    <a href="<?php echo base_url() . 'index.php/patient/summary?id=' . encoding($rows->patient_id); ?>" data-toggle="tooltip" class="btn btn-xs btn-success"><i class="fa fa-eye"></i></a>
-    
-    <a href="javascript:void(0)" onclick="deletePatient('<?php echo $rows->patient_id; ?>')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
-</td>
+            <td class="actions">
+                <!-- <a href="javascript:void(0)" class="btn btn btn-xs  btn-warning" onclick="editFn('index.php/patient', 'edit_patient', '<?php echo encoding($rows->patient_id) ?>', 'patient');"> -->
+                <!-- <i class="fa fa-pencil"></i>
+                </a> -->
+                <a href="<?php echo base_url() . 'patient/edit?id=' . encoding($rows->patient_id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-pencil"></i></a>
+                <!-- <a href="<?php echo base_url() . 'patient/edit_parient?id=' . encoding($rows->patient_id); ?>" data-toggle="tooltip" class="btn btn-default" target="_blank"><i class="fa fa-pencil"></i></a> -->
+                <!-- <a href="<?php echo base_url() . 'index.php/patient/existing_list/' . $rows->pid; ?>" target='_blank' data-toggle="tooltip" class="btn btn-default">View History</a> -->
+                <!-- <a href="<?php echo base_url() . 'index.php/patient/existing_list/' . $rows->pid; ?>" target='_blank' data-toggle="tooltip" class="btn btn-xs  btn-success"><i class="fa fa-eye"></i></a> -->
+                <!-- <a href="<?php echo base_url() . 'index.php/patient/patientDetails?id=' . encoding($rows->patient_id); ?>" data-toggle="tooltip" class="btn btn-xs btn-success"><i class="fa fa-eye"></i></a> -->
+                <a href="<?php echo base_url() . 'index.php/patient/summary?id=' . encoding($rows->patient_id); ?>" data-toggle="tooltip" class="btn btn-xs btn-success"><i class="fa fa-eye"></i></a>
+                
+                <a href="javascript:void(0)" onclick="deletePatient('<?php echo $rows->patient_id; ?>')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+                </td>
 
                             </tr>
                     <?php
@@ -354,6 +497,9 @@
                 </tbody>
             </table>
         </div>
+
+            <?php }?>
+
     </div>
 </div>
 <!-- END Datatables Content -->

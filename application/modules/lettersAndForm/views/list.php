@@ -234,6 +234,22 @@
 
     <!-- Datatables Content -->
 <div class="block full">
+            <?php 
+                $all_permission = $this->ion_auth->is_permission();
+                if (!empty($all_permission['form_permission'])) {
+                foreach($all_permission['form_permission'] as $permission){
+                   
+                    $menu_view =$permission->menu_view;
+                    $menu_create= $permission->menu_create;
+                    $menu_update= $permission->menu_update;
+                    $menu_delete =$permission->menu_delete;
+                    $menu_name =$permission->menu_name;
+                    // echo $menu_name;
+                    if ($menu_name == 'Letters And Form') { 
+                       if ($menu_create =='1') {
+            ?>
+
+            
     <div class="block-title">
         <ul class="nav nav-pills nav-fill nav-tabss" id="pills-tab" role="tablist" style="width: fit-content;">
             <li onclick="showLetters()" class="nav-item">
@@ -245,6 +261,7 @@
         </ul>
     </div>
 
+    <?php } if ($menu_view =='1') {?>
     <div class="">
         <?php if ($this->ion_auth->is_facilityManager()) { ?>
             <div class="row">
@@ -313,79 +330,34 @@
                                     </li> -->
 
                                     <li class="custom-dropdown">
-    <span class="link">Update Status</span>
+                            <span class="link">Update Status</span>
 
-    <div class="custom-select-box">
-        <ul>
-            <li data-value="None" onclick="updateStatus('<?php echo $result->id; ?>', 'None')" name="status" id="statusDropdown">None</li>
-            <li data-value="Awaiting Review" onclick="updateStatus('<?php echo $result->id; ?>', 'Awaiting Review')" name="status" id="statusDropdown">Awaiting Review</li>
-            <li data-value="Awaiting Correction" onclick="updateStatus('<?php echo $result->id; ?>', 'Awaiting Correction')" name="status" id="statusDropdown">Awaiting Correction</li>
-            <li data-value="Completed" onclick="updateStatus('<?php echo $result->id; ?>', 'Completed')" name="status" id="statusDropdown">Completed</li>
-        </ul>
-    </div>
-</li>
-<style>
-    .custom-dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.custom-select-box {
-    display: none;
-    position: absolute;
-    background-color: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    min-width: 160px;
-    z-index: 1;
-}
-
-.custom-select-box ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
-
-.custom-select-box ul li {
-    padding: 8px 16px;
-    cursor: pointer;
-}
-
-.custom-select-box ul li:hover {
-    background-color: #f1f1f1;
-}
-
-.custom-dropdown:hover .custom-select-box {
-    display: block;
-}
-
-.optgroup ul {
-    display: none;
-    padding-left: 16px;
-}
-
-.optgroup:hover ul {
-    display: block;
-}
-
-</style>
-
-
-                                        <li><a href="<?php echo base_url().'index.php/lettersAndForm/open_model_edit?id=' . encoding($patient_id) . '&form_id=' . encoding($folder->id); ?>" class="link">Edit</a></li>
-                                        <li><a href="<?php echo base_url().'index.php/lettersAndForm/deleteLetters?id=' . encoding($patient_id) . '&form_id=' . encoding($folder->id); ?>" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
-                                        </li>
-                                        <li><a data-toggle="modal" data-target="#shareModal" data-whatever="@mdo" >Share</a></li>
-                                        <li>
-                                        <a data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" >Email</a>
-                                            <!-- <a href="#" class="link">Email</a> -->
-                                        </li>
-                                        <li>
-                                        <a href="<?php echo base_url().'index.php/lettersAndForm/duplicateRow?id=' . encoding($patient_id) . '&form_id=' . encoding($folder->id); ?>" onclick="return confirm('Are you sure you want to Duplicate Row this item?');">Duplicate Row</a>
-                                            <!-- <a href="#" class="link">Duplicates</a> -->
-                                        </li>
-                                    </ul>
-                                </div>
+                            <div class="custom-select-box">
+                                <ul>
+                                    <li data-value="None" onclick="updateStatus('<?php echo $result->id; ?>', 'None')" name="status" id="statusDropdown">None</li>
+                                    <li data-value="Awaiting Review" onclick="updateStatus('<?php echo $result->id; ?>', 'Awaiting Review')" name="status" id="statusDropdown">Awaiting Review</li>
+                                    <li data-value="Awaiting Correction" onclick="updateStatus('<?php echo $result->id; ?>', 'Awaiting Correction')" name="status" id="statusDropdown">Awaiting Correction</li>
+                                    <li data-value="Completed" onclick="updateStatus('<?php echo $result->id; ?>', 'Completed')" name="status" id="statusDropdown">Completed</li>
+                                </ul>
                             </div>
-                        </span>
+<!-- </li> -->
+                            <ul>
+                                <li><a href="<?php echo base_url().'index.php/lettersAndForm/open_model_edit?id=' . encoding($patient_id) . '&form_id=' . encoding($folder->id); ?>" class="link">Edit</a></li>
+                                <li><a href="<?php echo base_url().'index.php/lettersAndForm/deleteLetters?id=' . encoding($patient_id) . '&form_id=' . encoding($folder->id); ?>" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+                                </li>
+                                <li><a data-toggle="modal" data-target="#shareModal" data-whatever="@mdo" >Share</a></li>
+                                <li>
+                                <a data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" >Email</a>
+                                    <!-- <a href="#" class="link">Email</a> -->
+                                </li>
+                                <li>
+                                <a href="<?php echo base_url().'index.php/lettersAndForm/duplicateRow?id=' . encoding($patient_id) . '&form_id=' . encoding($folder->id); ?>" onclick="return confirm('Are you sure you want to Duplicate Row this item?');">Duplicate Row</a>
+                                    <!-- <a href="#" class="link">Duplicates</a> -->
+                                </li>
+                            </ul>
+                        </div>
+                </div>
+                <!-- </span> -->
             </div>
             </div>
             <?php } ?>
@@ -438,6 +410,172 @@
     </div>
 </div>
 </div>
+<?php }}} } if($this->ion_auth->is_facilityManager()){ ?>
+
+
+    <div class="block-title">
+        <ul class="nav nav-pills nav-fill nav-tabss" id="pills-tab" role="tablist" style="width: fit-content;">
+            <li onclick="showLetters()" class="nav-item">
+                <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#letters_id" role="tab">Letters</a>
+            </li>
+            <li onclick="showForms()" class="nav-item">
+                <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#forms_id" role="tab">Forms</a>
+            </li>
+        </ul>
+    </div>
+
+  
+    <div class="">
+        <?php if ($this->ion_auth->is_facilityManager()) { ?>
+            <div class="row">
+                <div class="col-sm-3 col-md-3">
+                    <input type="hidden" name="patient_id" id="patient_id" value="<?php echo $patient_id;?>">
+                    <a href="javascript:void(0)" onclick="open_modal('<?php echo $model; ?>')" class="btn btn-sm btn-secondary nav-tab-appointment tab-pane-second active" id="letters_id_btn" style="background-color:#337ab7;width: fit-content;border-radius: 4px;">
+                        <?php echo "New letter"; ?>
+                    </a>
+
+                    <button type="button" data-toggle="modal" data-target="#sidebar-right" class="btn navbar-btn pull-left btn btn-sm btn-secondary tab-pane-second" id="forms_id_btn" style="display:none; background-color:#337ab7;">New forms</button>
+                </div>
+                <div class="col-sm-5 col-md-5">
+
+                </div>
+                <div class="col-sm-4 col-md-4">
+                    <button style="background-color: white;border-radius: 6px;padding-left: 22px;padding-right: 22px;">All</button>
+                    <button style="background-color: white;border-radius: 6px;padding-left: 12px;padding-right: 12px;">Created Date</button>
+                    <button style="background-color: white;border-radius: 6px;padding-left: 12px;padding-right: 12px;">
+                        <span><i class="fa fa-light fa-border-all"></i></span>
+                    </button>
+                </div>
+            </div>
+        <?php } ?>
+    </div>
+    <br><br>
+
+    <!-- Letters list -->
+    <div class="row nav-tab-appointment tab-pane-second-list active" id="letters_id">
+        <span class="" >
+        <?php foreach($list as $folder){ ?>
+            <div class="row">
+
+            
+            <div class="col-sm-11 col-md-11" style="padding: 15px; border-block-end-style: inset;">
+               
+            <a href="<?php echo base_url().'index.php/lettersAndForm/viewLetters?id=' . encoding($patient_id) . '&form_id=' . encoding($folder->id); ?>" class="link">
+            <div style="color:black;">
+                <input type="hidden" name="folder_id" id="folder_id" value="<?php echo $folder->id;?>">
+                <span><b><?php echo $folder->template_id; ?></b></span><br>
+                <span>Created <?php echo date_format(date_create($folder->create_date), 'd/m/Y'); ?> | <strong><?php echo $folder->first_name . ' ' . $folder->last_name; ?></strong></span>
+                <span style="float:right;" ><span style="background-color:#e9dab9; border-radius: 6px;"> &nbsp;<?php echo $folder->type; ?>&nbsp;&nbsp;</span>&nbsp;&nbsp;
+                </div>
+            </a>
+                </div>
+                <div class="col-sm-1 col-md-1" style="padding: 15px; border-block-end-style: inset; margin-left: auto;">
+              
+                            <div class="dots" id="dotsMenu<?php echo $folder->id;?>">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
+
+                            <div class="menu" id="menuDropdown<?php echo $folder->id;?>">
+                                <div>
+                                    <ul>
+                                        <!-- <li>
+                                            <a href="#" class="link">Update Status
+
+                                            <select name="status" id="statusDropdown" class="form-control" onchange="updateStatus('<?php echo $result->id; ?>')">
+                                                <option value="None" <?php echo ($result->type == 'None') ? 'selected' : ''; ?>>None</option>
+                                                <option value="Awaiting Review" <?php echo ($result->type == 'Awaiting Review') ? 'selected' : ''; ?>>Awaiting Review</option>
+                                                <option value="Awaiting Correction" <?php echo ($result->type == 'Awaiting Correction') ? 'selected' : ''; ?>>Awaiting Correction</option>
+                                                <option value="Completed" <?php echo ($result->type == 'Completed') ? 'selected' : ''; ?>>Completed</option>
+                                            </select>
+                                            </a>
+                                    </li> -->
+
+                                    <li class="custom-dropdown">
+                            <span class="link">Update Status</span>
+
+                            <div class="custom-select-box">
+                                <ul>
+                                    <li data-value="None" onclick="updateStatus('<?php echo $result->id; ?>', 'None')" name="status" id="statusDropdown">None</li>
+                                    <li data-value="Awaiting Review" onclick="updateStatus('<?php echo $result->id; ?>', 'Awaiting Review')" name="status" id="statusDropdown">Awaiting Review</li>
+                                    <li data-value="Awaiting Correction" onclick="updateStatus('<?php echo $result->id; ?>', 'Awaiting Correction')" name="status" id="statusDropdown">Awaiting Correction</li>
+                                    <li data-value="Completed" onclick="updateStatus('<?php echo $result->id; ?>', 'Completed')" name="status" id="statusDropdown">Completed</li>
+                                </ul>
+                            </div>
+<!-- </li> -->
+                            <ul>
+                                <li><a href="<?php echo base_url().'index.php/lettersAndForm/open_model_edit?id=' . encoding($patient_id) . '&form_id=' . encoding($folder->id); ?>" class="link">Edit</a></li>
+                                <li><a href="<?php echo base_url().'index.php/lettersAndForm/deleteLetters?id=' . encoding($patient_id) . '&form_id=' . encoding($folder->id); ?>" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+                                </li>
+                                <li><a data-toggle="modal" data-target="#shareModal" data-whatever="@mdo" >Share</a></li>
+                                <li>
+                                <a data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" >Email</a>
+                                    <!-- <a href="#" class="link">Email</a> -->
+                                </li>
+                                <li>
+                                <a href="<?php echo base_url().'index.php/lettersAndForm/duplicateRow?id=' . encoding($patient_id) . '&form_id=' . encoding($folder->id); ?>" onclick="return confirm('Are you sure you want to Duplicate Row this item?');">Duplicate Row</a>
+                                    <!-- <a href="#" class="link">Duplicates</a> -->
+                                </li>
+                            </ul>
+                        </div>
+                </div>
+                <!-- </span> -->
+            </div>
+            </div>
+            <?php } ?>
+
+               
+        </span>
+    </div>
+
+    <!-- Forms list -->
+    <div class="row nav-tab-appointment tab-pane-second-list" id="forms_id" style="display: none;">
+    <span class="" >
+        <?php foreach($form_list as $folder){ ?>
+        
+            <div class="col-sm-12 col-md-12" style="padding: 15px; border-block-end-style: inset;">
+                <input type="hidden" name="folder_id" id="folder_id" value="<?php echo $folder->id;?>">
+                <span><b><?php if(!empty($folder->title)){echo $folder->title;}else{ echo 'Imaging request form';} ?></b></span><br>
+                <span>Created <?php echo date_format(date_create($folder->create_date), 'd/m/Y'); ?> | <strong><?php echo $folder->first_name . ' ' . $folder->last_name; ?></strong></span>
+                <!-- <span style="float:right;">...</span> -->
+
+                <!-- <span id="dropdownMenuButton" class="dropdown-toggle" style="cursor: pointer; float:right;">...</span> -->
+    
+
+                            <div class="dots" id="dotsMenu<?php echo $folder->id;?>" style="cursor: pointer; float:right;">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
+
+                            <div class="menu" id="menuDropdown<?php echo $folder->id;?>" style="margin-left: 1105px;">
+                                <div >
+                                    <ul>
+                                        
+                                    <li> <a href="<?php echo base_url().'index.php/lettersAndForm/editBookingForm?id=' . encoding($patient_id) . '&form_id=' . encoding($folder->id); ?>" class="link">Edit</a></li>
+
+                                        <li>
+                                        <a href="<?php echo base_url().'index.php/lettersAndForm/deleteBookingForm?id=' . encoding($patient_id) . '&form_id=' . encoding($folder->id); ?>" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+
+                                            <!-- <a href="<?php //echo base_url().'index.php/lettersAndForm/deleteBookingForm?id=' . encoding($patient_id) . '&form_id=' . encoding($folder->id); ?>" class="link">Delete</a> -->
+                                        </li>
+                                        
+                                    </ul>
+                                </div>
+                            </div>
+
+            </div>
+
+       
+        <?php } ?>
+        </span>
+    </div>
+</div>
+</div>
+<?php } ?>
+
+
 
 <!-- JavaScript to Toggle between Lists -->
 <script>
@@ -726,6 +864,51 @@ function showForms() {
     </div>
   </div>
 </div>
+
+<style>
+    .custom-dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  .custom-select-box {
+    display: none;
+    position: absolute;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    min-width: 160px;
+    z-index: 1;
+  }
+
+  .custom-select-box ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .custom-select-box ul li {
+    padding: 8px 16px;
+    cursor: pointer;
+  }
+
+  .custom-select-box ul li:hover {
+    background-color: #f1f1f1;
+  }
+
+  .custom-dropdown:hover .custom-select-box {
+    display: block;
+  }
+
+  .optgroup ul {
+    display: none;
+    padding-left: 16px;
+ }
+
+  .optgroup:hover ul {
+    display: block;
+  }
+
+</style>
 <script>
 function updateStatus(id) {
     var status = document.getElementById('statusDropdown').value;

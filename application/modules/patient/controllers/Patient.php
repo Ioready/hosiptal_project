@@ -100,7 +100,7 @@ class Patient extends Common_Controller
                     array('doctors', 'doctors.id=patient.doctor_id'),
                     array('users', 'users.id=patient.md_steward_id')
                 ),
-                'where' => array('patient.id' => $value)
+                // 'where' => array('patient.id' => $value)
             );
 
             $careUnitData_list[] = $this->common_model->customGet($option);
@@ -181,9 +181,9 @@ class Patient extends Common_Controller
         if (!empty($careUnitID)) {
             $option['where']['P.care_unit_id'] = $careUnitID;
         }
-        if (!empty($UsersCareUnitID)) {
-            $option['where']['P.operator_id'] = $UsersCareUnitID;
-        }
+        // if (!empty($UsersCareUnitID)) {
+        //     $option['where']['P.operator_id'] = $UsersCareUnitID;
+        // }
         // vendor_sale_patient.operator_id = $UsersCareUnitID
         if (!empty($AdminCareUnitID)) {
             $option['where']['P.care_unit_id']  = $AdminCareUnitID;
@@ -447,7 +447,7 @@ class Patient extends Common_Controller
                 // array('vendor_sale_doctors', 'doctors.user_id=vendor_sale_patient_consultation.consultation_type','left'),
                 // array('users', 'doctors.user_id=vendor_sale_patient_consultation.consultation_type', 'left'),
             ),
-            'where' => array('vendor_sale_patient_consultation.patient_id' => $id),
+            // 'where' => array('vendor_sale_patient_consultation.patient_id' => $id),
             'order' => array('vendor_sale_patient_consultation.id' => 'DESC')
         );
         
@@ -493,7 +493,8 @@ class Patient extends Common_Controller
 
         $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
         
-        if($this->ion_auth->is_subAdmin()){
+        // if($this->ion_auth->is_subAdmin()){
+        if($this->ion_auth->is_all_roleslogin()){
     
             $option = array(
                 'table' => ' doctors',
@@ -504,7 +505,7 @@ class Patient extends Common_Controller
                 
                 'where' => array(
                     'users.delete_status' => 0,
-                    'doctors.user_id'=>$CareUnitID
+                    // 'doctors.user_id'=>$CareUnitID
                 ),
                 'single' => true,
             );
@@ -524,7 +525,7 @@ class Patient extends Common_Controller
                 
                 'where' => array(
                     'users.delete_status' => 0,
-                    'doctors.facility_user_id'=>$datadoctors->facility_user_id
+                    // 'doctors.facility_user_id'=>$datadoctors->facility_user_id
                 ),
                 'order' => array('users.id' => 'desc'),
             );
@@ -3596,7 +3597,7 @@ $option = array(
 
         $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
         
-        if($this->ion_auth->is_subAdmin()){
+        if($this->ion_auth->is_all_roleslogin()){
     
             $option = array(
                 'table' => ' doctors',
@@ -3607,7 +3608,7 @@ $option = array(
                 
                 'where' => array(
                     'users.delete_status' => 0,
-                    'doctors.user_id'=>$CareUnitID
+                    // 'doctors.user_id'=>$CareUnitID
                 ),
                 'single' => true,
             );
@@ -3627,7 +3628,7 @@ $option = array(
                 
                 'where' => array(
                     'users.delete_status' => 0,
-                    'doctors.facility_user_id'=>$datadoctors->facility_user_id
+                    // 'doctors.facility_user_id'=>$datadoctors->facility_user_id
                 ),
                 'order' => array('users.id' => 'desc'),
             );

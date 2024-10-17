@@ -139,7 +139,7 @@ class Tasks extends Common_Controller
 
      $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 
-    if($this->ion_auth->is_subAdmin()){
+    if($this->ion_auth->is_all_roleslogin()){
 
         $option = array(
             'table' => ' doctors',
@@ -150,7 +150,7 @@ class Tasks extends Common_Controller
             
             'where' => array(
                 'users.delete_status' => 0,
-                'doctors.user_id'=>$CareUnitID
+                // 'doctors.user_id'=>$CareUnitID
             ),
             'single' => true,
         );
@@ -160,13 +160,13 @@ class Tasks extends Common_Controller
        $facility_id= $datadoctors->facility_user_id;
     
 
-        $Sql = "SELECT vendor_sale_task.id as patient_id, vendor_sale_task.status as task_status ,vendor_sale_task.task_name,vendor_sale_task.patient_name,vendor_sale_task.task_comment,vendor_sale_task.type,vendor_sale_task.due_date as culture_source_name,vendor_sale_users.first_name as f_name, vendor_sale_users.last_name as l_name, vendor_sale_care_unit.name as type_name, vendor_sale_task.priority FROM vendor_sale_task  LEFT JOIN vendor_sale_users ON vendor_sale_users.id= vendor_sale_task.assign_to LEFT JOIN vendor_sale_care_unit ON vendor_sale_care_unit.id = vendor_sale_task.type  WHERE vendor_sale_task.facility_user_id= $facility_id ORDER BY vendor_sale_task.id desc";
-
+        $Sql = "SELECT vendor_sale_task.id as patient_id, vendor_sale_task.status as task_status ,vendor_sale_task.task_name,vendor_sale_task.patient_name,vendor_sale_task.task_comment,vendor_sale_task.type,vendor_sale_task.due_date as culture_source_name,vendor_sale_users.first_name as f_name, vendor_sale_users.last_name as l_name, vendor_sale_care_unit.name as type_name, vendor_sale_task.priority FROM vendor_sale_task  LEFT JOIN vendor_sale_users ON vendor_sale_users.id= vendor_sale_task.assign_to LEFT JOIN vendor_sale_care_unit ON vendor_sale_care_unit.id = vendor_sale_task.type ORDER BY vendor_sale_task.id desc";
+        // WHERE vendor_sale_task.facility_user_id= $facility_id
 
         $careunit_facility_counts = $this->common_model->customQuery($Sql);
 
         $this->data['careUnitsUser_list'] = $careunit_facility_counts;
-
+// print_r($this->data['careUnitsUser_list']);die;
 
     } else if ($this->ion_auth->is_facilityManager()) {
         
@@ -212,7 +212,7 @@ class Tasks extends Common_Controller
             
             'where' => array(
                 'users.delete_status' => 0,
-                // 'doctors.user_id'=>$userAuthID
+                'doctors.user_id'=>$userAuthID
             ),
             'single' => true,
         );
@@ -321,7 +321,7 @@ class Tasks extends Common_Controller
 
     $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 
-    if($this->ion_auth->is_subAdmin()){
+    if($this->ion_auth->is_all_roleslogin()){
 
         $option = array(
             'table' => ' doctors',
@@ -332,7 +332,7 @@ class Tasks extends Common_Controller
             
             'where' => array(
                 'users.delete_status' => 0,
-                'doctors.user_id'=>$CareUnitID
+                // 'doctors.user_id'=>$CareUnitID
             ),
             'single' => true,
         );
@@ -352,7 +352,7 @@ class Tasks extends Common_Controller
             
             'where' => array(
                 'users.delete_status' => 0,
-                'doctors.facility_user_id'=>$datadoctors->facility_user_id
+                // 'doctors.facility_user_id'=>$datadoctors->facility_user_id
             ),
             'order' => array('users.id' => 'desc'),
         );

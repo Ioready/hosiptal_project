@@ -981,6 +981,18 @@ class Invoices extends Common_Controller {
             //     $x = $LoginID;
             // }
 
+            // $option = array(
+            //     'table' => 'vendor_sale_invoice',
+            //     'select' => 'vendor_sale_invoice.*, vendor_sale_patient.name as patient_name, SUM(vendor_sale_invoice_items.price) as total_price',
+            //     'join' => array(
+            //         array('vendor_sale_patient', 'vendor_sale_patient.id = vendor_sale_invoice.patient_id ', 'left'),
+            //         array('vendor_sale_invoice_items', 'vendor_sale_invoice.id = vendor_sale_invoice_items.invoice_id ', 'left')
+            //     ),
+            //     'where' => array('vendor_sale_invoice.facility_user_id' => $LoginID, 'delete_status' => 0),
+            //     'group_by' => 'vendor_sale_invoice.id',
+            //     'order' => array('vendor_sale_invoice.id' => 'DESC'),
+            // );
+            
             $option = array(
                 'table' => 'vendor_sale_invoice',
                 'select' => 'vendor_sale_invoice.*, vendor_sale_patient.name as patient_name, SUM(vendor_sale_invoice_items.price) as total_price',
@@ -988,11 +1000,10 @@ class Invoices extends Common_Controller {
                     array('vendor_sale_patient', 'vendor_sale_patient.id = vendor_sale_invoice.patient_id ', 'left'),
                     array('vendor_sale_invoice_items', 'vendor_sale_invoice.id = vendor_sale_invoice_items.invoice_id ', 'left')
                 ),
-                'where' => array('vendor_sale_invoice.facility_user_id' => $LoginID, 'delete_status' => 0),
-                'group_by' => 'vendor_sale_invoice.id', // Group by invoice ID to get total price for each invoice
+                'where' => array('delete_status' => 0),
+                'group_by' => 'vendor_sale_invoice.id',
                 'order' => array('vendor_sale_invoice.id' => 'DESC'),
             );
-            
             $this->data['invoice_list'] = $this->common_model->customGet($option);
             
             

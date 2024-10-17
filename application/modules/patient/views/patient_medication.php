@@ -154,7 +154,7 @@
     </ul>
    
     <!-- END Quick Stats -->
-    <?php if ($this->ion_auth->is_admin() or $this->ion_auth->is_subAdmin() or $this->ion_auth->is_facilityManager()) { ?>
+    <?php if ($this->ion_auth->is_admin() or $this->ion_auth->is_subAdmin() or $this->ion_auth->is_facilityManager() or $this->ion_auth->is_all_roleslogin()) { ?>
         <div class="block full">
 
 
@@ -345,41 +345,33 @@
     <!-- Datatables Content -->
     <div class="block full">
 
+            <?php 
+                $all_permission = $this->ion_auth->is_permission();
+                if (!empty($all_permission['form_permission'])) {
+                foreach($all_permission['form_permission'] as $permission){
+                   
+                    $menu_view =$permission->menu_view;
+                    $menu_create= $permission->menu_create;
+                    $menu_update= $permission->menu_update;
+                    $menu_delete =$permission->menu_delete;
+                    $menu_name =$permission->menu_name;
+                    // echo $menu_name;
+                    if ($menu_name == 'Medications') { 
+                       if ($menu_create =='1') {
+                     ?>
           <div class="block-title">
-           
-                <!-- <?php if ($this->ion_auth->is_admin()) { ?>
-                <h2><a href="javascript:void(0)"  onclick="document.getElementById('commonModalMedicine').model('show')" class="btn btn-sm btn-primary">
-                        <i class="gi gi-circle_plus"></i> <?php echo 'New'; ?>
-                    </a></h2>
-            <?php }else if($this->ion_auth->is_facilityManager()){ ?>
-                <h2><a href="javascript:void(0)"  data-toggle="modal" data-target="#commonModalMedicine" class="btn btn-sm btn-primary">
-                        <i class="gi gi-circle_plus"></i> <?php echo 'New'; ?>
-                    </a></h2>
-                    <?php } ?> -->
-
-                    <?php if ($this->ion_auth->is_subAdmin()) { ?>
-                    <h2 class="save-btn">
-                        <a href="<?php echo base_url().'index.php/' . $this->router->fetch_class(); ?>/add_medicine" class="btn btn-sm btn-primary">
-                            <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
-                        </a>
-                    </h2>
-                <?php } else if($this->ion_auth->is_facilityManager()) { ?>
                     <h2 class="save-btn">
                     <a href="javascript:void(0)"  onclick="open_model_medication('<?php echo $model_medicine; ?>')" class="btn btn-sm btn-primary" style="background: #337ab7;">
                         <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
                     </a>
-
-                        <!-- <a href="<?php echo base_url().'index.php/' . $this->router->fetch_class(); ?>/add_medicine" class="btn btn-sm btn-primary">
-                            <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
-                        </a> -->
                     </h2>
-                <?php } ?>
-                
+               
           </div>
 
         <div class="block-title">
             <h2><strong><?php echo 'Medication';?></strong> Panel</h2>
         </div>
+
         <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('index.php/' .$formUrl) ?>" enctype="multipart/form-data">
             <!-- <div class="modal-header text-center">
                 <h2 class="modal-title"><i class="fa fa-pencil"></i> <?php echo (isset($title)) ? ucwords($title) : "" ?></h2>
@@ -422,9 +414,8 @@
             
         </form>
 
-    
-
-    <div class="table-responsive">
+        <?php } if ($menu_view =='1') { ?>
+        <div class="table-responsive">
             <table id="common_datatable_users" class="table table-vcenter table-condensed table-bordered text-center">
                 <thead>
                     <tr>
@@ -513,6 +504,12 @@
             </table>
             </div>
         </div>
+
+
+        <?php }}} } if($this->ion_auth->is_facilityManager()){ ?>
+
+
+            <?php }?>
     <!-- END Datatables Content -->
 
     <div id="form-modal-medicine-box"></div>

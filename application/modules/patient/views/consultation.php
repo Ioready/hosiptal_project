@@ -317,7 +317,7 @@
     </ul>
    
     <!-- END Quick Stats -->
-    <?php if ($this->ion_auth->is_admin() or $this->ion_auth->is_subAdmin() or $this->ion_auth->is_facilityManager()) { ?>
+    <?php if ($this->ion_auth->is_admin() or $this->ion_auth->is_subAdmin() or $this->ion_auth->is_facilityManager() or $this->ion_auth->is_all_roleslogin()) { ?>
         <div class="block full">
 
 
@@ -510,7 +510,7 @@
     <div class="block full">
 
           <!-- <div class="block-title">
-            <?php if ($this->ion_auth->is_subAdmin()) { ?>
+            <?php if ($this->ion_auth->is_subAdmin() ) { ?>
                 <h2>
                 <input type="text" name="patient_id" id="patient_id" value="<?php echo $patient_id;?>">
                     <a href="<?php echo base_url().'index.php/' . $this->router->fetch_class(); ?>/open_consult" class="btn btn-sm btn-primary" style="background: #337ab7">
@@ -530,30 +530,43 @@
 
         <div class="container-data">
     <!-- Left panel: List of consultation notes -->
+
+            <?php 
+                $all_permission = $this->ion_auth->is_permission();
+                if (!empty($all_permission['form_permission'])) {
+                foreach($all_permission['form_permission'] as $permission){
+                   
+                    $menu_view =$permission->menu_view;
+                    $menu_create= $permission->menu_create;
+                    $menu_update= $permission->menu_update;
+                    $menu_delete =$permission->menu_delete;
+                    $menu_name =$permission->menu_name;
+                    // echo $menu_name;
+                    if ($menu_name == 'Consultation') { 
+                     ?>
+                    
+
+
     <div class="left-panel">
+        <?php  if ($menu_create =='1') {?>
         <div class="header">
 
-        <div class="block-title">
-            <?php if ($this->ion_auth->is_subAdmin()) { ?>
-                <h2>
-                <input type="text" name="patient_id" id="patient_id" value="<?php echo $patient_id;?>">
-                    <a href="<?php echo base_url().'index.php/' . $this->router->fetch_class(); ?>/open_consult" class="btn btn-sm btn-primary" style="background: #337ab7">
-                        <i class="gi gi-circle_plus"></i> <?php echo 'New'; ?>
-                    </a></h2>
-            <?php }else if($this->ion_auth->is_facilityManager()){ ?>
-                    <h2>
-                    <input type="hidden" name="patient_id" id="patient_id" value="<?php echo $patient_id;?>">
-                    <a href="<?php echo base_url() . $this->router->fetch_class(); ?>/open_consult?id=<?php echo encoding($patient_id);?>" class="btn btn-sm btn-primary" style="background: #337ab7">
-                        <i class="gi gi-circle_plus"></i> <?php echo 'New'; ?>
-                    </a></h2>
-                <?php } ?>
-          </div>
+            <div class="block-title">
+                
+                        <h2>
+                        <input type="hidden" name="patient_id" id="patient_id" value="<?php echo $patient_id;?>">
+                        <a href="<?php echo base_url() . $this->router->fetch_class(); ?>/open_consult?id=<?php echo encoding($patient_id);?>" class="btn btn-sm btn-primary" style="background: #337ab7">
+                            <i class="gi gi-circle_plus"></i> <?php echo 'New'; ?>
+                        </a></h2>
+                   
+            </div>
 
-            <!-- <button style="background-color: #007B83; color: white; padding: 10px; border: none; border-radius: 5px;">New</button> -->
+                <!-- <button style="background-color: #007B83; color: white; padding: 10px; border: none; border-radius: 5px;">New</button> -->
         </div>
+        <?php } if ($menu_view =='1') {?>
         <ul class="note-list">
 
-        <?php
+            <?php
                       
                         $rowCount = 0;
                         foreach ($list as $rows) :
@@ -591,6 +604,114 @@
                     
                     ?>
         </ul>
+<?php } ?>
+    </div>
+    <?php if ($menu_view =='1') { ?>
+
+    <!-- Right panel: Details of the selected consultation -->
+    <div class="right-panel">
+        <div class="display-buttons">
+            <button>Display all</button>
+            <button>Print all</button>
+        </div>
+        <!-- <div id="consultation_details"></div> -->
+
+        <div class="note-header">
+            <div>
+            
+                <div class="note-meta-details" id="consultation_details">Kirti Moholkar, 30 Jul 2024, 20:46</div>
+                <div class="note-heading" id="consultation_type">Nurse consultation</div>
+                <div class="consultation-note">Consultation note</div>
+            </div>
+            <div class="actions" id="edit_consultation_id" style="margin-left: 164px;">
+                <!-- <a href = "<?php echo site_url('patient/editConsultation'); ?>" >Edit</a>
+                <button onclick="sendEmail()">Email</button>
+                <button onclick="printConsultation()">Print</button> -->
+                <!-- <button onclick="sendEmail()">Email</button> -->
+                <!-- <button type="button" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" >Email</button>
+                <button onclick="printConsultation()">Print</button> -->
+
+            </div>
+            <div class="actions">
+            <button type="button" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" >Email</button>
+                <button onclick="printConsultation()">Print</button>
+            </div>
+
+        </div>
+
+        <div class="note-details">
+            <div class="problem-heading">Free notes</div>
+            <div class="note-content">Headache site, Since: 01/07/2024, Acute, Minor. The patient was happy and did want an MRI.</div>
+        </div>
+
+
+    </div>
+
+    <?php }}} } if($this->ion_auth->is_facilityManager()){ ?>
+
+        <div class="left-panel">
+        <div class="header">
+
+            <div class="block-title">
+                <?php if ($this->ion_auth->is_subAdmin()) { ?>
+                    <h2>
+                    <input type="text" name="patient_id" id="patient_id" value="<?php echo $patient_id;?>">
+                        <a href="<?php echo base_url().'index.php/' . $this->router->fetch_class(); ?>/open_consult" class="btn btn-sm btn-primary" style="background: #337ab7">
+                            <i class="gi gi-circle_plus"></i> <?php echo 'New'; ?>
+                        </a></h2>
+                <?php }else if($this->ion_auth->is_facilityManager()){ ?>
+                        <h2>
+                        <input type="hidden" name="patient_id" id="patient_id" value="<?php echo $patient_id;?>">
+                        <a href="<?php echo base_url() . $this->router->fetch_class(); ?>/open_consult?id=<?php echo encoding($patient_id);?>" class="btn btn-sm btn-primary" style="background: #337ab7">
+                            <i class="gi gi-circle_plus"></i> <?php echo 'New'; ?>
+                        </a></h2>
+                    <?php } ?>
+            </div>
+
+                <!-- <button style="background-color: #007B83; color: white; padding: 10px; border: none; border-radius: 5px;">New</button> -->
+        </div>
+
+        <ul class="note-list">
+
+            <?php
+                      
+                        $rowCount = 0;
+                        foreach ($list as $rows) :
+                            $rowCount++;
+                        ?>
+            <li class="active" onclick="viewConsultationDetails(<?php echo $rows->id; ?>)">
+                <div class="note-title"><?php echo $rows->first_name. ' '. $rows->last_name; ?></div>
+                <div class="note-meta"><?php echo $rows->create_date; ?></div>
+                <div class="consultation-note" ><?php echo $rows->search; ?></div>
+                <div class="consultation-note" ><?php echo $rows->type; ?> <?php echo $rows->comment; ?></div>
+            </li>
+
+            <!-- <li>
+                <div class="note-title">Kirti Moholkar</div>
+                <div class="note-meta">30 Jul 2024, 20:39</div>
+                <div class="consultation-note">Consultation note</div>
+            </li> -->
+            <!-- <li>
+                <div class="note-title">Kirti Moholkar</div>
+                <div class="note-meta">30 Jul 2024, 20:38</div>
+                <div class="consultation-note">Consultation note</div>
+            </li>
+            <li>
+                <div class="note-title">Kirti Moholkar</div>
+                <div class="note-meta">30 Jul 2024, 20:36</div>
+                <div class="consultation-note">Consultation note</div>
+            </li>
+            <li>
+                <div class="note-title">Kirti Moholkar</div>
+                <div class="note-meta">21 Jun 2024, 15:50</div>
+                <div class="consultation-note">Knee pain</div>
+            </li> -->
+            <?php
+                        endforeach;
+                    
+                    ?>
+        </ul>
+
     </div>
 
     <!-- Right panel: Details of the selected consultation -->
@@ -631,6 +752,9 @@
 
 
     </div>
+
+        <?php }?>
+
 </div>
     <!-- END Datatables Content -->
 </div>

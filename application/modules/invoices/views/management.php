@@ -113,7 +113,7 @@
       
     </div>
   
-    <?php if ($this->ion_auth->is_admin() or $this->ion_auth->is_subAdmin() or $this->ion_auth->is_facilityManager() or $this->ion_auth->is_user()) { ?>
+    <?php if ($this->ion_auth->is_admin() or $this->ion_auth->is_subAdmin() or $this->ion_auth->is_facilityManager() or $this->ion_auth->is_user() or $this->ion_auth->is_all_roleslogin()) { ?>
        
 
           <div class="block full">
@@ -348,22 +348,38 @@
     <div class="block full">
         <!-- <div class="row text-center"> -->
 
+        <?php 
+                $all_permission = $this->ion_auth->is_permission();
+                if (!empty($all_permission['form_permission'])) {
+                foreach($all_permission['form_permission'] as $permission){
+                   
+                    $menu_view =$permission->menu_view;
+                    $menu_create= $permission->menu_create;
+                    $menu_update= $permission->menu_update;
+                    $menu_delete =$permission->menu_delete;
+                    $menu_name =$permission->menu_name;
+                    // echo $menu_name;
+                    if ($menu_name == 'Invoices Management') { 
+                     ?>
+                    
+
             <div class="mt-5">
                 <h2 class="mb-4">Invoice Management</h2>
 
                 <div class="d-flex justify-content-between mb-3 align-items-center flex-wrap">
                     <!-- <button class="btn btn-primary">New Invoice +</button> -->
-
+                   <?php if($menu_create =='1'){ ?>
                     <h2><a href="javascript:void(0)"  onclick="open_modal('<?php echo $model; ?>')" class="btn btn-sm btn-primary save-btn" id="patient_ids">
                         <i class="gi gi-circle_plus"></i> <?php echo $title; ?> 
                     </a></h2>
-
+                    <?php }?>
+                    
                     <div class="mt-2">
                         <label for="dateRange" class="me-2">Duration:</label>
                         <input type="text" id="dateRange" class="form-control d-inline-block" style="width: 250px;" readonly>
                     </div>
                 </div>
-
+                <?php if($menu_view =='1'){ ?>
                 <div class="table-responsive">
                     <table id="invoiceTable" class="table table-bordered table-hover align-middle text-center">
                         <thead class="table-light text-center ">
@@ -401,10 +417,11 @@
                             <?php }else{?>
                                 <label for="" style="color:green">... </label>
                             <?php }?>
+                            <?php if($menu_update =='1'){ ?>
                             <a href="javascript:void(0)" class="btn btn-xs btn-default" onclick="editFn('<?php echo $model; ?>', 'edit', '<?php echo encoding($row->id) ?>', '<?php echo $model; ?>');"><i class="fa fa-pencil"></i></a>
-                            
+                            <?php } if($menu_delete =='1'){ ?>
                             <a href="javascript:void(0)" onclick="deleteFnInvoice('<?php echo GROUPS;?>','id','<?php echo encoding($row->id); ?>','invoices/managements')" class="on-default edit-row text-danger"><img width="20" src="<?php echo base_url().DELETE_ICON;?>" /></a>
-                            
+                            <?php }?>
                             <a href="javascript:void(0)" class="btn btn-xs btn-default" onclick="pdfInvoice('<?php echo $model; ?>', 'pdfInvoice','<?php echo encoding($row->id) ?>', '<?php echo $model; ?>');"><i class="fa fa-solid fa-download"></i> </a>
 
                             </td>
@@ -414,7 +431,7 @@
                         </tbody>
                     </table>
                 </div>
-
+                <?php } ?>
                 <div class="black-screen" id="blackScreen"></div>
 
                 <!-- Edit Modal -->
@@ -559,6 +576,10 @@
                 
             </div>
 
+
+<?php }}} if($this->ion_auth->is_facilityManager()){?>
+
+    <?php }?>
         <!-- </div> -->
     </div>
     <!-- END Datatables Content -->

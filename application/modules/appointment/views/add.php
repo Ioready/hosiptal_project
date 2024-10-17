@@ -91,7 +91,7 @@
                     $menu_update= $permission->menu_update;
                     $menu_delete =$permission->menu_delete;
                     $menu_name =$permission->menu_name;
-                    echo $menu_name;
+                    // echo $menu_name;
                     if ($menu_name == 'Appointment') { 
                     if($menu_view =='1'){
                        

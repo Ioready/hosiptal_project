@@ -72,7 +72,8 @@ class Labs extends Common_Controller {
         
         $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 
-    if($this->ion_auth->is_subAdmin()){
+    // if($this->ion_auth->is_subAdmin()){
+    if($this->ion_auth->is_all_roleslogin()){
 
         $option = array(
             'table' => ' doctors',
@@ -83,7 +84,7 @@ class Labs extends Common_Controller {
             
             'where' => array(
                 'users.delete_status' => 0,
-                'doctors.user_id'=>$CareUnitID
+                // 'doctors.user_id'=>$CareUnitID
             ),
             'single' => true,
         );
@@ -103,7 +104,7 @@ class Labs extends Common_Controller {
             
             'where' => array(
                 'users.delete_status' => 0,
-                'doctors.facility_user_id'=>$datadoctors->facility_user_id
+                // 'doctors.facility_user_id'=>$datadoctors->facility_user_id
             ),
             'order' => array('users.id' => 'desc'),
         );
