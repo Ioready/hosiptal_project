@@ -200,523 +200,766 @@
         <?php } ?>
 
 
-    <div class="table-responsive" >
-        <div class="tab-content" id="userRoleTabContent">
+        
+            <div class="table-responsive" >
+                 <div class="tab-content" id="userRoleTabContent">
 
-        <!-- User Tab -->
-            <div class="tab-pane fade show active" id="user" role="tabpanel" aria-labelledby="user-tab">
-
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h4>User Management</h4>
-                    <button class="btn btn-primary button-data" data-bs-toggle="modal" data-bs-target="#addUserModal">+ Add
-                        User</button>
-                        <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">+ Add
-                        User</button> -->
-
-
-                </div>
-
-                <table id="userTable" class="table table-striped table-bordered" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th><input type="checkbox"></th>
-                            <th>User ID</th>
-                            <th>Name</th>
-                            <th>Contact</th>
-                            <th>Email</th>
-                            <th>Role</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-
-                    <?php
-                                    if (isset($list) && !empty($list)):
-                                        $rowCount = 0;
-                                        foreach ($list as $rows):
-                                            $rowCount++;
-                                    ?>
-                                  <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td class="text-center"><?php echo $rowCount; ?></td>            
-                                    <!-- <td><?php echo $rows->team_code; ?></td> -->
-                                    <td><?php echo $rows->first_name. ' '.$rows->last_name; ?></td>
-                                    <td class="text-center"><?php echo $rows->phone; ?></td>
-                                    <td><?php echo $rows->email; ?></td>
-                                    <td>Manager</td>
-                                    <!-- <td class="text-center"><?php if($rows->active == 1) echo '<p class="text-success">'.lang('active').'</p>'; else echo '<p  class="text-danger">'.lang('deactive').'</p>';?></td>
-                                      <td><?php echo date('d-m-Y H:i', strtotime($rows->created_date));?></td> -->
-                                          
-                                      <td><span class="status-active">Active</span></td>
-                                        <!-- <td> -->
-                                            <!-- <div class="table-actions"> -->
-                                                <!-- <button class="btn btn-icon edit" data-bs-toggle="modal"
-                                                    data-bs-target=".bd-example-modal-lg">✏️</button> -->
-                                                    <!-- <button class="btn btn-icon edit" data-bs-toggle="modal" data-bs-target="#addRoleModal">✏️</button> -->
-                                                    <!-- <button class="btn btn-icon edit" data-bs-toggle="modal" data-bs-target="#addUserModal">✏️</button> -->
-                                                    <!-- <a href="javascript:void(0)" class="on-default edit-row" onclick="editFn('<?php echo USERS;?>','user_edit','<?php echo encoding($rows->id); ?>');"><img width="20" src="<?php echo base_url().EDIT_ICON;?>" /></a>
-                            
-                                                <button class="btn btn-icon delete">
-                                                    <a href="javascript:void(0)" onclick="deleteFn('<?php echo USERS;?>','remove_cash_model','<?php echo $rows->id; ?>')">🗑️</a> 
-                                                </button>
-
-                                            </div> -->
-                                        <!-- </td> -->
-
-
-                                        <td class="actions">
-                                  <div class="btn-group btn-group-xs">
-                                  <!-- <a href="javascript:void(0)" class="on-default edit-row" onclick="editFn('users','open_user_edit','<?php echo encoding($rows->id); ?>');"><img width="20" src="<?php echo base_url().EDIT_ICON;?>" /></a> -->
-                                        
-                                <!-- <a href="javascript:void(0)" class="on-default edit-row" onclick="editFn('<?php echo USERS;?>','user_edit','<?php echo encoding($rows->id); ?>');"><img width="20" src="<?php echo base_url().EDIT_ICON;?>" /></a> -->
-                            
-                            <a href="javascript:void(0)" class="on-default edit-row user-edit-data" id="<?php echo $rows->id; ?>">
-                            <img width="20" src="<?php echo base_url().EDIT_ICON;?>" />
-                    </a>
-                            <?php if($rows->id != 1){if($rows->active == 1) {?>
-                            <a href="javascript:void(0)" class="on-default edit-row" onclick="statusFn('<?php echo USERS;?>','id','<?php echo encoding($rows->id);?>','<?php echo $rows->active;?>')" title="Inactive Now"><img width="20" src="<?php echo base_url().ACTIVE_ICON;?>" /></a>
-                            <?php } else { ?>
-                            <a href="javascript:void(0)" class="on-default edit-row text-danger" onclick="statusFn('<?php echo USERS;?>','id','<?php echo encoding($rows->id); ?>','<?php echo $rows->active;?>')" title="Active Now"><img width="20" src="<?php echo base_url().INACTIVE_ICON;?>" /></a>
-                            <?php } ?>
-                            <a href="javascript:void(0)" onclick="deleteFn('<?php echo USERS;?>','id','<?php echo encoding($rows->id); ?>','users/managements','users/deleteUsers')" class="on-default edit-row text-danger"><img width="20" src="<?php echo base_url().DELETE_ICON;?>" /></a>
-                            <hr>
-                            </div>
-                            </td>
-
-                                      </tr>
-
-                                        <?php } endforeach;
-                                    endif; ?>
-
-                       
+                    <?php 
+                        $all_permission = $this->ion_auth->is_permission();
+                        if (!empty($all_permission['form_permission'])) {
+                        foreach($all_permission['form_permission'] as $permission){
                         
-                    </tbody>
-                </table>
+                            $menu_view =$permission->menu_view;
+                            $menu_create= $permission->menu_create;
+                            $menu_update= $permission->menu_update;
+                            $menu_delete =$permission->menu_delete;
+                            $menu_name =$permission->menu_name;
+                            // echo $menu_name;
+                            if ($menu_name == 'Users') { 
+                               if ($menu_view =='1') {?>
+                  
+
+                    <!-- User Tab -->
+                    <div class="tab-pane fade show active" id="user" role="tabpanel" aria-labelledby="user-tab">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h4>User Management</h4>
+                        <?php if ($menu_create =='1') {?>
+                            <button class="btn btn-primary button-data" data-bs-toggle="modal" data-bs-target="#addUserModal">+ Add
+                                User</button>
+                            <?php }?>
+                        </div>
+                        <?php if ($menu_view =='1') {?>
+                        <table id="userTable" class="table table-striped table-bordered" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th><input type="checkbox"></th>
+                                    <th>User ID</th>
+                                    <th>Name</th>
+                                    <th>Contact</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
 
 
-            </div>
-
-            <!-- Role & Permission Tab -->
-            <div class="tab-pane fade" id="role" role="tabpanel" aria-labelledby="role-tab">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h4>Role & Permission Management</h4>
-                    <button class="btn btn-primary button-data" data-bs-toggle="modal" data-bs-target="#addRoleModal">+ Create Role
-                        & Permission</button>
-                </div>
-
-                <table id="roleTable" class="table table-striped table-bordered" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th><input type="checkbox"></th>
-                            <th>Role</th>
-                            <th>Descriptions</th>
-                            <th>Permission</th>
-                            <!-- <th>status</th> -->
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    
-                    <?php
-                    if (isset($roles_list) && !empty($roles_list)):
-                                        $rowCount = 0;
-                                        foreach ($roles_list as $rows):
-                                            $rowCount++;
+                            <?php
+                                            if (isset($list) && !empty($list)):
+                                                $rowCount = 0;
+                                                foreach ($list as $rows):
+                                                    $rowCount++;
                                             ?>
-                                  <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td><a href="#"><?php echo $rows->name; ?></a></td>
-                                    <td><?php echo $rows->description; ?></td>
-                                    <td><button class="btn btn-light">Edit</button></td>
-                                   
-                                    <!-- <td>
-                                        <div class="table-actions">
+                                        <tr>
+                                            <td><input type="checkbox"></td>
+                                            <td class="text-center"><?php echo $rowCount; ?></td>            
+                                            <!-- <td><?php echo $rows->team_code; ?></td> -->
+                                            <td><?php echo $rows->first_name. ' '.$rows->last_name; ?></td>
+                                            <td class="text-center"><?php echo $rows->phone; ?></td>
+                                            <td><?php echo $rows->email; ?></td>
+                                            <td>Manager</td>
+                                            <!-- <td class="text-center"><?php if($rows->active == 1) echo '<p class="text-success">'.lang('active').'</p>'; else echo '<p  class="text-danger">'.lang('deactive').'</p>';?></td>
+                                            <td><?php echo date('d-m-Y H:i', strtotime($rows->created_date));?></td> -->
+                                                
+                                            <td><span class="status-active">Active</span></td>
+                                                <!-- <td> -->
+                                                    <!-- <div class="table-actions"> -->
+                                                        <!-- <button class="btn btn-icon edit" data-bs-toggle="modal"
+                                                            data-bs-target=".bd-example-modal-lg">✏️</button> -->
+                                                            <!-- <button class="btn btn-icon edit" data-bs-toggle="modal" data-bs-target="#addRoleModal">✏️</button> -->
+                                                            <!-- <button class="btn btn-icon edit" data-bs-toggle="modal" data-bs-target="#addUserModal">✏️</button> -->
+                                                            <!-- <a href="javascript:void(0)" class="on-default edit-row" onclick="editFn('<?php echo USERS;?>','user_edit','<?php echo encoding($rows->id); ?>');"><img width="20" src="<?php echo base_url().EDIT_ICON;?>" /></a>
+                                    
+                                                        <button class="btn btn-icon delete">
+                                                            <a href="javascript:void(0)" onclick="deleteFn('<?php echo USERS;?>','remove_cash_model','<?php echo $rows->id; ?>')">🗑️</a> 
+                                                        </button>
+
+                                                    </div> -->
+                                                <!-- </td> -->
+
+
+                                                <td class="actions">
+                                        <div class="btn-group btn-group-xs">
+                                        <!-- <a href="javascript:void(0)" class="on-default edit-row" onclick="editFn('users','open_user_edit','<?php echo encoding($rows->id); ?>');"><img width="20" src="<?php echo base_url().EDIT_ICON;?>" /></a> -->
+                                                
+                                        <!-- <a href="javascript:void(0)" class="on-default edit-row" onclick="editFn('<?php echo USERS;?>','user_edit','<?php echo encoding($rows->id); ?>');"><img width="20" src="<?php echo base_url().EDIT_ICON;?>" /></a> -->
+                                    <?php if ($menu_update =='1') { ?>
+                                    <a href="javascript:void(0)" class="on-default edit-row user-edit-data" id="<?php echo $rows->id; ?>">
+                                    <img width="20" src="<?php echo base_url().EDIT_ICON;?>" /></a>
+
+                                    <?php  if($rows->id != 1){if($rows->active == 1) {?>
+                                    <a href="javascript:void(0)" class="on-default edit-row" onclick="statusFn('<?php echo USERS;?>','id','<?php echo encoding($rows->id);?>','<?php echo $rows->active;?>')" title="Inactive Now"><img width="20" src="<?php echo base_url().ACTIVE_ICON;?>" /></a>
+                                    <?php } else { ?>
+                                    <a href="javascript:void(0)" class="on-default edit-row text-danger" onclick="statusFn('<?php echo USERS;?>','id','<?php echo encoding($rows->id); ?>','<?php echo $rows->active;?>')" title="Active Now"><img width="20" src="<?php echo base_url().INACTIVE_ICON;?>" /></a>
+                                    <?php }  } if ($menu_update =='1') {?>
+                                    <a href="javascript:void(0)" onclick="deleteFn('<?php echo USERS;?>','id','<?php echo encoding($rows->id); ?>','users/managements','users/deleteUsers')" class="on-default edit-row text-danger"><img width="20" src="<?php echo base_url().DELETE_ICON;?>" /></a>
+                                    <?php } ?>
+
+                                    <hr>
+                                    </div>
+                                    </td>
+
+                                            </tr>
+
+                                                <?php } endforeach;
+                                            endif; ?>
+
+                            
+                                
+                            </tbody>
+                        </table>
+                        <?php }?>
+                    </div>
+
+                    <?php }}}} if($this->ion_auth->is_facilityManager()){?>
+
+                    <!-- User Tab -->
+                    <div class="tab-pane fade show active" id="user" role="tabpanel" aria-labelledby="user-tab">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h4>User Management</h4>
+                            <button class="btn btn-primary button-data" data-bs-toggle="modal" data-bs-target="#addUserModal">+ Add
+                                User</button>
+                        </div>
+                        <table id="userTable" class="table table-striped table-bordered" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th><input type="checkbox"></th>
+                                    <th>User ID</th>
+                                    <th>Name</th>
+                                    <th>Contact</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            <?php
+                                            if (isset($list) && !empty($list)):
+                                                $rowCount = 0;
+                                                foreach ($list as $rows):
+                                                    $rowCount++;
+                                            ?>
+                                        <tr>
+                                            <td><input type="checkbox"></td>
+                                            <td class="text-center"><?php echo $rowCount; ?></td>            
+                                            <!-- <td><?php echo $rows->team_code; ?></td> -->
+                                            <td><?php echo $rows->first_name. ' '.$rows->last_name; ?></td>
+                                            <td class="text-center"><?php echo $rows->phone; ?></td>
+                                            <td><?php echo $rows->email; ?></td>
+                                            <td>Manager</td>
+                                            <!-- <td class="text-center"><?php if($rows->active == 1) echo '<p class="text-success">'.lang('active').'</p>'; else echo '<p  class="text-danger">'.lang('deactive').'</p>';?></td>
+                                            <td><?php echo date('d-m-Y H:i', strtotime($rows->created_date));?></td> -->
+                                                
+                                            <td><span class="status-active">Active</span></td>
+                                                <!-- <td> -->
+                                                    <!-- <div class="table-actions"> -->
+                                                        <!-- <button class="btn btn-icon edit" data-bs-toggle="modal"
+                                                            data-bs-target=".bd-example-modal-lg">✏️</button> -->
+                                                            <!-- <button class="btn btn-icon edit" data-bs-toggle="modal" data-bs-target="#addRoleModal">✏️</button> -->
+                                                            <!-- <button class="btn btn-icon edit" data-bs-toggle="modal" data-bs-target="#addUserModal">✏️</button> -->
+                                                            <!-- <a href="javascript:void(0)" class="on-default edit-row" onclick="editFn('<?php echo USERS;?>','user_edit','<?php echo encoding($rows->id); ?>');"><img width="20" src="<?php echo base_url().EDIT_ICON;?>" /></a>
+                                    
+                                                        <button class="btn btn-icon delete">
+                                                            <a href="javascript:void(0)" onclick="deleteFn('<?php echo USERS;?>','remove_cash_model','<?php echo $rows->id; ?>')">🗑️</a> 
+                                                        </button>
+
+                                                    </div> -->
+                                                <!-- </td> -->
+
+
+                                                <td class="actions">
+                                        <div class="btn-group btn-group-xs">
+                                        <!-- <a href="javascript:void(0)" class="on-default edit-row" onclick="editFn('users','open_user_edit','<?php echo encoding($rows->id); ?>');"><img width="20" src="<?php echo base_url().EDIT_ICON;?>" /></a> -->
+                                                
+                                        <!-- <a href="javascript:void(0)" class="on-default edit-row" onclick="editFn('<?php echo USERS;?>','user_edit','<?php echo encoding($rows->id); ?>');"><img width="20" src="<?php echo base_url().EDIT_ICON;?>" /></a> -->
+                                    
+                                    <a href="javascript:void(0)" class="on-default edit-row user-edit-data" id="<?php echo $rows->id; ?>">
+                                    <img width="20" src="<?php echo base_url().EDIT_ICON;?>" />
+                            </a>
+                                    <?php if($rows->id != 1){if($rows->active == 1) {?>
+                                    <a href="javascript:void(0)" class="on-default edit-row" onclick="statusFn('<?php echo USERS;?>','id','<?php echo encoding($rows->id);?>','<?php echo $rows->active;?>')" title="Inactive Now"><img width="20" src="<?php echo base_url().ACTIVE_ICON;?>" /></a>
+                                    <?php } else { ?>
+                                    <a href="javascript:void(0)" class="on-default edit-row text-danger" onclick="statusFn('<?php echo USERS;?>','id','<?php echo encoding($rows->id); ?>','<?php echo $rows->active;?>')" title="Active Now"><img width="20" src="<?php echo base_url().INACTIVE_ICON;?>" /></a>
+                                    <?php } ?>
+                                    <a href="javascript:void(0)" onclick="deleteFn('<?php echo USERS;?>','id','<?php echo encoding($rows->id); ?>','users/managements','users/deleteUsers')" class="on-default edit-row text-danger"><img width="20" src="<?php echo base_url().DELETE_ICON;?>" /></a>
+                                    <hr>
+                                    </div>
+                                    </td>
+
+                                            </tr>
+
+                                                <?php } endforeach;
+                                            endif; ?>
+
+                            
+                                
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <?php }
+                        $all_permission = $this->ion_auth->is_permission();
+                        if (!empty($all_permission['form_permission'])) {
+                        foreach($all_permission['form_permission'] as $permission){
+                        
+                            $menu_view =$permission->menu_view;
+                            $menu_create= $permission->menu_create;
+                            $menu_update= $permission->menu_update;
+                            $menu_delete =$permission->menu_delete;
+                            $menu_name =$permission->menu_name;
+                            // echo $menu_name;
+                            if ($menu_name == 'Role & Permission Management') { 
+                               
+                    ?>
+                    <!-- Role & Permission Tab -->
+                    <div class="tab-pane fade" id="role" role="tabpanel" aria-labelledby="role-tab">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h4>Role & Permission Management</h4>
+                            <?php if ($menu_create =='1') {?>
+                            <button class="btn btn-primary button-data" data-bs-toggle="modal" data-bs-target="#addRoleModal">+ Create Role
+                                & Permission</button>
+                                <?php }?>
+                        </div>
+
+                        <?php if ($menu_view =='1') {?>
+                        <table id="roleTable" class="table table-striped table-bordered" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th><input type="checkbox"></th>
+                                    <th>Role</th>
+                                    <th>Descriptions</th>
+                                    <th>Permission</th>
+                                    <!-- <th>status</th> -->
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            
+                            <?php
+                            if (isset($roles_list) && !empty($roles_list)):
+                                                $rowCount = 0;
+                                                foreach ($roles_list as $rows):
+                                                    $rowCount++;
+                                                    ?>
+                                        <tr>
+                                            <td><input type="checkbox"></td>
+                                            <td><a href="#"><?php echo $rows->name; ?></a></td>
+                                            <td><?php echo $rows->description; ?></td>
+                                            <td><button class="btn btn-light">Edit</button></td>
                                         
-                                        <button class="btn btn-icon edit">✏️</button>
+                                            <!-- <td>
+                                                <div class="table-actions">
+                                                
+                                                <button class="btn btn-icon edit">✏️</button>
+                                                    <button class="btn btn-icon delete">🗑️</button>
+                                                </div>
+                                            </td> -->
+
+                                            <td class="actions">
+                                            <?php if ($menu_update =='1') {?>
+                                                <a href="javascript:void(0)" class="on-default edit-row" onclick="editFn('users','roles_edit','<?php echo encoding($rows->id); ?>');"><img width="20" src="<?php echo base_url().EDIT_ICON;?>" /></a>
+                                                
+                                                <?php
+                                            
+                                                if($rows->active == 1) {?>
+                                                
+                                                <a href="javascript:void(0)" class="on-default edit-row" onclick="statusFn('<?php echo GROUPS;?>','id','<?php echo encoding($rows->id);?>','<?php echo $rows->active;?>')" title="Inactive Now"><img width="20" src="<?php echo base_url().ACTIVE_ICON;?>" /></a>
+                                                <?php } else { ?>
+                                                <a href="javascript:void(0)" class="on-default edit-row text-danger" onclick="statusFn('<?php echo GROUPS;?>','id','<?php echo encoding($rows->id); ?>','<?php echo $rows->active;?>')" title="Active Now"><img width="20" src="<?php echo base_url().INACTIVE_ICON;?>" /></a>
+                                                <?php } } if ($menu_delete =='1') {?>
+                                            <a href="javascript:void(0)" onclick="deleteRole('<?php echo GROUPS;?>','id','<?php echo encoding($rows->id); ?>','users/managements')" class="on-default edit-row text-danger"><img width="20" src="<?php echo base_url().DELETE_ICON;?>" /></a>
+                                            <?php }?>
+                                                </td>
+
+                                                </tr>
+                                            
+                                                <?php endforeach;
+                                            endif; ?>
+
+                                <!-- <tr>
+                                    <td><input type="checkbox"></td>
+                                    <td><a href="#">Doctor</a></td>
+                                    <td>Lorem ipsum</td>
+                                    <td><button class="btn btn-light">Edit</button></td>
+                                    <td>
+                                        <div class="table-actions">
+                                            <button class="btn btn-icon edit">✏️</button>
                                             <button class="btn btn-icon delete">🗑️</button>
                                         </div>
-                                    </td> -->
+                                    </td>
+                                </tr> -->
+                                
+                            </tbody>
+                        </table>
 
-                                    <td class="actions">
-                                        <a href="javascript:void(0)" class="on-default edit-row" onclick="editFn('users','roles_edit','<?php echo encoding($rows->id); ?>');"><img width="20" src="<?php echo base_url().EDIT_ICON;?>" /></a>
-                                        
-                                        <?php
-                                    
-                                        if($rows->active == 1) {?>
-                                        
-                                        <a href="javascript:void(0)" class="on-default edit-row" onclick="statusFn('<?php echo GROUPS;?>','id','<?php echo encoding($rows->id);?>','<?php echo $rows->active;?>')" title="Inactive Now"><img width="20" src="<?php echo base_url().ACTIVE_ICON;?>" /></a>
-                                        <?php } else { ?>
-                                        <a href="javascript:void(0)" class="on-default edit-row text-danger" onclick="statusFn('<?php echo GROUPS;?>','id','<?php echo encoding($rows->id); ?>','<?php echo $rows->active;?>')" title="Active Now"><img width="20" src="<?php echo base_url().INACTIVE_ICON;?>" /></a>
-                                        <?php } ?>
-                                    <a href="javascript:void(0)" onclick="deleteRole('<?php echo GROUPS;?>','id','<?php echo encoding($rows->id); ?>','users/managements')" class="on-default edit-row text-danger"><img width="20" src="<?php echo base_url().DELETE_ICON;?>" /></a>
-                                    
-                                        </td>
-
-                                        </tr>
-                                       
-                                        <?php endforeach;
-                                    endif; ?>
-
-                        <!-- <tr>
-                            <td><input type="checkbox"></td>
-                            <td><a href="#">Doctor</a></td>
-                            <td>Lorem ipsum</td>
-                            <td><button class="btn btn-light">Edit</button></td>
-                            <td>
-                                <div class="table-actions">
-                                    <button class="btn btn-icon edit">✏️</button>
-                                    <button class="btn btn-icon delete">🗑️</button>
-                                </div>
-                            </td>
-                        </tr> -->
-                        
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="tab-pane fade" id="module" role="tabpanel" aria-labelledby="role-tab">
-                
-                <div class="d-flex justify-content-between align-items-center mb-4">
-            <h3>Group Permission</h3>
-            <input type="text" class="form-control search-input" placeholder="Search...">
-        </div>
-
-        <form class="form-horizontal p-4" role="form" id="addFormAjax" method="post" action="<?php echo base_url('users/rolePermission') ?>" enctype="multipart/form-data">
-                   
-        <div class="row mb-4">
-            <div class="col-md-4">
-                <label for="">Roles</label>
-                <select class="form-select" id="role_id" name="role" required>
-             
-                <option disabled>Please Select</option>
-                <?php echo $module_permission->role_id; ?>
-               <?php foreach ($roles_list as $rows): ?>
-                <?php if($rows->name =='SubAdmin'){ ?>
-                    <option value="<?php echo $rows->id; ?>" <?php echo ($module_permission->role_id == $rows->id) ? 'selected' : ''; ?>><?php echo 'Doctor'; ?></option>
-                    <?php }else if($rows->name !='SubAdmin'){?>
-                        
-                        <!-- <option value="<?php echo $rows->id; ?>" <?php $module_permission->role_id ==$rows->id?'selected':''?>><?php echo $rows->name; ?></option> -->
-                        <option value="<?php echo $rows->id; ?>" <?php echo ($module_permission->role_id == $rows->id) ? 'selected' : ''; ?>><?php echo $rows->name; ?></option>
-
-                        <?php }?>
-                                   
-                <?php endforeach?>
-            </select>
-            
-            </div>
-            <div class="col-md-4">
-                
-            </div>
-            
-        </div>
-
-            <div class="row">
-   
-                <?php foreach($module_list as $rows) { ?>
-                    <div class="col-md-4">
-                        <div class="card">
-                            <div class="card-header">
-                                <span><?php echo $rows->menu_name; ?></span>
-                                <div class="form-check form-switch permission-switch">
-                                    <input class="form-check-input servicecheck" type="checkbox" id="<?php echo $rows->menu_id; ?>" name="menu_id[]" value="<?php echo $rows->menu_id; ?>">
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <table class="table permissions-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Permissions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-
-
-                                        <tr>
-                                            <td>View All Records</td>
-                                            <td class="text-end">
-                                                <input type="checkbox" class="servicecheckviewAll" name="view_all_<?php echo $rows->menu_id; ?>" id="view_all" onclick="selectAll('<?php echo $rows->menu_key; ?>')">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>View</td>
-                                            <td class="text-end"><input type="checkbox" name="view_<?php echo $rows->menu_id; ?>" id="view"  class="role-checkbox <?php echo $rows->menu_key; ?> servicecheckView<?php echo $rows->menu_key; ?>"></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Create</td>
-                                            <td class="text-end"><input type="checkbox" name="create_<?php echo $rows->menu_id; ?>" id="create" class="role-checkbox <?php echo $rows->menu_key; ?> servicecheckCreate<?php echo $rows->menu_key; ?>"></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Delete</td>
-                                            <td class="text-end"><input type="checkbox" name="delete_<?php echo $rows->menu_id; ?>" id="delete" class="role-checkbox <?php echo $rows->menu_key; ?> servicecheckDelete<?php echo $rows->menu_key; ?>"></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Update</td>
-                                            <td class="text-end"><input type="checkbox" name="update_<?php echo $rows->menu_id; ?>" id="update" class="role-checkbox <?php echo $rows->menu_key; ?> servicecheckUpdate<?php echo $rows->menu_key; ?>"></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
                         </div>
+
+                    <?php }}}} if($this->ion_auth->is_facilityManager()){?>
+
+                        <!-- Role & Permission Tab -->
+                    <div class="tab-pane fade" id="role" role="tabpanel" aria-labelledby="role-tab">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h4>Role & Permission Management</h4>
+                            <button class="btn btn-primary button-data" data-bs-toggle="modal" data-bs-target="#addRoleModal">+ Create Role
+                                & Permission</button>
+                        </div>
+
+                        <table id="roleTable" class="table table-striped table-bordered" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th><input type="checkbox"></th>
+                                    <th>Role</th>
+                                    <th>Descriptions</th>
+                                    <th>Permission</th>
+                                    <!-- <th>status</th> -->
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            
+                            <?php
+                            if (isset($roles_list) && !empty($roles_list)):
+                                                $rowCount = 0;
+                                                foreach ($roles_list as $rows):
+                                                    $rowCount++;
+                                                    ?>
+                                        <tr>
+                                            <td><input type="checkbox"></td>
+                                            <td><a href="#"><?php echo $rows->name; ?></a></td>
+                                            <td><?php echo $rows->description; ?></td>
+                                            <td><button class="btn btn-light">Edit</button></td>
+                                        
+                                            <!-- <td>
+                                                <div class="table-actions">
+                                                
+                                                <button class="btn btn-icon edit">✏️</button>
+                                                    <button class="btn btn-icon delete">🗑️</button>
+                                                </div>
+                                            </td> -->
+
+                                            <td class="actions">
+                                                <a href="javascript:void(0)" class="on-default edit-row" onclick="editFn('users','roles_edit','<?php echo encoding($rows->id); ?>');"><img width="20" src="<?php echo base_url().EDIT_ICON;?>" /></a>
+                                                
+                                                <?php
+                                            
+                                                if($rows->active == 1) {?>
+                                                
+                                                <a href="javascript:void(0)" class="on-default edit-row" onclick="statusFn('<?php echo GROUPS;?>','id','<?php echo encoding($rows->id);?>','<?php echo $rows->active;?>')" title="Inactive Now"><img width="20" src="<?php echo base_url().ACTIVE_ICON;?>" /></a>
+                                                <?php } else { ?>
+                                                <a href="javascript:void(0)" class="on-default edit-row text-danger" onclick="statusFn('<?php echo GROUPS;?>','id','<?php echo encoding($rows->id); ?>','<?php echo $rows->active;?>')" title="Active Now"><img width="20" src="<?php echo base_url().INACTIVE_ICON;?>" /></a>
+                                                <?php } ?>
+                                            <a href="javascript:void(0)" onclick="deleteRole('<?php echo GROUPS;?>','id','<?php echo encoding($rows->id); ?>','users/managements')" class="on-default edit-row text-danger"><img width="20" src="<?php echo base_url().DELETE_ICON;?>" /></a>
+                                            
+                                                </td>
+
+                                                </tr>
+                                            
+                                                <?php endforeach;
+                                            endif; ?>
+
+                                <!-- <tr>
+                                    <td><input type="checkbox"></td>
+                                    <td><a href="#">Doctor</a></td>
+                                    <td>Lorem ipsum</td>
+                                    <td><button class="btn btn-light">Edit</button></td>
+                                    <td>
+                                        <div class="table-actions">
+                                            <button class="btn btn-icon edit">✏️</button>
+                                            <button class="btn btn-icon delete">🗑️</button>
+                                        </div>
+                                    </td>
+                                </tr> -->
+                                
+                            </tbody>
+                        </table>
                     </div>
+
+                    <?php }
+                        $all_permission = $this->ion_auth->is_permission();
+                        if (!empty($all_permission['form_permission'])) {
+                        foreach($all_permission['form_permission'] as $permission){
+                        
+                            $menu_view =$permission->menu_view;
+                            $menu_create= $permission->menu_create;
+                            $menu_update= $permission->menu_update;
+                            $menu_delete =$permission->menu_delete;
+                            $menu_name =$permission->menu_name;
+                            // echo $menu_name;
+                            if ($menu_name == 'Module Permission') { 
+                               if ($menu_view =='1') {
+                    ?>
+
+                    <!--module permission tab -->
+                    <div class="tab-pane fade" id="module" role="tabpanel" aria-labelledby="role-tab">
+                        
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h3>Group Permission</h3>
+                    <input type="text" class="form-control search-input" placeholder="Search...">
+                    </div>
+
+                    <form class="form-horizontal p-4" role="form" id="addFormAjax" method="post" action="<?php echo base_url('users/rolePermission') ?>" enctype="multipart/form-data">
+                            
+                    <?php if ($menu_view =='1') {?>
+                    <div class="row mb-4">
+                        <div class="col-md-4">
+                            <label for="">Roles</label>
+                            <select class="form-select" id="role_id" name="role" required>
+                        
+                            <option disabled>Please Select</option>
+                            <?php echo $module_permission->role_id; ?>
+                        <?php foreach ($roles_list as $rows): ?>
+                            <?php if($rows->name =='SubAdmin'){ ?>
+                                <option value="<?php echo $rows->id; ?>" <?php echo ($module_permission->role_id == $rows->id) ? 'selected' : ''; ?>><?php echo 'Doctor'; ?></option>
+                                <?php }else if($rows->name !='SubAdmin'){?>
+                                    
+                                    <!-- <option value="<?php echo $rows->id; ?>" <?php $module_permission->role_id ==$rows->id?'selected':''?>><?php echo $rows->name; ?></option> -->
+                                    <option value="<?php echo $rows->id; ?>" <?php echo ($module_permission->role_id == $rows->id) ? 'selected' : ''; ?>><?php echo $rows->name; ?></option>
+
+                                    <?php }?>
+                                            
+                            <?php endforeach?>
+                        </select>
+                        
+                        </div>
+                        <div class="col-md-4">
+                            
+                        </div>
+                        
+                    </div>
+                    <?php } if ($menu_view =='1') {?>
+
+                    <div class="row">
+        
+                        <?php foreach($module_list as $rows) { ?>
+                            <div class="col-md-4">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <span><?php echo $rows->menu_name; ?></span>
+                                        <div class="form-check form-switch permission-switch">
+                                            <input class="form-check-input servicecheck" type="checkbox" id="<?php echo $rows->menu_id; ?>" name="menu_id[]" value="<?php echo $rows->menu_id; ?>">
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <table class="table permissions-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Permissions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+
+                                                <tr>
+                                                    <td>View All Records</td>
+                                                    <td class="text-end">
+                                                        <input type="checkbox" class="servicecheckviewAll" name="view_all_<?php echo $rows->menu_id; ?>" id="view_all" onclick="selectAll('<?php echo $rows->menu_key; ?>')">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>View</td>
+                                                    <td class="text-end"><input type="checkbox" name="view_<?php echo $rows->menu_id; ?>" id="view"  class="role-checkbox <?php echo $rows->menu_key; ?> servicecheckView<?php echo $rows->menu_key; ?>"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Create</td>
+                                                    <td class="text-end"><input type="checkbox" name="create_<?php echo $rows->menu_id; ?>" id="create" class="role-checkbox <?php echo $rows->menu_key; ?> servicecheckCreate<?php echo $rows->menu_key; ?>"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Delete</td>
+                                                    <td class="text-end"><input type="checkbox" name="delete_<?php echo $rows->menu_id; ?>" id="delete" class="role-checkbox <?php echo $rows->menu_key; ?> servicecheckDelete<?php echo $rows->menu_key; ?>"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Update</td>
+                                                    <td class="text-end"><input type="checkbox" name="update_<?php echo $rows->menu_id; ?>" id="update" class="role-checkbox <?php echo $rows->menu_key; ?> servicecheckUpdate<?php echo $rows->menu_key; ?>"></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php } ?>
+                            <?php if ($menu_update =='1') {?>
+                            <button type="submit" id="submit"  class="btn btn-sm btn-primary" style="background:#337ab7;"><?php echo lang('submit_btn');?></button>
+                            <?php } ?>
+                        </div>
+                        
+                    </div>
+
                     <?php } ?>
+                    </form>
 
-                    <button type="submit" id="submit"  class="btn btn-sm btn-primary" style="background:#337ab7;"><?php echo lang('submit_btn');?></button>
-            
-                </div>
-                
-            </div>
+                    <?php }}}} if($this->ion_auth->is_facilityManager()){?>
 
-        </form>
-
-
-            
-             <!-- Add User Modal -->
-             <!-- <div class="modal fade bd-example-modal-lg" tabindex="-1" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="addUserModal">
-             <div class="modal-dialog modal-lg"> -->
-
-    <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2 class="modal-title" id="addUserModalLabel"><strong> Add User</strong></h2>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <!-- <form>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="uniqueId">Unique ID</label>
-                                    <input type="text" class="form-control" id="uniqueId" placeholder="Enter ID">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="name">Name</label>
-                                    <input type="text" class="form-control" id="name" placeholder="Enter Name">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="contact">Contact</label>
-                                    <input type="text" class="form-control" id="contact" placeholder="Enter Contact">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="email">Email</label>
-                                    <input type="email" class="form-control" id="email" placeholder="Enter Email">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="role">Role</label>
-                                    <select class="form-select" id="role">
-                                        <option>Manager</option>
-                                        <option>Doctor</option>
-                                        <option>Staff</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="address">Address</label>
-                                    <input type="text" class="form-control" id="address" placeholder="Enter Address">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="password">Password</label>
-                                    <input type="password" class="form-control" id="password" placeholder="Enter Password">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="confirmPassword">Confirm Password</label>
-                                    <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Status</label><br>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="status" id="statusActive" value="active" checked>
-                                <label class="form-check-label" for="statusActive">Active</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="status" id="statusInactive" value="inactive">
-                                <label class="form-check-label" for="statusInactive">Inactive</label>
-                            </div>
-                        </div>
-
-                        <div class="d-flex justify-content-end mt-3">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-success ms-2">Save</button>
-                        </div>
-                    </form> -->
-
-    <form class="form-horizontal p-4" role="form" id="addFormAjax" method="post" action="<?php echo base_url('users/users_add') ?>" enctype="multipart/form-data">
-        
-    <div class="alert alert-danger" id="error-box" style="display: none"></div>
-    <div class="row">
-    <div class="col-md-6">
-        <div class="form-group me-2">
-            <label class="control-label">First Name</label>
-            <input type="text" class="form-control" name="first_name" id="first_name" placeholder="First Name" />
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div class="form-group me-2">
-            <label class="control-label">Last Name</label>
-            <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Last Name" />
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div class="form-group me-2">
-            <label class="control-label"><?php echo lang('user_email');?></label>
-            <input type="email" class="form-control" name="user_email" id="user_email" placeholder="<?php echo lang('user_email');?>" />
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div class="form-group me-2">
-            <label class="control-label">Country</label>
-            <select id="country" name="country" class="form-control select2" size="1">
-                <option value="" disabled selected>Please select</option>
-                <?php foreach($countries as $country){?>
-                <option value="<?php echo $country->id;?>"><?php echo $country->name;?></option>
-                <?php }?>
-            </select>
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div class="form-group me-2">
-            <label class="control-label"><?php echo lang('phone_no');?></label>
-            <input type="text" class="form-control" name="phone_no" id="phone_no" placeholder="<?php echo lang('phone_no');?>" />
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div class="form-group me-2">
-            <label class="control-label"><?php echo lang('password');?></label>
-            <input type="text" class="form-control" name="password" id="password" placeholder="<?php echo lang('password');?>" value="<?php echo randomPassword();?>" />
-        </div>
-    </div>
-    <div class="col-md-12">
-        <div class="form-group">
-            <label for="role">Role</label>
-            <select class="form-select" id="role" name="role">
-                <!-- <option>Manager</option>
-                <option>Doctor</option>
-                <option>Staff</option> -->
-
-               <?php foreach ($roles_list as $rows): ?>
-                    <option value="<?php echo $rows->id; ?>"><?php echo $rows->name; ?></option>
-                                   
-                <?php endforeach?>
-            </select>
-        </div>
-    </div>
-
-    <div class="col-md-12">
-        <div class="form-group me-2">
-            <label class="control-label"><?php echo lang('profile_image'); ?></label>
-            <div class="group_filed">
-                <div class="img_back_prieview_Academic">
-                    <div class="images_box_upload_ven_adduser_vendore">
-                        <div id="image-preview-adduser-vendore">
-                            <input type="file" name="user_image" id="image-upload-adduser-vendore" />
-                        </div>
+                       <!--module permission tab -->
+                    <div class="tab-pane fade" id="module" role="tabpanel" aria-labelledby="role-tab">
+                        
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h3>Group Permission</h3>
+                    <input type="text" class="form-control search-input" placeholder="Search...">
                     </div>
-                    <div id="image-preview-adduser">
-                        <label for="image-upload-adduser-vendore" id="image-label-adduser-vendore"  class="btn btn-sm btn-primary" style="background:#337ab7;">Upload Logo</label>
-                    </div>
-                </div>
-            </div>
-            <div class="ceo_file_error file_error text-danger"></div>
-        </div>
-    </div>
-   
-    <div class="col-md-12">
-        <div class="modal-footer">
-            <button type="submit" id="submit"  class="btn btn-sm btn-primary" style="background:#337ab7;"><?php echo lang('submit_btn');?></button>
-        
-        </div>
-    </div>
-</div>
 
-    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+                    <form class="form-horizontal p-4" role="form" id="addFormAjax" method="post" action="<?php echo base_url('users/rolePermission') ?>" enctype="multipart/form-data">
+                            
+                    <div class="row mb-4">
+                        <div class="col-md-4">
+                            <label for="">Roles</label>
+                            <select class="form-select" id="role_id" name="role" required>
+                        
+                            <option disabled>Please Select</option>
+                            <?php echo $module_permission->role_id; ?>
+                        <?php foreach ($roles_list as $rows): ?>
+                            <?php if($rows->name =='SubAdmin'){ ?>
+                                <option value="<?php echo $rows->id; ?>" <?php echo ($module_permission->role_id == $rows->id) ? 'selected' : ''; ?>><?php echo 'Doctor'; ?></option>
+                                <?php }else if($rows->name !='SubAdmin'){?>
+                                    
+                                    <!-- <option value="<?php echo $rows->id; ?>" <?php $module_permission->role_id ==$rows->id?'selected':''?>><?php echo $rows->name; ?></option> -->
+                                    <option value="<?php echo $rows->id; ?>" <?php echo ($module_permission->role_id == $rows->id) ? 'selected' : ''; ?>><?php echo $rows->name; ?></option>
 
-    <!-- Add Role Modal (Similar to User) -->
-            <div class="modal fade" id="addRoleModal" tabindex="-1" aria-labelledby="addRoleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="addRoleModalLabel">Create Role & Permission</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    <?php }?>
+                                            
+                            <?php endforeach?>
+                        </select>
+                        
                         </div>
-                        <div class="modal-body">
+                        <div class="col-md-4">
+                            
+                        </div>
+                        
+                    </div>
+
+                    <div class="row">
+        
+                        <?php foreach($module_list as $rows) { ?>
+                            <div class="col-md-4">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <span><?php echo $rows->menu_name; ?></span>
+                                        <div class="form-check form-switch permission-switch">
+                                            <input class="form-check-input servicecheck" type="checkbox" id="<?php echo $rows->menu_id; ?>" name="menu_id[]" value="<?php echo $rows->menu_id; ?>">
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <table class="table permissions-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Permissions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+
+                                                <tr>
+                                                    <td>View All Records</td>
+                                                    <td class="text-end">
+                                                        <input type="checkbox" class="servicecheckviewAll" name="view_all_<?php echo $rows->menu_id; ?>" id="view_all" onclick="selectAll('<?php echo $rows->menu_key; ?>')">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>View</td>
+                                                    <td class="text-end"><input type="checkbox" name="view_<?php echo $rows->menu_id; ?>" id="view"  class="role-checkbox <?php echo $rows->menu_key; ?> servicecheckView<?php echo $rows->menu_key; ?>"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Create</td>
+                                                    <td class="text-end"><input type="checkbox" name="create_<?php echo $rows->menu_id; ?>" id="create" class="role-checkbox <?php echo $rows->menu_key; ?> servicecheckCreate<?php echo $rows->menu_key; ?>"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Delete</td>
+                                                    <td class="text-end"><input type="checkbox" name="delete_<?php echo $rows->menu_id; ?>" id="delete" class="role-checkbox <?php echo $rows->menu_key; ?> servicecheckDelete<?php echo $rows->menu_key; ?>"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Update</td>
+                                                    <td class="text-end"><input type="checkbox" name="update_<?php echo $rows->menu_id; ?>" id="update" class="role-checkbox <?php echo $rows->menu_key; ?> servicecheckUpdate<?php echo $rows->menu_key; ?>"></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php } ?>
+
+                            <button type="submit" id="submit"  class="btn btn-sm btn-primary" style="background:#337ab7;"><?php echo lang('submit_btn');?></button>
+                    
+                        </div>
+                        
+                    </div>
+
+                    </form> 
+                    <?php }?>
                 
-                            <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('users/roles_add') ?>" enctype="multipart/form-data">
-                                
+                    <!-- Add User Modal -->
+                    <!-- <div class="modal fade bd-example-modal-lg" tabindex="-1" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="addUserModal">
+                    <div class="modal-dialog modal-lg"> -->
+
+                    <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h2 class="modal-title" id="addUserModalLabel"><strong> Add User</strong></h2>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
                                 <div class="modal-body">
+                            
+
+                            <form class="form-horizontal p-4" role="form" id="addFormAjax" method="post" action="<?php echo base_url('users/users_add') ?>" enctype="multipart/form-data">
                                 
-                                    <div class="alert alert-danger" id="error-box" style="display: none"></div>
-                                    <div class="form-body">
-                                        <div class="row">
-                                            <div class="col-md-12" >
-                                                <div class="form-group">
-                                                    <label class="col-md-3 control-label"><?php echo lang('role_name');?></label>
-                                                    <div class="col-md-9">
-                                                        <input type="text" class="form-control" name="role_name" id="role_name" placeholder="<?php echo lang('role_name');?>" />
+                                <div class="alert alert-danger" id="error-box" style="display: none"></div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group me-2">
+                                                <label class="control-label">First Name</label>
+                                                <input type="text" class="form-control" name="first_name" id="first_name" placeholder="First Name" />
+                                            </div>
+                                        </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group me-2">
+                                            <label class="control-label">Last Name</label>
+                                            <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Last Name" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group me-2">
+                                            <label class="control-label"><?php echo lang('user_email');?></label>
+                                            <input type="email" class="form-control" name="user_email" id="user_email" placeholder="<?php echo lang('user_email');?>" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group me-2">
+                                            <label class="control-label">Country</label>
+                                            <select id="country" name="country" class="form-control select2" size="1">
+                                                <option value="" disabled selected>Please select</option>
+                                                <?php foreach($countries as $country){?>
+                                                <option value="<?php echo $country->id;?>"><?php echo $country->name;?></option>
+                                                <?php }?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group me-2">
+                                            <label class="control-label"><?php echo lang('phone_no');?></label>
+                                            <input type="text" class="form-control" name="phone_no" id="phone_no" placeholder="<?php echo lang('phone_no');?>" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group me-2">
+                                            <label class="control-label"><?php echo lang('password');?></label>
+                                            <input type="text" class="form-control" name="password" id="password" placeholder="<?php echo lang('password');?>" value="<?php echo randomPassword();?>" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="role">Role</label>
+                                            <select class="form-select" id="role" name="role">
+                                                <!-- <option>Manager</option>
+                                                <option>Doctor</option>
+                                                <option>Staff</option> -->
+
+                                            <?php foreach ($roles_list as $rows): ?>
+                                                    <option value="<?php echo $rows->id; ?>"><?php echo $rows->name; ?></option>
+                                                                
+                                                <?php endforeach?>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group me-2">
+                                            <label class="control-label"><?php echo lang('profile_image'); ?></label>
+                                            <div class="group_filed">
+                                                <div class="img_back_prieview_Academic">
+                                                    <div class="images_box_upload_ven_adduser_vendore">
+                                                        <div id="image-preview-adduser-vendore">
+                                                            <input type="file" name="user_image" id="image-upload-adduser-vendore" />
+                                                        </div>
                                                     </div>
-                                                    
+                                                    <div id="image-preview-adduser">
+                                                        <label for="image-upload-adduser-vendore" id="image-label-adduser-vendore"  class="btn btn-sm btn-primary" style="background:#337ab7;">Upload Logo</label>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-12" >
-                                                <div class="form-group">
-                                                    <label class="col-md-3 control-label"><?php echo lang('description');?></label>
-                                                    <div class="col-md-9">
-                                                        <textarea type="text" class="form-control" name="description" id="description" placeholder="<?php echo lang('description');?>"></textarea>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="space-22"></div>
+                                            <div class="ceo_file_error file_error text-danger"></div>
+                                        </div>
+                                    </div>
+                                
+                                    <div class="col-md-12">
+                                        <div class="modal-footer">
+                                            <button type="submit" id="submit"  class="btn btn-sm btn-primary" style="background:#337ab7;"><?php echo lang('submit_btn');?></button>
+                                        
                                         </div>
                                     </div>
                                 </div>
-                            
-                                <div class="d-flex justify-content-end mt-3">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                    <button type="submit" class="btn btn-success ms-2">Save</button>
-                                </div>
 
                             </form>
+
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                </div>
+
+                <!-- Add Role Modal (Similar to User) -->
+
+                <div class="modal fade" id="addRoleModal" tabindex="-1" aria-labelledby="addRoleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="addRoleModalLabel">Create Role & Permission</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                    
+                                <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('users/roles_add') ?>" enctype="multipart/form-data">
+                                    
+                                    <div class="modal-body">
+                                    
+                                        <div class="alert alert-danger" id="error-box" style="display: none"></div>
+                                        <div class="form-body">
+                                            <div class="row">
+                                                <div class="col-md-12" >
+                                                    <div class="form-group">
+                                                        <label class="col-md-3 control-label"><?php echo lang('role_name');?></label>
+                                                        <div class="col-md-9">
+                                                            <input type="text" class="form-control" name="role_name" id="role_name" placeholder="<?php echo lang('role_name');?>" />
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12" >
+                                                    <div class="form-group">
+                                                        <label class="col-md-3 control-label"><?php echo lang('description');?></label>
+                                                        <div class="col-md-9">
+                                                            <textarea type="text" class="form-control" name="description" id="description" placeholder="<?php echo lang('description');?>"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="space-22"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                
+                                    <div class="d-flex justify-content-end mt-3">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-success ms-2">Save</button>
+                                    </div>
+
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+            </div>
+            
         </div>
-        </div>
+
         
-    </div>
+
     <!-- END Datatables Content -->
-</div>
+    </div>
 <!-- END Page Content -->
 <div id="form-modal-box"></div>
 
