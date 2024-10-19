@@ -31,14 +31,14 @@
             </a>
         </div>
        
-        <div class="col-sm-6 col-lg-2 mb-4">
+        <!-- <div class="col-sm-6 col-lg-2 mb-4">
         <a href="<?php echo base_url()."invoices";?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
                 <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
                     <h4 style="font-size:16px; font-weight:600; color:white;">invoices</h4>
                 </div>
                 <div class="widget-extra-full"><span class="h2 animation-expandOpen fw-bold text-dark"><?php echo $inactive;?></span></div>
             </a>
-        </div>
+        </div> -->
 
 
         <div class="col-sm-6 col-lg-2 mb-4">
@@ -101,7 +101,157 @@
     <!-- Datatables Content -->
     <div class="block full">
 
+            <?php 
+                $all_permission = $this->ion_auth->is_permission();
+                if (!empty($all_permission['form_permission'])) {
+                foreach($all_permission['form_permission'] as $permission){
+                   
+                    $menu_view =$permission->menu_view;
+                    $menu_create= $permission->menu_create;
+                    $menu_update= $permission->menu_update;
+                    $menu_delete =$permission->menu_delete;
+                    $menu_name =$permission->menu_name;
+                    // echo $menu_name;
+                    if ($menu_name == 'Letters') { 
+                        if ($menu_create =='1') {
+                     ?>
+
           <div class="block-title">
+            <?php //if ($this->ion_auth->is_subAdmin()) { ?>
+                <h2>
+                    <a href="<?php echo base_url().'index.php/' . $this->router->fetch_class(); ?>/add_new_template" class="btn btn-sm save-btn">
+                        <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
+                    </a></h2>
+           
+                
+          </div>
+
+         
+        <div class="block-title">
+            <!-- <h2><strong><?php echo 'Users';?></strong> Panel</h2> -->
+        </div>
+        <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('index.php/' .$formUrl) ?>" enctype="multipart/form-data">
+            <!-- <div class="modal-header text-center">
+                <h2 class="modal-title"><i class="fa fa-pencil"></i> <?php echo (isset($title)) ? ucwords($title) : "" ?></h2>
+            </div> -->
+            <div class="alert alert-danger" id="error-box" style="display: none"></div>
+            <div class="form-body">
+                <div class="row">
+                    <div class="col-md-12" >
+                        <div class="form-group">
+            
+                                <div class="col-md-12">
+                                <h2>Letters Templates List</h2>
+                            <form id="timeSlotForm" action="submit.php" method="post">
+                                    
+                            
+                            <!-- </div> -->
+                             <!-- <input type="date" id="date" name="date" class="form-control" required> -->
+                            </div>
+                            
+                        </div>
+                    </div>
+
+                     <div class="col-md-12" >
+                        <div class="form-group">
+                            <!-- <label class="col-md-3 control-label">Doctor Name:</label> -->
+                            <div class="col-md-9">
+                           
+                        <input type="hidden" id="doctor_name" name="doctor_name" class="form-control" value="<?php echo $userData->id; ?>">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12" >
+                   
+                    <div class="space-22"></div>
+                </div>
+            </div>
+            <div class="text-right">
+                <!-- <button type="submit" id="submit" class="btn btn-sm btn-primary" >Save</button> -->
+            </div>
+            
+        </form>
+
+        <?php } if ($menu_view =='1'){ ?>
+
+        <div class="table-responsive">
+            <table id="common_datatable_users" class="table table-vcenter table-condensed table-bordered">
+            <thead>
+                    <tr>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem;width:10px;" >Sr. No</th>
+                        <th  style="background-color:#DBEAFF;font-size:1.3rem;">Header Name</th>
+                        <th  style="background-color:#DBEAFF;font-size:1.3rem;">Header logo</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem;">Bodies</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem;">Recipients</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem;">Footer</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem;"><?php echo lang('action'); ?></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+
+                    <?php
+                    
+                    if (!empty($template_list)) {
+                        $rowCount = 0;
+                        foreach ($template_list as $rows) {
+                            $rowCount++;
+                            // print_r($rows->bodies_template);
+                            if(!empty($rows->header_internal_name)){
+                    ?>
+                           
+
+                            <tr>
+                                <td><?php echo $rowCount; ?></td>
+                                <td><?php echo $rows->header_internal_name; ?></td>
+                                <?php $image_url = base_url('/uploads/'); ?>
+                                <td><img width="100px;" src="<?php echo $image_url.$rows->header_logo; ?>" alt="header"></td>
+                                <td><?php echo $rows->bodies_template; ?></td>
+                                <td><?php echo $rows->recipient_template; ?></td>
+                               
+                                
+                                <td><?php echo $rows->footer_internal_name; ?><img width="100px;" src="<?php echo $image_url.$rows->logo; ?>" alt="footer"></td>
+                                <td class="actions">
+                                <?php if ($menu_create =='1'){ ?>
+                                    <h3>
+                                        <a href="javascript:void(0)" onclick="generateTemplate('<?php echo $rows->id; ?>')" class="btn btn-sm save-btn">Generate Template</a>
+                                    </h3>
+                                    <?php } ?>
+                                    <?php  //print_r($rows->bodies_template);?>
+                                    <!-- Hidden form -->
+                                    <form id="templateForm_<?php echo $rows->id; ?>" style="display: none;">
+                                        <input type="hidden" name="id" value="<?php echo $rows->id; ?>">
+                                        <input type="hidden" name="internal_name" value="<?php echo $rows->header_internal_name; ?>">
+                                        <input type="hidden" name="header_logo" value="<?php echo $rows->header_logo; ?>">
+                                        <textarea name="bodies_templatess" id="bodies_templatess" value="<?php echo $rows->bodies_template; ?>"></textarea>
+                                        <textarea name="recipient_template" id="recipient_template" value="<?php echo $rows->recipient_template; ?>"></textarea>
+                                        <!-- <input type="text" name="bodies_templatess" value="<?php echo $rows->bodies_template; ?>"> -->
+                                        <!-- <input type="hidden" name="recipient_template" value="<?php echo $rows->recipient_template; ?>"> -->
+                                        <input type="hidden" name="logo" value="<?php echo $rows->logo; ?>">
+                                        <!-- Add other hidden fields if needed -->
+                                    </form>
+                                </td>
+                            </tr>
+
+                        <?php
+                        }
+                        
+                    }
+                   
+                    
+                    }
+                    ?>
+
+                </tbody>
+            </table>
+            </div>
+        </div>
+
+        <?php }}}} if($this->ion_auth->is_facilityManager()){?>
+
+
+            <div class="block-title">
             <?php if ($this->ion_auth->is_subAdmin()) { ?>
                 <h2>
                     <a href="<?php echo base_url().'index.php/' . $this->router->fetch_class(); ?>/add_new_template" class="btn btn-sm save-btn">
@@ -233,6 +383,8 @@
             </table>
             </div>
         </div>
+
+            <?php }?>
     <!-- END Datatables Content -->
 </div>
 <!-- END Page Content -->

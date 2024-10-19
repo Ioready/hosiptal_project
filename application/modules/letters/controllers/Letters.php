@@ -50,7 +50,7 @@ class Letters extends Common_Controller {
             'join' => array(
                 array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_lettel_header.user_id','left')
             ),
-            'where' => array('vendor_sale_lettel_header.user_id' => $LoginID)
+            // 'where' => array('vendor_sale_lettel_header.user_id' => $LoginID)
         );
 
         $this->data['header_list'] = $this->common_model->customGet($optionheader);
@@ -61,7 +61,7 @@ class Letters extends Common_Controller {
             'join' => array(
                 array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_lettel_bodies.user_id','left')
             ),
-            'where' => array('vendor_sale_lettel_bodies.user_id' => $LoginID)
+            // 'where' => array('vendor_sale_lettel_bodies.user_id' => $LoginID)
         );
 
         $this->data['body_list'] = $this->common_model->customGet($option_body);
@@ -72,7 +72,7 @@ class Letters extends Common_Controller {
             'join' => array(
                 array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_lettel_recipients.user_id','left')
             ),
-            'where' => array('vendor_sale_lettel_recipients.user_id' => $LoginID)
+            // 'where' => array('vendor_sale_lettel_recipients.user_id' => $LoginID)
         );
 
         $this->data['recipients_list'] = $this->common_model->customGet($optionrecipient);
@@ -83,7 +83,7 @@ class Letters extends Common_Controller {
             'join' => array(
                 array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_lettel_footer.user_id','left')
             ),
-            'where' => array('vendor_sale_lettel_footer.user_id' => $LoginID)
+            // 'where' => array('vendor_sale_lettel_footer.user_id' => $LoginID)
         );
 
         $this->data['footer_list'] = $this->common_model->customGet($optionfooter);
@@ -101,7 +101,7 @@ class Letters extends Common_Controller {
                 array('vendor_sale_lettel_footer', 'vendor_sale_lettel_recipients.id=vendor_sale_lettel_footer.recipient_id','left')
                 
             ),
-            'where' => array('vendor_sale_lettel_header.user_id' => $LoginID)
+            // 'where' => array('vendor_sale_lettel_header.user_id' => $LoginID)
         );
 
         $this->data['template_list'] = $this->common_model->customGet($optionEmailTemplate);

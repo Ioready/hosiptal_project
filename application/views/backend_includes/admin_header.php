@@ -712,9 +712,9 @@ hh
                                 <!-- <li title="Contact">
                                     <a href="<?php echo site_url('contact'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "Contact") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/department.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">&nbsp;Contacts</span></a>
                                 </li> -->
-                                <li title="Tutorial">
+                                <!-- <li title="Tutorial">
                                      <a href="<?php echo site_url('tutorials'); ?>" target="_blank" class=" <?php echo (strtolower($this->router->fetch_class()) == "howItWorks") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/tutorials.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark text-dark">Tutorials</span></a>
-                                 </li>
+                                 </li> -->
                                 <!-- <li title="Recommendation">
                                     <a href="<?php echo site_url('recommendation'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "recommendation") ? "active" : "" ?>"><i class="fa fa-paper-plane sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Steward Communications</span></a>
                                 </li> -->

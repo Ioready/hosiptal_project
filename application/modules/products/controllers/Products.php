@@ -54,8 +54,8 @@ class Products extends Common_Controller {
         FROM `vendor_sale_doctor_product` 
         LEFT JOIN `vendor_sale_users` ON 
         `vendor_sale_users`.`id` = `vendor_sale_doctor_product`.`user_id`
-        WHERE `vendor_sale_doctor_product`.`user_id` =$LoginID
         ORDER BY `vendor_sale_doctor_product`.`id` DESC";
+        // WHERE `vendor_sale_doctor_product`.`user_id` =$LoginID
         //   WHERE `vendor_sale_doctor_product`.`status` = 0  and
         //   `vendor_sale_doctor_product`.`user_id` =$LoginID
         
@@ -116,10 +116,11 @@ class Products extends Common_Controller {
         FROM `vendor_sale_doctors_contactus` 
         LEFT JOIN `vendor_sale_users` ON 
         `vendor_sale_users`.`id` = `vendor_sale_doctors_contactus`.`user_id`
-        WHERE `vendor_sale_doctors_contactus`.`delete_status` = 0  and
-        `vendor_sale_doctors_contactus`.`user_id` =$LoginID
+        WHERE `vendor_sale_doctors_contactus`.`delete_status` = 0
         ORDER BY `vendor_sale_doctors_contactus`.`id` DESC";
         
+        // WHERE `vendor_sale_doctors_contactus`.`delete_status` = 0  and
+        // `vendor_sale_doctors_contactus`.`user_id` =$LoginID
         $this->data['list'] = $this->common_model->customQuery($option1);
 
         $this->load->admin_render('directory', $this->data, 'inner_script');
@@ -174,7 +175,7 @@ class Products extends Common_Controller {
                         ),
                         'where' => array(
                             'users.delete_status' => 0,
-                            'doctors.user_id'=>$CareUnitID
+                            // 'doctors.user_id'=>$CareUnitID
                         ),
                         'single' => true,
                     );
@@ -190,7 +191,7 @@ class Products extends Common_Controller {
                         ),
                         'where' => array(
                             'users.delete_status' => 0,
-                            'doctors.facility_user_id'=>$datadoctors->facility_user_id
+                            // 'doctors.facility_user_id'=>$datadoctors->facility_user_id
                         ),
                         'order' => array('users.id' => 'desc'),
                     );
@@ -198,19 +199,24 @@ class Products extends Common_Controller {
             
                     $option = array(
                         'table' => 'clinic',
-                        'select' => '*', 'where' => array('hospital_id'=>$datadoctors->facility_user_id,'delete_status' => 0), 'order' => array('name' => 'ASC')
+                        'select' => '*',
+                        //  'where' => array('hospital_id'=>$datadoctors->facility_user_id,'delete_status' => 0), 
+                         'order' => array('name' => 'ASC')
                     );
                     $this->data['clinic_location'] = $this->common_model->customGet($option);
             
             
                     $option = array(
                         'table' => 'practitioner',
-                        'select' => '*', 'where' => array('hospital_id'=>$datadoctors->facility_user_id,'delete_status' => 0), 'order' => array('name' => 'ASC')
+                        'select' => '*', 
+                        // 'where' => array('hospital_id'=>$datadoctors->facility_user_id,'delete_status' => 0), 
+                        'order' => array('name' => 'ASC')
                     );
                     $this->data['practitioner'] = $this->common_model->customGet($option);
             
             
-                } else if ($this->ion_auth->is_facilityManager()) {
+                } 
+                // else if ($this->ion_auth->is_facilityManager() || $this->ion_auth->is_all_roleslogin() ) {
                     
                     $option = array(
                         'table' => ' doctors',
@@ -224,7 +230,7 @@ class Products extends Common_Controller {
                         
                         'where' => array(
                             'users.delete_status' => 0,
-                            'doctors.facility_user_id'=>$CareUnitID
+                            // 'doctors.facility_user_id'=>$CareUnitID
                         ),
                         'order' => array('users.id' => 'desc'),
                     );
@@ -233,17 +239,21 @@ class Products extends Common_Controller {
             
                     $option = array(
                         'table' => 'clinic',
-                        'select' => '*', 'where' => array('hospital_id'=>$CareUnitID,'delete_status' => 0), 'order' => array('name' => 'ASC')
+                        'select' => '*',
+                        //  'where' => array('hospital_id'=>$CareUnitID,'delete_status' => 0),
+                          'order' => array('name' => 'ASC')
                     );
                     $this->data['clinic_location'] = $this->common_model->customGet($option);
             
                     $option = array(
                         'table' => 'practitioner',
-                        'select' => '*', 'where' => array('hospital_id'=>$CareUnitID,'delete_status' => 0), 'order' => array('name' => 'ASC')
+                        'select' => '*', 
+                        // 'where' => array('hospital_id'=>$CareUnitID,'delete_status' => 0),   
+                        'order' => array('name' => 'ASC')
                     );
                     $this->data['practitioner'] = $this->common_model->customGet($option);
                     
-                }
+                // }
                 
         $this->load->admin_render('add', $this->data, 'inner_script');
     }
