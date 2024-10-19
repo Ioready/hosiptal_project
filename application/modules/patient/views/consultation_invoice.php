@@ -111,7 +111,7 @@
     <!-- Datatables Content -->
     <div class="block full">
 
-    <?php 
+            <?php 
                 $all_permission = $this->ion_auth->is_permission();
                 if (!empty($all_permission['form_permission'])) {
                 foreach($all_permission['form_permission'] as $permission){
@@ -122,7 +122,7 @@
                     $menu_delete =$permission->menu_delete;
                     $menu_name =$permission->menu_name;
                     // echo $menu_name;
-                    if ($menu_name == 'Labs') { 
+                    if ($menu_name == 'Patient Invoice') { 
                        if ($menu_create =='1') {
             ?>
         <div class="block-title">
@@ -132,8 +132,9 @@
                 <h2><a href="javascript:void(0)" onclick="open_model_invoice('<?php echo $model; ?>')" class="btn btn-sm btn-primary"  style="background: #337ab7" id="patient_ids">
                         <i class="gi gi-circle_plus"></i> <?php echo 'add invoice'; ?>
                     </a></h2>
-            <?php //} ?>
+            
         </div>
+        <?php } if ($menu_view =='1') {?>
         
         <div class="table-responsive">
             <table id="common_datatable_menucat" class="table table-vcenter table-condensed table-bordered text-center">
@@ -164,7 +165,7 @@
                                 <?php if(empty($rows->Paid)){?>
                             <!-- <a href="javascript:void(0)" class="btn btn-primary" onclick="payFn('<?php echo $model; ?>', 'pay', '<?php echo encoding($row->id) ?>', '<?php echo $model; ?>');">Pay</a> -->
                             <?php }?>
-
+                            <?php if ($menu_update =='1') {?>
                                     <a href="javascript:void(0)" class="btn btn-xs btn-default" onclick="editFn('<?php echo $model; ?>', 'editInvoice', '<?php echo encoding($rows->id) ?>', '<?php echo $model; ?>');"><i class="fa fa-pencil"></i></a>
                                     <?php if ($rows->status == 'Paid') { ?>
                                         <!-- <a href="javascript:void(0)" class="btn btn-xs btn-success" onclick="editStatusFn('<?php echo $tablePrefix; ?>', 'id', '<?php echo encoding($rows->id); ?>', '<?php echo $rows->is_active; ?>','<?php echo $rows->name; ?>')" title="Inactive Now"><i class="fa fa-check"></i></a> -->
@@ -174,6 +175,7 @@
                                     <!-- <a href="javascript:void(0)" onclick="deleteFn('<?php echo $table; ?>', 'id', '<?php echo encoding($rows->id); ?>', '<?php echo $model; ?>','','<?php echo $rows->name; ?>')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a> -->
                                     <!-- <a href="javascript:void(0)" class="btn btn-xs btn-default" onclick="pdfInvoice('<?php echo $model; ?>', 'pdfInvoice','<?php echo encoding($row->id) ?>', '<?php echo $model; ?>');"><i class="fa fa-solid fa-download"></i> </a> -->
 
+                                    <?php }?>
                                 </td>
                             </tr>
                             <?php

@@ -765,7 +765,7 @@ class Letters extends Common_Controller {
             'join' => array(
                 array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_user_consultation_setting.user_id','left')
             ),
-            'where' => array('vendor_sale_user_consultation_setting.user_id' => $LoginID)
+            // 'where' => array('vendor_sale_user_consultation_setting.user_id' => $LoginID)
         );
 
         $this->data['list'] = $this->common_model->customGet($optionheader);
@@ -780,7 +780,7 @@ class Letters extends Common_Controller {
                 array('vendor_sale_lettel_footer', 'vendor_sale_lettel_recipients.id=vendor_sale_lettel_footer.recipient_id','left')
                 
             ),
-            'where' => array('vendor_sale_lettel_header.user_id' => $LoginID)
+            // 'where' => array('vendor_sale_lettel_header.user_id' => $LoginID)
         );
 
         $this->data['template_list'] = $this->common_model->customGet($optionEmailTemplate);

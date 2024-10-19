@@ -82,7 +82,7 @@ class UserSettings extends Common_Controller {
                 array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
             ),
             'order' => array('user.id' => 'DESC'),
-            'where' => array('user.id' => $user_id),
+            // 'where' => array('user.id' => $user_id),
             'where_not_in' => array('group.id' => array(1, 2, 4,5,6,7))
         );
 
@@ -164,7 +164,7 @@ class UserSettings extends Common_Controller {
                 array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
             ),
             'order' => array('user.id' => 'DESC'),
-            'where' => $where,
+            // 'where' => $where,
             'where_not_in' => array('group.id' => array(1, 2, 4,5,6,7)),
             'order' => array('user.id' => "DESC")
         );
@@ -191,7 +191,7 @@ class UserSettings extends Common_Controller {
                     ),
                     'order' => array('user.id' => 'DESC'),
                     'limit' => array($limit => $start),
-                    'where' => $where,
+                    // 'where' => $where,
                     'where_not_in' => array('group.id' => array(1, 2, 4,5,6,7)),
                     'order' => array('user.id' => "DESC")
                 );
@@ -205,7 +205,7 @@ class UserSettings extends Common_Controller {
                     ),
                     'order' => array('user.id' => 'DESC'),
                     'limit' => array($limit => $start),
-                    'where' => $where,
+                    // 'where' => $where,
                     'where_not_in' => array('group.id' => array(1, 2, 4,5,6,7)),
                     'order' => array('user.id' => "DESC")
                 );
@@ -274,15 +274,17 @@ class UserSettings extends Common_Controller {
 
                         //$my_prediction = '<a href="' . base_url() . 'ipl/prediction/' . encoding($users->id) . '" class="btn btn-warning btn-sm"><img width="18" src="' . base_url() . CRICKET_ICON . '" />Prediction (' . $totalPrediction . '/100)</a>';
                         //$stat ='ver';
+
                         if ($this->ion_auth->is_admin()) {
                             $userData['action'] = $user_edit . $active_buttn . $delete_btn;
-                        } else if ($this->ion_auth->is_subAdmin()) {
+
+                        } else if ($this->ion_auth->is_subAdmin() or $this->ion_auth->is_all_roleslogin()) {
                             $user = getUser($this->session->userdata('user_id'));
 
                             $option = array(
                                 'table' => 'subadmin_access',
                                 'select' => 'modules',
-                                'where' => array('user_id' => $user->id),
+                                // 'where' => array('user_id' => $user->id),
                                 'single' => true
                             );
                             $subadminDetails = commonGetHelper($option);
@@ -325,7 +327,7 @@ class UserSettings extends Common_Controller {
                             $userData['action'] = $stat . $act_status;
 
                             //$userData['action'] = $user_contest . $join_contest . $match_teams;
-                        } else if ($this->ion_auth->is_facilityManager()) {
+                        } else if ($this->ion_auth->is_facilityManager() or $this->ion_auth->is_all_roleslogin()) {
                             $user = getUser($this->session->userdata('user_id'));
 
                             $option = array(
@@ -585,7 +587,7 @@ class UserSettings extends Common_Controller {
             'join' => array(
                 array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_lettel_header.user_id','left')
             ),
-            'where' => array('vendor_sale_lettel_header.user_id' => $LoginID)
+            // 'where' => array('vendor_sale_lettel_header.user_id' => $LoginID)
         );
 
         $this->data['header_list'] = $this->common_model->customGet($optionheader);
@@ -596,7 +598,7 @@ class UserSettings extends Common_Controller {
             'join' => array(
                 array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_lettel_bodies.user_id','left')
             ),
-            'where' => array('vendor_sale_lettel_bodies.user_id' => $LoginID)
+            // 'where' => array('vendor_sale_lettel_bodies.user_id' => $LoginID)
         );
 
         $this->data['body_list'] = $this->common_model->customGet($option_body);
@@ -607,7 +609,7 @@ class UserSettings extends Common_Controller {
             'join' => array(
                 array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_lettel_recipients.user_id','left')
             ),
-            'where' => array('vendor_sale_lettel_recipients.user_id' => $LoginID)
+            // 'where' => array('vendor_sale_lettel_recipients.user_id' => $LoginID)
         );
 
         $this->data['recipients_list'] = $this->common_model->customGet($optionrecipient);
@@ -618,7 +620,7 @@ class UserSettings extends Common_Controller {
             'join' => array(
                 array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_lettel_footer.user_id','left')
             ),
-            'where' => array('vendor_sale_lettel_footer.user_id' => $LoginID)
+            // 'where' => array('vendor_sale_lettel_footer.user_id' => $LoginID)
         );
 
         $this->data['footer_list'] = $this->common_model->customGet($optionfooter);
@@ -1213,7 +1215,7 @@ class UserSettings extends Common_Controller {
             'join' => array(
                 array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_user_consultation_setting.user_id','left')
             ),
-            'where' => array('vendor_sale_user_consultation_setting.user_id' => $LoginID)
+            // 'where' => array('vendor_sale_user_consultation_setting.user_id' => $LoginID)
         );
 
         $this->data['list'] = $this->common_model->customGet($optionheader);
@@ -1357,7 +1359,7 @@ class UserSettings extends Common_Controller {
                     'join' => array(
                         array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_user_consultation_setting.user_id','left')
                     ),
-                    'where' => array('vendor_sale_user_consultation_setting.id' => $id),
+                    // 'where' => array('vendor_sale_user_consultation_setting.id' => $id),
                     'single'=>true,
                 );
         

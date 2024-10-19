@@ -579,6 +579,218 @@
 
 <?php }}} if($this->ion_auth->is_facilityManager()){?>
 
+    <div class="mt-5">
+                <h2 class="mb-4">Invoice Management</h2>
+
+                <div class="d-flex justify-content-between mb-3 align-items-center flex-wrap">
+                    <!-- <button class="btn btn-primary">New Invoice +</button> -->
+                  
+                    <h2><a href="javascript:void(0)"  onclick="open_modal('<?php echo $model; ?>')" class="btn btn-sm btn-primary save-btn" id="patient_ids">
+                        <i class="gi gi-circle_plus"></i> <?php echo $title; ?> 
+                    </a></h2>
+                   
+                    
+                    <div class="mt-2">
+                        <label for="dateRange" class="me-2">Duration:</label>
+                        <input type="text" id="dateRange" class="form-control d-inline-block" style="width: 250px;" readonly>
+                    </div>
+                </div>
+                
+                <div class="table-responsive">
+                    <table id="invoiceTable" class="table table-bordered table-hover align-middle text-center">
+                        <thead class="table-light text-center ">
+                        <tr>
+                            <th>Invoice</th>
+                            <th>Patient</th>
+                            <th>Total</th>
+                            <th>Invoice Date</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach($invoice_list as $row){ ?>
+                        <tr>
+                            <td><?php echo $row->invoice_number;?></td>
+                            <td><?php echo $row->patient_name;?></td>
+                            <td>
+                                <div class="invoice-status">
+                                    <span class="total">Total: <?php echo $row->total_amount;?></span><br>
+                                    <span class="paid">Paid: £<?php echo $row->Paid;?></span><br>
+                                    <span class="outstanding">Outstanding: <?php echo $row->Outstanding;?></span>
+                                </div>
+                            </td>
+                            <td><?php echo date("d/m/Y", strtotime($row->invoice_date)); ?></td>
+
+                            <td>
+                            <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Pay</button>
+                             -->
+                             <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Pay</button> -->
+
+                            <!-- <a href="javascript:void(0)" class="btn btn-xs btn-default" onclick="payFn('<?php echo $model; ?>', '<?php echo encoding($row->id); ?>');"><i class="fa fa-credit-card"></i> Pay</a> -->
+
+                            <?php if(empty($row->Paid)){?>
+                            <a href="javascript:void(0)" class="btn btn-primary" onclick="payFn('<?php echo $model; ?>', 'pay', '<?php echo encoding($row->id) ?>', '<?php echo $model; ?>');">Pay</a>
+                            <?php }else{?>
+                                <label for="" style="color:green">... </label>
+                            <?php }?>
+                            <?php if($menu_update =='1'){ ?>
+                            <a href="javascript:void(0)" class="btn btn-xs btn-default" onclick="editFn('<?php echo $model; ?>', 'edit', '<?php echo encoding($row->id) ?>', '<?php echo $model; ?>');"><i class="fa fa-pencil"></i></a>
+                            <?php } if($menu_delete =='1'){ ?>
+                            <a href="javascript:void(0)" onclick="deleteFnInvoice('<?php echo GROUPS;?>','id','<?php echo encoding($row->id); ?>','invoices/managements')" class="on-default edit-row text-danger"><img width="20" src="<?php echo base_url().DELETE_ICON;?>" /></a>
+                            <?php }?>
+                            <a href="javascript:void(0)" class="btn btn-xs btn-default" onclick="pdfInvoice('<?php echo $model; ?>', 'pdfInvoice','<?php echo encoding($row->id) ?>', '<?php echo $model; ?>');"><i class="fa fa-solid fa-download"></i> </a>
+
+                            </td>
+                        </tr>
+                        <?php }?>
+                        
+                        </tbody>
+                    </table>
+                </div>
+            
+                <div class="black-screen" id="blackScreen"></div>
+
+                <!-- Edit Modal -->
+                <div class="modal fade bd-example-modal-lg" id="editModal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Edit Invoice</h5>
+                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                    
+                                <div class="alert alert-danger" id="error-box" style="display: none"></div>
+                                    <div class="form-body">
+                                        <div class="row">
+                                    <!-- Invoice Form Section -->
+                                        <div class="form-container">
+                                            <!-- Invoice Form -->
+                                            <div class="form-section">
+                                                <h2>Create new Invoice</h2>
+                                                <div class="form-group">
+                                                    <label for="header">Header <span class="required" style="color:red;">*</span></label>
+                                                    <select name="header" id="header" required>
+                                                        <option value="Droitwich Knee Clinic & Bromsgrove P...">Droitwich Knee Clinic & Bromsgrove P...</option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="select-date">Select Date <span class="required" style="color:red;">*</span></label>
+                                                    <input type="date" name="invoice_date" id="invoice_date" required>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="practitioner">Practitioner</label>
+                                                    
+                                                    <select name="practitioner" id="practitioner">
+                                                    <?php  foreach($practitioner as $row){ ?>
+                                                        <option value="<?php echo $row->id;?>"><?php echo $row->name;?></option>
+                                                        <?php } ?>
+                                                    </select>
+                                                    <!-- <input type="text" name="practitioner" id="practitioner" placeholder="Select Practitioner"> -->
+                                                </div>
+                                            </div>
+
+                                            <!-- Billing and Comments -->
+                                            <div class="form-section">
+                                                <h2>Billing</h2>
+                                                <div class="form-group">
+                                                    <label for="patient">Patient <span style="color:red;">*</span></label>
+                                                    
+                                                    <select name="patient" id="patient">
+                                                    <?php  foreach($patient as $row){ ?>
+                                                        <option value="<?php echo $row->id;?>"><?php echo $row->name;?></option>
+                                                        <?php } ?>
+                                                    </select>
+
+                                                    <!-- <input type="hidden" name="patient" id="patient" value="<?php echo $patient->id;?>"><h3><span><?php echo $patient->name;?></span></h3> -->
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="billing">Billing to <span style="color:red;">*</span></label>
+                                                    <select name="billing_to" id="billing_to">
+                                                        <option value="Self Pay">Self Pay</option>
+                                                    </select>
+                                                </div>
+
+                                                <h2>Comments</h2>
+                                                <div class="form-group">
+                                                    <label for="notes">Notes</label>
+                                                    <textarea name="notes" id="notes" placeholder="Enter notes"></textarea>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="internal-notes">Internal notes</label>
+                                                    <textarea name="internal_notes" id="internal_notes" placeholder="Enter internal notes"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    <!-- Line Items Section -->
+
+                                        <div class="panel panel-default">
+                                            <!-- <div class="panel-heading">Dynamic Form Fields - Add & Remove Multiple fields</div> -->
+                                            <div class="panel-heading">Item Description</div>
+                                            <div class="panel-body">
+                                            
+                                            <div id="education_fields">
+                                                    
+                                                    </div>
+                                                <div class="col-sm-3 nopadding">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" id="products" name="products[]" value="" placeholder="Products">
+                                            </div>
+                                            </div>
+                                            <div class="col-sm-3 nopadding">
+                                            <div class="form-group">
+                                                <input type="number" class="form-control" id="rate" name="rate[]" value="" placeholder="Rate" oninput="calculatePrice(this)">
+                                            </div>
+                                            </div>
+                                            <div class="col-sm-3 nopadding">
+                                            <div class="form-group">
+                                                <input type="number" class="form-control" id="quantity" name="quantity[]" value="" placeholder="Quantity" oninput="calculatePrice(this)">
+                                            </div>
+                                            </div>
+                                            <div class="col-sm-3 nopadding">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" id="price" name="price[]" value="" placeholder="Price">
+                                            </div>
+                                            </div>
+
+                                            <div class="clear"></div>
+                                            
+                                            </div>
+                    
+                                                </div>
+                                                <!-- Total Amount at the bottom -->
+                                                <div class="save-invoice-section">
+                                                    <div class="total-amount">
+                                                        Total amount: £345.00
+                                                    </div>
+                                                    <button class="add-invoice-item" type="button"  onclick="education_fields();"> <span class="add-invoice-item" aria-hidden="true">+ Add invoice item</span> </button>
+
+                                                    <!-- <button type="button" id="submit" class="add-invoice-item">+ Add invoice item</button> -->
+
+                                                </div>
+                                                <input type="hidden" name="id" value="<?php echo $results->id; ?>" />
+
+                                                <div class="space-22"></div>
+                                            </div>
+                                        <!-- </div> -->
+                                    </div>
+                                </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
     <?php }?>
         <!-- </div> -->
     </div>

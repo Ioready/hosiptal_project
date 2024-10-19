@@ -11,7 +11,7 @@
     </ul>
   
     <!-- END Quick Stats -->
-    <?php if ($this->ion_auth->is_admin() or $this->ion_auth->is_subAdmin() or $this->ion_auth->is_facilityManager() or $this->ion_auth->is_user()) { ?>
+    <?php if ($this->ion_auth->is_admin() or $this->ion_auth->is_subAdmin() or $this->ion_auth->is_facilityManager() or $this->ion_auth->is_user() or $this->ion_auth->is_all_roleslogin()) { ?>
                     
 
     <?php } ?>

@@ -11,7 +11,7 @@
     </ul>
    
     <!-- END Quick Stats -->
-    <?php if ($this->ion_auth->is_admin() or $this->ion_auth->is_subAdmin() or $this->ion_auth->is_facilityManager()) { ?>
+    <?php if ($this->ion_auth->is_admin() or $this->ion_auth->is_subAdmin() or $this->ion_auth->is_facilityManager() or $this->ion_auth->is_all_roleslogin()) { ?>
         <div class="block full">
             <div class="row text-center">
             
@@ -52,8 +52,163 @@
     <!-- Datatables Content -->
     <!-- Datatables Content -->
     <div class="block full">
+    <?php 
+                $all_permission = $this->ion_auth->is_permission();
+                if (!empty($all_permission['form_permission'])) {
+                foreach($all_permission['form_permission'] as $permission){
+                   
+                    $menu_view =$permission->menu_view;
+                    $menu_create= $permission->menu_create;
+                    $menu_update= $permission->menu_update;
+                    $menu_delete =$permission->menu_delete;
+                    $menu_name =$permission->menu_name;
+                    // echo $menu_name;
+                 if ($menu_name == 'consultationTemplates') { 
+                       if ($menu_create =='1') {
+            ?>
 
           <div class="block-title">
+            
+                <h2>
+                <a href="<?php echo base_url() . $this->router->fetch_class(); ?>/open_consult" class="btn btn-sm btn-primary save-btn">
+                    <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
+                </a></h2>
+            </div>
+                
+            <div class="block-title">
+                <h2><strong><?php echo 'Consultation templates';?></strong> Panel</h2>
+            </div>
+
+        <?php }if($menu_view =='1'){ ?>
+
+        <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('index.php/' .$formUrl) ?>" enctype="multipart/form-data">
+            <!-- <div class="modal-header text-center">
+                <h2 class="modal-title"><i class="fa fa-pencil"></i> <?php echo (isset($title)) ? ucwords($title) : "" ?></h2>
+            </div> -->
+            <div class="alert alert-danger" id="error-box" style="display: none"></div>
+            <div class="form-body">
+                <div class="row">
+                    <div class="col-md-12" >
+                        <div class="form-group">
+            
+                                <div class="col-md-12">
+                                <!-- <h2>Users</h2> -->
+                            <form id="timeSlotForm" action="submit.php" method="post">
+                                    
+                            <div style="overflow-x: auto; overflow-y: auto; width: auto; height: auto;">
+
+                           <p>Make consultations more efficient by setting up consultation templates. Create the sections and questions needed for each type of consultation so clinicians can take notes easily.</p>
+                        
+                            
+                                    
+                            </div>
+                             <!-- <input type="date" id="date" name="date" class="form-control" required> -->
+                            </div>
+                            
+                        </div>
+                    </div>
+
+                     <div class="col-md-12" >
+                        <div class="form-group">
+                            <!-- <label class="col-md-3 control-label">Doctor Name:</label> -->
+                            <div class="col-md-9">
+                           
+                        <input type="hidden" id="doctor_name" name="doctor_name" class="form-control" value="<?php echo $userData->id; ?>">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12" >
+                   
+                    <div class="space-22"></div>
+                </div>
+            </div>
+            <div class="text-right">
+                <!-- <button type="submit" id="submit" class="btn btn-sm btn-primary" >Save</button> -->
+            </div>
+            
+        </form>
+
+       
+
+        <div class="table-responsive">
+            <table id="common_datatable_users" class="table table-vcenter table-condensed table-bordered">
+                <thead>
+                    <tr>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem;width:10px;">Sr. No</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem;">Internal Name</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem;">Created date</th>
+                        <th style="background-color:#DBEAFF;font-size:1.3rem;"><?php echo lang('action'); ?></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+
+                    <?php
+                    
+                    if (!empty($careUnitsUser_list)) {
+                        $rowCount = 0;
+                        foreach ($careUnitsUser_list as $rows) {
+                            $rowCount++;
+                           
+                    ?>
+
+
+                            <tr>
+                                <td><?php echo $rowCount; ?></td>
+                                <td><?php echo $rows->internal_name; ?></td>
+                                <td><?php echo date('m/d/Y', strtotime($rows->created_on)); ?></td>
+                               
+                                <td class="actions">
+                                <td class="actions">
+                                <?php if($menu_update =='1'){ ?>
+                                    <!-- <a href="javascript:void(0)" class="btn btn-default" onclick="editFn('index.php/userSettings/open_consult/edit?id=', '<?php echo encoding($rows->id) ?>', 'userSettings/open_consult');"><i class="fa fa-pencil"></i></a> -->
+                                                    <a href="<?php echo base_url() . 'userSettings/edit?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-eye"></i></a>
+                                              
+                                    <?php }if($menu_delete =='1'){ ?>
+                                    <!-- <a href="<?php echo base_url() . 'index.php/userSettings/existing_list/' . $rows->pid; ?>" target='_blank' data-toggle="tooltip" class="btn btn-default">View History</a> -->
+                                    <a href="javascript:void(0)" onclick="deletePatient('<?php echo $rows->id; ?>')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+                                    <?php } ?>
+                                </td>
+
+                                </td>
+                            </tr>
+
+
+                        <?php
+                        }
+                        //}
+                    } else {
+                        $rowCount = 0;
+                        foreach ($list as $rows) :
+                            $rowCount++;
+                        ?>
+                            <tr>
+                            <td><?php echo $rowCount; ?></td>
+                                <td><?php echo $rows->internal_name; ?></td>
+                                <td><?php echo date('m/d/Y', strtotime($rows->created_on)); ?></td>
+                                    <td class="actions">
+                                    <!-- <a href="javascript:void(0)" class="btn btn-default" onclick="editFn('index.php/userSettings/open_consult/edit?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-pencil"></i></a> -->
+                                                    <a href="<?php echo base_url() . 'userSettings/consultEdit?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-pencil"></i></a>
+                                                                        
+                                    <!-- <a href="<?php echo base_url() . 'index.php/userSettings/open_consult/existing_list/' . $rows->pid; ?>" target='_blank' data-toggle="tooltip" class="btn btn-default">View History</a> -->
+                                    <a href="javascript:void(0)" onclick="deleteConsult('<?php echo $rows->id; ?>')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+
+                                </td>
+                            </tr>
+                    <?php
+                        endforeach;
+                    }
+                    ?>
+
+                </tbody>
+            </table>
+            </div>
+        </div>
+
+        <?php }}}} if( $this->ion_auth->is_facilityManager()){?>
+
+            <div class="block-title">
             <?php if ($this->ion_auth->is_subAdmin()) { ?>
                 <h2>
                     <a href="<?php echo base_url().'index.php/' . $this->router->fetch_class(); ?>/open_consult" class="save-btn btn btn-sm btn-primary">
@@ -70,6 +225,8 @@
         <div class="block-title">
             <h2><strong><?php echo 'Consultation templates';?></strong> Panel</h2>
         </div>
+
+
         <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('index.php/' .$formUrl) ?>" enctype="multipart/form-data">
             <!-- <div class="modal-header text-center">
                 <h2 class="modal-title"><i class="fa fa-pencil"></i> <?php echo (isset($title)) ? ucwords($title) : "" ?></h2>
@@ -119,7 +276,7 @@
 
     
 
-    <div class="table-responsive">
+        <div class="table-responsive">
             <table id="common_datatable_users" class="table table-vcenter table-condensed table-bordered">
                 <thead>
                     <tr>
@@ -192,6 +349,9 @@
             </table>
             </div>
         </div>
+
+            <?php }?>
+
     <!-- END Datatables Content -->
 </div>
 <!-- END Page Content -->

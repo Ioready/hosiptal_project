@@ -135,6 +135,48 @@
 
     <!-- Datatables Content -->
     <div class="block full">
+    <div class="block-title" >
+            <!-- <h2 class="fw-bold text-dark">Users Panel</h2> -->
+            <ul class="nav nav-tabs" id="userRoleTab" role="tablist">
+            <?php 
+                $all_permission = $this->ion_auth->is_permission();
+                if (!empty($all_permission['form_permission'])) {
+                foreach($all_permission['form_permission'] as $permission){
+                   
+                    $menu_view =$permission->menu_view;
+                    $menu_create= $permission->menu_create;
+                    $menu_update= $permission->menu_update;
+                    $menu_delete =$permission->menu_delete;
+                    $menu_name =$permission->menu_name;
+                    // echo $menu_name;
+                    // if ($menu_name == 'Contacts') { 
+                    //    if ($menu_view =='1') {
+            ?>
+                <?php if ($menu_name == 'Users') { 
+                       if ($menu_view =='1') {?>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link active" id="user-tab" data-bs-toggle="tab" href="#user" role="tab" aria-controls="user"
+                        aria-selected="true">User</a>
+                </li>
+                <?php } } if ($menu_name == 'Role & Permission Management') { 
+                       if ($menu_view =='1') {?>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="role-tab" data-bs-toggle="tab" href="#role" role="tab" aria-controls="role"
+                        aria-selected="false">Role & Permission</a>
+                </li>
+                <?php }} if ($menu_name == 'Module Permission') { 
+                       if ($menu_view =='1') {?>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="role-tab" data-bs-toggle="tab" href="#module" role="tab" aria-controls="role"
+                        aria-selected="false">Module Permission</a>
+                </li>
+                <?php }} }}?>
+            </ul>
+        </div>
+
+    <?php if($this->ion_auth->is_facilityManager()){?>
+
+
         <div class="block-title" >
             <!-- <h2 class="fw-bold text-dark">Users Panel</h2> -->
             <ul class="nav nav-tabs" id="userRoleTab" role="tablist">
@@ -152,12 +194,13 @@
                         aria-selected="false">Module Permission</a>
                 </li>
             </ul>
-    </div>
-       
-
-        <div class="table-responsive" >
+        </div>
 
 
+        <?php } ?>
+
+
+    <div class="table-responsive" >
         <div class="tab-content" id="userRoleTabContent">
 
         <!-- User Tab -->
@@ -369,9 +412,8 @@
             
         </div>
 
-                <div class="row">
-
-                    
+            <div class="row">
+   
                 <?php foreach($module_list as $rows) { ?>
                     <div class="col-md-4">
                         <div class="card">
@@ -391,12 +433,6 @@
                                     </thead>
                                     <tbody>
 
-
-                                    <!-- <input type="checkbox" name="view_all_<?php echo $rows->menu_id; ?>">
-<input type="checkbox" name="view_<?php echo $rows->menu_id; ?>">
-<input type="checkbox" name="create_<?php echo $rows->menu_id; ?>">
-<input type="checkbox" name="delete_<?php echo $rows->menu_id; ?>">
-<input type="checkbox" name="update_<?php echo $rows->menu_id; ?>"> -->
 
                                         <tr>
                                             <td>View All Records</td>
@@ -433,7 +469,7 @@
                 
             </div>
 
-            </form>
+        </form>
 
 
             
@@ -677,6 +713,7 @@
             </div>
         </div>
         </div>
+        
     </div>
     <!-- END Datatables Content -->
 </div>

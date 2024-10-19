@@ -11,7 +11,7 @@
     </ul>
    
     <!-- END Quick Stats -->
-    <?php if ($this->ion_auth->is_admin() or $this->ion_auth->is_subAdmin() or $this->ion_auth->is_facilityManager()) { ?>
+    <?php if ($this->ion_auth->is_admin() or $this->ion_auth->is_subAdmin() or $this->ion_auth->is_facilityManager() or $this->ion_auth->is_all_roleslogin()) { ?>
         <div class="block full">
             <div class="row text-center">
             

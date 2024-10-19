@@ -20,7 +20,7 @@
     
     <div class="block_list full">
 
-    <?php if ($this->ion_auth->is_admin() or $this->ion_auth->is_subAdmin() or $this->ion_auth->is_facilityManager()) { ?>
+    <?php if ($this->ion_auth->is_admin() or $this->ion_auth->is_subAdmin() or $this->ion_auth->is_facilityManager() or $this->ion_auth->is_all_roleslogin()) { ?>
         <div class="block full">
             <div class="row text-center">
             
@@ -58,51 +58,113 @@
     <!-- Datatables Content -->
     <!-- Datatables Content -->
 
-    <div class="block full">
-          <div class="block-title">
-            <?php if ($this->ion_auth->is_subAdmin()) { ?>
-                <h2>
-                    <a href="<?php echo base_url().'index.php/' . $this->router->fetch_class(); ?>/open_model" class="btn btn-sm btn-primary"  style="background:#337ab7;">
-                        <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
-                    </a></h2>
-            <?php }else if($this->ion_auth->is_facilityManager()){ ?>
-                    <h2>
-                    <a href="<?php echo base_url() . $this->router->fetch_class(); ?>/open_model" class="btn btn-sm btn-primary"  style="background:#337ab7;">
-                        <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
-                    </a></h2>
-         <?php } ?> 
-    </div>
+        <div class="block full">
+            <?php 
+                $all_permission = $this->ion_auth->is_permission();
+                if (!empty($all_permission['form_permission'])) {
+                foreach($all_permission['form_permission'] as $permission){
+                   
+                    $menu_view =$permission->menu_view;
+                    $menu_create= $permission->menu_create;
+                    $menu_update= $permission->menu_update;
+                    $menu_delete =$permission->menu_delete;
+                    $menu_name =$permission->menu_name;
+                    // echo $menu_name;
+                    if ($menu_name == 'Patient Documents') { 
+                 if ($menu_create =='1') { ?>
+
+            <div class="block-title">
+                    <!-- <?php //if ($this->ion_auth->is_subAdmin()) { ?>
+                        <h2>
+                            <a href="<?php //echo base_url().'index.php/' . $this->router->fetch_class(); ?>/open_model" class="btn btn-sm btn-primary"  style="background:#337ab7;">
+                                <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
+                            </a></h2>
+                    <?php //}else if($this->ion_auth->is_facilityManager()){ ?> -->
+                            <h2>
+                            <a href="<?php echo base_url() . $this->router->fetch_class(); ?>/open_model" class="btn btn-sm btn-primary"  style="background:#337ab7;">
+                                <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
+                            </a></h2>
+                    <!-- <?php //} ?>  -->
+            </div>
 
 
      
-                        <div class="row text-center">
-                            
-                            <div class="col-sm-6 col-lg-3">
-                                <a href="<?php echo base_url()."userSettings/index/Yes";?>" class="widget widget-hover-effect2">
-                                    <div class="widget-extra themed-background-dark"  style="background:#337ab7;">
-                                        <h4 class="widget-content-light"><strong> Activated </strong> Users</h4>
-                                    </div>
-                                    <div class="widget-extra-full"><span class="h2 themed-color-dark animation-expandOpen fw-bold"><?php echo $active;?></span></div>
-                                </a>
-                            </div>
-                            <div class="col-sm-6 col-lg-3">
-                                <a href="<?php echo base_url()."userSettings/index/No";?>" class="widget widget-hover-effect2">
-                                    <div class="widget-extra themed-background"  style="background:#337ab7;">
-                                        <h4 class="widget-content-light"><strong> Inactivate </strong> Users</h4>
-                                    </div>
-                                    <div class="widget-extra-full"><span class="h2 themed-color-dark animation-expandOpen fw-bold"><?php echo $inactive;?></span></div>
-                                </a>
-                            </div>
-                            
-                            <div class="col-sm-6 col-lg-3">
-                               
-                            </div>
-                            <div class="col-sm-6 col-lg-3">
-                                
-                            </div>
+            <div class="row text-center">
+                
+                <div class="col-sm-6 col-lg-3">
+                    <a href="<?php echo base_url()."userSettings/index/Yes";?>" class="widget widget-hover-effect2">
+                        <div class="widget-extra themed-background-dark"  style="background:#337ab7;">
+                            <h4 class="widget-content-light"><strong> Activated </strong> Users</h4>
                         </div>
-                        
+                        <div class="widget-extra-full"><span class="h2 themed-color-dark animation-expandOpen fw-bold"><?php echo $active;?></span></div>
+                    </a>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <a href="<?php echo base_url()."userSettings/index/No";?>" class="widget widget-hover-effect2">
+                        <div class="widget-extra themed-background"  style="background:#337ab7;">
+                            <h4 class="widget-content-light"><strong> Inactivate </strong> Users</h4>
                         </div>
+                        <div class="widget-extra-full"><span class="h2 themed-color-dark animation-expandOpen fw-bold"><?php echo $inactive;?></span></div>
+                    </a>
+                </div>
+                
+                <div class="col-sm-6 col-lg-3">
+                    
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    
+                </div>
+            </div>  
+
+            <?php }}} } if($this->ion_auth->is_facilityManager()){ ?>
+
+                <div class="block-title">
+                    <?php if ($this->ion_auth->is_subAdmin()) { ?>
+                        <h2>
+                            <a href="<?php echo base_url().'index.php/' . $this->router->fetch_class(); ?>/open_model" class="btn btn-sm btn-primary"  style="background:#337ab7;">
+                                <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
+                            </a></h2>
+                    <?php }else if($this->ion_auth->is_facilityManager()){ ?>
+                            <h2>
+                            <a href="<?php echo base_url() . $this->router->fetch_class(); ?>/open_model" class="btn btn-sm btn-primary"  style="background:#337ab7;">
+                                <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
+                            </a></h2>
+                    <?php } ?> 
+            </div>
+
+
+     
+            <div class="row text-center">
+                
+                <div class="col-sm-6 col-lg-3">
+                    <a href="<?php echo base_url()."userSettings/index/Yes";?>" class="widget widget-hover-effect2">
+                        <div class="widget-extra themed-background-dark"  style="background:#337ab7;">
+                            <h4 class="widget-content-light"><strong> Activated </strong> Users</h4>
+                        </div>
+                        <div class="widget-extra-full"><span class="h2 themed-color-dark animation-expandOpen fw-bold"><?php echo $active;?></span></div>
+                    </a>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <a href="<?php echo base_url()."userSettings/index/No";?>" class="widget widget-hover-effect2">
+                        <div class="widget-extra themed-background"  style="background:#337ab7;">
+                            <h4 class="widget-content-light"><strong> Inactivate </strong> Users</h4>
+                        </div>
+                        <div class="widget-extra-full"><span class="h2 themed-color-dark animation-expandOpen fw-bold"><?php echo $inactive;?></span></div>
+                    </a>
+                </div>
+                
+                <div class="col-sm-6 col-lg-3">
+                    
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    
+                </div>
+            </div>  
+
+
+                <?php } ?>
+                
+        </div>
 
     <!-- Datatables Content -->
     <div class="block full">

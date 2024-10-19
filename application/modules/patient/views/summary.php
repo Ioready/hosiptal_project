@@ -307,9 +307,23 @@
 
     <section style="background-color: #eee;">
 
-   
+    <?php 
+                $all_permission = $this->ion_auth->is_permission();
+                if (!empty($all_permission['form_permission'])) {
+                foreach($all_permission['form_permission'] as $permission){
+                   
+                    $menu_view =$permission->menu_view;
+                    $menu_create= $permission->menu_create;
+                    $menu_update= $permission->menu_update;
+                    $menu_delete =$permission->menu_delete;
+                    $menu_name =$permission->menu_name;
+                    // echo $menu_name;
+                    if ($menu_name == 'Summary') { 
+                     ?>
+
 
 <div class="row mt-4">
+
     <div class="col-md-12">
         <div class="">
             <div class="card-body p-4" style="background-color:#FFFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);border-radius:20px">
@@ -539,6 +553,242 @@
     </div>
 </div>
 
+
+<?php }}} if($this->ion_auth->is_facilityManager()){?>
+
+    <div class="row mt-4">
+
+    <div class="col-md-12">
+        <div class="">
+            <div class="card-body p-4" style="background-color:#FFFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);border-radius:20px">
+                <div class="row">
+                    <div class="col-md-11">
+                        <h4 class="no-margins fw-bold"><?php echo $results->patient_name; ?></h4>
+                        <h6 class="text-dark fw-bold"><?php 
+                        $from = new DateTime($results->date_of_birth);
+                        $to   = new DateTime('today');
+                       
+                        echo $results->date_of_birth.'  |  '.$from->diff($to)->y.' Years  |  '.$results->gender;?></h6>
+                        <button type="button" class="btn btn-sm btn-primary save-btn btn-xs">Public</button>
+                        <h5 class="text-dark fw-bold"><i class="fa fa-home" > </i> <?php echo $results->address. ',  United Kingdom';?></h5>
+                        <h5 class="text-dark fw-bold"><i class="fa fa-phone" > </i> <?php echo $results->patient_phone_number. '('. $results->phone_code.')';?></h5>
+                    </div>
+                    <div class="col-md-1">
+                    <button class="Button Button--outline" onclick="printDiv()"><i class="fa fa-print" aria-hidden="true"></i></button>
+                    <a href="<?php echo base_url() . 'patient/edit?id=' . encoding($results->id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-pencil"></i></a>
+                        <!-- <img src="<?php echo base_url(); ?>uploads/user.png" style="height: 65px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);" alt=""> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
+<div class="row p-4 mt-4">
+    <div class="col-md-4 ">
+        <div class=" mb-3">
+            <div class="card-body p-4" style="background-color:#EDEAFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);border-radius:20px">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h4 class="no-margins fw-bold"><strong>Problem</strong></h4> 
+                        <p class="text-dark fw-bold"><?php echo $results->initial_dx_name; ?></p>
+                    </div>
+                    <div class="col-md-4">
+                        <img src="<?php echo base_url(); ?>uploads/doctor.png" style="height: 65px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class=" mb-3">
+            <div class="card-body p-4" style="background-color:#DAEBFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5); border-radius:20px">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h4 class="no-margins fw-bold">Medical History</h4>
+                        <p class="text-dark fw-bold"><strong>  <?php echo $results->initial_rx_name; ?></strong></p>
+                    </div>
+                    <div class="col-md-4">
+                        <img src="<?php echo base_url(); ?>uploads/planning.png" style="height:65px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class=" mb-3">
+            <div class="card-body p-4" style="background-color:#FFE0B7; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);border-radius:20px;">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h4 class="no-margins fw-bold">Medication</h4>
+                        <p class="text-dark fw-bold"><strong>   <?php echo $results->organism_name; ?></strong></p>
+                    </div>
+                    <div class="col-md-4">
+                        <img src="<?php echo base_url(); ?>uploads/medicine.png" style="height:65px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- <div class="row p-4 mt-4">
+    
+</div> -->
+
+<div class="row p-4 mt-4">
+    <div class="col-md-4 ">
+        <div class=" mb-3">
+            <div class="card-body p-4" style="background-color:#EDEAFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);border-radius:20px">
+                <div class="row">
+                <div class="col-md-8">
+                <h4 class="no-margins fw-bold"><strong>Appointment</strong></h4> 
+            </div>
+            <div class="col-md-4">
+                        <img src="<?php echo base_url(); ?>uploads/appointment.svg" style="height: 65px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);" alt="">
+                    </div>
+
+    </div>
+    <div class="row">
+
+                    <div class="col-md-12">
+                        
+                        <?php $rowCount = 0;
+                         foreach($results_rowAppointment as $appointment){ 
+                            $rowCount++;
+                            // print_r($appointment);die;
+                            ?>
+                        <div class="row" style="border-bottom: 1px solid gray;">
+                        <div class="text-dark fw-bold">
+                            <?php echo $rowCount. '  '.$appointment->type; ?>
+                            
+                         </div>
+                         <div class="text-dark appointment-status">
+                            <?php 
+                            if($appointment->appointment_status == 'Active'):
+                            
+                            ?>
+                                <span class="custom-badge status-green"><?php echo $appointment->appointment_status; ?></span> 
+                                
+                            <?php else: ?>
+                                <span class="custom-badge status-red"><?php echo $appointment->appointment_status; ?></span> 
+                
+                             <?php endif; 
+                            ?>
+                            
+                         </div>
+
+                            <div class="text-dark fw-bold modal-appointment">
+                            <?php echo $appointment->start_date_appointment; ?>
+                            
+                         </div>
+                        </div>
+                           
+                          <?php  } 
+                            ?>
+                       
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 ">
+        <div class=" mb-3">
+            <div class="card-body p-4" style="background-color:#EDEAFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);border-radius:20px">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h4 class="no-margins fw-bold"><strong>Task</strong></h4> 
+                        <!-- <p class="text-dark fw-bold"><?php echo $results->initial_dx_name; ?></p> -->
+                    </div>
+                    <div class="col-md-4">
+                        <img src="<?php echo base_url(); ?>uploads/tasks.svg" style="height: 65px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);" alt="">
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-12">
+                        
+                        <?php $rowCount = 0;
+                         foreach($results_task as $task){ 
+                            $rowCount++;
+                            ?>
+                        <div class="row" style="border-bottom: 1px solid gray;">
+                        <div class="text-dark fw-bold">
+                            <?php echo $rowCount. '  '.$task->task_name; ?>
+                            
+                         </div>
+
+                         <div class="text-dark appointment-status">
+                            <?php 
+                            if($task->status == 'Done'):
+                            
+                            ?>
+                                <span class="custom-badge status-green"><?php echo $task->status; ?></span> 
+                                
+                            <?php else: ?>
+                                <span class="custom-badge status-red"><?php echo $task->status; ?></span> 
+                
+                             <?php endif; 
+                            ?>
+                            
+                         </div>
+                         
+                         <div class="text-dark appointment-status">Doctor Name:  
+                            <?php echo $task->doctor_name; ?>
+                            
+                         </div>
+                         
+                            <div class="text-dark fw-bold modal-appointment">Priority:
+                            <?php echo $task->priority; ?>
+                            
+                         </div>
+                         <div class="text-dark fw-bold modal-appointment">Due date:
+                            <?php echo $task->due_date; ?>
+                            
+                         </div>
+                         
+
+                        </div>
+                            <!-- <p class="text-dark fw-bold"><?php echo $appointment->end_date_appointment; ?></p> -->
+
+                          <?php  } 
+                            ?>
+                        <!-- <p class="text-dark fw-bold"><?php echo $results->initial_dx_name; ?></p> -->
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-4 ">
+        <div class=" mb-3">
+            <div class="card-body p-4" style="background-color:#EDEAFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);border-radius:20px">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h4 class="no-margins fw-bold"><strong>Product</strong></h4> 
+                        <!-- <p class="text-dark fw-bold"><?php echo $results->initial_dx_name; ?></p> -->
+                    </div>
+                    <div class="col-md-4">
+                        <img src="<?php echo base_url(); ?>uploads/products.svg" style="height: 65px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <?php }?>
 <iframe name="print_frame" width="0" height="0" frameborder="0" src="about:blank"></iframe>
 </section>
 

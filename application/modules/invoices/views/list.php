@@ -86,7 +86,7 @@
 
     </div> -->
     <!-- END Quick Stats -->
-    <?php if ($this->ion_auth->is_admin() or $this->ion_auth->is_subAdmin() or $this->ion_auth->is_facilityManager()) { ?>
+    <?php if ($this->ion_auth->is_admin() or $this->ion_auth->is_subAdmin() or $this->ion_auth->is_facilityManager() or $this->ion_auth->is_all_roleslogin()) { ?>
        
 
           <div class="block full">
@@ -319,7 +319,10 @@
     <?php } ?>
     
     <div class="block full">
-        <?php if($this->ion_auth->is_admin() or $this->ion_auth->is_subAdmin() or $this->ion_auth->is_facilityManager()){?>
+
+
+
+        <?php if($this->ion_auth->is_admin() or $this->ion_auth->is_subAdmin() or $this->ion_auth->is_facilityManager() or $this->ion_auth->is_all_roleslogin()){?>
                 <h2>
                     
                     <a href="<?php echo base_url() . $this->router->fetch_class(); ?>/open_model" class="btn btn-sm btn-primary mt-2" style="background:#337ab7;">
@@ -488,6 +491,7 @@
                 </tbody>
             </table>
         </div>
+        
     </div>
     <!-- END Datatables Content -->
 </div>

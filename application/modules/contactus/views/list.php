@@ -5,9 +5,28 @@
         <li>
             <a href="<?php echo site_url('pwfpanel'); ?>">Home</a>
         </li>
+        <?php 
+                $all_permission = $this->ion_auth->is_permission();
+                if (!empty($all_permission['form_permission'])) {
+                foreach($all_permission['form_permission'] as $permission){
+                   
+                    $menu_view =$permission->menu_view;
+                    $menu_create= $permission->menu_create;
+                    $menu_update= $permission->menu_update;
+                    $menu_delete =$permission->menu_delete;
+                    $menu_name =$permission->menu_name;
+                    // echo $menu_name;
+                    if ($menu_name == 'Communication') { 
+                       if ($menu_create =='1') {
+            ?>
         <li>
             <a href="<?php echo site_url($model); ?>"><?php echo $title; ?></a>
         </li>
+        <?php }}}} if($this->ion_auth->is_facilityManager()){?>
+            <li>
+            <a href="<?php echo site_url($model); ?>"><?php echo $title; ?></a>
+        </li>
+        <?php } ?>
     </ul>
     <!-- END Datatables Header -->
 
@@ -16,7 +35,8 @@
 
     </div>
     <!-- END Quick Stats -->
-    <?php if ($this->ion_auth->is_admin() or $this->ion_auth->is_subAdmin() or $this->ion_auth->is_facilityManager()) { ?>
+    <?php if ($this->ion_auth->is_admin() or $this->ion_auth->is_subAdmin() or $this->ion_auth->is_facilityManager() or $this->ion_auth->is_all_roleslogin()) { ?>
+        
         <div class="block full">
             <div class="row text-center">
             
@@ -26,18 +46,19 @@
                 
                 </div>
               
-                <div class="col-sm-6 col-lg-12">
-    <div class="panel panel-default">
-    <ul class="nav nav-pills nav-fill nav-tabss mt-4" id="pills-tab" role="tablist" >
-                                            <li class="nav-item">
-                                            <a href="<?php echo site_url('contactus'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "contactus") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">Practice Contacts</span></a>
-                                                <!-- <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-1" role="tab">Practice Contacts</a> -->
-                                            </li>
-                                            <li class="nav-item">
-                                            <a href="<?php echo site_url('contactus/directory'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "directory") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">Directory</span></a>
-                                                <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-2" role="tab"></a>
-                                            </li>
-                                        </ul>
+        <div class="col-sm-6 col-lg-12">
+            <div class="panel panel-default">
+                <ul class="nav nav-pills nav-fill nav-tabss mt-4" id="pills-tab" role="tablist" >
+                    <li class="nav-item">
+                    <a href="<?php echo site_url('contactus'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "contactus") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">Practice Contacts</span></a>
+                        <!-- <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-1" role="tab">Practice Contacts</a> -->
+                    </li>
+                    <li class="nav-item">
+                    <a href="<?php echo site_url('contactus/directory'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "directory") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">Directory</span></a>
+                        <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-2" role="tab"></a>
+                    </li>
+                </ul>
+
         <div class="panel-body">
             <div class="tab-pane-second" role="tabpanel" aria-labelledby="pills-home-tab">
              <ul class="nav nav-pills-second nav-fill nav-tab-appointment active" id="pills-tab" role="tablist">
@@ -74,7 +95,7 @@
     <div class="block full">
         <!-- <div class="block-title">
             <h2><strong><?php echo $title; ?></strong> Panel</h2>
-            <?php if ($this->ion_auth->is_facilityManager()) { ?>
+            <?php if ($this->ion_auth->is_facilityManager() or $this->ion_auth->is_all_roleslogin()) { ?>
                 <h2>
                     
                     <a href="<?php echo base_url() . $this->router->fetch_class(); ?>/open_model" class="btn btn-sm btn-primary">
@@ -91,7 +112,24 @@
 
                 <?php } ?>
         </div> -->
+
+        
         <?php   $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : ''; ?>
+
+        <?php 
+                $all_permission = $this->ion_auth->is_permission();
+                if (!empty($all_permission['form_permission'])) {
+                foreach($all_permission['form_permission'] as $permission){
+                   
+                    $menu_view =$permission->menu_view;
+                    $menu_create= $permission->menu_create;
+                    $menu_update= $permission->menu_update;
+                    $menu_delete =$permission->menu_delete;
+                    $menu_name =$permission->menu_name;
+                    // echo $menu_name;
+                    if ($menu_name == 'Contacts') { 
+                       if ($menu_view =='1') {
+            ?>
 
         <div class="table-responsive">
             <table id="common_datatable_users" class="table table-vcenter table-condensed table-bordered">
@@ -103,7 +141,7 @@
                         <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 150px;"><?php echo "Facility Manager Name"; ?></th>
                         <?php } ?>
 
-                        <?php if($this->ion_auth->is_subAdmin()){ ?>
+                        <?php if($this->ion_auth->is_subAdmin() or $this->ion_auth->is_all_roleslogin()){ ?>
                         <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 150px;"><?php echo "Full Name"; ?></th>
                         <?php } ?>
 
@@ -126,7 +164,137 @@
                         <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 200px;"><?php echo "System"; ?></th>
                         <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 200px;"><?php echo "Health Code"; ?></th>
                         
-                        <?php if($this->ion_auth->is_facilityManager()){?>
+                        <?php if($this->ion_auth->is_facilityManager() or $this->ion_auth->is_all_roleslogin()){?>
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width:60px;">Created Date</th>
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width:60px;"><?php echo lang('action'); ?></th>
+                        <?php }else if($this->ion_auth->is_admin()){ ?>
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width:60px;">Query Date</th>
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width:60px;"><?php echo lang('action'); ?></th>
+                        <?php } ?>
+                        <?php if($this->ion_auth->is_facilityManager() or $this->ion_auth->is_all_roleslogin()){?>
+                            <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width:60px;">Created Date</th>
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width:70px;"><?php echo lang('action'); ?></th>
+                        <?php } ?>
+
+                        <?php if($this->ion_auth->is_subAdmin() or $this->ion_auth->is_all_roleslogin()){?>
+                            <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width:60px;">Created Date</th>
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width:60px;"><?php echo lang('action'); ?></th>
+                        <?php } ?>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php 
+                    $rowCount = 0;
+                    foreach ($list as $rows){
+                        $rowCount++;
+                        ?>
+                        
+                        <tr>
+                        
+                            <td class="text-center "><strong><?php echo $rowCount; ?></strong></td>  
+
+                            <?php if($this->ion_auth->is_admin()){ ?>
+
+                            <td class=""><?php echo $rows->first_name . ' ' . $rows->last_name; ?></td>
+
+                            <?php } ?>
+                            
+                            <?php if($this->ion_auth->is_subAdmin() or $this->ion_auth->is_all_roleslogin()){ ?>
+                            <td class=""><?php echo $rows->first_name . ' ' . $rows->last_name; ?></td>
+                            <?php } ?>
+
+                            <td><?php echo $rows->title ?></td>
+                            <td><?php echo $rows->company ?></td>
+                            <td><?php echo $rows->contacts_clinician ?></td>
+                            <td><?php echo $rows->comment ?></td>
+                            <td><?php echo $rows->phone_type ?></td>
+                            <td><?php echo $rows->phone_number ?></td>
+                            <td><?php echo $rows->user_email ?></td>
+                            <td><?php echo $rows->address_lookup ?></td>
+                            <td><?php echo $rows->streem_address ?></td>
+                            <td><?php echo $rows->city ?></td>
+                            <td><?php echo $rows->post_code ?></td>
+                            <td><?php echo $rows->country ?></td>
+                            <td><?php echo $rows->billing_detail ?></td>
+                            <td><?php echo $rows->payment_reference ?></td>
+                            <td><?php echo $rows->System ?></td>
+                            <td><?php echo $rows->healthcode ?></td>
+                           
+                            <td class="text-center"><?php echo date('m/d/Y', $rows->create_at); ?></td>
+                            <?php if ($this->ion_auth->is_facilityManager() || $this->ion_auth->is_subAdmin() || $this->ion_auth->is_all_roleslogin()) { ?>
+
+                            <td class="actions text-center" >
+                                <div class="btn-group btn-group-xs">
+                                    <a href="<?php echo base_url() . 'contactus/edit?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-pencil"></i></a>
+                                    
+                                        <?php
+                                        if ($rows->id != '') {
+                                            if ($rows->is_active == 1) {
+                                                ?>
+                                                                            <!--                                                    <a href="javascript:void(0)" data-toggle="tooltip" class="btn btn-xs btn-success" onclick="statusFn('<?php echo USERS; ?>', 'id', '<?php echo encoding($rows->id); ?>', '<?php echo $rows->is_active; ?>')" title="Inactive Now"><i class="fa fa-check"></i></a>-->
+                                            <?php } else { ?>
+                                                                            <!--                                                    <a href="javascript:void(0)" data-toggle="tooltip" class="btn btn-xs btn-danger" onclick="statusFn('<?php echo USERS; ?>', 'id', '<?php echo encoding($rows->id); ?>', '<?php echo $rows->is_active; ?>')" title="Active Now"><i class="fa fa-times"></i></a>-->
+                                                <?php
+                                            }
+                                            if ($rows->is_active == 1) {
+                                                ?>
+                                                <a href="javascript:void(0)" data-toggle="tooltip" class="btn btn-xs btn-success" onclick="changeVendorStatus('<?php echo encoding($rows->id); ?>', 'No','<?php echo $rows->first_name . ' ' . $rows->last_name; ?>')" title="Inactive Now"><i class="fa fa-check"></i> Active</a>
+                                            <?php } else { ?>
+                                             <a href="javascript:void(0)" data-toggle="tooltip" class="btn btn-xs btn-danger" onclick="changeVendorStatus('<?php echo encoding($rows->id); ?>', 'Yes','<?php echo $rows->first_name . ' ' . $rows->last_name; ?>')" title="Active Now"><i class="fa fa-times"></i> Inactive</a>
+                                            <?php } ?>
+                                            <a href="javascript:void(0)" style="margin-left: 10px;" data-toggle="tooltip"  class="btn btn-danger" onclick="deleteFn('<?php echo $table; ?>', 'id', '<?php echo encoding($rows->id); ?>', 'contactus', 'contactus/delVendors','<?php echo 'this entry' ?>')"><i class="fa fa-trash"></i></a>
+                                       
+                                       <?php }
+                                        ?>
+                                        <a href="<?php echo base_url() . 'vendors/paymentList/' . $rows->id; ?>" class="btn btn-sm btn-primary">Client List</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <?php } ?>
+                            <?php
+                        // }
+                    };
+             
+                    ?>
+                </tbody>
+            </table>
+        </div>
+
+        <?php }}}} if($this->ion_auth->is_facilityManager()){?>
+            <div class="table-responsive">
+            <table id="common_datatable_users" class="table table-vcenter table-condensed table-bordered">
+                <thead>
+                    <tr>
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 40px;">Sr. No</th>
+                        <!--                                <th><?php echo "Referral Code"; ?></th>-->
+                        <?php if($this->ion_auth->is_admin()){ ?>
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 150px;"><?php echo "Facility Manager Name"; ?></th>
+                        <?php } ?>
+
+                        <?php if($this->ion_auth->is_subAdmin() or $this->ion_auth->is_all_roleslogin()){ ?>
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 150px;"><?php echo "Full Name"; ?></th>
+                        <?php } ?>
+
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 200px;"><?php echo "Title"; ?></th>
+
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 200px;"><?php echo "Company"; ?></th>
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 200px;"><?php echo "Clinician"; ?></th>
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 200px;"><?php echo "Comment"; ?></th>
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 200px;"><?php echo "Phone Type"; ?></th>
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 200px;"><?php echo "Phone Number"; ?></th>
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 200px;"><?php echo "Email"; ?></th>
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 200px;"><?php echo "Address Lookup"; ?></th>
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 200px;"><?php echo "Streem Address"; ?></th>
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 200px;"><?php echo "City"; ?></th>
+
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 200px;"><?php echo "Post Code"; ?></th>
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 200px;"><?php echo "Country"; ?></th>
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 200px;"><?php echo "Billing Detail"; ?></th>
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 200px;"><?php echo "Payment Reference"; ?></th>
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 200px;"><?php echo "System"; ?></th>
+                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 200px;"><?php echo "Health Code"; ?></th>
+                        
+                        <?php if($this->ion_auth->is_facilityManager() or $this->ion_auth->is_all_roleslogin()){?>
                         <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width:60px;">Created Date</th>
                         <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width:60px;"><?php echo lang('action'); ?></th>
                         <?php }else if($this->ion_auth->is_admin()){ ?>
@@ -169,7 +337,7 @@
                                         <a href="<?php echo base_url() . 'contactus/edit?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-pencil"></i></a>
                                         
                                             
-                        <!-- <a href="<?php echo base_url() . 'vendors/paymentList/' . $rows->id; ?>" class="btn btn-sm btn-primary">Client List</a> -->
+                                         <!-- <a href="<?php echo base_url() . 'vendors/paymentList/' . $rows->id; ?>" class="btn btn-sm btn-primary">Client List</a> -->
                                         </div>
                                     </td>
                                 </tr>
@@ -240,7 +408,7 @@
                                        
                                        <?php }
                                         ?>
-                    <a href="<?php echo base_url() . 'vendors/paymentList/' . $rows->id; ?>" class="btn btn-sm btn-primary">Client List</a>
+                                        <a href="<?php echo base_url() . 'vendors/paymentList/' . $rows->id; ?>" class="btn btn-sm btn-primary">Client List</a>
                                     </div>
                                 </td>
                             </tr>
@@ -252,6 +420,8 @@
                 </tbody>
             </table>
         </div>
+            <?php }?>
+
     </div>
     <!-- END Datatables Content -->
 </div>

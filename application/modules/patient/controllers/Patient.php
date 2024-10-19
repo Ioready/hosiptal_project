@@ -270,8 +270,6 @@ class Patient extends Common_Controller
                 if (!empty($results_row)) {
 
                     $results_row->md_steward_response = clone $results_row;
-
-
                     $filteredData = $this->applyAlgo($results_row);
                     // echo"<pre>"; 
                     // print_r($filteredData); die;

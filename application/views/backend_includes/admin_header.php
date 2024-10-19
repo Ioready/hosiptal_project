@@ -877,7 +877,7 @@ hh
                                             
                                                 $optionRole = array(
                                                     'table' => ROLE_PERMISSION . ' as roles_permission', // Correct spacing before alias
-                                                    'select' => 'roles_permission.*, menu.menu_name, menu.menu_icons,menu.menu_path',    // Ensure column selection is correct
+                                                    'select' => 'roles_permission.*, menu.menu_name,menu.menu_parent, menu.menu_icons,menu.menu_path',    // Ensure column selection is correct
                                                     'join' => array(
                                                         array(SIDE_MENU . ' as menu', 'menu.menu_id = roles_permission.menu_id', 'left') // Correct join syntax with proper spacing
                                                     ),
@@ -885,17 +885,25 @@ hh
                                                 );
                                                 
                                             $module_permission = $this->common_model->customGet($optionRole);
-                                            // print_r($module_permission);die;
                                             
-                                            foreach ($module_permission as $item) { ?>
+                                            foreach ($module_permission as $item) { 
+
+                                                if(empty($item->menu_parent)){ ?>
+
                                             <li>
-                                               
-                                                    <a href="<?php echo site_url($item->menu_path) ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == $item->menu_path) ? "active" : "" ?>">
-                                                    
-                                                    <img src="<?php echo base_url(); ?><?php echo $item->menu_icons; ?>" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark"><?php echo $item->menu_name; ?></span></a>
+                                                <?php //echo $item->menu_parent;?>
+                                                <a href="<?php echo site_url($item->menu_path) ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == $item->menu_path) ? "active" : "" ?>">
+                                                
+                                                <img src="<?php echo base_url(); ?><?php echo $item->menu_icons; ?>" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark"><?php echo $item->menu_name; ?></span></a>
                                                 </a>
                                             </li>
+
+                                            <?php  } ?>
+                                            
+                                           
                                         <?php } ?>
+
+
                                     <?php }?>
                         </ul>
                         <!-- END Sidebar Navigation -->

@@ -319,7 +319,89 @@
     </div> 
 </div>
 
-<div class="row mt-4">
+            <?php 
+                $all_permission = $this->ion_auth->is_permission();
+                if (!empty($all_permission['form_permission'])) {
+                foreach($all_permission['form_permission'] as $permission){
+                   
+                    $menu_view =$permission->menu_view;
+                    $menu_create= $permission->menu_create;
+                    $menu_update= $permission->menu_update;
+                    $menu_delete =$permission->menu_delete;
+                    $menu_name =$permission->menu_name;
+                    // echo $menu_name;
+                    if ($menu_name == 'Patient Documents') { 
+                 if ($menu_create =='1') { ?>
+
+                <div class="row mt-4">
+                    <div class="col-md-12">
+                        <div class="">
+                            <div class="card-body p-4" style="background-color:#FFFF; border-radius:6px">
+                                <div class="row">
+                            
+                                <input type="hidden" name="patient_id" id="patient_id" value="<?php echo $patient_id;?>">
+
+                                <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle save-btn btn-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:white;">
+                                    New
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a href="javascript:void(0)"  onclick="open_modal('<?php echo $model; ?>')" class="dropdown-item" id="patient_ids">
+                            <b> New Folder </b>
+                                    </a>
+                                    <a href="javascript:void(0)"  onclick="open_modal_documents('<?php echo $model; ?>')" class="dropdown-item" id="patient_ids">
+                            <b> Upload File</b></a>
+                                </div>
+                                </div>
+
+                            
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            <?php } if($menu_view =='1'){?>
+
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div class="">
+                    <div class="card-body p-4" style="background-color:#FFFF; border-radius:6px">
+                        <div class="row">
+                    
+                                <?php foreach($list as $folder){ ?>
+                                <div class="col-sm-8 col-md-10">
+                                <input type="hidden" name="folder_id" id="folder_id" value="<?php echo $folder->id;?>">
+
+                                <?php if(!empty($results_files)){?>
+                                <a href="javascript:void(0)"  onclick="open_modal_documents_gallery('<?php echo $modelFileGallery; ?>')" class="dropdown-item" id="patient_ids">
+                                <i class="fas fa-folder" styple=""></i> 
+                                <span class="folder-name"><Strong> <?php echo $folder->folder_name; ?></Strong></span> <br>
+                                <span>Created <Strong> <?php $createAt = date_format(date_create($folder->create_date), 'd/m/Y'); 
+                                echo $createAt; ?></Strong></span>
+                                </a>
+                                <?php }else{?>
+                                    <i class="fas fa-folder" styple=""></i> 
+                                <span class="folder-name"><Strong> <?php echo $folder->folder_name; ?></Strong></span> <br>
+                                <span>Created <Strong> <?php $createAt = date_format(date_create($folder->create_date), 'd/m/Y'); 
+                                echo $createAt; ?></Strong></span>
+                                    <?php }?>
+                                </div>
+
+                                <div class="col-sm-2 col-md-2">
+                            ....  
+                            <i class="fas fa-thin fa-star"></i>
+                                </div>
+                                <?php }?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<?php }}}} if($this->ion_auth->is_facilityManager()){?>
+
+    <div class="row mt-4">
     <div class="col-md-12">
   
 
@@ -386,7 +468,7 @@
         </div>
     </div>
 </div>
-
+    <?php }?>
 <br>
 <br>
 

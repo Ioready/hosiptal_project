@@ -522,6 +522,22 @@
         </div>
     </div> 
 </div>
+
+            <?php 
+                $all_permission = $this->ion_auth->is_permission();
+                if (!empty($all_permission['form_permission'])) {
+                foreach($all_permission['form_permission'] as $permission){
+                   
+                    $menu_view =$permission->menu_view;
+                    $menu_create= $permission->menu_create;
+                    $menu_update= $permission->menu_update;
+                    $menu_delete =$permission->menu_delete;
+                    $menu_name =$permission->menu_name;
+                    // echo $menu_name;
+                    if ($menu_name == 'Communication') { 
+                       if ($menu_create =='1') {
+            ?>
+
 <div class="row mt-4">
     <div class="col-md-12">
         <div class="">
@@ -542,8 +558,8 @@
         </div>
     </div> 
 </div>
-
-<div class="row mt-4">
+<?php } if($menu_view =='1'){?>
+<!-- <div class="row mt-4">
     <div class="col-md-12">
         <div class="">
             <div class="card-body p-4" style="background-color:#FFFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);border-radius:20px">
@@ -555,7 +571,7 @@
             </div>
         </div>
     </div> 
-</div>
+</div> -->
 
 <div class="row mt-4">
     <div class="col-md-12">
@@ -583,6 +599,70 @@
     </div> 
 </div>
 
+<?php }}}} if($this->ion_auth->is_facilityManager()){?>
+
+    <div class="row mt-4">
+    <div class="col-md-12">
+        <div class="">
+            <div class="card-body p-4" style="background-color:#FFFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);border-radius:20px">
+                <div class="row">
+                    <div class="col-md-10 mt-4">
+                    <!-- <button class="btn btn-success" style="background:#0e5670;" type="button">SMS</button>  -->
+                    <button type="button" class="btn btn-md btn-primary sendmail mt-2 fw-bold" style="background: #337ab7; float:left" data-toggle="modal" data-target="#SendSmsModal" data-whatever="@mdo" >SMS</button>
+                <!-- <button class="btn btn-default" type="button">Email</button> -->
+                <button type="button" class="btn btn-md btn-primary sendmail mt-2 fw-bold" style="background: #337ab7" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" >Email</button>
+                                        </div>
+                    <div class="col-md-2">
+                <button  type="button" class="btn btn-md fw-bold bg-white m-4" style=" border: 1px solid green;">All</button>
+                <button type="button" class="btn btn-md fw-bold " style="background:white; border: 1px solid green;"><i class="fa fa-calendar" ></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
+
+<!-- <div class="row mt-4">
+    <div class="col-md-12">
+        <div class="">
+            <div class="card-body p-4" style="background-color:#FFFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);border-radius:20px">
+                <div class="row">
+                    <div class="col-md-10 ">
+                <button class="btn btn-default fw-bold" type="button">Schedule</button>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div> -->
+
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="">
+            <div class="card-body p-4" style="background-color:#FFFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);border-radius:20px">
+            
+            <div class="row">
+                <h2 class="no-margins fw-bold m-4">Sent</h2>
+
+                <?php foreach($sms_results as $sms){?>
+                    <div class="col-md-10">                      
+                        <h5 class="text-dark fw-bold">Sms Message</h5>           
+        
+                        <span>Sent on <Strong> <?php $createAt = date_format(date_create($sms->birthdaytime), 'd/m/Y'); 
+                        echo $createAt; ?></Strong> <Strong> <?php echo $sms->patient_sms_comment; ?></Strong> </span>
+                            </div>
+                       <div class="col-md-2">
+                <button  type="button" class="btn btn-md fw-bold bg-dark text-white" style=" border: 1px solid green;">Sent</button>
+                    </div>
+
+               <?php }?>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
+
+<?php }?>
 
 <div class="modal fade" id="SendSmsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">

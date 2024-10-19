@@ -44,7 +44,7 @@ class Contactus extends Common_Controller {
             ),
             'where' => array(
                 'users.delete_status' => 0,
-                'doctors.user_id'=>$LoginID
+                // 'doctors.user_id'=>$LoginID
             ),
             'single' => true,
         );
@@ -52,7 +52,7 @@ class Contactus extends Common_Controller {
         $datadoctors = $this->common_model->customGet($option);
       $hospitalAndDoctorId=  $datadoctors->facility_user_id;
 
-    } else if ($this->ion_auth->is_facilityManager()) {
+    } else if ($this->ion_auth->is_facilityManager() or $this->ion_auth->is_all_roleslogin()) {
         
         
   $hospitalAndDoctorId = $LoginID;
@@ -86,10 +86,10 @@ class Contactus extends Common_Controller {
         FROM `vendor_sale_doctors_contactus` 
         LEFT JOIN `vendor_sale_users` ON 
         `vendor_sale_users`.`id` = `vendor_sale_doctors_contactus`.`user_id`
-        WHERE `vendor_sale_doctors_contactus`.`delete_status` = 0  and
-        `vendor_sale_doctors_contactus`.`user_id` =$hospitalAndDoctorId
+        WHERE `vendor_sale_doctors_contactus`.`delete_status` = 0
         ORDER BY `vendor_sale_doctors_contactus`.`id` DESC";
-        
+        //  WHERE `vendor_sale_doctors_contactus`.`delete_status` = 0  and
+        //  `vendor_sale_doctors_contactus`.`user_id` =$hospitalAndDoctorId
         // $option1 ="SELECT `vendor_sale_contactus`.`title`, 
         // `vendor_sale_contactus`.`id`, 
         // `vendor_sale_contactus`.`description`,
@@ -138,7 +138,7 @@ class Contactus extends Common_Controller {
         $role_name = $this->input->post('role_name');
 
         $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
-        if($this->ion_auth->is_subAdmin()){
+        if($this->ion_auth->is_subAdmin() ){
 
             $option = array(
                 'table' => ' doctors',
@@ -156,7 +156,7 @@ class Contactus extends Common_Controller {
             $datadoctors = $this->common_model->customGet($option);
           $hospitalAndDoctorId=  $datadoctors->facility_user_id;
     
-        } else if ($this->ion_auth->is_facilityManager()) {
+        } else if ($this->ion_auth->is_facilityManager() or $this->ion_auth->is_all_roleslogin()) {
             
             
       $hospitalAndDoctorId = $LoginID;
@@ -190,9 +190,9 @@ class Contactus extends Common_Controller {
         FROM `vendor_sale_doctors_contactus` 
         LEFT JOIN `vendor_sale_users` ON 
         `vendor_sale_users`.`id` = `vendor_sale_doctors_contactus`.`user_id`
-        WHERE `vendor_sale_doctors_contactus`.`delete_status` = 0  and
-        `vendor_sale_doctors_contactus`.`user_id` =$hospitalAndDoctorId
         ORDER BY `vendor_sale_doctors_contactus`.`id` DESC";
+        // WHERE `vendor_sale_doctors_contactus`.`delete_status` = 0  and
+        // `vendor_sale_doctors_contactus`.`user_id` =$hospitalAndDoctorId
         
         $this->data['list'] = $this->common_model->customQuery($option1);
 
