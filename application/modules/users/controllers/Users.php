@@ -1003,11 +1003,12 @@ class Users extends Common_Controller
             ),
             'order' => array('user.id' => 'DESC'),
             // 'where' => array('user.id' => $user_id),
-            // 'where_not_in' => array('group.id' => array(1, 2, 4,5,6,7))
+            'where_not_in' => array('group.id' => array(1, 2, 4,5,6,7))
         );
 
         $this->data['list'] = $this->common_model->customGet($option);
 
+        // print_r($this->data['list']);die;
         $optionRole = array(
             'table' => USER_GROUPS . ' as groups',
             'select' => 'groups.*',

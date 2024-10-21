@@ -91,9 +91,12 @@
                                     <select class="form-select" id="role" name="role">
                                     
                                     <?php foreach ($roles_list as $rows): ?>
-                                            <option value="<?php echo $rows->id; ?>" <?php echo $rows->id =$results->group_id?'selected':''?>><?php echo $rows->name; ?></option>
-                                                        
-                                        <?php endforeach?>
+                                        <?php if ($rows->name !== 'Patient' && $rows->name !== 'Doctor' && $rows->name !== 'SubAdmin'): ?>
+                                            <option value="<?php echo $rows->id; ?>" <?php echo $rows->id == $results->group_id ? 'selected':''?>><?php echo $rows->name; ?></option>
+                                                
+                                                    <?php endif; ?>
+
+                                        <?php endforeach ?>
                                     </select>
                                     </div>
                                 </div>

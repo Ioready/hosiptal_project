@@ -246,7 +246,7 @@
                     $menu_delete =$permission->menu_delete;
                     $menu_name =$permission->menu_name;
                     // echo $menu_name;
-                    if ($menu_name == 'Organism') { 
+                    if ($menu_name == 'Patients') { 
                         if ($menu_create =='1') {
                      ?>
 

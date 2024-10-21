@@ -258,7 +258,7 @@
                                             <td><?php echo $rows->first_name. ' '.$rows->last_name; ?></td>
                                             <td class="text-center"><?php echo $rows->phone; ?></td>
                                             <td><?php echo $rows->email; ?></td>
-                                            <td>Manager</td>
+                                            <td><?php echo $rows->group_name; ?></td>
                                             <!-- <td class="text-center"><?php if($rows->active == 1) echo '<p class="text-success">'.lang('active').'</p>'; else echo '<p  class="text-danger">'.lang('deactive').'</p>';?></td>
                                             <td><?php echo date('d-m-Y H:i', strtotime($rows->created_date));?></td> -->
                                                 
@@ -349,7 +349,7 @@
                                             <td><?php echo $rows->first_name. ' '.$rows->last_name; ?></td>
                                             <td class="text-center"><?php echo $rows->phone; ?></td>
                                             <td><?php echo $rows->email; ?></td>
-                                            <td>Manager</td>
+                                            <td><?php echo $rows->group_name; ?></td>
                                             <!-- <td class="text-center"><?php if($rows->active == 1) echo '<p class="text-success">'.lang('active').'</p>'; else echo '<p  class="text-danger">'.lang('deactive').'</p>';?></td>
                                             <td><?php echo date('d-m-Y H:i', strtotime($rows->created_date));?></td> -->
                                                 

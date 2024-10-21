@@ -136,55 +136,180 @@
         </div>
         <?php } if ($menu_view =='1') {?>
         
-        <div class="table-responsive">
-            <table id="common_datatable_menucat" class="table table-vcenter table-condensed table-bordered text-center">
-                <thead>
-                    <tr>
-                        <th class="text-center" style="font-size:14px">Invoice No</th>
-                        <th class="text-center" style="font-size:14px">Date</th>
-                        <th class="text-center" style="font-size:14px">Total</th>
-                        <th class="text-center" style="font-size:14px">Billing to</th>
-                        <th class="text-center" style="font-size:14px"><?php echo lang('action'); ?></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    if (isset($list) && !empty($list)):
-                        $rowCount = 0;
-                        foreach ($list as $rows):
-                            $rowCount++;
-                            // print_r($rows);die;
-                            ?>
-                            <tr>
-                                <td><?php echo $rows->invoice_number; ?></td>            
-                                <td><?php echo $rows->invoice_date; ?></td>
-                                <td><?php echo $rows->total_amount; ?></td>
-                                <td><?php echo $rows->billing_to; ?></td>
+            <div class="table-responsive">
+        
 
-                                <td class="actions">
-                                <?php if(empty($rows->Paid)){?>
-                            <!-- <a href="javascript:void(0)" class="btn btn-primary" onclick="payFn('<?php echo $model; ?>', 'pay', '<?php echo encoding($row->id) ?>', '<?php echo $model; ?>');">Pay</a> -->
-                            <?php }?>
-                            <?php if ($menu_update =='1') {?>
-                                    <a href="javascript:void(0)" class="btn btn-xs btn-default" onclick="editFn('<?php echo $model; ?>', 'editInvoice', '<?php echo encoding($rows->id) ?>', '<?php echo $model; ?>');"><i class="fa fa-pencil"></i></a>
-                                    <?php if ($rows->status == 'Paid') { ?>
-                                        <!-- <a href="javascript:void(0)" class="btn btn-xs btn-success" onclick="editStatusFn('<?php echo $tablePrefix; ?>', 'id', '<?php echo encoding($rows->id); ?>', '<?php echo $rows->is_active; ?>','<?php echo $rows->name; ?>')" title="Inactive Now"><i class="fa fa-check"></i></a> -->
-                                    <?php } else { ?>
-                                        <!-- <a href="javascript:void(0)" class="btn btn-xs btn-danger" onclick="editStatusFn('<?php echo $tablePrefix; ?>', 'id', '<?php echo encoding($rows->id); ?>', '<?php echo $rows->is_active; ?>','<?php echo $rows->name; ?>')" title="Active Now"><i class="fa fa-times"></i></a> -->
-                                    <?php } ?>
-                                    <!-- <a href="javascript:void(0)" onclick="deleteFn('<?php echo $table; ?>', 'id', '<?php echo encoding($rows->id); ?>', '<?php echo $model; ?>','','<?php echo $rows->name; ?>')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a> -->
-                                    <!-- <a href="javascript:void(0)" class="btn btn-xs btn-default" onclick="pdfInvoice('<?php echo $model; ?>', 'pdfInvoice','<?php echo encoding($row->id) ?>', '<?php echo $model; ?>');"><i class="fa fa-solid fa-download"></i> </a> -->
+        <h3><strong> Invoice </strong></h3>
+        <table id="common_datatable_menucat" class="table table-vcenter table-condensed table-bordered text-center">
+            <thead>
+                <tr>
+                    <th class="text-center" style="font-size:14px">Invoice No</th>
+                    <th class="text-center" style="font-size:14px">Date</th>
+                    <th class="text-center" style="font-size:14px">Total</th>
+                    <th class="text-center" style="font-size:14px">Billing to</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                if (isset($list) && !empty($list)):
+                    $rowCount = 0;
+                    foreach ($list as $rows):
+                        $rowCount++;
+                        // print_r($rows);die;
+                        ?>
+                        <tr>
+                            <td><?php echo $rows->invoice_number; ?></td>            
+                            <td><?php echo $rows->invoice_date; ?></td>
+                            <td><?php echo $rows->total_amount; ?></td>
+                            <td><?php echo $rows->billing_to; ?></td>
 
-                                    <?php }?>
-                                </td>
-                            </tr>
-                            <?php
-                        endforeach;
-                    endif;
-                    ?>
-                </tbody>
-            </table>
-        </div>
+                            
+                        </tr>
+                        <?php
+                    endforeach;
+                endif;
+                ?>
+            </tbody>
+        </table>
+
+        <h3><strong>Appointment </strong></h3>
+        <table id="common_datatable_menucat" class="table table-vcenter table-condensed table-bordered text-center">
+            <thead>
+                <tr>
+                    <th class="text-center" style="font-size:14px">Appointment No</th>
+                    <th class="text-center" style="font-size:14px">Start Date</th>
+                    <th class="text-center" style="font-size:14px">End Date</th>
+                    <th class="text-center" style="font-size:14px">Doctor Name</th>
+                    <!-- <th class="text-center" style="font-size:14px">Billing to</th> -->
+                   
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                if (isset($results_rowAppointment) && !empty($results_rowAppointment)):
+                    $rowCount = 0;
+                    foreach ($results_rowAppointment as $rows):
+                        $rowCount++;
+                        // print_r($rows);die;
+                        ?>
+                        <tr>
+                            <td><?php echo $rows->type_id; ?></td>            
+                            <td><?php echo $rows->start_date_appointment; ?></td>
+                            <td><?php echo $rows->end_date_appointment; ?></td>
+                            <td><?php echo $rows->practiner_name; ?></td>
+                        </tr>
+                        <?php
+                    endforeach;
+                endif;
+                ?>
+            </tbody>
+        </table>
+
+
+        <h3><strong>Medication</strong> </h3>
+        <table id="common_datatable_menucat" class="table table-vcenter table-condensed table-bordered text-center">
+            <thead>
+                <tr>
+                    <th class="text-center" style="font-size:14px">Medication Name</th>
+                    <th class="text-center" style="font-size:14px">Since</th>
+                    <th class="text-center" style="font-size:14px">Condition Type</th>
+                    <th class="text-center" style="font-size:14px">Condition Significance</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                if (isset($results_medication) && !empty($results_medication)):
+                    $rowCount = 0;
+                    foreach ($results_medication as $rows):
+                        $rowCount++;
+                        // print_r($rows);
+                        ?>
+                        <tr>
+                            <td><?php echo $rows->search; ?></td>            
+                            <td><?php echo $rows->since; ?></td>
+                            <td><?php echo $rows->condition_type; ?></td>
+                            <td><?php echo $rows->condition_significance; ?></td>
+                        </tr>
+                        <?php
+                    endforeach;
+                    // die;
+                endif;
+                ?>
+            </tbody>
+        </table>
+
+        <h3><strong>Labs </strong></h3>
+        <table id="common_datatable_menucat" class="table table-vcenter table-condensed table-bordered text-center">
+            <thead>
+                <tr>
+                    <th class="text-center" style="font-size:14px">Name</th>
+                    <th class="text-center" style="font-size:14px">Doctor Name</th>
+                    <th class="text-center" style="font-size:14px">Date</th>
+                    <!-- <th class="text-center" style="font-size:14px">Billing to</th> -->
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                if (isset($patient_labs) && !empty($patient_labs)):
+                    $rowCount = 0;
+                    foreach ($patient_labs as $rows):
+                        $rowCount++;
+                        // print_r($rows);die;
+                        ?>
+                        <tr>
+                            <td><?php echo $rows->details; ?></td>            
+                            <td><?php echo $rows->doctor_fname. ' '.$rows->doctor_lname; ?></td>
+                            <td><?php echo $rows->create_date; ?></td>
+                            <!-- <td><?php //echo $rows->billing_to; ?></td> -->
+
+                            
+                        </tr>
+                        <?php
+                    endforeach;
+                endif;
+                ?>
+            </tbody>
+        </table>
+
+        <h3><strong>Communication</strong>  </h3>
+        <table id="common_datatable_menucat" class="table table-vcenter table-condensed table-bordered text-center">
+            <thead>
+                <tr>
+                    <th class="text-center" style="font-size:14px">Phone No</th>
+                    <th class="text-center" style="font-size:14px">Messages</th>
+                    <th class="text-center" style="font-size:14px">Date</th>
+                    <!-- <th class="text-center" style="font-size:14px">Billing to</th> -->
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                if (isset($patient_communication) && !empty($patient_communication)):
+                    $rowCount = 0;
+                    foreach ($patient_communication as $rows):
+                        $rowCount++;
+                        // print_r($rows);die;
+                        ?>
+                        <tr>
+                            <td><?php echo $rows->phone; ?></td>            
+                            <td><?php echo $rows->patient_sms_comment; ?></td>
+                            <td><?php echo $rows->created_at; ?></td>
+                            <!-- <td><?php echo $rows->billing_to; ?></td> -->
+
+                            
+                        </tr>
+                        <?php
+                    endforeach;
+                endif;
+                ?>
+            </tbody>
+        </table>
+
+       
+    </div>
         <?php }}} } if($this->ion_auth->is_facilityManager()){ ?>
             <div class="block-title">
             <h2><strong><?php echo 'Patient Logs'; ?></strong> Panel</h2>
@@ -237,7 +362,8 @@
                 <thead>
                     <tr>
                         <th class="text-center" style="font-size:14px">Appointment No</th>
-                        <th class="text-center" style="font-size:14px">Date</th>
+                        <th class="text-center" style="font-size:14px">Start Date</th>
+                        <th class="text-center" style="font-size:14px">End Date</th>
                         <th class="text-center" style="font-size:14px">Doctor Name</th>
                         <!-- <th class="text-center" style="font-size:14px">Billing to</th> -->
                        
@@ -245,17 +371,17 @@
                 </thead>
                 <tbody>
                     <?php
-                    if (isset($list) && !empty($list)):
+                    if (isset($results_rowAppointment) && !empty($results_rowAppointment)):
                         $rowCount = 0;
-                        foreach ($list as $rows):
+                        foreach ($results_rowAppointment as $rows):
                             $rowCount++;
                             // print_r($rows);die;
                             ?>
                             <tr>
-                                <td><?php echo $rows->invoice_number; ?></td>            
-                                <td><?php echo $rows->invoice_date; ?></td>
-                                <td><?php echo $rows->total_amount; ?></td>
-                                <!-- <td><?php //echo $rows->billing_to; ?></td> -->
+                                <td><?php echo $rows->type_id; ?></td>            
+                                <td><?php echo $rows->start_date_appointment; ?></td>
+                                <td><?php echo $rows->end_date_appointment; ?></td>
+                                <td><?php echo $rows->practiner_name; ?></td>
                             </tr>
                             <?php
                         endforeach;
@@ -270,28 +396,29 @@
                 <thead>
                     <tr>
                         <th class="text-center" style="font-size:14px">Medication Name</th>
-                        <th class="text-center" style="font-size:14px">Date</th>
-                        <th class="text-center" style="font-size:14px">Total</th>
-                        <th class="text-center" style="font-size:14px">Billing to</th>
+                        <th class="text-center" style="font-size:14px">Since</th>
+                        <th class="text-center" style="font-size:14px">Condition Type</th>
+                        <th class="text-center" style="font-size:14px">Condition Significance</th>
                         
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                    if (isset($list) && !empty($list)):
+                    if (isset($results_medication) && !empty($results_medication)):
                         $rowCount = 0;
-                        foreach ($list as $rows):
+                        foreach ($results_medication as $rows):
                             $rowCount++;
-                            // print_r($rows);die;
+                            // print_r($rows);
                             ?>
                             <tr>
-                                <td><?php echo $rows->invoice_number; ?></td>            
-                                <td><?php echo $rows->invoice_date; ?></td>
-                                <td><?php echo $rows->total_amount; ?></td>
-                                <td><?php echo $rows->billing_to; ?></td>
+                                <td><?php echo $rows->search; ?></td>            
+                                <td><?php echo $rows->since; ?></td>
+                                <td><?php echo $rows->condition_type; ?></td>
+                                <td><?php echo $rows->condition_significance; ?></td>
                             </tr>
                             <?php
                         endforeach;
+                        // die;
                     endif;
                     ?>
                 </tbody>
@@ -301,26 +428,26 @@
             <table id="common_datatable_menucat" class="table table-vcenter table-condensed table-bordered text-center">
                 <thead>
                     <tr>
-                        <th class="text-center" style="font-size:14px">Invoice No</th>
+                        <th class="text-center" style="font-size:14px">Name</th>
+                        <th class="text-center" style="font-size:14px">Doctor Name</th>
                         <th class="text-center" style="font-size:14px">Date</th>
-                        <th class="text-center" style="font-size:14px">Total</th>
-                        <th class="text-center" style="font-size:14px">Billing to</th>
+                        <!-- <th class="text-center" style="font-size:14px">Billing to</th> -->
                         
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                    if (isset($list) && !empty($list)):
+                    if (isset($patient_labs) && !empty($patient_labs)):
                         $rowCount = 0;
-                        foreach ($list as $rows):
+                        foreach ($patient_labs as $rows):
                             $rowCount++;
                             // print_r($rows);die;
                             ?>
                             <tr>
-                                <td><?php echo $rows->invoice_number; ?></td>            
-                                <td><?php echo $rows->invoice_date; ?></td>
-                                <td><?php echo $rows->total_amount; ?></td>
-                                <td><?php echo $rows->billing_to; ?></td>
+                                <td><?php echo $rows->details; ?></td>            
+                                <td><?php echo $rows->doctor_fname. ' '.$rows->doctor_lname; ?></td>
+                                <td><?php echo $rows->create_date; ?></td>
+                                <!-- <td><?php //echo $rows->billing_to; ?></td> -->
 
                                 
                             </tr>
@@ -335,26 +462,26 @@
             <table id="common_datatable_menucat" class="table table-vcenter table-condensed table-bordered text-center">
                 <thead>
                     <tr>
-                        <th class="text-center" style="font-size:14px">Invoice No</th>
+                        <th class="text-center" style="font-size:14px">Phone No</th>
+                        <th class="text-center" style="font-size:14px">Messages</th>
                         <th class="text-center" style="font-size:14px">Date</th>
-                        <th class="text-center" style="font-size:14px">Total</th>
-                        <th class="text-center" style="font-size:14px">Billing to</th>
+                        <!-- <th class="text-center" style="font-size:14px">Billing to</th> -->
                         
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                    if (isset($list) && !empty($list)):
+                    if (isset($patient_communication) && !empty($patient_communication)):
                         $rowCount = 0;
-                        foreach ($list as $rows):
+                        foreach ($patient_communication as $rows):
                             $rowCount++;
                             // print_r($rows);die;
                             ?>
                             <tr>
-                                <td><?php echo $rows->invoice_number; ?></td>            
-                                <td><?php echo $rows->invoice_date; ?></td>
-                                <td><?php echo $rows->total_amount; ?></td>
-                                <td><?php echo $rows->billing_to; ?></td>
+                                <td><?php echo $rows->phone; ?></td>            
+                                <td><?php echo $rows->patient_sms_comment; ?></td>
+                                <td><?php echo $rows->created_at; ?></td>
+                                <!-- <td><?php echo $rows->billing_to; ?></td> -->
 
                                 
                             </tr>
@@ -365,73 +492,7 @@
                 </tbody>
             </table>
 
-            <h3><strong>Problem  </strong></h3>
-            <table id="common_datatable_menucat" class="table table-vcenter table-condensed table-bordered text-center">
-                <thead>
-                    <tr>
-                        <th class="text-center" style="font-size:14px">Invoice No</th>
-                        <th class="text-center" style="font-size:14px">Date</th>
-                        <th class="text-center" style="font-size:14px">Total</th>
-                        <th class="text-center" style="font-size:14px">Billing to</th>
-                        
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    if (isset($list) && !empty($list)):
-                        $rowCount = 0;
-                        foreach ($list as $rows):
-                            $rowCount++;
-                            // print_r($rows);die;
-                            ?>
-                            <tr>
-                                <td><?php echo $rows->invoice_number; ?></td>            
-                                <td><?php echo $rows->invoice_date; ?></td>
-                                <td><?php echo $rows->total_amount; ?></td>
-                                <td><?php echo $rows->billing_to; ?></td>
-
-                                
-                            </tr>
-                            <?php
-                        endforeach;
-                    endif;
-                    ?>
-                </tbody>
-            </table>
-
-            <h3><strong>Reports</strong></h3>
-            <table id="common_datatable_menucat" class="table table-vcenter table-condensed table-bordered text-center">
-                <thead>
-                    <tr>
-                        <th class="text-center" style="font-size:14px">Invoice No</th>
-                        <th class="text-center" style="font-size:14px">Date</th>
-                        <th class="text-center" style="font-size:14px">Total</th>
-                        <th class="text-center" style="font-size:14px">Billing to</th>
-                        
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    if (isset($list) && !empty($list)):
-                        $rowCount = 0;
-                        foreach ($list as $rows):
-                            $rowCount++;
-                            // print_r($rows);die;
-                            ?>
-                            <tr>
-                                <td><?php echo $rows->invoice_number; ?></td>            
-                                <td><?php echo $rows->invoice_date; ?></td>
-                                <td><?php echo $rows->total_amount; ?></td>
-                                <td><?php echo $rows->billing_to; ?></td>
-
-                                
-                            </tr>
-                            <?php
-                        endforeach;
-                    endif;
-                    ?>
-                </tbody>
-            </table>
+           
         </div>
         <?php } ?>
     </div>
