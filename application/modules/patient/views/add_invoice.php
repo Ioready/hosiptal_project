@@ -217,9 +217,13 @@
                                     <label for="practitioner">Practitioner</label>
                                     
                                     <select name="practitioner" id="practitioner">
-                                    <?php  foreach($practitioner as $row){ ?>
+                                    <?php  foreach($practitioner as $row){
+                                        if(!empty($row->name)){
+
+                                        
+                                         ?>
                                         <option value="<?php echo $row->id;?>"><?php echo $row->name;?></option>
-                                        <?php } ?>
+                                        <?php } } ?>
                                     </select>
                                     <!-- <input type="text" name="practitioner" id="practitioner" placeholder="Select Practitioner"> -->
                                 </div>

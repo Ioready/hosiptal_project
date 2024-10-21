@@ -180,7 +180,7 @@
             <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url($formUrl) ?>" enctype="multipart/form-data">
                 <div class="modal-header text-center">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h2 class="modal-title"><i class="fa fa-pencil"></i> <?php echo "Add invoice" ?></h2>
+                    <h2 class="modal-title"><i class="fa fa-pencil"></i> <?php echo "Edit invoice" ?></h2>
                 </div>
                 <div class="modal-body">
                     
@@ -194,7 +194,7 @@
                         <div class="form-container">
                             <!-- Invoice Form -->
                             <div class="form-section">
-                                <h2>Create new Invoice</h2>
+                                <h2>Edit Invoice</h2>
                                 <div class="form-group">
                                     <label for="header">Header <span class="required" style="color:red;">*</span></label>
                                     <select name="header" id="header" required>
@@ -216,9 +216,9 @@
                                     <label for="practitioner">Practitioner</label>
                                     
                                     <select name="practitioner" id="practitioner">
-                                    <?php  foreach($practitioner as $row){ ?>
+                                    <?php  foreach($practitioner as $row){ if(!empty($row->name)){?>
                                         <option value="<?php echo $row->id;?>" <?php echo $results->practitioner ==$row->id?'selected':''; ?>><?php echo $row->name;?></option>
-                                        <?php } ?>
+                                        <?php } } ?>
                                     </select>
                                     <!-- <input type="text" name="practitioner" id="practitioner" placeholder="Select Practitioner"> -->
                                 </div>
@@ -231,9 +231,9 @@
                                     <label for="patient">Patient <span style="color:red;">*</span></label>
                                     
                                     <select name="patient" id="patient">
-                                    <?php  foreach($patient as $rows){ ?>
+                                    <?php  foreach($patient as $rows){ if(!empty($rows->name)){?>
                                         <option value="<?php echo $rows->id;?>" <?php echo $results->patient_id ==$rows->id?'selected':''; ?>><?php echo $rows->name;?></option>
-                                        <?php } ?>
+                                        <?php } }?>
                                     </select>
 
                                     <!-- <input type="hidden" name="patient" id="patient" value="<?php echo $patient->id;?>"><h3><span><?php echo $patient->name;?></span></h3> -->

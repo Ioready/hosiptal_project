@@ -528,7 +528,7 @@
                                                     ?>
                                         <tr>
                                             <td><input type="checkbox"></td>
-                                            <td><a href="#"><?php echo $rows->name; ?></a></td>
+                                            <td> <a href="#"><?php echo ($rows->name == 'SubAdmin') ? 'Doctor' : $rows->name; ?></a></td>
                                             <td><?php echo $rows->description; ?></td>
                                             <td><button class="btn btn-light">Edit</button></td>
                                         
@@ -541,6 +541,11 @@
                                             </td> -->
 
                                             <td class="actions">
+                                                <?php if($rows->name == 'SubAdmin'){?>
+                                                
+                                            <?php } else if($rows->name == 'Patient'){
+
+                                             }else{?>
                                                 <a href="javascript:void(0)" class="on-default edit-row" onclick="editFn('users','roles_edit','<?php echo encoding($rows->id); ?>');"><img width="20" src="<?php echo base_url().EDIT_ICON;?>" /></a>
                                                 
                                                 <?php
@@ -552,7 +557,8 @@
                                                 <a href="javascript:void(0)" class="on-default edit-row text-danger" onclick="statusFn('<?php echo GROUPS;?>','id','<?php echo encoding($rows->id); ?>','<?php echo $rows->active;?>')" title="Active Now"><img width="20" src="<?php echo base_url().INACTIVE_ICON;?>" /></a>
                                                 <?php } ?>
                                             <a href="javascript:void(0)" onclick="deleteRole('<?php echo GROUPS;?>','id','<?php echo encoding($rows->id); ?>','users/managements')" class="on-default edit-row text-danger"><img width="20" src="<?php echo base_url().DELETE_ICON;?>" /></a>
-                                            
+                                                <?php }?>
+
                                                 </td>
 
                                                 </tr>
@@ -852,15 +858,20 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="role">Role</label>
-                                            <select class="form-select" id="role" name="role">
-                                                <!-- <option>Manager</option>
-                                                <option>Doctor</option>
-                                                <option>Staff</option> -->
-
-                                            <?php foreach ($roles_list as $rows): ?>
-                                                    <option value="<?php echo $rows->id; ?>"><?php echo $rows->name; ?></option>
+                                            <!-- <select class="form-select" id="role" name="role">
+                                                
+                                            <?php //foreach ($roles_list as $rows): ?>
+                                                    <option value="<?php //echo $rows->id; ?>"><?php echo $rows->name; ?></option>
                                                                 
-                                                <?php endforeach?>
+                                                <?php //endforeach?>
+                                            </select> -->
+
+                                            <select class="form-select" id="role" name="role">
+                                                <?php foreach ($roles_list as $rows): ?>
+                                                    <?php if ($rows->name !== 'Patient' && $rows->name !== 'Doctor' && $rows->name !== 'SubAdmin'): ?>
+                                                        <option value="<?php echo $rows->id; ?>"><?php echo $rows->name; ?></option>
+                                                    <?php endif; ?>
+                                                <?php endforeach; ?>
                                             </select>
                                         </div>
                                     </div>

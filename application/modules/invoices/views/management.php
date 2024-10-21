@@ -633,11 +633,11 @@
                             <?php }else{?>
                                 <label for="" style="color:green">... </label>
                             <?php }?>
-                            <?php if($menu_update =='1'){ ?>
+                           
                             <a href="javascript:void(0)" class="btn btn-xs btn-default" onclick="editFn('<?php echo $model; ?>', 'edit', '<?php echo encoding($row->id) ?>', '<?php echo $model; ?>');"><i class="fa fa-pencil"></i></a>
-                            <?php } if($menu_delete =='1'){ ?>
+                            
                             <a href="javascript:void(0)" onclick="deleteFnInvoice('<?php echo GROUPS;?>','id','<?php echo encoding($row->id); ?>','invoices/managements')" class="on-default edit-row text-danger"><img width="20" src="<?php echo base_url().DELETE_ICON;?>" /></a>
-                            <?php }?>
+                            
                             <a href="javascript:void(0)" class="btn btn-xs btn-default" onclick="pdfInvoice('<?php echo $model; ?>', 'pdfInvoice','<?php echo encoding($row->id) ?>', '<?php echo $model; ?>');"><i class="fa fa-solid fa-download"></i> </a>
 
                             </td>

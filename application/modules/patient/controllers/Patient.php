@@ -4210,7 +4210,7 @@ $option = array(
 
         // $this->data['practitioner'] = $this->common_model->customGet($optionPractitioner);
 
-        if($this->ion_auth->is_subAdmin()){
+        if($this->ion_auth->is_all_roleslogin()){
 
             $option = array(
                 'table' => ' doctors',
@@ -4221,7 +4221,7 @@ $option = array(
                 
                 'where' => array(
                     'users.delete_status' => 0,
-                    'doctors.user_id'=>$LoginID
+                    // 'doctors.user_id'=>$LoginID
                 ),
                 'single' => true,
             );
@@ -4241,7 +4241,7 @@ $option = array(
                 
                 'where' => array(
                     'users.delete_status' => 0,
-                    'doctors.facility_user_id'=>$datadoctors->facility_user_id
+                    // 'doctors.facility_user_id'=>$datadoctors->facility_user_id
                 ),
                 'order' => array('users.id' => 'desc'),
             );
@@ -4275,7 +4275,7 @@ $option = array(
                 'join' => array(
                     array('vendor_sale_practitioner', 'vendor_sale_users.id=vendor_sale_practitioner.hospital_id','left')
                 ),
-                'where' => array('vendor_sale_practitioner.hospital_id'=>$datadoctors->facility_user_id),
+                // 'where' => array('vendor_sale_practitioner.hospital_id'=>$datadoctors->facility_user_id),
                 // 'single'=>true,
             );
     
@@ -5160,6 +5160,156 @@ $option = array(
         }
     }
 
+    // patient logs
+
+    function patientLogs() {
+
+        $this->data['parent'] = $this->title;
+        $this->data['title'] = "Add " . $this->title;
+        // $this->data['formUrlModel'] = $this->router->fetch_class() . "/addQuestion";
+        $this->data['model'] = $this->router->fetch_class();
+
+        $this->data['patient_id'] = decoding($_GET['id']);
+        $id = decoding($_GET['id']);
+        
+        // print_r($id);die;
+        $role_name = $this->input->post('role_name');
+
+        $optionPatient = array(
+            'table' => 'vendor_sale_users',
+            'select' => 'vendor_sale_patient.*',
+            'join' => array(
+                array('vendor_sale_patient', 'vendor_sale_users.id=vendor_sale_patient.user_id','left')
+            ),
+            'where' => array('vendor_sale_patient.id'=>$id),
+            'single'=>true,
+        );
+
+        $this->data['patient'] = $this->common_model->customGet($optionPatient);
+        $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+
+        if($LoginID != 1 && $LoginID != NULL ){
+            $x = $LoginID;
+        }
+        
+        $this->data['roles'] = array(
+            'role_name' => $role_name
+        );
+        if ($vendor_profile_activate == "No") {
+            $vendor_profile_activate = 0;
+        } else {
+            $vendor_profile_activate = 1;
+        }
+
+        $id = decoding($_GET['id']);
+        
+        $optionheader = array(
+            'table' => 'vendor_sale_invoice',
+            'select' => 'vendor_sale_invoice.*',
+            'where' => array('vendor_sale_invoice.patient_id' => $id)
+        );
+
+        
+
+        $this->data['list'] = $this->common_model->customGet($optionheader);
+        // print_r($this->data['list']); die;
+        
+     
+
+            // $option = array(
+            //     'table' => 'patient P',
+            //     'select' => 'P.total_days_of_patient_stay,P.infection_surveillance_checklist,P.date_of_start_abx,P.md_patient_status,P.id ,P.patient_id,P.name as patient_name,P.address,P.room_number,P.symptom_onset,P.md_stayward_consult,P.criteria_met,P.md_stayward_response,P.psa,P.created_date,'
+            //         . 'P.care_unit_id,CI.name as care_unit_name,P.doctor_id,P.culture_source,P.organism,P.precautions,CS.name as culture_source_name,Org.name as organism_name,Pre.name as precautions_name,DOC.name as doctor_name,P.md_steward_id,U.first_name as md_steward,'
+            //         . 'PC.initial_rx,IRX.name as initial_rx_name,PC.initial_dx,IDX.name as initial_dx_name,PC.initial_dot,'
+            //         . 'PC.new_initial_rx,IRX2.name as new_initial_rx_name,PC.new_initial_dx,IDX2.name as new_initial_dx_name,PC.new_initial_dot,PC.additional_comment_option,PC.comment,U.email as patient_email,U.email as password, U.phone as patient_phone_number,U.date_of_birth,U.gender,U.phone_code',
+            //     'join' => array(
+            //         array('care_unit CI', 'CI.id=P.care_unit_id', 'left'),
+            //         array('doctors DOC', 'DOC.id=P.doctor_id', 'left'),
+            //         array('users U', 'U.id=P.user_id', 'left'),
+            //         array('patient_consult PC', 'PC.patient_id=P.id', 'left'),
+            //         array('initial_rx IRX', 'IRX.id=PC.initial_rx', 'left'),
+            //         array('initial_dx IDX', 'IDX.id=PC.initial_dx', 'left'),
+            //         array('culture_source CS', 'CS.name=P.culture_source', 'left'),
+            //         array('organism Org', 'Org.name=P.organism', 'left'),
+            //         array('precautions Pre', 'Pre.name=P.precautions', 'left'),
+            //         array('initial_rx IRX2', 'IRX2.id=PC.new_initial_rx', 'left'),
+            //         array('initial_dx IDX2', 'IDX2.id=PC.new_initial_dx', 'left'),
+                    
+            //     ),
+            //     'single' => true
+            // );
+            // $option['where']['P.id'] = $id;
+            // $results_row = $this->common_model->customGet($option);
+
+            $id = decoding($_GET['id']);
+            if (!empty($id)) {
+                // print_r($id); die;
+                $optionPatient = array(
+                    'table' => 'patient P',
+                    'select' => 'P.total_days_of_patient_stay,P.infection_surveillance_checklist,P.date_of_start_abx,P.md_patient_status,P.id ,P.patient_id,P.name as patient_name,P.address,P.room_number,P.symptom_onset,P.md_stayward_consult,P.criteria_met,P.md_stayward_response,P.psa,P.created_date,'
+                        . 'P.care_unit_id,CI.name as care_unit_name,P.doctor_id,P.culture_source,P.organism,P.precautions,CS.name as culture_source_name,Org.name as organism_name,Pre.name as precautions_name,DOC.name as doctor_name,P.md_steward_id,U.first_name as md_steward,'
+                        . 'PC.initial_rx,IRX.name as initial_rx_name,PC.initial_dx,IDX.name as initial_dx_name,PC.initial_dot,'
+                        . 'PC.new_initial_rx,IRX2.name as new_initial_rx_name,PC.new_initial_dx,IDX2.name as new_initial_dx_name,PC.new_initial_dot,PC.additional_comment_option,PC.comment,U.email as patient_email,U.email as password, U.phone as patient_phone_number,U.date_of_birth,U.gender,U.phone_code',
+                    'join' => array(
+                        array('care_unit CI', 'CI.id=P.care_unit_id', 'left'),
+                        array('doctors DOC', 'DOC.id=P.doctor_id', 'left'),
+                        array('users U', 'U.id=P.user_id', 'left'),
+                        array('patient_consult PC', 'PC.patient_id=P.id', 'left'),
+                        array('initial_rx IRX', 'IRX.id=PC.initial_rx', 'left'),
+                        array('initial_dx IDX', 'IDX.id=PC.initial_dx', 'left'),
+                        array('culture_source CS', 'CS.name=P.culture_source', 'left'),
+                        array('organism Org', 'Org.name=P.organism', 'left'),
+                        array('precautions Pre', 'Pre.name=P.precautions', 'left'),
+                        array('initial_rx IRX2', 'IRX2.id=PC.new_initial_rx', 'left'),
+                        array('initial_dx IDX2', 'IDX2.id=PC.new_initial_dx', 'left'),
+                        
+                    ),
+                    'single' => true
+                );
+                $option['where']['P.id'] = $id;
+                $results_row = $this->common_model->customGet($optionPatient);
+
+                $optionAppointment = array(
+                    'table' => 'patient P',
+                    'select' => 'NS.*,CA.start_date_appointment,CA.end_date_appointment,CA.type,CA.location_appointment,CA.clinician_appointment,CA.appointment_type,CA.practitioner',
+                    'join' => array(
+                        array('doctors DOC', 'DOC.id=P.doctor_id', 'left'),
+                        array('users U', 'U.id=P.user_id', 'inner'),
+                        array('clinic_appointment CA', 'U.id=CA.patient', 'inner'),
+                        array('notifications NS', 'CA.id=NS.clinic_appointment_id', 'inner')
+                    ),
+                    // 'single' => true
+                );
+                $optionAppointment['where']['P.id'] = $id;
+                $this->data['results_rowAppointment'] = $this->common_model->customGet($optionAppointment);
+
+                $optionTask = array(
+                    'table' => 'patient P',
+                    'select' => 'TK.*,DOC.name as doctor_name',
+                    'join' => array(
+                       
+                        array('users U', 'U.id=P.user_id', 'left'),
+                        array('task TK', 'U.id=TK.patient_name', 'inner'),
+                        array('doctors DOC', 'DOC.user_id=TK.assign_to', 'left'),
+                        // array('notifications NS', 'CA.id=NS.clinic_appointment_id', 'left')
+                    ),
+                    // 'single' => true
+                );
+                $optionTask['where']['P.id'] = $id;
+                $this->data['results_task'] = $this->common_model->customGet($optionTask);
+
+                
+            if (!empty($results_row)) {
+
+                $results_row->md_steward_response = clone $results_row;
+                $filteredData = $this->applyAlgo($results_row);
+                $this->data['results'] = $filteredData;
+            }
+            // print_r($this->data);die;
+        }
+
+        $this->load->admin_render('patient_logs', $this->data, 'inner_script');
+    }
     
     
 }

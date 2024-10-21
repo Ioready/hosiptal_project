@@ -71,324 +71,303 @@
                     <div class="wrapper wrapper-content">
                         <div class="row">
                                         <!-- <div class="stat-percent font-bold text-primary"> <i class="fa fa-plus"></i></div> -->
-                        <?php if ($this->ion_auth->is_superAdmin()) { ?>
+        <?php if ($this->ion_auth->is_superAdmin()) { ?>
                           
                             
 
 
 
 
- <div class="col-lg-3 dashboardBoxes">
-    <div style="background-color: #F9F5FF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
-        <div class="ibox-content">
-            <h1 class="no-margins"><?php echo $total_admin; ?></h1>
-            <h5 class="text-primary"><strong>Total Admin</strong></h5>
+    <div class="col-lg-3 dashboardBoxes">
+        <div style="background-color: #F9F5FF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
+            <div class="ibox-content">
+                <h1 class="no-margins"><?php echo $total_admin; ?></h1>
+                <h5 class="text-primary"><strong>Total Admin</strong></h5>
+            </div>
+            <a href="<?php echo site_url('admin'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "reports") ? "active" : "" ?>">
+            <img src="<?php echo base_url(); ?>uploads/administrator.png" style=" height: 45px; width: 45px; filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%); margin-bottom: 5px;" alt="">
+            </a>
         </div>
-        <a href="<?php echo site_url('admin'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "reports") ? "active" : "" ?>">
-        <img src="<?php echo base_url(); ?>uploads/administrator.png" style=" height: 45px; width: 45px; filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%); margin-bottom: 5px;" alt="">
-        </a>
     </div>
-</div>
 
-<!-- <div class="col-lg-3 dashboardBoxes">
-    <div style="background-color: #FFFAEC; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
-        <div class="ibox-content">
-            <h1 class="no-margins"><?php echo $total_hospital; ?></h1>
-            <h5 class="text-primary"><strong>Total Hospital</strong></h5>
+
+    <div class="col-lg-3 dashboardBoxes">
+        <div style="background-color: #FFFAEC; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
+            <div class="ibox-content">
+                <h1 class="no-margins"><?php echo $total_coupon; ?></h1>
+                <h5 class="text-primary"><strong>Total Coupon</strong></h5>
+            </div>
+            <a href="<?php echo site_url('Coupon'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "Coupon") ? "active" : "" ?>">
+            <img src="<?php echo base_url(); ?>uploads/hospital-buildings.png" style="height: 45px; width: 45px; filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%); margin-bottom: 5px;" alt="">
+            </a>
         </div>
-        <img src="<?php echo base_url(); ?>uploads/hospital-buildings.png" style="height: 45px; width: 45px; filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%); margin-bottom: 5px;" alt="">
     </div>
-</div> -->
-<div class="col-lg-3 dashboardBoxes">
-    <div style="background-color: #FFFAEC; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
-        <div class="ibox-content">
-            <h1 class="no-margins"><?php echo $total_coupon; ?></h1>
-            <h5 class="text-primary"><strong>Total Coupon</strong></h5>
+
+    <div class="col-lg-3 dashboardBoxes">
+        <div style="background-color: #E6F2FF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
+            <div class="ibox-content">
+                <h1 class="no-margins"><?php echo $total_plans; ?></h1>
+                <h5 class="text-primary"><strong>Total Plan</strong></h5>
+            </div>
+            <a href="<?php echo site_url('AllPlans'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "AllPlans") ? "active" : "" ?>">
+            <img src="<?php echo base_url(); ?>uploads/checklist.png" style="height: 45px; width: 45px; filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%); margin-bottom: 5px;" alt="">
+            </a>
         </div>
-        <a href="<?php echo site_url('Coupon'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "Coupon") ? "active" : "" ?>">
-        <img src="<?php echo base_url(); ?>uploads/hospital-buildings.png" style="height: 45px; width: 45px; filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%); margin-bottom: 5px;" alt="">
-        </a>
     </div>
-</div>
 
-<div class="col-lg-3 dashboardBoxes">
-    <div style="background-color: #E6F2FF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
-        <div class="ibox-content">
-            <h1 class="no-margins"><?php echo $total_plans; ?></h1>
-            <h5 class="text-primary"><strong>Total Plan</strong></h5>
+    <div class="col-lg-3 dashboardBoxes">
+        <div style="background-color: #D9F4E9; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
+            <div class="ibox-content">
+                <h1 class="no-margins"><?php echo $total_order; ?></h1>
+                <h5 class="text-primary"><strong>Total Order</strong></h5>
+            </div>
+            <a href="<?php echo site_url('userOrder'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "userOrder") ? "active" : "" ?>">
+            <img src="<?php echo base_url(); ?>uploads/order.png" style="height: 45px; width: 45px; filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%); margin-bottom: 5px;" alt="">
+            </a>
         </div>
-        <a href="<?php echo site_url('AllPlans'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "AllPlans") ? "active" : "" ?>">
-        <img src="<?php echo base_url(); ?>uploads/checklist.png" style="height: 45px; width: 45px; filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%); margin-bottom: 5px;" alt="">
-        </a>
     </div>
-</div>
 
-<div class="col-lg-3 dashboardBoxes">
-    <div style="background-color: #D9F4E9; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
-        <div class="ibox-content">
-            <h1 class="no-margins"><?php echo $total_order; ?></h1>
-            <h5 class="text-primary"><strong>Total Order</strong></h5>
+
+    <div class="row m-2">
+        <div class="col-lg-6 mt-4">
+            <canvas id="myChart" style="width: 100%; height: 100%; background-color: #F9F5FF; padding: 15px;  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);"></canvas>
         </div>
-        <a href="<?php echo site_url('userOrder'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "userOrder") ? "active" : "" ?>">
-        <img src="<?php echo base_url(); ?>uploads/order.png" style="height: 45px; width: 45px; filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%); margin-bottom: 5px;" alt="">
-        </a>
+        <div class="col-lg-6 mt-4">
+            <canvas id="myChart2" style="width: 100%; height: 100%;  background-color: #FFFAEC; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);"></canvas>
+        </div>
     </div>
-</div>
 
 
-  <div class="row m-2">
-    <div class="col-lg-6 mt-4">
-        <canvas id="myChart" style="width: 100%; height: 100%; background-color: #F9F5FF; padding: 15px;  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);"></canvas>
-    </div>
-    <div class="col-lg-6 mt-4">
-        <canvas id="myChart2" style="width: 100%; height: 100%;  background-color: #FFFAEC; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);"></canvas>
-    </div>
-</div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const ctx = document.getElementById('myChart');
 
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const ctx = document.getElementById('myChart');
-
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Admin', 'Hospital', 'Plan', 'Order'],
-                datasets: [{
-                    label: '# of Votes',
-                    // data: [12, 19, 3, 5, 2, 3],
-                    data: [<?php echo $total_admin; ?>, <?php echo $total_hospital; ?>, <?php echo $total_plans; ?>, <?php echo $total_order; ?>],
-                    borderWidth: 2,
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.9)',
-                        'rgba(54, 162, 235, 0.9)',
-                        'rgba(255, 205, 86, 0.9)',
-                        'rgba(75, 192, 192, 0.9)',
-                        'rgba(153, 102, 255, 0.9)',
-                        'rgba(255, 159, 64, 0.9)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 205, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Admin', 'Hospital', 'Plan', 'Order'],
+                    datasets: [{
+                        label: '# of Votes',
+                        // data: [12, 19, 3, 5, 2, 3],
+                        data: [<?php echo $total_admin; ?>, <?php echo $total_hospital; ?>, <?php echo $total_plans; ?>, <?php echo $total_order; ?>],
+                        borderWidth: 2,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.9)',
+                            'rgba(54, 162, 235, 0.9)',
+                            'rgba(255, 205, 86, 0.9)',
+                            'rgba(75, 192, 192, 0.9)',
+                            'rgba(153, 102, 255, 0.9)',
+                            'rgba(255, 159, 64, 0.9)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 205, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                    }]
                 },
-                maintainAspectRatio: false, // Allows chart to adjust its size based on the container size
-                responsive: true // Ensures chart responsiveness
-            }
-        });
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    maintainAspectRatio: false, // Allows chart to adjust its size based on the container size
+                    responsive: true // Ensures chart responsiveness
+                }
+            });
 
-        const pie = document.getElementById('myChart2');
-        const data = {
-            labels: [
-                'Red',
-                'Blue',
-                'Yellow'
-            ],
-            datasets: [{
-                label: 'My First Dataset',
-                data: [300, 50, 100],
-                backgroundColor: [
-                    'rgb(255, 99, 132)',
-                    'rgb(54, 162, 235)',
-                    'rgb(255, 205, 86)'
+            const pie = document.getElementById('myChart2');
+            const data = {
+                labels: [
+                    'Red',
+                    'Blue',
+                    'Yellow'
                 ],
-                hoverOffset: 4
-            }]
-        };
-        const config = {
-            type: 'doughnut',
-            data: data,
-            options: {
-                maintainAspectRatio: false, // Allows chart to adjust its size based on the container size
-                responsive: true // Ensures chart responsiveness
-            }
-        };
-        new Chart(pie, config);
-    });
-</script>
+                datasets: [{
+                    label: 'My First Dataset',
+                    data: [300, 50, 100],
+                    backgroundColor: [
+                        'rgb(255, 99, 132)',
+                        'rgb(54, 162, 235)',
+                        'rgb(255, 205, 86)'
+                    ],
+                    hoverOffset: 4
+                }]
+            };
+            const config = {
+                type: 'doughnut',
+                data: data,
+                options: {
+                    maintainAspectRatio: false, // Allows chart to adjust its size based on the container size
+                    responsive: true // Ensures chart responsiveness
+                }
+            };
+            new Chart(pie, config);
+        });
+    </script>
 
-<?php }else if ($this->ion_auth->is_admin()) { ?>
-
-
-
-
-<div class="col-lg-4 dashboardBoxes">
-    <div style="background-color:#EDEAFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);"  class="ibox float-e-margins">
-        <div class="ibox-content">
-            <h1 class="no-margins"><?php echo $total_hospital; ?></h1>
-            <h5 class="text-primary"><strong>Total Hospital</strong></h5>
-        </div>
-        <a href="<?php echo site_url('facilityManager'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "facilityManager") ? "active" : "" ?>">
-        <img src="<?php echo base_url(); ?>uploads/hospital-buildings.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
-        </a>
-    </div>
-</div>
-<!-- <div class="col-lg-4 dashboardBoxes">
-    <div style="background-color:#FFE0B7; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
-        <div class="ibox-content">
-        <h1 class="no-margins"><?php echo $careUnit; ?></h1>
-  <h5 class="text-primary"><strong>Total Earning</strong></h5>
-        </div>
-        <img src="<?php echo base_url(); ?>uploads/intravenous-therapy.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
-    </div>
-</div> -->
-
-
-
-<div class="switch-wrapper m-4">
-    <input id="toggle-monthly" type="radio" name="switch" checked>
-    <label style="font-size: 1.5rem; margin-bottom: 10px;" for="toggle-monthly">Monthly</label>
-    <input style="margin-left: 2rem;" id="toggle-yearly" type="radio" name="switch">    
-    <label style="font-size: 1.5rem; margin-bottom: 10px;" for="toggle-yearly">Yearly</label>
-    <span class="highlighter"></span>
-</div>
-
-
-
-    <section>
-        <div class="content m-4">
-            <?php 
-            foreach($all_plan_list as $key=> $row){ 
-            if($row->DurationInMonths == 'month'){  
-             ?>
-             <div class="basic box price monthly fw-bold"  style="background-color:#FFFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);border-radius:20px " >
-                <h2 style="margin-top:0;margin-bottom:0 fw-bold" class="title"><?php echo ucfirst($row->PlanName);?></h2>
-                <div class="view"  style="background-color:white; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" >
-                    <!-- <div class="icon">
-                        <img src="https://i.postimg.cc/2jcfMcf4/hot-air-balloon.png" alt="hot-air-balloon">
-                    </div> -->
-
-                    <div class="icon" style="height: 94px;">
-                        <?php if(!empty($row->icons)){ ?> 
-
-                       
-                    <img src="<?php echo base_url($row->icons); ?>" alt="hot-air-balloon">
-                    <?php  } else { ?>
-                        <img src="https://i.postimg.cc/2jcfMcf4/hot-air-balloon.png" alt="hot-air-balloon">
-                      <?php } ?>
-                    </div>
-
-                    <div class="price monthly cost">
-                        <p class="amount">$<?php echo $row->Price;?></p>
-                        <p class="detail">Admin Per Month</p>
-                    </div>
-                    <div class="price yearly hide cost">
-                        <p class="amount">$<?php echo $row->Price;?></p>
-                        <p class="detail">Admin Per Years</p>
-                    </div>
-                </div>
-                <div class="description">
-                 <?php echo $row->plan_description; ?>
-                </div>
-                <?php if($this->ion_auth->is_superAdmin()){ ?>
-                <div class="button plan_button">              
-                <!--<a href="<?php echo base_url('make-stripe-payment?'.'id='.$row->id);?>"><button >START FREE 7 DAYS TRIAL </button></a>-->
-                <h2>
-                    <a href="javascript:void(0)" onclick="open_modal_edit('<?php echo $model; ?>', '<?php echo $row->id; ?>')" class="save-btn btn btn-sm btn-primary">
-                     <i class="gi gi-circle_plus"></i> Edit Plan </a>
-                </h2>
-                </div>
-                 <?php 
-                } else if($this->ion_auth->is_admin()){ ?>
-                <div class="button plan_button " style="margin-left:25px">
-                <!-- <a href="<?php echo site_url('stripePayments'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "stripePaymentController") ? "active" : "" ?>"> -->
-                <!-- <button >START FREE 7 DAYS TRIAL </button></a> -->
-                <a href="<?php echo base_url('make-stripe-payment?'.'id='.$row->id);?>" style="text-align: center; text-decoration: none; color: white;">
-                 <button style="background-color: transparent; border: none; padding: 0; cursor: pointer; margin:10px; margin-left:60px;" class="text-center">START FREE 7 DAYS TRIAL</button>
-                 </a>
-                <!-- <a href="<?php echo base_url('my-stripe?'.'id='.$row->id);?>"><button >START FREE 7 DAYS TRIAL </button></a> -->
-                </div>
-                <?php } ?>
+    <?php }else if ($this->ion_auth->is_admin()) { ?>
+    <div class="col-lg-4 dashboardBoxes">
+        <div style="background-color:#EDEAFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);"  class="ibox float-e-margins">
+            <div class="ibox-content">
+                <h1 class="no-margins"><?php echo $total_hospital; ?></h1>
+                <h5 class="text-primary"><strong>Total Hospital</strong></h5>
             </div>
+            <a href="<?php echo site_url('facilityManager'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "facilityManager") ? "active" : "" ?>">
+            <img src="<?php echo base_url(); ?>uploads/hospital-buildings.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+            </a>
+        </div>
+    </div>
 
-            
+    <div class="switch-wrapper m-4">
+        <input id="toggle-monthly" type="radio" name="switch" checked>
+        <label style="font-size: 1.5rem; margin-bottom: 10px;" for="toggle-monthly">Monthly</label>
+        <input style="margin-left: 2rem;" id="toggle-yearly" type="radio" name="switch">    
+        <label style="font-size: 1.5rem; margin-bottom: 10px;" for="toggle-yearly">Yearly</label>
+        <span class="highlighter"></span>
+    </div>
 
-            <!-- make-stripe-payment -->
-            <?php 
-            }else if($row->DurationInMonths == 'years'){ ?>
-                   <div class="basic box price yearly ">
-                <h2 style="margin-top:0;margin-bottom:0" class="title"><?php echo ucfirst($row->PlanName);?></h2>
-                <div class="view">
-                    <!-- <div class="icon">
-                        <img src="https://i.postimg.cc/2jcfMcf4/hot-air-balloon.png" alt="hot-air-balloon">
+
+
+        <section>
+            <div class="content m-4">
+                <?php 
+                foreach($all_plan_list as $key=> $row){ 
+                if($row->DurationInMonths == 'month'){  
+                ?>
+                <div class="basic box price monthly fw-bold"  style="background-color:#FFFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);border-radius:20px " >
+                    <h2 style="margin-top:0;margin-bottom:0 fw-bold" class="title"><?php echo ucfirst($row->PlanName);?></h2>
+                        <div class="view"  style="background-color:white; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" >
+                            <!-- <div class="icon">
+                                <img src="https://i.postimg.cc/2jcfMcf4/hot-air-balloon.png" alt="hot-air-balloon">
+                            </div> -->
+
+                            <div class="icon" style="height: 94px;">
+                                <?php if(!empty($row->icons)){ ?> 
+
+                            
+                            <img src="<?php echo base_url($row->icons); ?>" alt="hot-air-balloon">
+                            <?php  } else { ?>
+                                <img src="https://i.postimg.cc/2jcfMcf4/hot-air-balloon.png" alt="hot-air-balloon">
+                            <?php } ?>
+                            </div>
+
+                            <div class="price monthly cost">
+                                <p class="amount">$<?php echo $row->Price;?></p>
+                                <p class="detail">Admin Per Month</p>
+                            </div>
+                            <div class="price yearly hide cost">
+                                <p class="amount">$<?php echo $row->Price;?></p>
+                                <p class="detail">Admin Per Years</p>
+                            </div>
+                        </div>
+                        <div class="description">
+                            <?php echo $row->plan_description; ?>
+                        </div>
+                        <?php if($this->ion_auth->is_superAdmin()){ 
+                        ?>
+                            <div class="button plan_button">              
+                            <!--<a href="<?php echo base_url('make-stripe-payment?'.'id='.$row->id);?>"><button >START FREE 7 DAYS TRIAL </button></a>-->
+                                <h2>
+                                    <a href="javascript:void(0)" onclick="open_modal_edit('<?php echo $model; ?>', '<?php echo $row->id; ?>')" class="save-btn btn btn-sm btn-primary">
+                                    <i class="gi gi-circle_plus"></i> Edit Plan </a>
+                                </h2>
+                            </div>
+                            <?php } else if($this->ion_auth->is_admin()){ ?>
+                        <div class="button plan_button " style="margin-left:25px">
+                        <!-- <a href="<?php echo site_url('stripePayments'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "stripePaymentController") ? "active" : "" ?>"> -->
+                        <!-- <button >START FREE 7 DAYS TRIAL </button></a> -->
+                        <a href="<?php echo base_url('make-stripe-payment?'.'id='.$row->id);?>" style="text-align: center; text-decoration: none; color: white;">
+                        <button style="background-color: transparent; border: none; padding: 0; cursor: pointer; margin:10px; margin-left:60px;" class="text-center">START FREE 7 DAYS TRIAL</button>
+                        </a>
+                        <!-- <a href="<?php echo base_url('my-stripe?'.'id='.$row->id);?>"><button >START FREE 7 DAYS TRIAL </button></a> -->
+                        </div>
+                        <?php } ?>
+                    </div>
+
+                
+
+                <!-- make-stripe-payment -->
+                <?php 
+                }else if($row->DurationInMonths == 'years'){ ?>
+                    <div class="basic box price yearly ">
+                    <h2 style="margin-top:0;margin-bottom:0" class="title"><?php echo ucfirst($row->PlanName);?></h2>
+                    <div class="view">
+                        <!-- <div class="icon">
+                            <img src="https://i.postimg.cc/2jcfMcf4/hot-air-balloon.png" alt="hot-air-balloon">
+                        </div> -->
+
+                        <div class="icon" style="height: 94px;">
+                            <?php if(!empty($row->icons)){ ?> 
+
+                        
+                        <img src="<?php echo base_url($row->icons); ?>" alt="hot-air-balloon">
+                        <?php  } else { ?>
+                            <img src="https://i.postimg.cc/2jcfMcf4/hot-air-balloon.png" alt="hot-air-balloon">
+                        <?php } ?>
+                        </div>
+
+                        <div class="price monthly cost">
+                            <p class="amount">$<?php echo $row->Price;?></p>
+                            <p class="detail">Admin Per Month</p>
+                        </div>
+                        <div class="price yearly hide cost">
+                            <p class="amount">$<?php echo $row->Price;?></p>
+                            <p class="detail">Admin per Years</p>
+                        </div>
+                    </div>
+                    <div class="description">
+                        
+                        <?php echo $row->plan_description; ?>
+                    </div>
+                    <?php if($this->ion_auth->is_admin()){ ?>
+                    <!-- <div class="button">
+                    <a href="<?php echo base_url('make-stripe-payment?'.'id='.$row->id);?>"><button >START FREE 7 DAYS TRIAL </button></a>
+                        
                     </div> -->
+                    <?php }?>
 
-                    <div class="icon" style="height: 94px;">
-                        <?php if(!empty($row->icons)){ ?> 
-
-                       
-                    <img src="<?php echo base_url($row->icons); ?>" alt="hot-air-balloon">
-                    <?php  } else { ?>
-                        <img src="https://i.postimg.cc/2jcfMcf4/hot-air-balloon.png" alt="hot-air-balloon">
-                      <?php } ?>
-                    </div>
-
-                    <div class="price monthly cost">
-                        <p class="amount">$<?php echo $row->Price;?></p>
-                        <p class="detail">Admin Per Month</p>
-                    </div>
-                    <div class="price yearly hide cost">
-                        <p class="amount">$<?php echo $row->Price;?></p>
-                        <p class="detail">Admin per Years</p>
-                    </div>
-                </div>
-                <div class="description">
                     
-                    <?php echo $row->plan_description; ?>
-                </div>
-                <?php if($this->ion_auth->is_admin()){ ?>
-                <!-- <div class="button">
-                <a href="<?php echo base_url('make-stripe-payment?'.'id='.$row->id);?>"><button >START FREE 7 DAYS TRIAL </button></a>
+                    <?php if($this->ion_auth->is_superAdmin()){ ?>
+                    <div class="button plan_button">
                     
-                </div> -->
-                <?php }?>
+                
+                    
+                    <!--<a href="<?php echo base_url('make-stripe-payment?'.'id='.$row->id);?>"><button >START FREE 7 DAYS TRIAL </button></a>-->
+                    <h2>
+                        <a href="javascript:void(0)" onclick="open_modal_edit('<?php echo $model; ?>', '<?php echo $row->id; ?>')" class="save-btn btn btn-sm btn-primary">
+                            <i class="gi gi-circle_plus"></i> Edit Plan
+                        </a>
+                    </h2>
+                    </div>
 
-                
-                <?php if($this->ion_auth->is_superAdmin()){ ?>
-                <div class="button plan_button">
-                
-               
-                
-                <!--<a href="<?php echo base_url('make-stripe-payment?'.'id='.$row->id);?>"><button >START FREE 7 DAYS TRIAL </button></a>-->
-                <h2>
-                    <a href="javascript:void(0)" onclick="open_modal_edit('<?php echo $model; ?>', '<?php echo $row->id; ?>')" class="save-btn btn btn-sm btn-primary">
-                        <i class="gi gi-circle_plus"></i> Edit Plan
+                <?php } else if($this->ion_auth->is_admin()){ ?>
+                    <div class="button plan_button" style="margin-left:25px">
+                    
+                    <!-- <a href="<?php echo site_url('stripePayments'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "stripePaymentController") ? "active" : "" ?>"> -->
+                    <!-- <button >START FREE 7 DAYS TRIAL </button></a> -->
+                    <!-- <a href="<?php echo base_url('make-stripe-payment?'.'id='.$row->id);?>"><button >START FREE 7 DAYS TRIAL </button></a> -->
+                    <a href="<?php echo base_url('make-stripe-payment?'.'id='.$row->id);?>" style="text-align: center; text-decoration: none; color: white;">
+                    <button style="background-color: transparent; border: none; padding: 0; cursor: pointer; margin:10px; margin-left:60px;" class="text-center">START FREE 7 DAYS TRIAL</button>
                     </a>
-                </h2>
-                </div>
+                    </div>
+                    <?php } ?>
 
-        <?php } else if($this->ion_auth->is_admin()){ ?>
-                <div class="button plan_button" style="margin-left:25px">
-                
-                <!-- <a href="<?php echo site_url('stripePayments'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "stripePaymentController") ? "active" : "" ?>"> -->
-                <!-- <button >START FREE 7 DAYS TRIAL </button></a> -->
-                <!-- <a href="<?php echo base_url('make-stripe-payment?'.'id='.$row->id);?>"><button >START FREE 7 DAYS TRIAL </button></a> -->
-                <a href="<?php echo base_url('make-stripe-payment?'.'id='.$row->id);?>" style="text-align: center; text-decoration: none; color: white;">
-                 <button style="background-color: transparent; border: none; padding: 0; cursor: pointer; margin:10px; margin-left:60px;" class="text-center">START FREE 7 DAYS TRIAL</button>
-                 </a>
                 </div>
-                <?php } ?>
-
-            </div>
-       <?php } ?>     
+        <?php } ?>     
+            
         
-      
-        <?php } ?>
-                </div>
-            </section>        
-            <?php } else if ($this->ion_auth->is_subAdmin()) { ?>
+            <?php } ?>
+            </div>
+        </section> 
+
+        <?php } else if ($this->ion_auth->is_subAdmin()) { ?>
 
                     <div class="panel-body">
                             <form action="<?php echo site_url('pwfpanel'); ?>" name="patientForm" method="get">
@@ -679,7 +658,7 @@
 
    
 
-<?php } else if ($this->ion_auth->is_facilityManager() || $this->ion_auth->is_all_roleslogin()) { ?>
+<?php } else if ($this->ion_auth->is_facilityManager() or $this->ion_auth->is_all_roleslogin()) { ?>
 
                         
     <div class="panel-body">
