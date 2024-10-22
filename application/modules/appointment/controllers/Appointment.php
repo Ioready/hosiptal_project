@@ -1054,7 +1054,7 @@ $this->data['results'] = $results;
      function open_model_new() {
 
         $this->data['title'] = "addPatient " . $this->title;
-        $this->data['formUrlAdd'] = $this->router->fetch_class() . "/addPatient";
+        $this->data['formUrlAddNew'] = $this->router->fetch_class() . "/addPatient";
         $this->data['formUrl'] = $this->router->fetch_class() . "/add";
 
 
@@ -1212,8 +1212,8 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
     $operator_id = ($this->ion_auth->is_admin()) ? 0 : $this->session->userdata('user_id');
 
     
-    // if($this->ion_auth->is_subAdmin()){
-    if($this->ion_auth->is_all_roleslogin()){
+    if($this->ion_auth->is_subAdmin()){
+    // if($this->ion_auth->is_all_roleslogin()){
 
         $option = array(
             'table' => ' doctors',
@@ -1234,11 +1234,12 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
     } else if ($this->ion_auth->is_facilityManager()) {
         
         
-  $hospitalAndDoctorId = $operator_id;
+        $hospitalAndDoctorId = $operator_id;
         
     }
+    
        
-
+    $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
     
         $this->form_validation->set_rules('first_name', 'first_name', 'trim');
         $this->form_validation->set_rules('last_name', 'last_name', 'trim');
@@ -1272,6 +1273,7 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
         
 
         if ($this->form_validation->run() == true) {
+
             $operator_id = ($this->ion_auth->is_admin()) ? 0 : $this->session->userdata('user_id');
 
 
@@ -1402,7 +1404,8 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
                 'table' => 'patient',
                 'data' => array(
                     'name' => ucwords($this->input->post('first_name').' '.$this->input->post('last_name')),
-                    'operator_id' => $hospitalAndDoctorId,
+                    'operator_id' => $operator_id,
+                    // 'operator_id' => $hospitalAndDoctorId,
                     'patient_id' => $patient_unique,
                     
                     'address' => ucwords($this->input->post('address_lookup')),
@@ -1433,6 +1436,8 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
             );
 
             $patient_id = $this->common_model->customInsert($option);
+
+            
         //     $query = $this->db->order_by('created_on', 'desc')->limit(1)->get('vendor_sale_email_host');
         // $result = $query->row();
 
@@ -1617,27 +1622,32 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 
                     } elseif ($this->input->post('infection_surveillance_checklist') == 'Loeb') {
 
-                        $redirect_to = base_url() . 'application/modules/patient/views/form1.html';
+                        $redirect_to = base_url($this->router->fetch_class());
                         $show_redirection_alert = true;
 
                     } elseif ($this->input->post('infection_surveillance_checklist') == 'McGeer – UTI') {
-                        $redirect_to = base_url() . 'application/modules/patient/views/form2.html';
+                        $redirect_to = base_url($this->router->fetch_class());
                         $show_redirection_alert = true;
                     } elseif ($this->input->post('infection_surveillance_checklist') == 'McGeer – RTI') {
-                        $redirect_to = base_url() . 'application/modules/patient/views/form3.html';
+                        $redirect_to = base_url($this->router->fetch_class());
                         $show_redirection_alert = true;
                     } elseif ($this->input->post('infection_surveillance_checklist') == 'McGeer – GITI') {
-                        $redirect_to = base_url() . 'application/modules/patient/views/form4.html';
+                        $redirect_to = base_url($this->router->fetch_class());
                         $show_redirection_alert = true;
                     } elseif ($this->input->post('infection_surveillance_checklist') == 'McGeer –SSTI') {
-                        $redirect_to = base_url() . 'application/modules/patient/views/form5.html';
+                        $redirect_to = base_url($this->router->fetch_class());
                         $show_redirection_alert = true;
                     }
-                    $response = array('status' => 1, 'show_redirection_alert' => $show_redirection_alert, 'message' => "Successfully added", 'url' => $redirect_to);
+                    // $response = array('status' => 1, 'message' => "Successfully added", 'url' => base_url($this->router->fetch_class()));
+                    $this->session->set_flashdata('message',"Successfully added");
+                    redirect($this->router->fetch_class().'/open_model');
+                    // $response = array('status' => 1, 'show_redirection_alert' => $show_redirection_alert, 'message' => "Successfully added", 'url' => $redirect_to);
                 } else {
                     $response = array('status' => 0, 'message' => "Failed to add");
                 }
-                $response = array('status' => 1, 'show_redirection_alert' => $show_redirection_alert, 'message' => "Successfully added", 'url' => $redirect_to);
+                $this->session->set_flashdata('message',"Successfully added");
+                redirect($this->router->fetch_class().'/open_model');
+                // $response = array('status' => 1, 'show_redirection_alert' => $show_redirection_alert, 'message' => "Successfully added", 'url' => $redirect_to);
             } else {
                 $response = array('status' => 0, 'message' => "Failed to add");
             }
@@ -1646,8 +1656,12 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
             $messages = (validation_errors()) ? validation_errors() : '';
             $response = array('status' => 0, 'message' => $messages);
         }
-        echo json_encode($response);
+        $this->session->set_flashdata('message',"Successfully added");
+                redirect($this->router->fetch_class().'/open_model');
+        // echo json_encode($response);
     }
+
+
     public function addQuestion() {
 
     

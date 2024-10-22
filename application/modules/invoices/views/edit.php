@@ -341,7 +341,7 @@
                                     <!-- £<?php //echo $results->total_amount; ?> -->
                                     <input type="text" class="form-control" id="total_price" name="total_price" value="£ <?php echo $results->total_amount; ?>" readonly>
                                 </div>
-                                <!-- <button class="add-invoice-item" type="button"  onclick="education_fields();"> <span class="add-invoice-item" aria-hidden="true">+ Add invoice item</span> </button> -->
+                                <button class="add-invoice-item" type="button"  onclick="education_fields();"> <span class="add-invoice-item" aria-hidden="true">+ Add invoice item</span> </button>
 
                                 <!-- <button type="button" id="submit" class="add-invoice-item">+ Add invoice item</button> -->
 
@@ -364,46 +364,6 @@
 
 
 <!-- <script>
-    var room = 1;
-function education_fields() {
- 
-    room++;
-    var objTo = document.getElementById('edit_item_fields')
-    var divtest = document.createElement("div");
-	divtest.setAttribute("class", "form-group removeclass"+room);
-	var rdiv = 'removeclass'+room;
-    divtest.innerHTML = '<div class="col-sm-3 nopadding"><div class="form-group"> <input type="text" class="form-control" id="products" name="products[]" value="" placeholder="Products name"></div></div><div class="col-sm-2 nopadding"><div class="form-group"> <input type="text" class="form-control" id="rate" name="rate[]" value="" placeholder="Rate"></div></div><div class="col-sm-2 nopadding"><div class="form-group"> <input type="text" class="form-control" id="quantity" name="quantity[]" value="" placeholder="Quantity"></div></div><div class="col-sm-3 nopadding"><div class="form-group"> <input type="text" class="form-control" id="price" name="price[]" value="" placeholder="Price"></div></div> <div class="col-sm-2"><div class="form-group">  <button class="btn btn-danger" type="button" onclick="remove_education_fields('+ room +');"> <span class="glyphicon glyphicon-minus" aria-hidden="true">-</span> </button></div></div><div class="clear"></div>';
-    
-    objTo.appendChild(divtest)
-}
-   function remove_education_fields(rid) {
-	   $('.removeclass'+rid).remove();
-   }
-</script> -->
-
-
-<script>
-//     function calculatePrice(element) {
-//     // Find the parent element containing all inputs
-//     var parent = element.closest('.form-group').parentElement.parentElement;
-    
-//     // Get the rate and quantity fields
-//     var rate = parent.querySelector('#rate').value;
-//     var quantity = parent.querySelector('#quantity').value;
-
-//     // Ensure rate and quantity are valid numbers
-//     rate = parseFloat(rate) || 0;
-//     quantity = parseFloat(quantity) || 0;
-
-//     // Calculate the price
-//     var price = rate * quantity;
-
-//     // Update the price field
-//     parent.querySelector('#price').value = price.toFixed(2); // display 2 decimal places
-
-//     updateTotalPrice();
-//     // parent.querySelector('#total_price').value = sum(price.toFixed(2));
-// }
 
 function calculatePrice(element) {
     
@@ -420,7 +380,7 @@ function calculatePrice(element) {
 
     // Calculate the price
     var price = rate * quantity;
-// alert(price);
+
     // Update the price field within the same row
     parent.querySelector('input[name="price[]"]').value = price.toFixed(2);
     updateTotalPrice();
@@ -435,33 +395,10 @@ function updateTotalPrice() {
         var price = parseFloat(priceField.value) || 0;
         total += price;
     });
-
     // Update the total price field
     document.getElementById('total_price').value = '£ '+ total.toFixed(2);
 }
 
-
-</script>
-<!-- <script>
-    var room = 1;
-    function education_fields() {
- 
-    room++;
-    var objTo = document.getElementById('edit_item_fields')
-    var divtest = document.createElement("div");
-	divtest.setAttribute("class", "form-group removeclass"+room);
-	var rdiv = 'removeclass'+room;
-    divtest.innerHTML = '<div class="col-sm-3 nopadding"><div class="form-group"> <input type="text" class="form-control" id="products" name="products[]" value="" placeholder="Products name"></div></div><div class="col-sm-2 nopadding"><div class="form-group"> <input type="number" class="form-control" id="rate" name="rate[]" value="" placeholder="Rate" oninput="calculatePrice(this)"></div></div><div class="col-sm-2 nopadding"><div class="form-group"> <input type="number" class="form-control" id="quantity" name="quantity[]" value="" placeholder="Quantity" oninput="calculatePrice(this)"></div></div><div class="col-sm-3 nopadding"><div class="form-group"> <input type="text" class="form-control" id="price" name="price[]" value="" placeholder="Price" readonly></div></div> <div class="col-sm-2"><div class="form-group">  <button class="btn btn-danger" type="button" onclick="remove_education_fields('+ room +');"> <span class="glyphicon glyphicon-minus" aria-hidden="true">-</span> </button></div></div><div class="clear"></div>';
-    
-    objTo.appendChild(divtest);
-    updateTotalPrice();
-}
-   function remove_education_fields(rid) {
-	   $('.removeclass'+rid).remove();
-   }
-</script> -->
-
-<script>
 
 function education_fields() {
     room++;
@@ -505,4 +442,90 @@ function education_fields() {
     updateTotalPrice();
 }
 
+</script> -->
+
+
+<script>
+
+function calculatePrice(element) {
+    
+    // Find the parent element containing all inputs for this row
+    var parent = element.closest('.row-container');  // Make sure rows have a class like 'row-container'
+    
+    // Get the rate and quantity fields within the same row
+    var rate = parent.querySelector('input[name="rate[]"]').value;
+    var quantity = parent.querySelector('input[name="quantity[]"]').value;
+
+    // Ensure rate and quantity are valid numbers
+    rate = parseFloat(rate) || 0;
+    quantity = parseFloat(quantity) || 0;
+
+    // Calculate the price
+    var price = rate * quantity;
+
+    // Update the price field within the same row
+    parent.querySelector('input[name="price[]"]').value = price.toFixed(2);
+
+    // Update the total price after calculating the price for this row
+    updateTotalPrice();
+}
+
+function updateTotalPrice() {
+    var total = 0;
+    
+    // Loop through all price fields and sum their values
+    var prices = document.querySelectorAll('input[name="price[]"]');
+    prices.forEach(function(priceField) {
+        var price = parseFloat(priceField.value) || 0;
+        total += price;
+    });
+
+    // Update the total price field
+    document.getElementById('total_price').value = '£ ' + total.toFixed(2);
+}
+
+
+function education_fields() {
+    room++;
+    var objTo = document.getElementById('edit_item_fields');
+    var divtest = document.createElement("div");
+    divtest.setAttribute("class", "form-group row-container removeclass" + room);
+    
+    var rdiv = 'removeclass' + room;
+    divtest.innerHTML = `
+        <div class="col-sm-3 nopadding">
+            <div class="form-group">
+                <input type="text" class="form-control" name="products[]" placeholder="Products name">
+            </div>
+        </div>
+        <div class="col-sm-2 nopadding">
+            <div class="form-group">
+                <input type="number" class="form-control" name="rate[]" placeholder="Rate" oninput="calculatePrice(this)">
+            </div>
+        </div>
+        <div class="col-sm-2 nopadding">
+            <div class="form-group">
+                <input type="number" class="form-control" name="quantity[]" placeholder="Quantity" oninput="calculatePrice(this)">
+            </div>
+        </div>
+        <div class="col-sm-3 nopadding">
+            <div class="form-group">
+                <input type="text" class="form-control" name="price[]" placeholder="Price" readonly>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group">
+                <button class="btn btn-danger" type="button" onclick="remove_education_fields(${room});">
+                    <span class="glyphicon glyphicon-minus" aria-hidden="true">-</span>
+                </button>
+            </div>
+        </div>
+        <div class="clear"></div>
+    `;
+    
+    objTo.appendChild(divtest);
+    updateTotalPrice();  // Recalculate total price when new fields are added
+}
+
 </script>
+

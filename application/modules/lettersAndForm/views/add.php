@@ -161,12 +161,36 @@
                     css: [CKEDITOR.skin.getPath('editor')].concat(editor.config.contentsCss),
                     voiceLabel: editor.lang.panelVoiceLabel
                 },
+                // init: function() {
+                    
+                //     var countries = [<?php echo $send_mail_template; ?>];
+                    
+                //     for (var i = 0; i < countries.length; i++) {
+                //         // alert(countries[i]);
+                //         this.add(countries[i], countries[i], countries[i]);
+                //     }
+                // },
+
                 init: function() {
-                    var countries = [<?php echo $send_mail_template; ?>];
+                    var countries = <?php echo json_encode($send_mail_template); ?>;
+                    // alert(countries);
                     for (var i = 0; i < countries.length; i++) {
+                        // Assuming `this.add` takes three parameters and does something meaningful
                         this.add(countries[i], countries[i], countries[i]);
                     }
                 },
+
+
+            //     init: function() {
+            //     var countries = [
+            //         'United States', 'Canada', 'United Kingdom', 'Australia', 'Germany', 'France', 'India', 'China', 'Japan', 'Russia'
+            //     ];
+
+            //     for (var i = 0; i < countries.length; i++) {
+            //         this.add(countries[i], countries[i], countries[i]);
+            //     }
+            // },
+
                 onClick: function(value) {
                     var id = value;
                     $('#template_id').val(id);

@@ -163,17 +163,19 @@ class LettersAndForm extends Common_Controller {
         );
         $this->data['doctors'] = $this->common_model->customGet($option);
 
-        $send_mail_template = $this->common_model->customGet(array('table' => 'send_mail_template', 'select' => 'send_mail_template.app_name', 'where' => array('user_id' =>$CareUnitID)));
-       $$template_name =[];
+        // $send_mail_template = $this->common_model->customGet(array('table' => 'send_mail_template', 'select' => 'send_mail_template.app_name', 'where' => array('user_id' =>$CareUnitID)));
+        $send_mail_template = $this->common_model->customGet(array('table' => 'send_mail_template', 'select' => 'send_mail_template.app_name'));
+        // print_r($send_mail_template);die;
+       $template_name =[];
         foreach($send_mail_template as $key=>$datavalues){
             $template_name[$key] =  $datavalues->app_name;
 
        } 
 
     //    $send_mailt=  implode(', ', array_map(function($val){return sprintf("'%s'", $val);}, $template_name));
-    //    $this->data['send_mail_template']=$send_mailt;
+       $this->data['send_mail_template']=$template_name;
     }
-    // print_r($this->data['doctors']);die;
+    // print_r($template_name);
         $this->load->view('add', $this->data);
     }
 

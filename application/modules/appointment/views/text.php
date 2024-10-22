@@ -818,7 +818,8 @@ transition: opacity 0.3s linear, right 0.3s ease-out;
                                                                                         <label class="col-md-12 control-label" style="text-align: center;"><strong>Procedure details</strong></label>
                                                                                     </div>
                                                                                 </div>
-                                                                                <div class="col-md-12">
+                                                                                
+                                                                <div class="col-md-12">
                                                                 <div class="form-group row">
                                                                     <label class="col-md-3 control-label">Anaesthetic type*</label>
                                                                     <div class="col-md-9">

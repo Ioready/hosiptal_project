@@ -522,10 +522,6 @@ class Common_model extends MY_Model {
             $this->db->where('operator_id', $CareUnitID);
             // $this->db->limit(1); 
             $query = $this->db->get('vendor_sale_patient');
-    
-        
-        
-        
         }
 
 

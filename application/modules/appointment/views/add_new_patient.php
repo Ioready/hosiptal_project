@@ -10,7 +10,7 @@ input {
 <div id="commonModalNew" class="modal fade bd-example-modal-lg" role="dialog">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url($formUrlAdd) ?>" enctype="multipart/form-data">
+            <form class="form-horizontal" role="form" method="post" action="<?php echo base_url($formUrlAddNew) ?>" enctype="multipart/form-data">
             <div class="modal-header text-center">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                         <h2 class="modal-title fw-bold"><i class="fa fa-pencil"></i> Add new patient form</h2>
@@ -584,29 +584,29 @@ input {
                             </div>
                         </div>
                     </div>
-<!-- </div> -->  
+                    <!-- </div> -->  
 
-<div class="row">
-  
-    <div class="modal-header text-center">
-        <div class="col-md-12">
-            <div class="vender_title_admin">
-                <h3><strong>ID numbers</strong></h3>
-            </div>
-        </div>
-    </div>
+                    <div class="row">
+                    
+                        <div class="modal-header text-center">
+                            <div class="col-md-12">
+                                <div class="vender_title_admin">
+                                    <h3><strong>ID numbers</strong></h3>
+                                </div>
+                            </div>
+                        </div>
 
-    <div class="col-md-12">
-        <div class="form-group">
-            <div class="col-md-12">
-                <div class="col-md-12">
-                    <label class="">System</label>
-                    <input type="text" class="form-control" name="System_id" id="System_id" placeholder="System Id" style="text-align: justify;"/>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <div class="col-md-12">
+                                        <label class="">System</label>
+                                        <input type="text" class="form-control" name="System_id" id="System_id" placeholder="System Id" style="text-align: justify;"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                                             
                         <div class="col-md-6">
@@ -1040,11 +1040,17 @@ input {
                 
                     <!-- <div class="modal-footer"> -->
 
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal"><?php echo lang('reset_btn');?></button>
+                    <button  style="background: #337ab7" type="submit" class="btn btn-sm btn-primary m-2" ><?php echo lang('submit_btn');?></button>
+                </div> 
+
                                                 <!-- <button type="button" class="btn btn-sm btn-default reset-btn" data-dismiss="modal"><?php echo lang('reset_btn'); ?></button>
                                                 <button type="submit" id="submit" class="save-btn btn btn-sm btn-primary"><?php echo lang('submit_btn'); ?></button> -->
                                             </div>
                                         </form>
         
+
 
                     <div class="modal" id="myModal">
                         <div class="modal-dialog">
@@ -1236,8 +1242,9 @@ input {
 
 
                                                     <button type="submit" class="btn btn-primary save-btn">Save</button>
-                                                </form>
+                                                <!-- </form> -->
                                             </div>
+
 
 
                                             <div class="show-hide" id="Next_Of_kin">
@@ -1425,9 +1432,9 @@ input {
                             </div>
 
                             <!-- Modal footer -->
-                            <div class="modal-footer">
+                            <!-- <div class="modal-footer">
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                            </div>
+                            </div> -->
 
                         </div>
                         </div>
@@ -1724,11 +1731,12 @@ $(document).ready(function() {
 }
     </style>
 
-                <div class="modal-footer">
+                <!-- <div class="modal-footer">
                     <button type="button" class="btn btn-sm btn-default" data-dismiss="modal"><?php echo lang('reset_btn');?></button>
                     <button  style="background: #337ab7" type="submit" id="submit" class="btn btn-sm btn-primary m-2" ><?php echo lang('submit_btn');?></button>
-                </div>
-            </form>
+                </div> -->
+
+            <!-- </form> -->
         </div> <!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div>
