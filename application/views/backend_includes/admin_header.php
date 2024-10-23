@@ -620,9 +620,9 @@ hh
                                 <li title="Patient">
                                     <a href="<?php echo site_url('patient'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "patient") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/patients.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Patients</span></a>
                                 </li>
-                                 <li title="Labs">
+                                 <!-- <li title="Labs">
                                  <a href="<?php echo site_url('cultureSource'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "cultureSource") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/labs.svg" height="23px" width="23px"><span class="sidebar-nav-mini-hide text-dark">Labs</span></a>
-                                </li>
+                                </li> -->
                                 <li title="Tasks">
                                     <a href="<?php echo site_url('tasks'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "tasks") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/tasks.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Tasks</span></a>
                                 </li>

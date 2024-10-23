@@ -150,17 +150,46 @@ class Patient extends Common_Controller
 
 
         // print_r($UsersCareUnitID);die;
+
+
+        
+    
+                     if ($this->ion_auth->is_facilityManager()) {
+                        $user_id = $this->session->userdata('user_id');
+                    $hospital_id = $user_id;
+
+                    } else if($this->ion_auth->is_all_roleslogin()) {
+                        $user_id = $this->session->userdata('user_id');
+                        $optionData = array(
+                            'table' => USERS . ' as user',
+                            'select' => 'user.*,group.name as group_name',
+                            'join' => array(
+                                array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                                array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                            ),
+                            'order' => array('user.id' => 'DESC'),
+                            'where' => array('user.id'=>$user_id),
+                            'single'=>true,
+                        );
+                
+                        $authUser = $this->common_model->customGet($optionData);
+
+                        $hospital_id = $authUser->hospital_id;
+                        
+                    }
+
         
         $option = array(
-            'table' => 'patient P',
+            'table' => 'users U',
             'select' => 'P.id as patient_id,P.patient_id as pid,P.name as patient_name,P.date_of_start_abx,P.address,P.total_days_of_patient_stay,P.room_number,P.symptom_onset,P.md_stayward_consult,P.criteria_met,P.md_stayward_response,P.psa,P.md_patient_status,P.created_date,'
                 . 'P.care_unit_id,CI.name as care_unit_name,P.doctor_id,P.culture_source,P.organism,P.precautions,CS.name as culture_source_name,Org.name as organism_name,Pre.name as precautions_name,DOC.name as doctor_name,P.md_steward_id,U.first_name as md_stayward,'
                 . 'PC.initial_rx,IRX.name as initial_rx_name,PC.initial_dx,IDX.name as initial_dx_name,PC.initial_dot,'
                 . 'PC.new_initial_rx,IRX2.name as new_initial_rx_name,PC.new_initial_dx,IDX2.name as new_initial_dx_name,PC.new_initial_dot,PC.comment',
             'join' => array(
+                // array('patient P', 'U.id=P.md_steward_id','left'),
+                array('patient P', 'U.id=P.user_id','inner'),
                 array('care_unit CI', 'CI.id=P.care_unit_id', 'left'),
                 array('doctors DOC', 'DOC.user_id=P.doctor_id', 'left'),
-                array('users U', 'U.id=P.md_steward_id', 'left'),
                 array('patient_consult PC', 'PC.patient_id=P.id', 'left'),
                 array('initial_rx IRX', 'IRX.id=PC.initial_rx', 'left'),
                 array('initial_dx IDX', 'IDX.id=PC.initial_dx', 'left'),
@@ -174,6 +203,7 @@ class Patient extends Common_Controller
             // 'where'=>array('P.care_unit_id,'. $careUnitID),
             // 'where'=>array('P.md_steward_id,'. $UsersCareUnitID),
             // 'where'=>array('P.id,'. '1'),
+            // 'where'=>array('U.hospital_id,'. $hospital_id),
             'group_by' => 'pid'
         );
 
@@ -181,9 +211,14 @@ class Patient extends Common_Controller
         if (!empty($careUnitID)) {
             $option['where']['P.care_unit_id'] = $careUnitID;
         }
+
         // if (!empty($UsersCareUnitID)) {
         //     $option['where']['P.operator_id'] = $UsersCareUnitID;
         // }
+        if (!empty($hospital_id)) {
+            
+            $option['where']['U.hospital_id'] = $hospital_id;
+        }
         // vendor_sale_patient.operator_id = $UsersCareUnitID
         if (!empty($AdminCareUnitID)) {
             $option['where']['P.care_unit_id']  = $AdminCareUnitID;
@@ -491,6 +526,33 @@ class Patient extends Common_Controller
 
         $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
         
+
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+    
+            $authUser = $this->common_model->customGet($optionData);
+
+            $hospital_id = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
+        }
+
+
         // if($this->ion_auth->is_subAdmin()){
         if($this->ion_auth->is_all_roleslogin()){
     
@@ -524,6 +586,7 @@ class Patient extends Common_Controller
                 'where' => array(
                     'users.delete_status' => 0,
                     // 'doctors.facility_user_id'=>$datadoctors->facility_user_id
+                    'users.hospital_id'=>$hospital_id
                 ),
                 'order' => array('users.id' => 'desc'),
             );
@@ -544,7 +607,8 @@ class Patient extends Common_Controller
                 
                 'where' => array(
                     'users.delete_status' => 0,
-                    'doctors.facility_user_id'=>$CareUnitID
+                    // 'doctors.facility_user_id'=>$CareUnitID
+                    'users.hospital_id'=>$hospital_id
                 ),
                 'order' => array('users.id' => 'desc'),
             );
@@ -594,8 +658,30 @@ class Patient extends Common_Controller
 
         $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 
-        if($LoginID != 1 && $LoginID != NULL ){
-            $x = $LoginID;
+
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+    
+            $authUser = $this->common_model->customGet($optionData);
+
+            $hospital_id = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
         }
         
         $this->data['roles'] = array(
@@ -613,7 +699,7 @@ class Patient extends Common_Controller
             'join' => array(
                 array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_user_consultation_setting.user_id','left')
             ),
-            'where' => array('vendor_sale_user_consultation_setting.user_id' => $LoginID)
+            'where' => array('users.hospital_id'=>$hospital_id)
         );
 
         $this->data['list'] = $this->common_model->customGet($optionheader);
@@ -707,6 +793,30 @@ class Patient extends Common_Controller
         
         if ($this->form_validation->run() == true) {
              
+            if ($this->ion_auth->is_facilityManager()) {
+                $user_id = $this->session->userdata('user_id');
+            $hospital_id = $user_id;
+    
+            } else if($this->ion_auth->is_all_roleslogin()) {
+                $user_id = $this->session->userdata('user_id');
+                $optionData = array(
+                    'table' => USERS . ' as user',
+                    'select' => 'user.*,group.name as group_name',
+                    'join' => array(
+                        array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                        array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                    ),
+                    'order' => array('user.id' => 'DESC'),
+                    'where' => array('user.id'=>$user_id),
+                    'single'=>true,
+                );
+        
+                $authUser = $this->common_model->customGet($optionData);
+    
+                $hospital_id = $authUser->hospital_id;
+                // 'users.hospital_id'=>$hospital_id
+                
+            }
             
             //   if($CareUnitID != 1){
                 // $employees = $this->input->post('initial_rx');
@@ -716,7 +826,7 @@ class Patient extends Common_Controller
                 $options_data = array(
                     'patient_id' =>$this->input->post('patient_id'), // Use 'true' for xss_clean
                     'user_id' =>$CareUnitID,
-                    'facility_user_id' =>$CareUnitID,
+                    'facility_user_id' =>$hospital_id,
                     'type' =>$this->input->post('type'),
                     'initial_rx' =>$this->input->post('initial_rx'), // Decoded to an array, then encoded back to JSON
                     'detail' =>$this->input->post('detail'),
@@ -948,7 +1058,32 @@ class Patient extends Common_Controller
 
 $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 
-    if($this->ion_auth->is_subAdmin()){
+if ($this->ion_auth->is_facilityManager()) {
+    $user_id = $this->session->userdata('user_id');
+$hospital_id = $user_id;
+
+} else if($this->ion_auth->is_all_roleslogin()) {
+    $user_id = $this->session->userdata('user_id');
+    $optionData = array(
+        'table' => USERS . ' as user',
+        'select' => 'user.*,group.name as group_name',
+        'join' => array(
+            array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+            array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+        ),
+        'order' => array('user.id' => 'DESC'),
+        'where' => array('user.id'=>$user_id),
+        'single'=>true,
+    );
+
+    $authUser = $this->common_model->customGet($optionData);
+
+    $hospital_id = $authUser->hospital_id;
+    // 'users.hospital_id'=>$hospital_id
+    
+}
+
+    if($this->ion_auth->is_all_roleslogin()){
 
         $option = array(
             'table' => ' doctors',
@@ -979,7 +1114,7 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
             
             'where' => array(
                 'users.delete_status' => 0,
-                'doctors.facility_user_id'=>$datadoctors->facility_user_id
+                'users.hospital_id'=>$hospital_id
             ),
             'order' => array('users.id' => 'desc'),
         );
@@ -1000,7 +1135,7 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
             
             'where' => array(
                 'users.delete_status' => 0,
-                'doctors.facility_user_id'=>$CareUnitID
+                'users.hospital_id'=>$hospital_id
             ),
             'order' => array('users.id' => 'desc'),
         );
@@ -2077,6 +2212,76 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 
                 if (empty($email_exist)) {
 
+                    if ($this->ion_auth->is_facilityManager()) {
+
+                        $day = $this->input->post('day');
+                   $month = $this->input->post('month');
+                   $year = $this->input->post('year');
+                    $additional_data = array(
+                        'first_name' => $this->input->post('first_name'),
+                        'last_name' => $this->input->post('last_name'),
+                        'full_name'=>$this->input->post('first_name').' '.$this->input->post('last_name'),
+                        //'team_code' => $code,
+                        'login_id' => $x,
+                        'username' => $code,
+                        'date_of_birth' => $year.'-'.$month.'-'.$day,
+                        // 'date_of_birth' => (!empty($this->input->post('date_of_birth'))) ? date('Y-m-d', strtotime($this->input->post('date_of_birth'))) : date('Y-m-d'),
+                        // 'profile_pic' => $image,
+                        'phone' => $this->input->post('phone_number') ? $this->input->post('phone_number') : null,
+                        'country_code'=>$this->input->post('country') ? $this->input->post('country') : null,
+                        'gender'=>$this->input->post('gender') ? $this->input->post('gender') : null,
+                        // 'gender'=>$this->input->post('gender'),
+                        'zipcode_access'=>$this->input->post('post_code') ? $this->input->post('post_code') : null,
+                        // 'phone_code' => $this->input->post('phone_code'),
+                        'care_unit_id' => $this->input->post('care_unit_id') ? $this->input->post('care_unit_id') : null,
+                        // 'zipcode_access' => json_encode($this->input->post('zipcode')),
+                        'email_verify' => 1,
+                        'is_pass_token' => $this->input->post('password'),
+                        'hospital_id' =>$hospitalAndDoctorId,
+                        'user_id'=>$hospitalAndDoctorId,
+                        'created_on' => strtotime(datetime())
+                    );
+
+                        // $insert_id = $this->ion_auth->register($identity, $password, $email, $additional_data, array(7));
+    
+                        // $user_id = $this->session->userdata('user_id');
+                        
+                    } else if($this->ion_auth->is_all_roleslogin()) {
+
+
+                    $user_id = $this->session->userdata('user_id');
+
+                    $option = array(
+                        'table' => USERS . ' as user',
+                        'select' => 'user.*,group.name as group_name',
+                        'join' => array(
+                            array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                            array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                        ),
+                        'order' => array('user.id' => 'DESC'),
+                        'where' => array('user.id'=>$user_id),
+                        'single'=>true,
+                    );
+            
+                    $authUser = $this->common_model->customGet($option);
+
+                    // $additional_dataHospital = array(
+                    //     'first_name' => $this->input->post('first_name'),
+                    //     'last_name' => $this->input->post('last_name'),
+                    //     'team_code' => $code,
+                    //     'username' => $username[0],
+                    //     'date_of_birth' => (!empty($this->input->post('date_of_birth'))) ? date('Y-m-d', strtotime($this->input->post('date_of_birth'))) : date('Y-m-d'),
+                    //     'profile_pic' => $image,
+                    //     'phone' => $this->input->post('phone_no'),
+                    //     'email_verify' => 1,
+                    //     'is_pass_token' => $password,
+                    //     'hospital_id' =>$authUser->hospital_id,
+                    //     'created_on' => strtotime(datetime())
+                    // );
+
+
+
+
                     // print_r($this->input->post());die;
                    $day = $this->input->post('day');
                    $month = $this->input->post('month');
@@ -2101,15 +2306,18 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
                         // 'zipcode_access' => json_encode($this->input->post('zipcode')),
                         'email_verify' => 1,
                         'is_pass_token' => $this->input->post('password'),
+                        'hospital_id' =>$authUser->hospital_id,
                         'created_on' => strtotime(datetime())
                     );
-                    $insert_user_id = $this->ion_auth->register($identity, $password, $email, $additional_data, array(7));
-                    // $insert_id = $this->db->insert_id();
 
-                    
+                    // $insert_user_id = $this->ion_auth->register($identity, $password, $email, $additional_data, array(7));
+                    // $insert_id = $this->db->insert_id();     
                 }
+            }
+            $insert_user_id = $this->ion_auth->register($identity, $password, $email, $additional_data, array(7));
+    
+            $insert_id = $this->db->insert_id();  
 
-                
             // if ($this->input->post('patient_mode') == 'New') {
             $option = array(
                 'table' => 'care_unit',
@@ -2194,7 +2402,7 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
                     'precautions' => $this->input->post('precautions') ? $this->input->post('precautions') : null,
                     'care_unit_id' => $this->input->post('care_unit_id') ? $this->input->post('care_unit_id') : null,
                     'doctor_id' => $this->input->post('doctor_id')? $this->input->post('doctor_id') : null,
-                    'md_steward_id' => (!empty($this->input->post('md_steward_id'))) ? $this->input->post('md_steward_id') : null,
+                    'md_steward_id' => (!empty($this->input->post('md_steward_id'))) ? $this->input->post('md_steward_id') : $hospitalAndDoctorId,
                     // 'md_stayward_consult' => $this->input->post('md_stayward_consult'),
                     'criteria_met' => $this->input->post('criteria_met') ? $this->input->post('criteria_met') : null,
                     'md_stayward_response' => (!empty($this->input->post('md_stayward_response'))) ? $this->input->post('md_stayward_response') : null,
@@ -2534,7 +2742,32 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
         
         $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
         
-            if($this->ion_auth->is_subAdmin()){
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+        
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+        
+            $authUser = $this->common_model->customGet($optionData);
+        
+            $hospital_id = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
+        }
+
+            if($this->ion_auth->is_all_roleslogin()){
         
                 $option = array(
                     'table' => ' doctors',
@@ -2565,7 +2798,7 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
                     
                     'where' => array(
                         'users.delete_status' => 0,
-                        'doctors.facility_user_id'=>$datadoctors->facility_user_id
+                        'users.hospital_id'=>$hospital_id
                     ),
                     'order' => array('users.id' => 'desc'),
                 );
@@ -2586,7 +2819,7 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
                     
                     'where' => array(
                         'users.delete_status' => 0,
-                        'doctors.facility_user_id'=>$CareUnitID
+                        'users.hospital_id'=>$hospital_id
                     ),
                     'order' => array('users.id' => 'desc'),
                 );
@@ -3595,6 +3828,31 @@ $option = array(
 
         $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
         
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+    
+            $authUser = $this->common_model->customGet($optionData);
+
+            $hospital_id = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
+        }
+
         if($this->ion_auth->is_all_roleslogin()){
     
             $option = array(
@@ -3627,6 +3885,7 @@ $option = array(
                 'where' => array(
                     'users.delete_status' => 0,
                     // 'doctors.facility_user_id'=>$datadoctors->facility_user_id
+                    'users.hospital_id'=>$hospital_id
                 ),
                 'order' => array('users.id' => 'desc'),
             );
@@ -3647,7 +3906,8 @@ $option = array(
                 
                 'where' => array(
                     'users.delete_status' => 0,
-                    'doctors.facility_user_id'=>$CareUnitID
+                    //'doctors.facility_user_id'=>$CareUnitID
+                    'users.hospital_id'=>$hospital_id
                 ),
                 'order' => array('users.id' => 'desc'),
             );
@@ -3668,7 +3928,34 @@ $option = array(
         // echo "</pre>";
 
 
-        $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+        // $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $LoginID = $user_id;
+
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+    
+            $authUser = $this->common_model->customGet($optionData);
+
+            $LoginID = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
+        }
+
+
         $this->form_validation->set_rules('type', "type", 'required|trim');
         if ($this->form_validation->run() == true) {
            
@@ -4210,6 +4497,32 @@ $option = array(
 
         // $this->data['practitioner'] = $this->common_model->customGet($optionPractitioner);
 
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+    
+            $authUser = $this->common_model->customGet($optionData);
+
+            $hospital_id = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
+        }
+
+
         if($this->ion_auth->is_all_roleslogin()){
 
             $option = array(
@@ -4222,6 +4535,7 @@ $option = array(
                 'where' => array(
                     'users.delete_status' => 0,
                     // 'doctors.user_id'=>$LoginID
+                    'users.hospital_id'=>$hospital_id
                 ),
                 'single' => true,
             );
@@ -4242,6 +4556,7 @@ $option = array(
                 'where' => array(
                     'users.delete_status' => 0,
                     // 'doctors.facility_user_id'=>$datadoctors->facility_user_id
+                    'users.hospital_id'=>$hospital_id
                 ),
                 'order' => array('users.id' => 'desc'),
             );
@@ -4276,6 +4591,7 @@ $option = array(
                     array('vendor_sale_practitioner', 'vendor_sale_users.id=vendor_sale_practitioner.hospital_id','left')
                 ),
                 // 'where' => array('vendor_sale_practitioner.hospital_id'=>$datadoctors->facility_user_id),
+                'where' => array('vendor_sale_practitioner.hospital_id'=>$hospital_id),
                 // 'single'=>true,
             );
     
@@ -4296,7 +4612,8 @@ $option = array(
                 
                 'where' => array(
                     'users.delete_status' => 0,
-                    'doctors.facility_user_id'=>$LoginID
+                    // 'doctors.facility_user_id'=>$LoginID
+                    'users.hospital_id'=>$hospital_id
                 ),
                 'order' => array('users.id' => 'desc'),
             );
@@ -4329,7 +4646,7 @@ $option = array(
                 'join' => array(
                     array('vendor_sale_practitioner', 'vendor_sale_users.id=vendor_sale_practitioner.hospital_id','left')
                 ),
-                'where' => array('vendor_sale_practitioner.hospital_id'=>$LoginID),
+                'where' => array('vendor_sale_practitioner.hospital_id'=>$hospital_id),
                 // 'single'=>true,
             );
     
@@ -4436,6 +4753,32 @@ $option = array(
     public function addPatientInvoice() {
         
         $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+    
+            $authUser = $this->common_model->customGet($optionData);
+
+            $hospital_id = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
+        }
+
         $this->form_validation->set_rules('patient', "patient", 'required|trim');
        
         if ($this->form_validation->run() == true) {
@@ -4459,7 +4802,7 @@ $option = array(
 
                 $options_data = array(
                     'user_id'=> $LoginID,
-                    'facility_user_id'=> $LoginID,
+                    'facility_user_id'=> $hospital_id,
                     'patient_id' => $this->input->post('patient'),
                     'invoice_number' => $new_invoice_number,                         
                     'invoice_date' => $this->input->post('invoice_date'),                         
@@ -4550,7 +4893,33 @@ $option = array(
 
         $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 
-    if($this->ion_auth->is_subAdmin()){
+
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+    
+            $authUser = $this->common_model->customGet($optionData);
+
+            $hospital_id = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
+        }
+
+    if($this->ion_auth->is_all_roleslogin()){
 
         $option = array(
             'table' => ' doctors',
@@ -4580,7 +4949,8 @@ $option = array(
             
             'where' => array(
                 'users.delete_status' => 0,
-                'doctors.facility_user_id'=>$datadoctors->facility_user_id
+                // 'doctors.facility_user_id'=>$datadoctors->facility_user_id
+                'users.hospital_id'=>$hospital_id
             ),
             'order' => array('users.id' => 'desc'),
         );
@@ -4600,7 +4970,8 @@ $option = array(
             'join' => array(
                 array('vendor_sale_patient', 'vendor_sale_users.id=vendor_sale_patient.user_id','left')
             ),
-            'where' => array('vendor_sale_patient.md_steward_id'=>$datadoctors->facility_user_id),
+            // 'where' => array('vendor_sale_patient.md_steward_id'=>$datadoctors->facility_user_id),
+            'where' => array('vendor_sale_users.hospital_id'=>$hospital_id),
            
         );
 
@@ -4612,7 +4983,7 @@ $option = array(
             'join' => array(
                 array('vendor_sale_practitioner', 'vendor_sale_users.id=vendor_sale_practitioner.hospital_id','left')
             ),
-            'where' => array('vendor_sale_practitioner.hospital_id'=>$datadoctors->facility_user_id),
+            'where' => array('vendor_sale_practitioner.hospital_id'=>$hospital_id),
             // 'single'=>true,
         );
 
@@ -4633,7 +5004,8 @@ $option = array(
             
             'where' => array(
                 'users.delete_status' => 0,
-                'doctors.facility_user_id'=>$CareUnitID
+                // 'doctors.facility_user_id'=>$CareUnitID
+                'users.hospital_id'=>$hospital_id
             ),
             'order' => array('users.id' => 'desc'),
         );
@@ -4652,7 +5024,7 @@ $option = array(
             'join' => array(
                 array('vendor_sale_practitioner', 'vendor_sale_users.id=vendor_sale_practitioner.hospital_id','left')
             ),
-            'where' => array('vendor_sale_practitioner.hospital_id'=>$CareUnitID),
+            'where' => array('vendor_sale_practitioner.hospital_id'=>$hospital_id),
             // 'single'=>true,
         );
 
@@ -4846,7 +5218,32 @@ $option = array(
            
         $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 
-        if($this->ion_auth->is_subAdmin()){
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+    
+            $authUser = $this->common_model->customGet($optionData);
+
+            $hospital_id = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
+        }
+
+        if($this->ion_auth->is_all_roleslogin()){
 
             $option = array(
                 'table' => ' doctors',
@@ -4877,7 +5274,8 @@ $option = array(
                 
                 'where' => array(
                     'users.delete_status' => 0,
-                    'doctors.facility_user_id'=>$datadoctors->facility_user_id
+                    // 'doctors.facility_user_id'=>$datadoctors->facility_user_id
+                    'users.hospital_id'=>$hospital_id
                 ),
                 'order' => array('users.id' => 'desc'),
             );
@@ -4898,7 +5296,7 @@ $option = array(
                 'join' => array(
                     array('vendor_sale_patient', 'vendor_sale_users.id=vendor_sale_patient.user_id','left')
                 ),
-                'where' => array('vendor_sale_patient.md_steward_id'=>$datadoctors->facility_user_id),
+                'where' => array('vendor_sale_users.hospital_id'=>$hospital_id),
             
             );
 
@@ -4910,7 +5308,7 @@ $option = array(
                 'join' => array(
                     array('vendor_sale_practitioner', 'vendor_sale_users.id=vendor_sale_practitioner.hospital_id','left')
                 ),
-                'where' => array('vendor_sale_practitioner.hospital_id'=>$datadoctors->facility_user_id),
+                'where' => array('vendor_sale_practitioner.hospital_id'=>$hospital_id),
                 // 'single'=>true,
             );
 
@@ -4931,7 +5329,7 @@ $option = array(
                 
                 'where' => array(
                     'users.delete_status' => 0,
-                    'doctors.facility_user_id'=>$CareUnitID
+                    'users.hospital_id'=>$hospital_id
                 ),
                 'order' => array('users.id' => 'desc'),
             );
@@ -4949,7 +5347,7 @@ $option = array(
                 'join' => array(
                     array('vendor_sale_patient', 'vendor_sale_users.id=vendor_sale_patient.user_id','left')
                 ),
-                'where' => array('vendor_sale_patient.md_steward_id'=>$LoginID),
+                'where' => array('vendor_sale_users.hospital_id'=>$hospital_id),
                 
             );
 
@@ -4963,9 +5361,10 @@ $option = array(
                 'join' => array(
                     array('vendor_sale_practitioner', 'vendor_sale_users.id=vendor_sale_practitioner.hospital_id','left')
                 ),
-                'where' => array('vendor_sale_practitioner.hospital_id'=>$CareUnitID),
+                'where' => array('vendor_sale_practitioner.hospital_id'=>$hospital_id),
                 // 'single'=>true,
             );
+            
 
             $this->data['practitioner'] = $this->common_model->customGet($optionPractitioner);
         }

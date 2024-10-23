@@ -27,7 +27,33 @@ class Invoices extends Common_Controller {
         $this->data['model'] = $this->router->fetch_class();
         $role_name = $this->input->post('role_name');
 
-        $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+        // $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $LoginID = $user_id;
+        
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+        
+            $authUser = $this->common_model->customGet($optionData);
+        
+            $LoginID = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
+        }
+
 
         if($LoginID != 1 && $LoginID != NULL ){
             $x = $LoginID;
@@ -84,8 +110,32 @@ class Invoices extends Common_Controller {
         $this->data['model'] = $this->router->fetch_class();
         $role_name = $this->input->post('role_name');
 
-        $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+        // $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $LoginID = $user_id;
+        
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+        
+            $authUser = $this->common_model->customGet($optionData);
+        
+            $LoginID = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
+        }
         if($LoginID != 1 && $LoginID != NULL ){
             $x = $LoginID;
         }
@@ -144,6 +194,30 @@ class Invoices extends Common_Controller {
         $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 
         
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+        
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+        
+            $authUser = $this->common_model->customGet($optionData);
+        
+            $hospital_id = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
+        }
         
         // if($this->ion_auth->is_subAdmin()){
         if($this->ion_auth->is_all_roleslogin()){
@@ -156,7 +230,8 @@ class Invoices extends Common_Controller {
             
             'where' => array(
                 'users.delete_status' => 0,
-                // 'doctors.user_id'=>$CareUnitID
+                'doctors.user_id'=>$CareUnitID
+                
             ),
             'single' => true,
         );
@@ -176,6 +251,7 @@ class Invoices extends Common_Controller {
             
             'where' => array(
                 'users.delete_status' => 0,
+                'users.hospital_id'=>$hospital_id
                 // 'doctors.facility_user_id'=>$datadoctors->facility_user_id
             ),
             'order' => array('users.id' => 'desc'),
@@ -198,6 +274,7 @@ class Invoices extends Common_Controller {
                 array('vendor_sale_patient', 'vendor_sale_users.id=vendor_sale_patient.user_id','left')
             ),
             // 'where' => array('vendor_sale_patient.md_steward_id'=>$datadoctors->facility_user_id),
+            'where' => array('vendor_sale_users.hospital_id'=>$hospital_id),
            
         );
 
@@ -209,7 +286,7 @@ class Invoices extends Common_Controller {
             'join' => array(
                 array('vendor_sale_practitioner', 'vendor_sale_users.id=vendor_sale_practitioner.hospital_id','left')
             ),
-            // 'where' => array('vendor_sale_practitioner.hospital_id'=>$datadoctors->facility_user_id),
+            'where' => array('vendor_sale_practitioner.hospital_id'=>$hospital_id),
             // 'single'=>true,
         );
 
@@ -230,7 +307,8 @@ class Invoices extends Common_Controller {
             
             'where' => array(
                 'users.delete_status' => 0,
-                'doctors.facility_user_id'=>$CareUnitID
+                // 'doctors.facility_user_id'=>$CareUnitID
+                'users.hospital_id'=>$hospital_id
             ),
             'order' => array('users.id' => 'desc'),
         );
@@ -248,7 +326,7 @@ class Invoices extends Common_Controller {
             'join' => array(
                 array('vendor_sale_patient', 'vendor_sale_users.id=vendor_sale_patient.user_id','left')
             ),
-            'where' => array('vendor_sale_patient.md_steward_id'=>$LoginID),
+            'where' => array('vendor_sale_users.hospital_id'=>$hospital_id),
             
         );
 
@@ -262,7 +340,7 @@ class Invoices extends Common_Controller {
             'join' => array(
                 array('vendor_sale_practitioner', 'vendor_sale_users.id=vendor_sale_practitioner.hospital_id','left')
             ),
-            'where' => array('vendor_sale_practitioner.hospital_id'=>$CareUnitID),
+            'where' => array('vendor_sale_practitioner.hospital_id'=>$hospital_id),
             // 'single'=>true,
         );
 
@@ -340,6 +418,31 @@ class Invoices extends Common_Controller {
         // print_r($this->input->post());die;
 
         $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+        
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+        
+            $authUser = $this->common_model->customGet($optionData);
+        
+            $hospital_id = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
+        }
+
         $this->form_validation->set_rules('patient', "patient", 'required|trim');
        
         if ($this->form_validation->run() == true) {
@@ -363,7 +466,7 @@ class Invoices extends Common_Controller {
 
                 $options_data = array(
                     'user_id'=> $LoginID,
-                    'facility_user_id'=> $LoginID,
+                    'facility_user_id'=> $hospital_id,
                     'patient_id' => $this->input->post('patient'),
                     'invoice_number' => $new_invoice_number,                         
                     'invoice_date' => $this->input->post('invoice_date'),                         
@@ -460,6 +563,31 @@ class Invoices extends Common_Controller {
            
         $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+        
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+        
+            $authUser = $this->common_model->customGet($optionData);
+        
+            $hospital_id = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
+        }
+
     // if($this->ion_auth->is_subAdmin()){
     if($this->ion_auth->is_all_roleslogin()){
 
@@ -492,6 +620,7 @@ class Invoices extends Common_Controller {
             
             'where' => array(
                 'users.delete_status' => 0,
+                'users.hospital_id'=>$hospital_id
                 // 'doctors.facility_user_id'=>$datadoctors->facility_user_id
             ),
             'order' => array('users.id' => 'desc'),
@@ -513,7 +642,7 @@ class Invoices extends Common_Controller {
             'join' => array(
                 array('vendor_sale_patient', 'vendor_sale_users.id=vendor_sale_patient.user_id','left')
             ),
-            // 'where' => array('vendor_sale_patient.md_steward_id'=>$datadoctors->facility_user_id),
+            'where' => array('vendor_sale_patient.md_steward_id'=>$hospital_id),
            
         );
 
@@ -546,7 +675,8 @@ class Invoices extends Common_Controller {
             
             'where' => array(
                 'users.delete_status' => 0,
-                'doctors.facility_user_id'=>$CareUnitID
+                'users.hospital_id'=>$hospital_id
+                // 'doctors.facility_user_id'=>$CareUnitID
             ),
             'order' => array('users.id' => 'desc'),
         );
@@ -564,7 +694,7 @@ class Invoices extends Common_Controller {
             'join' => array(
                 array('vendor_sale_patient', 'vendor_sale_users.id=vendor_sale_patient.user_id','left')
             ),
-            'where' => array('vendor_sale_patient.md_steward_id'=>$LoginID),
+            'where' => array('users.hospital_id'=>$hospital_id),
             
         );
 
@@ -578,7 +708,7 @@ class Invoices extends Common_Controller {
             'join' => array(
                 array('vendor_sale_practitioner', 'vendor_sale_users.id=vendor_sale_practitioner.hospital_id','left')
             ),
-            'where' => array('vendor_sale_practitioner.hospital_id'=>$CareUnitID),
+            'where' => array('vendor_sale_practitioner.hospital_id'=>$hospital_id),
             // 'single'=>true,
         );
 
@@ -979,6 +1109,31 @@ class Invoices extends Common_Controller {
     
             $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
     
+            if ($this->ion_auth->is_facilityManager()) {
+                $user_id = $this->session->userdata('user_id');
+            $hospital_id = $user_id;
+            
+            } else if($this->ion_auth->is_all_roleslogin()) {
+                $user_id = $this->session->userdata('user_id');
+                $optionData = array(
+                    'table' => USERS . ' as user',
+                    'select' => 'user.*,group.name as group_name',
+                    'join' => array(
+                        array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                        array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                    ),
+                    'order' => array('user.id' => 'DESC'),
+                    'where' => array('user.id'=>$user_id),
+                    'single'=>true,
+                );
+            
+                $authUser = $this->common_model->customGet($optionData);
+            
+                $hospital_id = $authUser->hospital_id;
+                // 'users.hospital_id'=>$hospital_id
+                
+            }
+
             // if($LoginID != 1 && $LoginID != NULL ){
             //     $x = $LoginID;
             // }
@@ -990,34 +1145,59 @@ class Invoices extends Common_Controller {
             //         array('vendor_sale_patient', 'vendor_sale_patient.id = vendor_sale_invoice.patient_id ', 'left'),
             //         array('vendor_sale_invoice_items', 'vendor_sale_invoice.id = vendor_sale_invoice_items.invoice_id ', 'left')
             //     ),
-            //     'where' => array('vendor_sale_invoice.facility_user_id' => $LoginID, 'delete_status' => 0),
+            //     'where' => array('vendor_sale_invoice.facility_user_id' => $hospital_id, 'delete_status' => 0),
             //     'group_by' => 'vendor_sale_invoice.id',
             //     'order' => array('vendor_sale_invoice.id' => 'DESC'),
             // );
             
-            $option = array(
-                'table' => 'vendor_sale_invoice',
-                'select' => 'vendor_sale_invoice.*, vendor_sale_patient.name as patient_name, SUM(vendor_sale_invoice_items.price) as total_price',
-                'join' => array(
-                    array('vendor_sale_patient', 'vendor_sale_patient.id = vendor_sale_invoice.patient_id ', 'left'),
-                    array('vendor_sale_invoice_items', 'vendor_sale_invoice.id = vendor_sale_invoice_items.invoice_id ', 'left')
-                ),
-                'where' => array('delete_status' => 0),
-                'group_by' => 'vendor_sale_invoice.id',
-                'order' => array('vendor_sale_invoice.id' => 'DESC'),
-            );
-            $this->data['invoice_list'] = $this->common_model->customGet($option);
+            // $option = array(
+            //     'table' => 'vendor_sale_invoice',
+            //     'select' => 'vendor_sale_invoice.*, vendor_sale_patient.name as patient_name, vendor_sale_invoice.total_amount as total_price',
+            //     'join' => array(
+            //         array('vendor_sale_patient', 'vendor_sale_patient.id = vendor_sale_invoice.patient_id ', 'left'),
+            //         array('vendor_sale_invoice_items', 'vendor_sale_invoice.id = vendor_sale_invoice_items.invoice_id ', 'left')
+            //     ),
+            //     'where' => array('vendor_sale_invoice.facility_user_id' =>$hospital_id, 'delete_status' => 0),
+            //     'order' => array('vendor_sale_invoice.id' =>'DESC'),
+            //     'group_by' => 'vendor_sale_invoice.id',
+            // );
+            // $this->data['invoice_list'] = $this->common_model->customGet($option);
+
+            // $option = array(
+            //     'table' => 'vendor_sale_invoice',
+            //     'select' => 'vendor_sale_invoice.*, vendor_sale_patient.name as patient_name, vendor_sale_invoice.total_amount as total_price', // Adjusting total_amount with SUM
+            //     'join' => array(
+            //         array('vendor_sale_patient', 'vendor_sale_patient.id = vendor_sale_invoice.patient_id', 'left'),
+            //     ),
+            //     'where' => array('vendor_sale_invoice.facility_user_id' => $hospital_id, 'delete_status' => 0),
+            //     'order' => array('vendor_sale_invoice.id' => 'DESC'), // Order by DESC for invoice ID
+            // );
+            
+            // $this->data['invoice_list'] = $this->common_model->customGet($option);
+            
+
+            $this->db->select('vendor_sale_invoice.*, vendor_sale_patient.name as patient_name, vendor_sale_invoice.total_amount as total_price');
+$this->db->from('vendor_sale_invoice');
+$this->db->join('vendor_sale_patient', 'vendor_sale_patient.id = vendor_sale_invoice.patient_id', 'left');
+$this->db->where('vendor_sale_invoice.facility_user_id', $hospital_id);
+$this->db->where('delete_status', 0);
+$this->db->order_by('vendor_sale_invoice.id', 'DESC');  // Ensuring descending order
+
+$query = $this->db->get();
+// echo $this->db->last_query(); die; // This will show you the raw SQL query to check if it's correct
+$this->data['invoice_list'] = $query->result();
+
             
             
             // print_r($this->data['invoice_list']);die;
-            $this->data['roles'] = array(
-                'role_name' => $role_name
-            );
-            if ($vendor_profile_activate == "No") {
-                $vendor_profile_activate = 0;
-            } else {
-                $vendor_profile_activate = 1;
-            }
+            // $this->data['roles'] = array(
+            //     'role_name' => $role_name
+            // );
+            // if ($vendor_profile_activate == "No") {
+            //     $vendor_profile_activate = 0;
+            // } else {
+            //     $vendor_profile_activate = 1;
+            // }
     
     
             $this->load->admin_render('management', $this->data, 'inner_script');
@@ -1031,6 +1211,32 @@ class Invoices extends Common_Controller {
         $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 
         // if($this->ion_auth->is_subAdmin()){
+            if ($this->ion_auth->is_facilityManager()) {
+                $user_id = $this->session->userdata('user_id');
+            $hospital_id = $user_id;
+            
+            } else if($this->ion_auth->is_all_roleslogin()) {
+                $user_id = $this->session->userdata('user_id');
+                $optionData = array(
+                    'table' => USERS . ' as user',
+                    'select' => 'user.*,group.name as group_name',
+                    'join' => array(
+                        array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                        array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                    ),
+                    'order' => array('user.id' => 'DESC'),
+                    'where' => array('user.id'=>$user_id),
+                    'single'=>true,
+                );
+            
+                $authUser = $this->common_model->customGet($optionData);
+            
+                $hospital_id = $authUser->hospital_id;
+                // 'users.hospital_id'=>$hospital_id
+                
+            }
+
+
         if($this->ion_auth->is_all_roleslogin()){
 
             $option = array(
@@ -1062,6 +1268,7 @@ class Invoices extends Common_Controller {
                 
                 'where' => array(
                     'users.delete_status' => 0,
+                    'users.hospital_id'=>$hospital_id
                     // 'doctors.facility_user_id'=>$datadoctors->facility_user_id
                 ),
                 'order' => array('users.id' => 'desc'),
@@ -1084,6 +1291,7 @@ class Invoices extends Common_Controller {
                     array('vendor_sale_patient', 'vendor_sale_users.id=vendor_sale_patient.user_id','left')
                 ),
                 // 'where' => array('vendor_sale_patient.md_steward_id'=>$datadoctors->facility_user_id),
+                'where' => array('users.hospital_id'=>$hospital_id),
             
             );
 
@@ -1095,6 +1303,7 @@ class Invoices extends Common_Controller {
                 'join' => array(
                     array('vendor_sale_practitioner', 'vendor_sale_users.id=vendor_sale_practitioner.hospital_id','left')
                 ),
+                'where' => array('vendor_sale_practitioner.hospital_id'=>$hospital_id),
                 // 'where' => array('vendor_sale_practitioner.hospital_id'=>$datadoctors->facility_user_id),
                 // 'single'=>true,
             );
@@ -1116,7 +1325,8 @@ class Invoices extends Common_Controller {
                 
                 'where' => array(
                     'users.delete_status' => 0,
-                    'doctors.facility_user_id'=>$CareUnitID
+                    'users.hospital_id'=>$hospital_id
+                    // 'doctors.facility_user_id'=>$CareUnitID
                 ),
                 'order' => array('users.id' => 'desc'),
             );
@@ -1134,7 +1344,8 @@ class Invoices extends Common_Controller {
                 'join' => array(
                     array('vendor_sale_patient', 'vendor_sale_users.id=vendor_sale_patient.user_id','left')
                 ),
-                'where' => array('vendor_sale_patient.md_steward_id'=>$LoginID),
+                // 'where' => array('vendor_sale_patient.md_steward_id'=>$LoginID),
+                'where' => array('users.hospital_id'=>$hospital_id),
                 
             );
 
@@ -1148,7 +1359,7 @@ class Invoices extends Common_Controller {
                 'join' => array(
                     array('vendor_sale_practitioner', 'vendor_sale_users.id=vendor_sale_practitioner.hospital_id','left')
                 ),
-                'where' => array('vendor_sale_practitioner.hospital_id'=>$CareUnitID),
+                'where' => array('vendor_sale_practitioner.hospital_id'=>$hospital_id),
                 // 'single'=>true,
             );
 

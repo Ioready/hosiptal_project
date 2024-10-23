@@ -416,6 +416,7 @@ class Users extends Common_Controller
     public function users_add()
     {
         
+        $user_id = $this->session->userdata('user_id');
 
         $tables = $this->config->item('tables', 'ion_auth');
         $identity_column = $this->config->item('identity', 'ion_auth');
@@ -461,13 +462,68 @@ class Users extends Common_Controller
                     'phone' => $this->input->post('phone_no'),
                     'email_verify' => 1,
                     'is_pass_token' => $password,
+                    'hospital_id' =>$user_id,
                     'created_on' => strtotime(datetime())
                 );
-                if ($this->ion_auth->is_vendor()) {
+                // if ($this->ion_auth->is_vendor()) {
 
-                    $insert_id = $this->ion_auth->register($identity, $password, $email, $additional_data, array(4));
+                    
+                //     $insert_id = $this->ion_auth->register($identity, $password, $email, $additional_data, array(4));
+                if ($this->ion_auth->is_facilityManager()) {
+
+                    $additional_dataHospital = array(
+                        'first_name' => $this->input->post('first_name'),
+                        'last_name' => $this->input->post('last_name'),
+                        'team_code' => $code,
+                        'username' => $username[0],
+                        'date_of_birth' => (!empty($this->input->post('date_of_birth'))) ? date('Y-m-d', strtotime($this->input->post('date_of_birth'))) : date('Y-m-d'),
+                        'profile_pic' => $image,
+                        'phone' => $this->input->post('phone_no'),
+                        'email_verify' => 1,
+                        'is_pass_token' => $password,
+                        'hospital_id' =>$user_id,
+                        'created_on' => strtotime(datetime())
+                    );
+
+                    $insert_id = $this->ion_auth->register($identity, $password, $email, $additional_dataHospital, array($group_ids));
 
                     $user_id = $this->session->userdata('user_id');
+                    
+                } else if($this->ion_auth->is_all_roleslogin()) {
+
+                    $user_id = $this->session->userdata('user_id');
+
+                    $option = array(
+                        'table' => USERS . ' as user',
+                        'select' => 'user.*,group.name as group_name',
+                        'join' => array(
+                            array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                            array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                        ),
+                        'order' => array('user.id' => 'DESC'),
+                        'where' => array('user.id'=>$user_id),
+                        'single'=>true,
+                    );
+            
+                    $authUser = $this->common_model->customGet($option);
+
+                    $additional_dataHospital = array(
+                        'first_name' => $this->input->post('first_name'),
+                        'last_name' => $this->input->post('last_name'),
+                        'team_code' => $code,
+                        'username' => $username[0],
+                        'date_of_birth' => (!empty($this->input->post('date_of_birth'))) ? date('Y-m-d', strtotime($this->input->post('date_of_birth'))) : date('Y-m-d'),
+                        'profile_pic' => $image,
+                        'phone' => $this->input->post('phone_no'),
+                        'email_verify' => 1,
+                        'is_pass_token' => $password,
+                        'hospital_id' =>$authUser->hospital_id,
+                        'created_on' => strtotime(datetime())
+                    );
+
+
+                    $insert_id = $this->ion_auth->register($identity, $password, $email, $additional_dataHospital, array($group_ids));
+                
                 } else {
 
                   
@@ -994,17 +1050,56 @@ class Users extends Common_Controller
         $this->data['roles'] = array(
             'role_name' => $role_name
         );
-        $option = array(
-            'table' => USERS . ' as user',
-            'select' => 'user.*,group.name as group_name',
-            'join' => array(
-                array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
-                array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
-            ),
-            'order' => array('user.id' => 'DESC'),
-            // 'where' => array('user.id' => $user_id),
-            'where_not_in' => array('group.id' => array(1, 2, 4,5,6,7))
-        );
+
+
+                     $user_id = $this->session->userdata('user_id');
+    
+                     if ($this->ion_auth->is_facilityManager()) {
+                        $option = array(
+                            'table' => USERS . ' as user',
+                            'select' => 'user.*,group.name as group_name',
+                            'join' => array(
+                                array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                                array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                            ),
+                            'order' => array('user.id' => 'DESC'),
+                            'where' => array('user.hospital_id' =>$user_id,),
+                            'where_not_in' => array('group.id' => array(1, 2, 4,5,6,7))
+                        );
+
+                    } else if($this->ion_auth->is_all_roleslogin()) {
+
+                        $optionData = array(
+                            'table' => USERS . ' as user',
+                            'select' => 'user.*,group.name as group_name',
+                            'join' => array(
+                                array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                                array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                            ),
+                            'order' => array('user.id' => 'DESC'),
+                            'where' => array('user.id'=>$user_id),
+                            'single'=>true,
+                        );
+                
+                        $authUser = $this->common_model->customGet($optionData);
+
+                        $option = array(
+                            'table' => USERS . ' as user',
+                            'select' => 'user.*,group.name as group_name',
+                            'join' => array(
+                                array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                                array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                            ),
+                            'order' => array('user.id' => 'DESC'),
+                            'where' => array('user.hospital_id' =>$authUser->hospital_id,),
+                            'where_not_in' => array('group.id' => array(1, 2, 4,5,6,7))
+                        );
+
+                        
+
+                    }
+
+       
 
         $this->data['list'] = $this->common_model->customGet($option);
 

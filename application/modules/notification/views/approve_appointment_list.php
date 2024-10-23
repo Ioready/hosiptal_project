@@ -244,11 +244,13 @@ a.status-yellow {
 
    <div class="wrapper wrapper-content animated fadeIn m-4">
 
-
+   <h3>Approve Appointment</h3> 
     <div class="row">
-        <div class="col-lg-12">
-            <div class="ibox float-e-margins">
 
+        <div class="col-lg-12">
+        
+            <div class="ibox float-e-margins">
+              
                 <div class="ibox-content">
                     <div class="row">
                         <?php
@@ -262,11 +264,13 @@ a.status-yellow {
                             ?><div class="alert alert-danger">
                         <?php echo $error; ?></div><?php endif; ?>
                         <div id="message"></div>
-                        <div class="col-sm-12">     
-                                <div class="table-responsive">
-                          
 
-                                    <table id="appointmentTable" class="table table-striped custom-table">
+                        <div class="col-sm-12"> 
+                         
+                                <div class="table-responsive" >
+                                
+
+                                    <table id="appointmentTable" class="table table-bordered table-hover align-middle text-center">
 								<thead>
 									<tr>
 										<th>Appointment Type ID</th>
@@ -393,8 +397,17 @@ a.status-yellow {
 <!-- Include DataTables -->
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script>
+
 $(document).ready(function() {
-    $('#appointmentTable').DataTable();
+    $('#appointmentTable').DataTable({
+            "paging": true,
+            "searching": true,
+            "lengthChange": false,
+            "pageLength": 10,
+            "order": [[0, 'desc']]  // Here, 0 represents the first column (index starts from 0)
+        });
+
+    // $('#appointmentTable').DataTable();
     $('.statusDropdown').on('change', function() {
         var selectedStatus = $(this).val();
         var notificationId = $(this).prev('.notification-id').val(); 

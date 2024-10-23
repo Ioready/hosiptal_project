@@ -43,6 +43,31 @@ class DataOperator extends Common_Controller
         } else {
             $vendor_profile_activate = 1;
         }
+
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+    
+            $authUser = $this->common_model->customGet($optionData);
+
+            $hospital_id = $authUser->hospital_id;
+            
+        }
+
         $option = array(
             'table' => USERS . ' as user',
             'select' => 'user.id,user.first_name,user.last_name,user.email,user.login_id,user.created_on,user.active,group.name as group_name,UP.doc_file,CU.care_unit_code,CU.name',
@@ -55,6 +80,7 @@ class DataOperator extends Common_Controller
             ),
            'where' => array('user.delete_status' => 0, 'group.id' => 5),
             // 'where' => array('user.delete_status' => 0, 'group.id' => 5, 'user.login_id' => $x),
+            'where' => array('user.delete_status' => 0, 'group.id' => 5, 'user.hospital_id' => $hospital_id),
             'order' => array('user.id' => 'desc')
         );
 
@@ -249,23 +275,100 @@ class DataOperator extends Common_Controller
 
                 if (empty($email_exist)) {
 
-                    $additional_data = array(
-                        'first_name' => $this->input->post('first_name'),
-                        'last_name' => $this->input->post('last_name'),
-                        //'team_code' => $code,
-                        'login_id' => $x,
-                        'username' => $code,
-                        'date_of_birth' => (!empty($this->input->post('date_of_birth'))) ? date('Y-m-d', strtotime($this->input->post('date_of_birth'))) : date('Y-m-d'),
-                        'profile_pic' => $image,
-                        'phone' => $this->input->post('phone_no'),
-                        'phone_code' => $this->input->post('phone_code'),
-                        'care_unit_id' => $this->input->post('care_unit_id'),
-                        'zipcode_access' => json_encode($this->input->post('zipcode')),
-                        'email_verify' => 1,
-                        'is_pass_token' => $password,
-                        'created_on' => strtotime(datetime())
-                    );
+
+                   
+
+                        if ($this->ion_auth->is_facilityManager()) {
+    
+                       
+                        $additional_data = array(
+                            'first_name' => $this->input->post('first_name'),
+                            'last_name' => $this->input->post('last_name'),
+                            //'team_code' => $code,
+                            'login_id' => $x,
+                            'username' => $code,
+                            'date_of_birth' => (!empty($this->input->post('date_of_birth'))) ? date('Y-m-d', strtotime($this->input->post('date_of_birth'))) : date('Y-m-d'),
+                            'profile_pic' => $image,
+                            'phone' => $this->input->post('phone_no'),
+                            'phone_code' => $this->input->post('phone_code'),
+                            'care_unit_id' => $this->input->post('care_unit_id'),
+                            'zipcode_access' => json_encode($this->input->post('zipcode')),
+                            'email_verify' => 1,
+                            'is_pass_token' => $password,
+                            'hospital_id' =>$LoginID,
+                            'user_id'=>$LoginID,
+                            'created_on' => strtotime(datetime())
+                        );
+
+                            
+                        } else if($this->ion_auth->is_all_roleslogin()) {
+    
+    
+                        $user_id = $this->session->userdata('user_id');
+    
+                        $option = array(
+                            'table' => USERS . ' as user',
+                            'select' => 'user.*,group.name as group_name',
+                            'join' => array(
+                                array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                                array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                            ),
+                            'order' => array('user.id' => 'DESC'),
+                            'where' => array('user.id'=>$user_id),
+                            'single'=>true,
+                        );
+                
+                        $authUser = $this->common_model->customGet($option);
+    
+
+                        $additional_data = array(
+                            'first_name' => $this->input->post('first_name'),
+                            'last_name' => $this->input->post('last_name'),
+                            //'team_code' => $code,
+                            'login_id' => $x,
+                            'username' => $code,
+                            'date_of_birth' => (!empty($this->input->post('date_of_birth'))) ? date('Y-m-d', strtotime($this->input->post('date_of_birth'))) : date('Y-m-d'),
+                            'profile_pic' => $image,
+                            'phone' => $this->input->post('phone_no'),
+                            'phone_code' => $this->input->post('phone_code'),
+                            'care_unit_id' => $this->input->post('care_unit_id'),
+                            'zipcode_access' => json_encode($this->input->post('zipcode')),
+                            'email_verify' => 1,
+                            'is_pass_token' => $password,
+                            'hospital_id' =>$authUser->hospital_id,
+                            'created_on' => strtotime(datetime())
+                        );
+
+    
+                        // $insert_user_id = $this->ion_auth->register($identity, $password, $email, $additional_data, array(7));
+                        // $insert_id = $this->db->insert_id();     
+                    }
+                // }
+                // $insert_user_id = $this->ion_auth->register($identity, $password, $email, $additional_data, array(7));
+        
+                // $insert_id = $this->db->insert_id(); 
+
+
+                    // $additional_data = array(
+                    //     'first_name' => $this->input->post('first_name'),
+                    //     'last_name' => $this->input->post('last_name'),
+                    //     //'team_code' => $code,
+                    //     'login_id' => $x,
+                    //     'username' => $code,
+                    //     'date_of_birth' => (!empty($this->input->post('date_of_birth'))) ? date('Y-m-d', strtotime($this->input->post('date_of_birth'))) : date('Y-m-d'),
+                    //     'profile_pic' => $image,
+                    //     'phone' => $this->input->post('phone_no'),
+                    //     'phone_code' => $this->input->post('phone_code'),
+                    //     'care_unit_id' => $this->input->post('care_unit_id'),
+                    //     'zipcode_access' => json_encode($this->input->post('zipcode')),
+                    //     'email_verify' => 1,
+                    //     'is_pass_token' => $password,
+                    //     'created_on' => strtotime(datetime())
+                    // );
+
                     $insert_id = $this->ion_auth->register($identity, $password, $email, $additional_data, array(5));
+
+
 
                     $doctors_table = array(
                         'user_id' => $insert_id,

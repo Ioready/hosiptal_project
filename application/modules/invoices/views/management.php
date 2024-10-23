@@ -113,7 +113,7 @@
       
     </div>
   
-    <?php if ($this->ion_auth->is_admin() or $this->ion_auth->is_subAdmin() or $this->ion_auth->is_facilityManager() or $this->ion_auth->is_user() or $this->ion_auth->is_all_roleslogin()) { ?>
+    <?php if ($this->ion_auth->is_facilityManager() or $this->ion_auth->is_all_roleslogin()) { ?>
        
 
           <div class="block full">
@@ -802,66 +802,6 @@
 <div id="form-modal-box-pdf"></div>
 
 
-
-<!-- <script>
-    function calculatePrice(element) {
-    // Find the parent element containing all inputs
-    var parent = element.closest('.form-group').parentElement.parentElement;
-    
-    // Get the rate and quantity fields
-    var rate = parent.querySelector('#rate').value;
-    var quantity = parent.querySelector('#quantity').value;
-
-    // Ensure rate and quantity are valid numbers
-    rate = parseFloat(rate) || 0;
-    quantity = parseFloat(quantity) || 0;
-
-    // Calculate the price
-    var price = rate * quantity;
-
-    // Update the price field
-    parent.querySelector('#price').value = price.toFixed(2); // display 2 decimal places
-
-    updateTotalPrice();
-    // parent.querySelector('#total_price').value = sum(price.toFixed(2));
-}
-
-function updateTotalPrice() {
-    var total = 0;
-    
-    // Loop through all price fields and sum their values
-    var prices = document.querySelectorAll('#price');
-    prices.forEach(function(priceField) {
-        var price = parseFloat(priceField.value) || 0;
-        total += price;
-    });
-
-    // Update the total price field
-    document.getElementById('total_price').value = '£ '+ total.toFixed(2);
-}
-
-
-</script> -->
-<!-- <script>
-    var room = 1;
-function education_fields() {
- 
-    room++;
-    var objTo = document.getElementById('item_fields')
-    var divtest = document.createElement("div");
-	divtest.setAttribute("class", "form-group removeclass"+room);
-	var rdiv = 'removeclass'+room;
-    divtest.innerHTML = '<div class="col-sm-3 nopadding"><div class="form-group"> <input type="text" class="form-control" id="products" name="products[]" value="" placeholder="Products name"></div></div><div class="col-sm-2 nopadding"><div class="form-group"> <input type="number" class="form-control" id="rate" name="rate[]" value="" placeholder="Rate" oninput="calculatePrice(this)"></div></div><div class="col-sm-2 nopadding"><div class="form-group"> <input type="number" class="form-control" id="quantity" name="quantity[]" value="" placeholder="Quantity" oninput="calculatePrice(this)"></div></div><div class="col-sm-3 nopadding"><div class="form-group"> <input type="text" class="form-control" id="price" name="price[]" value="" placeholder="Price" readonly></div></div> <div class="col-sm-2"><div class="form-group">  <button class="btn btn-danger" type="button" onclick="remove_education_fields('+ room +');"> <span class="glyphicon glyphicon-minus" aria-hidden="true">-</span> </button></div></div><div class="clear"></div>';
-    
-    objTo.appendChild(divtest);
-    updateTotalPrice();
-}
-   function remove_education_fields(rid) {
-	   $('.removeclass'+rid).remove();
-   }
-</script> -->
-
-
 <style>
         * {
             margin: 0;
@@ -1031,11 +971,13 @@ function education_fields() {
 <script>
     // Initialize DataTable with search and pagination
     $(document).ready(function () {
+       
         $('#invoiceTable').DataTable({
             "paging": true,
             "searching": true,
             "lengthChange": false,
-            "pageLength": 10
+            "pageLength": 10,
+            "order": [[0, 'desc']]  // Here, 0 represents the first column (index starts from 0)
         });
 
         // Initialize date range picker

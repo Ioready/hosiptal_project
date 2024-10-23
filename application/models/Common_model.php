@@ -488,9 +488,34 @@ class Common_model extends MY_Model {
 
     public function fetch_data($query) {
 
-        $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+        // $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
        
-        if($this->ion_auth->is_subAdmin()){
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $CareUnitID = $user_id;
+        
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+        
+            $authUser = $this->common_model->customGet($optionData);
+        
+            $CareUnitID = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
+        }
+
+        if($this->ion_auth->is_all_roleslogin()){
     
             $option = array(
                 'table' => ' doctors',
@@ -509,8 +534,9 @@ class Common_model extends MY_Model {
             // print_r($datadoctors->facility_user_id);die;
            
             // $this->db->like('patient_id', $query);
+
             $this->db->like('name', $query);
-        $this->db->where('operator_id', $datadoctors->facility_user_id);
+        $this->db->where('operator_id', $CareUnitID);
         $query = $this->db->get('vendor_sale_patient');
 
         // print_r($query);die;

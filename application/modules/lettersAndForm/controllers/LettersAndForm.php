@@ -101,7 +101,32 @@ class LettersAndForm extends Common_Controller {
         
         $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 
-            if($this->ion_auth->is_subAdmin()){
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+        
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+        
+            $authUser = $this->common_model->customGet($optionData);
+        
+            $hospital_id = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
+        }
+
+            if($this->ion_auth->is_all_roleslogin()){
 
                 $option = array(
                     'table' => ' doctors',
@@ -113,6 +138,7 @@ class LettersAndForm extends Common_Controller {
                     'where' => array(
                         'users.delete_status' => 0,
                         'doctors.user_id'=>$CareUnitID
+                        // 'users.hospital_id'=>$hospital_id
                     ),
                     'single' => true,
                 );
@@ -132,7 +158,8 @@ class LettersAndForm extends Common_Controller {
             
             'where' => array(
                 'users.delete_status' => 0,
-                'doctors.facility_user_id'=>$datadoctors->facility_user_id
+                // 'doctors.facility_user_id'=>$datadoctors->facility_user_id
+                'users.hospital_id'=>$hospital_id
             ),
             'order' => array('users.id' => 'desc'),
         );
@@ -157,7 +184,8 @@ class LettersAndForm extends Common_Controller {
             
             'where' => array(
                 'users.delete_status' => 0,
-                'doctors.facility_user_id'=>$CareUnitID
+                // 'doctors.facility_user_id'=>$CareUnitID
+                'users.hospital_id'=>$hospital_id
             ),
             'order' => array('users.id' => 'desc'),
         );
@@ -226,7 +254,31 @@ class LettersAndForm extends Common_Controller {
          
         $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 
-            if($this->ion_auth->is_subAdmin()){
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+        
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+        
+            $authUser = $this->common_model->customGet($optionData);
+        
+            $hospital_id = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
+        }
+            if($this->ion_auth->is_all_roleslogin()){
 
                 $option = array(
                     'table' => ' doctors',
@@ -254,7 +306,8 @@ class LettersAndForm extends Common_Controller {
                     
                     'where' => array(
                         'users.delete_status' => 0,
-                        'doctors.facility_user_id'=>$datadoctors->facility_user_id
+                        // 'doctors.facility_user_id'=>$datadoctors->facility_user_id
+                        'users.hospital_id'=>$hospital_id
                     ),
                     'order' => array('users.id' => 'desc'),
                 );
@@ -277,7 +330,8 @@ class LettersAndForm extends Common_Controller {
                     
                     'where' => array(
                         'users.delete_status' => 0,
-                        'doctors.facility_user_id'=>$CareUnitID
+                        // 'doctors.facility_user_id'=>$CareUnitID
+                        'users.hospital_id'=>$hospital_id
                     ),
                     'order' => array('users.id' => 'desc'),
                 );
@@ -742,11 +796,35 @@ class LettersAndForm extends Common_Controller {
            
             $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
            
+            if ($this->ion_auth->is_facilityManager()) {
+                $user_id = $this->session->userdata('user_id');
+            $hospital_id = $user_id;
+            
+            } else if($this->ion_auth->is_all_roleslogin()) {
+                $user_id = $this->session->userdata('user_id');
+                $optionData = array(
+                    'table' => USERS . ' as user',
+                    'select' => 'user.*,group.name as group_name',
+                    'join' => array(
+                        array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                        array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                    ),
+                    'order' => array('user.id' => 'DESC'),
+                    'where' => array('user.id'=>$user_id),
+                    'single'=>true,
+                );
+            
+                $authUser = $this->common_model->customGet($optionData);
+            
+                $hospital_id = $authUser->hospital_id;
+                // 'users.hospital_id'=>$hospital_id
+                
+            }
                 $options_data = array(
                    
                     'patient_id' => $this->input->post('patient_id'),
                     'user_id' => $CareUnitID,
-                    'facility_user_id' => $CareUnitID,
+                    'facility_user_id' => $hospital_id,
                     'details' => $this->input->post('details'),
                     'type' => $this->input->post('type'),
                     'template_id' => $this->input->post('template_id'),
@@ -852,7 +930,32 @@ $response = array('status' => 1, 'message' => "Successfully added", 'url' =>base
     $id = $this->input->post('id');     
     $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 
-    if($this->ion_auth->is_subAdmin()){
+    if ($this->ion_auth->is_facilityManager()) {
+        $user_id = $this->session->userdata('user_id');
+    $hospital_id = $user_id;
+    
+    } else if($this->ion_auth->is_all_roleslogin()) {
+        $user_id = $this->session->userdata('user_id');
+        $optionData = array(
+            'table' => USERS . ' as user',
+            'select' => 'user.*,group.name as group_name',
+            'join' => array(
+                array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+            ),
+            'order' => array('user.id' => 'DESC'),
+            'where' => array('user.id'=>$user_id),
+            'single'=>true,
+        );
+    
+        $authUser = $this->common_model->customGet($optionData);
+    
+        $hospital_id = $authUser->hospital_id;
+        // 'users.hospital_id'=>$hospital_id
+        
+    }
+
+    if($this->ion_auth->is_all_roleslogin()){
 
         $option = array(
             'table' => ' doctors',
@@ -883,7 +986,8 @@ $response = array('status' => 1, 'message' => "Successfully added", 'url' =>base
             
             'where' => array(
                 'users.delete_status' => 0,
-                'doctors.facility_user_id'=>$datadoctors->facility_user_id
+                // 'doctors.facility_user_id'=>$datadoctors->facility_user_id
+                'users.hospital_id'=>$hospital_id
             ),
             'order' => array('users.id' => 'desc'),
         );
@@ -905,7 +1009,8 @@ $response = array('status' => 1, 'message' => "Successfully added", 'url' =>base
             
             'where' => array(
                 'users.delete_status' => 0,
-                'doctors.facility_user_id'=>$CareUnitID
+                // 'doctors.facility_user_id'=>$CareUnitID
+                'users.hospital_id'=>$hospital_id
             ),
             'order' => array('users.id' => 'desc'),
         );

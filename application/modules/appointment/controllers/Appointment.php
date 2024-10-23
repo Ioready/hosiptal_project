@@ -1953,7 +1953,33 @@ public function fetch() {
                     // 'sender_id' => $practitioner ?: null;
            
 
-$operator_id = ($this->ion_auth->is_admin()) ? 0 : $this->session->userdata('user_id');
+// $operator_id = ($this->ion_auth->is_admin()) ? 0 : $this->session->userdata('user_id');
+
+if ($this->ion_auth->is_facilityManager()) {
+    $user_id = $this->session->userdata('user_id');
+$hospital_id = $user_id;
+
+} else if($this->ion_auth->is_all_roleslogin()) {
+    $user_id = $this->session->userdata('user_id');
+    $optionData = array(
+        'table' => USERS . ' as user',
+        'select' => 'user.*,group.name as group_name',
+        'join' => array(
+            array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+            array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+        ),
+        'order' => array('user.id' => 'DESC'),
+        'where' => array('user.id'=>$user_id),
+        'single'=>true,
+    );
+
+    $authUser = $this->common_model->customGet($optionData);
+
+    $hospital_id = $authUser->hospital_id;
+    // 'users.hospital_id'=>$hospital_id
+    
+}
+
     // if($this->ion_auth->is_subAdmin()){
     if($this->ion_auth->is_all_roleslogin()){
 
@@ -1984,7 +2010,7 @@ $operator_id = ($this->ion_auth->is_admin()) ? 0 : $this->session->userdata('use
         'care_unit_id' => $this->input->post('location_appointment'),
         'clinic_appointment_id' => $insert_id,
         'user_id' => $operator_id,
-        'facility_user_id'=>$CareUnitID,
+        'facility_user_id'=>$hospital_id,
         'sender_id' => $this->input->post('doctor_name'),
     );
     
@@ -2004,7 +2030,7 @@ $operator_id = ($this->ion_auth->is_admin()) ? 0 : $this->session->userdata('use
     'care_unit_id' => $this->input->post('location_appointment'),
     'clinic_appointment_id' => $insert_id,
     'user_id' => $this->input->post('practitioner') ?: $this->input->post('theatre_clinician') ?: null,
-    'facility_user_id'=>$CareUnitID,
+    'facility_user_id'=>$hospital_id,
     'sender_id' => $this->input->post('doctor_name'),
 );
 
