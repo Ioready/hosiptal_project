@@ -6,48 +6,44 @@
             <a href="<?php echo site_url('pwfpanel'); ?>">Home</a>
         </li>
         <li>
-            <a href="<?php echo site_url($model); ?>"><?php echo $title; ?></a>
+            <a href="<?php echo site_url('userSettings/letterTemplate'); ?>"><?php echo 'Letter Template'; ?></a>
         </li>
     </ul>
   
     <!-- END Quick Stats -->
     <?php if ($this->ion_auth->is_admin() or $this->ion_auth->is_subAdmin() or $this->ion_auth->is_facilityManager() or $this->ion_auth->is_all_roleslogin()) { ?>
-                    <div class="block full">
-                        <div class="row text-center">
+        <div class="block full" style="position: sticky; top: 0;">
+            <div class="row text-center">
 
-                        <div class="col-sm-6 col-lg-12">
-    <ul class="nav nav-pills nav-fill nav-tabss" id="pills-tab" role="tablist">
-        <li class="nav-item">
-            <a href="<?php echo site_url('userSettings'); ?>" class="save-btn <?php echo (strtolower($this->router->fetch_class()) == "userSettings") ? "active" : "" ?>">
-                <span class="sidebar-nav-mini-hide">Users</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="<?php echo site_url('userSettings/letterTemplate'); ?>" class="save-btn <?php echo (strtolower($this->router->fetch_class()) == "letterTemplate") ? "active" : "" ?>">
-                <span class="sidebar-nav-mini-hide">Letter Templates</span>
-            </a>
-            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-2" role="tab"></a>
-        </li>
-        <!-- <li class="nav-item">
-            <a href="<?php echo site_url('userSettings/letterTemplate'); ?>" class="save-btn <?php echo (strtolower($this->router->fetch_class()) == "letterTemplate") ? "active" : "" ?>">
-                <span class="sidebar-nav-mini-hide">Email Templates</span>
-            </a>
-            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-2" role="tab"></a>
-        </li> -->
-        <li class="nav-item">
-            <a href="<?php echo site_url('userSettings/consultationTemplates'); ?>" class="save-btn <?php echo (strtolower($this->router->fetch_class()) == "consultationTemplates") ? "active" : "" ?>">
-                <span class="sidebar-nav-mini-hide">Consultation Templates</span>
-            </a>
-            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-2" role="tab"></a>
-        </li>
-    </ul>
-</div>
-
-                           
-                           
-                  
+                <div class="col-sm-6 col-lg-12">
+                    <ul class="nav nav-pills nav-fill nav-tabss" id="pills-tab" role="tablist">
+                        <li class="nav-item">
+                            <a href="<?php echo site_url('userSettings'); ?>" class="save-btn <?php echo (strtolower($this->router->fetch_class()) == "userSettings") ? "active" : "" ?>">
+                                <span class="sidebar-nav-mini-hide">Users</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?php echo site_url('userSettings/letterTemplate'); ?>" class="save-btn <?php echo (strtolower($this->router->fetch_class()) == "letterTemplate") ? "active" : "" ?>">
+                                <span class="sidebar-nav-mini-hide">Letter Templates</span>
+                            </a>
+                            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-2" role="tab"></a>
+                        </li>
+                        <!-- <li class="nav-item">
+                            <a href="<?php echo site_url('userSettings/letterTemplate'); ?>" class="save-btn <?php echo (strtolower($this->router->fetch_class()) == "letterTemplate") ? "active" : "" ?>">
+                                <span class="sidebar-nav-mini-hide">Email Templates</span>
+                            </a>
+                            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-2" role="tab"></a>
+                        </li> -->
+                        <li class="nav-item">
+                            <a href="<?php echo site_url('userSettings/consultationTemplates'); ?>" class="save-btn <?php echo (strtolower($this->router->fetch_class()) == "consultationTemplates") ? "active" : "" ?>">
+                                <span class="sidebar-nav-mini-hide">Consultation Templates</span>
+                            </a>
+                            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-2" role="tab"></a>
+                        </li>
+                    </ul>
                 </div>
             </div>
+        </div>
         
 
     <?php } ?>
@@ -167,6 +163,8 @@
                                 <th style="background-color:#DBEAFF;font-size:1.3rem;">Created On</th>
                                 <th style="background-color:#DBEAFF;font-size:1.3rem;">Updated On</th>
                                 <th style="background-color:#DBEAFF;font-size:1.3rem;">Status</th>
+                                <th style="background-color:#DBEAFF;font-size:1.3rem;">Action</th>
+                                
                             </tr>
                         </thead>
                         <tbody>
@@ -187,9 +185,11 @@
                                         <?php else: ?>
                                             Inactive
                                         <?php endif; ?>
+                                        
                                     </td>
                                     <td class="actions">
-                                        <!-- Action buttons -->
+                                    <a href="<?php echo base_url() . 'userSettings/editHeader?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-pencil"></i></a>
+                                
                                     </td>
                                 </tr>
                             <?php
@@ -206,7 +206,7 @@
                                     <td><?php echo date('m/d/Y', strtotime($rows->updated_on)); ?></td>
                                     <td><?php echo $rows->status; ?></td>
                                     <td class="actions">
-                                        <!-- Action buttons -->
+                                    <a href="<?php echo base_url() . 'userSettings/editHeader?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-pencil"></i></a>
                                     </td>
                                 </tr>
                             <?php
@@ -220,13 +220,6 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
 
 <div class="block full">
     <?php 
@@ -271,6 +264,7 @@
                                 <th style="background-color:#DBEAFF;font-size:1.3rem;">Created On</th>
                                 <th style="background-color:#DBEAFF;font-size:1.3rem;">Updated On</th>
                                 <th style="background-color:#DBEAFF;font-size:1.3rem;">Status</th>
+                                <th style="background-color:#DBEAFF;font-size:1.3rem;">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -293,6 +287,8 @@
                                         <?php endif; ?>
                                     </td>
                                     <td class="actions">
+                                    <a href="<?php echo base_url() . 'userSettings/editBody?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-pencil"></i></a>
+                                    
                                         <!-- Action buttons -->
                                     </td>
                                 </tr>
@@ -311,6 +307,8 @@
                                     <td><?php echo $rows->status; ?></td>
                                     <td class="actions">
                                         <!-- Action buttons -->
+                                        <a href="<?php echo base_url() . 'userSettings/editBody?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-pencil"></i></a>
+                                
                                     </td>
                                 </tr>
                             <?php
@@ -324,13 +322,6 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
 
 <div class="block full">
     <?php 
@@ -376,6 +367,7 @@
                                 <th style="background-color:#DBEAFF;font-size:1.3rem;">Created On</th>
                                 <th style="background-color:#DBEAFF;font-size:1.3rem;">Updated On</th>
                                 <th style="background-color:#DBEAFF;font-size:1.3rem;">Status</th>
+                                <th style="background-color:#DBEAFF;font-size:1.3rem;">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -398,6 +390,8 @@
                                         <?php endif; ?>
                                     </td>
                                     <td class="actions">
+                                    <a href="<?php echo base_url() . 'userSettings/editRecipients?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-pencil"></i></a>
+                                
                                         <!-- Action buttons -->
                                     </td>
                                 </tr>
@@ -415,6 +409,8 @@
                                     <td><?php echo date('m/d/Y', strtotime($rows->updated_on)); ?></td>
                                     <td><?php echo $rows->status; ?></td>
                                     <td class="actions">
+                                    <a href="<?php echo base_url() . 'userSettings/editRecipients?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-pencil"></i></a>
+                                
                                         <!-- Action buttons -->
                                     </td>
                                 </tr>
@@ -475,6 +471,7 @@
                                 <th style="background-color:#DBEAFF;font-size:1.3rem;">Created On</th>
                                 <th style="background-color:#DBEAFF;font-size:1.3rem;">Updated On</th>
                                 <th style="background-color:#DBEAFF;font-size:1.3rem;">Status</th>
+                                <th style="background-color:#DBEAFF;font-size:1.3rem;">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -497,6 +494,8 @@
                                         <?php endif; ?>
                                     </td>
                                     <td class="actions">
+                                    <a href="<?php echo base_url() . 'userSettings/editFooters?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-pencil"></i></a>
+                                
                                         <!-- Action buttons -->
                                     </td>
                                 </tr>
@@ -514,6 +513,8 @@
                                     <td><?php echo date('m/d/Y', strtotime($rows->updated_on)); ?></td>
                                     <td><?php echo $rows->status; ?></td>
                                     <td class="actions">
+                                    <a href="<?php echo base_url() . 'userSettings/editFooters?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-pencil"></i></a>
+                                
                                         <!-- Action buttons -->
                                     </td>
                                 </tr>
@@ -530,15 +531,7 @@
 </div>
 
 
-
-
-
-
-
-
-
-
-    </div>
+</div>
     <!-- END Datatables Content -->
 </div>
 <!-- END Page Content -->

@@ -6,8 +6,8 @@
         <li>
             <a href="<?php echo site_url('pwfpanel');?>">Home</a>
         </li>
-        <li>
-            <a href="<?php echo site_url('emailTemplate/letterTemplate');?>">Letters</a>
+		<li>
+            <a href="<?php echo site_url('userSettings/letterTemplate'); ?>"><?php echo 'Letter Template'; ?></a>
         </li>
     </ul>
     <!-- END Datatables Header -->
@@ -21,7 +21,7 @@
         <div class="block-title">
             <h2><strong>Header</strong> Panel</h2>
         </div>
-        <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url($formUrl) ?>" enctype="multipart/form-data">
+        <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('letters/updateHeader') ?>" enctype="multipart/form-data">
 
         <!-- <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('business/vendors_add') ?>" enctype="multipart/form-data"> -->
             <!-- <div class="modal-header">
@@ -43,7 +43,9 @@
                             <div class="col-md-12">
                             <label class="">Internal name*</label><br>
                             <span>This is used for internal reference and won't be seen by patients.</span>
-                                <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('first_name');?>" />
+                                <input type="text" class="form-control" name="internal_name" id="internal_name" value="<?php echo $results->internal_name;?>"/>
+                                <input type="hidden" class="form-control" name="header_id" id="header_id" value="<?php echo $results->id;?>"/>
+                            
                             </div>
                             <!-- <span class="help-block m-b-none col-md-offset-3"><i class="fa fa-arrow-circle-o-up"></i> <?php echo lang('english_note');?></span> -->
                             
@@ -53,19 +55,18 @@
                         </div>
                     </div>
                     
-                    <div class="col-md-12" >
+                    <div class="col-md-12 " >
                         <div class="form-group">
                             <div class="col-md-2">
 
                             </div>
 
-                            <div class="col-md-10" style="padding-left: 32px;">
+                            <div class="col-md-10">
                                 
-                            <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="header_checked" value="1" id="flexCheckIndeterminate">
-                            <label class="form-check-label" for="flexCheckIndeterminate">
-                            Set this as the primary header and select it by default
-                            </label>
+                            <div class="form-check" style="background-color:#FFFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);border-radius:10px; padding:10px">
+                            <input class="form-check-input fw-bold  p-2" type="checkbox" name="header_checked" value="1" id="flexCheckIndeterminate" style="margin:5px;border:2px solid black" required <?php echo ($results->header_checked == '1') ? 'checked' : ''; ?>>
+
+                            <label class="form-check-label mt-2" for="flexCheckIndeterminate"  > Set this as the primary header and select it by default </label>
                             </div>
                             
                             </div>
@@ -94,13 +95,11 @@
                                         <progress id="file-progress" value="0">
                                             <span>0</span>%
                                         </progress>
-                                        
+                                        <?php $image_url = base_url('/uploads/'); ?>
+                                <img width="100px;" src="<?php echo $image_url.$results->logo; ?>" alt="header">
+                                       
                                         <output for="file-upload" id="messages" name="image"></output>
 
-
-
-
-                                    <!-- <input type="file" class="form-control" id="comment" name="comment" rows="3"> -->
                                 </div>
                             
                             </div>
@@ -112,7 +111,7 @@
 
             </div>
             <div class="text-right">
-                <button type="submit" id="submit" class="btn btn-sm btn-primary" >Save</button>
+                <button type="submit" id="submit" class="btn btn-sm btn-primary" style="background: #005f95;" >Save</button>
             </div>
         </form>
         
@@ -120,20 +119,6 @@
 <!-- END Datatables Content -->
 </div>
 <!-- END Page Content -->
-<script type="text/javascript">
-    $('#date_of_birth').datepicker({
-        startView: 2,
-        todayBtn: "linked",
-        keyboardNavigation: false,
-        forceParse: false,
-        calendarWeeks: true,
-        autoclose: true,
-        endDate:'today'       
-    });
-/*    $("#zipcode").select2({
-        allowClear: true
-    });*/
-</script>
 <style>
     body {
 	font-family : sans-serif;

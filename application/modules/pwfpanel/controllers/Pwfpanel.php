@@ -505,7 +505,7 @@ class Pwfpanel extends Common_Controller
                 //     ) , $whereClause,
                 //     'order' => array('user.id' => 'desc'),
                 // );
-
+                $AppointmentcurrentDate = date('Y-m-d');
                 $sql = "SELECT vendor_sale_clinic_appointment.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state, pa.name as patient_name, cl.name as clinic_name, cl.clinic_location, pr.name as practitioner_name
         FROM vendor_sale_clinic_appointment
         LEFT JOIN vendor_sale_users as U ON vendor_sale_clinic_appointment.location_appointment = U.id
@@ -514,10 +514,10 @@ class Pwfpanel extends Common_Controller
         LEFT JOIN vendor_sale_user_profile as UP ON UP.user_id = U.id
         LEFT JOIN vendor_sale_practitioner as pr ON vendor_sale_clinic_appointment.practitioner = pr.id
         WHERE (
-            vendor_sale_clinic_appointment.start_date_appointment LIKE '%$today%'
-            OR vendor_sale_clinic_appointment.theatre_date_time LIKE '%$today%'
-            OR vendor_sale_clinic_appointment.out_start_time_at LIKE '%$today%'
-            OR vendor_sale_clinic_appointment.start_date_availability LIKE '%$today%'
+            vendor_sale_clinic_appointment.start_date_appointment LIKE '%$AppointmentcurrentDate%'
+            OR vendor_sale_clinic_appointment.theatre_date_time LIKE '%$AppointmentcurrentDate%'
+            OR vendor_sale_clinic_appointment.out_start_time_at LIKE '%$AppointmentcurrentDate%'
+            OR vendor_sale_clinic_appointment.start_date_availability LIKE '%$AppointmentcurrentDate%'
         )
         ORDER BY vendor_sale_clinic_appointment.start_date_appointment DESC,
                  vendor_sale_clinic_appointment.theatre_date_time DESC,
@@ -868,65 +868,70 @@ class Pwfpanel extends Common_Controller
                 //     'order' => array('user.id' => 'desc'),
                 // );
 
-                $sql = "SELECT vendor_sale_clinic_appointment.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state, pa.name as patient_name, cl.name as clinic_name, cl.clinic_location, pr.name as practitioner_name
-        FROM vendor_sale_clinic_appointment
-        LEFT JOIN vendor_sale_users as U ON vendor_sale_clinic_appointment.location_appointment = U.id
-        LEFT JOIN vendor_sale_patient as pa ON vendor_sale_clinic_appointment.patient = pa.user_id
-        LEFT JOIN vendor_sale_clinic as cl ON vendor_sale_clinic_appointment.location_appointment = cl.id
-        LEFT JOIN vendor_sale_user_profile as UP ON UP.user_id = U.id
-        LEFT JOIN vendor_sale_practitioner as pr ON vendor_sale_clinic_appointment.practitioner = pr.id
-        WHERE (
-            vendor_sale_clinic_appointment.start_date_appointment LIKE '%$today%'
-            OR vendor_sale_clinic_appointment.theatre_date_time LIKE '%$today%'
-            OR vendor_sale_clinic_appointment.out_start_time_at LIKE '%$today%'
-            OR vendor_sale_clinic_appointment.start_date_availability LIKE '%$today%'
-        )
-        ORDER BY vendor_sale_clinic_appointment.start_date_appointment DESC,
-                 vendor_sale_clinic_appointment.theatre_date_time DESC,
-                 vendor_sale_clinic_appointment.out_start_time_at DESC,
-                 vendor_sale_clinic_appointment.start_date_availability DESC";
-
-                $result = $this->db->query($sql);
-
-                $totalAppointment = $result->result();
-
-                // print_r($option);die;
-                $data['total_appointment'] = $this->common_model->customCount($totalAppointment);
+                $today = date('Y-m-d'); // Assuming you're getting the current date
+                $hospital_id = (int)$hospital_id; // Assuming $hospital_id is an integer
                 
-              
+                $sql = "SELECT vendor_sale_clinic_appointment.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state, 
+                pa.name as patient_name, cl.name as clinic_name, cl.clinic_location, pr.name as practitioner_name
+         FROM vendor_sale_users as U
+         LEFT JOIN vendor_sale_clinic_appointment ON vendor_sale_clinic_appointment.location_appointment = U.id
+         LEFT JOIN vendor_sale_patient as pa ON vendor_sale_clinic_appointment.patient = pa.user_id
+         LEFT JOIN vendor_sale_clinic as cl ON vendor_sale_clinic_appointment.location_appointment = cl.id
+         LEFT JOIN vendor_sale_user_profile as UP ON UP.user_id = U.id
+         LEFT JOIN vendor_sale_practitioner as pr ON vendor_sale_clinic_appointment.practitioner = pr.id
+         WHERE U.hospital_id = ? 
+         AND (
+             vendor_sale_clinic_appointment.start_date_appointment LIKE ? 
+             OR vendor_sale_clinic_appointment.theatre_date_time LIKE ? 
+             OR vendor_sale_clinic_appointment.out_start_time_at LIKE ? 
+             OR vendor_sale_clinic_appointment.start_date_availability LIKE ?
+         )
+         ORDER BY vendor_sale_clinic_appointment.start_date_appointment DESC,
+                  vendor_sale_clinic_appointment.theatre_date_time DESC,
+                  vendor_sale_clinic_appointment.out_start_time_at DESC,
+                  vendor_sale_clinic_appointment.start_date_availability DESC";
+                         
+ // Safely bind the variables in the query
+ $result = $this->db->query($sql, array($hospital_id, "%$today%", "%$today%", "%$today%", "%$today%"));
+ $totalAppointment = $result->result();
+ $data['total_appointment'] = count($totalAppointment);
+ 
+                
+                // Assuming you have a customCount method in common_model for counting
+                // $data['total_appointment'] = $this->common_model->customCount($totalAppointment);
+                
+                // print_r($data['total_appointment']);die;
 
         $AppointmentcurrentDate = date('Y-m-d');
-                $sql = "SELECT 
-                vsca.*, 
-                U.first_name, 
-                U.last_name, 
-                UP.address1, 
-                UP.city, 
-                UP.state, 
-                pa.name as patient_name, 
-                cl.name as clinic_name, 
-                cl.clinic_location, 
-                pr.name as practitioner_name
-                FROM vendor_sale_clinic_appointment vsca
-                LEFT JOIN vendor_sale_users U ON vsca.location_appointment = U.id
-                LEFT JOIN vendor_sale_patient pa ON vsca.patient = pa.user_id
-                LEFT JOIN vendor_sale_clinic cl ON vsca.location_appointment = cl.id
-                LEFT JOIN vendor_sale_user_profile UP ON UP.user_id = U.id
-                LEFT JOIN vendor_sale_practitioner pr ON vsca.practitioner = pr.id
+        $today = date('Y-m-d'); // Assuming you're getting the current date
+        $hospital_id = (int)$hospital_id; // Assuming $hospital_id is an integer
+        
+        $sql = "SELECT vendor_sale_clinic_appointment.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state, 
+                       pa.name as patient_name, cl.name as clinic_name, cl.clinic_location, pr.name as practitioner_name
+                FROM vendor_sale_clinic_appointment
+                LEFT JOIN vendor_sale_users as U ON vendor_sale_clinic_appointment.location_appointment = U.id
+                LEFT JOIN vendor_sale_patient as pa ON vendor_sale_clinic_appointment.patient = pa.user_id
+                LEFT JOIN vendor_sale_clinic as cl ON vendor_sale_clinic_appointment.location_appointment = cl.id
+                LEFT JOIN vendor_sale_user_profile as UP ON UP.user_id = U.id
+                LEFT JOIN vendor_sale_practitioner as pr ON vendor_sale_clinic_appointment.practitioner = pr.id
                 WHERE (
-                vsca.start_date_appointment LIKE ?
-                OR vsca.theatre_date_time LIKE ?
-                OR vsca.out_start_time_at LIKE ?
-                OR vsca.start_date_availability LIKE ?
+                    vendor_sale_clinic_appointment.start_date_appointment LIKE ? 
+                    OR vendor_sale_clinic_appointment.theatre_date_time LIKE ? 
+                    OR vendor_sale_clinic_appointment.out_start_time_at LIKE ? 
+                    OR vendor_sale_clinic_appointment.start_date_availability LIKE ?
                 )
-                ORDER BY vsca.start_date_appointment DESC,
-                    vsca.theatre_date_time DESC,
-                    vsca.out_start_time_at DESC,
-                    vsca.start_date_availability DESC";
-
-                // Bind the $currentDate parameter with wildcards
-                $result = $this->db->query($sql, array('%' . $AppointmentcurrentDate . '%', '%' . $AppointmentcurrentDate . '%', '%' . $AppointmentcurrentDate . '%', '%' . $AppointmentcurrentDate . '%'));
-
+                AND U.hospital_id = ?
+                ORDER BY vendor_sale_clinic_appointment.start_date_appointment DESC,
+                         vendor_sale_clinic_appointment.theatre_date_time DESC,
+                         vendor_sale_clinic_appointment.out_start_time_at DESC,
+                         vendor_sale_clinic_appointment.start_date_availability DESC";
+        
+        $result = $this->db->query($sql, array("%$today%", "%$today%", "%$today%", "%$today%", $hospital_id));
+        $totalAppointment = $result->result();
+        
+        // Assuming you have a customCount method in common_model for counting
+        // $data['total_appointment'] = $this->common_model->customCount($totalAppointment);
+        
                 $data['clinic_appointment'] = $result->result();
 
 
@@ -1299,7 +1304,11 @@ class Pwfpanel extends Common_Controller
                 //     'order' => array('user.id' => 'desc'),
                 // );
 
-                $sql = "SELECT vendor_sale_clinic_appointment.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state, pa.name as patient_name, cl.name as clinic_name, cl.clinic_location, pr.name as practitioner_name
+                $today = date('Y-m-d'); // Assuming you're getting the current date
+$hospital_id = (int)$hospital_id; // Assuming $hospital_id is an integer
+
+$sql = "SELECT vendor_sale_clinic_appointment.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state, 
+               pa.name as patient_name, cl.name as clinic_name, cl.clinic_location, pr.name as practitioner_name
         FROM vendor_sale_clinic_appointment
         LEFT JOIN vendor_sale_users as U ON vendor_sale_clinic_appointment.location_appointment = U.id
         LEFT JOIN vendor_sale_patient as pa ON vendor_sale_clinic_appointment.patient = pa.user_id
@@ -1307,57 +1316,64 @@ class Pwfpanel extends Common_Controller
         LEFT JOIN vendor_sale_user_profile as UP ON UP.user_id = U.id
         LEFT JOIN vendor_sale_practitioner as pr ON vendor_sale_clinic_appointment.practitioner = pr.id
         WHERE (
-            vendor_sale_clinic_appointment.start_date_appointment LIKE '%$today%'
-            OR vendor_sale_clinic_appointment.theatre_date_time LIKE '%$today%'
-            OR vendor_sale_clinic_appointment.out_start_time_at LIKE '%$today%'
-            OR vendor_sale_clinic_appointment.start_date_availability LIKE '%$today%'
+            vendor_sale_clinic_appointment.start_date_appointment LIKE ? 
+            OR vendor_sale_clinic_appointment.theatre_date_time LIKE ? 
+            OR vendor_sale_clinic_appointment.out_start_time_at LIKE ? 
+            OR vendor_sale_clinic_appointment.start_date_availability LIKE ?
         )
+        AND U.hospital_id = ?
         ORDER BY vendor_sale_clinic_appointment.start_date_appointment DESC,
                  vendor_sale_clinic_appointment.theatre_date_time DESC,
                  vendor_sale_clinic_appointment.out_start_time_at DESC,
                  vendor_sale_clinic_appointment.start_date_availability DESC";
 
-                $result = $this->db->query($sql);
+$result = $this->db->query($sql, array("%$today%", "%$today%", "%$today%", "%$today%", $hospital_id));
+$totalAppointment = $result->result();
 
-                $totalAppointment = $result->result();
+// Assuming you have a customCount method in common_model for counting
+$data['total_appointment'] = $this->common_model->customCount($totalAppointment);
 
-                // print_r($option);die;
-                $data['total_appointment'] = $this->common_model->customCount($totalAppointment);
+
+                // $result = $this->db->query($sql);
+
+                // $totalAppointment = $result->result();
+
+                // // print_r($option);die;
+                // $data['total_appointment'] = $this->common_model->customCount($totalAppointment);
                 
               
 
         $AppointmentcurrentDate = date('Y-m-d');
-                $sql = "SELECT 
-                vsca.*, 
-                U.first_name, 
-                U.last_name, 
-                UP.address1, 
-                UP.city, 
-                UP.state, 
-                pa.name as patient_name, 
-                cl.name as clinic_name, 
-                cl.clinic_location, 
-                pr.name as practitioner_name
-                FROM vendor_sale_clinic_appointment vsca
-                LEFT JOIN vendor_sale_users U ON vsca.location_appointment = U.id
-                LEFT JOIN vendor_sale_patient pa ON vsca.patient = pa.user_id
-                LEFT JOIN vendor_sale_clinic cl ON vsca.location_appointment = cl.id
-                LEFT JOIN vendor_sale_user_profile UP ON UP.user_id = U.id
-                LEFT JOIN vendor_sale_practitioner pr ON vsca.practitioner = pr.id
+        $today = date('Y-m-d'); // Assuming you're getting the current date
+        $hospital_id = (int)$hospital_id; // Assuming $hospital_id is an integer
+        
+        $sql = "SELECT vendor_sale_clinic_appointment.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state, 
+                       pa.name as patient_name, cl.name as clinic_name, cl.clinic_location, pr.name as practitioner_name
+                FROM vendor_sale_clinic_appointment
+                LEFT JOIN vendor_sale_users as U ON vendor_sale_clinic_appointment.location_appointment = U.id
+                LEFT JOIN vendor_sale_patient as pa ON vendor_sale_clinic_appointment.patient = pa.user_id
+                LEFT JOIN vendor_sale_clinic as cl ON vendor_sale_clinic_appointment.location_appointment = cl.id
+                LEFT JOIN vendor_sale_user_profile as UP ON UP.user_id = U.id
+                LEFT JOIN vendor_sale_practitioner as pr ON vendor_sale_clinic_appointment.practitioner = pr.id
                 WHERE (
-                vsca.start_date_appointment LIKE ?
-                OR vsca.theatre_date_time LIKE ?
-                OR vsca.out_start_time_at LIKE ?
-                OR vsca.start_date_availability LIKE ?
+                    vendor_sale_clinic_appointment.start_date_appointment LIKE ? 
+                    OR vendor_sale_clinic_appointment.theatre_date_time LIKE ? 
+                    OR vendor_sale_clinic_appointment.out_start_time_at LIKE ? 
+                    OR vendor_sale_clinic_appointment.start_date_availability LIKE ?
                 )
-                ORDER BY vsca.start_date_appointment DESC,
-                    vsca.theatre_date_time DESC,
-                    vsca.out_start_time_at DESC,
-                    vsca.start_date_availability DESC";
-
-                // Bind the $currentDate parameter with wildcards
-                $result = $this->db->query($sql, array('%' . $AppointmentcurrentDate . '%', '%' . $AppointmentcurrentDate . '%', '%' . $AppointmentcurrentDate . '%', '%' . $AppointmentcurrentDate . '%'));
-
+                AND U.hospital_id = ?
+                ORDER BY vendor_sale_clinic_appointment.start_date_appointment DESC,
+                         vendor_sale_clinic_appointment.theatre_date_time DESC,
+                         vendor_sale_clinic_appointment.out_start_time_at DESC,
+                         vendor_sale_clinic_appointment.start_date_availability DESC";
+        
+        $result = $this->db->query($sql, array("%$today%", "%$today%", "%$today%", "%$today%", $hospital_id));
+        $totalAppointment = $result->result();
+        
+        // Assuming you have a customCount method in common_model for counting
+        $data['total_appointment'] = $this->common_model->customCount($totalAppointment);
+        
+        
                 $data['clinic_appointment'] = $result->result();
 
 
@@ -1819,6 +1835,7 @@ class Pwfpanel extends Common_Controller
                     $this->session->set_flashdata('error', 'Please input  token');
                     redirect('pwfpanel/login', 'refresh');
                 }
+                
                     } else if ($this->ion_auth->is_facilityManager()) {
                         $option = array(
                             'table' => 'users',
@@ -1847,7 +1864,8 @@ class Pwfpanel extends Common_Controller
                         //$uniqid=$result->token_uniq
                         if($this->input->post('uniq_id')!=null){
                             
-                        if ($result2->token_uniq== $this->input->post('uniq_id')) {                           
+                        if ($result2->token_uniq== $this->input->post('uniq_id')) {   
+
                         $isAdmin = $this->common_model->customGet($option);
                         if (!empty($isAdmin)) {
                             $_SESSION['admin_care_unit_id'] = $isAdmin[0]->care_unit_id;
@@ -1873,16 +1891,17 @@ class Pwfpanel extends Common_Controller
                             }
                         }
                         redirect('pwfpanel', 'refresh');
+
                     }else{
                         $this->session->set_flashdata('error', 'Please input  token');
                         redirect('pwfpanel/login', 'refresh');
                     }
-                }
+                // }
 
-            // // }else {
-            // //     $this->session->set_flashdata('error', 'Please input  token');
-            // //     redirect('pwfpanel/login', 'refresh');
-            // }
+            }else {
+                $this->session->set_flashdata('error', 'Please input  token');
+                redirect('pwfpanel/login', 'refresh');
+            }
                 } else if ($this->ion_auth->is_user()) {
                     
                                             

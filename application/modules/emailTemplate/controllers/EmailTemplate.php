@@ -244,6 +244,33 @@ class EmailTemplate extends Common_Controller {
         if($LoginID != 1 && $LoginID != NULL ){
             $x = $LoginID;
         }
+
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+        
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+        
+            $authUser = $this->common_model->customGet($optionData);
+        
+            $hospital_id = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
+        }
+
+
         
         $this->data['roles'] = array(
             'role_name' => $role_name
@@ -261,7 +288,7 @@ class EmailTemplate extends Common_Controller {
             'join' => array(
                 array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_lettel_header.user_id','left')
             ),
-            'where' => array('vendor_sale_lettel_header.user_id' => $LoginID)
+            'where' => array('vendor_sale_lettel_header.user_id' => $hospital_id)
         );
 
         $this->data['header_list'] = $this->common_model->customGet($optionheader);
@@ -272,7 +299,7 @@ class EmailTemplate extends Common_Controller {
             'join' => array(
                 array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_lettel_bodies.user_id','left')
             ),
-            'where' => array('vendor_sale_lettel_bodies.user_id' => $LoginID)
+            'where' => array('vendor_sale_lettel_bodies.user_id' => $hospital_id)
         );
 
         $this->data['body_list'] = $this->common_model->customGet($option_body);
@@ -283,7 +310,7 @@ class EmailTemplate extends Common_Controller {
             'join' => array(
                 array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_lettel_recipients.user_id','left')
             ),
-            'where' => array('vendor_sale_lettel_recipients.user_id' => $LoginID)
+            'where' => array('vendor_sale_lettel_recipients.user_id' => $hospital_id)
         );
 
         $this->data['recipients_list'] = $this->common_model->customGet($optionrecipient);
@@ -294,12 +321,12 @@ class EmailTemplate extends Common_Controller {
             'join' => array(
                 array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_lettel_footer.user_id','left')
             ),
-            'where' => array('vendor_sale_lettel_footer.user_id' => $LoginID)
+            'where' => array('vendor_sale_lettel_footer.user_id' => $hospital_id)
         );
 
         $this->data['footer_list'] = $this->common_model->customGet($optionfooter);
 
-        
+        // print_r($this->data['footer_list']);die;
         $this->load->admin_render('directory', $this->data, 'inner_script');
     }
 
@@ -727,6 +754,461 @@ class EmailTemplate extends Common_Controller {
         }
         echo json_encode($response);
     }
+
+
+    public function editHeader() {
+        $this->data['parent'] = $this->title;
+        $this->data['title'] = "Edit " . $this->title;
+
+        $id = decoding($_GET['id']);
+       
+        
+        if (!empty($id)) {
+            // print_r($id);die;
+            $optionheader = array(
+                'table' => 'vendor_sale_lettel_header',
+                'select' => 'vendor_sale_lettel_header`.*',
+                'join' => array(
+                    array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_lettel_header.user_id','left')
+                ),
+                // 'where' => array('vendor_sale_lettel_header.user_id' => $LoginID),
+                'where' => array('vendor_sale_lettel_header.id' => $id),
+           'single' => true
+            );
+            $results_row = $this->common_model->customGet($optionheader);
+          
+            if (!empty($results_row)) {
+                
+                $this->data['results'] = $results_row;
+
+            
+                $this->load->admin_render('edit_header', $this->data, 'inner_script');
+            } else {
+                $this->session->set_flashdata('error', lang('not_found'));
+                redirect($this->router->fetch_class());
+            }
+        } else {
+            $this->session->set_flashdata('error', lang('not_found'));
+            redirect($this->router->fetch_class());
+        }
+    }
+
+    /**
+     * @method user_update
+     * @description update dynamic rows
+     * @return array
+     */
+
+
+     public function updateHeader() {
+       
+        $where_id = $this->input->post('header_id');
+        $this->form_validation->set_rules('internal_name', "internal_name", 'required|trim');
+
+        if ($this->form_validation->run() == FALSE):
+            $messages = (validation_errors()) ? validation_errors() : '';
+            $response = array('status' => 0, 'message' => $messages);
+        else:
+            $this->filedata['status'] = 1;
+
+            if ($this->filedata['status'] == 0) {
+                $response = array('status' => 1, 'message' => $this->filedata['error']);
+            } else {
+
+              
+                $options_data = array(
+                    'internal_name' => $this->input->post('internal_name'),
+                    'header_checked' => $this->input->post('header_checked'),
+                    'logo' => $this->input->post('image'),                    
+                );
+                // $option = array('table' => 'vendor_sale_user_consultation_setting', 'data' => $options_data);
+
+                
+                $option = array(
+                    'table' =>'vendor_sale_lettel_header',
+                    'data' => $options_data,
+                    'where' => array('id' => $where_id)
+                );
+                $update = $this->common_model->customUpdate($option);
+                
+                $response = array('status' => 1, 'message' => "Successfully updated", 'url' => base_url('userSettings'), 'id' => encoding($this->input->post('id')));
+                
+            }
+        endif;
+
+        echo json_encode($response);
+    }
+
+
+    public function editBody() {
+        $this->data['parent'] = $this->title;
+        $this->data['title'] = "Edit " . $this->title;
+
+
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+        
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+        
+            $authUser = $this->common_model->customGet($optionData);
+        
+            $hospital_id = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
+        }
+
+        $id = decoding($_GET['id']);
+       
+        
+        if (!empty($id)) {
+            // print_r($id);die;
+            $optionheader = array(
+                'table' => 'vendor_sale_lettel_bodies',
+                'select' => 'vendor_sale_lettel_bodies`.*',
+                'join' => array(
+                    array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_lettel_bodies.user_id','left')
+                ),
+                // 'where' => array('vendor_sale_lettel_header.user_id' => $LoginID),
+                'where' => array('vendor_sale_lettel_bodies.id' => $id),
+           'single' => true
+            );
+            $results_row = $this->common_model->customGet($optionheader);
+        
+    
+            if (!empty($results_row)) {
+                
+                $this->data['results'] = $results_row;
+
+            
+                $optionheader = array(
+                    'table' => 'vendor_sale_lettel_header',
+                    'select' => 'vendor_sale_lettel_header`.*',
+                    'join' => array(
+                        array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_lettel_header.user_id','left')
+                    ),
+                    'where' => array('vendor_sale_lettel_header.user_id' => $hospital_id)
+                );
+        
+                $this->data['header_list'] = $this->common_model->customGet($optionheader);
+
+                
+                $this->load->admin_render('edit_body', $this->data, 'inner_script');
+            } else {
+                $this->session->set_flashdata('error', lang('not_found'));
+                redirect($this->router->fetch_class());
+            }
+        } else {
+            $this->session->set_flashdata('error', lang('not_found'));
+            redirect($this->router->fetch_class());
+        }
+    }
+
+    /**
+     * @method user_update
+     * @description update dynamic rows
+     * @return array
+     */
+
+
+     public function updateBody() {
+       
+        $where_id = $this->input->post('body_id');
+        // print_r($where_id);die;
+        $this->form_validation->set_rules('internal_name', "internal_name", 'required|trim');
+
+        if ($this->form_validation->run() == FALSE):
+            $messages = (validation_errors()) ? validation_errors() : '';
+            $response = array('status' => 0, 'message' => $messages);
+        else:
+            $this->filedata['status'] = 1;
+
+            if ($this->filedata['status'] == 0) {
+                $response = array('status' => 1, 'message' => $this->filedata['error']);
+            } else {
+
+              
+                $options_data = array(
+                    'header_id' => $this->input->post('header_id'),
+                    'internal_name' => $this->input->post('internal_name'),
+                    'bodies_template' => $this->input->post('bodies_template'),
+                                    
+                );
+               
+                
+                $optionBody = array(
+                    'table' =>'vendor_sale_lettel_bodies',
+                    'data' => $options_data,
+                    'where' => array('id' => $where_id)
+                );
+                
+                $update = $this->common_model->customUpdate($optionBody);
+                // print_r($update);die;
+                $response = array('status' => 1, 'message' => "Successfully updated", 'url' => base_url('userSettings'), 'id' => encoding($this->input->post('id')));
+                
+            }
+        endif;
+
+        echo json_encode($response);
+    }
+
+
+    public function editRecipients() {
+        $this->data['parent'] = $this->title;
+        $this->data['title'] = "Edit " . $this->title;
+
+
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+        
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+        
+            $authUser = $this->common_model->customGet($optionData);
+        
+            $hospital_id = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
+        }
+
+        $id = decoding($_GET['id']);
+       
+        
+        if (!empty($id)) {
+            // print_r($id);die;
+            $optionheader = array(
+                'table' => 'vendor_sale_lettel_recipients',
+                'select' => 'vendor_sale_lettel_recipients`.*',
+                'join' => array(
+                            array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_lettel_recipients.user_id','left')
+                        ),
+                'where' => array('vendor_sale_lettel_recipients.id' => $id),
+           'single' => true
+            );
+            $results_row = $this->common_model->customGet($optionheader);
+      
+            if (!empty($results_row)) {
+                
+                $this->data['results'] = $results_row;
+
+            
+                $optionheader = array(
+                    'table' => 'vendor_sale_lettel_bodies',
+                    'select' => 'vendor_sale_lettel_bodies`.*',
+                    'join' => array(
+                    array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_lettel_bodies.user_id','left')
+                ),
+                    'where' => array('vendor_sale_lettel_bodies.user_id' => $hospital_id)
+                );
+        
+                $this->data['body_list'] = $this->common_model->customGet($optionheader);
+
+                
+                $this->load->admin_render('edit_recipients', $this->data, 'inner_script');
+            } else {
+                $this->session->set_flashdata('error', lang('not_found'));
+                redirect($this->router->fetch_class());
+            }
+        } else {
+            $this->session->set_flashdata('error', lang('not_found'));
+            redirect($this->router->fetch_class());
+        }
+    }
+
+    /**
+     * @method user_update
+     * @description update dynamic rows
+     * @return array
+     */
+
+
+     public function updateRecipients() {
+       
+        $where_id = $this->input->post('recipients_id');
+        $this->form_validation->set_rules('internal_name', "internal_name", 'required|trim');
+
+        if ($this->form_validation->run() == FALSE):
+            $messages = (validation_errors()) ? validation_errors() : '';
+            $response = array('status' => 0, 'message' => $messages);
+        else:
+            $this->filedata['status'] = 1;
+
+            if ($this->filedata['status'] == 0) {
+                $response = array('status' => 1, 'message' => $this->filedata['error']);
+            } else {
+
+              
+                $options_data = array(
+                    'body_id' => $this->input->post('body_id'),
+                    'internal_name' => $this->input->post('internal_name'),
+                    'recipient_template' => $this->input->post('bodies_template'),
+                                    
+                );
+               
+                
+                $optionRecipient = array(
+                    'table' =>'vendor_sale_lettel_recipients',
+                    'data' => $options_data,
+                    'where' => array('id' => $where_id)
+                );
+                
+                $update = $this->common_model->customUpdate($optionRecipient);
+                // print_r($update);die;
+                $response = array('status' => 1, 'message' => "Successfully updated", 'url' => base_url('userSettings'), 'id' => encoding($this->input->post('id')));
+                
+            }
+        endif;
+
+        echo json_encode($response);
+    }
+
+
+    public function editFooters() {
+        $this->data['parent'] = $this->title;
+        $this->data['title'] = "Edit " . $this->title;
+
+
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+        
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+        
+            $authUser = $this->common_model->customGet($optionData);
+        
+            $hospital_id = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
+        }
+
+        $id = decoding($_GET['id']);
+        if (!empty($id)) {
+            
+            $optionheader = array(
+                'table' => 'vendor_sale_lettel_footer',
+                'select' => 'vendor_sale_lettel_footer`.*',
+                'join' => array(
+                    array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_lettel_footer.user_id','left')
+                ),
+                'where' => array('vendor_sale_lettel_footer.id' => $id),
+           'single' => true
+            );
+            $results_row = $this->common_model->customGet($optionheader);
+            
+    
+            if (!empty($results_row)) {
+                
+                $this->data['results'] = $results_row;
+
+            
+                $optionheader = array(
+                    'table' => 'vendor_sale_lettel_recipients',
+                'select' => 'vendor_sale_lettel_recipients`.*',
+                'join' => array(
+                            array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_lettel_recipients.user_id','left')
+                        ),
+                    'where' => array('vendor_sale_lettel_recipients.user_id' => $hospital_id)
+                );
+        
+                $this->data['recipient_list'] = $this->common_model->customGet($optionheader);
+
+                
+                $this->load->admin_render('edit_footer', $this->data, 'inner_script');
+            } else {
+                $this->session->set_flashdata('error', lang('not_found'));
+                redirect($this->router->fetch_class());
+            }
+        } else {
+            $this->session->set_flashdata('error', lang('not_found'));
+            redirect($this->router->fetch_class());
+        }
+    }
+
+    /**
+     * @method user_update
+     * @description update dynamic rows
+     * @return array
+     */
+
+
+     public function updateFooters() {
+       
+        $where_id = $this->input->post('footer_id');
+        // print_r($where_id);die;
+        $this->form_validation->set_rules('internal_name', "internal_name", 'required|trim');
+
+        if ($this->form_validation->run() == FALSE):
+            $messages = (validation_errors()) ? validation_errors() : '';
+            $response = array('status' => 0, 'message' => $messages);
+        else:
+            $this->filedata['status'] = 1;
+
+            if ($this->filedata['status'] == 0) {
+                $response = array('status' => 1, 'message' => $this->filedata['error']);
+            } else {
+
+              
+                $options_data = array(
+                    'recipient_id' => $this->input->post('recipient_id'),
+                    'internal_name' => $this->input->post('internal_name'),
+                    'header_checked' => $this->input->post('footer_booked'),
+                    'logo' => $this->input->post('image'),
+                                    
+                );
+               
+                
+                $optionBody = array(
+                    'table' =>'vendor_sale_lettel_footer',
+                    'data' => $options_data,
+                    'where' => array('id' => $where_id)
+                );
+                
+                $update = $this->common_model->customUpdate($optionBody);
+                // print_r($update);die;
+                $response = array('status' => 1, 'message' => "Successfully updated", 'url' => base_url('userSettings'), 'id' => encoding($this->input->post('id')));
+                
+            }
+        endif;
+
+        echo json_encode($response);
+    }
+
 
     function open_model() {
         $this->data['title'] = lang("add_cms");

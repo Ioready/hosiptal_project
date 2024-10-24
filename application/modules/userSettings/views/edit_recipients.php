@@ -7,7 +7,7 @@
             <a href="<?php echo site_url('pwfpanel');?>">Home</a>
         </li>
         <li>
-            <a href="<?php echo site_url('emailTemplate/letterTemplate');?>">Letters</a>
+            <a href="<?php echo site_url('userSettings/letterTemplate'); ?>"><?php echo 'Letter Template'; ?></a>
         </li>
     </ul>
     <!-- END Datatables Header -->
@@ -21,15 +21,9 @@
         <div class="block-title">
             <h2><strong>Recipients</strong> Panel</h2>
         </div>
-        <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url($formUrl) ?>" enctype="multipart/form-data">
+        <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('letters/updateRecipients') ?>" enctype="multipart/form-data">
 
-        <!-- <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('business/vendors_add') ?>" enctype="multipart/form-data"> -->
-            <!-- <div class="modal-header">
-                <h3 class="modal-title"><strong> Header</strong></h3>
-            </div> -->
-            <!-- <div class="loaders">
-                <img src="<?php //echo base_url().'backend_asset/images/Preloader_2.gif';?>" class="loaders-img" class="img-responsive">
-            </div> -->
+       
             <div class="alert alert-danger" id="error-box" style="display: none"></div>
             <div class="form-body">
                 <div class="row">
@@ -47,7 +41,7 @@
                                 <option value="">Select Body</option>
                                 <?php 
                                 foreach($body_list as $row){ ?>
-                                     <option value="<?php echo $row->id?>"><?php echo $row->internal_name?></option>
+                                     <option value="<?php echo $row->id?>" <?php echo $results->body_id == $row->id?'selected':'';?>><?php echo $row->internal_name?></option>
 
                                <?php }
                                 ?>
@@ -71,7 +65,9 @@
                             <div class="col-md-12">
                             <label class="">Internal name*</label><br>
                             <span>This is used for internal reference and won't be seen by patients.</span>
-                                <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('first_name');?>" />
+                                <input type="text" class="form-control" name="internal_name" id="internal_name" value="<?php echo $results->internal_name;?>" />
+                                <input type="hidden" class="form-control" name="recipients_id" id="recipients_id" value="<?php echo $results->id;?>"/>
+                            
                             </div>
                             <!-- <span class="help-block m-b-none col-md-offset-3"><i class="fa fa-arrow-circle-o-up"></i> <?php echo lang('english_note');?></span> -->
                             
@@ -87,7 +83,7 @@
                                 <div class="col-md-12">
                                     <label class="">Create Letter template * </label><br>
                                     <!-- <div class="col-md-12 offset-md-2">                                       -->
-                                    <textarea id="editor" name="bodies_template"></textarea>
+                                    <textarea id="editor1" name="bodies_template"><?php echo $results->recipient_template; ?></textarea>
                                     <!-- </div> -->
 
                                     <!-- <input type="file" class="form-control" id="comment" name="comment" rows="3"> -->
@@ -97,7 +93,7 @@
                     </div>
             </div>
             <div class="text-right">
-                <button type="submit" id="submit" class="btn btn-sm btn-primary" >Save</button>
+                <button type="submit" id="submit" class="btn btn-sm btn-primary"   style="background: #337ab7;">Save</button>
             </div>
         </form>
         

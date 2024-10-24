@@ -1,4 +1,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.js"></script>
+<link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/43.2.0/ckeditor5.css" />
+
 <!-- Page content -->
 <div id="page-content">
     <!-- Datatables Header -->
@@ -7,7 +9,7 @@
             <a href="<?php echo site_url('pwfpanel');?>">Home</a>
         </li>
         <li>
-        <a href="<?php echo site_url('letters');?>">Letters</a>
+            <a href="<?php echo site_url('userSettings/letterTemplate'); ?>"><?php echo 'Letter Template'; ?></a>
         </li>
     </ul>
     <!-- END Datatables Header -->
@@ -18,7 +20,7 @@
     <div class="block-title">
         <h2><strong>Bodies</strong> Panel</h2>
     </div>
-    <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url($formUrl) ?>" enctype="multipart/form-data">
+    <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('letters/updateBody') ?>" enctype="multipart/form-data">
         <div class="alert alert-danger" id="error-box" style="display: none"></div>
         <div class="form-body">
             <div class="row">
@@ -30,7 +32,7 @@
                                 <option value="">Select Header</option>
                                 <?php 
                                 foreach($header_list as $row){ ?>
-                                     <option value="<?php echo $row->id?>"><?php echo $row->internal_name?></option>
+                                     <option value="<?php echo $row->id?>" <?php echo $results->header_id == $row->id?'selected':'';?>><?php echo $row->internal_name?></option>
 
                                <?php }
                                 ?>
@@ -43,7 +45,9 @@
                     <div class="form-group">
                         <label class="m-4 control-label">Internal name*</label>
                         <div class="col-md-12">
-                            <input type="text" class="form-control" name="internal_name" id="internal_name" placeholder="<?php echo lang('first_name');?>" />
+                                <input type="text" class="form-control" name="internal_name" id="internal_name" value="<?php echo $results->internal_name;?>"/>
+                                <input type="hidden" class="form-control" name="body_id" id="body_id" value="<?php echo $results->id;?>"/>
+                            
                             <span class="help-block fw-bold text-dark">This is used for internal reference and won't be seen by patients.</span>
                         </div>
                     </div>
@@ -53,7 +57,7 @@
                     <div class="form-group">
                         <label class="m-4 control-label">Create Letter template*</label>
                         <div class="col-md-12">
-                            <textarea id="editor1" name="bodies_template"></textarea>
+                            <textarea id="editor1" name="bodies_template"> <?php echo $results->bodies_template; ?></textarea>
                         </div>
                     </div>
                 </div>
@@ -67,6 +71,8 @@
 
 <!-- END Datatables Content -->
 </div>
+
+
 <!-- END Page Content -->
 <script type="text/javascript">
     $('#date_of_birth').datepicker({

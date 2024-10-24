@@ -86,11 +86,8 @@
         
             </div>
 
- 
-
-
             
-            <div class="block full">
+<div class="block full">
     <?php 
     $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
     ?>
@@ -133,6 +130,8 @@
                                 <th style="background-color:#DBEAFF;font-size:1.3rem;">Created On</th>
                                 <th style="background-color:#DBEAFF;font-size:1.3rem;">Updated On</th>
                                 <th style="background-color:#DBEAFF;font-size:1.3rem;">Status</th>
+                                <th style="background-color:#DBEAFF;font-size:1.3rem;">Action</th>
+                                
                             </tr>
                         </thead>
                         <tbody>
@@ -153,9 +152,11 @@
                                         <?php else: ?>
                                             Inactive
                                         <?php endif; ?>
+                                        
                                     </td>
                                     <td class="actions">
-                                        <!-- Action buttons -->
+                                    <a href="<?php echo base_url() . 'letters/editHeader?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-pencil"></i></a>
+                                
                                     </td>
                                 </tr>
                             <?php
@@ -172,7 +173,7 @@
                                     <td><?php echo date('m/d/Y', strtotime($rows->updated_on)); ?></td>
                                     <td><?php echo $rows->status; ?></td>
                                     <td class="actions">
-                                        <!-- Action buttons -->
+                                    <a href="<?php echo base_url() . 'letters/editHeader?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-pencil"></i></a>
                                     </td>
                                 </tr>
                             <?php
@@ -186,13 +187,6 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
 
 <div class="block full">
     <?php 
@@ -237,6 +231,7 @@
                                 <th style="background-color:#DBEAFF;font-size:1.3rem;">Created On</th>
                                 <th style="background-color:#DBEAFF;font-size:1.3rem;">Updated On</th>
                                 <th style="background-color:#DBEAFF;font-size:1.3rem;">Status</th>
+                                <th style="background-color:#DBEAFF;font-size:1.3rem;">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -259,6 +254,8 @@
                                         <?php endif; ?>
                                     </td>
                                     <td class="actions">
+                                    <a href="<?php echo base_url() . 'letters/editBody?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-pencil"></i></a>
+                                    
                                         <!-- Action buttons -->
                                     </td>
                                 </tr>
@@ -277,6 +274,8 @@
                                     <td><?php echo $rows->status; ?></td>
                                     <td class="actions">
                                         <!-- Action buttons -->
+                                        <a href="<?php echo base_url() . 'letters/editBody?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-pencil"></i></a>
+                                
                                     </td>
                                 </tr>
                             <?php
@@ -290,13 +289,6 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
 
 <div class="block full">
     <?php 
@@ -342,6 +334,7 @@
                                 <th style="background-color:#DBEAFF;font-size:1.3rem;">Created On</th>
                                 <th style="background-color:#DBEAFF;font-size:1.3rem;">Updated On</th>
                                 <th style="background-color:#DBEAFF;font-size:1.3rem;">Status</th>
+                                <th style="background-color:#DBEAFF;font-size:1.3rem;">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -364,6 +357,8 @@
                                         <?php endif; ?>
                                     </td>
                                     <td class="actions">
+                                    <a href="<?php echo base_url() . 'letters/editRecipients?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-pencil"></i></a>
+                                
                                         <!-- Action buttons -->
                                     </td>
                                 </tr>
@@ -381,6 +376,8 @@
                                     <td><?php echo date('m/d/Y', strtotime($rows->updated_on)); ?></td>
                                     <td><?php echo $rows->status; ?></td>
                                     <td class="actions">
+                                    <a href="<?php echo base_url() . 'letters/editRecipients?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-pencil"></i></a>
+                                
                                         <!-- Action buttons -->
                                     </td>
                                 </tr>
@@ -441,6 +438,7 @@
                                 <th style="background-color:#DBEAFF;font-size:1.3rem;">Created On</th>
                                 <th style="background-color:#DBEAFF;font-size:1.3rem;">Updated On</th>
                                 <th style="background-color:#DBEAFF;font-size:1.3rem;">Status</th>
+                                <th style="background-color:#DBEAFF;font-size:1.3rem;">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -463,6 +461,8 @@
                                         <?php endif; ?>
                                     </td>
                                     <td class="actions">
+                                    <a href="<?php echo base_url() . 'letters/editFooters?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-pencil"></i></a>
+                                
                                         <!-- Action buttons -->
                                     </td>
                                 </tr>
@@ -480,6 +480,8 @@
                                     <td><?php echo date('m/d/Y', strtotime($rows->updated_on)); ?></td>
                                     <td><?php echo $rows->status; ?></td>
                                     <td class="actions">
+                                    <a href="<?php echo base_url() . 'letters/editFooters?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-pencil"></i></a>
+                                
                                         <!-- Action buttons -->
                                     </td>
                                 </tr>
@@ -494,11 +496,6 @@
         </div>
     </div>
 </div>
-
-
-
-
-
 
 
 
@@ -585,6 +582,7 @@
 </div>
 <!-- END Page Content -->
 <div id="form-modal-box"></div>
+<div id="form-modal-box-header"></div>
 
 
 <script type="text/javascript">

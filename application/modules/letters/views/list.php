@@ -173,9 +173,16 @@
         </form>
 
         <?php } if ($menu_view =='1'){ ?>
+            <div class="col-sm-12"> 
+                         
+                         <div class="table-responsive" >
+                         
 
-        <div class="table-responsive">
-            <table id="common_datatable_users" class="table table-vcenter table-condensed table-bordered">
+                             <table id="appointmentTable" class="table table-bordered table-hover align-middle text-center">
+                         
+        <!-- <div class="table-responsive"> -->
+            <!-- <table id="common_datatable_users" class="table table-vcenter table-condensed table-bordered"> -->
+            
             <thead>
                     <tr>
                         <th style="background-color:#DBEAFF;font-size:1.3rem;width:10px;" >Sr. No</th>
@@ -309,11 +316,14 @@
             </div>
             
         </form>
+        <div class="col-sm-12"> 
+                         
+                         <div class="table-responsive" >
+                         
 
-    
-
-        <div class="table-responsive">
-            <table id="common_datatable_users" class="table table-vcenter table-condensed table-bordered">
+                             <table id="appointmentTable" class="table table-bordered table-hover align-middle text-center">
+                         
+            <!-- <table id="common_datatable_users" class="table table-vcenter table-condensed table-bordered"> -->
             <thead>
                     <tr>
                         <th style="background-color:#DBEAFF;font-size:1.3rem;width:10px;" >Sr. No</th>
@@ -345,7 +355,30 @@
                                 <td><?php echo $rows->header_internal_name; ?></td>
                                 <?php $image_url = base_url('/uploads/'); ?>
                                 <td><img width="100px;" src="<?php echo $image_url.$rows->header_logo; ?>" alt="header"></td>
-                                <td><?php echo $rows->bodies_template; ?></td>
+                                
+                                <td style="vertical-align: top;">
+                                    <?php 
+                                    // Get the content from the `bodies_template`
+                                    $content = $rows->bodies_template;
+
+                                    // Split the content into words
+                                    $words = explode(' ', $content);
+
+                                    // Check if the content has more than 20 words
+                                    if (count($words) > 20) {
+                                        // Take only the first 20 words and join them into a string
+                                        $content_trimmed = implode(' ', array_slice($words, 0, 20)) . '...';
+                                    } else {
+                                        // If it's less than 20 words, show the full content
+                                        $content_trimmed = $content;
+                                    }
+
+                                    // Echo the content (trimmed or full)
+                                    echo $content_trimmed;
+                                    ?>
+                                </td>
+
+
                                 <td><?php echo $rows->recipient_template; ?></td>
                                
                                 
@@ -391,8 +424,26 @@
 <div id="form-modal-box"></div>
 
 
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+<!-- Include jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Include DataTables -->
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script>
+
+$(document).ready(function() {
+    $('#appointmentTable').DataTable({
+            "paging": true,
+            "searching": true,
+            "lengthChange": false,
+            "pageLength": 10,
+            "order": [[0, 'desc']]  // Here, 0 represents the first column (index starts from 0)
+        });
+    });
+    </script>
 <script>
 function generateTemplate(id) {
     // Populate hidden form with data

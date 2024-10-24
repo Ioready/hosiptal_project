@@ -31,6 +31,30 @@ class Appointment extends Common_Controller {
         // $this->data['formUrlAdd'] = $this->router->fetch_class() . "/addPatient";
         $this->data['formUrl'] = $this->router->fetch_class() . "/add";
 
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+        
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+        
+            $authUser = $this->common_model->customGet($optionData);
+        
+            $hospital_id = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
+        }
 
         $role_name = $this->input->post('role_name');
         $today = date('Y-m-d');
@@ -111,6 +135,7 @@ class Appointment extends Common_Controller {
                 ),
                 'where' => array(
                     'users.delete_status' => 0,
+                    'users.hospital_id'=>$hospital_id
                     // 'doctors.user_id'=>$CareUnitID
                 ),
                 'single' => true,
@@ -131,6 +156,7 @@ class Appointment extends Common_Controller {
                 
                 'where' => array(
                     'users.delete_status' => 0,
+                    'users.hospital_id'=>$hospital_id
                     // 'doctors.facility_user_id'=>$datadoctors->facility_user_id
                 ),
                
@@ -140,7 +166,7 @@ class Appointment extends Common_Controller {
             $optionPractitioner = array(
                 'table' => 'practitioner',
                 'select' => '*',
-                //  'where' => array('hospital_id'=>$datadoctors->facility_user_id,'delete_status' => 0), 'order' => array('name' => 'ASC')
+                 'where' => array('hospital_id'=>$hospital_id,'delete_status' => 0), 'order' => array('name' => 'ASC')
             );
             $practitionerData = $this->common_model->customGet($optionPractitioner);
         $combinedData = array_merge($practitionerData,$doctorsData);
@@ -155,7 +181,8 @@ class Appointment extends Common_Controller {
         ),
         'where' => array(
             'users.delete_status' => 0,
-            'doctors.user_id'=>$CareUnitID
+            'users.hospital_id'=>$hospital_id
+            // 'doctors.user_id'=>$CareUnitID
         ),
         'single' => true,
     );
@@ -170,7 +197,8 @@ class Appointment extends Common_Controller {
         ),
         'where' => array(
             'users.delete_status' => 0,
-            'doctors.facility_user_id'=>$datadoctors->facility_user_id
+            'users.hospital_id'=>$hospital_id
+            // 'doctors.facility_user_id'=>$datadoctors->facility_user_id
         ),
         'order' => array('users.id' => 'desc'),
     );
@@ -178,7 +206,7 @@ class Appointment extends Common_Controller {
 
     $option = array(
         'table' => 'clinic',
-        'select' => '*', 'where' => array('hospital_id'=>$datadoctors->facility_user_id), 'order' => array('name' => 'ASC')
+        'select' => '*', 'where' => array('hospital_id'=>$hospital_id), 'order' => array('name' => 'ASC')
     );
     $this->data['clinic_location'] = $this->common_model->customGet($option);
     
@@ -220,25 +248,52 @@ class Appointment extends Common_Controller {
         // $this->data['all_appointment'] = $this->common_model->customGet($option);
         
 
-        $sql = "SELECT vendor_sale_clinic_appointment.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state, pa.name as patient_name, cl.name as clinic_name, cl.clinic_location, pr.name as practitioner_name
-        FROM vendor_sale_clinic_appointment
-        LEFT JOIN vendor_sale_users as U ON vendor_sale_clinic_appointment.location_appointment = U.id
-        LEFT JOIN vendor_sale_patient as pa ON vendor_sale_clinic_appointment.patient = pa.user_id
-        LEFT JOIN vendor_sale_clinic as cl ON vendor_sale_clinic_appointment.location_appointment = cl.id
-        LEFT JOIN vendor_sale_user_profile as UP ON UP.user_id = U.id
-        LEFT JOIN vendor_sale_practitioner as pr ON vendor_sale_clinic_appointment.practitioner = pr.id
-        WHERE (
-            vendor_sale_clinic_appointment.start_date_appointment LIKE '%$today%'
-            OR vendor_sale_clinic_appointment.theatre_date_time LIKE '%$today%'
-            OR vendor_sale_clinic_appointment.out_start_time_at LIKE '%$today%'
-            OR vendor_sale_clinic_appointment.start_date_availability LIKE '%$today%'
-        )
-        ORDER BY vendor_sale_clinic_appointment.start_date_appointment DESC,
-                 vendor_sale_clinic_appointment.theatre_date_time DESC,
-                 vendor_sale_clinic_appointment.out_start_time_at DESC,
-                 vendor_sale_clinic_appointment.start_date_availability DESC";
+//         $sql = "SELECT vendor_sale_clinic_appointment.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state, pa.name as patient_name, cl.name as clinic_name, cl.clinic_location, pr.name as practitioner_name
+//         FROM vendor_sale_clinic_appointment
+//         LEFT JOIN vendor_sale_users as U ON vendor_sale_clinic_appointment.location_appointment = U.id
+//         LEFT JOIN vendor_sale_patient as pa ON vendor_sale_clinic_appointment.patient = pa.user_id
+//         LEFT JOIN vendor_sale_clinic as cl ON vendor_sale_clinic_appointment.location_appointment = cl.id
+//         LEFT JOIN vendor_sale_user_profile as UP ON UP.user_id = U.id
+//         LEFT JOIN vendor_sale_practitioner as pr ON vendor_sale_clinic_appointment.practitioner = pr.id
+//         WHERE (
+//             vendor_sale_clinic_appointment.start_date_appointment LIKE '%$today%'
+//             OR vendor_sale_clinic_appointment.theatre_date_time LIKE '%$today%'
+//             OR vendor_sale_clinic_appointment.out_start_time_at LIKE '%$today%'
+//             OR vendor_sale_clinic_appointment.start_date_availability LIKE '%$today%'
+//         )
+//         ORDER BY vendor_sale_clinic_appointment.start_date_appointment DESC,
+//                  vendor_sale_clinic_appointment.theatre_date_time DESC,
+//                  vendor_sale_clinic_appointment.out_start_time_at DESC,
+//                  vendor_sale_clinic_appointment.start_date_availability DESC";
 
-$result = $this->db->query($sql);
+// $result = $this->db->query($sql);
+
+$hospital_id = (int)$hospital_id; // Assuming $hospital_id is an integer
+                
+                $sql = "SELECT vendor_sale_clinic_appointment.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state, 
+                pa.name as patient_name, cl.name as clinic_name, cl.clinic_location, pr.name as practitioner_name
+         FROM vendor_sale_users as U
+         LEFT JOIN vendor_sale_clinic_appointment ON vendor_sale_clinic_appointment.location_appointment = U.id
+         LEFT JOIN vendor_sale_patient as pa ON vendor_sale_clinic_appointment.patient = pa.user_id
+         LEFT JOIN vendor_sale_clinic as cl ON vendor_sale_clinic_appointment.location_appointment = cl.id
+         LEFT JOIN vendor_sale_user_profile as UP ON UP.user_id = U.id
+         LEFT JOIN vendor_sale_practitioner as pr ON vendor_sale_clinic_appointment.practitioner = pr.id
+         WHERE U.hospital_id = ? 
+         AND (
+             vendor_sale_clinic_appointment.start_date_appointment LIKE ? 
+             OR vendor_sale_clinic_appointment.theatre_date_time LIKE ? 
+             OR vendor_sale_clinic_appointment.out_start_time_at LIKE ? 
+             OR vendor_sale_clinic_appointment.start_date_availability LIKE ?
+         )
+         ORDER BY vendor_sale_clinic_appointment.start_date_appointment DESC,
+                  vendor_sale_clinic_appointment.theatre_date_time DESC,
+                  vendor_sale_clinic_appointment.out_start_time_at DESC,
+                  vendor_sale_clinic_appointment.start_date_availability DESC";
+                         
+ // Safely bind the variables in the query
+ $result = $this->db->query($sql, array($hospital_id, "%$today%", "%$today%", "%$today%", "%$today%"));
+//  $totalAppointment = $result->result();
+
 
 $this->data['all_appointment'] = $result->result();
 
@@ -263,7 +318,8 @@ $this->data['all_appointment'] = $result->result();
                     ),
                     'where' => array(
                         'users.delete_status' => 0,
-                        'doctors.facility_user_id' => $CareUnitID,
+                        'users.hospital_id'=>$hospital_id
+                        // 'doctors.facility_user_id' => $CareUnitID,
                     ),
                     'where_in' => array('doctors.user_id' => $departmentanddoctordata),  // Use where_in to check for multiple IDs
                     'order' => array('users.id' => 'asc'),
@@ -282,7 +338,8 @@ $this->data['all_appointment'] = $result->result();
         ),
         'where' => array(
             'users.delete_status' => 0,
-            'doctors.facility_user_id'=>$doctorsData->facility_user_id
+            'users.hospital_id'=>$hospital_id
+            // 'doctors.facility_user_id'=>$doctorsData->facility_user_id
         ),
         'order' => array('users.id' => 'desc'),
     );
@@ -290,7 +347,7 @@ $this->data['all_appointment'] = $result->result();
 
     $option = array(
         'table' => 'clinic',
-        'select' => '*', 'where' => array('hospital_id'=>$doctorsData->facility_user_id), 'order' => array('name' => 'ASC')
+        'select' => '*', 'where' => array('hospital_id'=>$hospital_id), 'order' => array('name' => 'ASC')
     );
     $this->data['clinic_location'] = $this->common_model->customGet($option);
 
@@ -299,7 +356,7 @@ $this->data['all_appointment'] = $result->result();
                     'table' => 'practitioner',
                     'select' => '*',
                     'where' => array(
-                        'hospital_id' => $CareUnitID,
+                        'hospital_id' => $hospital_id,
                         // 'delete_status' => 0,
                         // 'id' => 10,
                     ),
@@ -324,7 +381,8 @@ $this->data['all_appointment'] = $result->result();
                 ),
                 'where' => array(
                     'users.delete_status' => 0,
-                    'doctors.facility_user_id' => $CareUnitID
+                    'users.hospital_id'=>$hospital_id
+                    // 'doctors.facility_user_id' => $CareUnitID
                 ),
                 'order' => array('users.id' => 'asc'),
             );
@@ -334,7 +392,7 @@ $this->data['all_appointment'] = $result->result();
                 'table' => 'practitioner',
                 'select' => '*',
                 'where' => array(
-                    'hospital_id' => $CareUnitID,
+                    'hospital_id' => $hospital_id,
                     // 'id' => 10,
                     'delete_status' => 0
                 ),
@@ -367,7 +425,8 @@ $this->data['all_appointment'] = $result->result();
                 ),
                 'where' => array(
                     'users.delete_status' => 0,
-                    'doctors.facility_user_id'=>$CareUnitID
+                    'users.hospital_id'=>$hospital_id
+                    // 'doctors.facility_user_id'=>$CareUnitID
                 ),
                 'order' => array('users.id' => 'desc'),
             );
@@ -375,7 +434,7 @@ $this->data['all_appointment'] = $result->result();
         
             $option = array(
                 'table' => 'clinic',
-                'select' => '*', 'where' => array('hospital_id'=>$CareUnitID), 'order' => array('name' => 'ASC')
+                'select' => '*', 'where' => array('hospital_id'=>$hospital_id), 'order' => array('name' => 'ASC')
             );
             $this->data['clinic_location'] = $this->common_model->customGet($option);
 
@@ -458,26 +517,52 @@ $this->data['all_appointment'] = $result->result();
 
 
         
-        $sql = "SELECT vendor_sale_clinic_appointment.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state, pa.name as patient_name, cl.name as clinic_name, cl.clinic_location, pr.name as practitioner_name
-        FROM vendor_sale_clinic_appointment
-        LEFT JOIN vendor_sale_users as U ON vendor_sale_clinic_appointment.location_appointment = U.id
-        LEFT JOIN vendor_sale_patient as pa ON vendor_sale_clinic_appointment.patient = pa.user_id
-        LEFT JOIN vendor_sale_clinic as cl ON vendor_sale_clinic_appointment.location_appointment = cl.id
-        LEFT JOIN vendor_sale_user_profile as UP ON UP.user_id = U.id
-        LEFT JOIN vendor_sale_practitioner as pr ON vendor_sale_clinic_appointment.practitioner = pr.id
-        WHERE (
-            vendor_sale_clinic_appointment.start_date_appointment LIKE '%$today%'
-            OR vendor_sale_clinic_appointment.theatre_date_time LIKE '%$today%'
-            OR vendor_sale_clinic_appointment.out_start_time_at LIKE '%$today%'
-            OR vendor_sale_clinic_appointment.start_date_availability LIKE '%$today%'
-        )
-        ORDER BY vendor_sale_clinic_appointment.start_date_appointment DESC,
-                 vendor_sale_clinic_appointment.theatre_date_time DESC,
-                 vendor_sale_clinic_appointment.out_start_time_at DESC,
-                 vendor_sale_clinic_appointment.start_date_availability DESC";
+//         $sql = "SELECT vendor_sale_clinic_appointment.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state, pa.name as patient_name, cl.name as clinic_name, cl.clinic_location, pr.name as practitioner_name
+//         FROM vendor_sale_clinic_appointment
+//         LEFT JOIN vendor_sale_users as U ON vendor_sale_clinic_appointment.location_appointment = U.id
+//         LEFT JOIN vendor_sale_patient as pa ON vendor_sale_clinic_appointment.patient = pa.user_id
+//         LEFT JOIN vendor_sale_clinic as cl ON vendor_sale_clinic_appointment.location_appointment = cl.id
+//         LEFT JOIN vendor_sale_user_profile as UP ON UP.user_id = U.id
+//         LEFT JOIN vendor_sale_practitioner as pr ON vendor_sale_clinic_appointment.practitioner = pr.id
+//         WHERE (
+//             vendor_sale_clinic_appointment.start_date_appointment LIKE '%$today%'
+//             OR vendor_sale_clinic_appointment.theatre_date_time LIKE '%$today%'
+//             OR vendor_sale_clinic_appointment.out_start_time_at LIKE '%$today%'
+//             OR vendor_sale_clinic_appointment.start_date_availability LIKE '%$today%'
+//         )
+//         ORDER BY vendor_sale_clinic_appointment.start_date_appointment DESC,
+//                  vendor_sale_clinic_appointment.theatre_date_time DESC,
+//                  vendor_sale_clinic_appointment.out_start_time_at DESC,
+//                  vendor_sale_clinic_appointment.start_date_availability DESC";
 
-$result = $this->db->query($sql);
 // $result = $this->db->query($sql);
+// $result = $this->db->query($sql);
+
+$hospital_id = (int)$hospital_id; // Assuming $hospital_id is an integer
+                
+                $sql = "SELECT vendor_sale_clinic_appointment.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state, 
+                pa.name as patient_name, cl.name as clinic_name, cl.clinic_location, pr.name as practitioner_name
+         FROM vendor_sale_users as U
+         LEFT JOIN vendor_sale_clinic_appointment ON vendor_sale_clinic_appointment.location_appointment = U.id
+         LEFT JOIN vendor_sale_patient as pa ON vendor_sale_clinic_appointment.patient = pa.user_id
+         LEFT JOIN vendor_sale_clinic as cl ON vendor_sale_clinic_appointment.location_appointment = cl.id
+         LEFT JOIN vendor_sale_user_profile as UP ON UP.user_id = U.id
+         LEFT JOIN vendor_sale_practitioner as pr ON vendor_sale_clinic_appointment.practitioner = pr.id
+         WHERE U.hospital_id = ? 
+         AND (
+             vendor_sale_clinic_appointment.start_date_appointment LIKE ? 
+             OR vendor_sale_clinic_appointment.theatre_date_time LIKE ? 
+             OR vendor_sale_clinic_appointment.out_start_time_at LIKE ? 
+             OR vendor_sale_clinic_appointment.start_date_availability LIKE ?
+         )
+         ORDER BY vendor_sale_clinic_appointment.start_date_appointment DESC,
+                  vendor_sale_clinic_appointment.theatre_date_time DESC,
+                  vendor_sale_clinic_appointment.out_start_time_at DESC,
+                  vendor_sale_clinic_appointment.start_date_availability DESC";
+                         
+ // Safely bind the variables in the query
+ $result = $this->db->query($sql, array($hospital_id, "%$today%", "%$today%", "%$today%", "%$today%"));
+//  $totalAppointment = $result->result();
 
 $this->data['all_appointment'] = $result->result();
         // print_r($this->data['all_appointment']);die;
@@ -509,7 +594,8 @@ $this->data['all_appointment'] = $result->result();
         ),
         'where' => array(
             'users.delete_status' => 0,
-            'doctors.facility_user_id'=>$CareUnitID
+            'users.hospital_id'=>$hospital_id
+            // 'doctors.facility_user_id'=>$CareUnitID
         ),
         'order' => array('users.id' => 'desc'),
     );
@@ -517,7 +603,7 @@ $this->data['all_appointment'] = $result->result();
 
     $option = array(
         'table' => 'clinic',
-        'select' => '*', 'where' => array('hospital_id'=>$CareUnitID), 'order' => array('name' => 'ASC')
+        'select' => '*', 'where' => array('hospital_id'=>$hospital_id), 'order' => array('name' => 'ASC')
     );
     $this->data['clinic_location'] = $this->common_model->customGet($option);
 }
@@ -633,6 +719,31 @@ $this->data['all_appointment'] = $result->result();
 
         $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+        
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+        
+            $authUser = $this->common_model->customGet($optionData);
+        
+            $hospital_id = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
+        }
+
         // if($this->ion_auth->is_subAdmin()){
         if($this->ion_auth->is_all_roleslogin()){
 
@@ -664,6 +775,7 @@ $option = array(
                 
                 'where' => array(
                     'users.delete_status' => 0,
+                    'users.hospital_id'=>$hospital_id
                     // 'doctors.facility_user_id'=>$datadoctors->facility_user_id
                 ),
                
@@ -675,7 +787,7 @@ $option = array(
             $optionPractitioner = array(
                 'table' => 'practitioner',
                 'select' => '*',
-                //  'where' => array('hospital_id'=>$datadoctors->facility_user_id,'delete_status' => 0), 'order' => array('name' => 'ASC')
+                 'where' => array('hospital_id'=>$hospital_id,'delete_status' => 0), 'order' => array('name' => 'ASC')
             );
     
     
@@ -693,6 +805,7 @@ $option = array(
                 ),
                 'where' => array(
                     'users.delete_status' => 0,
+                    'users.hospital_id'=>$hospital_id
                     // 'doctors.facility_user_id' => $datadoctors->facility_user_id
                 ),
                 'order' => array('users.id' => 'asc'),
@@ -704,6 +817,7 @@ $option = array(
                 'select' => '*',
                 'where' => array(
                     // 'hospital_id' => $datadoctors->facility_user_id,
+                    'hospital_id' => $hospital_id,
                     'delete_status' => 0
                 ),
                 'order' => array('name' => 'ASC')
@@ -716,6 +830,7 @@ $option = array(
                 'table' => 'clinic',
                 'select' => '*',
                 // 'where' => array('hospital_id' => $datadoctors->facility_user_id, 'delete_status' => 0),
+                'where' => array('hospital_id' => $hospital_id, 'delete_status' => 0),
                 'order' => array('name' => 'ASC')
             );
             $practitioner = $this->common_model->customGet($option);
@@ -740,7 +855,8 @@ $option = array(
                     ),
                     'where' => array(
                         'users.delete_status' => 0,
-                        'doctors.facility_user_id' => $CareUnitID
+                        'users.hospital_id'=>$hospital_id
+                        // 'doctors.facility_user_id' => $CareUnitID
                     ),
                     'order' => array('users.id' => 'asc'),
                 );
@@ -750,7 +866,8 @@ $option = array(
                     'table' => 'practitioner',
                     'select' => '*',
                     'where' => array(
-                        'hospital_id' => $CareUnitID,
+                        // 'hospital_id' => $CareUnitID,
+                        'hospital_id' =>$hospital_id,
                         'delete_status' => 0
                     ),
                     'order' => array('name' => 'ASC')
@@ -762,7 +879,7 @@ $option = array(
                 $option = array(
                     'table' => 'clinic',
                     'select' => '*',
-                    'where' => array('hospital_id' => $CareUnitID, 'delete_status' => 0),
+                    'where' => array('hospital_id' =>$hospital_id, 'delete_status' => 0),
                     'order' => array('name' => 'ASC')
                 );
                 $practitioner = $this->common_model->customGet($option);
@@ -899,6 +1016,31 @@ $this->data['results'] = $results;
         $this->data['model'] = $this->router->fetch_class();
        
         $user_id = $this->session->userdata('user_id');
+
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+        
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+        
+            $authUser = $this->common_model->customGet($optionData);
+        
+            $hospital_id = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
+        }
         $option = array(
             'table' => USERS . ' as user',
             'select' => 'user.*, UP.address1,UP.city,UP.country,UP.state,UP.description,'
@@ -941,7 +1083,7 @@ $this->data['results'] = $results;
             ),
             'where' => array(
                 'users.delete_status' => 0,
-                // 'doctors.user_id'=>$CareUnitID
+                'doctors.user_id'=>$CareUnitID
             ),
             'single' => true,
         );
@@ -956,6 +1098,7 @@ $this->data['results'] = $results;
             ),
             'where' => array(
                 'users.delete_status' => 0,
+                'users.hospital_id'=>$hospital_id
                 // 'doctors.facility_user_id'=>$datadoctors->facility_user_id
             ),
             'order' => array('users.id' => 'desc'),
@@ -965,7 +1108,7 @@ $this->data['results'] = $results;
         $option = array(
             'table' => 'clinic',
             'select' => '*', 
-            // 'where' => array('hospital_id'=>$datadoctors->facility_user_id,'delete_status' => 0), 'order' => array('name' => 'ASC')
+            'where' => array('hospital_id'=>$hospital_id,'delete_status' => 0), 'order' => array('name' => 'ASC')
         );
         $this->data['clinic_location'] = $this->common_model->customGet($option);
 
@@ -973,7 +1116,7 @@ $this->data['results'] = $results;
         $option = array(
             'table' => 'practitioner',
             'select' => '*',
-            //  'where' => array('hospital_id'=>$datadoctors->facility_user_id,'delete_status' => 0), 'order' => array('name' => 'ASC')
+             'where' => array('hospital_id'=>$hospital_id,'delete_status' => 0), 'order' => array('name' => 'ASC')
         );
         $this->data['practitioner'] = $this->common_model->customGet($option);
 
@@ -992,7 +1135,8 @@ $this->data['results'] = $results;
             
             'where' => array(
                 'users.delete_status' => 0,
-                'doctors.facility_user_id'=>$CareUnitID
+                'users.hospital_id'=>$hospital_id
+                // 'doctors.facility_user_id'=>$CareUnitID
             ),
             'order' => array('users.id' => 'desc'),
         );
@@ -1001,13 +1145,13 @@ $this->data['results'] = $results;
 
         $option = array(
             'table' => 'clinic',
-            'select' => '*', 'where' => array('hospital_id'=>$CareUnitID,'delete_status' => 0), 'order' => array('name' => 'ASC')
+            'select' => '*', 'where' => array('hospital_id'=>$hospital_id,'delete_status' => 0), 'order' => array('name' => 'ASC')
         );
         $this->data['clinic_location'] = $this->common_model->customGet($option);
 
         $option = array(
             'table' => 'practitioner',
-            'select' => '*', 'where' => array('hospital_id'=>$CareUnitID,'delete_status' => 0), 'order' => array('name' => 'ASC')
+            'select' => '*', 'where' => array('hospital_id'=>$hospital_id,'delete_status' => 0), 'order' => array('name' => 'ASC')
         );
         $this->data['practitioner'] = $this->common_model->customGet($option);
         
@@ -1276,6 +1420,31 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 
             $operator_id = ($this->ion_auth->is_admin()) ? 0 : $this->session->userdata('user_id');
 
+            if ($this->ion_auth->is_facilityManager()) {
+                $user_id = $this->session->userdata('user_id');
+            $hospital_id = $user_id;
+            
+            } else if($this->ion_auth->is_all_roleslogin()) {
+                $user_id = $this->session->userdata('user_id');
+                $optionData = array(
+                    'table' => USERS . ' as user',
+                    'select' => 'user.*,group.name as group_name',
+                    'join' => array(
+                        array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                        array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                    ),
+                    'order' => array('user.id' => 'DESC'),
+                    'where' => array('user.id'=>$user_id),
+                    'single'=>true,
+                );
+            
+                $authUser = $this->common_model->customGet($optionData);
+            
+                $hospital_id = $authUser->hospital_id;
+                // 'users.hospital_id'=>$hospital_id
+                
+            }
+
 
             $email = strtolower($this->input->post('user_email'));
                 $identity = ($identity_column === 'email') ? $email : $this->input->post('user_email');
@@ -1323,6 +1492,7 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
                         'care_unit_id' => $this->input->post('care_unit_id'),
                         // 'zipcode_access' => json_encode($this->input->post('zipcode')),
                         'email_verify' => 1,
+                        'hospital_id'=>$hospital_id,
                         'is_pass_token' => $this->input->post('password'),
                         'created_on' => strtotime(datetime())
                     );
@@ -1404,7 +1574,7 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
                 'table' => 'patient',
                 'data' => array(
                     'name' => ucwords($this->input->post('first_name').' '.$this->input->post('last_name')),
-                    'operator_id' => $operator_id,
+                    'operator_id' =>$hospital_id,
                     // 'operator_id' => $hospitalAndDoctorId,
                     'patient_id' => $patient_unique,
                     

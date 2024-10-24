@@ -156,6 +156,25 @@
         });
     }
 
+    var editHeader = function (ctrl, method, id) {
+        $.ajax({
+            url: '<?php echo base_url(); ?>' + ctrl + "/" + method,
+            type: 'POST',
+            data: {'id': id},
+            beforeSend: function () {
+                $(".loaders").fadeIn("slow");
+            },
+            success: function (data, textStatus, jqXHR) {
+
+                $('#form-modal-box-header').html(data);
+                $("#commonModal").modal('show');
+                addFormBoot();
+                $(".loaders").fadeOut("slow");
+            }
+        });
+    }
+    
+
     var payFn = function (ctrl, method, id) {
         $.ajax({
             url: '<?php echo base_url(); ?>' + ctrl + "/" + method,
