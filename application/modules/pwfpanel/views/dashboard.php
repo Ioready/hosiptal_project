@@ -367,7 +367,7 @@
             </div>
         </section> 
 
-        <?php } else if ($this->ion_auth->is_all_roleslogin()) { ?>
+        <?php } else if ($this->ion_auth->is_subAdmin()) { ?>
 
                     <div class="panel-body">
                             <form action="<?php echo site_url('pwfpanel'); ?>" name="patientForm" method="get">
@@ -1667,7 +1667,7 @@ foreach ($months as $month_num => $month_name) {
 
 
                         <?php }else if($this->ion_auth->is_patient()){ ?>
-
+                            
                             <div class="col-lg-4">
                             <div class="ibox float-e-margins">
                                 <div class="ibox-title">
