@@ -367,7 +367,7 @@
             </div>
         </section> 
 
-        <?php } else if ($this->ion_auth->is_subAdmin()) { ?>
+        <?php } else if ($this->ion_auth->is_all_roleslogin()) { ?>
 
                     <div class="panel-body">
                             <form action="<?php echo site_url('pwfpanel'); ?>" name="patientForm" method="get">
@@ -986,7 +986,7 @@
             <div class="card-body">
                 <h5 class="card-title fw-bold">Upcoming Appointments <span>| <a href="<?php echo site_url('appointment'); ?>" class="btn btn-primary btn-sm" style="background: #337ab7;">View all</a></span></h5>
                 <div class="table-responsive">
-                    <table class="table table-borderless datatable">
+                    <table class="table table-borderless datatable" id="todayAppointmentTable">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
@@ -1184,7 +1184,7 @@
             <div class="card-body">
                 <h5 class="card-title fw-bold">Doctors</h5>
                 <div class="table-responsive">
-                    <table class="table table-borderless datatable">
+                    <table class="table table-borderless datatable" id="todayDoctor">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
@@ -1247,7 +1247,7 @@
         <div class="card recent-sales overflow-auto">
             <div class="card-body">
                 <h5 class="card-title fw-bold">New Patients <span>|  <a href="<?php echo site_url('patient'); ?>" style="background: #337ab7;" class="btn  btn-primary btn-sm <?php echo (strtolower($this->router->fetch_class()) == "patient") ? "active" : "" ?>">View all</a></span></h5>
-                <table class="table table-borderless datatable">
+                <table class="table table-borderless datatable" id="todayPatient">
                     <thead>
                         <tr>
                             <th scope="col">Image</th>
@@ -1262,15 +1262,16 @@
                     
                     <?php
                     $count = 0;
-                    foreach ($appointment_list as $list) {
+                    foreach ($today_patient_list as $list) {
                         if ($count >= 5) break;
+                        // print_r($list);die;
                                 ?>
                         <tr>
                         
                         <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
-                            <td><?php echo $list->name; ?></td>
-                            <td></td>
-                            <td></td>
+                            <td><?php echo $list->patient_name; ?></td>
+                            <td><?php echo $list->email; ?></td>
+                            <td><?php echo $list->phone; ?></td>
                             <td><a href="appointments.html"><span class="badge bg-primary"><?php echo $list->md_patient_status; ?></span></a></td>
                            
                         </tr>
@@ -1351,10 +1352,8 @@
                    
 
 
-                    <?php } else if ($this->ion_auth->is_user()) { ?>
-
-                        
-<div class="panel-body">
+                    <?php } else if ($this->ion_auth->is_user()) { ?> 
+                        <div class="panel-body">
                         <form action="<?php echo site_url('pwfpanel'); ?>" name="patientForm" method="get">
 
                         <div class="col-lg-3">
@@ -1668,6 +1667,7 @@ foreach ($months as $month_num => $month_name) {
 
 
                         <?php }else if($this->ion_auth->is_patient()){ ?>
+
                             <div class="col-lg-4">
                             <div class="ibox float-e-margins">
                                 <div class="ibox-title">
@@ -1775,6 +1775,7 @@ foreach ($months as $month_num => $month_name) {
 
 
 <?php }else if($this->ion_auth->is_patient()){ ?>
+
     <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
 <!-- Page content -->
@@ -1905,6 +1906,7 @@ foreach ($months as $month_num => $month_name) {
     <!-- END Page Content -->
     
     <?php }?>
+
 
 
     <script>
@@ -2207,5 +2209,40 @@ li{
 
 
 </style>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+<!-- Include jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Include DataTables -->
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script>
+
+$(document).ready(function() {
+    $('#todayAppointmentTable').DataTable({
+            "paging": true,
+            "searching": true,
+            "lengthChange": false,
+            "pageLength": 6,
+            "order": [[0, 'desc']]  // Here, 0 represents the first column (index starts from 0)
+        });
+
+
+$('#todayDoctor').DataTable({
+            "paging": true,
+            "searching": true,
+            "lengthChange": false,
+            "pageLength": 6,
+            "order": [[0, 'desc']]  // Here, 0 represents the first column (index starts from 0)
+        });
+
+        $('#todayPatient').DataTable({
+            "paging": true,
+            "searching": true,
+            "lengthChange": false,
+            "pageLength": 10,
+            "order": [[0, 'desc']]  // Here, 0 represents the first column (index starts from 0)
+        });
+});
+</script>
+
 
   
