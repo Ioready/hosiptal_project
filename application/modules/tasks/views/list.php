@@ -363,9 +363,14 @@
                     // echo $menu_name;
                     if ($menu_name == 'Tasks') { 
                     if($menu_create =='1'){ ?>
-        <div class="table-responsive">
-            <table id="common_datatable_menucat" class="table table-vcenter table-condensed table-bordered">
-                <thead>
+        <!-- <div class="table-responsive">
+            <table id="common_datatable_menucat" class="table table-vcenter table-condensed table-bordered table table-bordered table-hover align-middle text-center">
+                 -->
+                 <div class="col-sm-12"> 
+                         <div class="table-responsive" >
+                             <table id="appointmentTable" class="table table-bordered table-hover align-middle text-center">
+                         
+            <thead>
                     <tr>
                         <th style="background-color:#DBEAFF;font-size:1.3rem;width:40px !important">Sr. No</th>
                         <th style="background-color:#DBEAFF;font-size:1.3rem">Priority</th>
@@ -463,12 +468,18 @@
                 </tbody>
             </table>
         </div>
+        </div>
 
         <?php }}}} if($this->ion_auth->is_facilityManager()){?>
 
-            <div class="table-responsive">
+            <!-- <div class="table-responsive">
             <table id="common_datatable_menucat" class="table table-vcenter table-condensed table-bordered">
-                <thead>
+                -->
+                <div class="col-sm-12"> 
+                         <div class="table-responsive" >
+                             <table id="appointmentTable" class="table table-bordered table-hover align-middle text-center">
+                         
+            <thead>
                     <tr>
                         <th style="background-color:#DBEAFF;font-size:1.3rem;width:40px !important">Sr. No</th>
                         <th style="background-color:#DBEAFF;font-size:1.3rem">Priority</th>
@@ -613,6 +624,7 @@
                 </tbody>
             </table>
         </div>
+        </div>
 
             <?php }?>
 
@@ -623,7 +635,42 @@
 <!-- END Page Content -->
 <div id="form-modal-box"></div>
 </div>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script>
+
+$(document).ready(function() {
+    $('#appointmentTable').DataTable({
+            "paging": true,
+            "searching": true,
+            "lengthChange": false,
+            "pageLength": 10,
+            "order": [[0, 'desc']]  // Here, 0 represents the first column (index starts from 0)
+        });
+
+        $('.statusDropdown').on('change', function() {
+        var selectedStatus = $(this).val();
+        var notificationId = $(this).prev('.notification-id').val(); 
+        
+        $.ajax({
+            url: '<?php echo base_url('tasks/update_task_doctor'); ?>',
+            method: 'POST',
+            data: { notificationId: notificationId, status: selectedStatus },
+            success: function(response) {
+                // Handle success response, if needed
+                console.log(response);
+                window.location.reload();
+            },
+            error: function(xhr, status, error) {
+                // Handle error response, if needed
+                console.error(xhr.responseText);
+            }
+        });
+    });
+    });
+    </script>
 <style>
 .priority-label {
     cursor: pointer;
@@ -826,26 +873,28 @@ priorityInputs.forEach(input => {
 <!-- <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script> -->
 <script>
 $(document).ready(function() {
+    // $('#common_datatable_menucat').DataTable();
     $('#appointmentTable').DataTable();
-    $('.statusDropdown').on('change', function() {
-        var selectedStatus = $(this).val();
-        var notificationId = $(this).prev('.notification-id').val(); 
+
+    // $('.statusDropdown').on('change', function() {
+    //     var selectedStatus = $(this).val();
+    //     var notificationId = $(this).prev('.notification-id').val(); 
         
-        $.ajax({
-            url: '<?php echo base_url('tasks/update_task_doctor'); ?>',
-            method: 'POST',
-            data: { notificationId: notificationId, status: selectedStatus },
-            success: function(response) {
-                // Handle success response, if needed
-                console.log(response);
-                window.location.reload();
-            },
-            error: function(xhr, status, error) {
-                // Handle error response, if needed
-                console.error(xhr.responseText);
-            }
-        });
-    });
+    //     $.ajax({
+    //         url: '<?php echo base_url('tasks/update_task_doctor'); ?>',
+    //         method: 'POST',
+    //         data: { notificationId: notificationId, status: selectedStatus },
+    //         success: function(response) {
+    //             // Handle success response, if needed
+    //             console.log(response);
+    //             window.location.reload();
+    //         },
+    //         error: function(xhr, status, error) {
+    //             // Handle error response, if needed
+    //             console.error(xhr.responseText);
+    //         }
+    //     });
+    // });
 });
 </script>
 <style>

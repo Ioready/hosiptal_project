@@ -492,7 +492,7 @@ class Common_model extends MY_Model {
        
         if ($this->ion_auth->is_facilityManager()) {
             $user_id = $this->session->userdata('user_id');
-        $CareUnitID = $user_id;
+        $hospital_id = $user_id;
         
         } else if($this->ion_auth->is_all_roleslogin()) {
             $user_id = $this->session->userdata('user_id');
@@ -510,7 +510,7 @@ class Common_model extends MY_Model {
         
             $authUser = $this->common_model->customGet($optionData);
         
-            $CareUnitID = $authUser->hospital_id;
+            $hospital_id = $authUser->hospital_id;
             // 'users.hospital_id'=>$hospital_id
             
         }
@@ -535,19 +535,44 @@ class Common_model extends MY_Model {
            
             // $this->db->like('patient_id', $query);
 
-            $this->db->like('name', $query);
-        $this->db->where('operator_id', $CareUnitID);
-        $query = $this->db->get('vendor_sale_patient');
+            $this->db->select('vendor_sale_patient.*, vendor_sale_users.first_name, vendor_sale_users.last_name');
+            $this->db->from('vendor_sale_patient');
+            $this->db->like('vendor_sale_patient.patient_id', $query);
+            $this->db->like('vendor_sale_patient.name', $query);
+            $this->db->where('vendor_sale_patient.operator_id', $hospital_id);
+            // $this->db->where('vendor_sale_users.hospital_id',$hospital_id);
+
+            // Adding relation (LEFT JOIN) with vendor_sale_users based on a column like operator_id
+            $this->db->join('vendor_sale_users', 'vendor_sale_patient.operator_id = vendor_sale_users.id', 'inner');
+
+            // Run the query
+            $query = $this->db->get();
+            $data = $query->result();
 
         // print_r($query);die;
         } else if ($this->ion_auth->is_facilityManager()) {
             
            
-            $this->db->like('patient_id', $query);
-            $this->db->like('name', $query);
-            $this->db->where('operator_id', $CareUnitID);
-            // $this->db->limit(1); 
-            $query = $this->db->get('vendor_sale_patient');
+            // $this->db->like('patient_id', $query);
+            // $this->db->like('name', $query);
+            // $this->db->where('operator_id', $CareUnitID);
+            // // $this->db->limit(1); 
+            // $query = $this->db->get('vendor_sale_patient');
+
+            $this->db->select('vendor_sale_patient.*, vendor_sale_users.first_name, vendor_sale_users.last_name');
+            $this->db->from('vendor_sale_patient');
+            $this->db->like('vendor_sale_patient.patient_id', $query);
+            $this->db->like('vendor_sale_patient.name', $query);
+            $this->db->where('vendor_sale_patient.operator_id', $hospital_id);
+            // $this->db->where('vendor_sale_users.hospital_id',$hospital_id);
+
+            // Adding relation (LEFT JOIN) with vendor_sale_users based on a column like operator_id
+            $this->db->join('vendor_sale_users', 'vendor_sale_patient.operator_id = vendor_sale_users.id', 'inner');
+
+            // Run the query
+            $query = $this->db->get();
+            $data = $query->result();
+
         }
 
 

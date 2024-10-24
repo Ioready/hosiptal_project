@@ -271,7 +271,8 @@ a.status-yellow {
                                 
 
                                     <table id="appointmentTable" class="table table-bordered table-hover align-middle text-center">
-								<thead>
+								
+                                    <thead>
 									<tr>
 										<th>Appointment Type ID</th>
 										<th>Patient Name</th>
