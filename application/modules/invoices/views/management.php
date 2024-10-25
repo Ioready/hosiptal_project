@@ -631,10 +631,12 @@
                             <?php if(empty($row->Paid)){?>
                             <!-- <a href="javascript:void(0)" class="btn btn-primary" onclick="payFn('<?php echo $model; ?>', 'pay', '<?php echo encoding($row->id) ?>', '<?php echo $model; ?>');">Pay</a> -->
                             <a href="javascript:void(0)" class="btn btn-primary" onclick="payFn('<?php echo $model; ?>', 'pay', '<?php echo encoding($row->id) ?>', '<?php echo $model; ?>');">Pay</a>
-                            <!-- <a href="<?php  echo site_url('invoices/checkout');?>">Checkout</a> -->
+                            
                             <!-- invoice_checkout -->
                             <?php }else{?>
-                                <label for="" style="color:green">... </label>
+                                <a href="javascript:void(0)" class="btn btn-success" onclick="pdfInvoiceReceipt('<?php echo $model; ?>', 'pdfInvoiceReceipt','<?php echo encoding($row->id) ?>', '<?php echo $model; ?>');">Receipt</a>
+                               
+                                <!-- <label for="" style="color:green">... </label> -->
                             <?php }?>
                            
                             <a href="javascript:void(0)" class="btn btn-xs btn-default" onclick="editFn('<?php echo $model; ?>', 'edit', '<?php echo encoding($row->id) ?>', '<?php echo $model; ?>');"><i class="fa fa-pencil"></i></a>
@@ -803,6 +805,7 @@
 <div id="form-modal-box"></div>
 <div id="form-modal-box-pay"></div>
 <div id="form-modal-box-pdf"></div>
+<div id="form-modal-box-receipt"></div>
 
 
 <style>

@@ -68,7 +68,7 @@
  </style>
 
 
-<div id="commonModal" class="modal fade bd-example-modal-lg" role="dialog">
+<div id="commonModalReceipt" class="modal fade bd-example-modal-lg" role="dialog">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
                
@@ -106,7 +106,7 @@
                                           <?php if($results->status =='Paid'){?>
                                           <strong>Status:</strong> <span class="paid" style="background:green;color:white;"></span><?php echo $results->status;?> 
                                           <?php }else{?>
-                                            <strong>Status:</strong> <span class="outstanding" style="background:red;color:white;"><?php echo $results->status;?> </span>
+                                            <strong>Status:</strong><h3> <span class="outstanding" style="color:green;"></span></h3><?php echo $results->status;?> 
                                           <?php }?>
                                           </p>
                                       </div>
@@ -165,7 +165,7 @@
                                           </tr>
                                           <tr>
                                               <td colspan="5" class="text-right"><strong>Total Paid:</strong></td>
-                                              <td>$<?php echo $results->Paid;?></td>
+                                              <td>$<?php echo $results->Paid;?> <h3><span style="color:green;"><strong> Done</strong></span></h3></td>
                                           </tr>
                                           </tbody>
                                       </table>
@@ -193,7 +193,7 @@
         
         html2pdf(element, {
             margin: 10,
-            filename: 'patient-invoice.pdf',
+            filename: 'patient-invoice_receipt.pdf',
             image: { type: 'jpeg', quality: 0.98 },
             html2canvas: { scale: 2 },
             jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }

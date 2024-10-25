@@ -211,7 +211,25 @@
         });
     }
 
+    var pdfInvoiceReceipt = function (ctrl, method, id) {
+        $.ajax({
+            url: '<?php echo base_url(); ?>' + ctrl + "/" + method,
+            type: 'POST',
+            data: {'id': id},
+            beforeSend: function () {
+                $(".loaders").fadeIn("slow");
+            },
+            success: function (data, textStatus, jqXHR) {
 
+                $('#form-modal-box-receipt').html(data);
+                $("#commonModalReceipt").modal('show');
+                addFormBoot();
+                $(".loaders").fadeOut("slow");
+            }
+        });
+    }
+
+    
 
     var viewFn = function (ctrl, method, id) {
         $.ajax({

@@ -177,11 +177,13 @@
 <div id="commonModal" class="modal fade bd-example-modal-lg" role="dialog">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url($formUrl) ?>" enctype="multipart/form-data">
+        <!-- id="addFormAjax" -->
+            <form class="form-horizontal form-validation" role="form"  id="addFormAjax" method="post" action="<?php echo base_url($formUrl) ?>" enctype="multipart/form-data" data-stripe-publishable-key="sk_test_afm5UcS9SFFjYgSs5hTWIG7Y00G5E2b2Zx">
                 <div class="modal-header text-center">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h2 class="modal-title"><?php echo "Add Payment on account" ?></h2>
                     <h4 style="margin-left: 233px;"><span><strong><?php echo $results->invoice_number;?></strong></span></h2>
+                    <input type="hidden" name="invoice_number" value="<?php echo $results->invoice_number;?>">
                 </div>
                 <!-- <div class="modal-body">
                     
@@ -372,21 +374,36 @@
                                     <!-- Sidebar -->
                                     <div class="bg-light border-right" id="sidebar-wrapper">
                                         <div class="sidebar-heading pt-5 pb-4"><strong>PAY WITH</strong></div>
-                                        <div class="list-group list-group-flush"> <a data-toggle="tab" href="#menu1" id="tab1" class="tabs list-group-item bg-light">
-                                                <div class="list-div my-2">
-                                                    <div class="fa fa-home"></div> &nbsp;&nbsp; Bank
-                                                </div>
-                                            </a> <a data-toggle="tab" href="#menu2" id="tab2" class="tabs list-group-item active1">
+                                        <div class="list-group list-group-flush"> 
+                                            <a data-toggle="tab" href="#menu2" id="tab2" class="tabs list-group-item active1">
                                                 <div class="list-div my-2">
                                                     <div class="fa fa-credit-card"></div> &nbsp;&nbsp; Card
                                                 </div>
-                                            </a> <a data-toggle="tab" href="#menu3" id="tab3" class="tabs list-group-item bg-light">
+                                            </a> 
+                                            <a data-toggle="tab" href="#menu1" id="tab1" class="tabs list-group-item bg-light">
+                                                <div class="list-div my-2">
+                                                    <div class="fa fa-home"></div> &nbsp;&nbsp; Bank
+                                                </div>
+                                            </a> 
+
+                                            <a data-toggle="tab" href="#menu4" id="tab4" class="tabs list-group-item bg-light">
+                                                <div class="list-div my-2">
+                                                    <div class="fa fa-money"></div> &nbsp;&nbsp; Cash
+                                                </div>
+                                            </a>
+
+                                            
+                                            <a data-toggle="tab" href="#menu3" id="tab3" class="tabs list-group-item bg-light">
                                                 <div class="list-div my-2">
                                                     <div class="fa fa-qrcode"></div> &nbsp;&nbsp;&nbsp; Visa QR <span id="new-label">NEW</span>
                                                 </div>
-                                            </a> </div>
+                                            </a> 
+                                            
+
+                                        </div>
                                     </div> <!-- Page Content -->
                                     <div id="page-content-wrapper">
+
                                         <!-- <div class="row pt-3" id="border-btm"> -->
                                             <!-- <div class="col-4"> <button class="btn btn-success mt-4 ml-3 mb-3" id="menu-toggle">
                                                     <div class="bar4"></div>
@@ -409,14 +426,15 @@
                                         <div class="row justify-content-center">
                                             <div class="text-center" id="test">Pay</div>
                                         </div> -->
+
                                         <div class="tab-content">
-                                            <div id="menu1" class="tab-pane">
+                                        <div id="menu4" class="tab-pane">
                                                 <div class="row justify-content-center">
                                                     <div class="col-11">
                                                         <div class="form-card">
-                                                            <h3 class="mt-0 mb-4 text-center">Enter bank details to pay</h3>
+                                                            <h3 class="mt-0 mb-4 text-center">Enter Cash details to pay</h3>
                                                             <!-- <form onsubmit="event.preventDefault()"> -->
-                                                                <div class="row">
+                                                                <!-- <div class="row">
                                                                     <div class="col-12">
                                                                         <div class="input-group"> <input type="text" id="bk_nm" placeholder="BBB Bank"> <label>BANK NAME</label> </div>
                                                                     </div>
@@ -425,6 +443,91 @@
 
                                                                     <div class="col-12">
                                                                         <div class="input-group"> <input type="text" name="ben_nm" id="ben-nm" placeholder="John Smith"> <label>BENEFICIARY NAME</label> </div>
+                                                                    </div>
+                                                                    <div class="col-12">
+                                                                        <div class="input-group"> <input type="text" name="scode" placeholder="ABCDAB1S" class="placeicon" minlength="8" maxlength="11"> <label>SWIFT CODE</label> </div>
+                                                                    </div>
+                                                                </div> -->
+
+                                                        <div class="row">
+                                                        <!-- <form> -->
+                                                            <!-- Total Amount -->
+                                                            <div class="form-group">
+                                                                <label for="totalAmount">Total Amount</label>
+                                                                <input type="number" class="form-control" id="totalAmount" name="totalAmount" placeholder="Enter total amount" readonly value="<?php echo $results->total_amount; ?>">
+                                                            </div>
+
+                                                            <!-- Cash Received -->
+                                                            <div class="form-group">
+                                                                <label for="cashReceived">Cash Received</label>
+                                                                <input type="number" class="form-control" id="cashReceived" name="cashReceived" placeholder="Enter cash received" oninput="updateTotals()">
+                                                            </div>
+
+                                                            <!-- Total Paid -->
+                                                            <div class="form-group">
+                                                                <label for="totalPaid">Total Paid</label>
+                                                                <input type="number" class="form-control" id="totalPaid" name="totalPaid" readonly>
+                                                            </div>
+
+                                                            <!-- Balance -->
+                                                            <div class="form-group">
+                                                                <label for="balance">Balance</label>
+                                                                <input type="number" class="form-control" id="balance" readonly>
+                                                            </div>
+                                                        <!-- </form> -->
+                                                    </div>
+
+                                                    <script>
+                                                        function updateTotals() {
+                                                            const totalAmount = parseFloat(document.getElementById('totalAmount').value) || 0;
+                                                            const cashReceived = parseFloat(document.getElementById('cashReceived').value) || 0;
+
+                                                            // Calculate Total Paid
+                                                            const totalPaid = cashReceived;
+
+                                                            // Calculate Balance
+                                                            const balance = totalAmount - totalPaid;
+
+                                                            // Update fields
+                                                            document.getElementById('totalPaid').value = totalPaid.toFixed(2);
+                                                            document.getElementById('balance').value = balance.toFixed(2);
+                                                        }
+                                                    </script>
+
+
+                                                                <!-- <div class="row">
+                                                                    <div class="col-md-12"> <input type="submit" value="Pay $ <?php echo $results->total_amount; ?>"  class="btn btn-success placeicon"> </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <p class="text-center mb-5" id="below-btn"><a href="#">Use a test card</a></p>
+                                                                    </div>
+                                                                </div> -->
+                                                            <!-- </form> -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div id="menu1" class="tab-pane">
+                                                <div class="row justify-content-center">
+                                                    <div class="col-11">
+                                                        <div class="form-card">
+                                                            <h3 class="mt-0 mb-4 text-center">Enter bank details to pay</h3>
+                                                            <!-- <form onsubmit="event.preventDefault()"> -->
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <div class="input-group"> <input type="text" id="bk_nm" name="bank_name" placeholder="BBB Bank"> <label>BANK NAME</label> </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+
+                                                                    <div class="col-12">
+                                                                        <div class="input-group"> <input type="text" name="ben_nm" id="ben-nm" placeholder="John Smith"> <label>BENEFICIARY NAME</label> </div>
+                                                                    </div>
+                                                                    <div class="col-12">
+                                                                        <div class="input-group"> <input type="text" name="ben_account" id="ben_account" placeholder="123456789"> <label>Bank Account</label> </div>
                                                                     </div>
                                                                     <div class="col-12">
                                                                         <div class="input-group"> <input type="text" name="scode" placeholder="ABCDAB1S" class="placeicon" minlength="8" maxlength="11"> <label>SWIFT CODE</label> </div>
@@ -446,50 +549,32 @@
                                             <div id="menu2" class="tab-pane in active">
                                                 <div class="row justify-content-center">
                                                     <div class="col-11">
+                                                        
                                                         <div class="form-card">
                                                             <h3 class="mt-0 mb-4 text-center">Enter your card details to pay</h3>
-                                                            <!-- <form onsubmit="event.preventDefault()"> -->
-
-                                                                <!-- <div class="row">
-                                                                    <div class="col-12">
-                                                                        <div class="input-group"> <input type="text" id="cr_no" placeholder="0000 0000 0000 0000" minlength="19" maxlength="19"> <label>CARD NUMBER</label> </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-6">
-                                                                        <div class="input-group"> <input type="text" name="exp" id="exp" placeholder="MM/YY" minlength="5" maxlength="5"> <label>CARD EXPIRY</label> </div>
-                                                                    </div>
-                                                                    <div class="col-6">
-                                                                        <div class="input-group"> <input type="password" name="cvcpwd" placeholder="&#9679;&#9679;&#9679;" class="placeicon" minlength="3" maxlength="3"> <label>CVV</label> </div>
-                                                                    </div>
-                                                                </div> -->
-
+                                                           
                                                                 <span>Cardholder's name:</span>
-                                                                <input placeholder="Linda Williams">
-                                                                <span>Card Number:</span>
-                                                                <input placeholder="0125 6780 4567 9909">
-                                                                
-                                                                <div class="row">
-                                                                    <div class="col-4"><span>Expiry date:</span>
-                                                                        <input placeholder="YY/MM">
-                                                                    </div>
-                                                                    <div class="col-4"><span>CVV:</span>
-                                                                        <input id="cvv">
-                                                                    </div>
+                                                                <input 
+                                                                    type="text" name="user_name" id="user_name"
+                                                                    class="form-control mb-3" 
+                                                                    placeholder="Linda Williams" 
+                                                                    pattern="^[a-zA-Z\s]+$" 
+                                                                    title="Name should contain only letters and spaces" 
+                                                                    required>
+
+                                                                    <span>Cardholder's Email:</span>
+                                                                <input 
+                                                                    type="email" name="email" id="email"
+                                                                    class="form-control mb-3" 
+                                                                    placeholder="text@email" 
+                                                                    
+                                                                    title="Name should contain only letters and spaces" 
+                                                                    required>
+                                                                <br>
+                                                                <div class="form-control" id="card-element">
+
                                                                 </div>
-                                                                <!-- <input type="checkbox" id="save_card" class="align-left">
-                                                                <label for="save_card">Save card details to wallet</label>   -->
-
-
-                                                                <!-- <div class="row">
-                                                                    <div class="col-md-12"> <input type="submit" value="Pay $ <?php echo $results->total_amount; ?>" class="btn btn-success placeicon"> </div>
-                                                                </div> -->
-                                                                <!-- <div class="row">
-                                                                    <div class="col-md-12">
-                                                                        <p class="text-center mb-5" id="below-btn"><a href="#">Use a test card</a></p>
-                                                                    </div>
-                                                                </div> -->
-                                                            <!-- </form> -->
+                                                                
                                                         </div>
                                                     </div>
                                                 </div>
@@ -654,6 +739,99 @@
         </div> <!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div>
+
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+<!-- <script type="text/javascript" src="https://js.stripe.com/v2/"></script> -->
+
+<script src="https://js.stripe.com/v3/"></script>
+
+
+<!-- <script type="text/javascript">
+	$(function () {
+		var $stripeForm = $(".form-validation");
+		$('form.form-validation').bind('submit', function (e) {
+			var $stripeForm = $(".form-validation"),
+				inputSelector = ['input[type=email]', 'input[type=password]',
+					'input[type=text]', 'input[type=file]',
+					'textarea'
+				].join(', '),
+				$inputs = $stripeForm.find('.required').find(inputSelector),
+				$errorMessage = $stripeForm.find('div.error'),
+				valid = true;
+			$errorMessage.addClass('hide');
+			$('.has-error').removeClass('has-error');
+			$inputs.each(function (i, el) {
+				var $input = $(el);
+				if ($input.val() === '') {
+					$input.parent().addClass('has-error');
+					$errorMessage.removeClass('hide');
+					e.preventDefault();
+				}
+			});
+			if (!$stripeForm.data('cc-on-file')) {
+				e.preventDefault();
+				Stripe.setPublishableKey($stripeForm.data('stripe-publishable-key'));
+				Stripe.createToken({
+					number: $('.card-number').val(),
+					cvc: $('.card-cvc').val(),
+					exp_month: $('.card-expiry').val(),
+					exp_year: $('.card-expiry-year').val()
+				}, stripeResponseHandler);
+			}
+		});
+		function stripeResponseHandler(status, res) {
+			if (res.error) {
+				$('.error')
+					.removeClass('hide')
+					.find('.alert')
+					.text(res.error.message);
+			} else {
+				var token = res['id'];
+				$stripeForm.find('input[type=text]').empty();
+				$stripeForm.append("<input type='hidden' name='stripeToken' value='" + token + "'/>");
+				$stripeForm.get(0).submit();
+			}
+		}
+	});
+</script> -->
+
+<script type="text/javascript">
+const stripe = Stripe('pk_test_9ec6REkAGDDrUTCf5WqhxOJA00kzzU4vmj'); // Use your publishable key
+const elements = stripe.elements();
+const card = elements.create('card');
+card.mount('#card-element');
+
+// Handle form submission
+const form = document.getElementById('addFormAjax');
+form.addEventListener('submit', async (event) => {
+  event.preventDefault();
+
+  const {token, error} = await stripe.createToken(card);
+
+  if (error) {
+    // Display error in the #card-errors element
+    const errorElement = document.getElementById('card-errors');
+    errorElement.textContent = error.message;
+  } else {
+    // Send the token to your server
+    stripeTokenHandler(token);
+  }
+});
+
+// Function to submit the token to your server
+function stripeTokenHandler(token) {
+  // Insert the token ID into the form so it gets submitted to the server
+  const form = document.getElementById('addFormAjax');
+  const hiddenInput = document.createElement('input');
+  hiddenInput.setAttribute('type', 'hidden');
+  hiddenInput.setAttribute('name', 'stripeToken');
+  hiddenInput.setAttribute('value', result.token.id);
+  form.appendChild(hiddenInput);
+
+  // Submit the form
+  form.submit();
+}
+</script>
 <style>
     *{margin: 0;padding: 0}
     body{overflow-x: hidden;background: #000000}
