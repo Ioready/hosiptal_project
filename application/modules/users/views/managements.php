@@ -614,7 +614,7 @@
                             <label for="">Roles</label>
                             <select class="form-select" id="role_id" name="role" required>
                         
-                            <option disabled>Please Select</option>
+                            <option readonly>Please Select</option>
                             <?php echo $module_permission->role_id; ?>
                         <?php foreach ($roles_list as $rows): ?>
                             <?php if($rows->name =='SubAdmin'){ ?>
@@ -714,7 +714,7 @@
                             <label for="">Roles</label>
                             <select class="form-select" id="role_id" name="role" required>
                         
-                            <option disabled>Please Select</option>
+                            <option readOnly>Please Select</option>
                             <?php echo $module_permission->role_id; ?>
                         <?php foreach ($roles_list as $rows): ?>
                             <?php if($rows->name =='SubAdmin'){ ?>

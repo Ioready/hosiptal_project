@@ -614,9 +614,9 @@
                             <td><?php echo $row->patient_name;?></td>
                             <td>
                                 <div class="invoice-status">
-                                    <span class="total">Total: <?php echo $row->total_amount;?></span><br>
+                                    <span class="total">Total: £ <?php echo $row->total_amount;?></span><br>
                                     <span class="paid">Paid: £<?php echo $row->Paid;?></span><br>
-                                    <span class="outstanding">Outstanding: <?php echo $row->Outstanding;?></span>
+                                    <span class="outstanding">Outstanding: £ <?php echo $row->Outstanding;?></span>
                                 </div>
                             </td>
                             <td><?php echo date("d/m/Y", strtotime($row->invoice_date)); ?></td>
@@ -629,7 +629,10 @@
                             <!-- <a href="javascript:void(0)" class="btn btn-xs btn-default" onclick="payFn('<?php echo $model; ?>', '<?php echo encoding($row->id); ?>');"><i class="fa fa-credit-card"></i> Pay</a> -->
 
                             <?php if(empty($row->Paid)){?>
+                            <!-- <a href="javascript:void(0)" class="btn btn-primary" onclick="payFn('<?php echo $model; ?>', 'pay', '<?php echo encoding($row->id) ?>', '<?php echo $model; ?>');">Pay</a> -->
                             <a href="javascript:void(0)" class="btn btn-primary" onclick="payFn('<?php echo $model; ?>', 'pay', '<?php echo encoding($row->id) ?>', '<?php echo $model; ?>');">Pay</a>
+                            <a href="<?php  echo site_url('invoices/checkout');?>">Checkout</a>
+                            <!-- invoice_checkout -->
                             <?php }else{?>
                                 <label for="" style="color:green">... </label>
                             <?php }?>

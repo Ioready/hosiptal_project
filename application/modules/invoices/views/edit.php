@@ -339,7 +339,7 @@
                                 <div class="total-amount">
                                     Total amount: 
                                     <!-- £<?php //echo $results->total_amount; ?> -->
-                                    <input type="text" class="form-control" id="total_price" name="total_price" value="£ <?php echo $results->total_amount; ?>" readonly>
+                                    £ <input type="text" class="form-control" id="total_price" name="total_price" value="<?php echo $results->total_amount; ?>" readonly>
                                 </div>
                                 <button class="add-invoice-item" type="button"  onclick="education_fields();"> <span class="add-invoice-item" aria-hidden="true">+ Add invoice item</span> </button>
 
@@ -481,7 +481,7 @@ function updateTotalPrice() {
     });
 
     // Update the total price field
-    document.getElementById('total_price').value = '£ ' + total.toFixed(2);
+    document.getElementById('total_price').value =  + total.toFixed(2);
 }
 
 

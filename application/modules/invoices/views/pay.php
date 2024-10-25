@@ -183,7 +183,7 @@
                     <h2 class="modal-title"><?php echo "Add Payment on account" ?></h2>
                     <h4 style="margin-left: 233px;"><span><strong><?php echo $results->invoice_number;?></strong></span></h2>
                 </div>
-                <div class="modal-body">
+                <!-- <div class="modal-body">
                     
                     <div class="alert alert-danger" id="error-box" style="display: none"></div>
                     <div class="form-body">
@@ -191,9 +191,9 @@
 
                        
 
-                        <!-- Invoice Form Section -->
+                        
                         <div class="form-container">
-                            <!-- Invoice Form -->
+                          
                             <div class="form-section">
                                 
                                 <div class="form-group">
@@ -220,13 +220,13 @@
                                         <span aria-hidden="true">+ Add card</span>
                                     </button>
 
-                                    <!-- Card details will be added here -->
+                                    
                                     <div id="card-details-container"></div>
                                 </div>
     
                             </div>
 
-                            <!-- Billing and Comments -->
+                           
                             <div class="form-section">
                                 
                                 <div class="form-group">
@@ -270,16 +270,454 @@
                                     Total amount: £<?php echo $results->total_amount; ?>
                                 </div>
                     </div>
+                </div> -->
+
+
+
+
+
+
+                <!-- stripe payment gateway -->
+
+            <div class="modal-body">
+
+                <div class="container-fluid px-0">
+                    <div class="row justify-content-center">
+
+                    <div class="col-lg-12 col-12">
+                    <div class="alert alert-danger" id="error-box" style="display: none"></div>
+                    <div class="form-body">
+                        <div class="row">
+                        <div class="form-container">
+                          
+                            <div class="form-section">
+                                
+                                <div class="form-group">
+                                    <label for="select-date">Select Date <span class="required" style="color:red;">*</span></label>
+                                    <input type="date" name="invoice_date" id="invoice_date" value="<?php echo $results->invoice_date;?>">
+                                </div>
+                                <div class="form-group">
+                                    <label for="billing">Select Payment type <span style="color:red;">*</span></label>
+                                    <select name="billing_to" id="billing_to">
+                                    <option value="">Select Billing Type</option>
+                                    <option value="Self Pay" <?php echo $results->billing_to =='Self Pay'?'selected':'';?>>Self Pay</option>
+                                    <option value="Insurance" <?php echo $results->billing_to =='Insurance'?'selected':'';?>>Insurance</option>
+                                    <option value="Medicare" <?php echo $results->billing_to =='Medicare'?'selected':'';?>>Medicare</option>
+                                    <option value="Company" <?php echo $results->billing_to =='Company'?'selected':'';?>>Company</option>
+                                    <option value="Government Program" <?php echo $results->billing_to =='Government Program'?'selected':'';?>>Government Program</option>
+                                    <option value="Other" <?php echo $results->billing_to =='Other'?'selected':'';?>>Other</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="notes">Amount</label>
+                                    <input type="text" name="amount" id="amount" placeholder="Enter Amount" value="<?php echo $results->total_amount; ?>" readOnly>
+                                    <!-- <button class="add-invoice-item" type="button" onclick="education_fields();">
+                                        <span aria-hidden="true">+ Add card</span>
+                                    </button> -->
+
+                                    
+                                    <div id="card-details-container"></div>
+                                </div>
+    
+                            </div>
+
+                           
+                            <div class="form-section">
+                                
+                                <div class="form-group">
+                                    <label for="patient">Patient Details<span style="color:red;">*</span></label>
+                                    <input type="hidden" name="patient" id="patient" value="<?php echo $results->patient_id;?>"><h3><span><?php echo $results->patient_name;?></span></h3>
+
+                                        <table border="1" cellspacing="0" cellpadding="10" style="width: 100%; border-collapse: collapse;">
+                                            <thead>
+                                                <tr>
+                                                    <th>Product Name</th>
+                                                    <th>Rate</th>
+                                                    <th>Quantity</th>
+                                                    <th>Total Price</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php foreach($resultsItem as $rows){ ?>
+                                                <tr>
+                                                    <td><?php echo $rows->product_name; ?></td>
+                                                    <td><?php echo $rows->rate; ?></td>
+                                                    <td><?php echo $rows->quantity; ?></td>
+                                                    <td><?php echo $rows->total_price; ?></td>
+                                                </tr>
+                                                <?php } ?>
+                                            </tbody>
+                                        </table>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                            <div class="save-invoice-section">
+                               
+                            </div>
+                            <input type="hidden" name="id" value="<?php echo $results->id; ?>" />
+
+                            <div class="space-22"></div>
+                        </div>
+                        <div class="total-amount">
+                                    Total amount: £<?php echo $results->total_amount; ?>
+                                </div>
+                    </div>
+
+                    <div class="card card0">
+                                <div class="d-flex" id="wrapper">
+                                    <!-- Sidebar -->
+                                    <div class="bg-light border-right" id="sidebar-wrapper">
+                                        <div class="sidebar-heading pt-5 pb-4"><strong>PAY WITH</strong></div>
+                                        <div class="list-group list-group-flush"> <a data-toggle="tab" href="#menu1" id="tab1" class="tabs list-group-item bg-light">
+                                                <div class="list-div my-2">
+                                                    <div class="fa fa-home"></div> &nbsp;&nbsp; Bank
+                                                </div>
+                                            </a> <a data-toggle="tab" href="#menu2" id="tab2" class="tabs list-group-item active1">
+                                                <div class="list-div my-2">
+                                                    <div class="fa fa-credit-card"></div> &nbsp;&nbsp; Card
+                                                </div>
+                                            </a> <a data-toggle="tab" href="#menu3" id="tab3" class="tabs list-group-item bg-light">
+                                                <div class="list-div my-2">
+                                                    <div class="fa fa-qrcode"></div> &nbsp;&nbsp;&nbsp; Visa QR <span id="new-label">NEW</span>
+                                                </div>
+                                            </a> </div>
+                                    </div> <!-- Page Content -->
+                                    <div id="page-content-wrapper">
+                                        <!-- <div class="row pt-3" id="border-btm"> -->
+                                            <!-- <div class="col-4"> <button class="btn btn-success mt-4 ml-3 mb-3" id="menu-toggle">
+                                                    <div class="bar4"></div>
+                                                    <div class="bar4"></div>
+                                                    <div class="bar4"></div>
+                                                </button> </div> -->
+                                            <!-- <div class="col-8">
+                                                <div class="row justify-content-right">
+                                                    <div class="col-12">
+                                                        <p class="mb-0 mr-4 mt-4 text-right">customer@email.com</p>
+                                                    </div>
+                                                </div>
+                                                <div class="row justify-content-right">
+                                                    <div class="col-12">
+                                                        <p class="mb-0 mr-4 text-right">Pay <span class="top-highlight">$ <?php echo $results->total_amount; ?></span> </p>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                        <!-- </div>
+                                        <div class="row justify-content-center">
+                                            <div class="text-center" id="test">Pay</div>
+                                        </div> -->
+                                        <div class="tab-content">
+                                            <div id="menu1" class="tab-pane">
+                                                <div class="row justify-content-center">
+                                                    <div class="col-11">
+                                                        <div class="form-card">
+                                                            <h3 class="mt-0 mb-4 text-center">Enter bank details to pay</h3>
+                                                            <!-- <form onsubmit="event.preventDefault()"> -->
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <div class="input-group"> <input type="text" id="bk_nm" placeholder="BBB Bank"> <label>BANK NAME</label> </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+
+                                                                    <div class="col-12">
+                                                                        <div class="input-group"> <input type="text" name="ben_nm" id="ben-nm" placeholder="John Smith"> <label>BENEFICIARY NAME</label> </div>
+                                                                    </div>
+                                                                    <div class="col-12">
+                                                                        <div class="input-group"> <input type="text" name="scode" placeholder="ABCDAB1S" class="placeicon" minlength="8" maxlength="11"> <label>SWIFT CODE</label> </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- <div class="row">
+                                                                    <div class="col-md-12"> <input type="submit" value="Pay $ <?php echo $results->total_amount; ?>"  class="btn btn-success placeicon"> </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <p class="text-center mb-5" id="below-btn"><a href="#">Use a test card</a></p>
+                                                                    </div>
+                                                                </div> -->
+                                                            <!-- </form> -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="menu2" class="tab-pane in active">
+                                                <div class="row justify-content-center">
+                                                    <div class="col-11">
+                                                        <div class="form-card">
+                                                            <h3 class="mt-0 mb-4 text-center">Enter your card details to pay</h3>
+                                                            <!-- <form onsubmit="event.preventDefault()"> -->
+
+                                                                <!-- <div class="row">
+                                                                    <div class="col-12">
+                                                                        <div class="input-group"> <input type="text" id="cr_no" placeholder="0000 0000 0000 0000" minlength="19" maxlength="19"> <label>CARD NUMBER</label> </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-6">
+                                                                        <div class="input-group"> <input type="text" name="exp" id="exp" placeholder="MM/YY" minlength="5" maxlength="5"> <label>CARD EXPIRY</label> </div>
+                                                                    </div>
+                                                                    <div class="col-6">
+                                                                        <div class="input-group"> <input type="password" name="cvcpwd" placeholder="&#9679;&#9679;&#9679;" class="placeicon" minlength="3" maxlength="3"> <label>CVV</label> </div>
+                                                                    </div>
+                                                                </div> -->
+
+                                                                <span>Cardholder's name:</span>
+                                                                <input placeholder="Linda Williams">
+                                                                <span>Card Number:</span>
+                                                                <input placeholder="0125 6780 4567 9909">
+                                                                
+                                                                <div class="row">
+                                                                    <div class="col-4"><span>Expiry date:</span>
+                                                                        <input placeholder="YY/MM">
+                                                                    </div>
+                                                                    <div class="col-4"><span>CVV:</span>
+                                                                        <input id="cvv">
+                                                                    </div>
+                                                                </div>
+                                                                <!-- <input type="checkbox" id="save_card" class="align-left">
+                                                                <label for="save_card">Save card details to wallet</label>   -->
+
+
+                                                                <!-- <div class="row">
+                                                                    <div class="col-md-12"> <input type="submit" value="Pay $ <?php echo $results->total_amount; ?>" class="btn btn-success placeicon"> </div>
+                                                                </div> -->
+                                                                <!-- <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <p class="text-center mb-5" id="below-btn"><a href="#">Use a test card</a></p>
+                                                                    </div>
+                                                                </div> -->
+                                                            <!-- </form> -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="menu3" class="tab-pane">
+                                                <div class="row justify-content-center">
+                                                    <div class="col-11">
+                                                        <h3 class="mt-0 mb-4 text-center">Scan the QR code to pay</h3>
+                                                        <div class="row justify-content-center">
+                                                            <div id="qr"> <img src="https://i.imgur.com/DD4Npfw.jpg" width="200px" height="200px"> </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                    </div>
+                        <!-- <div class="col-lg-6 col-12">
+                            <div class="card card0">
+                                <div class="d-flex" id="wrapper">
+                                    
+                                    <div class="bg-light border-right" id="sidebar-wrapper">
+                                        <div class="sidebar-heading pt-5 pb-4"><strong>PAY WITH</strong></div>
+                                        <div class="list-group list-group-flush"> <a data-toggle="tab" href="#menu1" id="tab1" class="tabs list-group-item bg-light">
+                                                <div class="list-div my-2">
+                                                    <div class="fa fa-home"></div> &nbsp;&nbsp; Bank
+                                                </div>
+                                            </a> <a data-toggle="tab" href="#menu2" id="tab2" class="tabs list-group-item active1">
+                                                <div class="list-div my-2">
+                                                    <div class="fa fa-credit-card"></div> &nbsp;&nbsp; Card
+                                                </div>
+                                            </a> <a data-toggle="tab" href="#menu3" id="tab3" class="tabs list-group-item bg-light">
+                                                <div class="list-div my-2">
+                                                    <div class="fa fa-qrcode"></div> &nbsp;&nbsp;&nbsp; Visa QR <span id="new-label">NEW</span>
+                                                </div>
+                                            </a> </div>
+                                    </div> 
+                                    <div id="page-content-wrapper">
+                                        <div class="row pt-3" id="border-btm">
+                                            <div class="col-4"> <button class="btn btn-success mt-4 ml-3 mb-3" id="menu-toggle">
+                                                    <div class="bar4"></div>
+                                                    <div class="bar4"></div>
+                                                    <div class="bar4"></div>
+                                                </button> </div>
+                                            <div class="col-8">
+                                                <div class="row justify-content-right">
+                                                    <div class="col-12">
+                                                        <p class="mb-0 mr-4 mt-4 text-right">customer@email.com</p>
+                                                    </div>
+                                                </div>
+                                                <div class="row justify-content-right">
+                                                    <div class="col-12">
+                                                        <p class="mb-0 mr-4 text-right">Pay <span class="top-highlight">$ 100</span> </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row justify-content-center">
+                                            <div class="text-center" id="test">Pay</div>
+                                        </div>
+                                        <div class="tab-content">
+                                            <div id="menu1" class="tab-pane">
+                                                <div class="row justify-content-center">
+                                                    <div class="col-11">
+                                                        <div class="form-card">
+                                                            <h3 class="mt-0 mb-4 text-center">Enter bank details to pay</h3>
+                                                            <form onsubmit="event.preventDefault()">
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <div class="input-group"> <input type="text" id="bk_nm" placeholder="BBB Bank"> <label>BANK NAME</label> </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <div class="input-group"> <input type="text" name="ben_nm" id="ben-nm" placeholder="John Smith"> <label>BENEFICIARY NAME</label> </div>
+                                                                    </div>
+                                                                    <div class="col-12">
+                                                                        <div class="input-group"> <input type="text" name="scode" placeholder="ABCDAB1S" class="placeicon" minlength="8" maxlength="11"> <label>SWIFT CODE</label> </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-12"> <input type="submit" value="Pay $ 100" class="btn btn-success placeicon"> </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <p class="text-center mb-5" id="below-btn"><a href="#">Use a test card</a></p>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="menu2" class="tab-pane in active">
+                                                <div class="row justify-content-center">
+                                                    <div class="col-11">
+                                                        <div class="form-card">
+                                                            <h3 class="mt-0 mb-4 text-center">Enter your card details to pay</h3>
+                                                            <form onsubmit="event.preventDefault()">
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <div class="input-group"> <input type="text" id="cr_no" placeholder="0000 0000 0000 0000" minlength="19" maxlength="19"> <label>CARD NUMBER</label> </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-6">
+                                                                        <div class="input-group"> <input type="text" name="exp" id="exp" placeholder="MM/YY" minlength="5" maxlength="5"> <label>CARD EXPIRY</label> </div>
+                                                                    </div>
+                                                                    <div class="col-6">
+                                                                        <div class="input-group"> <input type="password" name="cvcpwd" placeholder="&#9679;&#9679;&#9679;" class="placeicon" minlength="3" maxlength="3"> <label>CVV</label> </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-12"> <input type="submit" value="Pay $ 100" class="btn btn-success placeicon"> </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <p class="text-center mb-5" id="below-btn"><a href="#">Use a test card</a></p>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="menu3" class="tab-pane">
+                                                <div class="row justify-content-center">
+                                                    <div class="col-11">
+                                                        <h3 class="mt-0 mb-4 text-center">Scan the QR code to pay</h3>
+                                                        <div class="row justify-content-center">
+                                                            <div id="qr"> <img src="https://i.imgur.com/DD4Npfw.jpg" width="200px" height="200px"> </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+
+
+                    </div>
                 </div>
+
+
+            </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
                     
-                    <button type="submit" id="submit" class="btn btn-sm btn-primary m-2"  style="background: #337ab7">Save invoice</button>
+                    <button type="submit" id="submit" class="btn btn-sm btn-primary m-2"  style="background: #337ab7" value="Pay $ <?php echo $results->total_amount; ?>" >Pay $ <?php echo $results->total_amount; ?></button>
+                    <!-- <div class="col-md-12"> <input type="submit" id="submit"  value="Pay $ <?php echo $results->total_amount; ?>" class="btn btn-success placeicon"> </div> -->
                 </div>
             </form>
+
+
+
+
         </div> <!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div>
+<style>
+    *{margin: 0;padding: 0}
+    body{overflow-x: hidden;background: #000000}
+    #bg-div{margin: 0;margin-top:100px;margin-bottom:100px}
+    #border-btm{padding-bottom: 20px;margin-bottom: 0px;box-shadow: 0px 35px 2px -35px lightgray}
+    #test{margin-top: 0px;margin-bottom: 40px;border: 1px solid #FFE082;border-radius: 0.25rem;width: 60px;height: 30px;background-color: #FFECB3}
+    .active1{color: #00C853 !important;font-weight: bold}
+    .bar4{width: 35px;height: 5px;background-color: #ffffff;margin: 6px 0}
+    .list-group .tabs{color: #000000}
+    #menu-toggle{height: 50px}
+    #new-label{padding: 2px;font-size: 10px;font-weight: bold;background-color: red;color: #ffffff;border-radius: 5px;margin-left: 5px}
+    #sidebar-wrapper{min-height: 100vh;margin-left: -15rem;-webkit-transition: margin .25s ease-out;-moz-transition: margin .25s ease-out;-o-transition: margin .25s ease-out;transition: margin .25s ease-out}
+    #sidebar-wrapper .sidebar-heading{padding: 0.875rem 1.25rem;font-size: 1.2rem}
+    #sidebar-wrapper .list-group{width: 15rem}
+    #page-content-wrapper{min-width: 100vw;padding-left: 20px;padding-right: 20px}
+    #wrapper.toggled #sidebar-wrapper{margin-left: 0}
+    .list-group-item.active{z-index: 2;color: #fff;background-color: #fff !important;border-color: #fff !important}
+    @media (min-width: 768px){
+        #sidebar-wrapper{margin-left: 0}
+        #page-content-wrapper{min-width: 0;width: 100%}
+        #wrapper.toggled #sidebar-wrapper{margin-left: -15rem;display: none}}
+        
+        .card0{margin-top: 10px;margin-bottom: 10px}
+        .top-highlight{color: #00C853;font-weight: bold;font-size: 20px}
+        .form-card input, .form-card textarea{padding: 10px 15px 5px 15px;border: none;border: 1px solid lightgrey;border-radius: 6px;margin-bottom: 25px;margin-top: 2px;width: 100%;box-sizing: border-box;font-family: arial;color: #2C3E50;font-size: 14px;letter-spacing: 1px}
+        .form-card input:focus, .form-card textarea:focus{-moz-box-shadow: 0px 0px 0px 1.5px skyblue !important;-webkit-box-shadow: 0px 0px 0px 1.5px skyblue !important;box-shadow: 0px 0px 0px 1.5px skyblue !important;font-weight: bold;border: 1px solid skyblue;outline-width: 0}
+        input.btn-success{height: 50px;color: #ffffff;opacity: 0.9}
+        #below-btn a{font-weight: bold;color: #000000}
+        .input-group{position:relative;width:100%;overflow:hidden}
+        /* .input-group input{position:relative;height:90px;margin-left: 1px;margin-right: 1px;border-radius:6px;padding-top: 30px;padding-left: 25px} */
+        .input-group label{position:absolute;height: 24px;background: none;border-radius: 6px;line-height: 48px;font-size: 15px;color: gray;width:100%;font-weight:100;padding-left: 25px}
+        input:focus + label{color: #1E88E5}
+        #qr{margin-bottom: 150px;margin-top: 50px}
+</style>
+<script>
+
+$(document).ready(function(){
+    //Menu Toggle Script
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+
+    // For highlighting activated tabs
+    $("#tab1").click(function () {
+        $(".tabs").removeClass("active1");
+        $(".tabs").addClass("bg-light"); 
+        $("#tab1").addClass("active1");
+        $("#tab1").removeClass("bg-light");
+    });
+    $("#tab2").click(function () {
+        $(".tabs").removeClass("active1");
+        $(".tabs").addClass("bg-light");
+        $("#tab2").addClass("active1");
+        $("#tab2").removeClass("bg-light");
+    });
+    $("#tab3").click(function () {
+        $(".tabs").removeClass("active1");
+        $(".tabs").addClass("bg-light");
+        $("#tab3").addClass("active1");
+        $("#tab3").removeClass("bg-light");
+    });
+})
+</script>
 
 
 <script>

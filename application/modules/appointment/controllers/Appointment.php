@@ -248,50 +248,52 @@ class Appointment extends Common_Controller {
         // $this->data['all_appointment'] = $this->common_model->customGet($option);
         
 
-//         $sql = "SELECT vendor_sale_clinic_appointment.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state, pa.name as patient_name, cl.name as clinic_name, cl.clinic_location, pr.name as practitioner_name
-//         FROM vendor_sale_clinic_appointment
-//         LEFT JOIN vendor_sale_users as U ON vendor_sale_clinic_appointment.location_appointment = U.id
-//         LEFT JOIN vendor_sale_patient as pa ON vendor_sale_clinic_appointment.patient = pa.user_id
-//         LEFT JOIN vendor_sale_clinic as cl ON vendor_sale_clinic_appointment.location_appointment = cl.id
-//         LEFT JOIN vendor_sale_user_profile as UP ON UP.user_id = U.id
-//         LEFT JOIN vendor_sale_practitioner as pr ON vendor_sale_clinic_appointment.practitioner = pr.id
-//         WHERE (
-//             vendor_sale_clinic_appointment.start_date_appointment LIKE '%$today%'
-//             OR vendor_sale_clinic_appointment.theatre_date_time LIKE '%$today%'
-//             OR vendor_sale_clinic_appointment.out_start_time_at LIKE '%$today%'
-//             OR vendor_sale_clinic_appointment.start_date_availability LIKE '%$today%'
-//         )
-//         ORDER BY vendor_sale_clinic_appointment.start_date_appointment DESC,
-//                  vendor_sale_clinic_appointment.theatre_date_time DESC,
-//                  vendor_sale_clinic_appointment.out_start_time_at DESC,
-//                  vendor_sale_clinic_appointment.start_date_availability DESC";
+        $sql = "SELECT vendor_sale_clinic_appointment.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state, pa.name as patient_name, cl.name as clinic_name, cl.clinic_location, pr.name as practitioner_name
+        FROM vendor_sale_clinic_appointment
+        LEFT JOIN vendor_sale_users as U ON vendor_sale_clinic_appointment.location_appointment = U.id
+        LEFT JOIN vendor_sale_patient as pa ON vendor_sale_clinic_appointment.patient = pa.user_id
+        LEFT JOIN vendor_sale_clinic as cl ON vendor_sale_clinic_appointment.location_appointment = cl.id
+        LEFT JOIN vendor_sale_user_profile as UP ON UP.user_id = U.id
+        LEFT JOIN vendor_sale_practitioner as pr ON vendor_sale_clinic_appointment.practitioner = pr.id
+        WHERE (
+            vendor_sale_clinic_appointment.start_date_appointment LIKE '%$today%'
+            OR vendor_sale_clinic_appointment.theatre_date_time LIKE '%$today%'
+            OR vendor_sale_clinic_appointment.out_start_time_at LIKE '%$today%'
+            OR vendor_sale_clinic_appointment.start_date_availability LIKE '%$today%'
+        )
+        ORDER BY vendor_sale_clinic_appointment.start_date_appointment DESC,
+                 vendor_sale_clinic_appointment.theatre_date_time DESC,
+                 vendor_sale_clinic_appointment.out_start_time_at DESC,
+                 vendor_sale_clinic_appointment.start_date_availability DESC";
 
-// $result = $this->db->query($sql);
+$result = $this->db->query($sql);
 
-$hospital_id = (int)$hospital_id; // Assuming $hospital_id is an integer
+
+// $hospital_id = (int)$hospital_id; // Assuming $hospital_id is an integer
                 
-                $sql = "SELECT vendor_sale_clinic_appointment.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state, 
-                pa.name as patient_name, cl.name as clinic_name, cl.clinic_location, pr.name as practitioner_name
-         FROM vendor_sale_users as U
-         LEFT JOIN vendor_sale_clinic_appointment ON vendor_sale_clinic_appointment.location_appointment = U.id
-         LEFT JOIN vendor_sale_patient as pa ON vendor_sale_clinic_appointment.patient = pa.user_id
-         LEFT JOIN vendor_sale_clinic as cl ON vendor_sale_clinic_appointment.location_appointment = cl.id
-         LEFT JOIN vendor_sale_user_profile as UP ON UP.user_id = U.id
-         LEFT JOIN vendor_sale_practitioner as pr ON vendor_sale_clinic_appointment.practitioner = pr.id
-         WHERE U.hospital_id = ? 
-         AND (
-             vendor_sale_clinic_appointment.start_date_appointment LIKE ? 
-             OR vendor_sale_clinic_appointment.theatre_date_time LIKE ? 
-             OR vendor_sale_clinic_appointment.out_start_time_at LIKE ? 
-             OR vendor_sale_clinic_appointment.start_date_availability LIKE ?
-         )
-         ORDER BY vendor_sale_clinic_appointment.start_date_appointment DESC,
-                  vendor_sale_clinic_appointment.theatre_date_time DESC,
-                  vendor_sale_clinic_appointment.out_start_time_at DESC,
-                  vendor_sale_clinic_appointment.start_date_availability DESC";
+//                 $sql = "SELECT vendor_sale_clinic_appointment.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state, 
+//                 pa.name as patient_name, cl.name as clinic_name, cl.clinic_location, pr.name as practitioner_name
+//          FROM vendor_sale_users as U
+//          LEFT JOIN vendor_sale_clinic_appointment ON vendor_sale_clinic_appointment.location_appointment = U.id
+//          LEFT JOIN vendor_sale_patient as pa ON vendor_sale_clinic_appointment.patient = pa.user_id
+//          LEFT JOIN vendor_sale_clinic as cl ON vendor_sale_clinic_appointment.location_appointment = cl.id
+//          LEFT JOIN vendor_sale_user_profile as UP ON UP.user_id = U.id
+//          LEFT JOIN vendor_sale_practitioner as pr ON vendor_sale_clinic_appointment.practitioner = pr.id
+//          WHERE U.hospital_id = ? 
+//          AND (
+//              vendor_sale_clinic_appointment.start_date_appointment LIKE ? 
+//              OR vendor_sale_clinic_appointment.theatre_date_time LIKE ? 
+//              OR vendor_sale_clinic_appointment.out_start_time_at LIKE ? 
+//              OR vendor_sale_clinic_appointment.start_date_availability LIKE ?
+//          )
+//          ORDER BY vendor_sale_clinic_appointment.start_date_appointment DESC,
+//                   vendor_sale_clinic_appointment.theatre_date_time DESC,
+//                   vendor_sale_clinic_appointment.out_start_time_at DESC,
+//                   vendor_sale_clinic_appointment.start_date_availability DESC";
                          
- // Safely bind the variables in the query
- $result = $this->db->query($sql, array($hospital_id, "%$today%", "%$today%", "%$today%", "%$today%"));
+//  // Safely bind the variables in the query
+//  $result = $this->db->query($sql, array("%$today%", "%$today%", "%$today%", "%$today%"));
+//  $result = $this->db->query($sql, array($hospital_id, "%$today%", "%$today%", "%$today%", "%$today%"));
 //  $totalAppointment = $result->result();
 
 
@@ -517,59 +519,55 @@ $this->data['all_appointment'] = $result->result();
 
 
         
-//         $sql = "SELECT vendor_sale_clinic_appointment.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state, pa.name as patient_name, cl.name as clinic_name, cl.clinic_location, pr.name as practitioner_name
-//         FROM vendor_sale_clinic_appointment
-//         LEFT JOIN vendor_sale_users as U ON vendor_sale_clinic_appointment.location_appointment = U.id
-//         LEFT JOIN vendor_sale_patient as pa ON vendor_sale_clinic_appointment.patient = pa.user_id
-//         LEFT JOIN vendor_sale_clinic as cl ON vendor_sale_clinic_appointment.location_appointment = cl.id
-//         LEFT JOIN vendor_sale_user_profile as UP ON UP.user_id = U.id
-//         LEFT JOIN vendor_sale_practitioner as pr ON vendor_sale_clinic_appointment.practitioner = pr.id
-//         WHERE (
-//             vendor_sale_clinic_appointment.start_date_appointment LIKE '%$today%'
-//             OR vendor_sale_clinic_appointment.theatre_date_time LIKE '%$today%'
-//             OR vendor_sale_clinic_appointment.out_start_time_at LIKE '%$today%'
-//             OR vendor_sale_clinic_appointment.start_date_availability LIKE '%$today%'
-//         )
-//         ORDER BY vendor_sale_clinic_appointment.start_date_appointment DESC,
-//                  vendor_sale_clinic_appointment.theatre_date_time DESC,
-//                  vendor_sale_clinic_appointment.out_start_time_at DESC,
-//                  vendor_sale_clinic_appointment.start_date_availability DESC";
+        $sql = "SELECT vendor_sale_clinic_appointment.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state, pa.name as patient_name, cl.name as clinic_name, cl.clinic_location, pr.name as practitioner_name
+        FROM vendor_sale_clinic_appointment
+        LEFT JOIN vendor_sale_users as U ON vendor_sale_clinic_appointment.location_appointment = U.id
+        LEFT JOIN vendor_sale_patient as pa ON vendor_sale_clinic_appointment.patient = pa.user_id
+        LEFT JOIN vendor_sale_clinic as cl ON vendor_sale_clinic_appointment.location_appointment = cl.id
+        LEFT JOIN vendor_sale_user_profile as UP ON UP.user_id = U.id
+        LEFT JOIN vendor_sale_practitioner as pr ON vendor_sale_clinic_appointment.practitioner = pr.id
+        WHERE (
+            vendor_sale_clinic_appointment.start_date_appointment LIKE '%$today%'
+            OR vendor_sale_clinic_appointment.theatre_date_time LIKE '%$today%'
+            OR vendor_sale_clinic_appointment.out_start_time_at LIKE '%$today%'
+            OR vendor_sale_clinic_appointment.start_date_availability LIKE '%$today%'
+        )
+        ORDER BY vendor_sale_clinic_appointment.start_date_appointment DESC,
+                 vendor_sale_clinic_appointment.theatre_date_time DESC,
+                 vendor_sale_clinic_appointment.out_start_time_at DESC,
+                 vendor_sale_clinic_appointment.start_date_availability DESC";
 
-// $result = $this->db->query($sql);
+$result = $this->db->query($sql);
 // $result = $this->db->query($sql);
 
-$hospital_id = (int)$hospital_id; // Assuming $hospital_id is an integer
+// $hospital_id = (int)$hospital_id; // Assuming $hospital_id is an integer
                 
-                $sql = "SELECT vendor_sale_clinic_appointment.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state, 
-                pa.name as patient_name, cl.name as clinic_name, cl.clinic_location, pr.name as practitioner_name
-         FROM vendor_sale_users as U
-         LEFT JOIN vendor_sale_clinic_appointment ON vendor_sale_clinic_appointment.location_appointment = U.id
-         LEFT JOIN vendor_sale_patient as pa ON vendor_sale_clinic_appointment.patient = pa.user_id
-         LEFT JOIN vendor_sale_clinic as cl ON vendor_sale_clinic_appointment.location_appointment = cl.id
-         LEFT JOIN vendor_sale_user_profile as UP ON UP.user_id = U.id
-         LEFT JOIN vendor_sale_practitioner as pr ON vendor_sale_clinic_appointment.practitioner = pr.id
-         WHERE U.hospital_id = ? 
-         AND (
-             vendor_sale_clinic_appointment.start_date_appointment LIKE ? 
-             OR vendor_sale_clinic_appointment.theatre_date_time LIKE ? 
-             OR vendor_sale_clinic_appointment.out_start_time_at LIKE ? 
-             OR vendor_sale_clinic_appointment.start_date_availability LIKE ?
-         )
-         ORDER BY vendor_sale_clinic_appointment.start_date_appointment DESC,
-                  vendor_sale_clinic_appointment.theatre_date_time DESC,
-                  vendor_sale_clinic_appointment.out_start_time_at DESC,
-                  vendor_sale_clinic_appointment.start_date_availability DESC";
+//                 $sql = "SELECT vendor_sale_clinic_appointment.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state, 
+//                 pa.name as patient_name, cl.name as clinic_name, cl.clinic_location, pr.name as practitioner_name
+//          FROM vendor_sale_users as U
+//          LEFT JOIN vendor_sale_clinic_appointment ON vendor_sale_clinic_appointment.location_appointment = U.id
+//          LEFT JOIN vendor_sale_patient as pa ON vendor_sale_clinic_appointment.patient = pa.user_id
+//          LEFT JOIN vendor_sale_clinic as cl ON vendor_sale_clinic_appointment.location_appointment = cl.id
+//          LEFT JOIN vendor_sale_user_profile as UP ON UP.user_id = U.id
+//          LEFT JOIN vendor_sale_practitioner as pr ON vendor_sale_clinic_appointment.practitioner = pr.id
+//          WHERE U.hospital_id = ? 
+//          AND (
+//              vendor_sale_clinic_appointment.start_date_appointment LIKE ? 
+//              OR vendor_sale_clinic_appointment.theatre_date_time LIKE ? 
+//              OR vendor_sale_clinic_appointment.out_start_time_at LIKE ? 
+//              OR vendor_sale_clinic_appointment.start_date_availability LIKE ?
+//          )
+//          ORDER BY vendor_sale_clinic_appointment.start_date_appointment DESC,
+//                   vendor_sale_clinic_appointment.theatre_date_time DESC,
+//                   vendor_sale_clinic_appointment.out_start_time_at DESC,
+//                   vendor_sale_clinic_appointment.start_date_availability DESC";
                          
- // Safely bind the variables in the query
- $result = $this->db->query($sql, array($hospital_id, "%$today%", "%$today%", "%$today%", "%$today%"));
+//  // Safely bind the variables in the query
+//  $result = $this->db->query($sql, array($hospital_id, "%$today%", "%$today%", "%$today%", "%$today%"));
 //  $totalAppointment = $result->result();
 
 $this->data['all_appointment'] = $result->result();
         // print_r($this->data['all_appointment']);die;
-        
-
-
-
         
        $option = array(
         'table' => ' doctors',
@@ -2605,7 +2603,7 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 
 $sql = "SELECT vendor_sale_practitioner.*
         FROM vendor_sale_practitioner
-        WHERE (vendor_sale_practitioner.id IN ($practitionerId))
+        -- WHERE (vendor_sale_practitioner.id IN ($practitionerId))
         -- AND (
         --     vendor_sale_practitioner.hospital_id LIKE '%$CareUnitID%'
             
@@ -2620,17 +2618,19 @@ $doctorsData = $result->result();
 $sql = "SELECT U.*, U.first_name, U.last_name
         FROM vendor_sale_doctors
         LEFT JOIN vendor_sale_users as U ON vendor_sale_doctors.user_id = U.id
-        WHERE (vendor_sale_doctors.user_id IN ($practitionerId))
-        AND (
-            vendor_sale_doctors.facility_user_id LIKE '%$CareUnitID%'
+        -- WHERE (vendor_sale_doctors.user_id IN ($practitionerId))
+        -- AND (
+        --     vendor_sale_doctors.facility_user_id LIKE '%$CareUnitID%'
             
-        )";
+        -- )
+        ";
 
 $result = $this->db->query($sql);
 
 $practitionerData = $result->result();
 
 $practitioner = array_merge($doctorsData, $practitionerData);
+
 
 if(!empty($practitionerId)){
 
@@ -2657,15 +2657,37 @@ $sql = "SELECT vendor_sale_clinic_appointment.*, U.first_name, U.last_name, UP.a
 $result = $this->db->query($sql);
 
 $all_appointment = $result->result();
+
 }else{
-    $sql = "SELECT vendor_sale_clinic_appointment.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state, pa.name as patient_name, cl.name as clinic_name, cl.clinic_location, pr.name as practitioner_name
+//     $sql = "SELECT vendor_sale_clinic_appointment.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state, pa.name as patient_name, cl.name as clinic_name, cl.clinic_location, pr.name as practitioner_name
+//         FROM vendor_sale_clinic_appointment
+//         LEFT JOIN vendor_sale_users as U ON vendor_sale_clinic_appointment.location_appointment = U.id
+//         LEFT JOIN vendor_sale_patient as pa ON vendor_sale_clinic_appointment.patient = pa.user_id
+//         LEFT JOIN vendor_sale_clinic as cl ON vendor_sale_clinic_appointment.location_appointment = cl.id
+//         LEFT JOIN vendor_sale_user_profile as UP ON UP.user_id = U.id
+//         LEFT JOIN vendor_sale_practitioner as pr ON vendor_sale_clinic_appointment.practitioner = pr.id
+//          WHERE (vendor_sale_clinic_appointment.practitioner IN ($practitionerId) OR vendor_sale_clinic_appointment.theatre_clinician IN ($practitionerId))
+//         WHERE (
+//             vendor_sale_clinic_appointment.start_date_appointment LIKE '%$selectedDate%'
+//             OR vendor_sale_clinic_appointment.theatre_date_time LIKE '%$selectedDate%'
+//             OR vendor_sale_clinic_appointment.out_start_time_at LIKE '%$selectedDate%'
+//             OR vendor_sale_clinic_appointment.start_date_availability LIKE '%$selectedDate%'
+//         )
+//         ORDER BY vendor_sale_clinic_appointment.start_date_appointment DESC,
+//                  vendor_sale_clinic_appointment.theatre_date_time DESC,
+//                  vendor_sale_clinic_appointment.out_start_time_at DESC,
+//                  vendor_sale_clinic_appointment.start_date_availability DESC";
+
+// $result = $this->db->query($sql);
+
+$sql = "SELECT vendor_sale_clinic_appointment.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state, pa.name as patient_name, cl.name as clinic_name, cl.clinic_location, pr.name as practitioner_name
         FROM vendor_sale_clinic_appointment
         LEFT JOIN vendor_sale_users as U ON vendor_sale_clinic_appointment.location_appointment = U.id
         LEFT JOIN vendor_sale_patient as pa ON vendor_sale_clinic_appointment.patient = pa.user_id
         LEFT JOIN vendor_sale_clinic as cl ON vendor_sale_clinic_appointment.location_appointment = cl.id
         LEFT JOIN vendor_sale_user_profile as UP ON UP.user_id = U.id
         LEFT JOIN vendor_sale_practitioner as pr ON vendor_sale_clinic_appointment.practitioner = pr.id
-         WHERE (vendor_sale_clinic_appointment.practitioner IN ($practitionerId) OR vendor_sale_clinic_appointment.theatre_clinician IN ($practitionerId))
+        -- WHERE (vendor_sale_clinic_appointment.practitioner IN ($practitionerId) OR vendor_sale_clinic_appointment.theatre_clinician IN ($practitionerId))
         WHERE (
             vendor_sale_clinic_appointment.start_date_appointment LIKE '%$selectedDate%'
             OR vendor_sale_clinic_appointment.theatre_date_time LIKE '%$selectedDate%'

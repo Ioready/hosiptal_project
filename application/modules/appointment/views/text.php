@@ -119,15 +119,13 @@ transition: opacity 0.3s linear, right 0.3s ease-out;
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.js"></script>
 
-
-
-<script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
+<!-- <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
 <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<!-- <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css" /> -->
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css" /> -->
  
 <!-- Include Date Range Picker -->
-<script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
-<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+<!-- <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" /> -->
 
 
 
@@ -1212,6 +1210,7 @@ transition: opacity 0.3s linear, right 0.3s ease-out;
 
             function filterAppointments() {
                 var selectedDate = $('#datePicker').val();
+                
                 var selectedPractitioners = $('#departmentanddoctordata').val();
                 
                 if (selectedDate) {
@@ -1269,11 +1268,13 @@ transition: opacity 0.3s linear, right 0.3s ease-out;
             
 
      var selectedDate = $('#datePicker').val();
+     
     //  var selectedPractitioners = $('#departmentanddoctordata').val();
 
     var selectedPractitioners = $("#departmentanddoctordata :selected").map(function(i, el) {
     return $(el).val();
 }).get();
+
 // alert(selectedPractitioners);
     //  $(.appointment-header).attr('colspan',-1,selectedPractitioners);
     //  $(.appointment-body).attr('colspan',-1, selectedPractitioners);
@@ -1283,6 +1284,7 @@ transition: opacity 0.3s linear, right 0.3s ease-out;
                     dataType: "html",
                     data: { departmentId: selectedPractitioners,selectedDate:selectedDate },
                     success: function(response) {
+                        // alert(response);
                         // $('.datatableappintment').empty(bind());
                         console.log(response); // Debugging line to check the response
                         $(".datatableappintment").html(response);
@@ -1371,14 +1373,14 @@ span {cursor:pointer; }
             text-align: center;
 		}
 		input{
-			height:34px;
-      width: 100px;
-      text-align: center;
-      font-size: 16px;
+			/* height:34px; */
+            /* width: 100px; */
+            text-align: center;
+            font-size: 16px;
 			border:1px solid #ddd;
 			border-radius:4px;
-      display: inline-block;
-      vertical-align: middle;
+            display: inline-block;
+            vertical-align: middle;
         }
 </style>
 

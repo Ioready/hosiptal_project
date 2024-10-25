@@ -1019,6 +1019,7 @@
                                                       $city = $appointment->city;
                                                       $first_name = $appointment->first_name;
                                                       $last_name = $appointment->last_name;
+                                                      $practitioner_name = $appointment->practitioner_name;
             
                                                     // Out Of Office
             
@@ -1088,7 +1089,7 @@
 
                                                    <tr>
                                                   <!-- <td class="day-cell appointment-row" data-date="<?php echo $appointment_date; ?>" data-day="<?php echo $department->id; ?>"> -->
-                                                  <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
+                                                  <td scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></td>
                                                         <?php 
                                                             $current_date = date('Y-m-d');
             
@@ -1117,10 +1118,11 @@
                                                         // $time_12_appointmentTime = date('g:i A', strtotime($time_24_appointmentTime)); 
                                                         // $time_12_hour_format = date('g:i A', strtotime($time_24_hour_format));
                                                         ?>
-                                                    </td>
+                                                    <!-- </td> -->
 
                                                     <td><?php echo $address1; ?><br> <?php echo $city; ?></td>
-                                                    <td><?php echo $first_name.' '.$last_name; ?></td>
+                                                    <td><?php echo $first_name.' '.$last_name. ' '.$practitioner_name; ?></td>
+                                                    <!-- <td><?php //echo $practitioner_name.' '.$last_name; ?></td> -->
                                                     <td><?php echo $comment_appointment; ?></td>
 
                                                     <td>

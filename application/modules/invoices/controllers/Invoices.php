@@ -14,6 +14,7 @@ class Invoices extends Common_Controller {
     public function __construct() {
         parent::__construct();
         $this->is_auth_admin();
+        $this->load->config('stripe');
     }
 
     /**
@@ -1557,6 +1558,36 @@ $this->data['invoice_list'] = $query->result();
     }
 
    
+    public function checkout() {        
+         $data['stripe_publishable_key'] = $this->config->item('stripe_publishable_key');       
+         $this->load->view('invoice_checkout', $data); // Load checkout view  
+         }  
+
+         public function processPayment() {         
+            \Stripe\Stripe::setApiKey($this->config->item('stripe_api_key')); 
+            // SecretKey
+            $token = $this->input->post('stripeToken'); 
+            // Token from frontend 
+            $amount = $this->input->post('amount'); 
+            
+            require_once('application/libraries/stripe-php/init.php');
+    
+        \Stripe\Stripe::setApiKey($this->config->item('stripe_secret'));
+     
+        \Stripe\Charge::create ([
+                "amount" => 100 * 120,
+                "currency" => "inr",
+                "source" => $this->input->post('stripeToken'),
+                "description" => "Dummy stripe payment." 
+        ]);
+            
+        $this->session->set_flashdata('success', 'Payment has been successful.');
+        print_r($this->input->post());die;
+        // redirect('/make-stripe-payment', 'refresh');
+
+        return redirect()->back()->with('success', 'Payment Successful!');
+
+             }
 
 
 }
