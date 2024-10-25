@@ -631,7 +631,7 @@
                             <?php if(empty($row->Paid)){?>
                             <!-- <a href="javascript:void(0)" class="btn btn-primary" onclick="payFn('<?php echo $model; ?>', 'pay', '<?php echo encoding($row->id) ?>', '<?php echo $model; ?>');">Pay</a> -->
                             <a href="javascript:void(0)" class="btn btn-primary" onclick="payFn('<?php echo $model; ?>', 'pay', '<?php echo encoding($row->id) ?>', '<?php echo $model; ?>');">Pay</a>
-                            <a href="<?php  echo site_url('invoices/checkout');?>">Checkout</a>
+                            <!-- <a href="<?php  echo site_url('invoices/checkout');?>">Checkout</a> -->
                             <!-- invoice_checkout -->
                             <?php }else{?>
                                 <label for="" style="color:green">... </label>
