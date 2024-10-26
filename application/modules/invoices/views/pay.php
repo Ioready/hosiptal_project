@@ -709,7 +709,7 @@
 <script src="https://js.stripe.com/v3/"></script>
 
 <script type="text/javascript">
-    $(document).ready(function() {
+    // $(document).ready(function() {
     // const stripe = Stripe('your_publishable_key'); // Initialize Stripe here
 
 
@@ -748,7 +748,7 @@ function stripeTokenHandler(token) {
   // Submit the form
   form.submit();
 }
-});
+// });
 </script>
 <style>
     *{margin: 0;padding: 0}
