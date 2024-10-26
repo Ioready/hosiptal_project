@@ -406,16 +406,12 @@
                             <td><?php echo date("d/m/Y", strtotime($row->invoice_date)); ?></td>
 
                             <td>
-                            <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Pay</button>
-                             -->
-                             <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Pay</button> -->
-
-                            <!-- <a href="javascript:void(0)" class="btn btn-xs btn-default" onclick="payFn('<?php echo $model; ?>', '<?php echo encoding($row->id); ?>');"><i class="fa fa-credit-card"></i> Pay</a> -->
-
+                           
                             <?php if(empty($row->Paid)){?>
                             <a href="javascript:void(0)" class="btn btn-primary" onclick="payFn('<?php echo $model; ?>', 'pay', '<?php echo encoding($row->id) ?>', '<?php echo $model; ?>');">Pay</a>
                             <?php }else{?>
-                                <label for="" style="color:green">... </label>
+
+                               <a href="javascript:void(0)" class="btn btn-success" onclick="pdfInvoiceReceipt('<?php echo $model; ?>', 'pdfInvoiceReceipt','<?php echo encoding($row->id) ?>', '<?php echo $model; ?>');">Receipt</a>
                             <?php }?>
                             <?php if($menu_update =='1'){ ?>
                             <a href="javascript:void(0)" class="btn btn-xs btn-default" onclick="editFn('<?php echo $model; ?>', 'edit', '<?php echo encoding($row->id) ?>', '<?php echo $model; ?>');"><i class="fa fa-pencil"></i></a>
@@ -622,21 +618,14 @@
                             <td><?php echo date("d/m/Y", strtotime($row->invoice_date)); ?></td>
 
                             <td>
-                            <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Pay</button>
-                             -->
-                             <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Pay</button> -->
-
-                            <!-- <a href="javascript:void(0)" class="btn btn-xs btn-default" onclick="payFn('<?php echo $model; ?>', '<?php echo encoding($row->id); ?>');"><i class="fa fa-credit-card"></i> Pay</a> -->
-
-                            <?php if(empty($row->Paid)){?>
-                            <!-- <a href="javascript:void(0)" class="btn btn-primary" onclick="payFn('<?php echo $model; ?>', 'pay', '<?php echo encoding($row->id) ?>', '<?php echo $model; ?>');">Pay</a> -->
-                            <a href="javascript:void(0)" class="btn btn-primary" onclick="payFn('<?php echo $model; ?>', 'pay', '<?php echo encoding($row->id) ?>', '<?php echo $model; ?>');">Pay</a>
                             
-                            <!-- invoice_checkout -->
+                            <?php if(empty($row->Paid)){?>
+                                
+                            <a href="javascript:void(0)" class="btn btn-primary" onclick="payFn('<?php echo $model; ?>', 'pay', '<?php echo encoding($row->id) ?>', '<?php echo $model; ?>');">Pay</a>
+                            <!-- <a href="javascript:void(0)" class="btn btn-primary" onclick="payFn('<?php echo $model; ?>', 'pay', '<?php echo encoding($row->id) ?>', '<?php echo $model; ?>');">Pay</a> -->
+                            
                             <?php }else{?>
                                 <a href="javascript:void(0)" class="btn btn-success" onclick="pdfInvoiceReceipt('<?php echo $model; ?>', 'pdfInvoiceReceipt','<?php echo encoding($row->id) ?>', '<?php echo $model; ?>');">Receipt</a>
-                               
-                                <!-- <label for="" style="color:green">... </label> -->
                             <?php }?>
                            
                             <a href="javascript:void(0)" class="btn btn-xs btn-default" onclick="editFn('<?php echo $model; ?>', 'edit', '<?php echo encoding($row->id) ?>', '<?php echo $model; ?>');"><i class="fa fa-pencil"></i></a>
@@ -806,7 +795,6 @@
 <div id="form-modal-box-pay"></div>
 <div id="form-modal-box-pdf"></div>
 <div id="form-modal-box-receipt"></div>
-
 
 <style>
         * {
@@ -987,19 +975,20 @@
         });
 
         // Initialize date range picker
-        $('#dateRange').daterangepicker({
-            opens: 'left',
-            startDate: moment().subtract(89, 'days'),
-            endDate: moment(),
-            locale: {
-                format: 'DD-MM-YYYY'
-            }
-        });
 
-        $('#dateRange').on('apply.daterangepicker', function (ev, picker) {
-            console.log("Start Date: " + picker.startDate.format('DD-MM-YYYY'));
-            console.log("End Date: " + picker.endDate.format('DD-MM-YYYY'));
-        });
+        // $('#dateRange').daterangepicker({
+        //     opens: 'left',
+        //     startDate: moment().subtract(89, 'days'),
+        //     endDate: moment(),
+        //     locale: {
+        //         format: 'DD-MM-YYYY'
+        //     }
+        // });
+
+        // $('#dateRange').on('apply.daterangepicker', function (ev, picker) {
+        //     console.log("Start Date: " + picker.startDate.format('DD-MM-YYYY'));
+        //     console.log("End Date: " + picker.endDate.format('DD-MM-YYYY'));
+        // });
     });
 
     // Placeholder edit function

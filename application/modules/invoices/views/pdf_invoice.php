@@ -188,6 +188,7 @@
 
 
 <script>
+  
     function generatePDF() {
         const element = document.getElementById('patient-invoice');
         

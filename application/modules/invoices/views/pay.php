@@ -399,33 +399,11 @@
                                                 </div>
                                             </a> 
                                             
-
                                         </div>
                                     </div> <!-- Page Content -->
                                     <div id="page-content-wrapper">
 
-                                        <!-- <div class="row pt-3" id="border-btm"> -->
-                                            <!-- <div class="col-4"> <button class="btn btn-success mt-4 ml-3 mb-3" id="menu-toggle">
-                                                    <div class="bar4"></div>
-                                                    <div class="bar4"></div>
-                                                    <div class="bar4"></div>
-                                                </button> </div> -->
-                                            <!-- <div class="col-8">
-                                                <div class="row justify-content-right">
-                                                    <div class="col-12">
-                                                        <p class="mb-0 mr-4 mt-4 text-right">customer@email.com</p>
-                                                    </div>
-                                                </div>
-                                                <div class="row justify-content-right">
-                                                    <div class="col-12">
-                                                        <p class="mb-0 mr-4 text-right">Pay <span class="top-highlight">$ <?php echo $results->total_amount; ?></span> </p>
-                                                    </div>
-                                                </div>
-                                            </div> -->
-                                        <!-- </div>
-                                        <div class="row justify-content-center">
-                                            <div class="text-center" id="test">Pay</div>
-                                        </div> -->
+                                        
 
                                         <div class="tab-content">
                                         <div id="menu4" class="tab-pane">
@@ -433,21 +411,7 @@
                                                     <div class="col-11">
                                                         <div class="form-card">
                                                             <h3 class="mt-0 mb-4 text-center">Enter Cash details to pay</h3>
-                                                            <!-- <form onsubmit="event.preventDefault()"> -->
-                                                                <!-- <div class="row">
-                                                                    <div class="col-12">
-                                                                        <div class="input-group"> <input type="text" id="bk_nm" placeholder="BBB Bank"> <label>BANK NAME</label> </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-
-                                                                    <div class="col-12">
-                                                                        <div class="input-group"> <input type="text" name="ben_nm" id="ben-nm" placeholder="John Smith"> <label>BENEFICIARY NAME</label> </div>
-                                                                    </div>
-                                                                    <div class="col-12">
-                                                                        <div class="input-group"> <input type="text" name="scode" placeholder="ABCDAB1S" class="placeicon" minlength="8" maxlength="11"> <label>SWIFT CODE</label> </div>
-                                                                    </div>
-                                                                </div> -->
+                                                            
 
                                                         <div class="row">
                                                         <!-- <form> -->
@@ -740,62 +704,15 @@
     </div><!-- /.modal-dialog -->
 </div>
 
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
 <!-- <script type="text/javascript" src="https://js.stripe.com/v2/"></script> -->
 
 <script src="https://js.stripe.com/v3/"></script>
 
-
-<!-- <script type="text/javascript">
-	$(function () {
-		var $stripeForm = $(".form-validation");
-		$('form.form-validation').bind('submit', function (e) {
-			var $stripeForm = $(".form-validation"),
-				inputSelector = ['input[type=email]', 'input[type=password]',
-					'input[type=text]', 'input[type=file]',
-					'textarea'
-				].join(', '),
-				$inputs = $stripeForm.find('.required').find(inputSelector),
-				$errorMessage = $stripeForm.find('div.error'),
-				valid = true;
-			$errorMessage.addClass('hide');
-			$('.has-error').removeClass('has-error');
-			$inputs.each(function (i, el) {
-				var $input = $(el);
-				if ($input.val() === '') {
-					$input.parent().addClass('has-error');
-					$errorMessage.removeClass('hide');
-					e.preventDefault();
-				}
-			});
-			if (!$stripeForm.data('cc-on-file')) {
-				e.preventDefault();
-				Stripe.setPublishableKey($stripeForm.data('stripe-publishable-key'));
-				Stripe.createToken({
-					number: $('.card-number').val(),
-					cvc: $('.card-cvc').val(),
-					exp_month: $('.card-expiry').val(),
-					exp_year: $('.card-expiry-year').val()
-				}, stripeResponseHandler);
-			}
-		});
-		function stripeResponseHandler(status, res) {
-			if (res.error) {
-				$('.error')
-					.removeClass('hide')
-					.find('.alert')
-					.text(res.error.message);
-			} else {
-				var token = res['id'];
-				$stripeForm.find('input[type=text]').empty();
-				$stripeForm.append("<input type='hidden' name='stripeToken' value='" + token + "'/>");
-				$stripeForm.get(0).submit();
-			}
-		}
-	});
-</script> -->
-
 <script type="text/javascript">
+    $(document).ready(function() {
+    // const stripe = Stripe('your_publishable_key'); // Initialize Stripe here
+
+
 const stripe = Stripe('pk_test_9ec6REkAGDDrUTCf5WqhxOJA00kzzU4vmj'); // Use your publishable key
 const elements = stripe.elements();
 const card = elements.create('card');
@@ -831,6 +748,7 @@ function stripeTokenHandler(token) {
   // Submit the form
   form.submit();
 }
+});
 </script>
 <style>
     *{margin: 0;padding: 0}

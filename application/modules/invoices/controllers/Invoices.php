@@ -1467,9 +1467,6 @@ $this->data['invoice_list'] = $query->result();
             );
             $delete = $this->common_model->customUpdate($option);
 
-
-
-
             // stripe payment gateway
 
             $option = array(
@@ -1481,20 +1478,6 @@ $this->data['invoice_list'] = $query->result();
     
             $stripe_payment_gateway = $this->common_model->customGet($option);
 
-
-            // $cardDetails = [
-            //     'number'    => '4242424242424242',
-            //     'exp_month' => 12,
-            //     'exp_year'  => 2025,
-            //     'cvc'       => '123',
-            // ];
-
-            // $tokens = \Stripe\Token::create([
-            //     'card' => $cardDetails,
-            // ]);
-            // print_r($tokens);die;
-            
-    // print_r($_POST['stripeToken']);die;
     // print_r($_POST['stripeToken']);die;
             // if(!empty($_POST['stripeToken']))
             // {
@@ -1525,10 +1508,7 @@ $this->data['invoice_list'] = $query->result();
                 //   );
                 
                 \Stripe\Stripe::setApiKey("sk_test_afm5UcS9SFFjYgSs5hTWIG7Y00G5E2b2Zx");
-                
-                
-
-                
+                                
                 $customer = \Stripe\Customer::create(array(
                     'email' => $email,
                     'source'  => $token
@@ -1541,18 +1521,6 @@ $this->data['invoice_list'] = $query->result();
                 $currency = "usd";
                 $orderID = "SKA92712382139";
                 
-                //charge a credit or a debit card
-
-                // $charge = \Stripe\Charge::create(array(
-                //     'customer' => $customer->id,
-                //     'amount'   => $itemPrice,
-                //     'currency' => $currency,
-                //     'description' => $itemName,
-                //     'metadata' => array(
-                //         'item_id' => $itemNumber
-                //     )
-                // ));
-                // print_r($charge);die;
 
                 try {
                     // Assuming the customer has been created successfully
