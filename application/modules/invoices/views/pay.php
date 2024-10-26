@@ -534,7 +534,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <!-- <div class="row">
-                                                                    <div class="col-md-12"> <input type="submit" value="Pay $ <?php echo $results->total_amount; ?>"  class="btn btn-success placeicon"> </div>
+                                                                    <div class="col-md-12"> <input type="submit" value="Pay $ <?php //echo $results->total_amount; ?>"  class="btn btn-success placeicon"> </div>
                                                                 </div>
                                                                 <div class="row">
                                                                     <div class="col-md-12">
@@ -825,7 +825,7 @@ function stripeTokenHandler(token) {
   const hiddenInput = document.createElement('input');
   hiddenInput.setAttribute('type', 'hidden');
   hiddenInput.setAttribute('name', 'stripeToken');
-  hiddenInput.setAttribute('value', result.token.id);
+  hiddenInput.setAttribute('value', token.id);
   form.appendChild(hiddenInput);
 
   // Submit the form

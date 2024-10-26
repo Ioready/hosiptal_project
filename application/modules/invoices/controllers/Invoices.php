@@ -1456,7 +1456,7 @@ $this->data['invoice_list'] = $query->result();
         );
         // print_r($options_data);die;
         $option = array('table' => 'vendor_sale_invoice_pay', 'data' => $options_data);
-        // $invoice_id= $this->common_model->customInsert($option);
+        $invoice_id= $this->common_model->customInsert($option);
         
 
         if (!empty($id)) {
@@ -1465,7 +1465,7 @@ $this->data['invoice_list'] = $query->result();
                 'data' => array('vendor_sale_invoice.Paid' => $this->input->post('amount'),'vendor_sale_invoice.Outstanding' => '0.00','vendor_sale_invoice.status' => 'Paid'),
                 'where' => array('vendor_sale_invoice.id' => $id)
             );
-            // $delete = $this->common_model->customUpdate($option);
+            $delete = $this->common_model->customUpdate($option);
 
 
 
@@ -1509,14 +1509,6 @@ $this->data['invoice_list'] = $query->result();
                 
                 $plan_id = $_POST['id'];
                 $total_price = $_POST['amount'];
-    // print_r($token);die;
-            //     $option = array(
-            //         'table' => 'admin_plans',
-            //         'where' => array('status' => 0,'id'=> $plan_id),
-            //         'single'=>true,
-            //         'order' => array('id' => 'desc'));
-    
-            // $plan_details = $this->common_model->customGet($option);
     
                 //include Stripe PHP library
                 require_once APPPATH."third_party/stripe/init.php";
@@ -1545,8 +1537,6 @@ $this->data['invoice_list'] = $query->result();
                
                 $itemName = $this->input->post('billing_to');
                 $itemNumber = $this->input->post('invoice_number');
-                // $itemNumber = '6653';
-                // $itemPrice = '2500';
                 $itemPrice = $this->input->post('amount');
                 $currency = "usd";
                 $orderID = "SKA92712382139";
@@ -1616,14 +1606,14 @@ $this->data['invoice_list'] = $query->result();
                 // }
                 
                 //check whether the charge is successful
-                if($chargeJson['amount_refunded'] == 0 && empty($chargeJson['failure_code']) &&              $chargeJson['paid'] == 1 && $chargeJson['captured'] == 1)
-                {
-                    //order details 
-                    $amount = $chargeJson['amount'];
-                    $balance_transaction = $chargeJson['balance_transaction'];
-                    $currency = $chargeJson['currency'];
-                    $status = $chargeJson['status'];
-                    $date = date("Y-m-d H:i:s");
+                // if($chargeJson['amount_refunded'] == 0 && empty($chargeJson['failure_code']) &&              $chargeJson['paid'] == 1 && $chargeJson['captured'] == 1)
+                // {
+                //     //order details 
+                //     $amount = $chargeJson['amount'];
+                //     $balance_transaction = $chargeJson['balance_transaction'];
+                //     $currency = $chargeJson['currency'];
+                //     $status = $chargeJson['status'];
+                //     $date = date("Y-m-d H:i:s");
                 
                     
                     //insert tansaction data into the database
@@ -1670,18 +1660,18 @@ $this->data['invoice_list'] = $query->result();
                 //     echo "Invalid Token";
                 //     $statusMsg = "";
                 // }
-            }
+            // }
         // Here you would typically call your payment gateway integration,
         // for example, sending a request to PayPal, Stripe, etc.
         // For now, let's just simulate a successful payment response.
 
-        // $response = [
-        //     'status' => 'success',
-        //     'message' => 'Payment was processed successfully'
-        // ];
+        $response = [
+            'status' => 'success',
+            'message' => 'Payment was processed successfully'
+        ];
 
         // echo json_encode($response);
-        $response = array('status' => 1, 'message' => "Payment was processed successfully", 'url' => base_url('contactus/edit'), 'id' => encoding($this->input->post('id')));
+        // $response = array('status' => 1, 'message' => "Payment was processed successfully", 'url' => base_url('contactus/edit'), 'id' => encoding($this->input->post('id')));
                 
             }
         }
