@@ -109,7 +109,11 @@
         </div> <!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 
-   
+    <?php
+// Convert PHP array to JSON so it can be used in JavaScript
+$template_names = json_encode($send_mail_template);
+// echo $template_names;
+?>
 </div>
 
 <script>
@@ -172,14 +176,21 @@
                 // },
 
                 init: function() {
+                    // alert(send_mail_template);
                     var countries = <?php echo json_encode($send_mail_template); ?>;
-                    // alert(countries);
                     for (var i = 0; i < countries.length; i++) {
                         // Assuming `this.add` takes three parameters and does something meaningful
                         this.add(countries[i], countries[i], countries[i]);
                     }
                 },
 
+                // init: function() {
+                //     // Get template names from PHP and add each one to the dropdown
+                //     var templates = <?php echo $template_names; ?>;
+                //     for (var i = 0; i < templates.length; i++) {
+                //         this.add(templates[i], templates[i], templates[i]);
+                //     }
+                // },
 
             //     init: function() {
             //     var countries = [

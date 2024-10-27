@@ -730,7 +730,7 @@ hh
                                 </li>
                                 
 
-                            <?php } elseif ($this->ion_auth->is_patient()) { ?>
+                            <?php //} elseif ($this->ion_auth->is_patient()) { ?>
 
                                 <!-- <li>
                                     <a href="<?php echo site_url('pwfpanel') ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "pwfpanel") ? "active" : "" ?>">
@@ -747,48 +747,48 @@ hh
 
 
                                 <?php 
-                                            $user_id = $this->session->userdata('user_id');
+                                            // $user_id = $this->session->userdata('user_id');
                                             
-                                                $option = array(
-                                                    'table' => USERS . ' as user',
-                                                    'select' => 'user.*,group.name as group_name,ugroup.group_id as role_id',
-                                                    'join' => array(
-                                                        array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
-                                                        array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
-                                                    ),
-                                                    'order' => array('user.id' => 'DESC'),
-                                                    'where' => array('user.id'=>$user_id),
-                                                    'single'=>true,
-                                                );
+                                            //     $option = array(
+                                            //         'table' => USERS . ' as user',
+                                            //         'select' => 'user.*,group.name as group_name,ugroup.group_id as role_id',
+                                            //         'join' => array(
+                                            //             array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                                            //             array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                                            //         ),
+                                            //         'order' => array('user.id' => 'DESC'),
+                                            //         'where' => array('user.id'=>$user_id),
+                                            //         'single'=>true,
+                                            //     );
                                         
-                                                $authUser = $this->common_model->customGet($option);
+                                                // $authUser = $this->common_model->customGet($option);
                                                 
 
-                                                $role = $authUser->role_id;
+                                                // $role = $authUser->role_id;
                                             
-                                                $optionRole = array(
-                                                    'table' => ROLE_PERMISSION . ' as roles_permission', // Correct spacing before alias
-                                                    'select' => 'roles_permission.*, menu.menu_name, menu.menu_icons,menu.menu_path',    // Ensure column selection is correct
-                                                    'join' => array(
-                                                        array(SIDE_MENU . ' as menu', 'menu.menu_id = roles_permission.menu_id', 'left') // Correct join syntax with proper spacing
-                                                    ),
-                                                    'where' => array('roles_permission.role_id' => $role) // Where clause for role_id
-                                                );
+                                                // $optionRole = array(
+                                                //     'table' => ROLE_PERMISSION . ' as roles_permission', // Correct spacing before alias
+                                                //     'select' => 'roles_permission.*, menu.menu_name, menu.menu_icons,menu.menu_path',    // Ensure column selection is correct
+                                                //     'join' => array(
+                                                //         array(SIDE_MENU . ' as menu', 'menu.menu_id = roles_permission.menu_id', 'left') // Correct join syntax with proper spacing
+                                                //     ),
+                                                //     'where' => array('roles_permission.role_id' => $role) // Where clause for role_id
+                                                // );
                                                 
-                                            $module_permission = $this->common_model->customGet($optionRole);
+                                            // $module_permission = $this->common_model->customGet($optionRole);
                                             // print_r($module_permission);die;
-                                            foreach ($module_permission as $item) { ?>
-                                            <li>
+                                            // foreach ($module_permission as $item) { ?>
+                                            <!-- <li> -->
                                                 <!-- <a href="<?php echo base_url($item->menu_path); ?>"> url </a> -->
                                                     
-                                                    <a href="<?php echo site_url($item->menu_path) ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == $item->menu_path) ? "active" : "" ?>">
+                                                    <!-- <a href="<?php echo site_url($item->menu_path) ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == $item->menu_path) ? "active" : "" ?>">
                                                     
                                                     <img src="<?php echo base_url(); ?><?php echo $item->menu_icons; ?>" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark"><?php echo $item->menu_name; ?></span></a>
-                                                </a>
-                                            </li>
-                                        <?php } ?>
+                                                </a> -->
+                                            <!-- </li> -->
+                                        <!-- <?php// } ?> -->
 
-                                <?php }elseif ($this->ion_auth->is_user()){?>
+                                <?php //}elseif ($this->ion_auth->is_user()){?>
 
                                     <!-- <li>
                                     <a href="<?php echo site_url('pwfpanel') ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "pwfpanel") ? "active" : "" ?>">
@@ -810,45 +810,45 @@ hh
                                         <?php 
                                             
                                            
-                                            $user_id = $this->session->userdata('user_id');
+                                            // $user_id = $this->session->userdata('user_id');
                                             
-                                                $option = array(
-                                                    'table' => USERS . ' as user',
-                                                    'select' => 'user.*,group.name as group_name,ugroup.group_id as role_id',
-                                                    'join' => array(
-                                                        array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
-                                                        array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
-                                                    ),
-                                                    'order' => array('user.id' => 'DESC'),
-                                                    'where' => array('user.id'=>$user_id),
-                                                    'single'=>true,
-                                                );
+                                            //     $option = array(
+                                            //         'table' => USERS . ' as user',
+                                            //         'select' => 'user.*,group.name as group_name,ugroup.group_id as role_id',
+                                            //         'join' => array(
+                                            //             array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                                            //             array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                                            //         ),
+                                            //         'order' => array('user.id' => 'DESC'),
+                                            //         'where' => array('user.id'=>$user_id),
+                                            //         'single'=>true,
+                                            //     );
                                         
-                                                $authUser = $this->common_model->customGet($option);
+                                            //     $authUser = $this->common_model->customGet($option);
                                                 
 
-                                                $role = $authUser->role_id;
+                                            //     $role = $authUser->role_id;
                                             
-                                                $optionRole = array(
-                                                    'table' => ROLE_PERMISSION . ' as roles_permission', // Correct spacing before alias
-                                                    'select' => 'roles_permission.*, menu.menu_name, menu.menu_icons,menu.menu_path',    // Ensure column selection is correct
-                                                    'join' => array(
-                                                        array(SIDE_MENU . ' as menu', 'menu.menu_id = roles_permission.menu_id', 'left') // Correct join syntax with proper spacing
-                                                    ),
-                                                    'where' => array('roles_permission.role_id' => $role) // Where clause for role_id
-                                                );
+                                            //     $optionRole = array(
+                                            //         'table' => ROLE_PERMISSION . ' as roles_permission', // Correct spacing before alias
+                                            //         'select' => 'roles_permission.*, menu.menu_name, menu.menu_icons,menu.menu_path',    // Ensure column selection is correct
+                                            //         'join' => array(
+                                            //             array(SIDE_MENU . ' as menu', 'menu.menu_id = roles_permission.menu_id', 'left') // Correct join syntax with proper spacing
+                                            //         ),
+                                            //         'where' => array('roles_permission.role_id' => $role) // Where clause for role_id
+                                            //     );
                                                 
-                                            $module_permission = $this->common_model->customGet($optionRole);
+                                            // $module_permission = $this->common_model->customGet($optionRole);
                                             
-                                            foreach ($module_permission as $item) { ?>
-                                            <li>
+                                            // foreach ($module_permission as $item) { ?>
+                                            <!-- <li> -->
                                                
-                                                    <a href="<?php echo site_url($item->menu_path) ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == $item->menu_path) ? "active" : "" ?>">
+                                                    <!-- <a href="<?php echo site_url($item->menu_path) ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == $item->menu_path) ? "active" : "" ?>">
                                                     
                                                     <img src="<?php echo base_url(); ?><?php echo $item->menu_icons; ?>" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark"><?php echo $item->menu_name; ?></span></a>
                                                 </a>
-                                            </li>
-                                        <?php } ?>
+                                            </li> -->
+                                        <?php //} ?>
                                         
                                     <?php }elseif ($this->ion_auth->is_all_roleslogin()){?>
                                         

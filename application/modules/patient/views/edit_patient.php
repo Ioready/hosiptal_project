@@ -125,6 +125,7 @@
             </div>
         </div>
     </div>
+   
     <div class="col-md-2" style="padding-top: 10px;">
         <div class="form-group">
             <div class="col-md-12">
@@ -235,7 +236,7 @@
             <div class="col-md-12">
                 <div class="col-md-12">
                     <label class="control-label"><?php echo lang('password'); ?></label>
-                    <input type="text" class="form-control" name="password" id="password" placeholder="<?php echo lang('password'); ?>" value="<?php echo randomPassword(); ?>"/>
+                    <input type="text" class="form-control" name="password" id="password" placeholder="<?php echo lang('password'); ?>" value="<?php echo $results->is_pass_token;?>"/>
                 </div>
             </div>
         </div>
@@ -246,7 +247,7 @@
             <div class="col-md-12">
                 <div class="col-md-12">
                     <label class="">Address Lookup</label>
-                    <input type="text" class="form-control" name="address_lookup" id="address_lookup" placeholder="Address Lookup" value="<?php echo $results->address_lookup;?>"/>
+                    <input type="text" class="form-control" name="address_lookup" id="address_lookup" placeholder="Address Lookup" value="<?php echo $results->address;?>"/>
                 </div>
             </div>
         </div>
@@ -257,7 +258,7 @@
             <div class="col-md-12">
                 <div class="col-md-12">
                     <label class="">Street address (Optional)</label>
-                    <input type="text" class="form-control" name="streem_address" id="streem_address" placeholder="Street Address" value="<?php echo $results->streem_address;?>"/>
+                    <input type="text" class="form-control" name="streem_address" id="streem_address" placeholder="Street Address" value="<?php echo $results->address2;?>"/>
                 </div>
             </div>
         </div>
@@ -303,7 +304,7 @@
                                         <option value="0">Please select</option>
                                             <?php foreach ($countries as $country) { ?>
                                                         
-                                            <option value="<?php echo $country->id; ?>" ><?php echo $country->name; ?></option>
+                                            <option value="<?php echo $country->id; ?>" <?php echo $results->country ==$country->id ?'selected':'';?>><?php echo $country->name; ?></option>
                                                     
                                             <?php } ?>
                                     </select>
@@ -315,6 +316,7 @@
                         <div class="form-group">
                             <label class="m-4 control-label">State</label>
                             <div class="col-md-12">
+                            <span><?php echo $results->state;?></span>
                             <!-- <input type="text" class="form-control" name="state_id" id="state_in" placeholder="State Name"/> -->
                             </div>
                             <div class="col-md-12" id="state_div">
@@ -325,6 +327,7 @@
                         <div class="form-group">
                             <label class="m-4 control-label">City</label>
                             <div class="col-md-12">
+                               <span><?php echo $results->city;?></span>
                             <!-- <input type="text" class="form-control" name="city_id" id="city_in" placeholder="City Name"/> -->
                             </div>
                             <div class="col-md-12" id="city">
@@ -336,7 +339,7 @@
                        <div class="form-group">
                          <label class="m-4 control-label">Zipcode Access</label>
                             <div class="col-md-12">
-                            <input type="text" id="postalCode" class="form-control" placeholder="Enter Postal Code" name="post_code"  value="<?php echo $results->post_code;?>">
+                            <input type="text" id="postalCode" class="form-control" placeholder="Enter Postal Code" name="post_code"  value="<?php echo $results->zipcode_access;?>">
                             <!-- <div id="result"></div> -->
                             </div>
                         </div>
@@ -371,7 +374,7 @@
             <div class="col-md-12">
                 <div class="col-md-12">
                     <label class="">Occupation (optional)</label>
-                    <input type="text" class="form-control" name="Occupation" id="Occupation" placeholder="<?php echo 'Occupation' ;?>"  value="<?php echo $results->Occupation;?>"/>
+                    <input type="text" class="form-control" name="Occupation" id="Occupation" placeholder="<?php echo 'Occupation' ;?>"  value="<?php echo $results->occupation;?>"/>
                 </div>
             </div>
         </div>
@@ -382,7 +385,7 @@
             <div class="col-md-12">
                 <div class="col-md-12">
                     <label class="">Company (optional)</label>
-                    <input type="text" class="form-control" name="Company" id="Company" placeholder="<?php echo 'Company'; ?>"  value="<?php echo $results->Company;?>"/>
+                    <input type="text" class="form-control" name="Company" id="Company" placeholder="<?php echo 'Company'; ?>"  value="<?php echo $results->company_name;?>"/>
                 </div>
             </div>
         </div>
@@ -395,20 +398,20 @@
                     <label class="">Religion (optional)</label>
                     <select id="religion" name="religion" class="form-control select2" size="1">
                         <option value="" disabled selected>Please select</option>
-                        <option value="Baha'i" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>Baha'i</option>
-                        <option value="Buddhaist" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>Buddhaist</option>
-                        <option value="Christian" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>Christian</option>
-                        <option value="Hindu" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>Hindu</option>
-                        <option value="Jain" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>Jain</option>
-                        <option value="Jewish" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>Jewish</option>
-                        <option value="Muslim" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>Muslim</option>
-                        <option value="Pagan" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>Pagan</option>
-                        <option value="Sikh" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>Sikh</option>
-                        <option value="Zoroastrian" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>Zoroastrian</option>
-                        <option value="Other" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>Other</option>
-                        <option value="None" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>None</option>
-                        <option value="Declines_to_Disclose" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>Declines to Disclose</option>
-                        <option value="Patient_Religion_Unknown" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>Patient Religion Unknown</option>
+                        <option value="Baha'i" <?php echo ($results->religion == "Baha'i") ? "selected" : ""; ?>>Baha'i</option>
+                        <option value="Buddhaist" <?php echo ($results->religion == "Buddhaist") ? "selected" : ""; ?>>Buddhaist</option>
+                        <option value="Christian" <?php echo ($results->religion == "Christian") ? "selected" : ""; ?>>Christian</option>
+                        <option value="Hindu" <?php echo ($results->religion == "Hindu") ? "selected" : ""; ?>>Hindu</option>
+                        <option value="Jain" <?php echo ($results->religion == "Jain") ? "selected" : ""; ?>>Jain</option>
+                        <option value="Jewish" <?php echo ($results->religion == "Jewish") ? "selected" : ""; ?>>Jewish</option>
+                        <option value="Muslim" <?php echo ($results->religion == "Muslim") ? "selected" : ""; ?>>Muslim</option>
+                        <option value="Pagan" <?php echo ($results->religion == "Pagan") ? "selected" : ""; ?>>Pagan</option>
+                        <option value="Sikh" <?php echo ($results->religion == "Sikh") ? "selected" : ""; ?>>Sikh</option>
+                        <option value="Zoroastrian" <?php echo ($results->religion == "Zoroastrian") ? "selected" : ""; ?>>Zoroastrian</option>
+                        <option value="Other" <?php echo ($results->religion == "Other") ? "selected" : ""; ?>>Other</option>
+                        <option value="None" <?php echo ($results->religion == "None") ? "selected" : ""; ?>>None</option>
+                        <option value="Declines_to_Disclose" <?php echo ($results->religion == "Declines_to_Disclose") ? "selected" : ""; ?>>Declines to Disclose</option>
+                        <option value="Patient_Religion_Unknown" <?php echo ($results->religion == "Patient_Religion_Unknown") ? "selected" : ""; ?>>Patient Religion Unknown</option>
                     </select>
                 </div>
             </div>
@@ -422,23 +425,23 @@
                     <label class="">Ethnicity (optional)</label>
                     <select id="ethnicity" name="ethnicity" class="form-control select2" size="1">
                         <option value="0">Please select</option>
-                        <option value="White_British" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>White - British</option>
-                        <option value="White_Irish" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>White - Irish</option>
-                        <option value="Any_other_White_background" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>Any other White background</option>
-                        <option value="Mixed_White_and_Black_Caribbean" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>Mixed - White and Black Caribbean</option>
-                        <option value="Mixed_White_and_Black_African" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>Mixed - White and Black African</option>
-                        <option value="Mixed_White_and_Asian" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>Mixed - White and Asian</option>
-                        <option value="Any_other_mixed_background" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>Any other mixed background</option>
-                        <option value="Asian_Indian" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>Asian - Indian</option>
-                        <option value="Asian_Pakistani" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>Asian - Pakistani</option>
-                        <option value="Asian_Bangladeshi" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>Asian - Bangladeshi</option>
-                        <option value="Black_Caribbean" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>Black - Caribbean</option>
-                        <option value="Black_African" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>Black - African</option>
-                        <option value="Any_other_Black_background" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>Any other Black background</option>
-                        <option value="Black_or_Black_British" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>Black or Black British</option>
-                        <option value="Chinese" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>Chinese</option>
-                        <option value="Any_other_ethnic_group" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>Any other ethnic group</option>
-                        <option value="Not_stated" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>Not stated</option>
+                        <option value="White_British" <?php echo ($results->ethnicity == "White_British") ? "selected" : ""; ?>>White - British</option>
+                        <option value="White_Irish" <?php echo ($results->ethnicity == "White_Irish") ? "selected" : ""; ?>>White - Irish</option>
+                        <option value="Any_other_White_background" <?php echo ($results->ethnicity == "Any_other_White_background") ? "selected" : ""; ?>>Any other White background</option>
+                        <option value="Mixed_White_and_Black_Caribbean" <?php echo ($results->ethnicity == "Mixed_White_and_Black_Caribbean") ? "selected" : ""; ?>>Mixed - White and Black Caribbean</option>
+                        <option value="Mixed_White_and_Black_African" <?php echo ($results->ethnicity == "Mixed_White_and_Black_African") ? "selected" : ""; ?>>Mixed - White and Black African</option>
+                        <option value="Mixed_White_and_Asian" <?php echo ($results->ethnicity == "Mixed_White_and_Asian") ? "selected" : ""; ?>>Mixed - White and Asian</option>
+                        <option value="Any_other_mixed_background" <?php echo ($results->ethnicity == "Any_other_mixed_background") ? "selected" : ""; ?>>Any other mixed background</option>
+                        <option value="Asian_Indian" <?php echo ($results->ethnicity == "Asian_Indian") ? "selected" : ""; ?>>Asian - Indian</option>
+                        <option value="Asian_Pakistani" <?php echo ($results->ethnicity == "Asian_Pakistani") ? "selected" : ""; ?>>Asian - Pakistani</option>
+                        <option value="Asian_Bangladeshi" <?php echo ($results->ethnicity == "Asian_Bangladeshi") ? "selected" : ""; ?>>Asian - Bangladeshi</option>
+                        <option value="Black_Caribbean" <?php echo ($results->ethnicity == "Black_Caribbean") ? "selected" : ""; ?>>Black - Caribbean</option>
+                        <option value="Black_African" <?php echo ($results->ethnicity == "Black_African") ? "selected" : ""; ?>>Black - African</option>
+                        <option value="Any_other_Black_background" <?php echo ($results->ethnicity == "Any_other_Black_background") ? "selected" : ""; ?>>Any other Black background</option>
+                        <option value="Black_or_Black_British" <?php echo ($results->ethnicity == "Black_or_Black_British") ? "selected" : ""; ?>>Black or Black British</option>
+                        <option value="Chinese" <?php echo ($results->ethnicity == "Chinese") ? "selected" : ""; ?>>Chinese</option>
+                        <option value="Any_other_ethnic_group" <?php echo ($results->ethnicity == "Any_other_ethnic_group") ? "selected" : ""; ?>>Any other ethnic group</option>
+                        <option value="Not_stated" <?php echo ($results->ethnicity == "Not_stated") ? "selected" : ""; ?>>Not stated</option>
                     </select>
                 </div>
             </div>
@@ -464,7 +467,7 @@
                 <div class="form-group" style="padding-left:20px;">
                     <div class="row">
                         <div class="col-md-1" style="padding-right: 0;">
-                            <input type="text" class="form-control" name="death_day" id="death_day" placeholder="Death Day" maxlength="2" />
+                            <input type="text" class="form-control" name="death_day" id="death_day" placeholder="Death Day" maxlength="2" value="<?php echo $results->date_of_death;?>" />
                         </div>
                         <div class="col-md-2" style="padding-right: 0;">
                             <select class="form-control" name="death_month" id="death_month">
@@ -687,12 +690,12 @@
                                                                         //print_r($row);die;
                                                                         $select = "";
                                                                         if (isset($careUnitID)) {
-                                                                            if ($careUnitID == $row->id) {
+                                                                            if ($results->care_unit_id == $row->id) {
                                                                                 $select = "selected";
                                                                             }
                                                                         }
                                                             ?>
-                                                                        <option value="<?php echo $row->id; ?>" <?php echo $select; ?>><?php echo $row->name; ?></option>
+                                                                        <option value="<?php echo $row->id; ?>" <?php echo $results->care_unit_id ==$row->id ?'selected':''; ?>><?php echo $row->name; ?></option>
                                                                     <?php
                                                                     }
                                                                 }
@@ -700,7 +703,7 @@
                 
                                                                 foreach ($care_unit as $category) { ?>
                 
-                                                                    <option value="<?php echo $category->id; ?>"><?php echo $category->name; ?></option>
+                                                                    <option value="<?php echo $category->id; ?>" <?php echo $results->care_unit_id ==$category->id ?'selected':''; ?>><?php echo $category->name; ?></option>
                                                             <?php }
                                                             } ?>
                                                         </select>
@@ -815,8 +818,8 @@
                                                     <div class="col-md-9">
                                                         <select id="symptom_onset" name="symptom_onset" class="form-control select-chosen" size="1">
                                                             <option value="">Please select</option>
-                                                            <option value="Hospital">Hospital/CAI</option>
-                                                            <option value="Facility">Facility/HAI</option>
+                                                            <option value="Hospital" <?php echo $results->symptom_onset =='Hospital'?'selected':''; ?>>Hospital/CAI</option>
+                                                            <option value="Facility" <?php echo $results->symptom_onset =='Facility'?'selected':''; ?>>Facility/HAI</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -866,7 +869,7 @@
                                                         <select id="initial_dx" name="initial_dx" class="form-control select-chosen" size="1">
                                                             <option value="">Please select</option>
                                                             <?php foreach ($initial_dx as $category) { ?>
-                                                                <option value="<?php echo $category->id; ?>" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>><?php echo $category->name; ?></option>
+                                                                <option value="<?php echo $category->id; ?>" <?php echo ($results->initial_dx == $category->id) ? "selected" : ""; ?>><?php echo $category->name; ?></option>
                                                             <?php } ?>
                                                         </select>
                                                     </div>
@@ -879,7 +882,7 @@
                                                         <select id="initial_rx" name="initial_rx" class="form-control select-chosen" size="1">
                                                             <option value="">Please select</option>
                                                             <?php foreach ($initial_rx as $category) { ?>
-                                                                <option value="<?php echo $category->id; ?>" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>><?php echo $category->name; ?></option>
+                                                                <option value="<?php echo $category->id; ?>" <?php echo ($results->initial_rx ==$category->id) ? "selected" : ""; ?>><?php echo $category->name; ?></option>
                                                             <?php } ?>
                                                         </select>
                                                     </div>
@@ -892,7 +895,7 @@
                                                 <div class="form-group">
                                                     <label class="col-md-3 control-label">Days of Therapy</label>
                                                     <div class="col-md-9">
-                                                        <input type="number" class="form-control" name="initial_dot" onkeyup="myFunction()" id="initial_dot" placeholder="0"  value="<?php echo $results->patient_first_name;?>"/>
+                                                        <input type="number" class="form-control" name="initial_dot" onkeyup="myFunction()" id="initial_dot" placeholder="0"  value="<?php echo $results->initial_dot;?>"/>
                                                         <b style="color:red"><span id="test"></span></b>
                                                         <script>
                                                             function myFunction() {
@@ -912,16 +915,16 @@
                                                     <label class="col-md-3 control-label">ABX Checklist</label>
                                                     <div class="col-md-9">
                                                         <select id="infection_surveillance_checklist" name="infection_surveillance_checklist" class="form-control select-chosen" onchange="showDiv(this)" size="1">
-                                                            <option value="N/A" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>N/A</option>
-                                                            <option value="Loeb" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>Loeb</option>
-                                                            <option value="McGeer – UTI" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>McGeer – UTI</option>
-                                                            <option value="McGeer – RTI" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>McGeer – RTI</option>
-                                                            <option value="McGeer – GITI" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>McGeer – GITI</option>
-                                                            <option value="McGeer –SSTI" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>McGeer –SSTI
+                                                            <option value="N/A" <?php echo ($results->infection_surveillance_checklist == "N/A") ? "selected" : ""; ?>>N/A</option>
+                                                            <option value="Loeb" <?php echo ($results->infection_surveillance_checklist == "Loeb") ? "selected" : ""; ?>>Loeb</option>
+                                                            <option value="McGeer – UTI" <?php echo ($results->infection_surveillance_checklist == "McGeer – UTI") ? "selected" : ""; ?>>McGeer – UTI</option>
+                                                            <option value="McGeer – RTI" <?php echo ($results->infection_surveillance_checklist == "McGeer – RTI") ? "selected" : ""; ?>>McGeer – RTI</option>
+                                                            <option value="McGeer – GITI" <?php echo ($results->infection_surveillance_checklist == "McGeer – GITI") ? "selected" : ""; ?>>McGeer – GITI</option>
+                                                            <option value="McGeer –SSTI" <?php echo ($results->infection_surveillance_checklist == "McGeer –SSTI") ? "selected" : ""; ?>>McGeer –SSTI
                                                             </option>
-                                                            <option value="Nhsn -UTI" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>NHSN -UTI
+                                                            <option value="Nhsn -UTI" <?php echo ($results->infection_surveillance_checklist == "Nhsn -UTI") ? "selected" : ""; ?>>NHSN -UTI
                                                             </option>
-                                                            <option value="Nhsn -CDI/MDRO" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>NHSN -CDI/MDRO
+                                                            <option value="Nhsn -CDI/MDRO" <?php echo ($results->infection_surveillance_checklist == "Nhsn -CDI/MDRO") ? "selected" : ""; ?>>NHSN -CDI/MDRO
                                                             </option>
                 
                                                         </select>
@@ -931,9 +934,9 @@
                                                                 <button class="save-btn btn btn-sm btn-primary" onclick="myFun()">Print ABX Checklist form</button>
                                                             </div>
                                                             <label> Criteria Met</label>
-                                                            <input type="radio" id="criteria_met" name="criteria_met" value="Yes">
+                                                            <input type="radio" id="criteria_met" name="criteria_met" value="Yes" <?php echo $results->criteria_met == 'Yes'?'checked':''; ?>>
                                                             <label for="criteria_met">YES</label>
-                                                            <input type="radio" id="criteria_met" name="criteria_met" value="No">
+                                                            <input type="radio" id="criteria_met" name="criteria_met" value="No"  <?php echo $results->criteria_met == 'No'?'checked':''; ?>>
                                                             <label for="criteria_met">NO</label>
                 
                                                         </div>
@@ -968,7 +971,7 @@
                                                         <select id="culture_source" name="culture_source" class="form-control select-chosen" size="1">
                                                             <option value="">Please select</option>
                                                             <?php foreach ($culture_source as $category) { ?>
-                                                                <option value="<?php echo $category->name; ?>" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>><?php echo $category->name; ?></option>
+                                                                <option value="<?php echo $category->name; ?>" <?php echo ($results->culture_source == $category->name) ? "selected" : ""; ?>><?php echo $category->name; ?></option>
                                                             <?php } ?>
                                                         </select>
                                                     </div>
@@ -1015,7 +1018,7 @@
                                                         <select id="organism" name="organism" class="form-control select-chosen" size="1">
                                                             <option value="">Please select</option>
                                                             <?php foreach ($organism as $category) { ?>
-                                                                <option value="<?php echo $category->name; ?>" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>><?php echo $category->name; ?></option>
+                                                                <option value="<?php echo $category->name; ?>" <?php echo ($results->organism == $category->name) ? "selected" : ""; ?>><?php echo $category->name; ?></option>
                                                             <?php } ?>
                                                         </select>
                                                     </div>
@@ -1029,7 +1032,7 @@
                                                         <select id="precautions" name="precautions" class="form-control select-chosen" size="1">
                                                             <option value="">Please select</option>
                                                             <?php foreach ($precautions as $category) { ?>
-                                                                <option value="<?php echo $category->name; ?>" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>><?php echo $category->name; ?></option>
+                                                                <option value="<?php echo $category->name; ?>" <?php echo ($results->precautions == $category->name) ? "selected" : ""; ?>><?php echo $category->name; ?></option>
                                                             <?php } ?>
                                                         </select>
                                                     </div>
@@ -1074,10 +1077,10 @@
                                                         <div class="col-md-9">
                                                             <select id="md_stayward_response" name="md_stayward_response" class="form-control select-chosen" onchange="isDirty(this.value)" size="1">
                                                                 <option value="">Please select</option>
-                                                                <option value="Agree" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>Agree</option>
-                                                                <option value="Disagree" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>Disagree</option>
-                                                                <option value="NoResponse" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>Neutral</option>
-                                                                <option value="Modify" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>Modify</option>
+                                                                <option value="Agree" <?php echo ($results->md_stayward_response == "Agree") ? "selected" : ""; ?>>Agree</option>
+                                                                <option value="Disagree" <?php echo ($results->md_stayward_response == "Disagree") ? "selected" : ""; ?>>Disagree</option>
+                                                                <option value="NoResponse" <?php echo ($results->md_stayward_response == "NoResponse") ? "selected" : ""; ?>>Neutral</option>
+                                                                <option value="Modify" <?php echo ($results->md_stayward_response == "Modify") ? "selected" : ""; ?>>Modify</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -1089,7 +1092,7 @@
                                                             <select id="new_initial_dx" name="new_initial_dx" onchange="isDirty(this.value)" class="form-control select-chosen" size="1">
                                                                 <option value="">Please select</option>
                                                                 <?php foreach ($initial_dx as $category) { ?>
-                                                                    <option value="<?php echo $category->id; ?>" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>><?php echo $category->name; ?></option>
+                                                                    <option value="<?php echo $category->id; ?>" <?php echo ($results->new_initial_dx == $category->id) ? "selected" : ""; ?>><?php echo $category->name; ?></option>
                                                                 <?php } ?>
                                                             </select>
                                                         </div>
@@ -1101,10 +1104,10 @@
                                                         <div class="col-md-9">
                                                             <select id="psa" name="psa" class="form-control select-chosen" onchange="isDirty(this.value)" size="1">
                                                                 <option value="">Please select</option>
-                                                                <option value="Agree" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>Agree</option>
-                                                                <option value="Disagree" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>Disagree</option>
-                                                                <option value="NoResponse" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>No Response</option>
-                                                                <option value="Neutral" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>>Neutral</option>
+                                                                <option value="Agree" <?php echo ($results->psa == "Agree") ? "selected" : ""; ?>>Agree</option>
+                                                                <option value="Disagree" <?php echo ($results->psa == "Disagree") ? "selected" : ""; ?>>Disagree</option>
+                                                                <option value="NoResponse" <?php echo ($results->psa == "NoResponse") ? "selected" : ""; ?>>No Response</option>
+                                                                <option value="Neutral" <?php echo ($results->psa == "Neutral") ? "selected" : ""; ?>>Neutral</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -1116,7 +1119,7 @@
                                                             <select id="new_initial_rx" name="new_initial_rx" onchange="isDirty(this.value)" class="form-control select-chosen" size="1">
                                                                 <option value="">Please select</option>
                                                                 <?php foreach ($initial_rx as $category) { ?>
-                                                                    <option value="<?php echo $category->id; ?>" <?php echo ($results->phone_code == "mobile") ? "selected" : ""; ?>><?php echo $category->name; ?></option>
+                                                                    <option value="<?php echo $category->id; ?>" <?php echo ($results->new_initial_rx == $category->id) ? "selected" : ""; ?>><?php echo $category->name; ?></option>
                                                                 <?php } ?>
                                                             </select>
                                                         </div>
@@ -1126,7 +1129,7 @@
                                                     <div class="form-group">
                                                         <label class="col-md-3 control-label">New Days of Therapy</label>
                                                         <div class="col-md-9">
-                                                            <input type="number" onchange="isDirty(this.value)" onkeyup="myFunction1()" class="form-control" name="new_initial_dot" id="new_initial_dot" placeholder="0" />
+                                                            <input type="number" onchange="isDirty(this.value)" onkeyup="myFunction1()" class="form-control" name="new_initial_dot" id="new_initial_dot" placeholder="0" value="<?php echo $results->new_initial_dot;?>"/>
                                                             <b style="color:red"><span id="test1"></span></b>
                                                             <script>
                                                                 function myFunction1() {

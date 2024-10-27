@@ -126,51 +126,51 @@ class LettersAndForm extends Common_Controller {
             
         }
 
-            if($this->ion_auth->is_all_roleslogin()){
+    //         if($this->ion_auth->is_all_roleslogin()){
 
-                $option = array(
-                    'table' => ' doctors',
-                    'select' => 'doctors.*',
-                    'join' => array(
-                        array('users', 'doctors.user_id=users.id', 'left'),
-                    ),
+    //             $option = array(
+    //                 'table' => ' doctors',
+    //                 'select' => 'doctors.*',
+    //                 'join' => array(
+    //                     array('users', 'doctors.user_id=users.id', 'left'),
+    //                 ),
                     
-                    'where' => array(
-                        'users.delete_status' => 0,
-                        'doctors.user_id'=>$CareUnitID
-                        // 'users.hospital_id'=>$hospital_id
-                    ),
-                    'single' => true,
-                );
+    //                 'where' => array(
+    //                     'users.delete_status' => 0,
+    //                     'doctors.user_id'=>$CareUnitID
+    //                     // 'users.hospital_id'=>$hospital_id
+    //                 ),
+    //                 'single' => true,
+    //             );
 
-        $datadoctors = $this->common_model->customGet($option);
+    //     $datadoctors = $this->common_model->customGet($option);
 
 
-    $option = array(
-            'table' => ' doctors',
-            'select' => 'users.*',
-            'join' => array(
-                array('users', 'doctors.user_id=users.id', 'left'),
-                array('user_profile UP', 'UP.user_id=users.id', 'left'),
-                // array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
+    // $option = array(
+    //         'table' => ' doctors',
+    //         'select' => 'users.*',
+    //         'join' => array(
+    //             array('users', 'doctors.user_id=users.id', 'left'),
+    //             array('user_profile UP', 'UP.user_id=users.id', 'left'),
+    //             // array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
                 
-            ),
+    //         ),
             
-            'where' => array(
-                'users.delete_status' => 0,
-                // 'doctors.facility_user_id'=>$datadoctors->facility_user_id
-                'users.hospital_id'=>$hospital_id
-            ),
-            'order' => array('users.id' => 'desc'),
-        );
-        $this->data['doctors'] = $this->common_model->customGet($option);
+    //         'where' => array(
+    //             'users.delete_status' => 0,
+    //             // 'doctors.facility_user_id'=>$datadoctors->facility_user_id
+    //             // 'users.hospital_id'=>$hospital_id
+    //         ),
+    //         'order' => array('users.id' => 'desc'),
+    //     );
+    //     $this->data['doctors'] = $this->common_model->customGet($option);
         
 
-        $this->data['send_mail_template'] = $this->common_model->customGet(array('table' => 'send_mail_template', 'select' => 'send_mail_template.*', 'where' => array('user_id' =>$datadoctors->facility_user_id)));
+    //     $this->data['send_mail_template'] = $this->common_model->customGet(array('table' => 'send_mail_template', 'select' => 'send_mail_template.*', 'where' => array('user_id' =>$datadoctors->facility_user_id)));
 
         
 
-    } else if ($this->ion_auth->is_facilityManager()) {
+    // } else if ($this->ion_auth->is_facilityManager()) {
         
         $option = array(
             'table' => ' doctors',
@@ -185,7 +185,7 @@ class LettersAndForm extends Common_Controller {
             'where' => array(
                 'users.delete_status' => 0,
                 // 'doctors.facility_user_id'=>$CareUnitID
-                'users.hospital_id'=>$hospital_id
+                // 'users.hospital_id'=>$hospital_id
             ),
             'order' => array('users.id' => 'desc'),
         );
@@ -201,8 +201,8 @@ class LettersAndForm extends Common_Controller {
        } 
 
     //    $send_mailt=  implode(', ', array_map(function($val){return sprintf("'%s'", $val);}, $template_name));
-       $this->data['send_mail_template']=$template_name;
-    }
+    $this->data['send_mail_template']=$template_name;
+    // }
     // print_r($template_name);
         $this->load->view('add', $this->data);
     }
@@ -1021,6 +1021,7 @@ $response = array('status' => 1, 'message' => "Successfully added", 'url' =>base
     );
 
         $send_mail_template = $this->common_model->customGet($optionData);
+        
         $response= $send_mail_template->description;
         
     }

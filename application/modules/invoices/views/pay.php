@@ -174,110 +174,22 @@
             /* margin-right: -15px; */
         }
     </style>
-<div id="commonModal" class="modal fade bd-example-modal-lg" role="dialog">
+<div id="commonModal" class="modal fade bd-example-modal-lg invoicepay" role="dialog">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
         <!-- id="addFormAjax" -->
-            <form class="form-horizontal form-validation" role="form"  id="addFormAjax" method="post" action="<?php echo base_url($formUrl) ?>" enctype="multipart/form-data" data-stripe-publishable-key="sk_test_afm5UcS9SFFjYgSs5hTWIG7Y00G5E2b2Zx">
-                <div class="modal-header text-center">
+        <!-- data-stripe-publishable-key="sk_test_afm5UcS9SFFjYgSs5hTWIG7Y00G5E2b2Zx" -->
+
+            <!-- <form class="form-horizontal form-validation" role="form"  id="addFormAjaxData" method="post" action="<?php echo base_url($formUrl) ?>" enctype="multipart/form-data" > -->
+        <form class="form-horizontal form-validation" role="form" id="addFormAjaxData" method="post" action="<?php echo site_url('/invoices/process'); ?>" enctype="multipart/form-data">
+
+            <div class="modal-header text-center">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h2 class="modal-title"><?php echo "Add Payment on account" ?></h2>
                     <h4 style="margin-left: 233px;"><span><strong><?php echo $results->invoice_number;?></strong></span></h2>
                     <input type="hidden" name="invoice_number" value="<?php echo $results->invoice_number;?>">
                 </div>
-                <!-- <div class="modal-body">
-                    
-                    <div class="alert alert-danger" id="error-box" style="display: none"></div>
-                    <div class="form-body">
-                        <div class="row">
-
-                       
-
-                        
-                        <div class="form-container">
-                          
-                            <div class="form-section">
-                                
-                                <div class="form-group">
-                                    <label for="select-date">Select Date <span class="required" style="color:red;">*</span></label>
-                                    <input type="date" name="invoice_date" id="invoice_date" value="<?php echo $results->invoice_date;?>">
-                                </div>
-                                <div class="form-group">
-                                    <label for="billing">Select Payment type <span style="color:red;">*</span></label>
-                                    <select name="billing_to" id="billing_to">
-                                    <option value="">Select Billing Type</option>
-                                    <option value="Self Pay" <?php echo $results->billing_to =='Self Pay'?'selected':'';?>>Self Pay</option>
-                                    <option value="Insurance" <?php echo $results->billing_to =='Insurance'?'selected':'';?>>Insurance</option>
-                                    <option value="Medicare" <?php echo $results->billing_to =='Medicare'?'selected':'';?>>Medicare</option>
-                                    <option value="Company" <?php echo $results->billing_to =='Company'?'selected':'';?>>Company</option>
-                                    <option value="Government Program" <?php echo $results->billing_to =='Government Program'?'selected':'';?>>Government Program</option>
-                                    <option value="Other" <?php echo $results->billing_to =='Other'?'selected':'';?>>Other</option>
-                                    </select>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="notes">Amount</label>
-                                    <input type="text" name="amount" id="amount" placeholder="Enter Amount" value="<?php echo $results->total_amount; ?>" readOnly>
-                                    <button class="add-invoice-item" type="button" onclick="education_fields();">
-                                        <span aria-hidden="true">+ Add card</span>
-                                    </button>
-
-                                    
-                                    <div id="card-details-container"></div>
-                                </div>
-    
-                            </div>
-
-                           
-                            <div class="form-section">
-                                
-                                <div class="form-group">
-                                    <label for="patient">Patient Details<span style="color:red;">*</span></label>
-                                    <input type="hidden" name="patient" id="patient" value="<?php echo $results->patient_id;?>"><h3><span><?php echo $results->patient_name;?></span></h3>
-
-                                        <table border="1" cellspacing="0" cellpadding="10" style="width: 100%; border-collapse: collapse;">
-                                            <thead>
-                                                <tr>
-                                                    <th>Product Name</th>
-                                                    <th>Rate</th>
-                                                    <th>Quantity</th>
-                                                    <th>Total Price</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php foreach($resultsItem as $rows){ ?>
-                                                <tr>
-                                                    <td><?php echo $rows->product_name; ?></td>
-                                                    <td><?php echo $rows->rate; ?></td>
-                                                    <td><?php echo $rows->quantity; ?></td>
-                                                    <td><?php echo $rows->total_price; ?></td>
-                                                </tr>
-                                                <?php } ?>
-                                            </tbody>
-                                        </table>
-
-                                </div>
-
-                            </div>
-                        </div>
-
-                            <div class="save-invoice-section">
-                               
-                            </div>
-                            <input type="hidden" name="id" value="<?php echo $results->id; ?>" />
-
-                            <div class="space-22"></div>
-                        </div>
-                        <div class="total-amount">
-                                    Total amount: £<?php echo $results->total_amount; ?>
-                                </div>
-                    </div>
-                </div> -->
-
-
-
-
-
+                
 
                 <!-- stripe payment gateway -->
 
@@ -404,53 +316,16 @@
                                     </div> <!-- Page Content -->
                                     <div id="page-content-wrapper">
 
-                                        <!-- <div class="row pt-3" id="border-btm"> -->
-                                            <!-- <div class="col-4"> <button class="btn btn-success mt-4 ml-3 mb-3" id="menu-toggle">
-                                                    <div class="bar4"></div>
-                                                    <div class="bar4"></div>
-                                                    <div class="bar4"></div>
-                                                </button> </div> -->
-                                            <!-- <div class="col-8">
-                                                <div class="row justify-content-right">
-                                                    <div class="col-12">
-                                                        <p class="mb-0 mr-4 mt-4 text-right">customer@email.com</p>
-                                                    </div>
-                                                </div>
-                                                <div class="row justify-content-right">
-                                                    <div class="col-12">
-                                                        <p class="mb-0 mr-4 text-right">Pay <span class="top-highlight">$ <?php echo $results->total_amount; ?></span> </p>
-                                                    </div>
-                                                </div>
-                                            </div> -->
-                                        <!-- </div>
-                                        <div class="row justify-content-center">
-                                            <div class="text-center" id="test">Pay</div>
-                                        </div> -->
-
                                         <div class="tab-content">
                                         <div id="menu4" class="tab-pane">
                                                 <div class="row justify-content-center">
                                                     <div class="col-11">
                                                         <div class="form-card">
                                                             <h3 class="mt-0 mb-4 text-center">Enter Cash details to pay</h3>
-                                                            <!-- <form onsubmit="event.preventDefault()"> -->
-                                                                <!-- <div class="row">
-                                                                    <div class="col-12">
-                                                                        <div class="input-group"> <input type="text" id="bk_nm" placeholder="BBB Bank"> <label>BANK NAME</label> </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-
-                                                                    <div class="col-12">
-                                                                        <div class="input-group"> <input type="text" name="ben_nm" id="ben-nm" placeholder="John Smith"> <label>BENEFICIARY NAME</label> </div>
-                                                                    </div>
-                                                                    <div class="col-12">
-                                                                        <div class="input-group"> <input type="text" name="scode" placeholder="ABCDAB1S" class="placeicon" minlength="8" maxlength="11"> <label>SWIFT CODE</label> </div>
-                                                                    </div>
-                                                                </div> -->
+                                                            
 
                                                         <div class="row">
-                                                        <!-- <form> -->
+                                                       
                                                             <!-- Total Amount -->
                                                             <div class="form-group">
                                                                 <label for="totalAmount">Total Amount</label>
@@ -474,7 +349,7 @@
                                                                 <label for="balance">Balance</label>
                                                                 <input type="number" class="form-control" id="balance" readonly>
                                                             </div>
-                                                        <!-- </form> -->
+                                                       
                                                     </div>
 
                                                     <script>
@@ -494,16 +369,6 @@
                                                         }
                                                     </script>
 
-
-                                                                <!-- <div class="row">
-                                                                    <div class="col-md-12"> <input type="submit" value="Pay $ <?php echo $results->total_amount; ?>"  class="btn btn-success placeicon"> </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-md-12">
-                                                                        <p class="text-center mb-5" id="below-btn"><a href="#">Use a test card</a></p>
-                                                                    </div>
-                                                                </div> -->
-                                                            <!-- </form> -->
                                                         </div>
                                                     </div>
                                                 </div>
@@ -515,7 +380,7 @@
                                                     <div class="col-11">
                                                         <div class="form-card">
                                                             <h3 class="mt-0 mb-4 text-center">Enter bank details to pay</h3>
-                                                            <!-- <form onsubmit="event.preventDefault()"> -->
+                                                            
                                                                 <div class="row">
                                                                     <div class="col-12">
                                                                         <div class="input-group"> <input type="text" id="bk_nm" name="bank_name" placeholder="BBB Bank"> <label>BANK NAME</label> </div>
@@ -533,15 +398,7 @@
                                                                         <div class="input-group"> <input type="text" name="scode" placeholder="ABCDAB1S" class="placeicon" minlength="8" maxlength="11"> <label>SWIFT CODE</label> </div>
                                                                     </div>
                                                                 </div>
-                                                                <!-- <div class="row">
-                                                                    <div class="col-md-12"> <input type="submit" value="Pay $ <?php //echo $results->total_amount; ?>"  class="btn btn-success placeicon"> </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-md-12">
-                                                                        <p class="text-center mb-5" id="below-btn"><a href="#">Use a test card</a></p>
-                                                                    </div>
-                                                                </div> -->
-                                                            <!-- </form> -->
+                                                               
                                                         </div>
                                                     </div>
                                                 </div>
@@ -595,130 +452,7 @@
                             </div>
 
                     </div>
-                        <!-- <div class="col-lg-6 col-12">
-                            <div class="card card0">
-                                <div class="d-flex" id="wrapper">
-                                    
-                                    <div class="bg-light border-right" id="sidebar-wrapper">
-                                        <div class="sidebar-heading pt-5 pb-4"><strong>PAY WITH</strong></div>
-                                        <div class="list-group list-group-flush"> <a data-toggle="tab" href="#menu1" id="tab1" class="tabs list-group-item bg-light">
-                                                <div class="list-div my-2">
-                                                    <div class="fa fa-home"></div> &nbsp;&nbsp; Bank
-                                                </div>
-                                            </a> <a data-toggle="tab" href="#menu2" id="tab2" class="tabs list-group-item active1">
-                                                <div class="list-div my-2">
-                                                    <div class="fa fa-credit-card"></div> &nbsp;&nbsp; Card
-                                                </div>
-                                            </a> <a data-toggle="tab" href="#menu3" id="tab3" class="tabs list-group-item bg-light">
-                                                <div class="list-div my-2">
-                                                    <div class="fa fa-qrcode"></div> &nbsp;&nbsp;&nbsp; Visa QR <span id="new-label">NEW</span>
-                                                </div>
-                                            </a> </div>
-                                    </div> 
-                                    <div id="page-content-wrapper">
-                                        <div class="row pt-3" id="border-btm">
-                                            <div class="col-4"> <button class="btn btn-success mt-4 ml-3 mb-3" id="menu-toggle">
-                                                    <div class="bar4"></div>
-                                                    <div class="bar4"></div>
-                                                    <div class="bar4"></div>
-                                                </button> </div>
-                                            <div class="col-8">
-                                                <div class="row justify-content-right">
-                                                    <div class="col-12">
-                                                        <p class="mb-0 mr-4 mt-4 text-right">customer@email.com</p>
-                                                    </div>
-                                                </div>
-                                                <div class="row justify-content-right">
-                                                    <div class="col-12">
-                                                        <p class="mb-0 mr-4 text-right">Pay <span class="top-highlight">$ 100</span> </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row justify-content-center">
-                                            <div class="text-center" id="test">Pay</div>
-                                        </div>
-                                        <div class="tab-content">
-                                            <div id="menu1" class="tab-pane">
-                                                <div class="row justify-content-center">
-                                                    <div class="col-11">
-                                                        <div class="form-card">
-                                                            <h3 class="mt-0 mb-4 text-center">Enter bank details to pay</h3>
-                                                            <form onsubmit="event.preventDefault()">
-                                                                <div class="row">
-                                                                    <div class="col-12">
-                                                                        <div class="input-group"> <input type="text" id="bk_nm" placeholder="BBB Bank"> <label>BANK NAME</label> </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-12">
-                                                                        <div class="input-group"> <input type="text" name="ben_nm" id="ben-nm" placeholder="John Smith"> <label>BENEFICIARY NAME</label> </div>
-                                                                    </div>
-                                                                    <div class="col-12">
-                                                                        <div class="input-group"> <input type="text" name="scode" placeholder="ABCDAB1S" class="placeicon" minlength="8" maxlength="11"> <label>SWIFT CODE</label> </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-md-12"> <input type="submit" value="Pay $ 100" class="btn btn-success placeicon"> </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-md-12">
-                                                                        <p class="text-center mb-5" id="below-btn"><a href="#">Use a test card</a></p>
-                                                                    </div>
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div id="menu2" class="tab-pane in active">
-                                                <div class="row justify-content-center">
-                                                    <div class="col-11">
-                                                        <div class="form-card">
-                                                            <h3 class="mt-0 mb-4 text-center">Enter your card details to pay</h3>
-                                                            <form onsubmit="event.preventDefault()">
-                                                                <div class="row">
-                                                                    <div class="col-12">
-                                                                        <div class="input-group"> <input type="text" id="cr_no" placeholder="0000 0000 0000 0000" minlength="19" maxlength="19"> <label>CARD NUMBER</label> </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-6">
-                                                                        <div class="input-group"> <input type="text" name="exp" id="exp" placeholder="MM/YY" minlength="5" maxlength="5"> <label>CARD EXPIRY</label> </div>
-                                                                    </div>
-                                                                    <div class="col-6">
-                                                                        <div class="input-group"> <input type="password" name="cvcpwd" placeholder="&#9679;&#9679;&#9679;" class="placeicon" minlength="3" maxlength="3"> <label>CVV</label> </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-md-12"> <input type="submit" value="Pay $ 100" class="btn btn-success placeicon"> </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-md-12">
-                                                                        <p class="text-center mb-5" id="below-btn"><a href="#">Use a test card</a></p>
-                                                                    </div>
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div id="menu3" class="tab-pane">
-                                                <div class="row justify-content-center">
-                                                    <div class="col-11">
-                                                        <h3 class="mt-0 mb-4 text-center">Scan the QR code to pay</h3>
-                                                        <div class="row justify-content-center">
-                                                            <div id="qr"> <img src="https://i.imgur.com/DD4Npfw.jpg" width="200px" height="200px"> </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
-
+                        
 
                     </div>
                 </div>
@@ -731,10 +465,7 @@
                     <button type="submit" id="submit" class="btn btn-sm btn-primary m-2"  style="background: #337ab7" value="Pay $ <?php echo $results->total_amount; ?>" >Pay $ <?php echo $results->total_amount; ?></button>
                     <!-- <div class="col-md-12"> <input type="submit" id="submit"  value="Pay $ <?php echo $results->total_amount; ?>" class="btn btn-success placeicon"> </div> -->
                 </div>
-            </form>
-
-
-
+        </form>
 
         </div> <!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -746,93 +477,75 @@
 <script src="https://js.stripe.com/v3/"></script>
 
 
-<!-- <script type="text/javascript">
-	$(function () {
-		var $stripeForm = $(".form-validation");
-		$('form.form-validation').bind('submit', function (e) {
-			var $stripeForm = $(".form-validation"),
-				inputSelector = ['input[type=email]', 'input[type=password]',
-					'input[type=text]', 'input[type=file]',
-					'textarea'
-				].join(', '),
-				$inputs = $stripeForm.find('.required').find(inputSelector),
-				$errorMessage = $stripeForm.find('div.error'),
-				valid = true;
-			$errorMessage.addClass('hide');
-			$('.has-error').removeClass('has-error');
-			$inputs.each(function (i, el) {
-				var $input = $(el);
-				if ($input.val() === '') {
-					$input.parent().addClass('has-error');
-					$errorMessage.removeClass('hide');
-					e.preventDefault();
-				}
-			});
-			if (!$stripeForm.data('cc-on-file')) {
-				e.preventDefault();
-				Stripe.setPublishableKey($stripeForm.data('stripe-publishable-key'));
-				Stripe.createToken({
-					number: $('.card-number').val(),
-					cvc: $('.card-cvc').val(),
-					exp_month: $('.card-expiry').val(),
-					exp_year: $('.card-expiry-year').val()
-				}, stripeResponseHandler);
-			}
-		});
-		function stripeResponseHandler(status, res) {
-			if (res.error) {
-				$('.error')
-					.removeClass('hide')
-					.find('.alert')
-					.text(res.error.message);
-			} else {
-				var token = res['id'];
-				$stripeForm.find('input[type=text]').empty();
-				$stripeForm.append("<input type='hidden' name='stripeToken' value='" + token + "'/>");
-				$stripeForm.get(0).submit();
-			}
-		}
-	});
-</script> -->
+<!-- <script src="https://js.stripe.com/v3/"></script> -->
 
 <script type="text/javascript">
-    
-const stripe = Stripe('pk_test_9ec6REkAGDDrUTCf5WqhxOJA00kzzU4vmj'); // Use your publishable key
-const elements = stripe.elements();
-const card = elements.create('card');
-card.mount('#card-element');
+    const stripe = Stripe('pk_test_9ec6REkAGDDrUTCf5WqhxOJA00kzzU4vmj'); // Your publishable key
+ 
+    const elements = stripe.elements();
+    const card = elements.create('card');
+    card.mount('#card-element');
 
-// Handle form submission
-const form = document.getElementById('addFormAjax');
-form.addEventListener('submit', async (event) => {
-  event.preventDefault();
+    $(document).on('submit', "#addFormAjaxData", async function (event) {
+        event.preventDefault(); // Prevent default form submission
+        $("#submit").val("Sending..").attr('disabled', true);
 
-  const {token, error} = await stripe.createToken(card);
+        const { token, error } = await stripe.createToken(card);
 
-  if (error) {
-    // Display error in the #card-errors element
-    const errorElement = document.getElementById('card-errors');
-    errorElement.textContent = error.message;
-  } else {
-    // Send the token to your server
-    stripeTokenHandler(token);
-  }
-});
+        if (error) {
+            $('#card-errors').text(error.message);
+            $("#submit").val("Submit Payment").removeAttr('disabled');
+            return; // Stop further execution
+        }
 
-// Function to submit the token to your server
-function stripeTokenHandler(token) {
-  // Insert the token ID into the form so it gets submitted to the server
-  const form = document.getElementById('addFormAjax');
-  const hiddenInput = document.createElement('input');
-  hiddenInput.setAttribute('type', 'hidden');
-  hiddenInput.setAttribute('name', 'stripeToken');
-  hiddenInput.setAttribute('value', token.id);
-  form.appendChild(hiddenInput);
+        // Append the token to the form data
+        const formData = new FormData(this);
+        formData.append('stripeToken', token.id);
 
-  // Submit the form
-  form.submit();
-}
+        $.ajax({
+            type: "POST",
+            url: $(this).attr('action'),
+            data: formData,
+            processData: false,
+            contentType: false,
+            beforeSend: function () {
+                $(".loaders").fadeIn("slow");
+            },
+            success: function (response) {
+                console.log(response);
+                try {
+                    const data = JSON.parse(response);
+console.log(data);
+                    if (data.status == 1) {
+                        toastr.success(data.message);
+                        $(".invoicepay").modal('hide');
+                        setTimeout(() => location.reload(true), 1000);
+                    } else {
+                        toastr.error(data.message);
+                        $('#error-box').show().html(data.message).delay(1000).fadeOut(800);
+                    }
+                } catch (e) {
+                    $('#error-box').show().html('Unexpected error.').delay(1000).fadeOut(800);
+                } finally {
+                    $("#submit").val("Submit Payment").removeAttr('disabled');
+                    $(".loaders").fadeOut("slow");
+                }
+            },
+            error: function () {
+                toastr.error('Request failed.');
+                $("#submit").val("Submit Payment").removeAttr('disabled');
+                $(".loaders").fadeOut("slow");
+            }
+        });
+    });
+
 </script>
+
+
+<!-- Stripe JS -->
+
+
+
 <style>
     *{margin: 0;padding: 0}
     body{overflow-x: hidden;background: #000000}

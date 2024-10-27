@@ -1420,20 +1420,35 @@ $this->data['invoice_list'] = $query->result();
         }
     }
 
-    public function process() {
+public function process() {
         // Load necessary models or libraries for processing payment
+        // print_r($_POST());
+        // echo 'check error';
+        // $token  = $_POST['stripeToken'];
+    //    
+    // header('Content-Type: application/json');
 
-        // print_r($this->input->post());die;
+    // // Load Stripe library
+    // \Stripe\Stripe::setApiKey('sk_test_afm5UcS9SFFjYgSs5hTWIG7Y00G5E2b2Zx'); // Replace with your actual secret key
 
+    // // Retrieve token from request
+    // $json = file_get_contents('php://input');
+    // $data = json_decode($json, true);
+    // $token = $data['token'];
+
+    $token =  $this->input->post('stripeToken');
+        // print_r($token);die;
+
+    if(!empty($_POST['stripeToken'])){
         $this->form_validation->set_rules('invoice_date', "invoice_date", 'required|trim');
         // $where_id = $this->input->post('id');
-        $model = $this->input->post('model');
+       
         $id = $this->input->post('id');
 
-        if ($this->form_validation->run() == FALSE):
+        if ($this->form_validation->run() == FALSE){
             $messages = (validation_errors()) ? validation_errors() : '';
             $response = array('status' => 0, 'message' => $messages);
-        else:
+        }else{
             $this->filedata['status'] = 1;
 
             if ($this->filedata['status'] == 0) {
@@ -1478,21 +1493,19 @@ $this->data['invoice_list'] = $query->result();
     
             $stripe_payment_gateway = $this->common_model->customGet($option);
 
-    // print_r($_POST['stripeToken']);die;
+        // print_r($_POST['stripeToken']);die;
             // if(!empty($_POST['stripeToken']))
             // {
                 //get token, card and user info from the form
                 $token  = $_POST['stripeToken'];
-                $name = $_POST['user_name'];
-                $email = $_POST['email'];
-                $card_num = $_POST['card_number'];
-                $card_cvc = $_POST['cvv'];
-                $card_exp_month = $_POST['expiry_date'];
-                // $card_exp_year = $_POST['exp_year'];
                 
-                $plan_id = $_POST['id'];
-                $total_price = $_POST['amount'];
-    
+                $email = $this->input->post('email');
+                $itemName = $this->input->post('billing_to');
+                $itemNumber = $this->input->post('invoice_number');
+                $itemPrice = $this->input->post('amount');
+                $currency = "usd";
+                $orderID = "SKA92712382139";
+
                 //include Stripe PHP library
                 require_once APPPATH."third_party/stripe/init.php";
                 
@@ -1507,6 +1520,8 @@ $this->data['invoice_list'] = $query->result();
                 //     "publishable_key" => $stripe_payment_gateway->publishable_key
                 //   );
                 
+               
+
                 \Stripe\Stripe::setApiKey("sk_test_afm5UcS9SFFjYgSs5hTWIG7Y00G5E2b2Zx");
                                 
                 $customer = \Stripe\Customer::create(array(
@@ -1515,11 +1530,7 @@ $this->data['invoice_list'] = $query->result();
                 ));
                 
                
-                $itemName = $this->input->post('billing_to');
-                $itemNumber = $this->input->post('invoice_number');
-                $itemPrice = $this->input->post('amount');
-                $currency = "usd";
-                $orderID = "SKA92712382139";
+                
                 
 
                 try {
@@ -1535,7 +1546,7 @@ $this->data['invoice_list'] = $query->result();
                     ));
                     
                     // Successfully created charge
-                    echo 'Charge successful: ' . $charge->id;
+                    // echo 'Charge successful: ' . $charge->id;
                 
                 } catch (\Stripe\Exception\CardException $e) {
                     // Card was declined
@@ -1633,22 +1644,38 @@ $this->data['invoice_list'] = $query->result();
         // for example, sending a request to PayPal, Stripe, etc.
         // For now, let's just simulate a successful payment response.
 
-        $response = [
-            'status' => 'success',
-            'message' => 'Payment was processed successfully'
-        ];
+        
+
+        // $response = [
+        //     'status' => 'success',
+        //     'message' => 'Payment was processed successfully'
+        // ];
 
         // echo json_encode($response);
         // $response = array('status' => 1, 'message' => "Payment was processed successfully", 'url' => base_url('contactus/edit'), 'id' => encoding($this->input->post('id')));
                 
-            }
-        }
-        endif;
+        //     }
+        // }
+        // endif;
     
 
+        // echo json_encode($response);
+            $response = array('status' => 1, 'message' => "Payment is Successfully", 'url' => base_url($this->router->fetch_class()));
+            
+        } else {
+        $messages = (validation_errors()) ? validation_errors() : '';
+        $response = array('status' => 0, 'message' => $messages);
+          }
+       }
+    }
+    
+    } else {
+                $response = array('status' => 0, 'message' => "Stripe token is empty");
+            
+            }
         echo json_encode($response);
     
-    }
+}
 
 
 
