@@ -201,7 +201,7 @@
                 <?php  }?>
             
 
-            <?php }}}} if($this->ion_auth->is_facilityManager()){?>
+            <?php }}}} if($this->ion_auth->is_facilityManager() or $this->ion_auth->is_admin() or $this->ion_auth->is_superAdmin()){?>
 
                     <div class="block-title">
                         <!-- <h2><strong>Email</strong> Panel</h2> -->
@@ -463,7 +463,7 @@
                             $menu_name =$permission->menu_name;
                             // echo $menu_name;
                             if ($menu_name == 'Email Template') {
-                               if ($menu_view =='1') {?>
+                              // if ($menu_view =='1') {?>
 
             <div class="table-responsive">
                 <table id="common_datatable_cms" class="table table-vcenter table-condensed table-bordered text-center">
@@ -538,7 +538,7 @@
 
                                     <?php if($rows->active_template != 1 && $rows->is_active == 1) { ?>
 
-                                        <?php if ($menu_update =='1') { ?>
+                                        <?php //if ($menu_update =='1') { ?>
 
                                         <a href="javascript:void(0)" onclick="useTemplate('<?php echo $rows->id; ?>')" class="btn save-btn" style="color:white;">Use template</a>
                                         <?php } else { ?>
@@ -549,14 +549,15 @@
                                         <!-- <a href="javascript:void(0)" class="btn btn-xs btn-success" onclick="editStatusFn('vendor_sale_email_template','id','<?php echo encoding($rows->id);?>','<?php echo $rows->is_active;?>')" title="Inactive Now"><i class="fa fa-check"></i></a> -->
                                         <?php } else { ?>
                                         <!-- <a href="javascript:void(0)" class="btn btn-xs btn-danger" onclick="editStatusFn('vendor_sale_email_template','id','<?php echo encoding($rows->id); ?>','<?php echo $rows->is_active;?>')" title="Active Now"><i class="fa fa-times"></i></a> -->
-                                        <?php } } if ($menu_delete =='1') {?>
+                                        <?php } 
+                                    //} if ($menu_delete =='1') {?>
                                         <a href="javascript:void(0)" onclick="deleteFn('vendor_sale_email_template','id','<?php echo encoding($rows->id); ?>','emailTemplate')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
                                     
                                         <form id="templateForm_<?php echo $rows->id; ?>" style="display: none;">
                                             <input type="hidden" name="id" value="<?php echo $rows->id; ?>">
                                         
                                         </form>
-                                        <?php }?>
+                                        <?php //}?>
 
                                 </td>
                             </tr>
@@ -566,7 +567,7 @@
                 </table>
             </div>
 
-    <?php }}}} if($this->ion_auth->is_facilityManager()){?>
+    <?php }}} if($this->ion_auth->is_facilityManager()){?>
     
             <div class="table-responsive">
                 <table id="common_datatable_cms" class="table table-vcenter table-condensed table-bordered text-center">

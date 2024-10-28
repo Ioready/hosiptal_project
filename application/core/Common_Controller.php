@@ -370,7 +370,7 @@ function sendEmail($email, $from, $subject, $template, $title)
       }
       else {
           // Show success notification or other things here
-          echo 'Success to send email';
+        //   echo 'Success to send email';
       }
 
 
