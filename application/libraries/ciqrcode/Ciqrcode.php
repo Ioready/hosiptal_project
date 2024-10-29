@@ -1,5 +1,5 @@
 <?php
-require_once APPPATH . 'third_party/phpqrcode/qrlib.php';
+require_once APPPATH . 'libraries/ciqrcode/qrcode/qrlib.php';
 
 
 /**
