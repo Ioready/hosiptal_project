@@ -16,6 +16,7 @@ class Invoices extends Common_Controller {
         $this->is_auth_admin();
         $this->load->config('stripe');
         $this->load->library('ciqrcode'); 
+        $this->load->library('ciqrcode/ciqrcode'); 
 
     }
 
