@@ -201,6 +201,11 @@
                     <span class="sidebar-nav-mini-hide">Payment setting for stripe</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="<?php echo site_url('setting/bankTransferSetting'); ?>" class="save-btn text-white <?php echo (strtolower($this->router->fetch_class()) == "setting" && strtolower($this->router->fetch_method()) == "paymentSetting") ? "active" : "" ?>">
+                    <span class="sidebar-nav-mini-hide">Bank Transfer</span>
+                </a>
+            </li>
           
         </ul>
     </div>

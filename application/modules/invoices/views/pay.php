@@ -286,30 +286,96 @@
                                     <!-- Sidebar -->
                                     <div class="bg-light border-right" id="sidebar-wrapper">
                                         <div class="sidebar-heading pt-5 pb-4"><strong>PAY WITH</strong></div>
-                                        <div class="list-group list-group-flush"> 
-                                            <a data-toggle="tab" href="#menu2" id="tab2" class="tabs list-group-item active1">
+                                        <div class="list-group list-group-flush customNavMenus"> 
+
+                                            <!-- <a data-toggle="tab" href="#menu2" id="tab2" class="tabs list-group-item bg-light active1">
                                                 <div class="list-div my-2">
                                                     <div class="fa fa-credit-card"></div> &nbsp;&nbsp; Card
                                                 </div>
                                             </a> 
-                                            <a data-toggle="tab" href="#menu1" id="tab1" class="tabs list-group-item bg-light">
+                                            <a data-toggle="tab" href="#menu1" id="tab1" class="tabs list-group-item bg-light active1">
                                                 <div class="list-div my-2">
                                                     <div class="fa fa-home"></div> &nbsp;&nbsp; Bank
                                                 </div>
                                             </a> 
 
-                                            <a data-toggle="tab" href="#menu4" id="tab4" class="tabs list-group-item bg-light">
+                                            <a data-toggle="tab" href="#menu4" id="tab4" class="tabs list-group-item bg-light active1">
                                                 <div class="list-div my-2">
                                                     <div class="fa fa-money"></div> &nbsp;&nbsp; Cash
                                                 </div>
                                             </a>
 
                                             
-                                            <a data-toggle="tab" href="#menu3" id="tab3" class="tabs list-group-item bg-light">
+                                            <a data-toggle="tab" href="#menu3" id="tab3" class="tabs list-group-item bg-light active1">
                                                 <div class="list-div my-2">
                                                     <div class="fa fa-qrcode"></div> &nbsp;&nbsp;&nbsp; Visa QR <span id="new-label">NEW</span>
                                                 </div>
-                                            </a> 
+                                            </a>  -->
+
+<a data-toggle="tab" href="#menu2" id="tab2" class="tabs list-group-item bg-light">
+    <div class="list-div my-2">
+        <div class="fa fa-credit-card"></div> &nbsp;&nbsp; Card
+    </div>
+</a>
+<a data-toggle="tab" href="#menu1" id="tab1" class="tabs list-group-item bg-light">
+    <div class="list-div my-2">
+        <div class="fa fa-home"></div> &nbsp;&nbsp; Bank
+    </div>
+</a>
+<a data-toggle="tab" href="#menu4" id="tab4" class="tabs list-group-item bg-light">
+    <div class="list-div my-2">
+        <div class="fa fa-money"></div> &nbsp;&nbsp; Cash
+    </div>
+</a>
+<a data-toggle="tab" href="#menu3" id="tab3" class="tabs list-group-item bg-light">
+    <div class="list-div my-2">
+        <div class="fa fa-qrcode"></div> &nbsp;&nbsp;&nbsp; Visa QR <span id="new-label">NEW</span>
+    </div>
+</a>
+
+<!-- Add the CSS and jQuery code -->
+<style>
+ /* Subscribe me on Youtube
+https://bit.ly/3m9avif
+*/
+
+#customNavMenus a{
+    list-style:none;
+    width:60px;
+}
+#customNavMenus a{
+    cursor:pointer;
+}
+.active{
+    /* background-color:royalblue; */
+    /* color:white; */
+}
+
+/* Not nessessary css start */
+#customNavMenus a{display:inline-block;}
+
+
+
+
+</style>
+
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+<script>
+   // Subscribe me on Youtube
+// https://bit.ly/3m9avif
+
+
+// Upgrade or downgrade jquery
+// Current Jquery: query-3.6.0.min.js
+
+$("#customNavMenus").on('click', 'a', function () {
+    $("#customNavMenus a.active").removeClass("active");
+    // adding classname 'active' to current click li 
+    $(this).addClass("active");
+});
+
+</script>
+
                                             
 
                                         </div>
@@ -378,7 +444,7 @@
                                             <div id="menu1" class="tab-pane">
                                                 <div class="row justify-content-center">
                                                     <div class="col-11">
-                                                        <div class="form-card">
+                                                        <!-- <div class="form-card">
                                                             <h3 class="mt-0 mb-4 text-center">Enter bank details to pay</h3>
                                                             
                                                                 <div class="row">
@@ -399,7 +465,21 @@
                                                                     </div>
                                                                 </div>
                                                                
-                                                        </div>
+                                                        </div> -->
+
+                                                        <div class="form-card">
+                                                            <h3 class="mt-0 mb-4 text-center">Enter bank details to pay</h3>
+                                                            
+
+                                                        <label>Transaction ID:</label><input type="text" name="transaction_id" placeholder="Transaction ID">
+                                                        <!-- <input type="text" name="bank_name" placeholder="BBB Bank"> -->
+                                                        <!-- <input type="text" name="beneficiary_name" placeholder="John Smith"> -->
+                                                        <!-- <input type="text" name="account_number" placeholder="123456789"> -->
+                                                        <!-- <input type="text" name="swift_code" placeholder="ABCDAB1S"> -->
+                                                        <label>Upload PDF Receipt:</label> <input type="file" name="receipt_pdf" accept=".pdf">
+                                                        <label>Upload PNG Receipt:</label> <input type="file" name="receipt_png" accept=".png">
+
+                                                    </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -414,7 +494,7 @@
                                                                 <input 
                                                                     type="text" name="user_name" id="user_name"
                                                                     class="form-control mb-3" 
-                                                                    placeholder="Linda Williams" 
+                                                                    placeholder="Cardholder name" 
                                                                     pattern="^[a-zA-Z\s]+$" 
                                                                     title="Name should contain only letters and spaces" 
                                                                     required>
@@ -443,7 +523,7 @@
                                                         <div class="row justify-content-center" style="width: 200px;">
                                                             <!-- Display the QR Code Image -->
                                                             <?php if (!empty($qr_code_url)): ?>
-                                                                <!-- <h3>Scan to Pay</h3> -->
+                                                               
                                                                 <img src="<?= $qr_code_url ?>" alt="Invoice QR Code">
                                                             <?php endif; ?>
                                                             <!-- <div id="qr"> <img src="https://i.imgur.com/DD4Npfw.jpg" width="200px" height="200px"> </div> -->
