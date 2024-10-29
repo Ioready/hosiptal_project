@@ -6,7 +6,7 @@
     }
 </style>
 <style>
-        * {
+        /* * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -16,16 +16,16 @@
             font-family: Arial, sans-serif;
             background-color: #f5f5f5;
             padding: 20px;
-        }
+        } */
 
-        .container {
+        /* .container {
             max-width: 1000px;
             margin: auto;
             background-color: white;
             border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
-        }
+        } */
 
         .patient-info {
             font-size: 24px;
@@ -174,10 +174,10 @@
             /* margin-right: -15px; */
         }
     </style>
-<div id="commonModal" class="modal fade bd-example-modal-lg" role="dialog">
+<div id="commonModalPayPatient" class="modal fade bd-example-modal-lg" role="dialog">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url($formUrl) ?>" enctype="multipart/form-data">
+            <form class="form-horizontal" role="form" id="addFormAjaxData" method="post" action="<?php echo base_url($formUrl) ?>" enctype="multipart/form-data">
                 <div class="modal-header text-center">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h2 class="modal-title"><?php echo "Add Payment on account" ?></h2>
@@ -216,9 +216,9 @@
                                 <div class="form-group">
                                     <label for="notes">Amount</label>
                                     <input type="text" name="amount" id="amount" placeholder="Enter Amount" value="<?php echo $results->total_amount; ?>" readOnly>
-                                    <button class="add-invoice-item" type="button" onclick="education_fields();">
+                                    <!-- <button class="add-invoice-item" type="button" onclick="education_fields();">
                                         <span aria-hidden="true">+ Add card</span>
-                                    </button>
+                                    </button> -->
 
                                     <!-- Card details will be added here -->
                                     <div id="card-details-container"></div>
@@ -268,7 +268,182 @@
                         </div>
                         <div class="total-amount">
                                     Total amount: £<?php echo $results->total_amount; ?>
+                         </div>
+
+
+                         <div class="card card0">
+                                <div class="d-flex" id="wrapper">
+                                    <!-- Sidebar -->
+                                    <div class="bg-light border-right" id="sidebar-wrapper">
+                                        <div class="sidebar-heading pt-5 pb-4"><strong>PAY WITH</strong></div>
+                                        <div class="list-group list-group-flush"> 
+                                            <a data-toggle="tab" href="#menu2" id="tab2" class="tabs list-group-item active1">
+                                                <div class="list-div my-2">
+                                                    <div class="fa fa-credit-card"></div> &nbsp;&nbsp; Card
+                                                </div>
+                                            </a> 
+                                            <a data-toggle="tab" href="#menu1" id="tab1" class="tabs list-group-item bg-light">
+                                                <div class="list-div my-2">
+                                                    <div class="fa fa-home"></div> &nbsp;&nbsp; Bank
+                                                </div>
+                                            </a> 
+
+                                            <a data-toggle="tab" href="#menu4" id="tab4" class="tabs list-group-item bg-light">
+                                                <div class="list-div my-2">
+                                                    <div class="fa fa-money"></div> &nbsp;&nbsp; Cash
+                                                </div>
+                                            </a>
+
+                                            
+                                            <a data-toggle="tab" href="#menu3" id="tab3" class="tabs list-group-item bg-light">
+                                                <div class="list-div my-2">
+                                                    <div class="fa fa-qrcode"></div> &nbsp;&nbsp;&nbsp; Visa QR <span id="new-label">NEW</span>
+                                                </div>
+                                            </a> 
+                                            
+
+                                        </div>
+                                    </div> <!-- Page Content -->
+                                    <div id="page-content-wrapper">
+
+                                        <div class="tab-content">
+                                        <div id="menu4" class="tab-pane">
+                                                <div class="row justify-content-center">
+                                                    <div class="col-11">
+                                                        <div class="form-card">
+                                                            <h3 class="mt-0 mb-4 text-center">Enter Cash details to pay</h3>
+                                                            
+
+                                                        <div class="row">
+                                                       
+                                                            <!-- Total Amount -->
+                                                            <div class="form-group">
+                                                                <label for="totalAmount">Total Amount</label>
+                                                                <input type="number" class="form-control" id="totalAmount" name="totalAmount" placeholder="Enter total amount" readonly value="<?php echo $results->total_amount; ?>">
+                                                            </div>
+
+                                                            <!-- Cash Received -->
+                                                            <div class="form-group">
+                                                                <label for="cashReceived">Cash Received</label>
+                                                                <input type="number" class="form-control" id="cashReceived" name="cashReceived" placeholder="Enter cash received" oninput="updateTotals()">
+                                                            </div>
+
+                                                            <!-- Total Paid -->
+                                                            <div class="form-group">
+                                                                <label for="totalPaid">Total Paid</label>
+                                                                <input type="number" class="form-control" id="totalPaid" name="totalPaid" readonly>
+                                                            </div>
+
+                                                            <!-- Balance -->
+                                                            <div class="form-group">
+                                                                <label for="balance">Balance</label>
+                                                                <input type="number" class="form-control" id="balance" readonly>
+                                                            </div>
+                                                       
+                                                    </div>
+
+                                                    <script>
+                                                        function updateTotals() {
+                                                            const totalAmount = parseFloat(document.getElementById('totalAmount').value) || 0;
+                                                            const cashReceived = parseFloat(document.getElementById('cashReceived').value) || 0;
+
+                                                            // Calculate Total Paid
+                                                            const totalPaid = cashReceived;
+
+                                                            // Calculate Balance
+                                                            const balance = totalAmount - totalPaid;
+
+                                                            // Update fields
+                                                            document.getElementById('totalPaid').value = totalPaid.toFixed(2);
+                                                            document.getElementById('balance').value = balance.toFixed(2);
+                                                        }
+                                                    </script>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div id="menu1" class="tab-pane">
+                                                <div class="row justify-content-center">
+                                                    <div class="col-11">
+                                                        <div class="form-card">
+                                                            <h3 class="mt-0 mb-4 text-center">Enter bank details to pay</h3>
+                                                            
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <div class="input-group"> <input type="text" id="bk_nm" name="bank_name" placeholder="BBB Bank"> <label>BANK NAME</label> </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+
+                                                                    <div class="col-12">
+                                                                        <div class="input-group"> <input type="text" name="ben_nm" id="ben-nm" placeholder="John Smith"> <label>BENEFICIARY NAME</label> </div>
+                                                                    </div>
+                                                                    <div class="col-12">
+                                                                        <div class="input-group"> <input type="text" name="ben_account" id="ben_account" placeholder="123456789"> <label>Bank Account</label> </div>
+                                                                    </div>
+                                                                    <div class="col-12">
+                                                                        <div class="input-group"> <input type="text" name="scode" placeholder="ABCDAB1S" class="placeicon" minlength="8" maxlength="11"> <label>SWIFT CODE</label> </div>
+                                                                    </div>
+                                                                </div>
+                                                               
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="menu2" class="tab-pane in active">
+                                                <div class="row justify-content-center">
+                                                    <div class="col-11">
+                                                        
+                                                        <div class="form-card">
+                                                            <h3 class="mt-0 mb-4 text-center">Enter your card details to pay</h3>
+                                                           
+                                                                <span>Cardholder's name:</span>
+                                                                <input 
+                                                                    type="text" name="user_name" id="user_name"
+                                                                    class="form-control mb-3" 
+                                                                    placeholder="Linda Williams" 
+                                                                    pattern="^[a-zA-Z\s]+$" 
+                                                                    title="Name should contain only letters and spaces" 
+                                                                    required>
+
+                                                                    <span>Cardholder's Email:</span>
+                                                                <input 
+                                                                    type="email" name="email" id="email"
+                                                                    class="form-control mb-3" 
+                                                                    placeholder="text@email" 
+                                                                    
+                                                                    title="Name should contain only letters and spaces" 
+                                                                    required>
+                                                                <br>
+                                                                <div class="form-control" id="card-element">
+
+                                                                </div>
+                                                                
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="menu3" class="tab-pane">
+                                                <div class="row justify-content-center">
+                                                    <div class="col-11">
+                                                        <h3 class="mt-0 mb-4 text-center">Scan the QR code to pay</h3>
+                                                        <div class="row justify-content-center">
+                                                            <div id="qr"> <img src="https://i.imgur.com/DD4Npfw.jpg" width="200px" height="200px"> </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
+                            </div>
+
+                    <!-- </div>
+                    </div> -->
+
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -280,6 +455,162 @@
         </div> <!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div>
+
+<script src="https://js.stripe.com/v3/"></script>
+
+
+<!-- <script src="https://js.stripe.com/v3/"></script> -->
+
+<script type="text/javascript">
+    const stripe = Stripe('pk_test_9ec6REkAGDDrUTCf5WqhxOJA00kzzU4vmj'); // Your publishable key
+ 
+    const elements = stripe.elements();
+    const card = elements.create('card');
+    card.mount('#card-element');
+
+    $(document).on('submit', "#addFormAjaxData", async function (event) {
+        event.preventDefault(); // Prevent default form submission
+        $("#submit").val("Sending..").attr('disabled', true);
+
+        const { token, error } = await stripe.createToken(card);
+
+        if (error) {
+            $('#card-errors').text(error.message);
+            $("#submit").val("Submit Payment").removeAttr('disabled');
+            return; // Stop further execution
+        }
+
+        // Append the token to the form data
+        const formData = new FormData(this);
+        formData.append('stripeToken', token.id);
+
+        $.ajax({
+            type: "POST",
+            url: $(this).attr('action'),
+            data: formData,
+            processData: false,
+            contentType: false,
+            beforeSend: function () {
+                $(".loaders").fadeIn("slow");
+            },
+            success: function (response) {
+                console.log(response);
+                try {
+                    const data = JSON.parse(response);
+                console.log(data);
+                    if (data.status == 1) {
+                        toastr.success(data.message);
+                        $(".invoicepay").modal('hide');
+                        setTimeout(() => location.reload(true), 1000);
+                    } else {
+                        toastr.error(data.message);
+                        $('#error-box').show().html(data.message).delay(1000).fadeOut(800);
+                    }
+                } catch (e) {
+                    $('#error-box').show().html('Unexpected error.').delay(1000).fadeOut(800);
+                } finally {
+                    $("#submit").val("Submit Payment").removeAttr('disabled');
+                    $(".loaders").fadeOut("slow");
+                }
+            },
+            error: function () {
+                toastr.error('Request failed.');
+                $("#submit").val("Submit Payment").removeAttr('disabled');
+                $(".loaders").fadeOut("slow");
+            }
+        });
+    });
+
+</script>
+
+
+
+<style>
+    *{margin: 0;padding: 0}
+    body{overflow-x: hidden;background: #000000}
+    #bg-div{margin: 0;margin-top:100px;margin-bottom:100px}
+    #border-btm{padding-bottom: 20px;margin-bottom: 0px;box-shadow: 0px 35px 2px -35px lightgray}
+    #test{margin-top: 0px;margin-bottom: 40px;border: 1px solid #FFE082;border-radius: 0.25rem;width: 60px;height: 30px;background-color: #FFECB3}
+    .active1{color: #00C853 !important;font-weight: bold}
+    .bar4{width: 35px;height: 5px;background-color: #ffffff;margin: 6px 0}
+    .list-group .tabs{color: #000000}
+    #menu-toggle{height: 50px}
+    #new-label{padding: 2px;font-size: 10px;font-weight: bold;background-color: red;color: #ffffff;border-radius: 5px;margin-left: 5px}
+    #sidebar-wrapper{min-height: 100vh;margin-left: -15rem;-webkit-transition: margin .25s ease-out;-moz-transition: margin .25s ease-out;-o-transition: margin .25s ease-out;transition: margin .25s ease-out}
+    #sidebar-wrapper .sidebar-heading{padding: 0.875rem 1.25rem;font-size: 1.2rem}
+    #sidebar-wrapper .list-group{width: 15rem}
+    #page-content-wrapper{min-width: 100vw;padding-left: 20px;padding-right: 20px}
+    #wrapper.toggled #sidebar-wrapper{margin-left: 0}
+    .list-group-item.active{z-index: 2;color: #fff;background-color: #fff !important;border-color: #fff !important}
+    @media (min-width: 768px){
+        #sidebar-wrapper{margin-left: 0}
+        #page-content-wrapper{min-width: 0;width: 100%}
+        #wrapper.toggled #sidebar-wrapper{margin-left: -15rem;display: none}}
+        
+        .card0{margin-top: 10px;margin-bottom: 10px}
+        .top-highlight{color: #00C853;font-weight: bold;font-size: 20px}
+        .form-card input, .form-card textarea{padding: 10px 15px 5px 15px;border: none;border: 1px solid lightgrey;border-radius: 6px;margin-bottom: 25px;margin-top: 2px;width: 100%;box-sizing: border-box;font-family: arial;color: #2C3E50;font-size: 14px;letter-spacing: 1px}
+        .form-card input:focus, .form-card textarea:focus{-moz-box-shadow: 0px 0px 0px 1.5px skyblue !important;-webkit-box-shadow: 0px 0px 0px 1.5px skyblue !important;box-shadow: 0px 0px 0px 1.5px skyblue !important;font-weight: bold;border: 1px solid skyblue;outline-width: 0}
+        input.btn-success{height: 50px;color: #ffffff;opacity: 0.9}
+        #below-btn a{font-weight: bold;color: #000000}
+        .input-group{position:relative;width:100%;overflow:hidden}
+        /* .input-group input{position:relative;height:90px;margin-left: 1px;margin-right: 1px;border-radius:6px;padding-top: 30px;padding-left: 25px} */
+        .input-group label{position:absolute;height: 24px;background: none;border-radius: 6px;line-height: 48px;font-size: 15px;color: gray;width:100%;font-weight:100;padding-left: 25px}
+        input:focus + label{color: #1E88E5}
+        #qr{margin-bottom: 150px;margin-top: 50px}
+</style>
+<script>
+
+$(document).ready(function(){
+    //Menu Toggle Script
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+
+    // For highlighting activated tabs
+    $("#tab1").click(function () {
+        $(".tabs").removeClass("active1");
+        $(".tabs").addClass("bg-light"); 
+        $("#tab1").addClass("active1");
+        $("#tab1").removeClass("bg-light");
+    });
+    $("#tab2").click(function () {
+        $(".tabs").removeClass("active1");
+        $(".tabs").addClass("bg-light");
+        $("#tab2").addClass("active1");
+        $("#tab2").removeClass("bg-light");
+    });
+    $("#tab3").click(function () {
+        $(".tabs").removeClass("active1");
+        $(".tabs").addClass("bg-light");
+        $("#tab3").addClass("active1");
+        $("#tab3").removeClass("bg-light");
+    });
+    $("#tab4").click(function () {
+        $(".tabs").removeClass("active1");
+        $(".tabs").addClass("bg-light");
+        $("#tab4").addClass("active1");
+        $("#tab4").removeClass("bg-light");
+    });
+})
+</script>
+
+<script>
+$(document).ready(function() {
+    // Menu Toggle Script
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+
+    // Tab activation script
+    $(".tabs").click(function () {
+        $(".tabs").removeClass("active1 bg-light"); // Reset all tabs
+        $(this).addClass("active1"); // Activate clicked tab
+    });
+});
+</script>
 
 
 <script>
@@ -313,6 +644,9 @@ function removeCard(button) {
 }
 
 </script>
+
+
+
 <style>
     .card-details-group {
         margin-top: 20px;

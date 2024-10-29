@@ -515,7 +515,7 @@
                 console.log(response);
                 try {
                     const data = JSON.parse(response);
-console.log(data);
+                console.log(data);
                     if (data.status == 1) {
                         toastr.success(data.message);
                         $(".invoicepay").modal('hide');

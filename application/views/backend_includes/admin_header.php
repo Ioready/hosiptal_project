@@ -140,23 +140,16 @@
                                 <a href="<?php echo base_url() . 'pwfpanel' ?>">
                                     <img src="<?php echo base_url() . getConfig('site_logo'); ?>" alt="avatar">
                                 </a>
-                            </div>
+                           <br>
                             <div class="sidebar-user-name"> <?php
                                                             $user = getUser($this->session->userdata('user_id'));
                                                             if (!empty($user)) {
                                                                 echo ucwords($user->first_name . " " . $user->last_name);
                                                             }
-                                                            ?></div>
-                            <!-- <div class="sidebar-user-links"> -->
-                            <!-- <div class="d-flex justify-content-end mt-3"> -->
-                                <!-- 
-                                    <a href="page_ready_inbox.html" data-toggle="tooltip" data-placement="bottom" title="Messages"><i class="gi gi-envelope"></i></a> -->
-                                <!-- Opens the user settings modal that can be found at the bottom of each page (page_footer.html in PHP version) -->
-                                <!-- <a href="javascript:void(0)" class="enable-tooltip" data-placement="bottom" title="Settings" onclick="$('#modal-user-settings').modal('show');"><i class="gi gi-cogwheel"></i></a> -->
-                                <!-- <a href="<?php echo site_url('pwfpanel/profile'); ?>" data-toggle="tooltip" data-placement="bottom" title="Profile"><img src="<?php echo base_url(); ?>uploads/icons/profile.png" style="height: 20px;width:20px;" alt="avatar"></a>
-                                <a href="<?php echo site_url('pwfpanel/password'); ?>" data-toggle="tooltip" data-placement="bottom" title="Change Password"><img src="<?php echo base_url(); ?>uploads/icons/password.png" style="height: 20px;width:20px;" alt="avatar"></a>
-                                <a href="javascript:void(0)" onclick="logout()" data-toggle="tooltip" data-placement="bottom" title="Logout"><img src="<?php echo base_url(); ?>uploads/icons/logout.png" style="height: 20px;width:20px;" alt="avatar"></a>
-                            </div> -->
+                                                            ?>
+                                                            <br></div>
+                                                            </div>
+                           
                         </div>
                         <!-- END User Info -->
 

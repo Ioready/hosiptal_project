@@ -1678,8 +1678,6 @@ public function process() {
 }
 
 
-
-
     public function pdfInvoice() {
         $this->data['title'] = "PDF Invoice " . $this->title;
         $this->data['formUrl'] = $this->router->fetch_class() . "/update";
