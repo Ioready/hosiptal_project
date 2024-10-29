@@ -15,6 +15,8 @@ class Invoices extends Common_Controller {
         parent::__construct();
         $this->is_auth_admin();
         $this->load->config('stripe');
+        $this->load->library('ciqrcode'); // Load CIQRCode library
+
     }
 
     /**
@@ -1099,6 +1101,10 @@ class Invoices extends Common_Controller {
         echo $response;
     }
 
+
+    
+
+
     public function managements(){
 
         // print_r('jkjdkskjsd');die;
@@ -1204,6 +1210,25 @@ $this->data['invoice_list'] = $query->result();
             $this->load->admin_render('management', $this->data, 'inner_script');
         
     }
+
+    private function generateInvoiceQR($invoiceData) {
+        // Define path to save the QR code image
+        
+        $qrCodePath = FCPATH.'uploads/qr_codes/invoice_'.$invoiceData['id'].'.png';
+        
+        // QR code configuration
+        $params['data'] = json_encode($invoiceData); // Data for QR code
+        $params['level'] = 'H'; // Error correction level (H = High)
+        $params['size'] = 10; // Size of QR code
+        $params['savename'] = $qrCodePath;
+        
+        // Generate the QR Code
+        $this->ciqrcode->generate($params);
+        // print_r($params);die;
+        // Return the URL of the QR code image
+        return base_url('uploads/qr_codes/invoice_'.$invoiceData['id'].'.png');
+    }
+    
 
     public function pay() {
         $this->data['title'] = "Pay " . $this->title;
@@ -1368,6 +1393,14 @@ $this->data['invoice_list'] = $query->result();
         }
 
         $id = decoding($this->input->post('id'));
+        $invoice_id =$id;
+
+        // patient invoice QR Code
+
+
+        // $this->data['qr_code_url'] = $this->generateInvoiceQR($invoice_id);
+        // print_r($this->data['qr_code_url']);die;
+
         if (!empty($id)) {
             // $option = array(
             //     'table' => $this->_table,
@@ -1406,9 +1439,18 @@ $this->data['invoice_list'] = $query->result();
             $resultsItem = $this->common_model->customGet($optionItem);
 
             if (!empty($results_row)) {
+                $invoiceData = array(
+                    'id' => $results_row->id,
+                    'patient_name' => $results_row->patient_name,
+                    'total_price' => $results_row->total_price,
+                    // Add any other necessary data here
+                );
+                // print_r($invoiceData);die;
+                $this->data['qr_code_url'] = $this->generateInvoiceQR($invoiceData);
+                // print_r($this->data['qr_code_url'] );die;
                 $this->data['results'] = $results_row;
                 $this->data['resultsItem'] = $resultsItem;
-                // print_r($this->data['results']);die;
+                
                 $this->load->view('pay', $this->data);
             } else {
                 $this->session->set_flashdata('error', lang('not_found'));
@@ -1419,6 +1461,9 @@ $this->data['invoice_list'] = $query->result();
             redirect($this->router->fetch_class());
         }
     }
+
+
+   
 
 public function process() {
         // Load necessary models or libraries for processing payment
@@ -1814,36 +1859,7 @@ public function process() {
         }
     }
 
-    public function checkout() {        
-         $data['stripe_publishable_key'] = $this->config->item('stripe_publishable_key');       
-         $this->load->view('invoice_checkout', $data); // Load checkout view  
-         }  
-
-         public function processPayment() {         
-            \Stripe\Stripe::setApiKey($this->config->item('stripe_api_key')); 
-            // SecretKey
-            $token = $this->input->post('stripeToken'); 
-            // Token from frontend 
-            $amount = $this->input->post('amount'); 
-
-            require_once('application/libraries/stripe-php/init.php');
     
-        \Stripe\Stripe::setApiKey($this->config->item('stripe_secret'));
-     
-        \Stripe\Charge::create ([
-                "amount" => 100 * 120,
-                "currency" => "inr",
-                "source" => $this->input->post('stripeToken'),
-                "description" => "Dummy stripe payment." 
-        ]);
-            
-        $this->session->set_flashdata('success', 'Payment has been successful.');
-        print_r($this->input->post());die;
-        // redirect('/make-stripe-payment', 'refresh');
-
-        return redirect()->back()->with('success', 'Payment Successful!');
-
-             }
 
 
 }

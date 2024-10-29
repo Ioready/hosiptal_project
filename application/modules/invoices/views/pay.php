@@ -441,7 +441,13 @@
                                                     <div class="col-11">
                                                         <h3 class="mt-0 mb-4 text-center">Scan the QR code to pay</h3>
                                                         <div class="row justify-content-center">
-                                                            <div id="qr"> <img src="https://i.imgur.com/DD4Npfw.jpg" width="200px" height="200px"> </div>
+                                                            <!-- Display the QR Code Image -->
+                                                            <?php if (!empty($qr_code_url)): ?>
+                                                                <h3>Scan to Pay</h3>
+                                                                <img src="<?= $qr_code_url ?>" alt="Invoice QR Code">
+                                                            <?php endif; ?>
+                                                            <!-- <div id="qr"> <img src="https://i.imgur.com/DD4Npfw.jpg" width="200px" height="200px"> </div> -->
+                                                       
                                                         </div>
                                                     </div>
                                                 </div>

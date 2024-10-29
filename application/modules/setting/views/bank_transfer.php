@@ -42,6 +42,7 @@
                                     <span class="sidebar-nav-mini-hide">Bank Transfer</span>
                                 </a>
                             </li>
+                        
                         </ul>
                     </div>
                 </div>
@@ -55,7 +56,7 @@
                                         
                                         <div class="col-lg-12" style="overflow-x: auto">
                                             <!-- Datatables Content -->
-                                            <form role="form" id="addFormAjax" method="post" action="<?php echo base_url('setting/addPaymentSetting') ?>" enctype="multipart/form-data">
+                                            <form role="form" id="addFormAjax" method="post" action="<?php echo base_url('setting/addBankSetting') ?>" enctype="multipart/form-data">
 
                                             <div class="block full">
                                                 <div class="block-title">
@@ -101,16 +102,28 @@
                                                 <?php endif; ?>
                                                 <div id="message"></div>
 
-                                                    <div class="col-md-6" style="">
+                                                    <!-- <div class="col-md-6" style="">
                                                         <div class="form-group">
                                                             <label for="input1">Secret key</label>
                                                             <input type="text" class="form-control" id="secret_key" name="secret_key" value="<?php echo $list->secret_key?>">
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-6">
+                                                    </div> -->
+                                                    <!-- <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="input1">Publishable key</label>
                                                             <input type="text" class="form-control" id="publishable_key" name="publishable_key" value="<?php echo $list->publishable_key?>">
+                                                        </div>
+                                                    </div> -->
+                                                    <div class="col-md-12">
+                                                    <label for="input1">Bank Details</label>
+                                                        <div class="form-group">
+                                                            
+                                                    <textarea name="bank_details" rows="12" cols="120" id="editorss" placeholder="    Bank: Bank of America
+    Bank Holder Name: Hospital management
+    Account Number: 0123456789
+    IFSC Code: ABC123
+    Swift Code: 123456"><?php echo $list->bank_details?></textarea>
+                                                           
                                                         </div>
                                                     </div>
                                                 
@@ -176,11 +189,13 @@
                                     <span class="sidebar-nav-mini-hide">Payment setting for stripe</span>
                                 </a>
                             </li>
+
                             <li class="nav-item">
                                 <a href="<?php echo site_url('setting/bankTransferSetting'); ?>" class="save-btn text-white <?php echo (strtolower($this->router->fetch_class()) == "setting" && strtolower($this->router->fetch_method()) == "paymentSetting") ? "active" : "" ?>">
                                     <span class="sidebar-nav-mini-hide">Bank Transfer</span>
                                 </a>
                             </li>
+                        
                         </ul>
                     </div>
                 </div>
@@ -194,7 +209,7 @@
                                         
                                         <div class="col-lg-12" style="overflow-x: auto">
                                             <!-- Datatables Content -->
-                                            <form role="form" id="addFormAjax" method="post" action="<?php echo base_url('setting/addPaymentSetting') ?>" enctype="multipart/form-data">
+                                            <form role="form" id="addFormAjax" method="post" action="<?php echo base_url('setting/addBankSetting') ?>" enctype="multipart/form-data">
 
                                             <div class="block full">
                                                 <div class="block-title">
@@ -240,7 +255,7 @@
                                                 <?php endif; ?>
                                                 <div id="message"></div>
 
-                                                    <div class="col-md-6" style="">
+                                                    <!-- <div class="col-md-6" style="">
                                                         <div class="form-group">
                                                             <label for="input1">Secret key</label>
                                                             <input type="text" class="form-control" id="secret_key" name="secret_key" value="<?php echo $list->secret_key?>">
@@ -252,7 +267,20 @@
                                                             <input type="text" class="form-control" id="publishable_key" name="publishable_key" value="<?php echo $list->publishable_key?>">
                                                         </div>
                                                     </div>
-                                                
+                                                 -->
+
+                                                 <div class="col-md-12">
+                                                    <label for="input1">Bank Details</label>
+                                                        <div class="form-group">
+                                                            
+                                                    <textarea name="bank_details" rows="12" cols="120" id="editorss" placeholder="    Bank: Bank of America
+    Bank Holder Name: Hospital management
+    Account Number: 0123456789
+    IFSC Code: ABC123
+    Swift Code: 123456"><?php echo $list->bank_details?></textarea>
+                                                           
+                                                        </div>
+                                                    </div>
                                                 
                                                     <!-- Add save and cancel buttons -->
                                                     <div class="col-md-12 text-right">
@@ -302,3 +330,9 @@
         background-color: #e9967a !important;
     }
 </style>
+<script src="<?php echo base_url() . 'backend_asset/admin/js/' ?>helpers/ckeditor/ckeditor.js"></script>
+
+<script>
+  // Initialize CKEditor
+  CKEDITOR.replace('editor1');
+</script>
