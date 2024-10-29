@@ -1,4 +1,5 @@
 <?php
+require_once APPPATH . 'third_party/phpqrcode/qrlib.php';
 /**
  * PHP QR Code porting for Codeigniter
  *
