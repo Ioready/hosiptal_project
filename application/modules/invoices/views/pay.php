@@ -312,69 +312,61 @@
                                                 </div>
                                             </a>  -->
 
-<a data-toggle="tab" href="#menu2" id="tab2" class="tabs list-group-item bg-light">
-    <div class="list-div my-2">
-        <div class="fa fa-credit-card"></div> &nbsp;&nbsp; Card
-    </div>
-</a>
-<a data-toggle="tab" href="#menu1" id="tab1" class="tabs list-group-item bg-light">
-    <div class="list-div my-2">
-        <div class="fa fa-home"></div> &nbsp;&nbsp; Bank
-    </div>
-</a>
-<a data-toggle="tab" href="#menu4" id="tab4" class="tabs list-group-item bg-light">
-    <div class="list-div my-2">
-        <div class="fa fa-money"></div> &nbsp;&nbsp; Cash
-    </div>
-</a>
-<a data-toggle="tab" href="#menu3" id="tab3" class="tabs list-group-item bg-light">
-    <div class="list-div my-2">
-        <div class="fa fa-qrcode"></div> &nbsp;&nbsp;&nbsp; Visa QR <span id="new-label">NEW</span>
-    </div>
-</a>
+                                    <a data-toggle="tab" href="#menu2" id="tab2" class="tabs list-group-item bg-light">
+                                        <div class="list-div my-2">
+                                            <div class="fa fa-credit-card"></div> &nbsp;&nbsp; Card
+                                        </div>
+                                    </a>
+                                    <a data-toggle="tab" href="#menu1" id="tab1" class="tabs list-group-item bg-light">
+                                        <div class="list-div my-2">
+                                            <div class="fa fa-home"></div> &nbsp;&nbsp; Bank
+                                        </div>
+                                    </a>
+                                    <a data-toggle="tab" href="#menu4" id="tab4" class="tabs list-group-item bg-light">
+                                        <div class="list-div my-2">
+                                            <div class="fa fa-money"></div> &nbsp;&nbsp; Cash
+                                        </div>
+                                    </a>
+                                    <a data-toggle="tab" href="#menu3" id="tab3" class="tabs list-group-item bg-light">
+                                        <div class="list-div my-2">
+                                            <div class="fa fa-qrcode"></div> &nbsp;&nbsp;&nbsp; Visa QR <span id="new-label">NEW</span>
+                                        </div>
+                                    </a>
 
-<!-- Add the CSS and jQuery code -->
-<style>
- /* Subscribe me on Youtube
-https://bit.ly/3m9avif
-*/
+                                    <!-- Add the CSS and jQuery code -->
+                                    <style>
+                                    /* Subscribe me on Youtube
+                                    https://bit.ly/3m9avif
+                                    */
 
-#customNavMenus a{
-    list-style:none;
-    width:60px;
-}
-#customNavMenus a{
-    cursor:pointer;
-}
-.active{
-    /* background-color:royalblue; */
-    /* color:white; */
-}
+                                    #customNavMenus a{
+                                        list-style:none;
+                                        width:60px;
+                                    }
+                                    #customNavMenus a{
+                                        cursor:pointer;
+                                    }
+                                    .active{
+                                        /* background-color:royalblue; */
+                                        /* color:white; */
+                                    }
 
-/* Not nessessary css start */
-#customNavMenus a{display:inline-block;}
+                                    /* Not nessessary css start */
+                                    #customNavMenus a{display:inline-block;}
 
+                                    </style>
 
+                                <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
 
+                                <script>
+                       
+                                $("#customNavMenus").on('click', 'a', function () {
+                                    $("#customNavMenus a.active").removeClass("active");
+                                    // adding classname 'active' to current click li 
+                                    $(this).addClass("active");
+                                });
 
-</style>
-
-<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
-<script>
-   // Subscribe me on Youtube
-// https://bit.ly/3m9avif
-
-
-// Upgrade or downgrade jquery
-// Current Jquery: query-3.6.0.min.js
-
-$("#customNavMenus").on('click', 'a', function () {
-    $("#customNavMenus a.active").removeClass("active");
-    // adding classname 'active' to current click li 
-    $(this).addClass("active");
-});
-
-</script>
+                                </script>
 
                                             
 
@@ -469,9 +461,26 @@ $("#customNavMenus").on('click', 'a', function () {
 
                                                         <div class="form-card">
                                                             <h3 class="mt-0 mb-4 text-center">Enter bank details to pay</h3>
-                                                            
+                                                            <span>Cardholder's name:</span>
+                                                                <input 
+                                                                    type="text" name="user_name" id="user_name"
+                                                                    class="form-control mb-3" 
+                                                                    placeholder="Cardholder name" 
+                                                                    
+                                                                    title="Name should contain only letters and spaces" 
+                                                                    >
 
-                                                        <label>Transaction ID:</label><input type="text" name="transaction_id" placeholder="Transaction ID">
+                                                                    <span>Cardholder's Email:</span>
+                                                                <input 
+                                                                    type="email" name="email" id="email"
+                                                                    class="form-control mb-3" 
+                                                                    placeholder="text@email" 
+                                                                    
+                                                                    title="Name should contain only letters and spaces" 
+                                                                    >
+                                                                <br>
+
+                                                        <label>Transaction ID:</label><input type="text" name="transaction_id" id="transaction_id" placeholder="Transaction ID">
                                                         <!-- <input type="text" name="bank_name" placeholder="BBB Bank"> -->
                                                         <!-- <input type="text" name="beneficiary_name" placeholder="John Smith"> -->
                                                         <!-- <input type="text" name="account_number" placeholder="123456789"> -->
@@ -497,7 +506,7 @@ $("#customNavMenus").on('click', 'a', function () {
                                                                     placeholder="Cardholder name" 
                                                                     pattern="^[a-zA-Z\s]+$" 
                                                                     title="Name should contain only letters and spaces" 
-                                                                    required>
+                                                                    >
 
                                                                     <span>Cardholder's Email:</span>
                                                                 <input 
@@ -506,7 +515,7 @@ $("#customNavMenus").on('click', 'a', function () {
                                                                     placeholder="text@email" 
                                                                     
                                                                     title="Name should contain only letters and spaces" 
-                                                                    required>
+                                                                    >
                                                                 <br>
                                                                 <div class="form-control" id="card-element">
 
@@ -565,7 +574,7 @@ $("#customNavMenus").on('click', 'a', function () {
 
 <!-- <script src="https://js.stripe.com/v3/"></script> -->
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
     const stripe = Stripe('pk_test_9ec6REkAGDDrUTCf5WqhxOJA00kzzU4vmj'); // Your publishable key
  
     const elements = stripe.elements();
@@ -587,6 +596,7 @@ $("#customNavMenus").on('click', 'a', function () {
         // Append the token to the form data
         const formData = new FormData(this);
         formData.append('stripeToken', token.id);
+        // formData.append('card', token);
 
         $.ajax({
             type: "POST",
@@ -623,9 +633,141 @@ $("#customNavMenus").on('click', 'a', function () {
                 $(".loaders").fadeOut("slow");
             }
         });
-    });
+    });
 
+</script> -->
+
+
+
+<script type="text/javascript">
+    const stripe = Stripe('pk_test_9ec6REkAGDDrUTCf5WqhxOJA00kzzU4vmj'); // Your publishable key
+
+    const elements = stripe.elements();
+    const card = elements.create('card');
+    card.mount('#card-element');
+
+    $(document).on('submit', "#addFormAjaxData", async function (event) {
+        event.preventDefault(); // Prevent default form submission
+        $("#submit").val("Sending..").attr('disabled', true);
+
+        // Check if `transaction_id` is present
+        const cashReceived = $('#cashReceived').val();
+        const transactionId = $('#transaction_id').val();
+        if (transactionId) {
+            // If `transaction_id` exists, submit the form without creating a new token
+            submitFormWithoutToken(transactionId);
+        } else if (cashReceived) {
+            // If `transaction_id` exists, submit the form without creating a new token
+            submitFormWithoutTokenCash(cashReceived);
+        }
+        else {
+            // Proceed with creating a token if `transaction_id` is not available
+            const { token, error } = await stripe.createToken(card);
+
+            if (error) {
+                $('#card-errors').text(error.message);
+                $("#submit").val("Submit Payment").removeAttr('disabled');
+                return; // Stop further execution
+            }
+
+            // Append the token to the form data
+            const formData = new FormData(this);
+            formData.append('stripeToken', token.id);
+
+            // Submit the form with the token
+            submitFormWithToken(formData);
+        }
+    });
+
+    function submitFormWithToken(formData) {
+        $.ajax({
+            type: "POST",
+            url: $("#addFormAjaxData").attr('action'),
+            data: formData,
+            processData: false,
+            contentType: false,
+            beforeSend: function () {
+                $(".loaders").fadeIn("slow");
+            },
+            success: function (response) {
+                handleResponse(response);
+            },
+            error: function () {
+                toastr.error('Request failed.');
+                $("#submit").val("Submit Payment").removeAttr('disabled');
+                $(".loaders").fadeOut("slow");
+            }
+        });
+    }
+
+    function submitFormWithoutToken(transactionId) {
+        const formData = new FormData(document.getElementById("addFormAjaxData"));
+        formData.append('transaction_id', transactionId);
+
+        $.ajax({
+            type: "POST",
+            url: $("#addFormAjaxData").attr('action'),
+            data: formData,
+            processData: false,
+            contentType: false,
+            beforeSend: function () {
+                $(".loaders").fadeIn("slow");
+            },
+            success: function (response) {
+                handleResponse(response);
+            },
+            error: function () {
+                toastr.error('Request failed.');
+                $("#submit").val("Submit Payment").removeAttr('disabled');
+                $(".loaders").fadeOut("slow");
+            }
+        });
+    }
+    
+    function submitFormWithoutTokenCash(cashReceived) {
+        const formData = new FormData(document.getElementById("addFormAjaxData"));
+        formData.append('cashReceived', cashReceived);
+
+        $.ajax({
+            type: "POST",
+            url: $("#addFormAjaxData").attr('action'),
+            data: formData,
+            processData: false,
+            contentType: false,
+            beforeSend: function () {
+                $(".loaders").fadeIn("slow");
+            },
+            success: function (response) {
+                handleResponse(response);
+            },
+            error: function () {
+                toastr.error('Request failed.');
+                $("#submit").val("Submit Payment").removeAttr('disabled');
+                $(".loaders").fadeOut("slow");
+            }
+        });
+    }
+
+    function handleResponse(response) {
+        try {
+            const data = JSON.parse(response);
+            if (data.status == 1) {
+                toastr.success(data.message);
+                $(".invoicepay").modal('hide');
+                setTimeout(() => location.reload(true), 1000);
+            } else {
+                toastr.error(data.message);
+                $('#error-box').show().html(data.message).delay(1000).fadeOut(800);
+            }
+        } catch (e) {
+            $('#error-box').show().html('Unexpected error.').delay(1000).fadeOut(800);
+        } finally {
+            $("#submit").val("Submit Payment").removeAttr('disabled');
+            $(".loaders").fadeOut("slow");
+        }
+    }
 </script>
+
 
 
 <!-- Stripe JS -->
