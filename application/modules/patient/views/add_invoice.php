@@ -312,7 +312,7 @@
                             <!-- Total Amount at the bottom -->
                             <div class="save-invoice-section">
                                 <div class="total-amount">
-                                    Total amount:  <input type="text" class="form-control" id="total_price" name="total_price" value="0.00" readonly>
+                                    Total amount:  <input type="text" class="form-control" id="total_price" name="total_price" value="0" readonly>
                                     <!-- <span id="total_price"></span> -->
                                 </div>
                                 <button class="add-invoice-item" type="button"  onclick="education_fields();"> <span class="add-invoice-item" aria-hidden="true">+ Add invoice item</span> </button>
@@ -354,7 +354,8 @@
     var price = rate * quantity;
 
     // Update the price field
-    parent.querySelector('#price').value = price.toFixed(2); // display 2 decimal places
+    // parent.querySelector('#price').value = price.toFixed(2); // display 2 decimal places
+    parent.querySelector('#price').value = price; // display 2 decimal places
 
     updateTotalPrice();
     // parent.querySelector('#total_price').value = sum(price.toFixed(2));
