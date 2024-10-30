@@ -1467,6 +1467,35 @@ $this->data['invoice_list'] = $query->result();
 
 public function process() {
 
+
+
+            if ($this->ion_auth->is_facilityManager()) {
+                $user_id = $this->session->userdata('user_id');
+            $hospital_id = $user_id;
+            
+            } else if($this->ion_auth->is_all_roleslogin()) {
+                $user_id = $this->session->userdata('user_id');
+                $optionData = array(
+                    'table' => USERS . ' as user',
+                    'select' => 'user.*,group.name as group_name',
+                    'join' => array(
+                        array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                        array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                    ),
+                    'order' => array('user.id' => 'DESC'),
+                    'where' => array('user.id'=>$user_id),
+                    'single'=>true,
+                );
+            
+                $authUser = $this->common_model->customGet($optionData);
+            
+                $hospital_id = $authUser->hospital_id;
+                // 'users.hospital_id'=>$hospital_id
+                
+            }
+
+            // print_r($hospital_id);die;
+
     $token =  $this->input->post('stripeToken');
         // print_r($token);die;
 
@@ -1555,7 +1584,7 @@ public function process() {
 
                     $options_data = array(
                         // 'user_id'=> $LoginID,
-                        // 'facility_user_id'=> $LoginID,
+                        'facility_user_id'=> $hospital_id,
                         'patient_id' => $this->input->post('patient'),
                         'invoice_id	' => $this->input->post('id'),                       
                         'selected_date	' => $this->input->post('invoice_date'),                         
@@ -1614,7 +1643,7 @@ public function process() {
            
             $options_data = array(
                 // 'user_id'=> $LoginID,
-                // 'facility_user_id'=> $LoginID,
+                'facility_user_id'=> $hospital_id,
                 'patient_id' => $this->input->post('patient'),
                 'invoice_id	' => $this->input->post('id'),                       
                 'selected_date	' => $this->input->post('invoice_date'),                         
@@ -1645,7 +1674,7 @@ public function process() {
                
                 $options_data = array(
                     // 'user_id'=> $LoginID,
-                    // 'facility_user_id'=> $LoginID,
+                    'facility_user_id'=> $hospital_id,
                     'patient_id' => $this->input->post('patient'),
                     'invoice_id	' => $this->input->post('id'),                       
                     'selected_date	' => $this->input->post('invoice_date'),                         

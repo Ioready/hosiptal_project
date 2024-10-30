@@ -180,8 +180,8 @@
         <!-- id="addFormAjax" -->
         <!-- data-stripe-publishable-key="sk_test_afm5UcS9SFFjYgSs5hTWIG7Y00G5E2b2Zx" -->
 
-            <!-- <form class="form-horizontal form-validation" role="form"  id="addFormAjaxData" method="post" action="<?php echo base_url($formUrl) ?>" enctype="multipart/form-data" > -->
-        <form class="form-horizontal form-validation" role="form" id="addFormAjaxData" method="post" action="<?php echo site_url('/invoices/process'); ?>" enctype="multipart/form-data">
+            
+            <form class="form-horizontal form-validation" role="form" id="addFormAjaxData" method="post" action="<?php echo site_url('/invoices/process'); ?>" enctype="multipart/form-data">
 
             <div class="modal-header text-center">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -639,7 +639,7 @@
 
 
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
     const stripe = Stripe('pk_test_9ec6REkAGDDrUTCf5WqhxOJA00kzzU4vmj'); // Your publishable key
 
     const elements = stripe.elements();
@@ -655,10 +655,96 @@
         const transactionId = $('#transaction_id').val();
         if (transactionId) {
             // If `transaction_id` exists, submit the form without creating a new token
-            submitFormWithoutToken(transactionId);
+          
+
+                    // function submitFormWithoutToken(transactionId) {
+                    const formData = new FormData(document.getElementById("addFormAjaxData"));
+                    formData.append('transaction_id', transactionId);
+
+                    $.ajax({
+                        type: "POST",
+                        url: $("#addFormAjaxData").attr('action'),
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        beforeSend: function () {
+                            $(".loaders").fadeIn("slow");
+                        },
+                        success: function (response) {
+                            handleResponse(response);
+                        },
+                        error: function () {
+                            toastr.error('Request failed.');
+                            $("#submit").val("Submit Payment").removeAttr('disabled');
+                            $(".loaders").fadeOut("slow");
+                        }
+                    });
+                // }
+
+                                function handleResponse(response) {
+                        try {
+                            const data = JSON.parse(response);
+                            if (data.status == 1) {
+                                toastr.success(data.message);
+                                $(".invoicepay").modal('hide');
+                                setTimeout(() => location.reload(true), 1000);
+                            } else {
+                                toastr.error(data.message);
+                                $('#error-box').show().html(data.message).delay(1000).fadeOut(800);
+                            }
+                        } catch (e) {
+                            $('#error-box').show().html('Unexpected error.').delay(1000).fadeOut(800);
+                        } finally {
+                            $("#submit").val("Submit Payment").removeAttr('disabled');
+                            $(".loaders").fadeOut("slow");
+                        }
+                    }
+
         } else if (cashReceived) {
             // If `transaction_id` exists, submit the form without creating a new token
-            submitFormWithoutTokenCash(cashReceived);
+           
+                    // function submitFormWithoutTokenCash(cashReceived) {
+                    const formData = new FormData(document.getElementById("addFormAjaxData"));
+                    formData.append('cashReceived', cashReceived);
+
+                    $.ajax({
+                        type: "POST",
+                        url: $("#addFormAjaxData").attr('action'),
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        beforeSend: function () {
+                            $(".loaders").fadeIn("slow");
+                        },
+                        success: function (response) {
+                            handleResponse(response);
+                        },
+                        error: function () {
+                            toastr.error('Request failed.');
+                            $("#submit").val("Submit Payment").removeAttr('disabled');
+                            $(".loaders").fadeOut("slow");
+                        }
+                    });
+
+                // }
+                            function handleResponse(response) {
+                    try {
+                        const data = JSON.parse(response);
+                        if (data.status == 1) {
+                            toastr.success(data.message);
+                            $(".invoicepay").modal('hide');
+                            setTimeout(() => location.reload(true), 1000);
+                        } else {
+                            toastr.error(data.message);
+                            $('#error-box').show().html(data.message).delay(1000).fadeOut(800);
+                        }
+                    } catch (e) {
+                        $('#error-box').show().html('Unexpected error.').delay(1000).fadeOut(800);
+                    } finally {
+                        $("#submit").val("Submit Payment").removeAttr('disabled');
+                        $(".loaders").fadeOut("slow");
+                    }
+                }
         }
         else {
             // Proceed with creating a token if `transaction_id` is not available
@@ -676,8 +762,7 @@
 
             // Submit the form with the token
             submitFormWithToken(formData);
-        }
-    });
+        
 
     function submitFormWithToken(formData) {
         $.ajax({
@@ -698,36 +783,76 @@
                 $(".loaders").fadeOut("slow");
             }
         });
-    }
 
-    function submitFormWithoutToken(transactionId) {
-        const formData = new FormData(document.getElementById("addFormAjaxData"));
-        formData.append('transaction_id', transactionId);
-
-        $.ajax({
-            type: "POST",
-            url: $("#addFormAjaxData").attr('action'),
-            data: formData,
-            processData: false,
-            contentType: false,
-            beforeSend: function () {
-                $(".loaders").fadeIn("slow");
-            },
-            success: function (response) {
-                handleResponse(response);
-            },
-            error: function () {
-                toastr.error('Request failed.');
+            function handleResponse(response) {
+            try {
+                const data = JSON.parse(response);
+                if (data.status == 1) {
+                    toastr.success(data.message);
+                    $(".invoicepay").modal('hide');
+                    setTimeout(() => location.reload(true), 1000);
+                } else {
+                    toastr.error(data.message);
+                    $('#error-box').show().html(data.message).delay(1000).fadeOut(800);
+                }
+            } catch (e) {
+                $('#error-box').show().html('Unexpected error.').delay(1000).fadeOut(800);
+            } finally {
                 $("#submit").val("Submit Payment").removeAttr('disabled');
                 $(".loaders").fadeOut("slow");
             }
-        });
+        }
+
     }
+
     
-    function submitFormWithoutTokenCash(cashReceived) {
-        const formData = new FormData(document.getElementById("addFormAjaxData"));
-        formData.append('cashReceived', cashReceived);
+}
+});
+   
 
+   
+</script> -->
+
+
+<script type="text/javascript">
+    const stripe = Stripe('pk_test_9ec6REkAGDDrUTCf5WqhxOJA00kzzU4vmj'); // Your publishable key
+    const elements = stripe.elements();
+    const card = elements.create('card');
+    card.mount('#card-element');
+
+    $(document).on('submit', "#addFormAjaxData", async function (event) {
+        event.preventDefault(); // Prevent default form submission
+        $("#submit").val("Sending..").attr('disabled', true);
+
+        const cashReceived = $('#cashReceived').val();
+        const transactionId = $('#transaction_id').val();
+
+        // If `transaction_id` or `cashReceived` is present, submit form without creating a token
+        if (transactionId || cashReceived) {
+            const formData = new FormData(this);
+            if (transactionId) formData.append('transaction_id', transactionId);
+            if (cashReceived) formData.append('cashReceived', cashReceived);
+
+            submitForm(formData); // Submit form data without Stripe token
+        } else {
+            // If neither `transaction_id` nor `cashReceived`, create a Stripe token
+            const { token, error } = await stripe.createToken(card);
+
+            if (error) {
+                $('#card-errors').text(error.message);
+                $("#submit").val("Submit Payment").removeAttr('disabled');
+                return; // Stop further execution
+            }
+
+            // Append the Stripe token to the form data
+            const formData = new FormData(this);
+            formData.append('stripeToken', token.id);
+            submitForm(formData); // Submit form data with Stripe token
+        }
+    });
+
+    // General form submission function
+    function submitForm(formData) {
         $.ajax({
             type: "POST",
             url: $("#addFormAjaxData").attr('action'),
@@ -748,6 +873,7 @@
         });
     }
 
+    // Handle the AJAX response
     function handleResponse(response) {
         try {
             const data = JSON.parse(response);
