@@ -372,7 +372,8 @@ function updateTotalPrice() {
     });
 
     // Update the total price field
-    document.getElementById('total_price').value = total.toFixed(2);
+    // document.getElementById('total_price').value = total.toFixed(2);
+    document.getElementById('total_price').value = total;
 }
 
 
