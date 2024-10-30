@@ -245,7 +245,7 @@
                     $menu_delete =$permission->menu_delete;
                     $menu_name =$permission->menu_name;
                     // echo $menu_name;
-                    if ($menu_name == 'Letters And Form') { 
+                    if ($menu_name=='Letters And Form') { 
                        if ($menu_create =='1') {
             ?>
 
@@ -263,7 +263,7 @@
 
     <?php } if ($menu_view =='1') {?>
     <div class="">
-        <?php if ($this->ion_auth->is_facilityManager()) { ?>
+        <?php //if ($this->ion_auth->is_facilityManager()) { ?>
             <div class="row">
                 <div class="col-sm-3 col-md-3">
                     <input type="hidden" name="patient_id" id="patient_id" value="<?php echo $patient_id;?>">
@@ -284,7 +284,7 @@
                     </button>
                 </div>
             </div>
-        <?php } ?>
+        <?php //} ?>
     </div>
     <br><br>
 
