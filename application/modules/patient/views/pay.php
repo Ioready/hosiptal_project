@@ -177,8 +177,11 @@
 <div id="commonModalPayPatient" class="modal fade bd-example-modal-lg" role="dialog">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <form class="form-horizontal" role="form" id="addFormAjaxData" method="post" action="<?php echo base_url($formUrl) ?>" enctype="multipart/form-data">
-                <div class="modal-header text-center">
+            <!-- <form class="form-horizontal" role="form" id="addFormAjaxData" method="post" action="<?php echo base_url($formUrl) ?>" enctype="multipart/form-data">
+                 -->
+                 <form class="form-horizontal" role="form" id="addFormAjaxData" method="post" action="<?php echo site_url('/patient/process'); ?>" enctype="multipart/form-data">
+               
+            <div class="modal-header text-center">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h2 class="modal-title"><?php echo "Add Payment on account" ?></h2>
                     <h4 style="margin-left: 233px;"><span><strong><?php echo $results->invoice_number;?></strong></span></h2>
@@ -276,30 +279,88 @@
                                     <!-- Sidebar -->
                                     <div class="bg-light border-right" id="sidebar-wrapper">
                                         <div class="sidebar-heading pt-5 pb-4"><strong>PAY WITH</strong></div>
-                                        <div class="list-group list-group-flush"> 
-                                            <a data-toggle="tab" href="#menu2" id="tab2" class="tabs list-group-item active1">
+                                        <div class="list-group list-group-flush customNavMenus"> 
+
+                                            <!-- <a data-toggle="tab" href="#menu2" id="tab2" class="tabs list-group-item bg-light active1">
                                                 <div class="list-div my-2">
                                                     <div class="fa fa-credit-card"></div> &nbsp;&nbsp; Card
                                                 </div>
                                             </a> 
-                                            <a data-toggle="tab" href="#menu1" id="tab1" class="tabs list-group-item bg-light">
+                                            <a data-toggle="tab" href="#menu1" id="tab1" class="tabs list-group-item bg-light active1">
                                                 <div class="list-div my-2">
                                                     <div class="fa fa-home"></div> &nbsp;&nbsp; Bank
                                                 </div>
                                             </a> 
 
-                                            <a data-toggle="tab" href="#menu4" id="tab4" class="tabs list-group-item bg-light">
+                                            <a data-toggle="tab" href="#menu4" id="tab4" class="tabs list-group-item bg-light active1">
                                                 <div class="list-div my-2">
                                                     <div class="fa fa-money"></div> &nbsp;&nbsp; Cash
                                                 </div>
                                             </a>
 
                                             
-                                            <a data-toggle="tab" href="#menu3" id="tab3" class="tabs list-group-item bg-light">
+                                            <a data-toggle="tab" href="#menu3" id="tab3" class="tabs list-group-item bg-light active1">
                                                 <div class="list-div my-2">
                                                     <div class="fa fa-qrcode"></div> &nbsp;&nbsp;&nbsp; Visa QR <span id="new-label">NEW</span>
                                                 </div>
-                                            </a> 
+                                            </a>  -->
+
+                                    <a data-toggle="tab" href="#menu2" id="tab2" class="tabs list-group-item bg-light">
+                                        <div class="list-div my-2">
+                                            <div class="fa fa-credit-card"></div> &nbsp;&nbsp; Card
+                                        </div>
+                                    </a>
+                                    <a data-toggle="tab" href="#menu1" id="tab1" class="tabs list-group-item bg-light">
+                                        <div class="list-div my-2">
+                                            <div class="fa fa-home"></div> &nbsp;&nbsp; Bank
+                                        </div>
+                                    </a>
+                                    <a data-toggle="tab" href="#menu4" id="tab4" class="tabs list-group-item bg-light">
+                                        <div class="list-div my-2">
+                                            <div class="fa fa-money"></div> &nbsp;&nbsp; Cash
+                                        </div>
+                                    </a>
+                                    <a data-toggle="tab" href="#menu3" id="tab3" class="tabs list-group-item bg-light">
+                                        <div class="list-div my-2">
+                                            <div class="fa fa-qrcode"></div> &nbsp;&nbsp;&nbsp; Visa QR <span id="new-label">NEW</span>
+                                        </div>
+                                    </a>
+
+                                    <!-- Add the CSS and jQuery code -->
+                                    <style>
+                                    /* Subscribe me on Youtube
+                                    https://bit.ly/3m9avif
+                                    */
+
+                                    #customNavMenus a{
+                                        list-style:none;
+                                        width:60px;
+                                    }
+                                    #customNavMenus a{
+                                        cursor:pointer;
+                                    }
+                                    .active{
+                                        /* background-color:royalblue; */
+                                        /* color:white; */
+                                    }
+
+                                    /* Not nessessary css start */
+                                    #customNavMenus a{display:inline-block;}
+
+                                    </style>
+
+                                <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+
+                                <script>
+                       
+                                $("#customNavMenus").on('click', 'a', function () {
+                                    $("#customNavMenus a.active").removeClass("active");
+                                    // adding classname 'active' to current click li 
+                                    $(this).addClass("active");
+                                });
+
+                                </script>
+
                                             
 
                                         </div>
@@ -368,7 +429,7 @@
                                             <div id="menu1" class="tab-pane">
                                                 <div class="row justify-content-center">
                                                     <div class="col-11">
-                                                        <div class="form-card">
+                                                        <!-- <div class="form-card">
                                                             <h3 class="mt-0 mb-4 text-center">Enter bank details to pay</h3>
                                                             
                                                                 <div class="row">
@@ -389,7 +450,38 @@
                                                                     </div>
                                                                 </div>
                                                                
-                                                        </div>
+                                                        </div> -->
+
+                                                        <div class="form-card">
+                                                            <h3 class="mt-0 mb-4 text-center">Enter bank details to pay</h3>
+                                                            <span>Cardholder's name:</span>
+                                                                <input 
+                                                                    type="text" name="user_name" id="user_name"
+                                                                    class="form-control mb-3" 
+                                                                    placeholder="Cardholder name" 
+                                                                    
+                                                                    title="Name should contain only letters and spaces" 
+                                                                    >
+
+                                                                    <span>Cardholder's Email:</span>
+                                                                <input 
+                                                                    type="email" name="email" id="email"
+                                                                    class="form-control mb-3" 
+                                                                    placeholder="text@email" 
+                                                                    
+                                                                    title="Name should contain only letters and spaces" 
+                                                                    >
+                                                                <br>
+
+                                                        <label>Transaction ID:</label><input type="text" name="transaction_id" id="transaction_id" placeholder="Transaction ID">
+                                                        <!-- <input type="text" name="bank_name" placeholder="BBB Bank"> -->
+                                                        <!-- <input type="text" name="beneficiary_name" placeholder="John Smith"> -->
+                                                        <!-- <input type="text" name="account_number" placeholder="123456789"> -->
+                                                        <!-- <input type="text" name="swift_code" placeholder="ABCDAB1S"> -->
+                                                        <label>Upload PDF Receipt:</label> <input type="file" name="receipt_pdf" accept=".pdf">
+                                                        <label>Upload PNG Receipt:</label> <input type="file" name="receipt_png" accept=".png">
+
+                                                    </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -404,10 +496,10 @@
                                                                 <input 
                                                                     type="text" name="user_name" id="user_name"
                                                                     class="form-control mb-3" 
-                                                                    placeholder="Linda Williams" 
+                                                                    placeholder="Cardholder name" 
                                                                     pattern="^[a-zA-Z\s]+$" 
                                                                     title="Name should contain only letters and spaces" 
-                                                                    required>
+                                                                    >
 
                                                                     <span>Cardholder's Email:</span>
                                                                 <input 
@@ -416,7 +508,7 @@
                                                                     placeholder="text@email" 
                                                                     
                                                                     title="Name should contain only letters and spaces" 
-                                                                    required>
+                                                                    >
                                                                 <br>
                                                                 <div class="form-control" id="card-element">
 
@@ -430,8 +522,14 @@
                                                 <div class="row justify-content-center">
                                                     <div class="col-11">
                                                         <h3 class="mt-0 mb-4 text-center">Scan the QR code to pay</h3>
-                                                        <div class="row justify-content-center">
-                                                            <div id="qr"> <img src="https://i.imgur.com/DD4Npfw.jpg" width="200px" height="200px"> </div>
+                                                        <div class="row justify-content-center" style="width: 200px;">
+                                                            <!-- Display the QR Code Image -->
+                                                            <?php if (!empty($qr_code_url)): ?>
+                                                               
+                                                                <img src="<?= $qr_code_url ?>" alt="Invoice QR Code">
+                                                            <?php endif; ?>
+                                                            <!-- <div id="qr"> <img src="https://i.imgur.com/DD4Npfw.jpg" width="200px" height="200px"> </div> -->
+                                                       
                                                         </div>
                                                     </div>
                                                 </div>
@@ -441,8 +539,8 @@
                                 </div>
                             </div>
 
-                    <!-- </div>
-                    </div> -->
+                    <!-- </div> -->
+                        
 
                     </div>
                 </div>

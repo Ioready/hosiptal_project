@@ -5211,6 +5211,25 @@ $option = array(
         echo json_encode($response);
     }
 
+    private function generateInvoiceQR($invoiceData) {
+        // Define path to save the QR code image
+        
+        $qrCodePath = FCPATH.'uploads/qr_codes/invoice_'.$invoiceData['id'].'.png';
+        
+        // QR code configuration
+        $params['data'] = json_encode($invoiceData); // Data for QR code
+        $params['level'] = 'H'; // Error correction level (H = High)
+        $params['size'] = 10; // Size of QR code
+        $params['savename'] = $qrCodePath;
+        
+        // Generate the QR Code
+        $this->ciqrcode->generate($params);
+        // print_r($params);die;
+        // Return the URL of the QR code image
+        return base_url('uploads/qr_codes/invoice_'.$invoiceData['id'].'.png');
+    }
+    
+
 
     public function pay() {
         $this->data['title'] = "Pay " . $this->title;
@@ -5408,6 +5427,8 @@ $option = array(
             $resultsItem = $this->common_model->customGet($optionItem);
 
             if (!empty($results_row)) {
+                
+                
                 $this->data['results'] = $results_row;
                 $this->data['resultsItem'] = $resultsItem;
                 // print_r($this->data['results']);die;
@@ -5929,263 +5950,514 @@ $option = array(
     //     }
     // }
 
-public function process() {
-        // Load necessary models or libraries for processing payment
-        // print_r($_POST());
-        // echo 'check error';
-        // $token  = $_POST['stripeToken'];
-    //    
-    // header('Content-Type: application/json');
+// public function process() {
+//         // Load necessary models or libraries for processing payment
+//         // print_r($_POST());
+//         // echo 'check error';
+//         // $token  = $_POST['stripeToken'];
+//     //    
+//     // header('Content-Type: application/json');
 
-    // // Load Stripe library
-    // \Stripe\Stripe::setApiKey('sk_test_afm5UcS9SFFjYgSs5hTWIG7Y00G5E2b2Zx'); // Replace with your actual secret key
+//     // // Load Stripe library
+//     // \Stripe\Stripe::setApiKey('sk_test_afm5UcS9SFFjYgSs5hTWIG7Y00G5E2b2Zx'); // Replace with your actual secret key
 
-    // // Retrieve token from request
-    // $json = file_get_contents('php://input');
-    // $data = json_decode($json, true);
-    // $token = $data['token'];
+//     // // Retrieve token from request
+//     // $json = file_get_contents('php://input');
+//     // $data = json_decode($json, true);
+//     // $token = $data['token'];
 
-    $token =  $this->input->post('stripeToken');
-        // print_r($token);die;
+//     $token =  $this->input->post('stripeToken');
+//         // print_r($token);die;
 
-    if(!empty($_POST['stripeToken'])){
-        $this->form_validation->set_rules('invoice_date', "invoice_date", 'required|trim');
-        // $where_id = $this->input->post('id');
+//     if(!empty($_POST['stripeToken'])){
+//         $this->form_validation->set_rules('invoice_date', "invoice_date", 'required|trim');
+//         // $where_id = $this->input->post('id');
        
-        $id = $this->input->post('id');
+//         $id = $this->input->post('id');
 
-        if ($this->form_validation->run() == FALSE){
-            $messages = (validation_errors()) ? validation_errors() : '';
-            $response = array('status' => 0, 'message' => $messages);
-        }else{
-            $this->filedata['status'] = 1;
+//         if ($this->form_validation->run() == FALSE){
+//             $messages = (validation_errors()) ? validation_errors() : '';
+//             $response = array('status' => 0, 'message' => $messages);
+//         }else{
+//             $this->filedata['status'] = 1;
 
-            if ($this->filedata['status'] == 0) {
-                $response = array('status' => 0, 'message' => $this->filedata['error']);
-            } else {
-
-        
+//             if ($this->filedata['status'] == 0) {
+//                 $response = array('status' => 0, 'message' => $this->filedata['error']);
+//             } else {
 
         
 
+        
+
+//         $options_data = array(
+//             // 'user_id'=> $LoginID,
+//             // 'facility_user_id'=> $LoginID,
+//             'patient_id' => $this->input->post('patient'),
+//             'invoice_id	' => $this->input->post('id'),                       
+//             'selected_date	' => $this->input->post('invoice_date'),                         
+//             'pay_amount	' => $this->input->post('amount'),                                               
+//             'payment_type' => $this->input->post('billing_to'),                         
+                                     
+//         );
+//         // print_r($options_data);die;
+//         $option = array('table' => 'vendor_sale_invoice_pay', 'data' => $options_data);
+//         $invoice_id= $this->common_model->customInsert($option);
+        
+
+//         if (!empty($id)) {
+//             $option = array(
+//                 'table' => 'vendor_sale_invoice',
+//                 'data' => array('vendor_sale_invoice.Paid' => $this->input->post('amount'),'vendor_sale_invoice.Outstanding' => '0','vendor_sale_invoice.status' => 'Paid'),
+//                 'where' => array('vendor_sale_invoice.id' => $id)
+//             );
+//             $delete = $this->common_model->customUpdate($option);
+
+//             // stripe payment gateway
+
+//             $option = array(
+//                 'table' => 'payment_gateway',
+//                 'select' => 'payment_gateway.*',
+//                 'order' => array('payment_gateway.id' => 'DESC'),
+//                 'single'=>true,
+//             );
+    
+//             $stripe_payment_gateway = $this->common_model->customGet($option);
+
+//         // print_r($_POST['stripeToken']);die;
+//             // if(!empty($_POST['stripeToken']))
+//             // {
+//                 //get token, card and user info from the form
+//                 $token  = $_POST['stripeToken'];
+                
+//                 $email = $this->input->post('email');
+//                 $itemName = $this->input->post('billing_to');
+//                 $itemNumber = $this->input->post('invoice_number');
+//                 $itemPrice = $this->input->post('amount');
+//                 $currency = "usd";
+//                 $orderID = "SKA92712382139";
+
+//                 //include Stripe PHP library
+//                 require_once APPPATH."third_party/stripe/init.php";
+                
+//                 //set api key
+//                 $stripe = array(
+//                   "secret_key"      => "sk_test_afm5UcS9SFFjYgSs5hTWIG7Y00G5E2b2Zx",
+//                   "publishable_key" => "pk_test_9ec6REkAGDDrUTCf5WqhxOJA00kzzU4vmj"
+//                 );
+    
+//                 // $stripe = array(
+//                 //     "secret_key"      => $stripe_payment_gateway->secret_key,
+//                 //     "publishable_key" => $stripe_payment_gateway->publishable_key
+//                 //   );
+                
+               
+
+//                 \Stripe\Stripe::setApiKey("sk_test_afm5UcS9SFFjYgSs5hTWIG7Y00G5E2b2Zx");
+                                
+//                 $customer = \Stripe\Customer::create(array(
+//                     'email' => $email,
+//                     'source'  => $token
+//                 ));
+                
+               
+                
+                
+
+//                 try {
+//                     // Assuming the customer has been created successfully
+//                     $charge = \Stripe\Charge::create(array(
+//                         'customer' => $customer->id,
+//                         'amount' => $itemPrice, // Amount in cents
+//                         'currency' => $currency, // e.g., "usd"
+//                         'description' => $itemName,
+//                         'metadata' => array(
+//                             'item_id' => $itemNumber
+//                         )
+//                     ));
+                    
+//                     // Successfully created charge
+//                     // echo 'Charge successful: ' . $charge->id;
+                
+//                 } catch (\Stripe\Exception\CardException $e) {
+//                     // Card was declined
+//                     echo 'Card error: ' . $e->getMessage();
+//                 } catch (\Stripe\Exception\InvalidRequestException $e) {
+//                     // Invalid parameters were supplied to Stripe's API
+//                     echo 'Invalid request: ' . $e->getMessage();
+//                 } catch (\Stripe\Exception\AuthenticationException $e) {
+//                     // Authentication with Stripe's API failed
+//                     echo 'Authentication error: ' . $e->getMessage();
+//                 } catch (\Stripe\Exception\ApiConnectionException $e) {
+//                     // Network communication with Stripe failed
+//                     echo 'Network error: ' . $e->getMessage();
+//                 } catch (\Stripe\Exception\ApiErrorException $e) {
+//                     // Display a generic error to the user
+//                     echo 'Stripe error: ' . $e->getMessage();
+//                 } catch (Exception $e) {
+//                     // Something else happened, completely unrelated to Stripe
+//                     echo 'Error: ' . $e->getMessage();
+//                 }
+//                 // // retrieve charge details
+//                 // $chargeJson = $charge->jsonSerialize();
+
+//                 // try {
+//                 //     $charge = Stripe\Charge::create([
+//                 //         'customer' => $customer->id,
+//                 //         'amount'   => 2500,  // In cents
+//                 //         'currency' => 'usd',
+//                 //         'description' => $itemName,
+//                 //         'metadata' => ['item_id' => $itemNumber]
+//                 //     ]);
+//                 // } catch (\Stripe\Exception\ApiErrorException $e) {
+//                 //     $response = ['status' => 0, 'message' => $e->getMessage()];
+//                 //     echo json_encode($response);
+//                 //     die;
+//                 // }
+                
+//                 //check whether the charge is successful
+//                 // if($chargeJson['amount_refunded'] == 0 && empty($chargeJson['failure_code']) &&              $chargeJson['paid'] == 1 && $chargeJson['captured'] == 1)
+//                 // {
+//                 //     //order details 
+//                 //     $amount = $chargeJson['amount'];
+//                 //     $balance_transaction = $chargeJson['balance_transaction'];
+//                 //     $currency = $chargeJson['currency'];
+//                 //     $status = $chargeJson['status'];
+//                 //     $date = date("Y-m-d H:i:s");
+                
+                    
+//                     //insert tansaction data into the database
+//                     // $dataDB = array(
+//                     //     'user_id' => $user_id,
+//                     //     'plan_id' => $plan_id,
+//                     //     'name' => $name,
+//                     //     'email' => $email, 
+//                     //     'card_num' => $card_num, 
+//                     //     'card_cvc' => $card_cvc, 
+//                     //     'card_exp_month' => $card_exp_month, 
+//                     //     'card_exp_year' => $card_exp_year, 
+//                     //     'item_name' => $itemName, 
+//                     //     'item_number' => $itemNumber, 
+//                     //     'item_price' => $itemPrice, 
+//                     //     'item_price_currency' => $currency, 
+//                     //     'paid_amount' => $amount, 
+//                     //     'paid_amount_currency' => $currency, 
+//                     //     'txn_id' => $balance_transaction, 
+//                     //     'payment_status' => $status,
+//                     //     'created' => $date,
+//                     //     'modified' => $date
+//                     // );
+    
+//                     // if ($this->db->insert('orders', $dataDB)) {
+//                     //     if($this->db->insert_id() && $status == 'succeeded'){
+//                     //         $data['insertID'] = $this->db->insert_id();
+//                     //         // $this->load->view('payment_success', $data);
+                            
+//                     //         $this->load->admin_render('payment_success', $data);
+//                     //         // redirect('Welcome/payment_success','refresh');
+//                     //     }else{
+//                     //         echo "Transaction has been failed";
+//                     //     }
+//                     // }
+//                     // else
+//                     // {
+//                     //     echo "not inserted. Transaction has been failed";
+//                     // }
+    
+//                 // }
+//                 // else
+//                 // {
+//                 //     echo "Invalid Token";
+//                 //     $statusMsg = "";
+//                 // }
+//             // }
+//         // Here you would typically call your payment gateway integration,
+//         // for example, sending a request to PayPal, Stripe, etc.
+//         // For now, let's just simulate a successful payment response.
+
+        
+
+//         // $response = [
+//         //     'status' => 'success',
+//         //     'message' => 'Payment was processed successfully'
+//         // ];
+
+//         // echo json_encode($response);
+//         // $response = array('status' => 1, 'message' => "Payment was processed successfully", 'url' => base_url('contactus/edit'), 'id' => encoding($this->input->post('id')));
+                
+//         //     }
+//         // }
+//         // endif;
+    
+
+//         // echo json_encode($response);
+//             $response = array('status' => 1, 'message' => "Payment is Successfully", 'url' => base_url($this->router->fetch_class()));
+            
+//         } else {
+//         $messages = (validation_errors()) ? validation_errors() : '';
+//         $response = array('status' => 0, 'message' => $messages);
+//           }
+//        }
+//     }
+    
+//     } else {
+//                 $response = array('status' => 0, 'message' => "Stripe token is empty");
+            
+//             }
+//         echo json_encode($response);
+    
+// }
+
+public function process() {
+
+
+
+    if ($this->ion_auth->is_facilityManager()) {
+        $user_id = $this->session->userdata('user_id');
+    $hospital_id = $user_id;
+    
+    } else if($this->ion_auth->is_all_roleslogin()) {
+        $user_id = $this->session->userdata('user_id');
+        $optionData = array(
+            'table' => USERS . ' as user',
+            'select' => 'user.*,group.name as group_name',
+            'join' => array(
+                array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+            ),
+            'order' => array('user.id' => 'DESC'),
+            'where' => array('user.id'=>$user_id),
+            'single'=>true,
+        );
+    
+        $authUser = $this->common_model->customGet($optionData);
+    
+        $hospital_id = $authUser->hospital_id;
+        // 'users.hospital_id'=>$hospital_id
+        
+    }
+
+    // print_r($hospital_id);die;
+
+$token =  $this->input->post('stripeToken');
+// print_r($token);die;
+
+// if(!empty($_POST['stripeToken'])){
+$this->form_validation->set_rules('invoice_date', "invoice_date", 'required|trim');
+// $where_id = $this->input->post('id');
+
+$id = $this->input->post('id');
+
+if ($this->form_validation->run() == FALSE){
+    $messages = (validation_errors()) ? validation_errors() : '';
+    $response = array('status' => 0, 'message' => $messages);
+}else{
+    $this->filedata['status'] = 1;
+
+    if ($this->filedata['status'] == 0) {
+        $response = array('status' => 0, 'message' => $this->filedata['error']);
+    } else {
+
+if (!empty($id)) {
+    
+    // stripe payment gateway
+
+    $option = array(
+        'table' => 'payment_gateway',
+        'select' => 'payment_gateway.*',
+        'order' => array('payment_gateway.id' => 'DESC'),
+        'single'=>true,
+    );
+
+    $stripe_payment_gateway = $this->common_model->customGet($option);
+
+// print_r($_POST['stripeToken']);die;
+    if(!empty($_POST['stripeToken']))
+    {
+        //get token, card and user info from the form
+        $token  = $_POST['stripeToken'];
+        
+        $email = $this->input->post('email');
+        $itemName = $this->input->post('billing_to');
+        $itemNumber = $this->input->post('invoice_number');
+        $itemPrice = $this->input->post('amount');
+        $currency = "usd";
+        $orderID = "SKA92712382139";
+
+        //include Stripe PHP library
+        require_once APPPATH."third_party/stripe/init.php";
+        
+        //set api key
+        $stripe = array(
+          "secret_key"      => "sk_test_afm5UcS9SFFjYgSs5hTWIG7Y00G5E2b2Zx",
+          "publishable_key" => "pk_test_9ec6REkAGDDrUTCf5WqhxOJA00kzzU4vmj"
+        );
+
+        // $stripe = array(
+        //     "secret_key"      => $stripe_payment_gateway->secret_key,
+        //     "publishable_key" => $stripe_payment_gateway->publishable_key
+        //   );
+        
+       
+
+        \Stripe\Stripe::setApiKey("sk_test_afm5UcS9SFFjYgSs5hTWIG7Y00G5E2b2Zx");
+                        
+        $customer = \Stripe\Customer::create(array(
+            'email' => $email,
+            'source'  => $token
+        ));
+        
+       
+        
+        
+
+        try {
+            // Assuming the customer has been created successfully
+            $charge = \Stripe\Charge::create(array(
+                'customer' => $customer->id,
+                'amount' => $itemPrice, // Amount in cents
+                'currency' => $currency, // e.g., "usd"
+                'description' => $itemName,
+                'metadata' => array(
+                    'item_id' => $itemNumber
+                )
+            ));
+            
+
+
+            $options_data = array(
+                // 'user_id'=> $LoginID,
+                'facility_user_id'=> $hospital_id,
+                'patient_id' => $this->input->post('patient'),
+                'invoice_id	' => $this->input->post('id'),                       
+                'selected_date	' => $this->input->post('invoice_date'),                         
+                'pay_amount	' => $this->input->post('amount'),                                               
+                'payment_type' => $this->input->post('billing_to'),
+                'payment_method'=>'card',
+                // 'name' => $this->input->post('user_name'),
+                // 'email' => $this->input->post('email'), 
+                // 'card_num' => $card_num, 
+        // 'card_cvc' => $card_cvc, 
+        // 'card_exp_month' => $card_exp_month, 
+        // 'card_exp_year' => $card_exp_year,                         
+                                         
+            );
+            // print_r($options_data);die;
+            $option = array('table' => 'vendor_sale_invoice_pay', 'data' => $options_data);
+            $invoice_id= $this->common_model->customInsert($option);
+
+            
+            $option = array(
+                'table' => 'vendor_sale_invoice',
+                'data' => array('vendor_sale_invoice.Paid' => $this->input->post('amount'),'vendor_sale_invoice.Outstanding' => '0.00','vendor_sale_invoice.status' => 'Paid'),
+                'where' => array('vendor_sale_invoice.id' => $id)
+            );
+            $delete = $this->common_model->customUpdate($option);
+
+            
+            // Successfully created charge
+            // echo 'Charge successful: ' . $charge->id;
+        
+        } catch (\Stripe\Exception\CardException $e) {
+            // Card was declined
+            echo 'Card error: ' . $e->getMessage();
+        } catch (\Stripe\Exception\InvalidRequestException $e) {
+            // Invalid parameters were supplied to Stripe's API
+            echo 'Invalid request: ' . $e->getMessage();
+        } catch (\Stripe\Exception\AuthenticationException $e) {
+            // Authentication with Stripe's API failed
+            echo 'Authentication error: ' . $e->getMessage();
+        } catch (\Stripe\Exception\ApiConnectionException $e) {
+            // Network communication with Stripe failed
+            echo 'Network error: ' . $e->getMessage();
+        } catch (\Stripe\Exception\ApiErrorException $e) {
+            // Display a generic error to the user
+            echo 'Stripe error: ' . $e->getMessage();
+        } catch (Exception $e) {
+            // Something else happened, completely unrelated to Stripe
+            echo 'Error: ' . $e->getMessage();
+        }
+    }
+    
+    if(!empty($this->input->post('transaction_id'))){
+
+    $transaction_id = $this->input->post('transaction_id');
+
+   
+    $options_data = array(
+        // 'user_id'=> $LoginID,
+        'facility_user_id'=> $hospital_id,
+        'patient_id' => $this->input->post('patient'),
+        'invoice_id	' => $this->input->post('id'),                       
+        'selected_date	' => $this->input->post('invoice_date'),                         
+        'pay_amount	' => $this->input->post('amount'),                                               
+        'payment_type' => $this->input->post('billing_to'),  
+        // 'name' => $this->input->post('user_name'),
+        // 'email' => $this->input->post('email'), 
+        'txn_id' => $transaction_id, 
+        'payment_method'=>'bank transaction',                     
+                                 
+    );
+    // print_r($options_data);die;
+    $option = array('table' => 'vendor_sale_invoice_pay', 'data' => $options_data);
+    $invoice_id= $this->common_model->customInsert($option);
+    $option = array(
+        'table' => 'vendor_sale_invoice',
+        'data' => array('vendor_sale_invoice.Paid' => $this->input->post('amount'),'vendor_sale_invoice.Outstanding' => '0.00','vendor_sale_invoice.status' => 'Paid'),
+        'where' => array('vendor_sale_invoice.id' => $id)
+    );
+    $delete = $this->common_model->customUpdate($option);
+    }
+
+
+    if(!empty($this->input->post('cashReceived'))){
+
+        // $transaction_id = $this->input->post('transaction_id');
+
+       
         $options_data = array(
             // 'user_id'=> $LoginID,
-            // 'facility_user_id'=> $LoginID,
+            'facility_user_id'=> $hospital_id,
             'patient_id' => $this->input->post('patient'),
             'invoice_id	' => $this->input->post('id'),                       
             'selected_date	' => $this->input->post('invoice_date'),                         
             'pay_amount	' => $this->input->post('amount'),                                               
-            'payment_type' => $this->input->post('billing_to'),                         
+            'payment_type' => $this->input->post('billing_to'),  
+            // 'name' => $this->input->post('user_name'),
+            // 'email' => $this->input->post('email'), 
+            // 'txn_id' => $transaction_id, 
+            'payment_method'=>'cash',                     
                                      
         );
         // print_r($options_data);die;
         $option = array('table' => 'vendor_sale_invoice_pay', 'data' => $options_data);
         $invoice_id= $this->common_model->customInsert($option);
-        
-
-        if (!empty($id)) {
-            $option = array(
-                'table' => 'vendor_sale_invoice',
-                'data' => array('vendor_sale_invoice.Paid' => $this->input->post('amount'),'vendor_sale_invoice.Outstanding' => '0','vendor_sale_invoice.status' => 'Paid'),
-                'where' => array('vendor_sale_invoice.id' => $id)
-            );
-            $delete = $this->common_model->customUpdate($option);
-
-            // stripe payment gateway
-
-            $option = array(
-                'table' => 'payment_gateway',
-                'select' => 'payment_gateway.*',
-                'order' => array('payment_gateway.id' => 'DESC'),
-                'single'=>true,
-            );
-    
-            $stripe_payment_gateway = $this->common_model->customGet($option);
-
-        // print_r($_POST['stripeToken']);die;
-            // if(!empty($_POST['stripeToken']))
-            // {
-                //get token, card and user info from the form
-                $token  = $_POST['stripeToken'];
-                
-                $email = $this->input->post('email');
-                $itemName = $this->input->post('billing_to');
-                $itemNumber = $this->input->post('invoice_number');
-                $itemPrice = $this->input->post('amount');
-                $currency = "usd";
-                $orderID = "SKA92712382139";
-
-                //include Stripe PHP library
-                require_once APPPATH."third_party/stripe/init.php";
-                
-                //set api key
-                $stripe = array(
-                  "secret_key"      => "sk_test_afm5UcS9SFFjYgSs5hTWIG7Y00G5E2b2Zx",
-                  "publishable_key" => "pk_test_9ec6REkAGDDrUTCf5WqhxOJA00kzzU4vmj"
-                );
-    
-                // $stripe = array(
-                //     "secret_key"      => $stripe_payment_gateway->secret_key,
-                //     "publishable_key" => $stripe_payment_gateway->publishable_key
-                //   );
-                
-               
-
-                \Stripe\Stripe::setApiKey("sk_test_afm5UcS9SFFjYgSs5hTWIG7Y00G5E2b2Zx");
-                                
-                $customer = \Stripe\Customer::create(array(
-                    'email' => $email,
-                    'source'  => $token
-                ));
-                
-               
-                
-                
-
-                try {
-                    // Assuming the customer has been created successfully
-                    $charge = \Stripe\Charge::create(array(
-                        'customer' => $customer->id,
-                        'amount' => $itemPrice, // Amount in cents
-                        'currency' => $currency, // e.g., "usd"
-                        'description' => $itemName,
-                        'metadata' => array(
-                            'item_id' => $itemNumber
-                        )
-                    ));
-                    
-                    // Successfully created charge
-                    // echo 'Charge successful: ' . $charge->id;
-                
-                } catch (\Stripe\Exception\CardException $e) {
-                    // Card was declined
-                    echo 'Card error: ' . $e->getMessage();
-                } catch (\Stripe\Exception\InvalidRequestException $e) {
-                    // Invalid parameters were supplied to Stripe's API
-                    echo 'Invalid request: ' . $e->getMessage();
-                } catch (\Stripe\Exception\AuthenticationException $e) {
-                    // Authentication with Stripe's API failed
-                    echo 'Authentication error: ' . $e->getMessage();
-                } catch (\Stripe\Exception\ApiConnectionException $e) {
-                    // Network communication with Stripe failed
-                    echo 'Network error: ' . $e->getMessage();
-                } catch (\Stripe\Exception\ApiErrorException $e) {
-                    // Display a generic error to the user
-                    echo 'Stripe error: ' . $e->getMessage();
-                } catch (Exception $e) {
-                    // Something else happened, completely unrelated to Stripe
-                    echo 'Error: ' . $e->getMessage();
-                }
-                // // retrieve charge details
-                // $chargeJson = $charge->jsonSerialize();
-
-                // try {
-                //     $charge = Stripe\Charge::create([
-                //         'customer' => $customer->id,
-                //         'amount'   => 2500,  // In cents
-                //         'currency' => 'usd',
-                //         'description' => $itemName,
-                //         'metadata' => ['item_id' => $itemNumber]
-                //     ]);
-                // } catch (\Stripe\Exception\ApiErrorException $e) {
-                //     $response = ['status' => 0, 'message' => $e->getMessage()];
-                //     echo json_encode($response);
-                //     die;
-                // }
-                
-                //check whether the charge is successful
-                // if($chargeJson['amount_refunded'] == 0 && empty($chargeJson['failure_code']) &&              $chargeJson['paid'] == 1 && $chargeJson['captured'] == 1)
-                // {
-                //     //order details 
-                //     $amount = $chargeJson['amount'];
-                //     $balance_transaction = $chargeJson['balance_transaction'];
-                //     $currency = $chargeJson['currency'];
-                //     $status = $chargeJson['status'];
-                //     $date = date("Y-m-d H:i:s");
-                
-                    
-                    //insert tansaction data into the database
-                    // $dataDB = array(
-                    //     'user_id' => $user_id,
-                    //     'plan_id' => $plan_id,
-                    //     'name' => $name,
-                    //     'email' => $email, 
-                    //     'card_num' => $card_num, 
-                    //     'card_cvc' => $card_cvc, 
-                    //     'card_exp_month' => $card_exp_month, 
-                    //     'card_exp_year' => $card_exp_year, 
-                    //     'item_name' => $itemName, 
-                    //     'item_number' => $itemNumber, 
-                    //     'item_price' => $itemPrice, 
-                    //     'item_price_currency' => $currency, 
-                    //     'paid_amount' => $amount, 
-                    //     'paid_amount_currency' => $currency, 
-                    //     'txn_id' => $balance_transaction, 
-                    //     'payment_status' => $status,
-                    //     'created' => $date,
-                    //     'modified' => $date
-                    // );
-    
-                    // if ($this->db->insert('orders', $dataDB)) {
-                    //     if($this->db->insert_id() && $status == 'succeeded'){
-                    //         $data['insertID'] = $this->db->insert_id();
-                    //         // $this->load->view('payment_success', $data);
-                            
-                    //         $this->load->admin_render('payment_success', $data);
-                    //         // redirect('Welcome/payment_success','refresh');
-                    //     }else{
-                    //         echo "Transaction has been failed";
-                    //     }
-                    // }
-                    // else
-                    // {
-                    //     echo "not inserted. Transaction has been failed";
-                    // }
-    
-                // }
-                // else
-                // {
-                //     echo "Invalid Token";
-                //     $statusMsg = "";
-                // }
-            // }
-        // Here you would typically call your payment gateway integration,
-        // for example, sending a request to PayPal, Stripe, etc.
-        // For now, let's just simulate a successful payment response.
-
-        
-
-        // $response = [
-        //     'status' => 'success',
-        //     'message' => 'Payment was processed successfully'
-        // ];
-
-        // echo json_encode($response);
-        // $response = array('status' => 1, 'message' => "Payment was processed successfully", 'url' => base_url('contactus/edit'), 'id' => encoding($this->input->post('id')));
-                
-        //     }
-        // }
-        // endif;
     
 
-        // echo json_encode($response);
-            $response = array('status' => 1, 'message' => "Payment is Successfully", 'url' => base_url($this->router->fetch_class()));
-            
-        } else {
-        $messages = (validation_errors()) ? validation_errors() : '';
-        $response = array('status' => 0, 'message' => $messages);
-          }
-       }
-    }
+        $option = array(
+            'table' => 'vendor_sale_invoice',
+            'data' => array('vendor_sale_invoice.Paid' => $this->input->post('amount'),'vendor_sale_invoice.Outstanding' => '0.00','vendor_sale_invoice.status' => 'Paid'),
+            'where' => array('vendor_sale_invoice.id' => $id)
+        );
+        $delete = $this->common_model->customUpdate($option);
+
+
+        }
+    $response = array('status' => 1, 'message' => "Payment is Successfully", 'url' => base_url($this->router->fetch_class()));
     
-    } else {
-                $response = array('status' => 0, 'message' => "Stripe token is empty");
-            
-            }
-        echo json_encode($response);
-    
+} else {
+$messages = (validation_errors()) ? validation_errors() : '';
+$response = array('status' => 0, 'message' => $messages);
+  }
+}
 }
 
+// } else {
+//         $response = array('status' => 0, 'message' => "Stripe token is empty");
+    
+//         }
+echo json_encode($response);
+
+}
 
     // public function pdfInvoice() {
     //     $this->data['title'] = "PDF Invoice " . $this->title;
