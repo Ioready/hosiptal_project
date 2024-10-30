@@ -461,7 +461,7 @@
 
 <!-- <script src="https://js.stripe.com/v3/"></script> -->
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
     const stripe = Stripe('pk_test_9ec6REkAGDDrUTCf5WqhxOJA00kzzU4vmj'); // Your publishable key
  
     const elements = stripe.elements();
@@ -521,8 +521,88 @@
         });
     });
 
-</script>
+</script> -->
 
+
+<script type="text/javascript">
+    const stripe = Stripe('pk_test_9ec6REkAGDDrUTCf5WqhxOJA00kzzU4vmj'); // Your publishable key
+    const elements = stripe.elements();
+    const card = elements.create('card');
+    card.mount('#card-element');
+
+    $(document).on('submit', "#addFormAjaxData", async function (event) {
+        event.preventDefault(); // Prevent default form submission
+        $("#submit").val("Sending..").attr('disabled', true);
+
+        const cashReceived = $('#cashReceived').val();
+        const transactionId = $('#transaction_id').val();
+
+        // If `transaction_id` or `cashReceived` is present, submit form without creating a token
+        if (transactionId || cashReceived) {
+            const formData = new FormData(this);
+            if (transactionId) formData.append('transaction_id', transactionId);
+            if (cashReceived) formData.append('cashReceived', cashReceived);
+
+            submitForm(formData); // Submit form data without Stripe token
+        } else {
+            // If neither `transaction_id` nor `cashReceived`, create a Stripe token
+            const { token, error } = await stripe.createToken(card);
+
+            if (error) {
+                $('#card-errors').text(error.message);
+                $("#submit").val("Submit Payment").removeAttr('disabled');
+                return; // Stop further execution
+            }
+
+            // Append the Stripe token to the form data
+            const formData = new FormData(this);
+            formData.append('stripeToken', token.id);
+            submitForm(formData); // Submit form data with Stripe token
+        }
+    });
+
+    // General form submission function
+    function submitForm(formData) {
+        $.ajax({
+            type: "POST",
+            url: $("#addFormAjaxData").attr('action'),
+            data: formData,
+            processData: false,
+            contentType: false,
+            beforeSend: function () {
+                $(".loaders").fadeIn("slow");
+            },
+            success: function (response) {
+                handleResponse(response);
+            },
+            error: function () {
+                toastr.error('Request failed.');
+                $("#submit").val("Submit Payment").removeAttr('disabled');
+                $(".loaders").fadeOut("slow");
+            }
+        });
+    }
+
+    // Handle the AJAX response
+    function handleResponse(response) {
+        try {
+            const data = JSON.parse(response);
+            if (data.status == 1) {
+                toastr.success(data.message);
+                $(".invoicepay").modal('hide');
+                setTimeout(() => location.reload(true), 1000);
+            } else {
+                toastr.error(data.message);
+                $('#error-box').show().html(data.message).delay(1000).fadeOut(800);
+            }
+        } catch (e) {
+            $('#error-box').show().html('Unexpected error.').delay(1000).fadeOut(800);
+        } finally {
+            $("#submit").val("Submit Payment").removeAttr('disabled');
+            $(".loaders").fadeOut("slow");
+        }
+    }
+</script>
 
 
 <style>
