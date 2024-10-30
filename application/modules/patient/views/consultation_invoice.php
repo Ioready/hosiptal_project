@@ -163,19 +163,22 @@
 
                                 <td class="actions">
                                 <?php if(empty($rows->Paid)){?>
-                            <!-- <a href="javascript:void(0)" class="btn btn-primary" onclick="payFn('<?php echo $model; ?>', 'pay', '<?php echo encoding($row->id) ?>', '<?php echo $model; ?>');">Pay</a> -->
+                            <a href="javascript:void(0)" class="btn btn-primary" onclick="payFnP('<?php echo $model; ?>', 'pay', '<?php echo encoding($rows->id) ?>', '<?php echo $model; ?>');">Pay</a>
+                            
+                            <?php }else{?>
+                                <a href="javascript:void(0)" class="btn btn-success" onclick="pdfInvoiceReceipt('<?php echo $model; ?>', 'pdfInvoiceReceipt','<?php echo encoding($rows->id) ?>', '<?php echo $model; ?>');">Receipt</a>
                             <?php }?>
-                            <?php if ($menu_update =='1') {?>
+
                                     <a href="javascript:void(0)" class="btn btn-xs btn-default" onclick="editFn('<?php echo $model; ?>', 'editInvoice', '<?php echo encoding($rows->id) ?>', '<?php echo $model; ?>');"><i class="fa fa-pencil"></i></a>
+                                    
                                     <?php if ($rows->status == 'Paid') { ?>
                                         <!-- <a href="javascript:void(0)" class="btn btn-xs btn-success" onclick="editStatusFn('<?php echo $tablePrefix; ?>', 'id', '<?php echo encoding($rows->id); ?>', '<?php echo $rows->is_active; ?>','<?php echo $rows->name; ?>')" title="Inactive Now"><i class="fa fa-check"></i></a> -->
                                     <?php } else { ?>
                                         <!-- <a href="javascript:void(0)" class="btn btn-xs btn-danger" onclick="editStatusFn('<?php echo $tablePrefix; ?>', 'id', '<?php echo encoding($rows->id); ?>', '<?php echo $rows->is_active; ?>','<?php echo $rows->name; ?>')" title="Active Now"><i class="fa fa-times"></i></a> -->
                                     <?php } ?>
-                                    <!-- <a href="javascript:void(0)" onclick="deleteFn('<?php echo $table; ?>', 'id', '<?php echo encoding($rows->id); ?>', '<?php echo $model; ?>','','<?php echo $rows->name; ?>')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a> -->
-                                    <!-- <a href="javascript:void(0)" class="btn btn-xs btn-default" onclick="pdfInvoice('<?php echo $model; ?>', 'pdfInvoice','<?php echo encoding($row->id) ?>', '<?php echo $model; ?>');"><i class="fa fa-solid fa-download"></i> </a> -->
+                                    <a href="javascript:void(0)" onclick="deleteFn('<?php echo $table; ?>', 'id', '<?php echo encoding($rows->id); ?>', '<?php echo $model; ?>','','<?php echo $rows->name; ?>')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+                                    <a href="javascript:void(0)" class="btn btn-xs btn-default" onclick="pdfInvoice('<?php echo $model; ?>', 'pdfInvoice','<?php echo encoding($rows->id) ?>', '<?php echo $model; ?>');"><i class="fa fa-solid fa-download"></i> </a>
 
-                                    <?php }?>
                                 </td>
 
 
@@ -243,24 +246,7 @@
 
                                 </td>
 
-                                <td>
-                            
-                            <?php if(empty($row->Paid)){?>
-                                
-                            <!-- <a href="javascript:void(0)" class="btn btn-primary" onclick="payFnP('<?php echo $model; ?>', 'pay', '<?php echo encoding($row->id) ?>', '<?php echo $model; ?>');">Pay</a> -->
-                            <!-- <a href="javascript:void(0)" class="btn btn-primary" onclick="payFn('<?php echo $model; ?>', 'pay', '<?php echo encoding($row->id) ?>', '<?php echo $model; ?>');">Pay</a> -->
-                            
-                            <!-- <?php }else{?>
-                                <a href="javascript:void(0)" class="btn btn-success" onclick="pdfInvoiceReceipt('<?php echo $model; ?>', 'pdfInvoiceReceipt','<?php echo encoding($row->id) ?>', '<?php echo $model; ?>');">Receipt</a>
-                            <?php }?> -->
-                           
-                            <!-- <a href="javascript:void(0)" class="btn btn-xs btn-default" onclick="editFn('<?php echo $model; ?>', 'editInvoice', '<?php echo encoding($rows->id) ?>', '<?php echo $model; ?>');"><i class="fa fa-pencil"></i></a> -->
-                                    
-                            <!-- <a href="javascript:void(0)" onclick="deleteFnInvoice('<?php echo GROUPS;?>','id','<?php echo encoding($row->id); ?>','invoices/managements')" class="on-default edit-row text-danger"><img width="20" src="<?php echo base_url().DELETE_ICON;?>" /></a> -->
-                            
-                            <!-- <a href="javascript:void(0)" class="btn btn-xs btn-default" onclick="pdfInvoice('<?php echo $model; ?>', 'pdfInvoice','<?php echo encoding($row->id) ?>', '<?php echo $model; ?>');"><i class="fa fa-solid fa-download"></i> </a> -->
-
-                            </td>
+                               
 
                             </tr>
                             <?php
