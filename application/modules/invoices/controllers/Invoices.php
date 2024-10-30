@@ -1184,15 +1184,15 @@ class Invoices extends Common_Controller {
             
 
             $this->db->select('vendor_sale_invoice.*, vendor_sale_patient.name as patient_name, vendor_sale_invoice.total_amount as total_price');
-$this->db->from('vendor_sale_invoice');
-$this->db->join('vendor_sale_patient', 'vendor_sale_patient.id = vendor_sale_invoice.patient_id', 'left');
-$this->db->where('vendor_sale_invoice.facility_user_id', $hospital_id);
-$this->db->where('delete_status', 0);
-$this->db->order_by('vendor_sale_invoice.id', 'DESC');  // Ensuring descending order
+            $this->db->from('vendor_sale_invoice');
+            $this->db->join('vendor_sale_patient', 'vendor_sale_patient.id = vendor_sale_invoice.patient_id', 'left');
+            $this->db->where('vendor_sale_invoice.facility_user_id', $hospital_id);
+            $this->db->where('delete_status', 0);
+            $this->db->order_by('vendor_sale_invoice.id', 'DESC');  // Ensuring descending order
 
-$query = $this->db->get();
-// echo $this->db->last_query(); die; // This will show you the raw SQL query to check if it's correct
-$this->data['invoice_list'] = $query->result();
+            $query = $this->db->get();
+            // echo $this->db->last_query(); die; // This will show you the raw SQL query to check if it's correct
+            $this->data['invoice_list'] = $query->result();
 
             
             

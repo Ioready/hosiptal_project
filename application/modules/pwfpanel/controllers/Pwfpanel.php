@@ -308,8 +308,13 @@ class Pwfpanel extends Common_Controller
 
                 $data['initial_dx'] = $this->common_model->customCount(array('table' => 'initial_dx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0) ,$whereClause));
                 $data['initial_rx'] = $this->common_model->customCount(array('table' => 'initial_rx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0)));
+                
+                $data['total_earning'] = $this->common_model->customCount(array('table' => 'vendor_sale_invoice_pay', 'select' => 'id,pay_amount', 'where' => array('facility_user_id' => $CareUnitID, 'delete_status' => 0)));
+                
+                // print_r($data['total_earning']);die;
                 // $data['doctors'] = $this->common_model->customCount(array('table' => 'doctors', 'select' => 'id,name', 'where' => array('is_active' => 1, 'doctors.facility_user_id'=>$user_id, 'delete_status' => 0)));
 
+                
                 $option = array(
                     'table' => USERS . ' as user',
                     'select' => 'user.id',
@@ -671,6 +676,24 @@ class Pwfpanel extends Common_Controller
                 $data['initial_dx'] = $this->common_model->customCount(array('table' => 'initial_dx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0) ,$whereClause));
                 $data['initial_rx'] = $this->common_model->customCount(array('table' => 'initial_rx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0)));
                 // $data['doctors'] = $this->common_model->customCount(array('table' => 'doctors', 'select' => 'id,name', 'where' => array('is_active' => 1, 'doctors.facility_user_id'=>$user_id, 'delete_status' => 0)));
+
+                $data['total_earning'] = $this->common_model->customGet(array(
+                    'table' => 'vendor_sale_invoice_pay',
+                    'select' => 'pay_amount',
+                    'where' => array('facility_user_id' => $CareUnitID)
+                ));
+                
+                // Sum the `pay_amount` column in PHP
+                $total_pay = 0;
+                foreach ($data['total_earning'] as $value) {
+                    $total_pay += $value->pay_amount;
+                }
+                
+                $data['total_pay'] =$total_pay;
+                // print_r($total_pay);
+                // die;
+                
+                
 
                 $option = array(
                     'table' => USERS . ' as user',

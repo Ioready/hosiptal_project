@@ -874,10 +874,10 @@
            <div class="col-lg-4 dashboardBoxes">
                <div style="background-color:#DAEBFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
                    <div class="ibox-content">
-                   <h1 class="no-margins">
+                   <h1 class="no-margins">£
 
-                   <?php //echo $initial_dx; 
-                   echo '0';
+                   <?php echo $total_pay??'0'; 
+                //    echo '0';
                    ?>
                    </h1>
                    <h5 class="text-primary"><strong>Total Earning</strong></h5>
@@ -1570,8 +1570,8 @@ foreach ($months as $month_num => $month_name) {
                <div class="ibox-content">
                <h1 class="no-margins">
 
-               <?php //echo $initial_dx; 
-               echo '0';
+               <?php echo $total_pay??'0'; 
+            //    echo '0';
                ?>
                </h1>
                <h5 class="text-primary"><strong>Total Earning</strong></h5>
