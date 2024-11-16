@@ -227,6 +227,7 @@ CKEDITOR.replace('editor');
                     <tr>
                         <th class="text-center" style="font-size:14px;">Sr. No</th>
                         <!--                                <th><?php echo "Referral Code"; ?></th>-->
+                                                       <th><?php echo "Token"; ?></th>
                         <th class="text-center" style="font-size:14px;"><?php echo "Hospital Name"; ?></th>
                         <th class="text-center" style="font-size:14px;"><?php echo "User Name"; ?></th>
                         <!-- <th class="text-center"><?php echo "Department"; ?></th> -->
@@ -248,10 +249,11 @@ CKEDITOR.replace('editor');
                         $rowCount = 0;
                         foreach ($list as $rows):
                             $rowCount++;
-                           // print_r($rows->first_name); die;
+                        //    print_r($rows); die;
                             ?>
                             <tr>
-                                <td class="text-center text-dark"><strong><?php echo $rowCount; ?></strong></td>        
+                                <td class="text-center text-dark"><strong><?php echo $rowCount; ?></strong></td>
+                                <td class="text-dark"><?php echo $rows->token_uniq; ?></td>        
                                 <!--                            <td><?php echo $rows->team_code; ?></td>-->
                                 <td class="text-dark"><?php echo $rows->hospital_name ?></td>
                                 <td class="text-dark"><?php echo $rows->first_name . ' ' . $rows->last_name; ?></td>
@@ -302,6 +304,7 @@ CKEDITOR.replace('editor');
                                                 <?php } ?>
                                         
                                                 <a href="javascript:void(0)" data-toggle="tooltip"   onclick="deleteFn('<?php echo USERS; ?>', 'id', '<?php echo encoding($rows->id); ?>', 'index.php/facilityManager', 'index.php/facilityManager/delVendors','<?php echo $rows->first_name . ' ' . $rows->last_name; ?>')" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                            
                                             <?php }
                                             ?>
                         <!-- <a href="<?php echo base_url() . 'vendors/paymentList/' . $rows->id; ?>" class="btn btn-sm btn-primary">Client List</a> -->

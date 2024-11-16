@@ -46,7 +46,7 @@
 
 </style>   
     <!-- Page content -->
-    <div id="page-content">
+    <div id="page-content"  style="background-color: whitesmoke;">
         <!-- Datatables Header -->
         <ul class="breadcrumb breadcrumb-top">
         <li>
@@ -217,116 +217,316 @@
 
                 <?php if(!empty($useTemplate)){ ?>
 
-                <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('/emailTemplate/sendEmailTemplate') ?>" enctype="multipart/form-data">
-                <div class="alert alert-danger" id="error-box" style="display: none"></div>
-                    
-                    <div class="form-body" id="template_data">
+                    <form class="form-horizontal mb-4" id="addFormAjax" method="post" action="<?php echo base_url('/emailTemplate/sendEmailTemplate') ?>" enctype="multipart/form-data">
+    <div class="alert alert-danger" id="error-box" style="display: none;"></div>
 
-                        <div class="row">
-                            <div class="col-md-5">
-                            <?php $image_url = base_url('/uploads/'); ?>
-                            <img width="100px;" src="<?php echo $image_url. $useTemplate->image; ?>" alt="Header">
-                            </div>
+    <div class="form-body" id="template_data">
+        <!-- Header Image Section -->
+        <div class="row mb-4 align-items-center">
+            <div class="col-md-5 text-center">
+                <?php $image_url = base_url('/uploads/'); ?>
+                <img src="<?php echo $image_url . $useTemplate->image; ?>" alt="Header Image" style="width: 150px; border-radius: 8px;">
+            </div>
+            <div class="col-md-7">
+                <h3 class="fw-bold text-center"><?php echo ucwords($useTemplate->title); ?></h3>
+            </div>
+        </div>
 
-                            <div class="col-md-4">
-                                    <div class="form-group">
-                                    <h3 class="m-4 fw-bold"> <label for="input1"><strong class="fw-bold"><?php echo ucwords($useTemplate->title);?></strong></label> </h3>
-                                    </div>
-                                </div>
-                            </div>
+        <!-- Form Fields Section -->
+        <div class="row mb-4 p-4" style="background-color: #f9f9f9; ">
+            <div class="col-md-4 mb-3">
+                <label for="app_name" class="form-label">App Name</label>
+                <input type="text" class="form-control" name="app_name" id="app_name" value="<?php echo $useTemplate->title; ?>" placeholder="App Name">
+            </div>
 
-                    
+            <div class="col-md-4 mb-3">
+                <label for="company_name" class="form-label">Company Name</label>
+                <input type="text" class="form-control" name="company_name" id="company_name" placeholder="Company Name">
+            </div>
 
-                        <!-- <h3 class="m-4 fw-bold"><?php echo $useTemplate->internal_name;?></h3> -->
-                        <div class="row m-4 p-4"  style="background-color: #FFFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);">
+            <div class="col-md-4 mb-3">
+                <label for="app_url" class="form-label">App URL</label>
+                <input type="text" class="form-control" name="app_url" id="app_url" placeholder="App URL">
+            </div>
 
-                        
-                        
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="input1">App Name : <strong class="fw-bold"><input type="text" class="form-control" name="app_name" id="app_name" value="<?php echo $useTemplate->title;?>" placeholder="<?php echo lang('password');?>" /></strong></label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="input1">Company Name : <strong class="fw-bold"><input type="text" class="form-control" name="company_name" id="company_name" placeholder="<?php echo lang('Company name');?>" /></strong></label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="input1">App Url : <strong class="fw-bold"><input type="text" class="form-control" name="app_url" id="app_url" placeholder="<?php echo lang('app url');?>" /></strong></label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="input1">Email : <strong class="fw-bold"><input type="email" class="form-control" name="email" id="email" placeholder="<?php echo lang('Email');?>" /></strong></label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="input1">Password : <strong class="fw-bold">
-                                    <input type="password" class="form-control" name="password" id="password" placeholder="<?php echo lang('password');?>" />
-                                    
-                                    </strong></label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row m-4">
-                            <div class="col-md-6">
-                                <label class=" control-label">Subject*</label>
-                                <div class="form-group"> 
-                                    <div class="col-md-10">
-                                        <input type="text" class="form-control" name="subject" id="subject" placeholder="<?php echo lang('subject');?>" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <label class=" control-label">From*</label>
-                                <div class="form-group"> 
-                                    <div class="col-md-10">
-                                        <input type="text" class="form-control" name="from_mail" id="from_mail" placeholder="<?php echo lang('from_mail');?>" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- <div class="col-md-12">
-                        <label class="control-label mb-4">Create Letter template*</label>
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <textarea id="editor" name="description"><?php echo $useTemplate->bodies_template;?></textarea>
-                                </div>
-                            </div>
-                        </div> -->
-                        <label class="control-label mb-4">Create Recipient*</label>
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                <textarea id="recipient_template" name="description"><?php echo $useTemplate->recipient_template;?></textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-5">
-                            <img width="100px;" src="<?php echo $image_url. $useTemplate->footer_logo; ?>" alt="footer">
-                            </div>
+            <div class="col-md-4 mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" name="email" id="email" placeholder="Email">
+            </div>
 
-                            <div class="col-md-4">
-                                    <div class="form-group">
-                                    <!-- <textarea id="recipient_template" name="description"><?php echo $useTemplate->recipient_template;?></textarea> -->
-                                    <!-- <h3 class="m-4 fw-bold"> <label for="input1"><strong class="fw-bold"><?php echo ucwords($useTemplate->recipient_template);?></strong></label> </h3> -->
-                                    </div>
-                            </div>
-                        </div>
+            <div class="col-md-4 mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+            </div>
+        </div>
 
-                        <div class="text-right">
-                            <button type="submit" id="submit"  class="btn btn-sm btn-primary mt-2" style="background:#337ab7;">Save</button>
-                        </div>
-                        <?php //}?>
-                        <?php //}?>
-                    </div>
-                </form>
+        <!-- Subject and From Fields -->
+        <div class="row mb-4">
+            <div class="col-md-6 mb-3">
+                <label for="subject" class="form-label">Subject*</label>
+                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject">
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label for="from_mail" class="form-label">From*</label>
+                <input type="text" class="form-control" name="from_mail" id="from_mail" placeholder="From Email">
+            </div>
+        </div>
+
+        <!-- Recipient Template Section -->
+        <div class="mb-4">
+            <label for="recipient_template" class="form-label">Create Recipient*</label>
+            <textarea id="recipient_template" name="description" class="form-control" rows="5" placeholder="Enter recipient template..."><?php echo $useTemplate->recipient_template; ?></textarea>
+        </div>
+
+        <!-- Footer Image Section -->
+        <div class="row mb-4">
+            <div class="col-md-5 text-center">
+                <img src="<?php echo $image_url . $useTemplate->footer_logo; ?>" alt="Footer Logo" style="width: 150px; border-radius: 8px;">
+            </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="text-end">
+            <button type="submit" id="submit" class="btn text-white" style="padding: 10px 20px; border-radius: 5px;background-color:#337ab7;">Save</button>
+        </div>
+    </div>
+</form>
                 <?php  }?>
 
             <?php }?>
+
+
+
+            
+        <!-- Datatables Content -->
+    <div class="block full">
+            <div class="block-title">
+            
+            <h2><strong>Email Template</strong> Panel</h2>
+           
+              
+        <?php if ($this->ion_auth->is_superAdmin()) {?>
+
+
+        <?php }?>
+
+            </div>
+        
+            <?php 
+                        $all_permission = $this->ion_auth->is_permission();
+                        if (!empty($all_permission['form_permission'])) {
+                        foreach($all_permission['form_permission'] as $permission){
+                        
+                            $menu_view =$permission->menu_view;
+                            $menu_create= $permission->menu_create;
+                            $menu_update= $permission->menu_update;
+                            $menu_delete =$permission->menu_delete;
+                            $menu_name =$permission->menu_name;
+                            // echo $menu_name;
+                            if ($menu_name == 'Email Template') {
+                              // if ($menu_view =='1') {?>
+
+            <div class="table-responsive">
+                <table id="common_datatable_cms" class="table table-vcenter table-condensed table-bordered text-center">
+                    <thead>
+                        <tr>                                            
+                            <th  class="t-head text-center"><?php echo lang('serial_no'); ?></th>
+                            <!-- <th class="t-head text-center">Email Type</th> -->
+                            <th class="t-head text-center" class="t-head">Header</th>
+                            <th class="t-head">Body</th>
+                            <th class="t-head">Recipients</th>
+                            <th class="t-head">Footer</th>
+                            <th class="t-head text-center"><?php echo lang('action'); ?></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    if (isset($all_template) && !empty($all_template)):
+                        $rowCount = 0;
+                        foreach ($all_template as $rows):
+                            $rowCount++;
+                            ?>
+                            <tr>
+                                <td><?php echo $rowCount; ?></td>            
+                                <!-- <td><?php echo $rows->email_type; ?></td> -->
+                                <td>
+                                <?php echo $rows->header_names; ?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <?php $image_url = base_url('/uploads/'); ?>
+                                
+
+                               <img width="100" src="<?php if (!empty($rows->logo)) {
+                                    echo $image_url.$rows->logo;
+                                
+                            } else {
+                                echo base_url() . DEFAULT_NO_IMG_PATH;
+                            } ?>" />
+
+                            </td>
+                               <td style="width:25%;"><?php
+                                    if (strlen($rows->bodies_template) > 400) {
+                                        $content = $rows->bodies_template;
+                                        echo mb_substr($rows->bodies_template, 0, 400, 'UTF-8') . '...<br>';
+                                        ?>
+                                        <a style="cursor:pointer" onclick="show_message('<?php echo base64_encode($content); ?>')"><?php echo lang('view'); ?></a>
+                                        <?php
+                                    } else if (strlen($rows->bodies_template) > 0) {
+                                        echo $rows->bodies_template;
+                                    }
+                                    ?></td>
+                                    <td style="width:25%;"><?php
+                                    if (strlen($rows->recipient_template) > 400) {
+                                        $content = $rows->recipient_template;
+                                        echo mb_substr($rows->recipient_template, 0, 400, 'UTF-8') . '...<br>';
+                                        ?>
+                                        <a style="cursor:pointer" onclick="show_message('<?php echo base64_encode($content); ?>')"><?php echo lang('view'); ?></a>
+                                        <?php
+                                    } else if (strlen($rows->recipient_template) > 0) {
+                                        echo $rows->recipient_template;
+                                    }
+                                    ?></td>
+
+                                    <?php $image_url = base_url('/uploads/'); ?>
+                                
+
+                                <td><img width="100" src="<?php if (!empty($rows->footer_logo)) {
+                                    echo $image_url.$rows->footer_logo. ' '.$rows->footer_internal_name;
+                                
+                            } else {
+                                echo base_url() . DEFAULT_NO_IMG_PATH;
+                            } ?>" /></td>
+
+                                <td class="actions">
+
+                                    <?php if($rows->active_template != 1 && $rows->is_active == 1) { ?>
+
+                                        <?php //if ($menu_update =='1') { ?>
+
+                                        <a href="javascript:void(0)" onclick="useTemplate('<?php echo $rows->id; ?>')" class="btn save-btn" style="color:white;">Use template</a>
+                                        <?php } else { ?>
+                                            <button type="button" class="btn btn-success" style="background:green;">Active template</button> 
+                                        <?php } ?>
+                                        <!-- <a href="javascript:void(0)" class="btn btn-xs btn-default" onclick="editFn('emailTemplate','template_edit','<?php echo encoding($rows->id) ?>');"><i class="fa fa-pencil"></i></a> -->
+                                        <?php if($rows->is_active == 1) {?>
+                                        <!-- <a href="javascript:void(0)" class="btn btn-xs btn-success" onclick="editStatusFn('vendor_sale_email_template','id','<?php echo encoding($rows->id);?>','<?php echo $rows->is_active;?>')" title="Inactive Now"><i class="fa fa-check"></i></a> -->
+                                        <?php } else { ?>
+                                        <!-- <a href="javascript:void(0)" class="btn btn-xs btn-danger" onclick="editStatusFn('vendor_sale_email_template','id','<?php echo encoding($rows->id); ?>','<?php echo $rows->is_active;?>')" title="Active Now"><i class="fa fa-times"></i></a> -->
+                                        <?php } 
+                                    //} if ($menu_delete =='1') {?>
+                                        <a href="javascript:void(0)" onclick="deleteFn('vendor_sale_email_template','id','<?php echo encoding($rows->id); ?>','emailTemplate')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+                                    
+                                        <form id="templateForm_<?php echo $rows->id; ?>" style="display: none;">
+                                            <input type="hidden" name="id" value="<?php echo $rows->id; ?>">
+                                        
+                                        </form>
+                                        <?php //}?>
+
+                                </td>
+                            </tr>
+                        <?php endforeach;
+                    endif; ?>
+                    </tbody>
+                </table>
+            </div>
+
+    <?php }}} if($this->ion_auth->is_facilityManager()){?>
+    
+            <div class="table-responsive">
+                <table id="common_datatable_cms" class="table table-vcenter table-condensed table-bordered text-center">
+                    <thead>
+                        <tr>                                            
+                            <th  class="t-head text-center"><?php echo lang('serial_no'); ?></th>
+                            <!-- <th class="t-head text-center">Email Type</th> -->
+                            <th class="t-head text-center" class="t-head">Header</th>
+                            <th class="t-head">Body</th>
+                            <th class="t-head">Recipients</th>
+                            <th class="t-head">Footer</th>
+                            <th class="t-head text-center"><?php echo lang('action'); ?></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    if (isset($all_template) && !empty($all_template)):
+                        $rowCount = 0;
+                        foreach ($all_template as $rows):
+                            $rowCount++;
+                            ?>
+                            <tr>
+                            <td><?php echo $rowCount; ?></td>            
+                                <!-- <td><?php echo $rows->email_type; ?></td> -->
+                                <td>
+                                <?php echo $rows->header_names; ?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <?php $image_url = base_url('/uploads/'); ?>
+                                
+
+                               <img width="100" src="<?php if (!empty($rows->logo)) {
+                                    echo $image_url.$rows->logo;
+                                
+                            } else {
+                                echo $rows->recipient_template;
+                            }
+                            ?>
+                        </td>
+
+                        <!-- Footer Image -->
+                        <td style="padding: 10px;">
+                            <img src="<?php echo !empty($rows->footer_logo) ? base_url('/uploads/') . $rows->footer_logo : base_url(DEFAULT_NO_IMG_PATH); ?>" alt="Footer Image" style="width: 100px; border-radius: 5px;">
+                        </td>
+
+                        <!-- Action Buttons -->
+                        <td style="padding: 10px; text-align: center; display: flex; justify-content: center; gap: 10px;">
+                            <?php if ($rows->active_template != 1 && $rows->is_active == 1) { ?>
+                                <a href="javascript:void(0);" onclick="useTemplate('<?php echo $rows->id; ?>')" style="padding: 8px 12px; background-color: #28a745; color: #fff; border-radius: 5px; text-decoration: none; cursor: pointer;">Use Template</a>
+                            <?php } else { ?>
+                                <button type="button" style="padding: 8px 12px; background-color: #007bff; color: #fff; border-radius: 5px; cursor: pointer;">Active Template</button>
+                            <?php } ?>
+
+                                <td><?php echo $rows->footer_internal_name; ?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img width="100" src="<?php if (!empty($rows->footer_logo)) {
+                                    echo $image_url.$rows->footer_logo;
+                                
+                            } else {
+                                echo base_url() . DEFAULT_NO_IMG_PATH;
+                            } ?>" /></td>
+
+                                <td class="actions">
+
+                                    <?php if($rows->active_template != 1 && $rows->is_active == 1) { ?>
+
+                                        <?php //if ($menu_update =='1') { ?>
+
+                                        <a href="javascript:void(0)" onclick="useTemplate('<?php echo $rows->header_id; ?>')" class="btn save-btn" style="color:white;">Use template</a>
+                                        <?php } else { ?>
+                                            <button type="button" class="btn btn-success" style="background:green;">Active template</button> 
+                                        <?php } ?>
+                                        <!-- <a href="javascript:void(0)" class="btn btn-xs btn-default" onclick="editFn('emailTemplate','template_edit','<?php echo encoding($rows->id) ?>');"><i class="fa fa-pencil"></i></a> -->
+                                        <?php if($rows->is_active == 1) {?>
+                                        <!-- <a href="javascript:void(0)" class="btn btn-xs btn-success" onclick="editStatusFn('vendor_sale_email_template','id','<?php echo encoding($rows->id);?>','<?php echo $rows->is_active;?>')" title="Inactive Now"><i class="fa fa-check"></i></a> -->
+                                        <?php } else { ?>
+                                        <!-- <a href="javascript:void(0)" class="btn btn-xs btn-danger" onclick="editStatusFn('vendor_sale_email_template','id','<?php echo encoding($rows->id); ?>','<?php echo $rows->is_active;?>')" title="Active Now"><i class="fa fa-times"></i></a> -->
+                                        <?php } 
+                                    //} if ($menu_delete =='1') {?>
+                                        <!-- <a href="javascript:void(0)" onclick="deleteFn('vendor_sale_email_template','id','<?php echo encoding($rows->header_id); ?>','emailTemplate')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a> -->
+                                        <a href="javascript:void(0)" data-toggle="tooltip"   onclick="deleteFn('<?php echo 'vendor_sale_lettel_header'; ?>', 'id', '<?php echo encoding($rows->header_id); ?>', 'index.php/emailTemplate', 'index.php/emailTemplate/delVendors','<?php echo $rows->header_id . ' ' . $rows->header_id; ?>')" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                            
+                                        <form id="templateForm_<?php echo $rows->header_id; ?>" style="display: none;">
+                                            <input type="hidden" name="id" value="<?php echo $rows->header_id; ?>">
+                                        
+                                        </form>
+                                        <?php //}?>
+
+                                </td>
+                            </tr>
+                        <?php endforeach;
+                    endif; ?>
+                    </tbody>
+                </table>
+            </div>
+
+            <?php } ?>
+
+        </div>
+        <!-- END Datatables Content -->
+    </div>
 
             </div>
 <div id="form-modal-box"></div>
@@ -335,7 +535,7 @@
 
 
 <script>
-    CKEDITOR.replace('editor1');
+    CKEDITOR.replace('recipient_template');
     CKEDITOR.replace('recipient_template');
 
     
@@ -432,244 +632,6 @@
 
         
 
-        <!-- Datatables Content -->
-    <div class="block full">
-            <div class="block-title">
-            
-            <h2><strong>Email Template</strong> Panel</h2>
-           
-              
-        <?php if ($this->ion_auth->is_superAdmin()) {?>
-
-            <!-- <h2><a href="javascript:void(0)" onclick="open_modal('emailTemplate')" class="save-btn btn btn-sm btn-primary">
-            <i class="gi gi-circle_plus"></i> Email Template
-            </a></h2>       -->
-        <?php }?>
-
-            </div>
-            <!-- <h2><a href="javascript:void(0)" onclick="open_modal('emailTemplate')" class="btn btn-sm btn-primary" style="background:#337ab7;">
-            <i class="gi gi-circle_plus m-2"></i> Email Template
-            </a></h2>    -->
-
-            <?php 
-                        $all_permission = $this->ion_auth->is_permission();
-                        if (!empty($all_permission['form_permission'])) {
-                        foreach($all_permission['form_permission'] as $permission){
-                        
-                            $menu_view =$permission->menu_view;
-                            $menu_create= $permission->menu_create;
-                            $menu_update= $permission->menu_update;
-                            $menu_delete =$permission->menu_delete;
-                            $menu_name =$permission->menu_name;
-                            // echo $menu_name;
-                            if ($menu_name == 'Email Template') {
-                              // if ($menu_view =='1') {?>
-
-            <div class="table-responsive">
-                <table id="common_datatable_cms" class="table table-vcenter table-condensed table-bordered text-center">
-                    <thead>
-                        <tr>                                            
-                            <th  class="t-head text-center"><?php echo lang('serial_no'); ?></th>
-                            <!-- <th class="t-head text-center">Email Type</th> -->
-                            <th class="t-head text-center" class="t-head">Header</th>
-                            <th class="t-head">Body</th>
-                            <th class="t-head">Recipients</th>
-                            <th class="t-head">Footer</th>
-                            <th class="t-head text-center"><?php echo lang('action'); ?></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <?php
-                    if (isset($list) && !empty($list)):
-                        $rowCount = 0;
-                        foreach ($list as $rows):
-                            $rowCount++;
-                            ?>
-                            <tr>
-                                <td><?php echo $rowCount; ?></td>            
-                                <!-- <td><?php echo $rows->email_type; ?></td> -->
-                                <td><?php echo $rows->title; ?>
-                            
-                                <?php $image_url = base_url('/uploads/'); ?>
-                                
-
-                               <img width="100" src="<?php if (!empty($rows->image)) {
-                                    echo $image_url.$rows->image;
-                                
-                            } else {
-                                echo base_url() . DEFAULT_NO_IMG_PATH;
-                            } ?>" />
-
-                            </td>
-                               <td style="width:25%;"><?php
-                                    if (strlen($rows->bodies_template) > 400) {
-                                        $content = $rows->bodies_template;
-                                        echo mb_substr($rows->bodies_template, 0, 400, 'UTF-8') . '...<br>';
-                                        ?>
-                                        <a style="cursor:pointer" onclick="show_message('<?php echo base64_encode($content); ?>')"><?php echo lang('view'); ?></a>
-                                        <?php
-                                    } else if (strlen($rows->bodies_template) > 0) {
-                                        echo $rows->bodies_template;
-                                    }
-                                    ?></td>
-                                    <td style="width:25%;"><?php
-                                    if (strlen($rows->recipient_template) > 400) {
-                                        $content = $rows->recipient_template;
-                                        echo mb_substr($rows->recipient_template, 0, 400, 'UTF-8') . '...<br>';
-                                        ?>
-                                        <a style="cursor:pointer" onclick="show_message('<?php echo base64_encode($content); ?>')"><?php echo lang('view'); ?></a>
-                                        <?php
-                                    } else if (strlen($rows->recipient_template) > 0) {
-                                        echo $rows->recipient_template;
-                                    }
-                                    ?></td>
-
-                                    <?php $image_url = base_url('/uploads/'); ?>
-                                
-
-                                <td><img width="100" src="<?php if (!empty($rows->footer_logo)) {
-                                    echo $image_url.$rows->footer_logo;
-                                
-                            } else {
-                                echo base_url() . DEFAULT_NO_IMG_PATH;
-                            } ?>" /></td>
-
-                                <td class="actions">
-
-                                    <?php if($rows->active_template != 1 && $rows->is_active == 1) { ?>
-
-                                        <?php //if ($menu_update =='1') { ?>
-
-                                        <a href="javascript:void(0)" onclick="useTemplate('<?php echo $rows->id; ?>')" class="btn save-btn" style="color:white;">Use template</a>
-                                        <?php } else { ?>
-                                            <button type="button" class="btn btn-success" style="background:green;">Active template</button> 
-                                        <?php } ?>
-                                        <!-- <a href="javascript:void(0)" class="btn btn-xs btn-default" onclick="editFn('emailTemplate','template_edit','<?php echo encoding($rows->id) ?>');"><i class="fa fa-pencil"></i></a> -->
-                                        <?php if($rows->is_active == 1) {?>
-                                        <!-- <a href="javascript:void(0)" class="btn btn-xs btn-success" onclick="editStatusFn('vendor_sale_email_template','id','<?php echo encoding($rows->id);?>','<?php echo $rows->is_active;?>')" title="Inactive Now"><i class="fa fa-check"></i></a> -->
-                                        <?php } else { ?>
-                                        <!-- <a href="javascript:void(0)" class="btn btn-xs btn-danger" onclick="editStatusFn('vendor_sale_email_template','id','<?php echo encoding($rows->id); ?>','<?php echo $rows->is_active;?>')" title="Active Now"><i class="fa fa-times"></i></a> -->
-                                        <?php } 
-                                    //} if ($menu_delete =='1') {?>
-                                        <a href="javascript:void(0)" onclick="deleteFn('vendor_sale_email_template','id','<?php echo encoding($rows->id); ?>','emailTemplate')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
-                                    
-                                        <form id="templateForm_<?php echo $rows->id; ?>" style="display: none;">
-                                            <input type="hidden" name="id" value="<?php echo $rows->id; ?>">
-                                        
-                                        </form>
-                                        <?php //}?>
-
-                                </td>
-                            </tr>
-                        <?php endforeach;
-                    endif; ?>
-                    </tbody>
-                </table>
-            </div>
-
-    <?php }}} if($this->ion_auth->is_facilityManager()){?>
-    
-            <div class="table-responsive">
-                <table id="common_datatable_cms" class="table table-vcenter table-condensed table-bordered text-center">
-                    <thead>
-                        <tr>                                            
-                            <th  class="t-head text-center"><?php echo lang('serial_no'); ?></th>
-                            <!-- <th class="t-head text-center">Email Type</th> -->
-                            <th class="t-head text-center" class="t-head">Header</th>
-                            <th class="t-head">Body</th>
-                            <th class="t-head">Recipients</th>
-                            <th class="t-head">Footer</th>
-                            <th class="t-head text-center"><?php echo lang('action'); ?></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <?php
-                    if (isset($list) && !empty($list)):
-                        $rowCount = 0;
-                        foreach ($list as $rows):
-                            $rowCount++;
-                            ?>
-                            <tr>
-                                <td><?php echo $rowCount; ?></td>            
-                                <!-- <td><?php echo $rows->email_type; ?></td> -->
-                                <td><?php echo $rows->title; ?>
-                            
-                                <?php $image_url = base_url('/uploads/'); ?>
-                                
-
-                               <img width="100" src="<?php if (!empty($rows->image)) {
-                                    echo $image_url.$rows->image;
-                                
-                            } else {
-                                echo base_url() . DEFAULT_NO_IMG_PATH;
-                            } ?>" />
-
-                            </td>
-                               <td style="width:25%;"><?php
-                                    if (strlen($rows->bodies_template) > 400) {
-                                        $content = $rows->bodies_template;
-                                        echo mb_substr($rows->bodies_template, 0, 400, 'UTF-8') . '...<br>';
-                                        ?>
-                                        <a style="cursor:pointer" onclick="show_message('<?php echo base64_encode($content); ?>')"><?php echo lang('view'); ?></a>
-                                        <?php
-                                    } else if (strlen($rows->bodies_template) > 0) {
-                                        echo $rows->bodies_template;
-                                    }
-                                    ?></td>
-                                    <td style="width:25%;"><?php
-                                    if (strlen($rows->recipient_template) > 400) {
-                                        $content = $rows->recipient_template;
-                                        echo mb_substr($rows->recipient_template, 0, 400, 'UTF-8') . '...<br>';
-                                        ?>
-                                        <a style="cursor:pointer" onclick="show_message('<?php echo base64_encode($content); ?>')"><?php echo lang('view'); ?></a>
-                                        <?php
-                                    } else if (strlen($rows->recipient_template) > 0) {
-                                        echo $rows->recipient_template;
-                                    }
-                                    ?></td>
-
-                                    <?php $image_url = base_url('/uploads/'); ?>
-                                
-
-                                <td><img width="100" src="<?php if (!empty($rows->footer_logo)) {
-                                    echo $image_url.$rows->footer_logo;
-                                
-                            } else {
-                                echo base_url() . DEFAULT_NO_IMG_PATH;
-                            } ?>" /></td>
-
-                                <td class="actions">
-                                <?php if($rows->active_template != 1 && $rows->is_active == 1) {?>
-                                    <a href="javascript:void(0)" onclick="useTemplate('<?php echo $rows->id; ?>')" class="btn save-btn" style="color:white;">Use template</a>
-                                    <?php } else { ?>
-                                        <button type="button" class="btn btn-success" style="background:green;">Active template</button> 
-                                    <?php }  ?>
-                                    <!-- <a href="javascript:void(0)" class="btn btn-xs btn-default" onclick="editFn('emailTemplate','template_edit','<?php echo encoding($rows->id) ?>');"><i class="fa fa-pencil"></i></a> -->
-                                    <?php if($rows->is_active == 1) {?>
-                                    <!-- <a href="javascript:void(0)" class="btn btn-xs btn-success" onclick="editStatusFn('vendor_sale_email_template','id','<?php echo encoding($rows->id);?>','<?php echo $rows->is_active;?>')" title="Inactive Now"><i class="fa fa-check"></i></a> -->
-                                    <?php } else { ?>
-                                    <!-- <a href="javascript:void(0)" class="btn btn-xs btn-danger" onclick="editStatusFn('vendor_sale_email_template','id','<?php echo encoding($rows->id); ?>','<?php echo $rows->is_active;?>')" title="Active Now"><i class="fa fa-times"></i></a> -->
-                                    <?php } ?>
-                                    <a href="javascript:void(0)" onclick="deleteFn('vendor_sale_email_template','id','<?php echo encoding($rows->id); ?>','emailTemplate')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
-                                
-                                    <form id="templateForm_<?php echo $rows->id; ?>" style="display: none;">
-                                        <input type="hidden" name="id" value="<?php echo $rows->id; ?>">
-                                       
-                                    </form>
-
-                                </td>
-                            </tr>
-                        <?php endforeach;
-                    endif; ?>
-                    </tbody>
-                </table>
-            </div>
-
-            <?php } ?>
-
-        </div>
-        <!-- END Datatables Content -->
-    </div>
     <!-- END Page Content -->
 <div id="form-modal-box"></div>
 <div id="message_div">

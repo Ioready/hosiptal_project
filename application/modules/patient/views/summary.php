@@ -131,7 +131,7 @@
 }
 </style>
 <!-- Page content -->
-<div id="page-content">
+<div id="page-content" style="background-color:whitesmoke;">
     <!-- Datatables Header -->
     <ul class="breadcrumb breadcrumb-top">
         <li>
@@ -205,14 +205,14 @@
                         <div class="widget-extra-full"><span class="h2 animation-expandOpen fw-bold text-dark"><?php echo $inactive;?></span></div>
                     </a>
                 </div>
-                <div class="col-sm-6 col-lg-2 mb-4">
+                <!-- <div class="col-sm-6 col-lg-2 mb-4">
                 <a href="<?php echo base_url(). 'index.php/accountStatement?id=' . encoding($results->id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
                         <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
                             <h4 style="font-size:16px; font-weight:600; color:white;">Account statements</h4>
                         </div>
                         <div class="widget-extra-full"><span class="h2 animation-expandOpen fw-bold text-dark"><?php echo $inactive;?></span></div>
                     </a>
-                </div>
+                </div> -->
                 
                 <div class="col-sm-6 col-lg-2 mb-4">
                 <a href="<?php echo base_url() . 'index.php/patient/communication?id=' . encoding($results->id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
@@ -303,7 +303,7 @@
         </div>
 
     <?php } ?>
-    
+    <iframe name="print_frame" width="0" height="0" frameborder="0" src="about:blank"></iframe>
 
     <section style="background-color: #eee;">
 
@@ -583,6 +583,7 @@
         </div>
     </div> 
 </div>
+
 <div class="row p-4 mt-4">
     <div class="col-md-4 ">
         <div class=" mb-3">
@@ -788,8 +789,10 @@
 </div>
 
 
+
+
     <?php }?>
-<iframe name="print_frame" width="0" height="0" frameborder="0" src="about:blank"></iframe>
+
 </section>
 
 

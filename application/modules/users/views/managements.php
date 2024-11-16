@@ -1,122 +1,125 @@
-<!-- Page content -->
+<!-- External CSS Libraries -->
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css" rel="stylesheet"> -->
+
+<!-- Custom Styles -->
 <style>
-        .tab-content {
-            margin-top: 20px;
-        }
+    /* Layout Adjustments */
+    .container {
+        max-width: 1500px;
+    }
 
-        .table-actions {
-            display: flex;
-            gap: 5px;
-        }
+    .tab-content {
+        margin-top: 20px;
+    }
 
-        .modal-content {
-            max-width: 700px;
-            margin: auto;
-        }
+    .tab-pane {
+        padding-top: 20px;
+    }
 
-        .modal-header {
-            justify-content: center;
-        }
+    /* Modal Customizations */
+    .modal-content {
+        max-width: 700px;
+        margin: auto;
+    }
 
-        .btn-icon {
-            padding: 5px;
-            font-size: 14px;
-        }
+    .modal-header {
+        justify-content: center;
+    }
 
-        .btn-icon.edit {
-            background-color: #5cb85c;
-            color: white;
-        }
+    /* Table Actions */
+    .table-actions {
+        display: flex;
+        gap: 5px;
+    }
 
-        .btn-icon.delete {
-            background-color: #d9534f;
-            color: white;
-        }
+    .btn-icon {
+        padding: 5px;
+        font-size: 14px;
+    }
 
-        .status-active {
-            color: green;
-        }
+    .btn-icon.edit {
+        background-color: #5cb85c;
+        color: white;
+    }
 
-        .status-inactive {
-            color: red;
-        }
+    .btn-icon.delete {
+        background-color: #d9534f;
+        color: white;
+    }
 
-        .form-group {
-            margin-bottom: 15px;
-        }
+    /* Status Indicators */
+    .status-active {
+        color: green;
+    }
 
-        .tab-pane {
-            padding-top: 20px;
-        }
-        .fade {
-            opacity: 1!important;
-        
-        }
-    </style>
+    .status-inactive {
+        color: red;
+    }
 
-    <!-- module permission css -->
-    <style>
-        .card {
-            margin-bottom: 2rem;
-        }
+    /* Form Elements */
+    .form-group {
+        margin-bottom: 15px;
+    }
 
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    /* Fade Animation Override */
+    .fade {
+        opacity: 1 !important;
+    }
 
+    /* Permission Module Styles */
+    .card {
+        margin-bottom: 2rem;
+    }
+
+    .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .permissions-table {
+        width: 100%;
+    }
+
+    .permission-switch {
+        display: inline-block;
+        width: 3rem;
+    }
+
+    .search-input {
+        max-width: 250px;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
         .permissions-table {
-            width: 100%;
+            font-size: 12px;
         }
 
-        .permission-switch {
-            display: inline-block;
-            width: 3rem;
+        .card {
+            margin-bottom: 1rem;
         }
 
         .search-input {
-            max-width: 250px;
+            width: 100%;
+            margin-top: 1rem;
         }
+    }
 
-        .container {
-            max-width: 1500px;
-        }
+    /* Custom Button and Heading Styles */
+    .button-data {
+        background: cornflowerblue !important;
+        font-size: medium;
+        color: cornsilk;
+    }
 
-        @media (max-width: 768px) {
-            .permissions-table {
-                font-size: 12px;
-            }
+    .heading-div {
+        padding-left: 20px;
+    }
+</style>
 
-            .card {
-                margin-bottom: 1rem;
-            }
-
-            .search-input {
-                width: 100%;
-                margin-top: 1rem;
-            }
-        }
-        div{
-            font-size: medium;
-        }
-        button{
-            font-size: medium!important;
-        }
-        .button-data{
-            background: cornflowerblue!important;
-            font-size: medium!important;
-            color: cornsilk;
-        }
-        .heading-div{
-            padding-left: 20px;
-        }
-    </style>
-
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- DataTables CSS -->
-    <link href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css" rel="stylesheet">
-<div id="page-content">
+<div id="page-content" style="background-color: whitesmoke;">
   <div class="heading-div">
 <ul class="breadcrumb breadcrumb-top" style="background: white;padding-left: 20px; height: 42px;">
     <li style="display: inline-block; ">
@@ -129,13 +132,9 @@
 </div>
     <!-- END Datatables Header -->
 
-
-
-
-
     <!-- Datatables Content -->
-    <div class="block full">
-    <div class="block-title" >
+    <div class="block full" style="border-radius:10px; background-color:#FFFF;  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);border:1px solid #d3d3d3;">
+    <div class="" >
             <!-- <h2 class="fw-bold text-dark">Users Panel</h2> -->
             <ul class="nav nav-tabs" id="userRoleTab" role="tablist">
             <?php 
@@ -177,11 +176,11 @@
     <?php if($this->ion_auth->is_facilityManager()){?>
 
 
-        <div class="block-title" >
+        <div class="" style="border-radius:10px; background-color:#f7fbff; border:1px solid #d3d3d3;" >
             <!-- <h2 class="fw-bold text-dark">Users Panel</h2> -->
-            <ul class="nav nav-tabs" id="userRoleTab" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <a class="nav-link active" id="user-tab" data-bs-toggle="tab" href="#user" role="tab" aria-controls="user"
+            <ul class="nav nav-tabs" id="userRoleTab" role="tablist" >
+                <li class="nav-item" role="presentation" >
+                    <a class="nav-link active"  id="user-tab" data-bs-toggle="tab" href="#user" role="tab" aria-controls="user"
                         aria-selected="true">User</a>
                 </li>
                 <li class="nav-item" role="presentation">
@@ -317,21 +316,21 @@
                     <!-- User Tab -->
                     <div class="tab-pane fade show active" id="user" role="tabpanel" aria-labelledby="user-tab">
                         <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h4>User Management</h4>
-                            <button class="btn btn-primary button-data" data-bs-toggle="modal" data-bs-target="#addUserModal">+ Add
+                            <h4 style="font-weight:bold;font-size:15px">User Management</h4>
+                            <button class="btn btn-primary button-data" style="font-weight:600px;font-size:15px" data-bs-toggle="modal" data-bs-target="#addUserModal">+ Add
                                 User</button>
                         </div>
                         <table id="userTable" class="table table-striped table-bordered" style="width:100%">
                             <thead>
-                                <tr>
-                                    <th><input type="checkbox"></th>
-                                    <th>User ID</th>
-                                    <th>Name</th>
-                                    <th>Contact</th>
-                                    <th>Email</th>
-                                    <th>Role</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
+                                <tr >
+                                    <th style="font-weight:600px;font-size:15px"><input type="checkbox"></th>
+                                    <th style="font-weight:600px;font-size:15px" >User ID</th>
+                                    <th style="font-weight:600px;font-size:15px">Name</th>
+                                    <th style="font-weight:600px;font-size:15px">Contact</th>
+                                    <th style="font-weight:600px;font-size:15px">Email</th>
+                                    <th style="font-weight:600px;font-size:15px">Role</th>
+                                    <th style="font-weight:600px;font-size:15px">Status</th>
+                                    <th style="font-weight:600px;font-size:15px">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -502,20 +501,20 @@
                         <!-- Role & Permission Tab -->
                     <div class="tab-pane fade" id="role" role="tabpanel" aria-labelledby="role-tab">
                         <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h4>Role & Permission Management</h4>
-                            <button class="btn btn-primary button-data" data-bs-toggle="modal" data-bs-target="#addRoleModal">+ Create Role
+                            <h4 style="font-weight:bold;font-size:15px">Role & Permission Management</h4>
+                            <button class="btn btn-primary button-data" style="font-weight:600px;font-size:15px" data-bs-toggle="modal" data-bs-target="#addRoleModal">+ Create Role
                                 & Permission</button>
                         </div>
 
                         <table id="roleTable" class="table table-striped table-bordered" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th><input type="checkbox"></th>
-                                    <th>Role</th>
-                                    <th>Descriptions</th>
-                                    <th>Permission</th>
+                                    <th style="font-weight:bold;font-size:15px"><input type="checkbox"></th>
+                                    <th style="font-weight:bold;font-size:15px">Role</th>
+                                    <th style="font-weight:bold;font-size:15px">Descriptions</th>
+                                    <th style="font-weight:bold;font-size:15px">Permission</th>
                                     <!-- <th>status</th> -->
-                                    <th>Action</th>
+                                    <th style="font-weight:bold;font-size:15px">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -602,7 +601,8 @@
                     <div class="tab-pane fade" id="module" role="tabpanel" aria-labelledby="role-tab">
                         
                         <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h3>Group Permission</h3>
+                    
+                        <h3>Group Permission</h3>
                     <input type="text" class="form-control search-input" placeholder="Search...">
                     </div>
 
@@ -702,10 +702,11 @@
                        <!--module permission tab -->
                     <div class="tab-pane fade" id="module" role="tabpanel" aria-labelledby="role-tab">
                         
-                        <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h3>Group Permission</h3>
-                    <input type="text" class="form-control search-input" placeholder="Search...">
-                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding: 10px; ">
+    <h3 style="margin: 0; font-size: 22px; font-weight: bold; color: #333;">Group Permission</h3>
+    <input type="text" style="width: 300px; padding: 8px 12px; font-size: 14px; border: 1px solid #ccc; border-radius: 5px;" placeholder="Search...">
+</div>
+
 
                     <form class="form-horizontal p-4" role="form" id="addFormAjax" method="post" action="<?php echo base_url('users/rolePermission') ?>" enctype="multipart/form-data">
                             
@@ -807,110 +808,112 @@
                                     <h2 class="modal-title" id="addUserModalLabel"><strong> Add User</strong></h2>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
+                                <br>
+                                <br><br><br><br><br><br>
                                 <div class="modal-body">
                             
 
-                            <form class="form-horizontal p-4" role="form" id="addFormAjax" method="post" action="<?php echo base_url('users/users_add') ?>" enctype="multipart/form-data">
-                                
-                                <div class="alert alert-danger" id="error-box" style="display: none"></div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group me-2">
-                                                <label class="control-label">First Name</label>
-                                                <input type="text" class="form-control" name="first_name" id="first_name" placeholder="First Name" />
-                                            </div>
-                                        </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group me-2">
-                                            <label class="control-label">Last Name</label>
-                                            <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Last Name" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group me-2">
-                                            <label class="control-label"><?php echo lang('user_email');?></label>
-                                            <input type="email" class="form-control" name="user_email" id="user_email" placeholder="<?php echo lang('user_email');?>" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group me-2">
-                                            <label class="control-label">Country</label>
-                                            <select id="country" name="country" class="form-control select2" size="1">
-                                                <option value="" disabled selected>Please select</option>
-                                                <?php foreach($countries as $country){?>
-                                                <option value="<?php echo $country->id;?>"><?php echo $country->name;?></option>
-                                                <?php }?>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group me-2">
-                                            <label class="control-label"><?php echo lang('phone_no');?></label>
-                                            <input type="text" class="form-control" name="phone_no" id="phone_no" placeholder="<?php echo lang('phone_no');?>" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group me-2">
-                                            <label class="control-label"><?php echo lang('password');?></label>
-                                            <input type="text" class="form-control" name="password" id="password" placeholder="<?php echo lang('password');?>" value="<?php echo randomPassword();?>" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="role">Role</label>
-                                            <!-- <select class="form-select" id="role" name="role">
-                                                
-                                            <?php //foreach ($roles_list as $rows): ?>
-                                                    <option value="<?php //echo $rows->id; ?>"><?php echo $rows->name; ?></option>
-                                                                
-                                                <?php //endforeach?>
-                                            </select> -->
-
-                                            <select class="form-select" id="role" name="role">
-                                                <?php foreach ($roles_list as $rows): ?>
-                                                    <?php if ($rows->name !== 'Patient' && $rows->name !== 'Doctor' && $rows->name !== 'SubAdmin'): ?>
-                                                        <option value="<?php echo $rows->id; ?>"><?php echo $rows->name; ?></option>
-                                                    <?php endif; ?>
-                                                <?php endforeach; ?>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-12">
-                                        <div class="form-group me-2">
-                                            <label class="control-label"><?php echo lang('profile_image'); ?></label>
-                                            <div class="group_filed">
-                                                <div class="img_back_prieview_Academic">
-                                                    <div class="images_box_upload_ven_adduser_vendore">
-                                                        <div id="image-preview-adduser-vendore">
-                                                            <input type="file" name="user_image" id="image-upload-adduser-vendore" />
-                                                        </div>
-                                                    </div>
-                                                    <div id="image-preview-adduser">
-                                                        <label for="image-upload-adduser-vendore" id="image-label-adduser-vendore"  class="btn btn-sm btn-primary" style="background:#337ab7;">Upload Logo</label>
+                                    <form class="form-horizontal p-4" role="form" id="addFormAjax" method="post" action="<?php echo base_url('users/users_add') ?>" enctype="multipart/form-data">
+                                        
+                                        <div class="alert alert-danger" id="error-box" style="display: none"></div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group me-2">
+                                                        <label class="control-label">First Name</label>
+                                                        <input type="text" class="form-control" name="first_name" id="first_name" placeholder="First Name" />
                                                     </div>
                                                 </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group me-2">
+                                                    <label class="control-label">Last Name</label>
+                                                    <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Last Name" />
+                                                </div>
                                             </div>
-                                            <div class="ceo_file_error file_error text-danger"></div>
-                                        </div>
-                                    </div>
-                                
-                                    <div class="col-md-12">
-                                        <div class="modal-footer">
-                                            <button type="submit" id="submit"  class="btn btn-sm btn-primary" style="background:#337ab7;"><?php echo lang('submit_btn');?></button>
+                                            <div class="col-md-6">
+                                                <div class="form-group me-2">
+                                                    <label class="control-label"><?php echo lang('user_email');?></label>
+                                                    <input type="email" class="form-control" name="user_email" id="user_email" placeholder="<?php echo lang('user_email');?>" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group me-2">
+                                                    <label class="control-label">Country</label>
+                                                    <select id="country" name="country" class="form-control select2" size="1">
+                                                        <option value="" disabled selected>Please select</option>
+                                                        <?php foreach($countries as $country){?>
+                                                        <option value="<?php echo $country->id;?>"><?php echo $country->name;?></option>
+                                                        <?php }?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group me-2">
+                                                    <label class="control-label"><?php echo lang('phone_no');?></label>
+                                                    <input type="text" class="form-control" name="phone_no" id="phone_no" placeholder="<?php echo lang('phone_no');?>" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group me-2">
+                                                    <label class="control-label"><?php echo lang('password');?></label>
+                                                    <input type="text" class="form-control" name="password" id="password" placeholder="<?php echo lang('password');?>" value="<?php echo randomPassword();?>" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="role">Role</label>
+                                                    <!-- <select class="form-select" id="role" name="role">
+                                                        
+                                                    <?php //foreach ($roles_list as $rows): ?>
+                                                            <option value="<?php //echo $rows->id; ?>"><?php echo $rows->name; ?></option>
+                                                                        
+                                                        <?php //endforeach?>
+                                                    </select> -->
+
+                                                    <select class="form-select" id="role" name="role">
+                                                        <?php foreach ($roles_list as $rows): ?>
+                                                            <?php if ($rows->name !== 'Patient' && $rows->name !== 'Doctor' && $rows->name !== 'SubAdmin'): ?>
+                                                                <option value="<?php echo $rows->id; ?>"><?php echo $rows->name; ?></option>
+                                                            <?php endif; ?>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <div class="form-group me-2">
+                                                    <label class="control-label"><?php echo lang('profile_image'); ?></label>
+                                                    <div class="group_filed">
+                                                        <div class="img_back_prieview_Academic">
+                                                            <div class="images_box_upload_ven_adduser_vendores">
+                                                                <div id="image-preview-adduser-vendore" class="image_vendores">
+                                                                    <input type="file" name="user_image" id="image-upload-adduser-vendore" class="image_vendores"/>
+                                                                </div>
+                                                            </div>
+                                                            <div id="image-preview-adduser">
+                                                                <label for="image-upload-adduser-vendore" id="image-label-adduser-vendore"  class="btn btn-sm btn-primary"  style="background:#337ab7;">Upload Logo</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ceo_file_error file_error text-danger"></div>
+                                                </div>
+                                            </div>
                                         
+                                            <div class="col-md-12">
+                                                <div class="modal-footer">
+                                                    <button type="submit" id="submit"  class="btn btn-sm btn-primary" style="background:#337ab7;"><?php echo lang('submit_btn');?></button>
+                                                
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
+
+                                    </form>
+
                                 </div>
-
-                            </form>
-
                             </div>
-                        </div>
                         
-                    </div>
+                        </div>
 
-                </div>
+                    </div>
 
                 <!-- Add Role Modal (Similar to User) -->
 
@@ -976,6 +979,34 @@
 
 <div id="form-modal-box-user"></div>
 
+<style>
+    .images_box_upload_ven_adduser_vendores{
+        height: 52px;
+    border: 3px dashed #D0D0D0;
+    padding: 5px;
+    /* margin: 0 auto; */
+    border-radius: 5px;
+    }
+    
+    .image_vendores {
+    width: 42px!important;
+    height: 40px!important;
+    position: relative;
+    overflow: hidden;
+    /* background-color: #ffffff; */
+    color: #ecf0f1;
+    background-image: url(../img/img-upload.png);
+    background-size: cover;
+    background-position: center center;
+    /* border-radius: 50%; */
+    /* float: left; */
+    background-repeat: no-repeat;
+    margin: 0 auto;
+}
+
+</style>
+
+
 <!-- <input type="hidden" id="UserStatus" value="<?php echo $status;?>" /> -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- jQuery -->
@@ -984,7 +1015,7 @@
     <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
 
-    <script>
+    <script type="text/javascript">
         // Initialize DataTables for both User and Role & Permission tables
         $(document).ready(function () {
             $('#userTable').DataTable();
@@ -992,7 +1023,7 @@
         });
     </script>
 
-    <script>
+<script type="text/javascript">
     function selectAll(menuName) {
         // Get the state of the "View All Records" checkbox
         var isChecked = event.target.checked; // Use 'event.target' to get the checkbox that triggered the event
@@ -1005,107 +1036,7 @@
             checkbox.checked = isChecked; // Set the checkbox state based on "View All Records"
         });
     }
-    </script>
-
-    
-    <!-- <script type="text/javascript">
-    $(document).on('change', '#role_id', function() {
-        var role = $("#role_id").val(); 
-       
-        $.ajax({
-            url: '<?php echo base_url(); ?>users/menu_settings_onchange',  // Ensure URL is correct
-            data: { 'role': role }, 
-            type: 'POST',
-            dataType: 'json', // Expecting JSON response from the server
-            success: function(data) {
-               
-                // Uncheck all checkboxes initially
-                $(".servicecheck").prop('checked', false);
-                $(".servicecheckviewall").prop('checked', false);
-                $(".servicecheckView").prop('checked', false);
-                $(".servicecheckCreate").prop('checked', false);
-                $(".servicecheckDelete").prop('checked', false);
-                $(".servicecheckUpdate").prop('checked', false);
-                
-                // Check if data is returned and in the correct format
-                if (Array.isArray(data)) {
-                    // Loop through the data returned from the server
-                    $.each(data, function(i, val) {
-                        var svalue = val.menu_id; // Assuming 'menu_id' is in the returned JSON
-                        var view = val.menu_view;
-                        var create = val.menu_create;
-                        var update = val.menu_update;
-                        var deletevalue = val.menu_delete;
-                        
-                        var myCheckbox = "#" + svalue; 
-                        var myview = "#" + view;
-                        var mycreate = "#" + create;
-                        var myupdate = "#" + update;
-                        var mydelete = "#" + deletevalue;
-                        console.log("Checkbox ID: " + myCheckbox); // Debugging: log checkbox ID
-                        console.log("CheckboxView ID: " + myview); // Debugging: log checkbox ID
-                        console.log("CheckboxCreate ID: " + mycreate); // Debugging: log checkbox ID
-                        console.log("CheckboxUpdate ID: " + myupdate); // Debugging: log checkbox ID
-                        console.log("CheckboxDelete ID: " + mydelete); // Debugging: log checkbox ID
-                        // console.log("Checkbox ID: " + myCheckbox); // Debugging: log checkbox ID
-                        
-                        // Check if the checkbox with this ID exists, then set it to checked
-                        if ($(myCheckbox).length) {
-                            $(myCheckbox).prop('checked', true); 	
-                        } else {
-                            console.log("Checkbox not found for ID: " + myCheckbox);
-                        }
-
-                        // view checked
-                        if(svalue){
-
-
-                        if ($(myview).length) {
-                            $('.servicecheckView').prop('checked', true); 
-                            $(myCheckbox).prop('checked', true);	
-                        } else {
-                            console.log("Checkbox not found for ID: " + myview);
-                        }
-
-                        // create checked
-
-                        if ($(mycreate).length) {
-                            $('.servicecheckCreate').prop('checked', true); 	
-                        } else {
-                            console.log("Checkbox not found for ID: " + mycreate);
-                        }
-
-                        // update checked
-
-                        if ($(myupdate).length) {
-                            $('.servicecheckUpdate').prop('checked', true); 	
-                        } else {
-                            console.log("Checkbox not found for ID: " + myupdate);
-                        }
-
-                        // delete checked
-
-                        if ($(mydelete).length) {
-                            $('.servicecheckDelete').prop('checked', true); 	
-                        } else {
-                            console.log("Checkbox not found for ID: " + mydelete);
-                        }
-
-                    }
-                    });
-                } else {
-                    console.error('Unexpected data format', data);  // Error if data is not an array
-                }
-            },
-            error: function(xhr, status, error) {
-                alert("An error occurred: " + error); // Notify user of error
-                console.log("Status: " + status);      // Log the error status
-                console.log("Error: " + error);        // Log the error details
-                console.log(xhr.responseText);         // Log the server response for debugging
-            }
-        });
-    });
-</script> -->
+</script>
 
 <script type="text/javascript">
     $(document).on('change', '#role_id', function() {
@@ -1128,71 +1059,7 @@
                 
                 // Check if data is returned and in the correct format
                 if (Array.isArray(data)) {
-                    // Loop through the data returned from the server
-                    // $.each(data, function(i, val) {
-                    //     var svalue = val.menu_id; // Assuming 'menu_id' is in the returned JSON
-                       
-
-                    //     // Ensure that 'menu_id' (svalue) is not empty before proceeding
-                    //     if (svalue) {
-
-                    //     var view = val.menu_view;
-                    //     var create = val.menu_create;
-                    //     var update = val.menu_update;
-                    //     var deletevalue = val.menu_delete;
-                        
-                    //     var myCheckbox = "#" + svalue; 
-                    //     var myview = "#" + view;
-                    //     var mycreate = "#" + create;
-                    //     var myupdate = "#" + update;
-                    //     var mydelete = "#" + deletevalue;
-
-
-                    //         // Check if the checkbox with this ID exists, then set it to checked
-                    //         if ($(myCheckbox).length) {
-                    //             $(myCheckbox).prop('checked', true); 	
-                    //         } else {
-                    //             console.log("Checkbox not found for ID: " + myCheckbox);
-                    //         }
-
-                    //         // Check 'view' if it's available and non-empty
-                    //         if (view && $(myview).length) {
-                    //             $('.servicecheckView').prop('checked', true); 
-                    //             $(myCheckbox).prop('checked', true);	
-                    //         } else {
-                    //             console.log("View checkbox not found for ID: " + myview);
-                    //         }
-
-                    //         // Check 'create' if it's available and non-empty
-                    //         if (create && $(mycreate).length) {
-                    //             $('.servicecheckCreate').prop('checked', true); 	
-                    //         } else {
-                    //             console.log("Create checkbox not found for ID: " + mycreate);
-                    //         }
-
-                    //         // Check 'update' if it's available and non-empty
-                    //         if (update && $(myupdate).length) {
-                    //             $('.servicecheckUpdate').prop('checked', true); 	
-                    //         } else {
-                    //             console.log("Update checkbox not found for ID: " + myupdate);
-                    //         }
-
-                    //         // Check 'delete' if it's available and non-empty
-                    //         if (deletevalue && $(mydelete).length) {
-                    //             $('.servicecheckDelete').prop('checked', true); 	
-                    //         } else {
-                    //             console.log("Delete checkbox not found for ID: " + mydelete);
-                    //         }
-
-                    //     } else {
-                    //         console.log("menu_id is empty or invalid for this entry.");
-                    //     }
-                    // });
-
-
-
-
-
+                    
                     $.each(data, function(i, val) {
                         var svalue = val.menu_id; // Assuming 'menu_id' is in the returned JSON
                         var menu_key = val.menu_key; // Assuming 'menu_id' is in the returned JSON
@@ -1221,53 +1088,6 @@
                                 var myupdate = "#" + update;
                                 var mydelete = "#" + deletevalue;
                                 
-                            
-                            // if (view && $(myview).length || $(svalue).length){
-                            //     $('.servicecheckView').prop('checked', true ? false); 	
-                            // } 
-
-                            // if (create && $(mycreate).length || $(svalue).length) {
-                            //     $('.servicecheckCreate ').prop('checked', true ? false); 	
-                            // } 
-
-                            // if (update && $(myupdate).length || $(svalue).length) {
-                            //     $('.servicecheckUpdate').prop('checked', true ? false) ; 	
-                            // } 
-
-                            // if (deletevalue && $(mydelete).length || $(svalue).length) {
-                            //     $('.servicecheckDelete').prop('checked', true ? false); 	
-                            // } 
-                            
-                            // Check 'view' if it's available and non-empty
-
-                            
-                                    // if ($(myview).length && $(svalue).length) {
-                                    //     $('.servicecheckView').prop('checked', true);  // Check the checkbox if the conditions are met
-                                    // } else {
-                                    //     $('.servicecheckView').prop('checked', false); // Uncheck if conditions are not met
-                                    // }
-
-                                    // // Check 'create' if it's available and non-empty
-                                    // if ($(mycreate).length && $(svalue).length) {
-                                    //     $('.servicecheckCreate').prop('checked', true); 	
-                                    // } else {
-                                    //     $('.servicecheckCreate').prop('checked', false); 
-                                    // }
-
-                                    // // Check 'update' if it's available and non-empty
-                                    // if (update && $(myupdate).length && $(svalue).length) {
-                                    //     $('.servicecheckUpdate').prop('checked', true); 	
-                                    // } else {
-                                    //     $('.servicecheckUpdate').prop('checked', false); 
-                                    // }
-
-                                    // // Check 'delete' if it's available and non-empty
-                                    // if (deletevalue && $(mydelete).length && $(svalue).length) {
-                                    //     $('.servicecheckDelete').prop('checked', true); 	
-                                    // } else {
-                                    //     $('.servicecheckDelete').prop('checked', false); 
-                                    // }
-
 
                                     if (view && $(myview).length) {
                                         $('.servicecheckView'+menu_key).prop('checked', true);  // Set checked to true if condition is met
@@ -1321,32 +1141,3 @@
         });
     });
 </script>
-
-
-
-
-
-
-
-
-<!-- <style>
-    ::-webkit-scrollbar {
-    width: 2px !important;
-    display:none
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
-    background: #f1f1f1 !important; 
-  }
-   
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: #888 !important; 
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: #555 !important; 
-  }
-</style> -->

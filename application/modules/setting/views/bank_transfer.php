@@ -3,7 +3,7 @@
 
 <?php if ($this->ion_auth->is_superAdmin()) { ?>
 
-        <div id="page-content">
+        <div id="page-content"  style="background-color: whitesmoke;">
             
             <ul class="breadcrumb breadcrumb-top">
                 <li>
@@ -171,7 +171,7 @@
                     <h2><strong>Site Setting</strong> Panel</h2>
                 </div>
                 <div class="col-sm-6 col-lg-12 text-white">
-                    <div class="panel panel-default">
+                    <div class="panel">
                         <ul class="nav nav-pills nav-fill nav-tabss" id="pills-tab" role="tablist">
                             <li class="nav-item">
                                 <a href="<?php echo site_url('setting'); ?>" class="save-btn text-white <?php echo (strtolower($this->router->fetch_class()) == "setting" && strtolower($this->router->fetch_method()) == "index") ? "active" : "" ?>">
@@ -195,7 +195,12 @@
                                     <span class="sidebar-nav-mini-hide">Bank Transfer</span>
                                 </a>
                             </li>
-                        
+                            <li class="nav-item">
+                                <a href="<?php echo site_url('setting/consultationTemplates'); ?>" class="save-btn text-white <?php echo (strtolower($this->router->fetch_class()) == "consultationTemplates") ? "active" : "" ?>">
+                                    <span class="sidebar-nav-mini-hide">Consultation Templates</span>
+                                </a>
+                                <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-2" role="tab"></a>
+                            </li>
                         </ul>
                     </div>
                 </div>

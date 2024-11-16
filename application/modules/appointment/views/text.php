@@ -7,8 +7,11 @@
     <title>Appointment Panel</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/css/bootstrap-multiselect.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/css/bootstrap-multiselect.css"> -->
     <style>
+        .caret {
+            display: none!important;
+        }
         .highlight { background-color: yellow; }
         header h1, header p { margin: 0; }
         footer { padding: 7vh 5vw; border-top: 1px solid #ddd; }
@@ -113,6 +116,15 @@ transition: opacity 0.3s linear, right 0.3s ease-out;
     
     .btn {border-radius:0}
 
+    .select2-container .select2-selection--multiple {
+    height: auto;
+}
+
+.select2-container .select2-selection--single {
+    height: auto;
+}
+
+
 
     </style>
 
@@ -182,7 +194,7 @@ transition: opacity 0.3s linear, right 0.3s ease-out;
 
 </head>
 <body>
-    <div id="page-content">
+    <div id="page-content" style="background-color: whitesmoke;">
         <ul class="breadcrumb breadcrumb-top">
             <li><a href="<?php echo site_url('pwfpanel');?>">Home</a></li>
             <li><a href="<?php echo site_url('appointment');?>"><?php echo $title;?></a></li>
@@ -196,44 +208,51 @@ transition: opacity 0.3s linear, right 0.3s ease-out;
         
             
         <div class="block full" style="border-radius:12px">
-            <div class="block-title">
-                <?php 
-                $all_permission = $this->ion_auth->is_permission();
-              
-                foreach($all_permission['form_permission'] as $permission){
-                   
-                    $menu_view =$permission->menu_view;
-                    $menu_create= $permission->menu_create;
-                    $menu_update= $permission->menu_update;
-                    $menu_delete =$permission->menu_delete;
-                    $menu_name =$permission->menu_name;
-                    if ($menu_name == 'Appointment') { 
-                    if($menu_create =='1'){
+ <div class="block-title" style="display: flex; align-items: center; justify-content: center; padding: 10px; background-color: #e0e7ff; position: relative;">
+    <?php 
+      $all_permission = $this->ion_auth->is_permission();
+    
+      foreach ($all_permission['form_permission'] as $permission) {
+          $menu_view = $permission->menu_view;
+          $menu_create = $permission->menu_create;
+          $menu_update = $permission->menu_update;
+          $menu_delete = $permission->menu_delete;
+          $menu_name = $permission->menu_name;
+  
 
-                    
-                    ?>
-                    <h2 class="save-btn">
-                        <a href="<?php echo base_url().'index.php/' . $this->router->fetch_class(); ?>/open_model" class="btn btn-sm btn-primary">
-                            <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
-                        </a>
-                    </h2>
+          if ($menu_name == 'Appointment' && $menu_create == '1') {
+    ?>
+        <div style="position: absolute; left: 10px;">
+            <a href="<?php echo base_url().'index.php/' . $this->router->fetch_class(); ?>/open_model" class="btn btn-sm btn-primary" style="display: flex; align-items: center; gap: 5px;">
+                <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
+            </a>
+        </div>
+    <?php 
+        }
+    }
 
-                <?php } } } if($this->ion_auth->is_facilityManager()) { ?>
-                    <h2 class="save-btn">
-                        <a href="<?php echo base_url().'index.php/' . $this->router->fetch_class(); ?>/open_model" class="btn btn-sm btn-primary">
-                            <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
-                        </a>
-                    </h2>
-                <?php } ?>
-            </div>
+    if ($this->ion_auth->is_facilityManager()) { 
+    ?>
+        <div style="position: absolute; left: 10px;">
+            <a href="<?php echo base_url().'index.php/' . $this->router->fetch_class(); ?>/open_model" class="btn btn-sm btn-primary" style="display: flex; align-items: center; gap: 5px;">
+                <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
+            </a>
+        </div>
+    <?php 
+    } 
+    ?>
+    <h2 style="font-size: 1.5rem; font-weight: 500; margin: 0;">
+    <strong><?php echo $title; ?></strong> Panel
+    </h2>
+</div>
 
-            <div class="block-title d-flex justify-content-center">
-                <h2 style="font-size: 2rem !important; font-weight: 700 !important;">
-                    <strong><?php echo $title;?></strong> Panel
-                </h2>
-            </div>
 
-            <div class="modal-header text-center" style="display:flex;border-radius:10px; background-color:#FFFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);">
+
+
+
+
+
+            <div class="modal-header text-center" style="display:flex;border-radius:10px; background-color:#f7fbff;  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);border:1px solid #d3d3d3; margin-bottom:20px">
                 <?php if ($this->ion_auth->is_facilityManager()) { ?>
 
              <div class="col-sm-3 col-lg-3 col-md-3 m-4">
@@ -251,6 +270,8 @@ transition: opacity 0.3s linear, right 0.3s ease-out;
             <div class="col-sm-6 col-lg-6 col-md-6 m-4">
                 <div class="col-sm-6 col-lg-6 col-md-6 m-4">
                     <select id="departmentanddoctordata" name="departmentanddoctordata[]" class="multiselect-ui form-control dropdown-menu" multiple="multiple"></select>
+                    <!-- <select id="departmentanddoctordata" name="departmentanddoctordata[]" class="form-control select2"></select> -->
+
                 </div>
             </div>
             <?php } 
@@ -301,16 +322,16 @@ transition: opacity 0.3s linear, right 0.3s ease-out;
             </div> 
             
 
-            <div class="form-body">
+            <div class="form-body" >
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
                             <div class="col-md-12">
                                 <div style="overflow-x: auto; overflow-y: auto; width: auto; height: 500px;" >
 
-                                    <table class="table table-bordered text-center">
+                                    <table class="table table-bordered text-center" >
                                         <thead id="practitioner_id" class="">
-                                            <tr>
+                                            <tr >
                                                 <th class="text-center fw-bold appointment-header" style="font-size:16px; background-color:#337ab7;color:white;">Time</th>
                                                 <!-- $([your selector]).attr('colspan',3); -->
                                                 <?php
@@ -328,7 +349,7 @@ transition: opacity 0.3s linear, right 0.3s ease-out;
                                             </tr>
                                             <!-- <tr>  -->
                                         </thead>
-                                        <tbody id="all_appointment " class="appointment-body datatableappintment">
+                                        <tbody id="all_appointment " class="appointment-body datatableappintment" >
                                             <?php
                                                 $start_time = strtotime('07:00');
                                                 $end_time = strtotime('24:00');
@@ -1138,7 +1159,7 @@ transition: opacity 0.3s linear, right 0.3s ease-out;
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/js/bootstrap-multiselect.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/js/bootstrap-multiselect.min.js"></script> -->
 
 
     <script>
@@ -1533,62 +1554,84 @@ $(document).ready(function() {
 </script>
 
 <style>
-    .btnPrevious,
-.btnNext{
-	display: inline-block;
-	border: 1px solid #444348;
-	border-radius: 3px;
-	margin: 5px;
-	color: #444348;
-	font-size: 14px;
-	padding: 10px 15px;
-	cursor: pointer;
+/* Button Styles */
+.btnPrevious,
+.btnNext {
+    display: inline-block;
+    border: 1px solid #444348;
+    border-radius: 3px;
+    margin: 5px;
+    color: #444348;
+    font-size: 14px;
+    padding: 10px 15px;
+    cursor: pointer;
+    background-color: #f5f5f5;
+    transition: background-color 0.2s ease;
 }
 
+.btnPrevious:hover,
+.btnNext:hover {
+    background-color: #e0e0e0;
+}
+
+/* Navigation Tabs */
 .nav-tabss {
     margin-bottom: 0;
-    padding-left: 0;
+    padding: 0;
     list-style: none;
     width: 316px;
-    border: 1px solid;
-    border-radius: inherit;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #f9f9f9;
 }
-.nav-tab-appointment{
+
+/* Appointment Tab */
+.nav-tab-appointment {
     margin-bottom: 0;
-    padding-left: 0;
+    padding: 20px;
     list-style: none;
     width: 553px;
-    padding: 20px;
-    border-radius: inherit;
-    background-color:white;
-
-}
-.nav-tab-appointment.active-link{
-    margin-bottom: 0;
-    padding-left: 0;
-    list-style: none;
-    width: 553px;
-    padding: 20px;
-    border-radius: inherit;
-    background-color:white;
-
+    border-radius: 4px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.nav-pills-second{
-    background-color:white;
-}
-.nav-pills-second>li {
-    float: left;
-}
-.nav-pills-second.ul li:active .underline {
-	transition: none;
-	background-color: red;
+/* Active Link Style for Appointment Tab */
+.nav-tab-appointment.active-link {
+    background-color: #fdfdfd;
+    border: 1px solid #ddd;
 }
 
-.nav-link>a.active.underline {
-	width: 100%;
-	background-color: red;
+/* Secondary Nav Pills */
+.nav-pills-second {
+    background-color: #fff;
+    padding: 0;
 }
+
+.nav-pills-second > li {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+/* Active Link with Underline */
+.nav-pills-second .nav-link > a.active.underline {
+    display: inline-block;
+    width: 100%;
+    border-bottom: 2px solid red;
+    padding-bottom: 5px;
+    color: #444348;
+    font-weight: bold;
+}
+
+/* Modal Style for Full-Height Right Sidebar */
+.modal.right .modal-content {
+    height: 100%;
+    width: 100%;
+    border-radius: 0;
+    padding: 15px;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+}
+
 
 
 </style>
@@ -1647,10 +1690,3 @@ $('.btnPrevious').click(function() {
 
 </body>
 </html>
-<style>
-    .modal.right .modal-content {
-    height: 100% !important;
-    width: 100% !important;
-    border-radius: 0 !important;
-}
-</style>
