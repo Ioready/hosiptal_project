@@ -57,20 +57,20 @@
     <style>
 
         .btn-primary {
-            /*                background-color: #b22b57;*/
-            background: linear-gradient(to right, rgba(71, 74, 127, 1) 0%, rgba(178, 43, 87, 1) 100%);
-            border-color: #E47EA0;
+            /*                background-color: #337ab7;*/
+            background-color: #337ab7;
+            border-color: #337ab7;
             color: #ffffff;
         }
 
         .btn-primary.btn-alt {
-            background-color: #b22b57;
+            background-color: #337ab7;
             color: #1bbae1;
         }
 
         .btn-primary:hover {
-            background: linear-gradient(to right, rgba(71, 74, 127, 1) 0%, rgba(178, 43, 87, 1) 100%);
-            border-color: #E47EA0;
+            background-color: #009efb;
+            border-color: #337ab7;
             color: #ffffff;
         }
 
@@ -83,7 +83,7 @@
         a.text-primary:hover,
         a.text-primary:focus {
             color:
-                #b22b57;
+            #337ab7;
         }
         ::-webkit-scrollbar {
   width: 10px;
@@ -465,9 +465,9 @@ hh
                                 <!-- <li title="Contact Us">
                                     <a href="<?php echo site_url('contactus'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "contactus") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/contact.svg" height="23px" width="23px"><span class="sidebar-nav-mini-hide text-dark">Contact Us</span></a>
                                 </li> -->
-                                <li title="setting">
+                                <!-- <li title="setting">
                                     <a href="<?php echo site_url('setting'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "setting") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/setting.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Admin Setting</span></a>
-                                </li>
+                                </li> -->
                             <?php //} elseif ($this->ion_auth->is_subAdmin()) { ?>
 
                                 <!-- <li>

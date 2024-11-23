@@ -18,7 +18,7 @@
     }
 
     .select2-container--default .select2-selection--multiple .select2-selection__choice {
-        background-color: #d9416c;
+        background-color: var(--bs-nav-pills-link-active-bg);
     }
 </style>
 <!-- Page content -->
@@ -29,7 +29,7 @@
             <a href="<?php echo site_url('pwfpanel');?>">Home</a>
         </li>
         <li>
-            <a href="<?php echo site_url('patient');?>">patient</a>
+            <a href="<?php echo site_url('patient');?>"><strong>Back</strong></a>
         </li>
     </ul>
     

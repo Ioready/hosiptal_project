@@ -18,7 +18,7 @@ display:none;
             <a href="<?php echo site_url('pwfpanel'); ?>">Home</a>
         </li>
         <li>
-            <a href="<?php echo site_url($parent); ?>"><?php echo $title; ?></a>
+            <a href="<?php echo site_url($parent); ?>"><strong>All Plans</strong></a>
         </li>
     </ul>
     <!-- Datatables Content -->
@@ -150,7 +150,7 @@ display:none;
             <div class="basic box price monthly" >
                 <h2 style="margin-top:0;margin-bottom:0" class="title" style="background-color: <?php echo $randomColor; ?>"><?php echo ucfirst($row->PlanName);?></h2>
                 <div class="view">
-                    <div class="icon" style="height: 94px;">
+                    <div class="icon" style="height: 20px;">
                         <?php if(!empty($row->icons)){ ?> 
 
                        

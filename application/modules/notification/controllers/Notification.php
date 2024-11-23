@@ -193,13 +193,13 @@ class Notification extends Common_Controller {
             // LEFT JOIN vendor_sale_users AS userss ON userss.id = vendor_sale_clinic_appointment.theatre_clinician WHERE vendor_sale_notifications.user_id = $operator_id ORDER BY vendor_sale_notifications.id DESC";
             $sql = "SELECT vendor_sale_notifications.*, 
                 vendor_sale_notifications.id AS notification_ids, 
-                vendor_sale_users.first_name, 
+                vendor_sale_users.first_name,vendor_sale_users.last_name, 
                 vendor_sale_users.email, 
                 vendor_sale_clinic_appointment.*, 
                 vendor_sale_clinic_appointment.theatre_date_time AS theatre_start_date_time,
                 vendor_sale_clinic_appointment.type AS appointment_type, 
                 vendor_sale_practitioner.name AS practitioner_name,
-                userss.first_name AS doctor_name 
+                userss.first_name AS doctor_name,userss.last_name AS doctor_last_name 
         FROM vendor_sale_notifications
         LEFT JOIN vendor_sale_users ON vendor_sale_users.id = vendor_sale_notifications.patient_id 
         LEFT JOIN vendor_sale_clinic_appointment ON vendor_sale_clinic_appointment.id = vendor_sale_notifications.clinic_appointment_id 
@@ -223,7 +223,7 @@ class Notification extends Common_Controller {
 
             $sql = "SELECT vendor_sale_notifications.*, 
                 vendor_sale_notifications.id AS notification_ids, 
-                vendor_sale_users.first_name, 
+                vendor_sale_users.first_name,vendor_sale_users.last_name, 
                 vendor_sale_users.email, 
                 vendor_sale_clinic_appointment.*, 
                 vendor_sale_clinic_appointment.theatre_date_time AS theatre_start_date_time,vendor_sale_clinic_appointment.type as appointment_type, vendor_sale_practitioner.name AS practitioner_name,userss.first_name as doctor_name FROM vendor_sale_notifications
@@ -237,7 +237,8 @@ class Notification extends Common_Controller {
 
             $result = $this->db->query($sql);
 
-            $this->data['notifications'] =  $result->result();;
+            $this->data['notifications'] =  $result->result();
+            
                             
             } 
 
