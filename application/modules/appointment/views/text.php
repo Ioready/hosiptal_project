@@ -542,7 +542,7 @@ transition: opacity 0.3s linear, right 0.3s ease-out;
                                                                                 </div>
                                                                                     
                                                                                 <h2 style="float: inline-end;">
-                                                                            <a href="javascript:void(0)"  onclick="open_model_new('<?php echo $model; ?>')"  class="btn btn-sm btn-primary  fw-bold">
+                                                                            <a href="javascript:void(0)"  onclick="open_model_new_patient('<?php echo $model; ?>')"  class="btn btn-sm btn-primary fw-bold">
                                                                                 New Patient
                                                                             </a>
                                                                         </h2>

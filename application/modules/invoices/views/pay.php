@@ -913,3 +913,19 @@ function removeCard(button) {
     }
 </style>
 
+<script>
+function updateTotals() {
+    const totalAmount = parseFloat(document.getElementById('totalAmount').value) || 0;
+    const cashReceived = parseFloat(document.getElementById('cashReceived').value) || 0;
+
+    // Calculate Total Paid
+    const totalPaid = cashReceived;
+
+    // Calculate Balance
+    const balance = totalAmount - totalPaid;
+
+    // Update fields
+    document.getElementById('totalPaid').value = totalPaid.toFixed(2);
+    document.getElementById('balance').value = balance.toFixed(2);
+}
+</script>

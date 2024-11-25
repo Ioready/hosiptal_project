@@ -7,7 +7,7 @@ input {
     text-align: justify;
 }
 </style>
-<div id="commonModalNew" class="modal fade bd-example-modal-lg" role="dialog">
+<div id="commonModalNewAppointment" class="modal fade bd-example-modal-lg" role="dialog">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <form class="form-horizontal" role="form" method="post" action="<?php echo base_url($formUrlAddNew) ?>" enctype="multipart/form-data">
