@@ -2,30 +2,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.js"></script>
 
 <!-- Page content -->
-<<<<<<< HEAD
-<div id="page-content" class="container" style="background-color:whitesmoke">
-    <!-- Breadcrumb -->
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="<?php echo site_url('pwfpanel'); ?>">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page"><?php echo $title; ?></li>
-        </ol>
-    </nav>
-
-    <!-- Form Section -->
-    <div class="card shadow-sm mb-4">
-        <div class="card-header">
-            <h3 class="mb-2"><strong><?php echo $title; ?></strong> Panel</h3>
-        </div>
-        <div class="card-body">
-            <form id="editFormAjaxUser" method="post" action="<?php echo base_url('index.php/facilityManager/update'); ?>" enctype="multipart/form-data">
-                <div id="error-box" class="alert alert-danger d-none"></div>
-
-                <div class="mb-3 row">
-                    <label for="hospital_name" class="col-md-3 col-form-label">Hospital Name</label>
-                    <div class="col-md-9">
-                        <input type="text" class="form-control" name="hospital_name" id="hospital_name" placeholder="Hospital Name" value="<?php echo $results->hospital_name; ?>" required>
-=======
 <div id="page-content">
     <!-- Datatables Header -->
     <ul class="breadcrumb breadcrumb-top">
@@ -46,7 +22,6 @@
                 <form class="form-horizontal" role="form" id="editFormAjaxUser" method="post" action="<?php echo base_url('index.php/facilityManager/update') ?>" enctype="multipart/form-data">
                     <div class="modal-header text-center">
                         <h2 class="modal-title"><i class="fa fa-pencil"></i> <?php echo (isset($title)) ? ucwords($title) : "" ?></h2>
->>>>>>> f9ec4ca75be17a2af803ff803443840509349bc7
                     </div>
                 </div>
 
