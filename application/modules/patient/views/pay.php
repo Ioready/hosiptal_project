@@ -380,7 +380,7 @@
                                                             <!-- Balance -->
                                                             <div class="form-group">
                                                                 <label for="balance">Balance</label>
-                                                                <input type="number" class="form-control" id="balance" readonly>
+                                                                <input type="number" class="form-control" id="balance" name="balance" readonly>
                                                             </div>
 
                                                             <button type="submit" id="submit" class="btn btn-sm btn-primary m-2" style="background: #337ab7">
