@@ -1716,11 +1716,11 @@ public function process() {
                 // print_r($options_data);die;
                 $option = array('table' => 'vendor_sale_invoice_pay', 'data' => $options_data);
                 $invoice_id= $this->common_model->customInsert($option);
-            
-    
+                
+                
                 $option = array(
                     'table' => 'vendor_sale_invoice',
-                    'data' => array('vendor_sale_invoice.Paid' => $this->input->post('amount'),'vendor_sale_invoice.Outstanding' => '0.00','vendor_sale_invoice.status' => 'Paid'),
+                    'data' => array('vendor_sale_invoice.Paid' => $this->input->post('total_cash_pay'),'vendor_sale_invoice.Outstanding' => $this->input->post('balance'),'vendor_sale_invoice.status' => 'Paid'),
                     'where' => array('vendor_sale_invoice.id' => $id)
                 );
                 $delete = $this->common_model->customUpdate($option);

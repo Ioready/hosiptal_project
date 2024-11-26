@@ -355,7 +355,7 @@
                     </div>
                     <div class="form-group">
                         <label for="balance">Balance</label>
-                        <input type="number" id="balance" class="form-control" style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ced4da;" readonly>
+                        <input type="number" id="balance" name="balance" class="form-control" style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ced4da;" readonly>
                     </div>
 
                     <button type="submit" id="submit" class="btn btn-sm btn-primary m-2" style="background: #337ab7">
@@ -732,7 +732,7 @@ function updateTotals() {
 
     // Update fields
     document.getElementById('totalPaid').value = totalPaid.toFixed(2);
-    document.getElementById('balance').value = balance.toFixed(2);
+    document.getElementById('balance').value = balance;
 
     // Update Pay Button Value
     document.getElementById('totalPayAmount').textContent = totalPaid.toFixed(2);
