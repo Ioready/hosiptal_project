@@ -1607,8 +1607,8 @@ public function process() {
                         )
                     ));
                     
-
-
+// 'pay_amount	' => $this->input->post('amount'),
+                    
                     $options_data = array(
                         // 'user_id'=> $LoginID,
                         'facility_user_id'=> $hospital_id,
@@ -1705,7 +1705,7 @@ public function process() {
                     'patient_id' => $this->input->post('patient'),
                     'invoice_id	' => $this->input->post('id'),                       
                     'selected_date	' => $this->input->post('invoice_date'),                         
-                    'pay_amount	' => $this->input->post('amount'),                                               
+                    'pay_amount	' => $this->input->post('total_cash_pay'),                                               
                     'payment_type' => $this->input->post('billing_to'),  
                     // 'name' => $this->input->post('user_name'),
                     // 'email' => $this->input->post('email'), 

@@ -369,13 +369,26 @@
             }
         });
     }
+    var open_model_newp = function (controller) {
+        $.ajax({
+            url: '<?php echo base_url(); ?>' + controller + "/open_model_new",
+            type: 'POST',
+            data: {'<?php echo $this->security->get_csrf_token_name(); ?>': '<?php echo $this->security->get_csrf_hash(); ?>'},
+            success: function (data, textStatus, jqXHR) {
+                $('#form-modal-box-appointment-patientb').html(data);
+                $("#commonModalNewPatient").modal('show');
+            }
+        });
+    }
+
+    
     var open_model_new_patient = function (controller) {
         $.ajax({
             url: '<?php echo base_url(); ?>' + controller + "/open_model_new_patient",
             type: 'POST',
             data: {'<?php echo $this->security->get_csrf_token_name(); ?>': '<?php echo $this->security->get_csrf_hash(); ?>'},
             success: function (data, textStatus, jqXHR) {
-                $('#form-modal-box').html(data);
+                $('#form-modal-box-appointment-patient').html(data);
                 $("#commonModalNewAppointment").modal('show');
             }
         });

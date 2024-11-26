@@ -7,13 +7,13 @@ input {
     text-align: justify;
 }
 </style>
-<div id="commonModalNewAppointment" class="modal fade bd-example-modal-lg" role="dialog">
+<div id="commonModalNewAppointment" class="modal right fade bd-example-modal-lg" role="dialog">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <form class="form-horizontal" role="form" method="post" action="<?php echo base_url($formUrlAddNew) ?>" enctype="multipart/form-data">
             
            
-                <div class="modal-header">
+                <div class="modal-header" style="background-color: honeydew;">
                     <h4 class="modal-title"> Add new patient form</h4>
                     <button type="button" class="close" data-dismiss="modal" style="position: absolute; top: 25px; right: 25px; font-size: 24px;">
                         <span aria-hidden="true">&times;</span>

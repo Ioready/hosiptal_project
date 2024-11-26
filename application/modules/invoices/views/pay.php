@@ -12,14 +12,14 @@
             box-sizing: border-box;
         }
 
-        body {
+        /* body {
             font-family: Arial, sans-serif;
             background-color: #f5f5f5;
             padding: 20px;
-        }
+        } */
 
         .container {
-            max-width: 1000px;
+            /* max-width: 1000px; */
             margin: auto;
             background-color: white;
             border-radius: 10px;
@@ -185,7 +185,8 @@
 
             <div class="modal-header text-center" style="padding: 20px; background-color: #f5f5f5; border-bottom: 1px solid #ddd;">
     <!-- Close Button -->
-    <button type="button" class="close" data-dismiss="modal" style="position: absolute; top: 15px; right: 20px; font-size: 24px;">
+    <button type="button" class="btn btn-sm btn-default" class="close" data-dismiss="modal" style="position: absolute; top: 15px; right: 20px; font-size: 24px;">
+    <!-- <button type="button" class="close" data-dismiss="modal" style="position: absolute; top: 15px; right: 20px; font-size: 24px;"> -->
         <span aria-hidden="true">&times;</span>
         <span class="sr-only">Close</span>
     </button>
@@ -224,7 +225,7 @@
                                 
                                 <div class="form-group">
                                     <label for="select-date">Select Date <span class="required" style="color:red;">*</span></label>
-                                    <input type="date" name="invoice_date" id="invoice_date" value="<?php echo $results->invoice_date;?>">
+                                    <input type="date" name="invoice_date" id="invoice_date" value="<?php echo $results->invoice_date;?>" readOnly>
                                 </div>
                                 <div class="form-group">
                                     <label for="billing">Select Payment type <span style="color:red;">*</span></label>
@@ -356,6 +357,10 @@
                         <label for="balance">Balance</label>
                         <input type="number" id="balance" class="form-control" style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ced4da;" readonly>
                     </div>
+
+                    <button type="submit" id="submit" class="btn btn-sm btn-primary m-2" style="background: #337ab7">
+                        Pay $ <input type="hidden" name="total_cash_pay" id="total_cash_pay"><span id="totalPayAmount">0</span>
+                    </button>
                 </div>
 
                 <div id="menu4" class="tab-pane">
@@ -384,6 +389,8 @@
                     <label>Balance</label>
                     <input type="number" id="balance" style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ced4da;" readonly>
                 </div>
+
+                
             </div>
 
 
@@ -400,6 +407,13 @@
                     <input type="file" accept=".pdf" style="width: 100%; padding: 5px; margin-bottom: 15px;">
                     <label>Upload PNG Receipt:</label>
                     <input type="file" accept=".png" style="width: 100%; padding: 5px;">
+
+                    <input type="hidden" name="total_cash_pay" id="total_cash_pay" value="<?php echo $results->total_amount; ?>">
+
+                    <button type="button" class="btn btn-sm btn-default" class="close" data-dismiss="modal" >Close</button>
+                    
+                    <button type="submit" id="submit" class="btn btn-sm btn-primary m-2"  style="background: #337ab7" value="Pay $ <?php echo $results->total_amount; ?>" >Pay $ <?php echo $results->total_amount; ?></button>
+                   
                 </div>
 
                 <!-- Card Payment Tab -->
@@ -410,6 +424,13 @@
                     <label>Cardholder's Email:</label>
                     <input type="email" id="email_card" class="form-control" style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 4px;" placeholder="text@email.com">
                     <div class="form-control" id="card-element" style="padding: 10px; border-radius: 4px; margin-bottom: 15px;"></div>
+                
+                    <input type="hidden" name="total_cash_pay" id="total_cash_pay" value="<?php echo $results->total_amount; ?>">
+
+                    <button type="button" class="btn btn-sm btn-default" class="close" data-dismiss="modal" >Close</button>
+                    
+                    <button type="submit" id="submit" class="btn btn-sm btn-primary m-2"  style="background: #337ab7" value="Pay $ <?php echo $results->total_amount; ?>" >Pay $ <?php echo $results->total_amount; ?></button>
+                   
                 </div>
 
                 <!-- QR Payment Tab -->
@@ -418,6 +439,11 @@
                     <?php if (!empty($qr_code_url)): ?>
                         <img src="<?= $qr_code_url ?>" alt="Invoice QR Code" style="width: 200px; height: 200px; display: block; margin: 0 auto;">
                     <?php endif; ?>
+                    <input type="hidden" name="total_cash_pay" id="total_cash_pay" value="<?php echo $results->total_amount; ?>">
+                    <button type="button" class="btn btn-sm btn-default" class="close" data-dismiss="modal" >Close</button>
+                    
+                    <button type="submit" id="submit" class="btn btn-sm btn-primary m-2"  style="background: #337ab7" value="Pay $ <?php echo $results->total_amount; ?>" >Pay $ <?php echo $results->total_amount; ?></button>
+                   
                 </div>
 
             </div>
@@ -433,9 +459,10 @@
 
             </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-sm btn-default" class="close" data-dismiss="modal" >Close</button>
+                    <!-- <button type="button" class="btn btn-sm btn-default" class="close" data-dismiss="modal" >Close</button>
                     
                     <button type="submit" id="submit" class="btn btn-sm btn-primary m-2"  style="background: #337ab7" value="Pay $ <?php echo $results->total_amount; ?>" >Pay $ <?php echo $results->total_amount; ?></button>
+                    -->
                     <!-- <div class="col-md-12"> <input type="submit" id="submit"  value="Pay $ <?php echo $results->total_amount; ?>" class="btn btn-success placeicon"> </div> -->
                 </div>
         </form>
@@ -450,246 +477,7 @@
 <script src="https://js.stripe.com/v3/"></script>
 
 
-<!-- <script src="https://js.stripe.com/v3/"></script> -->
 
-<!-- <script type="text/javascript">
-    const stripe = Stripe('pk_test_9ec6REkAGDDrUTCf5WqhxOJA00kzzU4vmj'); // Your publishable key
- 
-    const elements = stripe.elements();
-    const card = elements.create('card');
-    card.mount('#card-element');
-
-    $(document).on('submit', "#addFormAjaxData", async function (event) {
-        event.preventDefault(); // Prevent default form submission
-        $("#submit").val("Sending..").attr('disabled', true);
-
-        const { token, error } = await stripe.createToken(card);
-
-        if (error) {
-            $('#card-errors').text(error.message);
-            $("#submit").val("Submit Payment").removeAttr('disabled');
-            return; // Stop further execution
-        }
-
-        // Append the token to the form data
-        const formData = new FormData(this);
-        formData.append('stripeToken', token.id);
-        // formData.append('card', token);
-
-        $.ajax({
-            type: "POST",
-            url: $(this).attr('action'),
-            data: formData,
-            processData: false,
-            contentType: false,
-            beforeSend: function () {
-                $(".loaders").fadeIn("slow");
-            },
-            success: function (response) {
-                console.log(response);
-                try {
-                    const data = JSON.parse(response);
-                console.log(data);
-                    if (data.status == 1) {
-                        toastr.success(data.message);
-                        $(".invoicepay").modal('hide');
-                        setTimeout(() => location.reload(true), 1000);
-                    } else {
-                        toastr.error(data.message);
-                        $('#error-box').show().html(data.message).delay(1000).fadeOut(800);
-                    }
-                } catch (e) {
-                    $('#error-box').show().html('Unexpected error.').delay(1000).fadeOut(800);
-                } finally {
-                    $("#submit").val("Submit Payment").removeAttr('disabled');
-                    $(".loaders").fadeOut("slow");
-                }
-            },
-            error: function () {
-                toastr.error('Request failed.');
-                $("#submit").val("Submit Payment").removeAttr('disabled');
-                $(".loaders").fadeOut("slow");
-            }
-        });
-    });
-
-</script> -->
-
-
-
-<!-- <script type="text/javascript">
-    const stripe = Stripe('pk_test_9ec6REkAGDDrUTCf5WqhxOJA00kzzU4vmj'); // Your publishable key
-
-    const elements = stripe.elements();
-    const card = elements.create('card');
-    card.mount('#card-element');
-
-    $(document).on('submit', "#addFormAjaxData", async function (event) {
-        event.preventDefault(); // Prevent default form submission
-        $("#submit").val("Sending..").attr('disabled', true);
-
-        // Check if `transaction_id` is present
-        const cashReceived = $('#cashReceived').val();
-        const transactionId = $('#transaction_id').val();
-        if (transactionId) {
-            // If `transaction_id` exists, submit the form without creating a new token
-          
-
-                    // function submitFormWithoutToken(transactionId) {
-                    const formData = new FormData(document.getElementById("addFormAjaxData"));
-                    formData.append('transaction_id', transactionId);
-
-                    $.ajax({
-                        type: "POST",
-                        url: $("#addFormAjaxData").attr('action'),
-                        data: formData,
-                        processData: false,
-                        contentType: false,
-                        beforeSend: function () {
-                            $(".loaders").fadeIn("slow");
-                        },
-                        success: function (response) {
-                            handleResponse(response);
-                        },
-                        error: function () {
-                            toastr.error('Request failed.');
-                            $("#submit").val("Submit Payment").removeAttr('disabled');
-                            $(".loaders").fadeOut("slow");
-                        }
-                    });
-                // }
-
-                                function handleResponse(response) {
-                        try {
-                            const data = JSON.parse(response);
-                            if (data.status == 1) {
-                                toastr.success(data.message);
-                                $(".invoicepay").modal('hide');
-                                setTimeout(() => location.reload(true), 1000);
-                            } else {
-                                toastr.error(data.message);
-                                $('#error-box').show().html(data.message).delay(1000).fadeOut(800);
-                            }
-                        } catch (e) {
-                            $('#error-box').show().html('Unexpected error.').delay(1000).fadeOut(800);
-                        } finally {
-                            $("#submit").val("Submit Payment").removeAttr('disabled');
-                            $(".loaders").fadeOut("slow");
-                        }
-                    }
-
-        } else if (cashReceived) {
-            // If `transaction_id` exists, submit the form without creating a new token
-           
-                    // function submitFormWithoutTokenCash(cashReceived) {
-                    const formData = new FormData(document.getElementById("addFormAjaxData"));
-                    formData.append('cashReceived', cashReceived);
-
-                    $.ajax({
-                        type: "POST",
-                        url: $("#addFormAjaxData").attr('action'),
-                        data: formData,
-                        processData: false,
-                        contentType: false,
-                        beforeSend: function () {
-                            $(".loaders").fadeIn("slow");
-                        },
-                        success: function (response) {
-                            handleResponse(response);
-                        },
-                        error: function () {
-                            toastr.error('Request failed.');
-                            $("#submit").val("Submit Payment").removeAttr('disabled');
-                            $(".loaders").fadeOut("slow");
-                        }
-                    });
-
-                // }
-                            function handleResponse(response) {
-                    try {
-                        const data = JSON.parse(response);
-                        if (data.status == 1) {
-                            toastr.success(data.message);
-                            $(".invoicepay").modal('hide');
-                            setTimeout(() => location.reload(true), 1000);
-                        } else {
-                            toastr.error(data.message);
-                            $('#error-box').show().html(data.message).delay(1000).fadeOut(800);
-                        }
-                    } catch (e) {
-                        $('#error-box').show().html('Unexpected error.').delay(1000).fadeOut(800);
-                    } finally {
-                        $("#submit").val("Submit Payment").removeAttr('disabled');
-                        $(".loaders").fadeOut("slow");
-                    }
-                }
-        }
-        else {
-            // Proceed with creating a token if `transaction_id` is not available
-            const { token, error } = await stripe.createToken(card);
-
-            if (error) {
-                $('#card-errors').text(error.message);
-                $("#submit").val("Submit Payment").removeAttr('disabled');
-                return; // Stop further execution
-            }
-
-            // Append the token to the form data
-            const formData = new FormData(this);
-            formData.append('stripeToken', token.id);
-
-            // Submit the form with the token
-            submitFormWithToken(formData);
-        
-
-    function submitFormWithToken(formData) {
-        $.ajax({
-            type: "POST",
-            url: $("#addFormAjaxData").attr('action'),
-            data: formData,
-            processData: false,
-            contentType: false,
-            beforeSend: function () {
-                $(".loaders").fadeIn("slow");
-            },
-            success: function (response) {
-                handleResponse(response);
-            },
-            error: function () {
-                toastr.error('Request failed.');
-                $("#submit").val("Submit Payment").removeAttr('disabled');
-                $(".loaders").fadeOut("slow");
-            }
-        });
-
-            function handleResponse(response) {
-            try {
-                const data = JSON.parse(response);
-                if (data.status == 1) {
-                    toastr.success(data.message);
-                    $(".invoicepay").modal('hide');
-                    setTimeout(() => location.reload(true), 1000);
-                } else {
-                    toastr.error(data.message);
-                    $('#error-box').show().html(data.message).delay(1000).fadeOut(800);
-                }
-            } catch (e) {
-                $('#error-box').show().html('Unexpected error.').delay(1000).fadeOut(800);
-            } finally {
-                $("#submit").val("Submit Payment").removeAttr('disabled');
-                $(".loaders").fadeOut("slow");
-            }
-        }
-
-    }
-
-    
-}
-});
-   
-
-   
-</script> -->
 
 
 <script type="text/javascript">
@@ -913,7 +701,7 @@ function removeCard(button) {
     }
 </style>
 
-<script>
+<!-- <script>
 function updateTotals() {
     const totalAmount = parseFloat(document.getElementById('totalAmount').value) || 0;
     const cashReceived = parseFloat(document.getElementById('cashReceived').value) || 0;
@@ -926,6 +714,32 @@ function updateTotals() {
 
     // Update fields
     document.getElementById('totalPaid').value = totalPaid.toFixed(2);
+    document.getElementById('submit').value = totalPaid.toFixed(2);
+    document.getElementById('totalPayAmount').value = totalPaid.toFixed(2);
     document.getElementById('balance').value = balance.toFixed(2);
 }
+</script> -->
+
+<script>
+    function updateTotals() {
+    // Get values from inputs
+    const totalAmount = parseFloat(document.getElementById('totalAmount').value) || 0;
+    const cashReceived = parseFloat(document.getElementById('cashReceived').value) || 0;
+
+    // Calculate Total Paid and Balance
+    const totalPaid = cashReceived;
+    const balance = totalAmount - totalPaid;
+
+    // Update fields
+    document.getElementById('totalPaid').value = totalPaid.toFixed(2);
+    document.getElementById('balance').value = balance.toFixed(2);
+
+    // Update Pay Button Value
+    document.getElementById('totalPayAmount').textContent = totalPaid.toFixed(2);
+    document.getElementById('total_cash_pay').value = totalPaid;
+
+    // Set submit button value (optional if used in the backend)
+    document.getElementById('submit').value = `Pay $${totalPaid.toFixed(2)}`;
+}
+
 </script>
