@@ -382,6 +382,10 @@
                                                                 <label for="balance">Balance</label>
                                                                 <input type="number" class="form-control" id="balance" readonly>
                                                             </div>
+
+                                                            <button type="submit" id="submit" class="btn btn-sm btn-primary m-2" style="background: #337ab7">
+                                                                Pay $ <input type="hidden" name="total_cash_pay" id="total_cash_pay"><span id="totalPayAmount">0</span>
+                                                            </button>
                                                        
                                                     </div>
 
@@ -397,8 +401,18 @@
                                                             const balance = totalAmount - totalPaid;
 
                                                             // Update fields
+                                                            // document.getElementById('totalPaid').value = totalPaid.toFixed(2);
+                                                            // document.getElementById('balance').value = balance.toFixed(2);
+
                                                             document.getElementById('totalPaid').value = totalPaid.toFixed(2);
-                                                            document.getElementById('balance').value = balance.toFixed(2);
+                                                            document.getElementById('balance').value = balance;
+
+                                                            // Update Pay Button Value
+                                                            document.getElementById('totalPayAmount').textContent = totalPaid.toFixed(2);
+                                                            document.getElementById('total_cash_pay').value = totalPaid;
+
+                                                            // Set submit button value (optional if used in the backend)
+                                                            document.getElementById('submit').value = `Pay $${totalPaid.toFixed(2)}`;
                                                         }
                                                     </script>
 
@@ -463,6 +477,12 @@
                                                         <label>Upload PDF Receipt:</label> <input type="file" name="receipt_pdf" accept=".pdf">
                                                         <label>Upload PNG Receipt:</label> <input type="file" name="receipt_png" accept=".png">
 
+                                                        <input type="hidden" name="total_cash_pay" id="total_cash_pay" value="<?php echo $results->total_amount; ?>">
+
+                    <button type="button" class="btn btn-sm btn-default" class="close" data-dismiss="modal" >Close</button>
+                    
+                    <button type="submit" id="submit" class="btn btn-sm btn-primary m-2"  style="background: #337ab7" value="Pay $ <?php echo $results->total_amount; ?>" >Pay $ <?php echo $results->total_amount; ?></button>
+                   
                                                     </div>
                                                     </div>
                                                 </div>
@@ -496,6 +516,12 @@
 
                                                                 </div>
                                                                 
+                                                                <input type="hidden" name="total_cash_pay" id="total_cash_pay" value="<?php echo $results->total_amount; ?>">
+
+                    <button type="button" class="btn btn-sm btn-default" class="close" data-dismiss="modal" >Close</button>
+                    
+                    <button type="submit" id="submit" class="btn btn-sm btn-primary m-2"  style="background: #337ab7" value="Pay $ <?php echo $results->total_amount; ?>" >Pay $ <?php echo $results->total_amount; ?></button>
+                   
                                                         </div>
                                                     </div>
                                                 </div>
@@ -512,6 +538,12 @@
                                                             <?php endif; ?>
                                                             <!-- <div id="qr"> <img src="https://i.imgur.com/DD4Npfw.jpg" width="200px" height="200px"> </div> -->
                                                        
+                                                            <input type="hidden" name="total_cash_pay" id="total_cash_pay" value="<?php echo $results->total_amount; ?>">
+
+                    <button type="button" class="btn btn-sm btn-default" class="close" data-dismiss="modal" >Close</button>
+                    
+                    <button type="submit" id="submit" class="btn btn-sm btn-primary m-2"  style="background: #337ab7" value="Pay $ <?php echo $results->total_amount; ?>" >Pay $ <?php echo $results->total_amount; ?></button>
+                   
                                                         </div>
                                                     </div>
                                                 </div>
@@ -528,9 +560,9 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
+                    <!-- <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
                     
-                    <button type="submit" id="submit" class="btn btn-sm btn-primary m-2"  style="background: #337ab7">Save invoice</button>
+                    <button type="submit" id="submit" class="btn btn-sm btn-primary m-2"  style="background: #337ab7">Save invoice</button> -->
                 </div>
             </form>
         </div> <!-- /.modal-content -->

@@ -6688,8 +6688,9 @@ $option = array(
 
 public function process() {
 
+    // print_r($this->input->post());die;
 
-
+   
     if ($this->ion_auth->is_facilityManager()) {
         $user_id = $this->session->userdata('user_id');
     $hospital_id = $user_id;
@@ -6899,7 +6900,7 @@ if (!empty($id)) {
             'patient_id' => $this->input->post('patient'),
             'invoice_id	' => $this->input->post('id'),                       
             'selected_date	' => $this->input->post('invoice_date'),                         
-            'pay_amount	' => $this->input->post('amount'),                                               
+            'pay_amount	' => $this->input->post('cashReceived'),                                               
             'payment_type' => $this->input->post('billing_to'),  
             // 'name' => $this->input->post('user_name'),
             // 'email' => $this->input->post('email'), 
@@ -6910,11 +6911,11 @@ if (!empty($id)) {
         // print_r($options_data);die;
         $option = array('table' => 'vendor_sale_invoice_pay', 'data' => $options_data);
         $invoice_id= $this->common_model->customInsert($option);
-    
-
+        
+        
         $option = array(
             'table' => 'vendor_sale_invoice',
-            'data' => array('vendor_sale_invoice.Paid' => $this->input->post('amount'),'vendor_sale_invoice.Outstanding' => '0.00','vendor_sale_invoice.status' => 'Paid'),
+            'data' => array('vendor_sale_invoice.Paid' => $this->input->post('cashReceived'),'vendor_sale_invoice.Outstanding' => $this->input->post('balance'),'vendor_sale_invoice.status' => 'Paid'),
             'where' => array('vendor_sale_invoice.id' => $id)
         );
         $delete = $this->common_model->customUpdate($option);
