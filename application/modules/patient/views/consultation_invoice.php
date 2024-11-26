@@ -158,8 +158,14 @@
                             <tr>
                                 <td><?php echo $rows->invoice_number; ?></td>            
                                 <td><?php echo $rows->invoice_date; ?></td>
-                                <td><?php echo $rows->total_amount; ?></td>
+                                <td>
+                                <span style="font-weight: bold; color: #333;">Total: £ <?php echo $rows->total_amount; ?></span><br>
+            <span style="color: #28a745;">Paid: £ <?php echo $rows->Paid; ?></span><br>
+            <span style="color: #dc3545;">Outstanding: £ <?php echo $rows->Outstanding; ?></span>
+                                    <?php //echo $rows->total_amount; ?>
+                            </td>
                                 <td><?php echo $rows->billing_to; ?></td>
+
 
                                 <td class="actions">
                                 <?php if(empty($rows->Paid)){?>
@@ -223,7 +229,12 @@
                             <tr>
                                 <td><?php echo $rows->invoice_number; ?></td>            
                                 <td><?php echo $rows->invoice_date; ?></td>
-                                <td><?php echo $rows->total_amount; ?></td>
+                                <td>
+                                <span style="font-weight: bold; color: #333;">Total: £ <?php echo $rows->total_amount; ?></span><br>
+            <span style="color: #28a745;">Paid: £ <?php echo $rows->Paid; ?></span><br>
+            <span style="color: #dc3545;">Outstanding: £ <?php echo $rows->Outstanding; ?></span>
+                                    <?php //echo $rows->total_amount; ?>
+                                </td>
                                 <td><?php echo $rows->billing_to; ?></td>
 
                                 <td class="actions">
