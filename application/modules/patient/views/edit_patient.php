@@ -1168,26 +1168,26 @@
                                                     <div class="form-group">
                                                         <label class="col-md-3 control-label">Additional Comment</label>
                                                         <div class="col-md-9">
-                                                            <!-- <select id="additional_comment_option" name="additional_comment_option[]" onchange="isDirty(this.value)" class="form-control multiple-select select-chosen" size="1" multiple="multiple">
-                                                                <option value="" disabled>Please select</option>
-                                                                <option value="Does not meet Loeb/ McGeer Criteria"<?php echo ($results->additional_comment_option == 'Does not meet Loeb/ McGeer Criteria') ? 'selected' : ''; ?> >Does not meet Loeb/ McGeer Criteria</option>
-                                                                <option value="Consider shorter antibiotic course" <?php echo ($results->additional_comment_option == 'Consider shorter antibiotic course') ? 'selected' : '' ?>>Consider shorter antibiotic course</option>
-                                                                <option value="Antibiotics not recommended" <?php echo ($results->additional_comment_option == 'Antibiotics not recommended') ? 'selected' : '' ?>>Antibiotics not recommended</option>
-                                                                <option value="Other/Free Text" <?php echo ($results->additional_comment_option == 'Other/Free Text') ? 'selected' : '' ?>>Other/Free Text</option>
-                                                            </select> -->
-                                                            <?php
-// Decode the selected values as an array
-$selected_options = json_decode($results->additional_comment_option, true);
-// print_r($selected_options);die;
+                                                            
+                                                        <?php
+// Decode the selected values as an array with error handling
+$selected_options = [];
+if (!empty($results->additional_comment_option)) {
+    $selected_options = json_decode($results->additional_comment_option);
+    // Ensure $selected_options is a valid array
+    // $selected_options = is_array($selected_options) ? $selected_options : [];
+    // print_r($selected_options);die;
+}
 ?>
 
-<select id="additional_comment_option" name="additional_comment_option[]" onchange="isDirty(this.value)" class="form-control multiple-select select-chosen" multiple="multiple">
-    <option value="" disabled>Please select</option>
+<select id="additional_comment_option" name="additional_comment_option[]" class="form-control multiple-select" multiple="multiple">
     <option value="Does not meet Loeb/ McGeer Criteria" <?php echo (in_array('Does not meet Loeb/ McGeer Criteria', $selected_options)) ? 'selected' : ''; ?>>Does not meet Loeb/ McGeer Criteria</option>
     <option value="Consider shorter antibiotic course" <?php echo (in_array('Consider shorter antibiotic course', $selected_options)) ? 'selected' : ''; ?>>Consider shorter antibiotic course</option>
     <option value="Antibiotics not recommended" <?php echo (in_array('Antibiotics not recommended', $selected_options)) ? 'selected' : ''; ?>>Antibiotics not recommended</option>
     <option value="Other/Free Text" <?php echo (in_array('Other/Free Text', $selected_options)) ? 'selected' : ''; ?>>Other/Free Text</option>
 </select>
+
+
 
 
                                                         </div>
@@ -2254,6 +2254,12 @@ document.getElementById("relationship").style.display = "none";
 }
 .check-labels{
     font-weight:normal !important;
+}
+.select2-container--default .select2-selection--multiple .select2-selection__choice__display {
+    cursor: default;
+    padding-left: 2px;
+    padding-right: 5px;
+    color: black;
 }
     </style>
 

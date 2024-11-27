@@ -359,7 +359,7 @@
                     </div>
 
                     <button type="submit" id="submit" class="btn btn-sm btn-primary m-2" style="background: #337ab7">
-                        Pay $ <input type="hidden" name="total_cash_pay" id="total_cash_pay"><span id="totalPayAmount">0</span>
+                        Pay £ <input type="hidden" name="total_cash_pay" id="total_cash_pay"><span id="totalPayAmount">0</span>
                     </button>
                 </div>
 
@@ -412,7 +412,7 @@
 
                     <button type="button" class="btn btn-sm btn-default" class="close" data-dismiss="modal" >Close</button>
                     
-                    <button type="submit" id="submit" class="btn btn-sm btn-primary m-2"  style="background: #337ab7" value="Pay $ <?php echo $results->total_amount; ?>" >Pay $ <?php echo $results->total_amount; ?></button>
+                    <button type="submit" id="submit" class="btn btn-sm btn-primary m-2"  style="background: #337ab7" value="Pay £ <?php echo $results->total_amount; ?>" >Pay $ <?php echo $results->total_amount; ?></button>
                    
                 </div>
 
@@ -429,7 +429,7 @@
 
                     <button type="button" class="btn btn-sm btn-default" class="close" data-dismiss="modal" >Close</button>
                     
-                    <button type="submit" id="submit" class="btn btn-sm btn-primary m-2"  style="background: #337ab7" value="Pay $ <?php echo $results->total_amount; ?>" >Pay $ <?php echo $results->total_amount; ?></button>
+                    <button type="submit" id="submit" class="btn btn-sm btn-primary m-2"  style="background: #337ab7" value="Pay £ <?php echo $results->total_amount; ?>" >Pay $ <?php echo $results->total_amount; ?></button>
                    
                 </div>
 
@@ -442,7 +442,7 @@
                     <input type="hidden" name="total_cash_pay" id="total_cash_pay" value="<?php echo $results->total_amount; ?>">
                     <button type="button" class="btn btn-sm btn-default" class="close" data-dismiss="modal" >Close</button>
                     
-                    <button type="submit" id="submit" class="btn btn-sm btn-primary m-2"  style="background: #337ab7" value="Pay $ <?php echo $results->total_amount; ?>" >Pay $ <?php echo $results->total_amount; ?></button>
+                    <button type="submit" id="submit" class="btn btn-sm btn-primary m-2"  style="background: #337ab7" value="Pay £ <?php echo $results->total_amount; ?>" >Pay $ <?php echo $results->total_amount; ?></button>
                    
                 </div>
 
