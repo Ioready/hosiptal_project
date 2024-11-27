@@ -161,11 +161,15 @@
                                           </tr>
                                           <tr>
                                               <td colspan="5" class="text-right"><strong>Total:</strong></td>
-                                              <td>£<?php echo $results->total_amount;?></td>
+                                              <td><?php echo $results->total_amount;?></td>
+                                          </tr>
+                                          <tr>
+                                              <td colspan="5" class="text-right"><strong><span style="color: #dc3545;">Outstanding: </span></strong></td>
+                                              <td> <?php echo $row->Outstanding; ?></td>
                                           </tr>
                                           <tr>
                                               <td colspan="5" class="text-right"><strong>Total Paid:</strong></td>
-                                              <td>£<?php echo $results->Paid;?> <h3><span style="color:green;"><strong> Done</strong></span></h3></td>
+                                              <td><?php echo $results->Paid;?> <h3><span style="color:green;"><strong> Done</strong></span></h3></td>
                                           </tr>
                                           </tbody>
                                       </table>
