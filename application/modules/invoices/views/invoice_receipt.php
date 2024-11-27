@@ -165,7 +165,7 @@
                                           </tr>
                                           <tr>
                                               <td colspan="5" class="text-right"><strong><span style="color: #dc3545;">Outstanding: </span></strong></td>
-                                              <td> <?php echo $row->Outstanding; ?></td>
+                                              <td> <?php echo $results->Outstanding; ?></td>
                                           </tr>
                                           <tr>
                                               <td colspan="5" class="text-right"><strong>Total Paid:</strong></td>
