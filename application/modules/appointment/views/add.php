@@ -218,10 +218,12 @@
                 </div>
                     
                 <!-- <h2 style="float: inline-end;">
-            <a href="javascript:void(0)"  onclick="open_model_new_patient('<?php echo $model; ?>')"  class="btn btn-sm btn-primary  fw-bold">
+            <a href="javascript:void(0)"  onclick="open_model_new('<?php echo $model; ?>')"  class="btn btn-sm btn-primary  fw-bold">
                 New Patient
             </a>
         </h2> -->
+
+        <button type="button" class="btn btn-sm btn-primary fw-bold" data-toggle="modal" data-target="#commonModalNewPatientold">New Patient</button>
 
                 </div>
 
@@ -983,21 +985,13 @@
                 </div>
                     
                 <!-- <h2 style="float: inline-end;">
-            <a href="javascript:void(0)"  onclick="open_model_newp('<?php echo $model; ?>')"  class="btn btn-sm btn-primary  fw-bold">
+            <a href="javascript:void(0)"  onclick="open_model_new('<?php echo $model; ?>')"  class="btn btn-sm btn-primary  fw-bold">
                 New Patient
             </a>
         </h2> -->
+        <button type="button" class="btn btn-sm btn-primary fw-bold" data-toggle="modal" data-target="#commonModalNewPatientold">New Patient</button>
 
-  
-
-  <!-- Trigger the modal with a button -->
-  <!-- <h2 style="float: inline-end;"> -->
-  <button type="button" class="btn btn-sm btn-primary fw-bold" data-toggle="modal" data-target="#commonModalNewPatientold">New Patient</button>
-<!-- <button id="cust_btn" type="button"  class="btn btn-info btn-lg">Click func</button> -->
-<!-- </h2> -->
- 
- 
-
+                </div>
 
                 <div class="col-md-12">
                         <div class="form-group">
@@ -1637,8 +1631,7 @@
    
 </div>
 
-
-<div id="form-modal-box-appointment-patientb"></div>
+<div id="form-modal-box"></div>
 </div>
 
 <script>
@@ -1973,12 +1966,6 @@ $('.btnPrevious').click(function() {
         });
     });
 </script>
-
-
-
-
-
-
 <style>
     .modal-footer .btn + .btn {
     margin-bottom: 5px !important;
@@ -2479,7 +2466,7 @@ input {
                                     <!-- <a href="" target="blank">Add new relation</a> -->
                                     <!-- <a href="<?php echo site_url('patient/openRelationship'); ?>" target="blank" class=" <?php echo (strtolower($this->router->fetch_class()) == "patient") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">Add New Relationship</span></a> -->
                                     <!-- <button type="button" style="border" onclick="addRelationship(this.click);" >Add New Relationship</button> -->
-                                    <!-- <button class="save-btn" type="button" style="border:#b4bdb4;" data-toggle="modal" data-target="#myModal" >Add New Relationship</button> -->
+                                    <button class="save-btn" type="button" style="border:#b4bdb4;" data-toggle="modal" data-target="#myModal" >Add New Relationship</button>
                                     
                                 </div>
     
@@ -3450,9 +3437,9 @@ input {
                             </div>
 
                             <!-- Modal footer -->
-                            <!-- <div class="modal-footer">
+                            <div class="modal-footer">
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                            </div> -->
+                            </div>
 
                         </div>
                         </div>
@@ -3752,8 +3739,44 @@ $(document).ready(function() {
 
     </div>
 <!-- </div> -->
+<script>
+    $(document).ready(function(){
 
+//hides dropdown content
+$(".show-hide").hide();
+
+//unhides first option content
+// $("#Selected").show();
+
+//listen to dropdown for change
+$("#select_relation").change(function(){
+  //rehide content on change
+  $('.show-hide').hide();
+  
+  $('#'+$(this).val()).show();
+});
+
+});
+
+$("#select_relation").change(function(selected){
+if(selected)
+{
+document.getElementById("change_value").style.display = "";
+$('.show-hide').hide();
+  
+  $('#'+$(this).val()).show();
+} 
+else
+{
+document.getElementById("change_value").style.display = "none";
+}
+}
+);
+
+</script>
 
 </body>
 </html>
+
+
 

@@ -2152,15 +2152,47 @@ input {
                             </div>
                         </div>
                     </div>
-                     <div class="row">
-                        <div class="modal-header text-center">
+
+                    <div class="row">
+                                    <!-- <div class="modal-header">
+                                        <h3 class="modal-title"><strong> Relationships and emergency contacts</strong></h3>
+                                    </div> -->
+                                    <div class="modal-header text-center">
+        <div class="col-md-12">
+            <div class="vender_title_admin">
+                <h3><strong>Relationships and emergency contacts</strong></h3>
+            </div>
+        </div>
+    </div>
+                
+                                    <div class="col-md-12" >
+                                        <div class="form-group">
+                                        <div class="col-md-12">
+                                                <table>
+                                                    
+                                                </table>
+                                            </div>
+                                            
+                                            <div class="col-md-12">
+                                               
+                                                <button class="save-btn" type="button" style="border:#b4bdb4" data-toggle="modal" data-target="#myModal" >Add New Relationship</button>
+                                                
+                                            </div>
+                
+                                        </div>
+                                    </div>
+                
+                
+                                </div>
+                     <!-- <div class="row"> -->
+                        <!-- <div class="modal-header text-center">
                             <div class="col-md-12">
                                 <div class="" style="padding-top: 0px;">
                                     <h3><strong>Relationships and emergency contacts</strong></h3>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-12" >
+                        </div> -->
+                        <!-- <div class="col-md-12" >
                             <div class="form-group">
                             <div class="col-md-12">
                                     <table>
@@ -2168,17 +2200,17 @@ input {
                                     </table>
                                 </div>
                                 
-                                <div class="col-md-12">
+                                <div class="col-md-12"> -->
                                     <!-- <a href="" target="blank">Add new relation</a> -->
                                     <!-- <a href="<?php echo site_url('patient/openRelationship'); ?>" target="blank" class=" <?php echo (strtolower($this->router->fetch_class()) == "patient") ? "active" : "" ?>"><span class="sidebar-nav-mini-hide">Add New Relationship</span></a> -->
                                     <!-- <button type="button" style="border" onclick="addRelationship(this.click);" >Add New Relationship</button> -->
                                     <!-- <button class="save-btn" type="button" style="border:#b4bdb4;" data-toggle="modal" data-target="#myModal" >Add New Relationship</button> -->
                                     
-                                </div>
+                                <!-- </div>
     
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="row">
                         <input type="text" class="form-control" name="storedData" id="storedData" readonly>
                         <input type="text" class="form-control" name="storedDataType" id="storedDataType" readonly>
@@ -2763,7 +2795,7 @@ input {
         
 
 
-                    <div class="modal" id="myModal">
+                    <div class="modal" id="myModal" style="height:400px;">
                         <div class="modal-dialog">
                         <div class="modal-content">
                         
@@ -2782,7 +2814,8 @@ input {
                                                     <div class="col-md-12">
                                                         
                                                         <label class="control-label">Relation Type</label><br>
-                                                        <select class="form-control" name="relation" id="select_relation">
+                                                        <select class="form-control" name="relation" id="
+                                                        ">
                                                             <option value="default">Select</option>
                                                             <option value="Anaesthetist">Anaesthetist</option>
                                                             <option value="Emergency_Contact">Emergency Contact</option>
@@ -3143,9 +3176,9 @@ input {
                             </div>
 
                             <!-- Modal footer -->
-                            <!-- <div class="modal-footer">
+                            <div class="modal-footer">
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                            </div> -->
+                            </div>
 
                         </div>
                         </div>
@@ -3250,7 +3283,41 @@ function getCities(stateId) {
 </script>
 
 
+<script>
+    $(document).ready(function(){
 
+//hides dropdown content
+$(".show-hide").hide();
+
+//unhides first option content
+// $("#Selected").show();
+
+//listen to dropdown for change
+$("#select_relation").change(function(){
+  //rehide content on change
+  $('.show-hide').hide();
+  
+  $('#'+$(this).val()).show();
+});
+
+});
+
+$("#select_relation").change(function(selected){
+if(selected)
+{
+document.getElementById("change_value").style.display = "";
+$('.show-hide').hide();
+  
+  $('#'+$(this).val()).show();
+} 
+else
+{
+document.getElementById("change_value").style.display = "none";
+}
+}
+);
+
+</script>
 
 <script>
 $(document).ready(function() {

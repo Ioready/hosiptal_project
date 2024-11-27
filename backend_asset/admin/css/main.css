@@ -2606,7 +2606,7 @@ a.list-group-item.active > .badge {
 .nav .open > a,
 .nav .open > a:hover,
 .nav .open > a:focus {
-    color: #fff;
+    color: #0a0a0a;
     background-color: #1bbae1;
 }
 

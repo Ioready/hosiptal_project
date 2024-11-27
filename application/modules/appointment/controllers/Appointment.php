@@ -34,14 +34,39 @@ class Appointment extends Common_Controller {
 
 
 
-        $this->data['title'] = "addPatient " . $this->title;
+        // $this->data['title'] = "addPatient " . $this->title;
         $this->data['formUrlAddNew'] = $this->router->fetch_class() . "/addPatient";
         $this->data['formUrl'] = $this->router->fetch_class() . "/add";
 
 
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+        
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+        
+            $authUser = $this->common_model->customGet($optionData);
+        
+            $hospital_id = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
+        }
+
         $AdminCareUnitID = isset($_SESSION['admin_care_unit_id']) ? $_SESSION['admin_care_unit_id'] : '';
 
-        $option = array('table' => 'care_unit', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc'));
+        $option = array('table' => 'care_unit', 'select' => 'id,name', 'where' => array('facility_user_id'=>$hospital_id,'is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc'));
         if (!empty($AdminCareUnitID)) {
             $option['where']['id']  = $AdminCareUnitID;
         }
@@ -64,7 +89,7 @@ class Appointment extends Common_Controller {
             $option = array(
                 'table' => 'care_unit',
                 'select' => 'care_unit.id,care_unit.name',
-                'where' => array('care_unit.id' => $value)
+                'where' => array('facility_user_id'=>$hospital_id,'care_unit.id' => $value)
             );
             $careUnitDatas[] = $this->common_model->customGet($option);
         }
@@ -79,18 +104,18 @@ class Appointment extends Common_Controller {
             'select' => 'doctors.*',
             'where' => array(
                 'doctors.delete_status' => 0,
-                'doctors.user_id'=> $user_id
+                'doctors.user_id'=> $hospital_id
             ),
             'single'=>true,
         );
 
         $this->hospital = $this->common_model->customGet($option3);
         $this->hospital->facility_user_id;
-        $this->data['initial_dx'] = $this->common_model->customGet(array('table' => 'initial_dx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
-        $this->data['culture_source'] = $this->common_model->customGet(array('table' => 'culture_source', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
-        $this->data['organism'] = $this->common_model->customGet(array('table' => 'organism', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
-        $this->data['precautions'] = $this->common_model->customGet(array('table' => 'precautions', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
-        $this->data['initial_rx'] = $this->common_model->customGet(array('table' => 'initial_rx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));    
+        $this->data['initial_dx'] = $this->common_model->customGet(array('table' => 'initial_dx', 'select' => 'id,name', 'where' => array('hospital_id'=>$hospital_id,'is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
+        $this->data['culture_source'] = $this->common_model->customGet(array('table' => 'culture_source', 'select' => 'id,name', 'where' => array('hospital_id'=>$hospital_id,'is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
+        $this->data['organism'] = $this->common_model->customGet(array('table' => 'organism', 'select' => 'id,name', 'where' => array('hospital_id'=>$hospital_id,'is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
+        $this->data['precautions'] = $this->common_model->customGet(array('table' => 'precautions', 'select' => 'id,name', 'where' => array('hospital_id'=>$hospital_id,'is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
+        $this->data['initial_rx'] = $this->common_model->customGet(array('table' => 'initial_rx', 'select' => 'id,name', 'where' => array('hospital_id'=>$hospital_id,'is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));    
 
         $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 
@@ -147,7 +172,7 @@ class Appointment extends Common_Controller {
             
             'where' => array(
                 'users.delete_status' => 0,
-                'doctors.facility_user_id'=>$CareUnitID
+                'doctors.facility_user_id'=>$hospital_id
             ),
             'order' => array('users.id' => 'desc'),
         );
@@ -197,30 +222,7 @@ class Appointment extends Common_Controller {
 
 
 
-        if ($this->ion_auth->is_facilityManager()) {
-            $user_id = $this->session->userdata('user_id');
-        $hospital_id = $user_id;
         
-        } else if($this->ion_auth->is_all_roleslogin()) {
-            $user_id = $this->session->userdata('user_id');
-            $optionData = array(
-                'table' => USERS . ' as user',
-                'select' => 'user.*,group.name as group_name',
-                'join' => array(
-                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
-                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
-                ),
-                'order' => array('user.id' => 'DESC'),
-                'where' => array('user.id'=>$user_id),
-                'single'=>true,
-            );
-        
-            $authUser = $this->common_model->customGet($optionData);
-        
-            $hospital_id = $authUser->hospital_id;
-            // 'users.hospital_id'=>$hospital_id
-            
-        }
 
         $role_name = $this->input->post('role_name');
         $today = date('Y-m-d');
@@ -830,7 +832,7 @@ $this->data['all_appointment'] = $result->result();
        
            $option = array(
                'table' => 'care_unit',
-               'select' => '*', 'where' => array('delete_status' => 0), 'order' => array('name' => 'ASC')
+               'select' => '*', 'where' => array('facility_user_id'=>$hospital_id,'delete_status' => 0), 'order' => array('name' => 'ASC')
            );
            $this->data['care_unit'] = $this->common_model->customGet($option);
        
@@ -855,7 +857,7 @@ $this->data['all_appointment'] = $result->result();
    
        $option = array(
            'table' => 'care_unit',
-           'select' => '*', 'where' => array('delete_status' => 0), 'order' => array('name' => 'ASC')
+           'select' => '*', 'where' => array('facility_user_id'=>$hospital_id,'delete_status' => 0), 'order' => array('name' => 'ASC')
        );
        $this->data['care_unit'] = $this->common_model->customGet($option);
    
@@ -3336,7 +3338,8 @@ $output ='<tbody>'?>
                                                                         }
                                                                        
                                                                 }
-                                                                    
+                                                                echo '<button id="btnMyTest001" type="button" class="btn btn-success popup-appointment-open" data-toggle="modal" data-target="#my_modal" data-age="27">Create</button>';
+                                                                 
                                                         }
                                                         echo '</td>';
                                                    
