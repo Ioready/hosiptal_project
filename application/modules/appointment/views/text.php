@@ -315,7 +315,7 @@ transition: opacity 0.3s linear, right 0.3s ease-out;
                     
                 <?php } } } ?>
                
-                    <div class="form-group save-btn">
+                    <div class="form-group">
                         <label for="datePicker">Select Date:</label>
                         <input type="date" id="datePicker" class="form-control">
                     </div>

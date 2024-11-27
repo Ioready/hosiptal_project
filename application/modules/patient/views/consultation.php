@@ -135,7 +135,7 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #f5f5f5;
-            /* padding: 20px; */
+           
         }
 
         .container-data {
@@ -154,7 +154,7 @@
         .left-panel {
             flex: 1;
             border-right: 1px solid #e5e5e5;
-            /* padding: 20px; */
+          
         }
 
         .left-panel .header {
