@@ -13,7 +13,7 @@
             <a href="<?php echo site_url('pwfpanel');?>">Home</a>
         </li>
         <li>
-            <a href="<?php echo site_url('Contactus');?>"><strong>Back</strong></a>
+            <a href="<?php echo site_url('contactus');?>"><strong>Back</strong></a>
         </li>
     </ul>
     <!-- END Datatables Header -->

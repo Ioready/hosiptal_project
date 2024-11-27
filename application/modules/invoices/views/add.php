@@ -180,9 +180,11 @@
             <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url($formUrl) ?>" enctype="multipart/form-data">
             <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; background-color: #f8f9fa; border-bottom: 1px solid #dee2e6;">
     <!-- Close Button -->
-    <button type="button" onclick="closeModal()" style="background: none; border: none; font-size: 24px; cursor: pointer; color: #333;">
+    <!-- <button type="button" onclick="closeModal()" style="background: none; border: none; font-size: 24px; cursor: pointer; color: #333;">
         <span aria-hidden="true">&times;</span><span style="font-size: 14px; margin-left: 5px;">Close</span>
-    </button>
+    </button> -->
+    <button type="button" class="btn btn-sm btn-default" style="background: none; border: none; font-size: 24px; cursor: pointer; color: #333;" data-dismiss="modal"><span aria-hidden="true">&times;</span><span style="font-size: 14px; margin-left: 5px;"> Close</span></button>
+                    
 
     <!-- Modal Title -->
     <h2 style="font-size: 20px; font-weight: bold; color: #007bff; margin: 0;">

@@ -548,7 +548,7 @@ transition: opacity 0.3s linear, right 0.3s ease-out;
                                                                                 New Patient
                                                                             </a>
                                                                         </h2> -->
-                                                                        <button type="button" class="btn btn-sm btn-primary fw-bold" data-toggle="modal" data-target="#commonModalNewAppointment">New Patient</button>
+                                                                        <button type="button" class="btn btn-sm fw-bold" data-toggle="modal" data-target="#commonModalNewAppointment" style="background-color:#337ab7; color:white;">New Patient</button>
 
                                                                                 </div>
 
@@ -2814,8 +2814,7 @@ input {
                                                     <div class="col-md-12">
                                                         
                                                         <label class="control-label">Relation Type</label><br>
-                                                        <select class="form-control" name="relation" id="
-                                                        ">
+                                                        <select class="form-control" name="relation" id="select_relation">
                                                             <option value="default">Select</option>
                                                             <option value="Anaesthetist">Anaesthetist</option>
                                                             <option value="Emergency_Contact">Emergency Contact</option>
@@ -3283,41 +3282,7 @@ function getCities(stateId) {
 </script>
 
 
-<script>
-    $(document).ready(function(){
 
-//hides dropdown content
-$(".show-hide").hide();
-
-//unhides first option content
-// $("#Selected").show();
-
-//listen to dropdown for change
-$("#select_relation").change(function(){
-  //rehide content on change
-  $('.show-hide').hide();
-  
-  $('#'+$(this).val()).show();
-});
-
-});
-
-$("#select_relation").change(function(selected){
-if(selected)
-{
-document.getElementById("change_value").style.display = "";
-$('.show-hide').hide();
-  
-  $('#'+$(this).val()).show();
-} 
-else
-{
-document.getElementById("change_value").style.display = "none";
-}
-}
-);
-
-</script>
 
 <script>
 $(document).ready(function() {
@@ -3512,6 +3477,41 @@ $(document).ready(function() {
 
     </div>
 </div>
+<script>
+    $(document).ready(function(){
+
+//hides dropdown content
+$(".show-hide").hide();
+
+//unhides first option content
+// $("#Selected").show();
+
+//listen to dropdown for change
+$("#select_relation").change(function(){
+  //rehide content on change
+  $('.show-hide').hide();
+  
+  $('#'+$(this).val()).show();
+});
+
+});
+
+$("#select_relation").change(function(selected){
+if(selected)
+{
+document.getElementById("change_value").style.display = "";
+$('.show-hide').hide();
+  
+  $('#'+$(this).val()).show();
+} 
+else
+{
+document.getElementById("change_value").style.display = "none";
+}
+}
+);
+
+</script>
 
 </body>
 </html>
