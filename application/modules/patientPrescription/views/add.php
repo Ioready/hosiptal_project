@@ -20,7 +20,7 @@
                     <div class="form-body">
                     <div class="form-body">
                         <div class="row">
-                            <div class="col-md-12" >
+                            <div class="col-md-11" >
                                 <div class="form-group">
                                     <!-- <label class="col-md-3 control-label">Patient Name</label> -->
                                     
@@ -32,7 +32,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-12" >
+                            <div class="col-md-11" >
                            
                             
                                 <div class="form-group">
@@ -49,7 +49,7 @@
                             </div>
                             
 
-                            <div class="col-md-12" >
+                            <div class="col-md-11" >
                            
                             
                                 <div class="form-group">
@@ -65,11 +65,11 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-12" >
+                            <div class="col-md-11" >
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Details</label>
                                     <div class="col-md-9">
-                                    <textarea name="detail" id="detail" rows="4" cols="45"></textarea>
+                                    <textarea name="detail" id="detail" rows="4" cols="40"></textarea>
                                         <!-- <input type="text" class="form-control" name="detail" id="detail" placeholder="detail" /> -->
                                     </div>
                                 </div>
