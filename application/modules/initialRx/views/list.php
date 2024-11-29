@@ -137,7 +137,7 @@
                             <tr>
                                 <td><?php echo $rowCount; ?></td>            
                                 <td><?php echo $rows->name; ?></td>
-                                 <td>$<?php echo ($rows->price > 0) ? $rows->price : "0.00"; ?></td>
+                                 <td> £<?php echo ($rows->price > 0) ? $rows->price : "0.00"; ?></td>
                                 <td class="actions">
                                <?php if ($menu_update =='1'){?>
                                     <a href="javascript:void(0)" class="btn btn-xs btn-default" onclick="editFn('<?php echo $model; ?>', 'edit', '<?php echo encoding($rows->id) ?>', '<?php echo $model; ?>');"><i class="fa fa-pencil"></i></a>
@@ -188,7 +188,7 @@
                             <tr>
                                 <td><?php echo $rowCount; ?></td>            
                                 <td><?php echo $rows->name; ?></td>
-                                 <td>$<?php echo ($rows->price > 0) ? $rows->price : "0.00"; ?></td>
+                                 <td> £<?php echo ($rows->price > 0) ? $rows->price : "0.00"; ?></td>
                                 <td class="actions">
                               
                                     <a href="javascript:void(0)" class="btn btn-xs btn-default" onclick="editFn('<?php echo $model; ?>', 'edit', '<?php echo encoding($rows->id) ?>', '<?php echo $model; ?>');"><i class="fa fa-pencil"></i></a>

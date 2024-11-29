@@ -10,7 +10,7 @@
        
     </style>
 
-<div id="commonModal" class="modal fade" role="dialog">
+<div id="commonModalGallery" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url($formUrlPDF) ?>" enctype="multipart/form-data">

@@ -1379,12 +1379,12 @@ document.addEventListener("DOMContentLoaded", function () {
                             
                                 <textarea class="form-control" placeholder="Enter diagram text" name="diagram_comment" id="diagram_comment"></textarea>
 
-                                
+                                </div>
                             <button type="submit" id="submit" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Save</button>
                            
                            
                             
-                    </div>
+                   
                     </form>
                  </div>
 

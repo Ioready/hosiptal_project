@@ -27,7 +27,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Price $</label>
+                                    <label class="col-md-3 control-label">Price  £</label>
                                     <div class="col-md-9">
                                         <input type="text" class="form-control" name="price" id="price" placeholder="0" />
                                     </div>

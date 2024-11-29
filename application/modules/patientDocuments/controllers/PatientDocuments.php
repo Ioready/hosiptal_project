@@ -83,12 +83,13 @@ class PatientDocuments extends Common_Controller {
        
             $option = array(
                 'table' => 'vendor_sale_patient_document_uploads',
+                'select' => 'vendor_sale_patient_document_uploads.folder_id',
                 'where' => array('patient_id' => $patient_id),
                 // 'single' => true
             );
             $results_files = $this->common_model->customGet($option);
             $this->data['results_files'] = $results_files;
-
+            // print_r($this->data['results_files']);die;
           
             $this->load->admin_render('list', $this->data, 'inner_script');
         }
@@ -480,9 +481,9 @@ class PatientDocuments extends Common_Controller {
             
     
             $patient_id=  $this->input->post('id');
-// print_r($patient_id);die;
-
+            
             $folder_id = $this->input->post('folder_id');
+            // print_r($folder_id);die;
         if (!empty($patient_id)) {
             $option = array(
                 'table' => 'vendor_sale_patient_document_uploads',
