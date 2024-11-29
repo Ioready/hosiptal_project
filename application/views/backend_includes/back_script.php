@@ -337,8 +337,8 @@
             type: 'POST',
             data: {'<?php echo $this->security->get_csrf_token_name(); ?>': '<?php echo $this->security->get_csrf_hash(); ?>'},
             success: function (data, textStatus, jqXHR) {
-                $('#form-modal-box').html(data);
-                $("#commonModal").modal('show');
+                $('#form-modal-box-gallery').html(data);
+                $("#commonModalGallery").modal('show');
             }
         });
 
@@ -350,8 +350,8 @@
             type: 'POST',
             data: {'<?php echo $this->security->get_csrf_token_name(); ?>': '<?php echo $this->security->get_csrf_hash(); ?>',id:id,folder_id:folder_id},
             success: function (data, textStatus, jqXHR) {
-                $('#form-modal-box').html(data);
-                $("#commonModal").modal('show');
+                $('#form-modal-box-galler').html(data);
+                $("#commonModalGallery").modal('show');
             }
         });
         }
@@ -1487,5 +1487,676 @@ function updateFieldeditFieldTemperature(id, field, value, element) {
 </script>
 
 
+<script>
+    function updateInvoiceProductNames() {
+        let x = document.getElementById("name");
+        let query = x.value;
+        
+        if (query !== '') {
+            $.ajax({
+                url: "<?php echo site_url('products/fetchInvoiceAllProduct'); ?>",
+                method: "POST",
+                data: {query: query},
+                dataType: "json",  // Ensure the data is interpreted as JSON
+                success: function(data) {
 
+                    let output = '<select class="form-control select2 customerdataid" name="consultation_product" id="consultation_product" onchange="getSearchInvoiceAllProduct(this)">';
+                    
+                    // Check if data is an array and has content
+                    if (Array.isArray(data) && data.length > 0) {
+                        $.each(data, function(index, element) {
+                            output += '<option>Please Select</option>';
+                            output += '<option value="' + element.id + '">' + element.name + '</option>';
+                        });
+                    } else {
+                        output += '<option>No Data Found</option>';
+                    }
+
+                    output += '</select>';
+                    $('#result_product').html(output);  // Set the HTML content of the #result_product div
+                },
+                error: function(xhr, status, error) {
+                    console.error("AJAX Error: " + status + error);  // Log error if AJAX fails
+                }
+            });
+        } else {
+            $('#result_product').html('');  // Clear the result when query is empty
+        }
+
+
+
+        
+    }
+</script>
+<script>
+    function getSearchInvoiceAllProduct() {
+        var searchValue = document.getElementById("consultation_product").value;
+        var query = searchValue;
+
+        if (query !== '') {
+            $.ajax({
+                url: "<?php echo site_url('products/fetchInvoceProductDetail'); ?>",
+                method: "POST",
+                data: {query: query},
+                dataType: "json",  // Ensure the data is interpreted as JSON
+                success: function(data) {
+                    name = data.name;
+                    id = data.id;
+                    price = data.price;
+                    stock_level = data.stock_level;
+                    // alert(data);
+                $('#name').val(name);
+                $('#products_idss').val(id);
+                $('#price').val(price);
+
+
+                if (stock_level === '0' || stock_level === '') { 
+                        $('#productStock')
+                            .text('Product Stock is empty = 0')
+                            .css('color', 'red');
+                        $('.submit_stock').prop('disabled', true); // Disable submit button
+                    } else {
+                        // alert(stock_level);
+                        $('#productStock')
+                            .text('Total Product Stock is available = ' + stock_level) // Corrected to use .text()
+                            .css('color', 'green');
+                        $('.submit_stock').prop('disabled', false); // Enable submit button
+                    }
+
+                }
+            });
+        }
+    }
+</script>
+
+<!-- Vaccine query start -->
+
+
+<script>
+    function updateInvoiceProductNamesVaccine() {
+        let x = document.getElementById("vaccine_name");
+        
+        let query = x.value;
+        // alert(query);
+        if (query !== '') {
+            $.ajax({
+                url: "<?php echo site_url('products/fetchInvoiceAllProduct'); ?>",
+                method: "POST",
+                data: {query: query},
+                dataType: "json",  // Ensure the data is interpreted as JSON
+                success: function(data) {
+
+                    let output = '<select class="form-control select2 customerdataid" name="consultation_product" id="consultation_product" onchange="getSearchInvoiceAllProductVaccine(this)">';
+                    
+                    // Check if data is an array and has content
+                    if (Array.isArray(data) && data.length > 0) {
+                        $.each(data, function(index, element) {
+                            output += '<option>Please Select</option>';
+                            output += '<option value="' + element.id + '">' + element.name + '</option>';
+                        });
+                    } else {
+                        output += '<option>No Data Found</option>';
+                    }
+
+                    output += '</select>';
+                    $('#result_product_vaccine').html(output);  // Set the HTML content of the #result_product div
+                },
+                error: function(xhr, status, error) {
+                    console.error("AJAX Error: " + status + error);  // Log error if AJAX fails
+                }
+            });
+        } else {
+            $('#result_product_vaccine').html('');  // Clear the result when query is empty
+        }
+
+
+
+        
+    }
+</script>
+
+<script>
+    function getSearchInvoiceAllProductVaccine() {
+        var searchValue = document.getElementById("consultation_product").value;
+        var query = searchValue;
+
+        if (query !== '') {
+            $.ajax({
+                url: "<?php echo site_url('products/fetchInvoceProductDetail'); ?>",
+                method: "POST",
+                data: {query: query},
+                dataType: "json",  // Ensure the data is interpreted as JSON
+                success: function(data) {
+                    name = data.name;
+                    id = data.id;
+                    price = data.price;
+                    stock_level = data.stock_level;
+                    // alert(data);
+                $('#vaccine_name').val(name);
+                $('#products_idss').val(id);
+                $('#vaccine_price').val(price);
+
+
+                if (stock_level === '0' || stock_level === '') { 
+                        $('#productStock')
+                            .text('Product Stock is empty = 0')
+                            .css('color', 'red');
+                        $('.submit_stock').prop('disabled', true); // Disable submit button
+                    } else {
+                        // alert(stock_level);
+                        $('#productStock')
+                            .text('Total Product Stock is available = ' + stock_level) // Corrected to use .text()
+                            .css('color', 'green');
+                        $('.submit_stock').prop('disabled', false); // Enable submit button
+                    }
+
+                }
+            });
+        }
+    }
+</script>
+
+
+<!-- Lab query start -->
+<script>
+    function updateInvoiceProductNamesLab() {
+        let x = document.getElementById("lab_name");
+        let query = x.value;
+        
+        if (query !== '') {
+            $.ajax({
+                url: "<?php echo site_url('products/fetchInvoiceAllProduct'); ?>",
+                method: "POST",
+                data: {query: query},
+                dataType: "json",  // Ensure the data is interpreted as JSON
+                success: function(data) {
+
+                    let output = '<select class="form-control select2 customerdataid" name="consultation_product" id="consultation_product" onchange="getSearchInvoiceAllProductLab(this)">';
+                    
+                    // Check if data is an array and has content
+                    if (Array.isArray(data) && data.length > 0) {
+                        $.each(data, function(index, element) {
+                            output += '<option>Please Select</option>';
+                            output += '<option value="' + element.id + '">' + element.name + '</option>';
+                        });
+                    } else {
+                        output += '<option>No Data Found</option>';
+                    }
+
+                    output += '</select>';
+                    $('#result_product_lab').html(output);  // Set the HTML content of the #result_product div
+                },
+                error: function(xhr, status, error) {
+                    console.error("AJAX Error: " + status + error);  // Log error if AJAX fails
+                }
+            });
+        } else {
+            $('#result_product_lab').html('');  // Clear the result when query is empty
+        }
+
+
+
+        
+    }
+</script>
+
+
+<script>
+    function getSearchInvoiceAllProductLab() {
+        var searchValue = document.getElementById("consultation_product").value;
+        var query = searchValue;
+
+        if (query !== '') {
+            $.ajax({
+                url: "<?php echo site_url('products/fetchInvoceProductDetail'); ?>",
+                method: "POST",
+                data: {query: query},
+                dataType: "json",  // Ensure the data is interpreted as JSON
+                success: function(data) {
+                    name = data.name;
+                    id = data.id;
+                    price = data.price;
+                    stock_level = data.stock_level;
+                    // alert(data);
+                $('#lab_name').val(name);
+                $('#products_idss').val(id);
+                $('#lab_price').val(price);
+
+
+                if (stock_level === '0' || stock_level === '') { 
+                        $('#productStock')
+                            .text('Product Stock is empty = 0')
+                            .css('color', 'red');
+                        $('.submit_stock').prop('disabled', true); // Disable submit button
+                    } else {
+                        // alert(stock_level);
+                        $('#productStock')
+                            .text('Total Product Stock is available = ' + stock_level) // Corrected to use .text()
+                            .css('color', 'green');
+                        $('.submit_stock').prop('disabled', false); // Enable submit button
+                    }
+
+                }
+            });
+        }
+    }
+</script>
+
+<!-- Appointmnt query data -->
+<script>
+    function updateInvoiceProductNamesAppointment() {
+        let x = document.getElementById("appointment_name");
+        let query = x.value;
+        // alert(query);
+        if (query !== '') {
+            $.ajax({
+                url: "<?php echo site_url('products/fetchInvoiceAllProduct'); ?>",
+                method: "POST",
+                data: {query: query},
+                dataType: "json",  // Ensure the data is interpreted as JSON
+                success: function(data) {
+
+                    let output = '<select class="form-control select2 customerdataid" name="consultation_product" id="consultation_product" onchange="getSearchInvoiceAllProductAppointment(this)">';
+                    
+                    // Check if data is an array and has content
+                    if (Array.isArray(data) && data.length > 0) {
+                        $.each(data, function(index, element) {
+                            output += '<option>Please Select</option>';
+                            output += '<option value="' + element.id + '">' + element.name + '</option>';
+                        });
+                    } else {
+                        output += '<option>No Data Found</option>';
+                    }
+
+                    output += '</select>';
+                    $('#result_product_appointment').html(output);  // Set the HTML content of the #result_product div
+                },
+                error: function(xhr, status, error) {
+                    console.error("AJAX Error: " + status + error);  // Log error if AJAX fails
+                }
+            });
+        } else {
+            $('#result_product_appointment').html('');  // Clear the result when query is empty
+        }
+
+
+
+        
+    }
+</script>
+
+<script>
+    function getSearchInvoiceAllProductAppointment() {
+        var searchValue = document.getElementById("consultation_product").value;
+        var query = searchValue;
+
+        if (query !== '') {
+            $.ajax({
+                url: "<?php echo site_url('products/fetchInvoceProductDetail'); ?>",
+                method: "POST",
+                data: {query: query},
+                dataType: "json",  // Ensure the data is interpreted as JSON
+                success: function(data) {
+                    name = data.name;
+                    id = data.id;
+                    price = data.price;
+                    stock_level = data.stock_level;
+                    // alert(data);
+                $('#appointment_name').val(name);
+                $('#products_idss').val(id);
+                $('#appointment_price').val(price);
+
+
+                if (stock_level === '0' || stock_level === '') { 
+                        $('#productStock')
+                            .text('Product Stock is empty = 0')
+                            .css('color', 'red');
+                        $('.submit_stock').prop('disabled', true); // Disable submit button
+                    } else {
+                        // alert(stock_level);
+                        $('#productStock')
+                            .text('Total Product Stock is available = ' + stock_level) // Corrected to use .text()
+                            .css('color', 'green');
+                        $('.submit_stock').prop('disabled', false); // Enable submit button
+                    }
+
+                }
+            });
+        }
+    }
+</script>
+
+<!-- Pathway  -->
+<script>
+    function updateInvoiceProductNamesPathway() {
+        let x = document.getElementById("pathway_name");
+        let query = x.value;
+        
+        if (query !== '') {
+            $.ajax({
+                url: "<?php echo site_url('products/fetchInvoiceAllProduct'); ?>",
+                method: "POST",
+                data: {query: query},
+                dataType: "json",  // Ensure the data is interpreted as JSON
+                success: function(data) {
+
+                    let output = '<select class="form-control select2 customerdataid" name="consultation_product" id="consultation_product" onchange="getSearchInvoiceAllProductPathway(this)">';
+                    
+                    // Check if data is an array and has content
+                    if (Array.isArray(data) && data.length > 0) {
+                        $.each(data, function(index, element) {
+                            output += '<option>Please Select</option>';
+                            output += '<option value="' + element.id + '">' + element.name + '</option>';
+                        });
+                    } else {
+                        output += '<option>No Data Found</option>';
+                    }
+
+                    output += '</select>';
+                    $('#result_product_pathway').html(output);  // Set the HTML content of the #result_product div
+                },
+                error: function(xhr, status, error) {
+                    console.error("AJAX Error: " + status + error);  // Log error if AJAX fails
+                }
+            });
+        } else {
+            $('#result_product_pathway').html('');  // Clear the result when query is empty
+        }
+
+
+
+        
+    }
+</script>
+<script>
+    function getSearchInvoiceAllProductPathway() {
+        var searchValue = document.getElementById("consultation_product").value;
+        var query = searchValue;
+
+        if (query !== '') {
+            $.ajax({
+                url: "<?php echo site_url('products/fetchInvoceProductDetail'); ?>",
+                method: "POST",
+                data: {query: query},
+                dataType: "json",  // Ensure the data is interpreted as JSON
+                success: function(data) {
+                    name = data.name;
+                    id = data.id;
+                    price = data.price;
+                    stock_level = data.stock_level;
+                    // alert(data);
+                $('#pathway_name').val(name);
+                $('#products_idss').val(id);
+                $('#pathway_price').val(price);
+
+
+                if (stock_level === '0' || stock_level === '') { 
+                        $('#productStock')
+                            .text('Product Stock is empty = 0')
+                            .css('color', 'red');
+                        $('.submit_stock').prop('disabled', true); // Disable submit button
+                    } else {
+                        // alert(stock_level);
+                        $('#productStock')
+                            .text('Total Product Stock is available = ' + stock_level) // Corrected to use .text()
+                            .css('color', 'green');
+                        $('.submit_stock').prop('disabled', false); // Enable submit button
+                    }
+
+                }
+            });
+        }
+    }
+</script>
+
+
+<script>
+    function updateInvoiceProductNamesMembership() {
+        let x = document.getElementById("membership_name");
+        let query = x.value;
+        
+        if (query !== '') {
+            $.ajax({
+                url: "<?php echo site_url('products/fetchInvoiceAllProduct'); ?>",
+                method: "POST",
+                data: {query: query},
+                dataType: "json",  // Ensure the data is interpreted as JSON
+                success: function(data) {
+
+                    let output = '<select class="form-control select2 customerdataid" name="consultation_product" id="consultation_product" onchange="getSearchInvoiceAllProductMembership(this)">';
+                    
+                    // Check if data is an array and has content
+                    if (Array.isArray(data) && data.length > 0) {
+                        $.each(data, function(index, element) {
+                            output += '<option>Please Select</option>';
+                            output += '<option value="' + element.id + '">' + element.name + '</option>';
+                        });
+                    } else {
+                        output += '<option>No Data Found</option>';
+                    }
+
+                    output += '</select>';
+                    $('#result_product_membership').html(output);  // Set the HTML content of the #result_product div
+                },
+                error: function(xhr, status, error) {
+                    console.error("AJAX Error: " + status + error);  // Log error if AJAX fails
+                }
+            });
+        } else {
+            $('#result_product_membership').html('');  // Clear the result when query is empty
+        }
+
+
+
+        
+    }
+</script>
+<script>
+    function getSearchInvoiceAllProductMembership() {
+        var searchValue = document.getElementById("consultation_product").value;
+        var query = searchValue;
+
+        if (query !== '') {
+            $.ajax({
+                url: "<?php echo site_url('products/fetchInvoceProductDetail'); ?>",
+                method: "POST",
+                data: {query: query},
+                dataType: "json",  // Ensure the data is interpreted as JSON
+                success: function(data) {
+                    name = data.name;
+                    id = data.id;
+                    price = data.price;
+                    stock_level = data.stock_level;
+                    // alert(data);
+                $('#membership_name').val(name);
+                $('#products_idss').val(id);
+                $('#membership_price').val(price);
+
+
+                if (stock_level === '0' || stock_level === '') { 
+                        $('#productStock')
+                            .text('Product Stock is empty = 0')
+                            .css('color', 'red');
+                        $('.submit_stock').prop('disabled', true); // Disable submit button
+                    } else {
+                        // alert(stock_level);
+                        $('#productStock')
+                            .text('Total Product Stock is available = ' + stock_level) // Corrected to use .text()
+                            .css('color', 'green');
+                        $('.submit_stock').prop('disabled', false); // Enable submit button
+                    }
+
+                }
+            });
+        }
+    }
+</script>
+
+
+
+<script>
+    function updateInvoiceProductNamesProcedure() {
+        let x = document.getElementById("procedure_name");
+        let query = x.value;
+        
+        if (query !== '') {
+            $.ajax({
+                url: "<?php echo site_url('products/fetchInvoiceAllProduct'); ?>",
+                method: "POST",
+                data: {query: query},
+                dataType: "json",  // Ensure the data is interpreted as JSON
+                success: function(data) {
+
+                    let output = '<select class="form-control select2 customerdataid" name="consultation_product" id="consultation_product" onchange="getSearchInvoiceAllProductProcedure(this)">';
+                    
+                    // Check if data is an array and has content
+                    if (Array.isArray(data) && data.length > 0) {
+                        $.each(data, function(index, element) {
+                            output += '<option>Please Select</option>';
+                            output += '<option value="' + element.id + '">' + element.name + '</option>';
+                        });
+                    } else {
+                        output += '<option>No Data Found</option>';
+                    }
+
+                    output += '</select>';
+                    $('#result_product_procedure').html(output);  // Set the HTML content of the #result_product div
+                },
+                error: function(xhr, status, error) {
+                    console.error("AJAX Error: " + status + error);  // Log error if AJAX fails
+                }
+            });
+        } else {
+            $('#result_product_procedure').html('');  // Clear the result when query is empty
+        }
+
+
+
+        
+    }
+</script>
+<script>
+    function getSearchInvoiceAllProductProcedure() {
+        var searchValue = document.getElementById("consultation_product").value;
+        var query = searchValue;
+
+        if (query !== '') {
+            $.ajax({
+                url: "<?php echo site_url('products/fetchInvoceProductDetail'); ?>",
+                method: "POST",
+                data: {query: query},
+                dataType: "json",  // Ensure the data is interpreted as JSON
+                success: function(data) {
+                    name = data.name;
+                    id = data.id;
+                    price = data.price;
+                    stock_level = data.stock_level;
+                    // alert(data);
+                $('#procedure_name').val(name);
+                $('#products_idss').val(id);
+                $('#procedure_price').val(price);
+
+
+                if (stock_level === '0' || stock_level === '') { 
+                        $('#productStock')
+                            .text('Product Stock is empty = 0')
+                            .css('color', 'red');
+                        $('.submit_stock').prop('disabled', true); // Disable submit button
+                    } else {
+                        // alert(stock_level);
+                        $('#productStock')
+                            .text('Total Product Stock is available = ' + stock_level) // Corrected to use .text()
+                            .css('color', 'green');
+                        $('.submit_stock').prop('disabled', false); // Enable submit button
+                    }
+
+                }
+            });
+        }
+    }
+</script>
+
+<script>
+    function updateInvoiceProductNamesOther() {
+        let x = document.getElementById("other_name");
+        let query = x.value;
+        
+        if (query !== '') {
+            $.ajax({
+                url: "<?php echo site_url('products/fetchInvoiceAllProduct'); ?>",
+                method: "POST",
+                data: {query: query},
+                dataType: "json",  // Ensure the data is interpreted as JSON
+                success: function(data) {
+
+                    let output = '<select class="form-control select2 customerdataid" name="consultation_product" id="consultation_product" onchange="getSearchInvoiceAllProductOther(this)">';
+                    
+                    // Check if data is an array and has content
+                    if (Array.isArray(data) && data.length > 0) {
+                        $.each(data, function(index, element) {
+                            output += '<option>Please Select</option>';
+                            output += '<option value="' + element.id + '">' + element.name + '</option>';
+                        });
+                    } else {
+                        output += '<option>No Data Found</option>';
+                    }
+
+                    output += '</select>';
+                    $('#result_product_other').html(output);  // Set the HTML content of the #result_product div
+                },
+                error: function(xhr, status, error) {
+                    console.error("AJAX Error: " + status + error);  // Log error if AJAX fails
+                }
+            });
+        } else {
+            $('#result_product_other').html('');  // Clear the result when query is empty
+        }
+
+
+
+        
+    }
+</script>
+
+
+<script>
+    function getSearchInvoiceAllProductOther() {
+        var searchValue = document.getElementById("consultation_product").value;
+        var query = searchValue;
+
+        if (query !== '') {
+            $.ajax({
+                url: "<?php echo site_url('products/fetchInvoceProductDetail'); ?>",
+                method: "POST",
+                data: {query: query},
+                dataType: "json",  // Ensure the data is interpreted as JSON
+                success: function(data) {
+                    name = data.name;
+                    id = data.id;
+                    price = data.price;
+                    stock_level = data.stock_level;
+                    // alert(data);
+                $('#other_name').val(name);
+                $('#products_idss').val(id);
+                $('#other_price').val(price);
+
+
+                if (stock_level === '0' || stock_level === '') { 
+                        $('#productStock')
+                            .text('Product Stock is empty = 0')
+                            .css('color', 'red');
+                        $('.submit_stock').prop('disabled', true); // Disable submit button
+                    } else {
+                        // alert(stock_level);
+                        $('#productStock')
+                            .text('Total Product Stock is available = ' + stock_level) // Corrected to use .text()
+                            .css('color', 'green');
+                        $('.submit_stock').prop('disabled', false); // Enable submit button
+                    }
+
+                }
+            });
+        }
+    }
+</script>
 

@@ -459,9 +459,10 @@
             
                         <?php foreach($list as $folder){ ?>
                         <div class="col-sm-8 col-md-10">
-                        <input type="hidden" name="folder_id" id="folder_id" value="<?php echo $folder->id;?>">
+                       
 
                         <?php if(!empty($results_files)){?>
+                            <input type="hidden" name="folder_id" id="folder_id" value="<?php echo $folder->id;?>">
                         <a href="javascript:void(0)"  onclick="open_modal_documents_gallery('<?php echo $modelFileGallery; ?>')" class="dropdown-item" id="patient_ids">
                         <i class="fas fa-folder" styple=""></i> 
                         <span class="folder-name"><Strong> <?php echo $folder->folder_name; ?></Strong></span> <br>
@@ -469,6 +470,7 @@
                         echo $createAt; ?></Strong></span>
                         </a>
                         <?php }else{?>
+                            <input type="hidden" name="folder_id" id="folder_id" value="<?php echo $folder->id;?>">
                             <i class="fas fa-folder" styple=""></i> 
                         <span class="folder-name"><Strong> <?php echo $folder->folder_name; ?></Strong></span> <br>
                         <span>Created <Strong> <?php $createAt = date_format(date_create($folder->create_date), 'd/m/Y'); 
@@ -494,6 +496,7 @@
 </div>
 <!-- END Page Content -->
 <div id="form-modal-box"></div>
+<div id="form-modal-box-galler"></div>
 </div>
 
 <script>

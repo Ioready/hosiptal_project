@@ -1005,5 +1005,39 @@ class Common_model extends MY_Model {
         return $query->result_array(); // Ensure result_array() is used
     }
 
+    public function fetchInvoiceAllProducts($query) {
+
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+    
+            $authUser = $this->common_model->customGet($optionData);
+
+            $hospital_id = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
+        }
+            $this->db->where('hospital_id', $hospital_id);
+            $this->db->where('type', '');
+            $this->db->like('name', $query);
+            
+            $query = $this->db->get('vendor_sale_doctor_product');
+        
+        return $query->result_array(); // Ensure result_array() is used
+    }
     
 }

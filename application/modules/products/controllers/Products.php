@@ -296,6 +296,7 @@ class Products extends Common_Controller {
 //                 echo "<pre>";
 // print_r($this->input->post());die;
 // echo "</pre>";
+
         $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 
         // $this->form_validation->set_rules('facility_manager_id', "Facility Manager Name", 'required|xss_clean');
@@ -333,6 +334,50 @@ class Products extends Common_Controller {
                 // 'users.hospital_id'=>$hospital_id
                 
             }
+
+            
+
+if($this->input->post('consultation_product') !='No Data Found'){
+    $where_id = $this->input->post('consultation_product');
+
+    $options_data = array(
+        'user_id'=> $LoginID,
+        'type' => $this->input->post('type')?? null,
+        'name' => $this->input->post('name')?? null,
+        'price' => $this->input->post('price')?? null,
+        'appointment_booked' => $this->input->post('appointment_booked')?? 0,
+        'supplier' => $this->input->post('supplier')?? null,
+        'product_code' => $this->input->post('product_code')?? null,
+        
+        'serial_number' => $this->input->post('serial_number')?? null,
+        'stock_level' => $this->input->post('stock_level')?? null,
+        'tax' => $this->input->post('tax')?? null,
+        'cost' => $this->input->post('cost')?? null,
+        'comment' => $this->input->post('comment')?? null,
+
+        'renewal' => $this->input->post('renewal')?? 0,
+        'duration' => $this->input->post('duration')?? null,
+        'color' => $this->input->post('color')?? 0,
+        'appointment_video_consult' => $this->input->post('appointment_video_consult')?? 0,
+        'online_booking' => $this->input->post('online_booking')?? 0,
+        'manually_confirm' => $this->input->post('manually_confirm')?? 0,
+        'location' => $this->input->post('location')?? null,
+        'clinicians' => $this->input->post('clinicians')?? null,
+        'status	' => '0',
+
+    );
+    // print_r($options_data);die;
+    // $option = $this->db->insert('doctor_product', $options_data); 
+
+    $option = array('table' => $this->_table, 'data' => $options_data, 'where' => array('id' => $where_id));
+    // $update = $this->common_model->customUpdate($option);
+    if ($this->common_model->customUpdate($option)) {
+        $response = array('status' => 1, 'message' => "Successfully updated", 'url' => base_url($this->router->fetch_class()));
+    } else {
+        $response = array('status' => 0, 'message' => "Failed to add");
+    }
+
+}else{
 
 
                 $options_data = array(
@@ -374,7 +419,8 @@ class Products extends Common_Controller {
                     $response = array('status' => 0, 'message' => "Failed to add");
                 }
 
-            // }
+                
+            }
         } else {
             $messages = (validation_errors()) ? validation_errors() : '';
             $response = array('status' => 0, 'message' => $messages);
@@ -834,6 +880,63 @@ class Products extends Common_Controller {
             $response = 400;
         }
         echo $response;
+    }
+
+    public function fetchInvoiceAllProduct() {
+        $output = '';
+        $query = $this->input->post('query');
+        if ($query) {
+            $results = $this->common_model->fetchInvoiceAllProducts($query);
+            // print_r($results);die;
+            // $output .= '<select class="form-control select2" name="consultation_product[]" id="consultation_product" onclick="getSearchAllProduct()">';
+            // if (!empty($results)) {
+            //     foreach ($results as $row) {
+            //         $output .= '<option value="'.$row['name'].'">'.$row['name'].'</option>';
+                   
+            //     }
+            // } else {
+            //     $output .= '<option>No Data Found</option>';
+            // }
+            // $output .= '</select>';
+            // echo $output;
+
+            // $output .= '<select class="form-control select2" name="consultation_product[]" id="consultation_product" onclick="getSearchAllProduct()">';
+            // if (!empty($results)) {
+            //     foreach ($results as $row) {
+            //         $output .= '<option value="'.$row['name'].'">'.$row['name'].'</option>';
+                   
+            //     }
+            // } else {
+            //     $output .= '<option>No Data Found</option>';
+            // }
+            // $output .= '</select>';
+
+            echo json_encode($results);
+        }
+    }
+
+    public function fetchInvoceProductDetail(){
+        $query = $this->input->post('query');
+
+
+        $option = array(
+            'table' => ' vendor_sale_doctor_product',
+            'select' => 'vendor_sale_doctor_product.*',
+            'join' => array(
+                array('vendor_sale_users', 'vendor_sale_doctor_product.user_id=vendor_sale_users.id', 'left'),
+            ),
+            
+            'where' => array(
+                // 'vendor_sale_doctor_product.delete_status' => 0,
+                'vendor_sale_doctor_product.id'=>$query
+            ),
+            'single' => true,
+        );
+    
+        $results_row = $this->common_model->customGet($option);
+        echo json_encode($results_row);
+        // print_r($results_row);die;
+
     }
 
 }

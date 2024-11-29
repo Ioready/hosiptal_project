@@ -489,7 +489,8 @@ class Invoices extends Common_Controller {
 
                     if ($invoice_id) {
                         // Insert products linked to the invoice
-                        $products = $this->input->post('products_idss');
+                        $products = $this->input->post('products');
+                        $products_idss = $this->input->post('products_idss');
                         // $products = $this->input->post('consultation_product');
                         $rates = $this->input->post('rate');
                         $quantities = $this->input->post('quantity');
@@ -514,26 +515,113 @@ class Invoices extends Common_Controller {
                                 'select' => 'vendor_sale_doctor_product.*',
                                
                                 'where' => array(
-                                    'vendor_sale_doctor_product.id'=>$products[$i]
+                                    'vendor_sale_doctor_product.name'=>$products[$i]
                                 ),
                                 'single' => true,
                             );
                         
                             $results_row = $this->common_model->customGet($option);
+                            
+                            if(!empty($results_row)){
+
+                                
                             $stock_level= $results_row->stock_level;
+                            
                             $totalstock_level = $stock_level - $quantities[$i];
+                            
                             $options_data = array(
                                 'stock_level' => $totalstock_level ?? null,
                             );
-
+                            // print_r($options_data);die;
                             // print_r($options_data);die;
                             // $option = $this->db->insert('doctor_product', $options_data); 
             
-                            $option = array('table' => 'vendor_sale_doctor_product', 'data' => $options_data, 'where' => array('id' => $products[$i]));
+                            $option = array('table' => 'vendor_sale_doctor_product', 'data' => $options_data, 'where' => array('name' => $products[$i]));
                             
                             $this->common_model->customUpdate($option);
+
+                        }else{
+                            
+
+                            $productData = array(
+                                'name' =>$products[$i],
+                                'cost' =>$prices[$i],
+                                'stock_level' => $quantities[$i],
+                                'price' => $rates[$i],
+                                'hospital_id'=>$hospital_id,
+                                'user_id'=>$hospital_id
+                            );
+                
+                            // Insert each product into the database
+                            $optionItem = array('table' => 'vendor_sale_doctor_product', 'data' => $productData);
+                            $this->common_model->customInsert($optionItem);
+
+                        }
                             
                         }
+
+
+                        // Prepare products data
+                        // for ($i = 0; $i < count($products_idss); $i++) {
+                        //     $productData = array(
+                        //         'invoice_id' => $invoice_id,
+                        //         'product_name' => $products_idss[$i],
+                        //         'rate' => $rates[$i],
+                        //         'quantity' => $quantities[$i],
+                        //         'price' => $prices[$i]
+                        //     );
+                
+                        //     // Insert each product into the database
+                        //     $optionItem = array('table' => 'vendor_sale_invoice_items', 'data' => $productData);
+                        //     $this->common_model->customInsert($optionItem);
+
+                        //     $option = array(
+                        //         'table' => ' vendor_sale_doctor_product',
+                        //         'select' => 'vendor_sale_doctor_product.*',
+                               
+                        //         'where' => array(
+                        //             'vendor_sale_doctor_product.name'=>$products_idss[$i]
+                        //         ),
+                        //         'single' => true,
+                        //     );
+                        
+                        //     $results_row = $this->common_model->customGet($option);
+                        //     if(!empty($results_row)){
+
+                            
+                        //     $stock_level= $results_row->stock_level;
+                        //     $totalstock_level = $stock_level - $quantities[$i];
+                        //     $options_data = array(
+                        //         'stock_level' => $totalstock_level ?? null,
+                        //     );
+
+                        //     // print_r($options_data);die;
+                        //     // $option = $this->db->insert('doctor_product', $options_data); 
+            
+                        //     $option = array('table' => 'vendor_sale_doctor_product', 'data' => $options_data, 'where' => array('id' => $products[$i]));
+                            
+                        //     $this->common_model->customUpdate($option);
+
+                        // }else{
+                            
+
+                        //     $productData = array(
+                        //         'name' =>$products_idss[$i],
+                        //         'cost' =>$prices[$i],
+                        //         'stock_level' => $quantities[$i],
+                        //         'price' => $rates[$i],
+                        //         'hospital_id'=>$hospital_id,
+                        //         'user_id'=>$hospital_id
+                        //     );
+                
+                        //     // Insert each product into the database
+                        //     $optionItem = array('table' => 'vendor_sale_doctor_product', 'data' => $productData);
+                        //     $this->common_model->customInsert($optionItem);
+
+                        // }
+                            
+                        // }
+
                 
                     }
                     // $invoice_id = $this->Invoice_model->create_invoice($invoice_data, $items_data);

@@ -72,13 +72,17 @@ You can upload product lists from Semble's lab partners from the Lab settings pa
                            <div class="col-md-10">
                                 <div class="col-md-6">
                                     <label class="">Name</label>
-                                    <input type="text" class="form-control" name="name" id="name" placeholder="<?php echo lang('name');?>" />
+                                    <input type="text" class="form-control" name="name" id="name" onkeyup="updateInvoiceProductNames()" placeholder="<?php echo lang('name');?>" />
+                                    <br>
+                                    <div id="result_product"></div>
                                 </div>
 
                                 <div class="col-md-6">
                                     <label class=""><?php echo 'Price';?></label>
                                      <input type="number" class="form-control" name="price" id="price" placeholder="<?php echo lang('price');?>" />
                                 </div>
+
+                                
                             </div>
                         </div>
                     </div>
@@ -252,13 +256,16 @@ You can upload product lists from Semble's lab partners from the Lab settings pa
                            <div class="col-md-10">
                                 <div class="col-md-6">
                                     <label class="">Name</label>
-                                    <input type="text" class="form-control" name="name" id="name" placeholder="<?php echo lang('name');?>" />
+                                    <input type="text" class="form-control" name="name" id="vaccine_name" onkeyup="updateInvoiceProductNamesVaccine()" placeholder="<?php echo lang('name');?>" />
+                                <br>
+                                <div id="result_product_vaccine"></div>
                                 </div>
 
                                 <div class="col-md-6">
                                     <label class=""><?php echo 'Price';?></label>
-                                     <input type="number" class="form-control" name="price" id="price" placeholder="<?php echo lang('price');?>" />
+                                     <input type="number" class="form-control" name="price" id="vaccine_price" placeholder="<?php echo lang('price');?>" />
                                 </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -431,13 +438,17 @@ You can upload product lists from Semble's lab partners from the Lab settings pa
                            <div class="col-md-10">
                                 <div class="col-md-6">
                                     <label class="">Name</label>
-                                    <input type="text" class="form-control" name="name" id="name" placeholder="<?php echo lang('name');?>" />
+                                    <input type="text" class="form-control" name="name" id="lab_name" onkeyup="updateInvoiceProductNamesLab()" placeholder="<?php echo lang('name');?>" />
+                                    <input type="hidden" class="form-control" id="products_idss" name="products_idss[]" onkeyup="myFunction()" placeholder="Products">
+                            <br>
+                            <div id="result_product_lab"></div>
                                 </div>
 
                                 <div class="col-md-6">
                                     <label class=""><?php echo 'Price';?></label>
-                                     <input type="number" class="form-control" name="price" id="price" placeholder="<?php echo lang('price');?>" />
+                                     <input type="number" class="form-control" name="price" id="lab_price" placeholder="<?php echo lang('price');?>" />
                                 </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -610,12 +621,14 @@ You can upload product lists from Semble's lab partners from the Lab settings pa
                            <div class="col-md-10">
                                 <div class="col-md-6">
                                     <label class="">Name</label>
-                                    <input type="text" class="form-control" name="name" id="name" placeholder="<?php echo lang('name');?>" />
+                                    <input type="text" class="form-control" name="name" id="appointment_name" onkeyup="updateInvoiceProductNamesAppointment()" placeholder="<?php echo lang('name');?>" />
+                                <br>
+                                <div id="result_product_appointment"></div>
                                 </div>
 
                                 <div class="col-md-6">
                                     <label class=""><?php echo 'Price';?></label>
-                                     <input type="number" class="form-control" name="price" id="price" placeholder="<?php echo lang('price');?>" />
+                                     <input type="number" class="form-control" name="price" id="appointment_price" placeholder="<?php echo lang('price');?>" />
                                 </div>
                             </div>
                         </div>
@@ -940,13 +953,16 @@ You can upload product lists from Semble's lab partners from the Lab settings pa
                            <div class="col-md-10">
                                 <div class="col-md-6">
                                     <label class="">Name</label>
-                                    <input type="text" class="form-control" name="name" id="name" placeholder="<?php echo lang('name');?>" />
+                                    <input type="text" class="form-control" name="name" id="pathway_name" onkeyup="updateInvoiceProductNamesPathway()" placeholder="<?php echo lang('name');?>" />
+                                <br>
+                                <div id="result_product_pathway"></div>
                                 </div>
 
                                 <div class="col-md-6">
                                     <label class=""><?php echo 'Price';?></label>
-                                     <input type="number" class="form-control" name="price" id="price" placeholder="<?php echo lang('price');?>" />
+                                     <input type="number" class="form-control" name="price" id="pathway_price" placeholder="<?php echo lang('price');?>" />
                                 </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -1132,13 +1148,16 @@ You can upload product lists from Semble's lab partners from the Lab settings pa
 
                                 <div class="col-md-4">
                                     <label class="">Name</label>
-                                    <input type="text" class="form-control" name="name" id="name" placeholder="<?php echo lang('name');?>" />
+                                    <input type="text" class="form-control" name="name" id="membership_name" onkeyup="updateInvoiceProductNamesMembership()" placeholder="<?php echo lang('name');?>" />
+                                <br>
+                                <div id="result_product_membership"></div>
                                 </div>
 
                                 <div class="col-md-4">
                                     <label class=""><?php echo 'Price';?></label>
-                                     <input type="number" class="form-control" name="price" id="price" placeholder="<?php echo lang('price');?>" />
+                                     <input type="number" class="form-control" name="price" id="membership_price" placeholder="<?php echo lang('price');?>" />
                                 </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -1309,13 +1328,16 @@ You can upload product lists from Semble's lab partners from the Lab settings pa
                            <div class="col-md-10">
                                 <div class="col-md-6">
                                     <label class="">Name</label>
-                                    <input type="text" class="form-control" name="name" id="name" placeholder="<?php echo lang('name');?>" />
+                                    <input type="text" class="form-control" name="name" id="procedure_name" onkeyup="updateInvoiceProductNamesProcedure()" placeholder="<?php echo lang('name');?>" />
+                                <br>
+                                <div id="result_product_procedure"></div>
                                 </div>
 
                                 <div class="col-md-6">
                                     <label class=""><?php echo 'Price';?></label>
-                                     <input type="number" class="form-control" name="price" id="price" placeholder="<?php echo lang('price');?>" />
+                                     <input type="number" class="form-control" name="price" id="procedure_price" placeholder="<?php echo lang('price');?>" />
                                 </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -1489,13 +1511,16 @@ You can upload product lists from Semble's lab partners from the Lab settings pa
                            <div class="col-md-10">
                                 <div class="col-md-6">
                                     <label class="">Name</label>
-                                    <input type="text" class="form-control" name="name" id="name" placeholder="<?php echo lang('name');?>" />
+                                    <input type="text" class="form-control" name="name" id="other_name" onkeyup="updateInvoiceProductNamesOther()" placeholder="<?php echo lang('name');?>" />
+                                <br>
+                                <div id="result_product_other"></div>
                                 </div>
 
                                 <div class="col-md-6">
                                     <label class=""><?php echo 'Price';?></label>
-                                     <input type="number" class="form-control" name="price" id="price" placeholder="<?php echo lang('price');?>" />
+                                     <input type="number" class="form-control" name="price" id="other_price" placeholder="<?php echo lang('price');?>" />
                                 </div>
+                                
                             </div>
                         </div>
                     </div>
