@@ -3091,7 +3091,7 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 
 $sql = "SELECT vendor_sale_practitioner.*
         FROM vendor_sale_practitioner
-        -- WHERE (vendor_sale_practitioner.id IN ($practitionerId))
+        WHERE (vendor_sale_practitioner.id IN ($practitionerId))
         -- AND (
         --     vendor_sale_practitioner.hospital_id LIKE '%$CareUnitID%'
             
@@ -3106,7 +3106,7 @@ $doctorsData = $result->result();
 $sql = "SELECT U.*, U.first_name, U.last_name
         FROM vendor_sale_doctors
         LEFT JOIN vendor_sale_users as U ON vendor_sale_doctors.user_id = U.id
-        -- WHERE (vendor_sale_doctors.user_id IN ($practitionerId))
+        WHERE (vendor_sale_doctors.user_id IN ($practitionerId))
         -- AND (
         --     vendor_sale_doctors.facility_user_id LIKE '%$CareUnitID%'
             
@@ -3286,11 +3286,9 @@ $all_appointment = $result->result();
                                                
                                                 foreach ($practitioner as $key => $value)
                                                 {
+                                                    echo '<td class="time-cell">';
                                                 $object = $value->id;
                                                
-                                                
-                                                    echo '<td class="time-cell">';
-                                                       
                                                     
                                                     foreach ($all_appointment as $appointment) {
                                                         
@@ -3340,8 +3338,9 @@ $all_appointment = $result->result();
                                                                 }
                                                                 echo '<button id="btnMyTest001" type="button" class="btn btn-success popup-appointment-open" data-toggle="modal" data-target="#my_modal" data-age="27">Create</button>';
                                                                  
-                                                        }
-                                                        echo '</td>';
+                                                    }
+
+                                                    echo '</td>';
                                                    
                                                 }
                                                 echo '</tr>';
