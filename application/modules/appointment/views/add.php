@@ -869,13 +869,13 @@
 
                 <div id="wrapper">
                     <!-- Content Wrapper -->
-                    <div id="content-wrapper" class="container d-flex flex-column">
+                    <div id="content-wrapper" class="containers d-flex flex-column">
                         <!-- Main Content -->
                         <div id="content">
                             <!-- Begin Page Content -->
                             <div class="container-fluid">
                                 <div class="tabControl">
-<div class="container">
+<div class="containers">
     <div class="row" >
         <div class="col">
             <ul class="nav nav-pills nav-fill nav-tabss" id="pills-tab" role="tablist">

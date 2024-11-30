@@ -845,7 +845,7 @@ class Invoices extends Common_Controller {
             $optionItem = array(
                 'table' => 'vendor_sale_invoice_items',
                 'select'=>'vendor_sale_invoice_items.*,vendor_sale_doctor_product.name as invoice_product_name,vendor_sale_doctor_product.id as invoice_product_id',
-                'join'=>array(array('vendor_sale_doctor_product','vendor_sale_doctor_product.id =vendor_sale_invoice_items.product_name','left')),
+                'join'=>array(array('vendor_sale_doctor_product','vendor_sale_doctor_product.name =vendor_sale_invoice_items.product_name','left')),
                 'where' => array('vendor_sale_invoice_items.invoice_id' => $id),
             );
             $results_rowItem = $this->common_model->customGet($optionItem);

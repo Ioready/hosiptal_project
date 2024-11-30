@@ -403,7 +403,6 @@
                                         <li>
                                         <a href="<?php echo base_url().'index.php/lettersAndForm/deleteBookingForm?id=' . encoding($patient_id) . '&form_id=' . encoding($folder->id); ?>" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
 
-                                            <!-- <a href="<?php //echo base_url().'index.php/lettersAndForm/deleteBookingForm?id=' . encoding($patient_id) . '&form_id=' . encoding($folder->id); ?>" class="link">Delete</a> -->
                                         </li>
                                         
                                     </ul>
@@ -558,7 +557,7 @@
                             </div>
 
                             <div class="menu" id="menuDropdown<?php echo $folder->id;?>" style="margin-left: 930px;">
-                                <div >
+                                <!-- <div > -->
                                     <ul>
                                         
                                     <li> <a href="<?php echo base_url().'index.php/lettersAndForm/editBookingForm?id=' . encoding($patient_id) . '&form_id=' . encoding($folder->id); ?>" class="link">Edit</a></li>
@@ -566,11 +565,10 @@
                                         <li>
                                         <a href="<?php echo base_url().'index.php/lettersAndForm/deleteBookingForm?id=' . encoding($patient_id) . '&form_id=' . encoding($folder->id); ?>" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
 
-                                            <!-- <a href="<?php //echo base_url().'index.php/lettersAndForm/deleteBookingForm?id=' . encoding($patient_id) . '&form_id=' . encoding($folder->id); ?>" class="link">Delete</a> -->
                                         </li>
                                         
                                     </ul>
-                                </div>
+                                <!-- </div> -->
                             </div>
 
             </div>

@@ -7,7 +7,7 @@
     }
 
     span.select2.select2-container.select2-container--default {
-        width: 100% !important;
+        /* width: 100% !important; */
     }
 
     span.select2-selection.select2-selection--multiple {
@@ -171,10 +171,7 @@
 
 
 <div class="row">
-    <!-- <div class="modal-header ">
-        <h3 class="modal-title text-center"><strong>Contact details</strong></h3>
-    </div> -->
-
+   
     <div class="modal-header text-center">
         <div class="col-md-12">
             <div class="vender_title_admin">
@@ -337,7 +334,7 @@
                 
                 
                 
- </div>
+ <!-- </div> -->
 
 
  <div class="row">
@@ -481,12 +478,8 @@
 </div>
              
                 
-                
-                                <div class="row">
-                                    <!-- <div class="modal-header">
-                                        <h3 class="modal-title"><strong> Relationships and emergency contacts</strong></h3>
-                                    </div> -->
-                                    <div class="modal-header text-center">
+<div class="row">
+    <div class="modal-header text-center">
         <div class="col-md-12">
             <div class="vender_title_admin">
                 <h3><strong>Relationships and emergency contacts</strong></h3>

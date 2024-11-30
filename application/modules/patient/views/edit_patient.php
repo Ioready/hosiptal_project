@@ -549,10 +549,10 @@
                 
                                 </div>
                 
-                                <input type="text" class="form-control" name="storedData" id="storedData" readonly>
-                                <input type="text" class="form-control" name="storedDataType" id="storedDataType" readonly>
-                                <input type="hidden" class="form-control" name="policy_number" id="policy_number" readonly>
-                                <input type="hidden" class="form-control" name="authorisation_code" id="authorisation_code" readonly>
+                                <input type="text" class="form-control" name="storedData" id="storedData" value="<?php echo $results->relation_number;?>" readonly>
+                                <input type="text" class="form-control" name="storedDataType" id="storedDataType" value="<?php echo $results->type;?>" readonly>
+                                <input type="hidden" class="form-control" name="policy_number" id="policy_number" value="<?php echo $results->policy_number;?>" readonly>
+                                <input type="hidden" class="form-control" name="authorisation_code" id="authorisation_code" value="<?php echo $results->authorisation_code;?>" readonly>
                               
                                 <div class="row">
    
@@ -1173,19 +1173,23 @@
 // Decode the selected values as an array with error handling
 $selected_options = [];
 if (!empty($results->additional_comment_option)) {
-    $selected_options = json_decode($results->additional_comment_option);
+    // $selected_options = $results->additional_comment_option;
+
+    $selected_optionss = json_decode($results->additional_comment_option);
+    // $selected_options= implode(',',$selected_optionss);
     // Ensure $selected_options is a valid array
     // $selected_options = is_array($selected_options) ? $selected_options : [];
     // print_r($selected_options);die;
 }
 ?>
 
-<select id="additional_comment_option" name="additional_comment_option[]" class="form-control multiple-select" multiple="multiple">
+<select name="additional_comment_option[]" class="form-control multiple-select" multiple="multiple">
     <option value="Does not meet Loeb/ McGeer Criteria" <?php echo (in_array('Does not meet Loeb/ McGeer Criteria', $selected_options)) ? 'selected' : ''; ?>>Does not meet Loeb/ McGeer Criteria</option>
     <option value="Consider shorter antibiotic course" <?php echo (in_array('Consider shorter antibiotic course', $selected_options)) ? 'selected' : ''; ?>>Consider shorter antibiotic course</option>
     <option value="Antibiotics not recommended" <?php echo (in_array('Antibiotics not recommended', $selected_options)) ? 'selected' : ''; ?>>Antibiotics not recommended</option>
     <option value="Other/Free Text" <?php echo (in_array('Other/Free Text', $selected_options)) ? 'selected' : ''; ?>>Other/Free Text</option>
 </select>
+
 
 
 
