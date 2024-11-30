@@ -1008,11 +1008,13 @@ bootbox.confirm({
                     name = data.name;
                     id = data.id;
                     cost = data.cost;
+                    tax = data.tax;
                     stock_level = data.stock_level;
                     // alert(data);
                 $('#products').val(name);
                 $('#products_idss').val(id);
                 $('.product_rate').val(cost);
+                $('#tax').val(tax);
 
 
                 if (stock_level === '0' || stock_level === '') { 
@@ -1129,12 +1131,14 @@ bootbox.confirm({
                 success: function(data) {
                     name = data.name;
                     price = data.cost;
+                    tax = data.tax;
                     stock_level = data.stock_level;
                     id = data.id;
                     // alert(price);
                 $('#products_iditem').val(id);
                 $('#product_item').val(name);
                 $('.product_rates').val(price);
+                $('#tax_id').val(tax);
 
                 if (stock_level === '0' || stock_level === '') { 
                         $('#productStockNew')

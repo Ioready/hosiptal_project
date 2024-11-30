@@ -493,6 +493,7 @@ class Invoices extends Common_Controller {
                         $products_idss = $this->input->post('products_idss');
                         // $products = $this->input->post('consultation_product');
                         $rates = $this->input->post('rate');
+                        $tax = $this->input->post('tax');
                         $quantities = $this->input->post('quantity');
                         $prices = $this->input->post('price');
                 
@@ -503,7 +504,8 @@ class Invoices extends Common_Controller {
                                 'product_name' => $products[$i],
                                 'rate' => $rates[$i],
                                 'quantity' => $quantities[$i],
-                                'price' => $prices[$i]
+                                'price' => $prices[$i],
+                                'tax' => $tax[$i]
                             );
                 
                             // Insert each product into the database
@@ -1923,7 +1925,7 @@ public function process() {
             $option = array(
                 'table' => 'vendor_sale_invoice',
                 'select' => 'vendor_sale_invoice.*, vendor_sale_patient.name as patient_name, vendor_sale_users.email as patient_email, 
-                            SUM(vendor_sale_invoice_items.price) as total_price,vendor_sale_invoice_items.product_name,vendor_sale_invoice_items.rate,vendor_sale_invoice_items.quantity,vendor_sale_invoice_items.price',
+                            SUM(vendor_sale_invoice_items.price) as total_price,vendor_sale_invoice_items.product_name,vendor_sale_invoice_items.rate,vendor_sale_invoice_items.quantity,vendor_sale_invoice_items.price,vendor_sale_invoice_items.tax',
                 'join' => array(
                     array('vendor_sale_patient', 'vendor_sale_patient.id = vendor_sale_invoice.patient_id', 'left'),
                     array('vendor_sale_users', 'vendor_sale_users.id = vendor_sale_patient.user_id', 'left'),
@@ -1944,10 +1946,11 @@ public function process() {
 
                 $optionItem = array(
                     'table' => 'vendor_sale_invoice',
-                    'select' => 'vendor_sale_invoice.*, vendor_sale_patient.name as patient_name, vendor_sale_invoice_items.price as total_price,vendor_sale_invoice_items.product_name,,vendor_sale_invoice_items.rate,,vendor_sale_invoice_items.quantity,',
+                    'select' => 'vendor_sale_invoice.*, vendor_sale_patient.name as patient_name, vendor_sale_invoice_items.price as total_price,vendor_sale_invoice_items.product_name,vendor_sale_invoice_items.rate,vendor_sale_invoice_items.quantity,vendor_sale_invoice_items.tax',
                     'join' => array(
                         array('vendor_sale_patient', 'vendor_sale_patient.id = vendor_sale_invoice.patient_id ', 'left'),
-                        array('vendor_sale_invoice_items', 'vendor_sale_invoice.id = vendor_sale_invoice_items.invoice_id ', 'left')
+                        array('vendor_sale_invoice_items', 'vendor_sale_invoice.id = vendor_sale_invoice_items.invoice_id ', 'left'),
+                        
                     ),
                     'where' => array('vendor_sale_invoice_items.invoice_id' => $id),
                     // 'group_by' => 'vendor_sale_invoice.id', // Group by invoice ID to get total price for each invoice

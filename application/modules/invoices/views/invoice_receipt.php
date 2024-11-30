@@ -140,14 +140,15 @@
                                             <?php  $i=0;
                                             foreach($resultsItem as $rows){ 
                                               $i++;
+                                              
                                               ?>
                                           <tr>
                                              
                                               <td><?php echo $i?></td>
                                               <td><?php echo $rows->product_name; ?></td>
-                                                    <td><?php echo $rows->rate; ?></td>
                                                     <td><?php echo $rows->quantity; ?> Pcs</td>
-                                                    <td>10%</td>
+                                                    <td><?php echo $rows->rate; ?></td>
+                                                    <td><?php echo $rows->tax; ?>%</td>
                                                     <td><?php echo $rows->total_price; ?></td>
                                           </tr>
                                           <?php }?>
@@ -156,7 +157,7 @@
                                               <td>£<?php echo $results->total_amount;?></td>
                                           </tr>
                                           <tr>
-                                              <td colspan="5" class="text-right"><strong>VAT (10%):</strong></td>
+                                              <td colspan="5" class="text-right"><strong>VAT (<?php echo $rows->tax; ?>%):</strong></td>
                                               <td>£0.00</td>
                                           </tr>
                                           <tr>
