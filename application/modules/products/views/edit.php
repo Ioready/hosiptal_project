@@ -149,7 +149,7 @@ You can upload product lists from Semble's lab partners from the Lab settings pa
 
                                 <div class="col-md-6">
                                     <label class=""><?php echo 'Price';?></label>
-                                     <input type="number" class="form-control" name="price" id="price" placeholder="<?php echo lang('price');?>"  value="<?php echo $results->price;?>"/>
+                                     <input type="number" class="form-control" name="price" id="edit_price" placeholder="<?php echo lang('price');?>"  value="<?php echo $results->price;?>"/>
                                 </div>
                             </div>
                         </div>
@@ -215,12 +215,12 @@ You can upload product lists from Semble's lab partners from the Lab settings pa
 
                                 <div class="col-md-4">
                                     <label class=""><?php echo 'Tax';?></label>
-                                     <input type="number" class="form-control" name="tax" id="tax" placeholder="<?php echo lang('Tax');?>" value="<?php echo $results->tax;?>"/>
+                                     <input type="number" class="form-control" name="tax" id="edit_tax" placeholder="<?php echo lang('Tax');?>" value="<?php echo $results->tax;?>"/>
                                 </div>
 
                                 <div class="col-md-4">
                                     <label class=""><?php echo 'Cost';?></label>
-                                     <input type="number" class="form-control" name="cost" id="cost" placeholder="<?php echo lang('Cost');?>" value="<?php echo $results->cost;?>"/>
+                                     <input type="number" class="form-control" name="cost" id="edit_cost" placeholder="<?php echo lang('Cost');?>" value="<?php echo $results->cost;?>"/>
                                 </div>
 
                             </div>
@@ -330,7 +330,7 @@ You can upload product lists from Semble's lab partners from the Lab settings pa
 
                                 <div class="col-md-6">
                                     <label class=""><?php echo 'Price';?></label>
-                                     <input type="number" class="form-control" name="price" id="price" placeholder="<?php echo lang('price');?>" value="<?php echo $results->price;?>"/>
+                                     <input type="number" class="form-control" name="price" id="edit_vaccine_price" placeholder="<?php echo lang('price');?>" value="<?php echo $results->price;?>"/>
                                 </div>
                             </div>
                         </div>
@@ -396,12 +396,12 @@ You can upload product lists from Semble's lab partners from the Lab settings pa
 
                                 <div class="col-md-4">
                                     <label class=""><?php echo 'Tax';?></label>
-                                     <input type="number" class="form-control" name="tax" id="tax" placeholder="<?php echo lang('Tax');?>" value="<?php echo $results->tax;?>"/>
+                                     <input type="number" class="form-control" name="tax" id="edit_vaccine_tax" placeholder="<?php echo lang('Tax');?>" value="<?php echo $results->tax;?>"/>
                                 </div>
 
                                 <div class="col-md-4">
                                     <label class=""><?php echo 'Cost';?></label>
-                                     <input type="number" class="form-control" name="cost" id="cost" placeholder="<?php echo lang('Cost');?>" value="<?php echo $results->cost;?>"/>
+                                     <input type="number" class="form-control" name="cost" id="edit_vaccine_cost" placeholder="<?php echo lang('Cost');?>" value="<?php echo $results->cost;?>"/>
                                 </div>
 
                             </div>
@@ -510,7 +510,7 @@ You can upload product lists from Semble's lab partners from the Lab settings pa
 
                                 <div class="col-md-6">
                                     <label class=""><?php echo 'Price';?></label>
-                                     <input type="number" class="form-control" name="price" id="price" placeholder="<?php echo lang('price');?>" value="<?php echo $results->price;?>"/>
+                                     <input type="number" class="form-control" name="price" id="edit_lab_price" placeholder="<?php echo lang('price');?>" value="<?php echo $results->price;?>"/>
                                 </div>
                             </div>
                         </div>
@@ -576,12 +576,12 @@ You can upload product lists from Semble's lab partners from the Lab settings pa
 
                                 <div class="col-md-4">
                                     <label class=""><?php echo 'Tax';?></label>
-                                     <input type="number" class="form-control" name="tax" id="tax" placeholder="<?php echo lang('Tax');?>" value="<?php echo $results->tax;?>"/>
+                                     <input type="number" class="form-control" name="tax" id="edit_lab_tax" placeholder="<?php echo lang('Tax');?>" value="<?php echo $results->tax;?>"/>
                                 </div>
 
                                 <div class="col-md-4">
                                     <label class=""><?php echo 'Cost';?></label>
-                                     <input type="number" class="form-control" name="cost" id="cost" placeholder="<?php echo lang('Cost');?>" value="<?php echo $results->cost;?>"/>
+                                     <input type="number" class="form-control" name="cost" id="edit_lab_cost" placeholder="<?php echo lang('Cost');?>" value="<?php echo $results->cost;?>"/>
                                 </div>
 
                             </div>
@@ -690,7 +690,7 @@ You can upload product lists from Semble's lab partners from the Lab settings pa
 
                                 <div class="col-md-6">
                                     <label class=""><?php echo 'Price';?></label>
-                                     <input type="number" class="form-control" name="price" id="price" placeholder="<?php echo lang('price');?>" value="<?php echo $results->price;?>"/>
+                                     <input type="number" class="form-control" name="price" id="edit_appointment_price" placeholder="<?php echo lang('price');?>" value="<?php echo $results->price;?>"/>
                                 </div>
                             </div>
                         </div>
@@ -908,12 +908,12 @@ You can upload product lists from Semble's lab partners from the Lab settings pa
 
                                 <div class="col-md-4">
                                     <label class=""><?php echo 'Tax';?></label>
-                                     <input type="number" class="form-control" name="tax" id="tax" placeholder="<?php echo lang('Tax');?>" value="<?php echo $results->tax;?>"/>
+                                     <input type="number" class="form-control" name="tax" id="edit_appointment_tax" placeholder="<?php echo lang('Tax');?>" value="<?php echo $results->tax;?>"/>
                                 </div>
 
                                 <div class="col-md-4">
                                     <label class=""><?php echo 'Cost';?></label>
-                                     <input type="number" class="form-control" name="cost" id="cost" placeholder="<?php echo lang('Cost');?>" value="<?php echo $results->cost;?>"/>
+                                     <input type="number" class="form-control" name="cost" id="edit_appointment_cost" placeholder="<?php echo lang('Cost');?>" value="<?php echo $results->cost;?>"/>
                                 </div>
 
                             </div>
@@ -1021,7 +1021,7 @@ You can upload product lists from Semble's lab partners from the Lab settings pa
 
                                 <div class="col-md-6">
                                     <label class=""><?php echo 'Price';?></label>
-                                     <input type="number" class="form-control" name="price" id="price" placeholder="<?php echo lang('price');?>" value="<?php echo $results->price;?>"/>
+                                     <input type="number" class="form-control" name="price" id="edit_pathway_price" placeholder="<?php echo lang('price');?>" value="<?php echo $results->price;?>"/>
                                 </div>
                             </div>
                         </div>
@@ -1087,12 +1087,12 @@ You can upload product lists from Semble's lab partners from the Lab settings pa
 
                                 <div class="col-md-4">
                                     <label class=""><?php echo 'Tax';?></label>
-                                     <input type="number" class="form-control" name="tax" id="tax" placeholder="<?php echo lang('Tax');?>" value="<?php echo $results->tax;?>"/>
+                                     <input type="number" class="form-control" name="tax" id="edit_pathway_tax" placeholder="<?php echo lang('Tax');?>" value="<?php echo $results->tax;?>"/>
                                 </div>
 
                                 <div class="col-md-4">
                                     <label class=""><?php echo 'Cost';?></label>
-                                     <input type="number" class="form-control" name="cost" id="cost" placeholder="<?php echo lang('Cost');?>" value="<?php echo $results->cost;?>"/>
+                                     <input type="number" class="form-control" name="cost" id="edit_pathway_cost" placeholder="<?php echo lang('Cost');?>" value="<?php echo $results->cost;?>"/>
                                 </div>
 
                             </div>
@@ -1214,7 +1214,7 @@ You can upload product lists from Semble's lab partners from the Lab settings pa
 
                                 <div class="col-md-4">
                                     <label class=""><?php echo 'Price';?></label>
-                                     <input type="number" class="form-control" name="price" id="price" placeholder="<?php echo lang('price');?>" value="<?php echo $results->price;?>"/>
+                                     <input type="number" class="form-control" name="price" id="edit_membership_price" placeholder="<?php echo lang('price');?>" value="<?php echo $results->price;?>"/>
                                 </div>
                             </div>
                         </div>
@@ -1281,12 +1281,12 @@ You can upload product lists from Semble's lab partners from the Lab settings pa
 
                                 <div class="col-md-4">
                                     <label class=""><?php echo 'Tax';?></label>
-                                     <input type="number" class="form-control" name="tax" id="tax" placeholder="<?php echo lang('Tax');?>" value="<?php echo $results->tax;?>"/>
+                                     <input type="number" class="form-control" name="tax" id="edit_membership_tax" placeholder="<?php echo lang('Tax');?>" value="<?php echo $results->tax;?>"/>
                                 </div>
 
                                 <div class="col-md-4">
                                     <label class=""><?php echo 'Cost';?></label>
-                                     <input type="number" class="form-control" name="cost" id="cost" placeholder="<?php echo lang('Cost');?>" value="<?php echo $results->cost;?>"/>
+                                     <input type="number" class="form-control" name="cost" id="edit_membership_cost" placeholder="<?php echo lang('Cost');?>" value="<?php echo $results->cost;?>"/>
                                 </div>
 
                             </div>
@@ -1392,7 +1392,7 @@ You can upload product lists from Semble's lab partners from the Lab settings pa
 
                                 <div class="col-md-6">
                                     <label class=""><?php echo 'Price';?></label>
-                                     <input type="number" class="form-control" name="price" id="price" placeholder="<?php echo lang('price');?>" value="<?php echo $results->price;?>"/>
+                                     <input type="number" class="form-control" name="price" id="edit_procedure_price" placeholder="<?php echo lang('price');?>" value="<?php echo $results->price;?>"/>
                                 </div>
                             </div>
                         </div>
@@ -1458,12 +1458,12 @@ You can upload product lists from Semble's lab partners from the Lab settings pa
 
                                 <div class="col-md-4">
                                     <label class=""><?php echo 'Tax';?></label>
-                                     <input type="number" class="form-control" name="tax" id="tax" placeholder="<?php echo lang('Tax');?>" value="<?php echo $results->tax;?>"/>
+                                     <input type="number" class="form-control" name="tax" id="edit_procedure_tax" placeholder="<?php echo lang('Tax');?>" value="<?php echo $results->tax;?>"/>
                                 </div>
 
                                 <div class="col-md-4">
                                     <label class=""><?php echo 'Cost';?></label>
-                                     <input type="number" class="form-control" name="cost" id="cost" placeholder="<?php echo lang('Cost');?>" value="<?php echo $results->cost;?>"/>
+                                     <input type="number" class="form-control" name="cost" id="edit_procedure_cost" placeholder="<?php echo lang('Cost');?>" value="<?php echo $results->cost;?>"/>
                                 </div>
 
                             </div>
@@ -1573,7 +1573,7 @@ You can upload product lists from Semble's lab partners from the Lab settings pa
 
                                 <div class="col-md-6">
                                     <label class=""><?php echo 'Price';?></label>
-                                     <input type="number" class="form-control" name="price" id="price" placeholder="<?php echo lang('price');?>" value="<?php echo $results->price;?>"/>
+                                     <input type="number" class="form-control" name="price" id="edit_other_price" placeholder="<?php echo lang('price');?>" value="<?php echo $results->price;?>"/>
                                 </div>
                             </div>
                         </div>
@@ -1638,12 +1638,12 @@ You can upload product lists from Semble's lab partners from the Lab settings pa
 
                                 <div class="col-md-4">
                                     <label class=""><?php echo 'Tax';?></label>
-                                     <input type="number" class="form-control" name="tax" id="tax" placeholder="<?php echo lang('Tax');?>" value="<?php echo $results->tax;?>"/>
+                                     <input type="number" class="form-control" name="tax" id="edit_other_tax" placeholder="<?php echo lang('Tax');?>" value="<?php echo $results->tax;?>"/>
                                 </div>
 
                                 <div class="col-md-4">
                                     <label class=""><?php echo 'Cost';?></label>
-                                     <input type="number" class="form-control" name="cost" id="cost" placeholder="<?php echo lang('Cost');?>" value="<?php echo $results->cost;?>"/>
+                                     <input type="number" class="form-control" name="cost" id="edit_other_cost" placeholder="<?php echo lang('Cost');?>" value="<?php echo $results->cost;?>"/>
                                 </div>
 
                             </div>

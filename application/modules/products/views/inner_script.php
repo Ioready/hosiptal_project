@@ -679,3 +679,158 @@
 </script>
 
 
+
+<script>
+    // Function to calculate total price
+    function calculateTotalPrice() {
+        // Get values of tax and cost
+        let tax = parseFloat(document.getElementById('edit_tax').value) || 0;
+        let price = parseFloat(document.getElementById('edit_price').value) || 0;
+
+        // Calculate total price
+        let totalPrice = price + (price * tax / 100);
+
+        // Update the total price field
+        document.getElementById('edit_cost').value = Math.round(totalPrice); // Round to 2 decimal places
+    }
+
+    // Add event listeners to update the total price on input
+    document.getElementById('edit_tax').addEventListener('input', calculateTotalPrice);
+    document.getElementById('edit_price').addEventListener('input', calculateTotalPrice);
+</script>
+
+
+<script>
+    // Function to calculate total price
+    function calculateTotalPrice() {
+        // Get values of tax and cost
+        let tax = parseFloat(document.getElementById('edit_vaccine_tax').value) || 0;
+        let price = parseFloat(document.getElementById('edit_vaccine_price').value) || 0;
+
+        // Calculate total price
+        let totalPrice = price + (price * tax / 100);
+
+        // Update the total price field
+        document.getElementById('edit_vaccine_cost').value = Math.round(totalPrice); // Round to 2 decimal places
+    }
+
+    // Add event listeners to update the total price on input
+    document.getElementById('edit_vaccine_tax').addEventListener('input', calculateTotalPrice);
+    document.getElementById('edit_vaccine_price').addEventListener('input', calculateTotalPrice);
+</script>
+
+<script>
+    // Function to calculate total price
+    function calculateTotalPrice() {
+        // Get values of tax and cost
+        let tax = parseFloat(document.getElementById('edit_lab_tax').value) || 0;
+        let price = parseFloat(document.getElementById('edit_lab_price').value) || 0;
+
+        // Calculate total price
+        let totalPrice = price + (price * tax / 100);
+
+        // Update the total price field
+        document.getElementById('edit_lab_cost').value = Math.round(totalPrice); // Round to 2 decimal places
+    }
+
+    // Add event listeners to update the total price on input
+    document.getElementById('edit_lab_tax').addEventListener('input', calculateTotalPrice);
+    document.getElementById('edit_lab_price').addEventListener('input', calculateTotalPrice);
+</script>
+
+<script>
+    // Function to calculate total price
+    function calculateTotalPrice() {
+        // Get values of tax and cost
+        let tax = parseFloat(document.getElementById('edit_appointment_tax').value) || 0;
+        let price = parseFloat(document.getElementById('edit_appointment_price').value) || 0;
+
+        // Calculate total price
+        let totalPrice = price + (price * tax / 100);
+
+        // Update the total price field
+        document.getElementById('edit_appointment_cost').value = Math.round(totalPrice);// Round to 2 decimal places
+    }
+
+    // Add event listeners to update the total price on input
+    document.getElementById('edit_appointment_tax').addEventListener('input', calculateTotalPrice);
+    document.getElementById('edit_appointment_price').addEventListener('input', calculateTotalPrice);
+</script>
+
+<script>
+    // Function to calculate total price
+    function calculateTotalPrice() {
+        // Get values of tax and cost
+        let tax = parseFloat(document.getElementById('edit_pathway_tax').value) || 0;
+        let price = parseFloat(document.getElementById('edit_pathway_price').value) || 0;
+
+        // Calculate total price
+        let totalPrice = price + (price * tax / 100);
+
+        // Update the total price field
+        document.getElementById('edit_pathway_cost').value = Math.round(totalPrice); // Round to 2 decimal places
+    }
+
+    // Add event listeners to update the total price on input
+    document.getElementById('edit_pathway_tax').addEventListener('input', calculateTotalPrice);
+    document.getElementById('edit_pathway_price').addEventListener('input', calculateTotalPrice);
+</script>
+
+<script>
+    // Function to calculate total price
+    function calculateTotalPrice() {
+        // Get values of tax and cost
+        let tax = parseFloat(document.getElementById('edit_membership_tax').value) || 0;
+        let price = parseFloat(document.getElementById('edit_membership_price').value) || 0;
+
+        // Calculate total price
+        let totalPrice = price + (price * tax / 100);
+
+        // Update the total price field
+        document.getElementById('edit_membership_cost').value = Math.round(totalPrice); // Round to 2 decimal places
+    }
+
+    // Add event listeners to update the total price on input
+    document.getElementById('edit_membership_tax').addEventListener('input', calculateTotalPrice);
+    document.getElementById('edit_membership_price').addEventListener('input', calculateTotalPrice);
+</script>
+
+<script>
+    // Function to calculate total price
+    function calculateTotalPrice() {
+        // Get values of tax and cost
+        let tax = parseFloat(document.getElementById('edit_procedure_tax').value) || 0;
+        let price = parseFloat(document.getElementById('edit_procedure_price').value) || 0;
+
+        // Calculate total price
+        let totalPrice = price + (price * tax / 100);
+
+        // Update the total price field
+        document.getElementById('edit_procedure_cost').value = Math.round(totalPrice); // Round to 2 decimal places
+    }
+
+    // Add event listeners to update the total price on input
+    document.getElementById('edit_procedure_tax').addEventListener('input', calculateTotalPrice);
+    document.getElementById('edit_procedure_price').addEventListener('input', calculateTotalPrice);
+</script>
+
+<script>
+    // Function to calculate total price
+    function calculateTotalPrice() {
+        // Get values of tax and cost
+        let tax = parseFloat(document.getElementById('edit_other_tax').value) || 0;
+        let price = parseFloat(document.getElementById('edit_other_price').value) || 0;
+
+        // Calculate total price
+        let totalPrice = price + (price * tax / 100);
+
+        // Update the total price field
+        document.getElementById('edit_other_cost').value = Math.round(totalPrice);// Round to 2 decimal places
+    }
+
+    // Add event listeners to update the total price on input
+    document.getElementById('edit_other_tax').addEventListener('input', calculateTotalPrice);
+    document.getElementById('edit_other_price').addEventListener('input', calculateTotalPrice);
+</script>
+
+

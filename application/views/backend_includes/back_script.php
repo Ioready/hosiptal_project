@@ -1007,12 +1007,12 @@ bootbox.confirm({
                 success: function(data) {
                     name = data.name;
                     id = data.id;
-                    price = data.price;
+                    cost = data.cost;
                     stock_level = data.stock_level;
                     // alert(data);
                 $('#products').val(name);
                 $('#products_idss').val(id);
-                $('.product_rate').val(price);
+                $('.product_rate').val(cost);
 
 
                 if (stock_level === '0' || stock_level === '') { 
@@ -1128,7 +1128,7 @@ bootbox.confirm({
                 dataType: "json",  // Ensure the data is interpreted as JSON
                 success: function(data) {
                     name = data.name;
-                    price = data.price;
+                    price = data.cost;
                     stock_level = data.stock_level;
                     id = data.id;
                     // alert(price);
@@ -1217,7 +1217,7 @@ bootbox.confirm({
                 success: function(data) {
                     name = data.name;
                     id = data.id;
-                    price = data.price;
+                    price = data.cost;
                     // alert(price);
                 $('#products').val(name);
                 $('#products_idss').val(id);
@@ -1284,7 +1284,7 @@ bootbox.confirm({
                 dataType: "json",  // Ensure the data is interpreted as JSON
                 success: function(data) {
                     name = data.name;
-                    price = data.price;
+                    price = data.cost;
                     id = data.id;
                     // alert(price);
                 $('#products_iditem').val(id);
@@ -1542,7 +1542,7 @@ function updateFieldeditFieldTemperature(id, field, value, element) {
                 success: function(data) {
                     name = data.name;
                     id = data.id;
-                    price = data.price;
+                    price = data.cost;
                     stock_level = data.stock_level;
                     // alert(data);
                 $('#name').val(name);
@@ -1629,7 +1629,7 @@ function updateFieldeditFieldTemperature(id, field, value, element) {
                 success: function(data) {
                     name = data.name;
                     id = data.id;
-                    price = data.price;
+                    price = data.cost;
                     stock_level = data.stock_level;
                     // alert(data);
                 $('#vaccine_name').val(name);
@@ -1715,7 +1715,7 @@ function updateFieldeditFieldTemperature(id, field, value, element) {
                 success: function(data) {
                     name = data.name;
                     id = data.id;
-                    price = data.price;
+                    price = data.cost;
                     stock_level = data.stock_level;
                     // alert(data);
                 $('#lab_name').val(name);
@@ -1799,7 +1799,7 @@ function updateFieldeditFieldTemperature(id, field, value, element) {
                 success: function(data) {
                     name = data.name;
                     id = data.id;
-                    price = data.price;
+                    price = data.cost;
                     stock_level = data.stock_level;
                     // alert(data);
                 $('#appointment_name').val(name);
@@ -1882,7 +1882,7 @@ function updateFieldeditFieldTemperature(id, field, value, element) {
                 success: function(data) {
                     name = data.name;
                     id = data.id;
-                    price = data.price;
+                    price = data.cost;
                     stock_level = data.stock_level;
                     // alert(data);
                 $('#pathway_name').val(name);
@@ -1965,7 +1965,7 @@ function updateFieldeditFieldTemperature(id, field, value, element) {
                 success: function(data) {
                     name = data.name;
                     id = data.id;
-                    price = data.price;
+                    price = data.cost;
                     stock_level = data.stock_level;
                     // alert(data);
                 $('#membership_name').val(name);
@@ -2049,7 +2049,7 @@ function updateFieldeditFieldTemperature(id, field, value, element) {
                 success: function(data) {
                     name = data.name;
                     id = data.id;
-                    price = data.price;
+                    price = data.cost;
                     stock_level = data.stock_level;
                     // alert(data);
                 $('#procedure_name').val(name);
@@ -2133,7 +2133,7 @@ function updateFieldeditFieldTemperature(id, field, value, element) {
                 success: function(data) {
                     name = data.name;
                     id = data.id;
-                    price = data.price;
+                    price = data.cost;
                     stock_level = data.stock_level;
                     // alert(data);
                 $('#other_name').val(name);
@@ -2159,4 +2159,160 @@ function updateFieldeditFieldTemperature(id, field, value, element) {
         }
     }
 </script>
+
+<script>
+    // Function to calculate total price
+    function calculateTotalPrice() {
+        // Get values of tax and cost
+        let tax = parseFloat(document.getElementById('tax').value) || 0;
+        let price = parseFloat(document.getElementById('price').value) || 0;
+
+        // Calculate total price
+        let totalPrice = price + (price * tax / 100);
+
+        // Update the total price field
+        document.getElementById('cost').value = Math.round(totalPrice); // Round to 2 decimal places
+    }
+
+    // Add event listeners to update the total price on input
+    document.getElementById('tax').addEventListener('input', calculateTotalPrice);
+    document.getElementById('price').addEventListener('input', calculateTotalPrice);
+</script>
+
+
+
+<script>
+    // Function to calculate total price
+    function calculateTotalPrice() {
+        // Get values of tax and cost
+        let tax = parseFloat(document.getElementById('vaccine_tax').value) || 0;
+        let price = parseFloat(document.getElementById('vaccine_price').value) || 0;
+
+        // Calculate total price
+        let totalPrice = price + (price * tax / 100);
+
+        // Update the total price field
+        // document.getElementById('vaccine_cost').value = totalPrice.toFixed(2); // Round to 2 decimal places
+        document.getElementById('vaccine_cost').value = Math.round(totalPrice); // Round to 2 decimal places
+    }
+
+    // Add event listeners to update the total price on input
+    document.getElementById('vaccine_tax').addEventListener('input', calculateTotalPrice);
+    document.getElementById('vaccine_price').addEventListener('input', calculateTotalPrice);
+</script>
+
+<script>
+    // Function to calculate total price
+    function calculateTotalPrice() {
+        // Get values of tax and cost
+        let tax = parseFloat(document.getElementById('lab_tax').value) || 0;
+        let price = parseFloat(document.getElementById('lab_price').value) || 0;
+
+        // Calculate total price
+        let totalPrice = price + (price * tax / 100);
+
+        // Update the total price field
+        document.getElementById('lab_cost').value = Math.round(totalPrice); // Round to 2 decimal places
+    }
+
+    // Add event listeners to update the total price on input
+    document.getElementById('lab_tax').addEventListener('input', calculateTotalPrice);
+    document.getElementById('lab_price').addEventListener('input', calculateTotalPrice);
+</script>
+
+<script>
+    // Function to calculate total price
+    function calculateTotalPrice() {
+        // Get values of tax and cost
+        let tax = parseFloat(document.getElementById('appointment_tax').value) || 0;
+        let price = parseFloat(document.getElementById('appointment_price').value) || 0;
+
+        // Calculate total price
+        let totalPrice = price + (price * tax / 100);
+
+        // Update the total price field
+        document.getElementById('appointment_cost').value = Math.round(totalPrice);// Round to 2 decimal places
+    }
+
+    // Add event listeners to update the total price on input
+    document.getElementById('appointment_tax').addEventListener('input', calculateTotalPrice);
+    document.getElementById('appointment_price').addEventListener('input', calculateTotalPrice);
+</script>
+
+<script>
+    // Function to calculate total price
+    function calculateTotalPrice() {
+        // Get values of tax and cost
+        let tax = parseFloat(document.getElementById('pathway_tax').value) || 0;
+        let price = parseFloat(document.getElementById('pathway_price').value) || 0;
+
+        // Calculate total price
+        let totalPrice = price + (price * tax / 100);
+
+        // Update the total price field
+        document.getElementById('pathway_cost').value = Math.round(totalPrice); // Round to 2 decimal places
+    }
+
+    // Add event listeners to update the total price on input
+    document.getElementById('pathway_tax').addEventListener('input', calculateTotalPrice);
+    document.getElementById('pathway_price').addEventListener('input', calculateTotalPrice);
+</script>
+
+<script>
+    // Function to calculate total price
+    function calculateTotalPrice() {
+        // Get values of tax and cost
+        let tax = parseFloat(document.getElementById('membership_tax').value) || 0;
+        let price = parseFloat(document.getElementById('membership_price').value) || 0;
+
+        // Calculate total price
+        let totalPrice = price + (price * tax / 100);
+
+        // Update the total price field
+        document.getElementById('membership_cost').value = Math.round(totalPrice); // Round to 2 decimal places
+    }
+
+    // Add event listeners to update the total price on input
+    document.getElementById('membership_tax').addEventListener('input', calculateTotalPrice);
+    document.getElementById('membership_price').addEventListener('input', calculateTotalPrice);
+</script>
+
+<script>
+    // Function to calculate total price
+    function calculateTotalPrice() {
+        // Get values of tax and cost
+        let tax = parseFloat(document.getElementById('procedure_tax').value) || 0;
+        let price = parseFloat(document.getElementById('procedure_price').value) || 0;
+
+        // Calculate total price
+        let totalPrice = price + (price * tax / 100);
+
+        // Update the total price field
+        document.getElementById('procedure_cost').value = Math.round(totalPrice); // Round to 2 decimal places
+    }
+
+    // Add event listeners to update the total price on input
+    document.getElementById('procedure_tax').addEventListener('input', calculateTotalPrice);
+    document.getElementById('procedure_price').addEventListener('input', calculateTotalPrice);
+</script>
+
+<script>
+    // Function to calculate total price
+    function calculateTotalPrice() {
+        // Get values of tax and cost
+        let tax = parseFloat(document.getElementById('other_tax').value) || 0;
+        let price = parseFloat(document.getElementById('other_price').value) || 0;
+
+        // Calculate total price
+        let totalPrice = price + (price * tax / 100);
+
+        // Update the total price field
+        document.getElementById('other_cost').value = Math.round(totalPrice); // Round to 2 decimal places
+    }
+
+    // Add event listeners to update the total price on input
+    document.getElementById('other_tax').addEventListener('input', calculateTotalPrice);
+    document.getElementById('other_price').addEventListener('input', calculateTotalPrice);
+</script>
+
 
