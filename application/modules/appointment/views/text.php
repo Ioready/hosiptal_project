@@ -124,7 +124,11 @@ transition: opacity 0.3s linear, right 0.3s ease-out;
     height: auto;
 }
 
-
+tbody {
+    tr:last-child {
+      display: none;
+    }
+  }
 
     </style>
 
@@ -1267,7 +1271,8 @@ transition: opacity 0.3s linear, right 0.3s ease-out;
                     data: { id: view_id },
                     success: function(response) {
                         console.log(response); // Debugging line to check the response
-                        $('#departmentanddoctordata').empty().append('<option value="">All Select</option>');
+                        // $('#departmentanddoctordata').empty().append('<option value="">All Select</option>');
+                        $('#departmentanddoctordata').empty().append();
                         $.each(response, function(key, value) {
                             var name = value.name || '';
                             var firstName = value.first_name || '';
@@ -1416,6 +1421,12 @@ span {cursor:pointer; }
             display: inline-block;
             vertical-align: middle;
         }
+
+        /* .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus, .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus, .dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus, .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
+    color: #0a0a0a;
+    background-color: #1bbae1;
+    display: none;
+} */
 </style>
 
 <script>

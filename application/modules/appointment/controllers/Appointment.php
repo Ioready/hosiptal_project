@@ -3270,7 +3270,7 @@ $all_appointment = $result->result();
 
 
 
-$output ='<tbody>'?>
+                                    $output ='<tbody>'?>
                                             
                                         <?php
                                             $start_time = strtotime('07:00');
@@ -3289,7 +3289,7 @@ $output ='<tbody>'?>
                                                 $object = $value->id;
                                                
                                                 
-                                                        echo '<td class="time-cell">';
+                                                    echo '<td class="time-cell">';
                                                        
                                                     
                                                     foreach ($all_appointment as $appointment) {
@@ -3344,11 +3344,9 @@ $output ='<tbody>'?>
                                                         echo '</td>';
                                                    
                                                 }
-                                                         
-                                                        
-                                                        echo '</tr>';
+                                                echo '</tr>';
                                                    
-                                     }
+                                        }
                                           
                                    '</tbody>';  
 
