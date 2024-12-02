@@ -929,6 +929,7 @@ class Invoices extends Common_Controller {
                         // Insert products linked to the invoice
                         $products = $this->input->post('products');
                         $rates = $this->input->post('rate');
+                        $tax = $this->input->post('tax');
                         $quantities = $this->input->post('quantity');
                         $prices = $this->input->post('price');
                 // print_r($prices);die;
@@ -942,7 +943,8 @@ class Invoices extends Common_Controller {
                                 'product_name' => $products[$i],
                                 'rate' => $rates[$i],
                                 'quantity' => $quantities[$i],
-                                'price' => $prices[$i]
+                                'price' => $prices[$i],
+                                'tax' => $tax[$i]
                             );
                 
                             // Insert each product into the database
@@ -971,7 +973,7 @@ class Invoices extends Common_Controller {
                     $options_data = array(    
                          
                         'total_amount'=> $total_prices->total_price,                                              
-                        'Paid' => '0.00',                         
+                        'Paid' => '00',                         
                         'Outstanding' => $total_prices->total_price,                                            
                     );
                     $optionUpdate = array(

@@ -1222,10 +1222,12 @@ bootbox.confirm({
                     name = data.name;
                     id = data.id;
                     price = data.cost;
+                    tax = data.tax;
                     // alert(price);
                 $('#products').val(name);
                 $('#products_idss').val(id);
                 $('.product_rate').val(price);
+                $('#tax').val(tax);
                 }
             });
         }
@@ -1289,11 +1291,13 @@ bootbox.confirm({
                 success: function(data) {
                     name = data.name;
                     price = data.cost;
+                    tax = data.tax;
                     id = data.id;
                     // alert(price);
                 $('#products_iditem').val(id);
                 $('#product_item').val(name);
                 $('.product_rates').val(price);
+                $('#tax_id').val(tax);
                 }
             });
         }

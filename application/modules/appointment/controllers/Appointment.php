@@ -989,7 +989,11 @@ $option = array(
                 'order' => array('name' => 'ASC')
             );
             $practitionerData = $this->common_model->customGet($optionPractitioner);
+
             $practitioner = array_merge($practitionerData, $doctorsData);
+            foreach ($practitioner as $item) {
+                $item->filter_type = 'practitioner';
+            }
             
         } elseif ($id == 'location' || $id == 'clinic') {
             $option = array(
@@ -1000,6 +1004,9 @@ $option = array(
                 'order' => array('name' => 'ASC')
             );
             $practitioner = $this->common_model->customGet($option);
+            foreach ($practitioner as $item) {
+                $item->filter_type = 'location';
+            }
     
         }
 
@@ -1040,6 +1047,10 @@ $option = array(
                 );
                 $practitionerData = $this->common_model->customGet($optionPractitioner);
                 $practitioner = array_merge($practitionerData, $doctorsData);
+
+                foreach ($practitioner as $item) {
+                    $item->filter_type = 'practitioner';
+                }
                 
             } elseif ($id == 'location' || $id == 'clinic') {
                 $option = array(
@@ -1049,6 +1060,9 @@ $option = array(
                     'order' => array('name' => 'ASC')
                 );
                 $practitioner = $this->common_model->customGet($option);
+                foreach ($practitioner as $item) {
+                    $item->filter_type = 'location';
+                }
         
             }
             }
@@ -3080,8 +3094,16 @@ public function filterdateDepartment(){
 
     $selectedDate = $this->input->post('selectedDate');
     $practitionerId = $this->input->post('departmentId'); // Capture practitioner ID
-    
+    $filterType = $this->input->post('filterType'); // Capture practitioner ID
+    if (is_array($filterType)) {
+        $filterType = implode(',', $filterType);
+    }
 
+
+    if($filterType=="practitioner"){
+
+    
+// print_r($practitionerId);die;
     if (is_array($practitionerId)) {
         $practitionerId = implode(',', $practitionerId);
     }
@@ -3130,7 +3152,7 @@ $sql = "SELECT vendor_sale_clinic_appointment.*, U.first_name, U.last_name, UP.a
         LEFT JOIN vendor_sale_clinic as cl ON vendor_sale_clinic_appointment.location_appointment = cl.id
         LEFT JOIN vendor_sale_user_profile as UP ON UP.user_id = U.id
         LEFT JOIN vendor_sale_practitioner as pr ON vendor_sale_clinic_appointment.practitioner = pr.id
-        WHERE (vendor_sale_clinic_appointment.practitioner IN ($practitionerId) OR vendor_sale_clinic_appointment.theatre_clinician IN ($practitionerId))
+        WHERE (vendor_sale_clinic_appointment.practitioner IN ($practitionerId) OR vendor_sale_clinic_appointment.theatre_clinician IN ($practitionerId) OR vendor_sale_clinic_appointment.location_appointment IN ($practitionerId) OR vendor_sale_clinic_appointment.clinician_appointment IN ($practitionerId) OR vendor_sale_clinic_appointment.clinician_appointment IN ($practitionerId))
         AND (
             vendor_sale_clinic_appointment.start_date_appointment LIKE '%$selectedDate%'
             OR vendor_sale_clinic_appointment.theatre_date_time LIKE '%$selectedDate%'
@@ -3145,6 +3167,7 @@ $sql = "SELECT vendor_sale_clinic_appointment.*, U.first_name, U.last_name, UP.a
 $result = $this->db->query($sql);
 
 $all_appointment = $result->result();
+// print_r($all_appointment);die;
 
 }else{
 //     $sql = "SELECT vendor_sale_clinic_appointment.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state, pa.name as patient_name, cl.name as clinic_name, cl.clinic_location, pr.name as practitioner_name
@@ -3193,81 +3216,209 @@ $all_appointment = $result->result();
 }
 
 
-//    $output ='<tbody>'?>
-//                                             <?php
-//                                                 $start_time = strtotime('07:00');
-//                                                 $end_time = strtotime('24:00');
-//                                                 $interval = 1 * 60;
+$output ='<tbody>'?>
+                                            
+<?php
+    $start_time = strtotime('07:00');
+    $end_time = strtotime('24:00');
+    $interval = 15 * 60;
 
-//                                                 for ($time = $start_time; $time <= $end_time; $time += $interval) {
-//                                                     $formatted_time = date('H:i', $time);
-//                                                     echo '<tr><td class="time-cell">' . $formatted_time . '</td>';
-                                                   
-//                                                     foreach ($practitioner as $department) {
-//                                                         $appointment_found = true;
-                                                       
-//                                                         foreach ($all_appointment as $appointment) {
-//                                                             $appointmentTime = date('H:i', strtotime($appointment->start_date_appointment));
-//                                                             $end_date_appointment = date('H:i', strtotime($appointment->end_date_appointment));
-//                                                             $appointment_date = date('Y-m-d', strtotime($appointment->start_date_appointment));
-                                                            
-//                                                             $out_start_time_at = date('H:i', strtotime($appointment->out_start_time_at));
-//                                                             $out_end_time_at = date('H:i', strtotime($appointment->out_end_time_at));
-//                                                             $out_start_timeAt = date('Y-m-d', strtotime($appointment->out_start_time_at));
-                                                            
-//                                                             $start_date_availability = date('H:i', strtotime($appointment->start_date_availability));
-//                                                             $end_time_date_availability = date('H:i', strtotime($appointment->end_time_date_availability));
-//                                                             $start_dateAvailability = date('Y-m-d', strtotime($appointment->start_date_availability));
-                                                            
-//                                                             $theatre_date_time = date('H:i', strtotime($appointment->theatre_date_time));
-//                                                             $theatre_time_duration = $appointment->theatre_time_duration;
-//                                                             $durationInSeconds = $theatre_time_duration * 60;
-//                                                             $theatre_end_time = date('H:i', strtotime($theatre_date_time . " +$durationInSeconds seconds"));
-//                                                             $theatre_dateTime = date('Y-m-d', strtotime($appointment->theatre_date_time));
-                                                            
-                                                            
-//                                                             $current_date = date('Y-m-d');
-                                                        
+    for ($time = $start_time; $time <= $end_time; $time += $interval) {
 
-//                                                             if ($appointment->practitioner == $department->id || $appointment->theatre_clinician == $department->id) {
-//                                                                 if ($appointment->type == 'clinic_appointment' && $formatted_time >= $appointmentTime && $formatted_time <= $end_date_appointment) {
-//                                                                     if ($formatted_time == $appointmentTime) {
-//                                                                         echo '<td class="day-cell appointment-row" rowspan="' . (($end_date_appointment - $appointmentTime) / $interval) . '" id="dateDisplay" data-date="' . $appointment_date . '" data-day="' . $appointment->practitioner . '"><label style="background-color:green; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;"><span style="background-color: green; color: white;"><strong>' . $appointment->first_name . ' ' . $appointment->last_name . '</strong><br>' . $appointment->comment_appointment . '<br>' . $appointmentTime . ' - ' . $end_date_appointment . '</span></label></td>';
-//                                                                     }
-//                                                                     $appointment_found = false;
-//                                                                     break;
-//                                                                 } elseif ($appointment->type == 'out_of_office_appointment' && $formatted_time >= $out_start_time_at && $formatted_time <= $out_end_time_at) {
-//                                                                     if ($formatted_time == $out_start_time_at) {
-//                                                                         echo '<td class="day-cell appointment-row" rowspan="' . (($out_end_time_at - $out_start_time_at) / $interval) . '" id="dateDisplay" data-date="' . $out_start_timeAt . '" data-day="' . $appointment->practitioner . '"><label style="background-color:pink; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;"><span style="background-color: pink; color: white;"><strong>' . $appointment->first_name . ' ' . $appointment->last_name . '</strong><br>' . $appointment->out_of_office_comment . '<br>' . $out_start_time_at . ' - ' . $out_end_time_at . '</span></label></td>';
-//                                                                     }
-//                                                                     $appointment_found = false;
-//                                                                     break;
-//                                                                 } elseif ($appointment->type == 'availability_appointment' && $formatted_time >= $start_date_availability && $formatted_time <= $end_time_date_availability) {
-//                                                                     if ($formatted_time == $start_date_availability) {
-//                                                                         echo '<td class="day-cell appointment-row" rowspan="' . (($end_time_date_availability - $start_date_availability) / $interval) . '" id="dateDisplay" data-date="' . $start_dateAvailability . '" data-day="' . $appointment->practitioner . '"><label style="background-color:#40E0D0; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;"><span style="background-color: #40E0D0; color: white;"><strong>' . $appointment->first_name . ' ' . $appointment->last_name . '</strong><br>Available<br>' . $start_date_availability . ' - ' . $end_time_date_availability . '</span></label></td>';
-//                                                                     }
-//                                                                     $appointment_found = false;
-//                                                                     break;
-//                                                                 } elseif ($appointment->type == 'theatre_appointment' && $formatted_time >= $theatre_date_time && $formatted_time <= $theatre_end_time) {
-//                                                                     if ($formatted_time == $theatre_date_time) {
-//                                                                         echo '<td class="day-cell appointment-row" rowspan="' . (($theatre_end_time - $theatre_date_time) / $interval) . '" id="dateDisplay" data-date="' . $theatre_dateTime . '" data-day="' . $appointment->theatre_clinician . '"><label style="background-color:#800080; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;"><span style="background-color: #800080; color: white;"><strong>' . $appointment->first_name . ' ' . $appointment->last_name . '</strong><br>' . $appointment->theatre_comment . '<br>' . $theatre_date_time . ' - ' . $theatre_end_time . '</span></label></td>';
-//                                                                     }
-//                                                                     $appointment_found = false;
-//                                                                     break;
-//                                                                 }
-//                                                                 // $appointment_found = false;
-//                                                                 // break;
-//                                                             }
-//                                                         }
-//                                                         if ($appointment_found) {
-//                                                             echo '<td class="day-cell" data-time="' . $formatted_time . '" data-day="' . $department->id . '"></td>';
-//                                                         }
-//                                                     }
-//                                                     echo '</tr>';
-//                                                 }
-//                                             '
-//                                         </tbody>';
+        $formatted_time = date('H:i', $time);
+   
+        echo '<tr>
+        <td class="time-cell">' . $formatted_time . '</td>';
+       
+        foreach ($practitioner as $key => $value)
+        {
+            echo '<td class="time-cell">';
+        $object = $value->id;
+       
+            
+            foreach ($all_appointment as $appointment) {
+                
+                $appointmentTime = date('H:i', strtotime($appointment->start_date_appointment));
+                $end_date_appointment = date('H:i', strtotime($appointment->end_date_appointment));
+                $appointment_date = date('Y-m-d', strtotime($appointment->start_date_appointment));
+                
+                $out_start_time_at = date('H:i', strtotime($appointment->out_start_time_at));
+                $out_end_time_at = date('H:i', strtotime($appointment->out_end_time_at));
+                $out_start_timeAt = date('Y-m-d', strtotime($appointment->out_start_time_at));
+                
+                $start_date_availability = date('H:i', strtotime($appointment->start_date_availability));
+                $end_time_date_availability = date('H:i', strtotime($appointment->end_time_date_availability));
+                $start_dateAvailability = date('Y-m-d', strtotime($appointment->start_date_availability));
+                
+                $theatre_date_time = date('H:i', strtotime($appointment->theatre_date_time));
+                $theatre_time_duration = $appointment->theatre_time_duration;
+                $durationInSeconds = $theatre_time_duration * 60;
+                $theatre_end_time = date('H:i', strtotime($theatre_date_time . " +$durationInSeconds seconds"));
+                $theatre_dateTime = date('Y-m-d', strtotime($appointment->theatre_date_time));
+                
+                
+                $current_date = date('Y-m-d');
 
+               
+
+                        //     if ($appointment->practitioner == $object && $formatted_time >= $appointmentTime && $formatted_time <= $end_date_appointment) {
+                        //         if ($formatted_time == $appointmentTime) {
+                        //             echo '<label style="background-color:green; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;"><span style="background-color: green; color: white;"><strong>' . $appointment->first_name . ' ' . $appointment->last_name . '</strong><br>' . $appointment->comment_appointment . '<br>' . $appointmentTime . ' - ' . $end_date_appointment . '</span></label>';
+                        //         }
+                                
+                        //     } elseif ($appointment->practitioner == $object && $formatted_time >= $out_start_time_at && $formatted_time <= $out_end_time_at) {
+                        //         if ($formatted_time == $out_start_time_at) {
+                        //             echo '<label style="background-color:pink; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;"><span style="background-color: pink; color: white;"><strong>' . $appointment->first_name . ' ' . $appointment->last_name . '</strong><br>' . $appointment->out_of_office_comment . '<br>' . $out_start_time_at . ' - ' . $out_end_time_at . '</span></label>';
+                        //         }
+                                
+                        //     } elseif ($appointment->practitioner == $object && $formatted_time >= $start_date_availability && $formatted_time <= $end_time_date_availability) {
+                        //         if ($formatted_time == $start_date_availability) {
+                        //             echo '<label style="background-color:#40E0D0; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;"><span style="background-color: #40E0D0; color: white;"><strong>' . $appointment->first_name . ' ' . $appointment->last_name . '</strong><br>Available<br>' . $start_date_availability . ' - ' . $end_time_date_availability . '</span></label>';
+                        //         }
+                                
+                        //     } elseif ($appointment->theatre_clinician == $object && $formatted_time >= $theatre_date_time && $formatted_time <= $theatre_end_time) {
+                        //         if ($formatted_time == $theatre_date_time) {
+                        //             echo '<label style="background-color:#800080; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;"><span style="background-color: #800080; color: white;"><strong>' . $appointment->first_name . ' ' . $appointment->last_name . '</strong><br>' . $appointment->theatre_comment . '<br>' . $theatre_date_time . ' - ' . $theatre_end_time . '</span></label>';
+                        //         }
+                               
+                        // }
+
+                        if ($appointment->type =="clinic_appointment" && $appointment->practitioner == $object && $formatted_time >= $appointmentTime && $formatted_time <= $end_date_appointment) {
+                            if ($formatted_time == $appointmentTime) {
+                                echo '<label style="background-color:green; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;"><span style="background-color: green; color: white;"><strong>' . $appointment->patient_name .' '. $appointment->first_name . ' ' . $appointment->last_name . '</strong><br>' . $appointment->comment_appointment . '<br>' . $appointmentTime . ' - ' . $end_date_appointment . '</span></label>';
+                            }
+                           
+                        } elseif ($appointment->type =="out_of_office_appointment" && $appointment->practitioner == $object && $formatted_time >= $out_start_time_at && $formatted_time <= $out_end_time_at) {
+                            if ($formatted_time == $out_start_time_at) {
+                                echo '<label style="background-color:pink; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;"><span style="background-color: pink; color: black;"><strong>' . $appointment->patient_name .' ' . $appointment->first_name . ' ' . $appointment->last_name . '</strong><br>' . $appointment->comment_appointment . '<br>' . $out_start_time_at . ' - ' . $out_end_time_at . '</span></label>';
+                            }
+                           
+                        } elseif ($appointment->type =="availability_appointment" && $appointment->practitioner == $object && $formatted_time >= $start_date_availability && $formatted_time <= $end_time_date_availability) {
+                            if ($formatted_time == $start_date_availability) {
+                                echo '<label style="background-color:#40E0D0; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;"><span style="background-color: #40E0D0; color: black;"><strong>' . $appointment->patient_name .' ' . $appointment->first_name . ' ' . $appointment->last_name . '</strong><br>Available<br>' . $start_date_availability . ' - ' . $end_time_date_availability . '</span></label>';
+                            }
+                           
+                        } elseif ($appointment->type =="theatre_appointment" && $appointment->theatre_clinician == $object && $formatted_time >= $theatre_date_time && $formatted_time <= $theatre_end_time) {
+                            if ($formatted_time == $theatre_date_time) {
+                                echo '<label style="background-color:#800080; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;"><span style="background-color: #800080; color: white;"><strong>' . $appointment->patient_name .' ' . $appointment->first_name . ' ' . $appointment->last_name . '</strong><br>' . $appointment->comment_appointment . '<br>' . $theatre_date_time . ' - ' . $theatre_end_time . '</span></label>';
+                            }
+                          
+                       }
+                        echo '<button id="btnMyTest001" type="button" class="btn btn-success popup-appointment-open" data-toggle="modal" data-target="#my_modal" data-age="27">Create</button>';
+                         
+            }
+
+            echo '</td>';
+           
+        }
+        echo '</tr>';
+           
+}
+  
+'</tbody>';  
+
+} else {
+
+    // print_r($filterType);die;
+    // print_r($practitionerId);die;
+        if (is_array($practitionerId)) {
+            $practitionerId = implode(',', $practitionerId);
+        }
+    
+        
+    
+    $sql = "SELECT vendor_sale_clinic.*
+            FROM vendor_sale_clinic
+            WHERE (vendor_sale_clinic.id IN ($practitionerId))
+            -- AND (
+            --     vendor_sale_practitioner.hospital_id LIKE '%$CareUnitID%'
+                
+            -- )
+            ";
+    
+    $result = $this->db->query($sql);
+    
+    
+    
+    $practitioner = $result->result();
+  
+    
+    // $practitioner = array_merge($doctorsData, $practitionerData);
+    
+    
+    if(!empty($practitionerId)){
+    
+    
+    $sql = "SELECT vendor_sale_clinic_appointment.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state, pa.name as patient_name, cl.name as clinic_name, cl.clinic_location, pr.name as practitioner_name
+            FROM vendor_sale_clinic_appointment
+            LEFT JOIN vendor_sale_users as U ON vendor_sale_clinic_appointment.location_appointment = U.id
+            LEFT JOIN vendor_sale_patient as pa ON vendor_sale_clinic_appointment.patient = pa.user_id
+            LEFT JOIN vendor_sale_clinic as cl ON vendor_sale_clinic_appointment.location_appointment = cl.id
+            LEFT JOIN vendor_sale_user_profile as UP ON UP.user_id = U.id
+            LEFT JOIN vendor_sale_practitioner as pr ON vendor_sale_clinic_appointment.practitioner = pr.id
+            WHERE (vendor_sale_clinic_appointment.location_appointment IN ($practitionerId) OR vendor_sale_clinic_appointment.clinician_appointment IN ($practitionerId))
+            AND (
+                vendor_sale_clinic_appointment.start_date_appointment LIKE '%$selectedDate%'
+                OR vendor_sale_clinic_appointment.theatre_date_time LIKE '%$selectedDate%'
+                OR vendor_sale_clinic_appointment.out_start_time_at LIKE '%$selectedDate%'
+                OR vendor_sale_clinic_appointment.start_date_availability LIKE '%$selectedDate%'
+            )
+            ORDER BY vendor_sale_clinic_appointment.start_date_appointment DESC,
+                     vendor_sale_clinic_appointment.theatre_date_time DESC,
+                     vendor_sale_clinic_appointment.out_start_time_at DESC,
+                     vendor_sale_clinic_appointment.start_date_availability DESC";
+    
+    $result = $this->db->query($sql);
+    
+    $all_appointment = $result->result();
+    // print_r($all_appointment);die;
+    
+    }else{
+    //     $sql = "SELECT vendor_sale_clinic_appointment.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state, pa.name as patient_name, cl.name as clinic_name, cl.clinic_location, pr.name as practitioner_name
+    //         FROM vendor_sale_clinic_appointment
+    //         LEFT JOIN vendor_sale_users as U ON vendor_sale_clinic_appointment.location_appointment = U.id
+    //         LEFT JOIN vendor_sale_patient as pa ON vendor_sale_clinic_appointment.patient = pa.user_id
+    //         LEFT JOIN vendor_sale_clinic as cl ON vendor_sale_clinic_appointment.location_appointment = cl.id
+    //         LEFT JOIN vendor_sale_user_profile as UP ON UP.user_id = U.id
+    //         LEFT JOIN vendor_sale_practitioner as pr ON vendor_sale_clinic_appointment.practitioner = pr.id
+    //          WHERE (vendor_sale_clinic_appointment.practitioner IN ($practitionerId) OR vendor_sale_clinic_appointment.theatre_clinician IN ($practitionerId))
+    //         WHERE (
+    //             vendor_sale_clinic_appointment.start_date_appointment LIKE '%$selectedDate%'
+    //             OR vendor_sale_clinic_appointment.theatre_date_time LIKE '%$selectedDate%'
+    //             OR vendor_sale_clinic_appointment.out_start_time_at LIKE '%$selectedDate%'
+    //             OR vendor_sale_clinic_appointment.start_date_availability LIKE '%$selectedDate%'
+    //         )
+    //         ORDER BY vendor_sale_clinic_appointment.start_date_appointment DESC,
+    //                  vendor_sale_clinic_appointment.theatre_date_time DESC,
+    //                  vendor_sale_clinic_appointment.out_start_time_at DESC,
+    //                  vendor_sale_clinic_appointment.start_date_availability DESC";
+    
+    // $result = $this->db->query($sql);
+    
+    $sql = "SELECT vendor_sale_clinic_appointment.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state, pa.name as patient_name, cl.name as clinic_name, cl.clinic_location, pr.name as practitioner_name
+            FROM vendor_sale_clinic_appointment
+            LEFT JOIN vendor_sale_users as U ON vendor_sale_clinic_appointment.location_appointment = U.id
+            LEFT JOIN vendor_sale_patient as pa ON vendor_sale_clinic_appointment.patient = pa.user_id
+            LEFT JOIN vendor_sale_clinic as cl ON vendor_sale_clinic_appointment.location_appointment = cl.id
+            LEFT JOIN vendor_sale_user_profile as UP ON UP.user_id = U.id
+            LEFT JOIN vendor_sale_practitioner as pr ON vendor_sale_clinic_appointment.practitioner = pr.id
+            -- WHERE (vendor_sale_clinic_appointment.practitioner IN ($practitionerId) OR vendor_sale_clinic_appointment.theatre_clinician IN ($practitionerId))
+            WHERE (
+                vendor_sale_clinic_appointment.start_date_appointment LIKE '%$selectedDate%'
+                OR vendor_sale_clinic_appointment.theatre_date_time LIKE '%$selectedDate%'
+                OR vendor_sale_clinic_appointment.out_start_time_at LIKE '%$selectedDate%'
+                OR vendor_sale_clinic_appointment.start_date_availability LIKE '%$selectedDate%'
+            )
+            ORDER BY vendor_sale_clinic_appointment.start_date_appointment DESC,
+                     vendor_sale_clinic_appointment.theatre_date_time DESC,
+                     vendor_sale_clinic_appointment.out_start_time_at DESC,
+                     vendor_sale_clinic_appointment.start_date_availability DESC";
+    
+    $result = $this->db->query($sql);
+    
+    $all_appointment = $result->result();
+    }
+    
 
 
                                     $output ='<tbody>'?>
@@ -3315,27 +3466,49 @@ $all_appointment = $result->result();
 
                                                        
 
-                                                                    if ($appointment->practitioner == $object && $formatted_time >= $appointmentTime && $formatted_time <= $end_date_appointment) {
-                                                                        if ($formatted_time == $appointmentTime) {
-                                                                            echo '<label style="background-color:green; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;"><span style="background-color: green; color: white;"><strong>' . $appointment->first_name . ' ' . $appointment->last_name . '</strong><br>' . $appointment->comment_appointment . '<br>' . $appointmentTime . ' - ' . $end_date_appointment . '</span></label>';
-                                                                        }
+                                                                //     if ($appointment->practitioner == $object && $formatted_time >= $appointmentTime && $formatted_time <= $end_date_appointment) {
+                                                                //         if ($formatted_time == $appointmentTime) {
+                                                                //             echo '<label style="background-color:green; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;"><span style="background-color: green; color: white;"><strong>' . $appointment->first_name . ' ' . $appointment->last_name . '</strong><br>' . $appointment->comment_appointment . '<br>' . $appointmentTime . ' - ' . $end_date_appointment . '</span></label>';
+                                                                //         }
                                                                         
-                                                                    } elseif ($appointment->practitioner == $object && $formatted_time >= $out_start_time_at && $formatted_time <= $out_end_time_at) {
-                                                                        if ($formatted_time == $out_start_time_at) {
-                                                                            echo '<label style="background-color:pink; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;"><span style="background-color: pink; color: white;"><strong>' . $appointment->first_name . ' ' . $appointment->last_name . '</strong><br>' . $appointment->out_of_office_comment . '<br>' . $out_start_time_at . ' - ' . $out_end_time_at . '</span></label>';
-                                                                        }
+                                                                //     } elseif ($appointment->practitioner == $object && $formatted_time >= $out_start_time_at && $formatted_time <= $out_end_time_at) {
+                                                                //         if ($formatted_time == $out_start_time_at) {
+                                                                //             echo '<label style="background-color:pink; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;"><span style="background-color: pink; color: white;"><strong>' . $appointment->first_name . ' ' . $appointment->last_name . '</strong><br>' . $appointment->out_of_office_comment . '<br>' . $out_start_time_at . ' - ' . $out_end_time_at . '</span></label>';
+                                                                //         }
                                                                         
-                                                                    } elseif ($appointment->practitioner == $object && $formatted_time >= $start_date_availability && $formatted_time <= $end_time_date_availability) {
-                                                                        if ($formatted_time == $start_date_availability) {
-                                                                            echo '<label style="background-color:#40E0D0; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;"><span style="background-color: #40E0D0; color: white;"><strong>' . $appointment->first_name . ' ' . $appointment->last_name . '</strong><br>Available<br>' . $start_date_availability . ' - ' . $end_time_date_availability . '</span></label>';
-                                                                        }
+                                                                //     } elseif ($appointment->practitioner == $object && $formatted_time >= $start_date_availability && $formatted_time <= $end_time_date_availability) {
+                                                                //         if ($formatted_time == $start_date_availability) {
+                                                                //             echo '<label style="background-color:#40E0D0; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;"><span style="background-color: #40E0D0; color: white;"><strong>' . $appointment->first_name . ' ' . $appointment->last_name . '</strong><br>Available<br>' . $start_date_availability . ' - ' . $end_time_date_availability . '</span></label>';
+                                                                //         }
                                                                         
-                                                                    } elseif ($appointment->theatre_clinician == $object && $formatted_time >= $theatre_date_time && $formatted_time <= $theatre_end_time) {
-                                                                        if ($formatted_time == $theatre_date_time) {
-                                                                            echo '<label style="background-color:#800080; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;"><span style="background-color: #800080; color: white;"><strong>' . $appointment->first_name . ' ' . $appointment->last_name . '</strong><br>' . $appointment->theatre_comment . '<br>' . $theatre_date_time . ' - ' . $theatre_end_time . '</span></label>';
-                                                                        }
+                                                                //     } elseif ($appointment->theatre_clinician == $object && $formatted_time >= $theatre_date_time && $formatted_time <= $theatre_end_time) {
+                                                                //         if ($formatted_time == $theatre_date_time) {
+                                                                //             echo '<label style="background-color:#800080; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;"><span style="background-color: #800080; color: white;"><strong>' . $appointment->first_name . ' ' . $appointment->last_name . '</strong><br>' . $appointment->theatre_comment . '<br>' . $theatre_date_time . ' - ' . $theatre_end_time . '</span></label>';
+                                                                //         }
                                                                        
-                                                                }
+                                                                // }
+
+                                                                if ($appointment->type =="clinic_appointment" && $appointment->location_appointment == $object && $formatted_time >= $appointmentTime && $formatted_time <= $end_date_appointment) {
+                                                                    if ($formatted_time == $appointmentTime) {
+                                                                        echo '<label style="background-color:green; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;"><span style="background-color: green; color: white;"><strong>' . $appointment->patient_name .' '. $appointment->first_name . ' ' . $appointment->last_name . '</strong><br>' . $appointment->comment_appointment . '<br>' . $appointmentTime . ' - ' . $end_date_appointment . '</span></label>';
+                                                                    }
+                                                                   
+                                                                } elseif ($appointment->type =="out_of_office_appointment" && $appointment->location_appointment == $object && $formatted_time >= $out_start_time_at && $formatted_time <= $out_end_time_at) {
+                                                                    if ($formatted_time == $out_start_time_at) {
+                                                                        echo '<label style="background-color:pink; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;"><span style="background-color: pink; color: black;"><strong>' . $appointment->patient_name .' ' . $appointment->first_name . ' ' . $appointment->last_name . '</strong><br>' . $appointment->comment_appointment . '<br>' . $out_start_time_at . ' - ' . $out_end_time_at . '</span></label>';
+                                                                    }
+                                                                   
+                                                                } elseif ($appointment->type =="availability_appointment" && $appointment->location_appointment == $object && $formatted_time >= $start_date_availability && $formatted_time <= $end_time_date_availability) {
+                                                                    if ($formatted_time == $start_date_availability) {
+                                                                        echo '<label style="background-color:#40E0D0; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;"><span style="background-color: #40E0D0; color: black;"><strong>' . $appointment->patient_name .' ' . $appointment->first_name . ' ' . $appointment->last_name . '</strong><br>Available<br>' . $start_date_availability . ' - ' . $end_time_date_availability . '</span></label>';
+                                                                    }
+                                                                   
+                                                                } elseif ($appointment->type =="theatre_appointment" && $appointment->location_appointment == $object && $formatted_time >= $theatre_date_time && $formatted_time <= $theatre_end_time) {
+                                                                    if ($formatted_time == $theatre_date_time) {
+                                                                        echo '<label style="background-color:#800080; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;"><span style="background-color: #800080; color: white;"><strong>' . $appointment->patient_name .' ' . $appointment->first_name . ' ' . $appointment->last_name . '</strong><br>' . $appointment->comment_appointment . '<br>' . $theatre_date_time . ' - ' . $theatre_end_time . '</span></label>';
+                                                                    }
+                                                                  
+                                                               }
                                                                 echo '<button id="btnMyTest001" type="button" class="btn btn-success popup-appointment-open" data-toggle="modal" data-target="#my_modal" data-age="27">Create</button>';
                                                                  
                                                     }
@@ -3350,7 +3523,7 @@ $all_appointment = $result->result();
                                    '</tbody>';  
 
                                         
-                                  
+    }                               
 }
 
 }

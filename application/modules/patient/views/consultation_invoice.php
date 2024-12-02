@@ -289,6 +289,13 @@
   });
 });
 </script>
+<script>
+    window.onunload = refreshParent;
+    function refreshParent() {
+        window.opener.location.reload();
+    }
+</script>
+
 
 <style>
         * {
@@ -300,7 +307,7 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #f5f5f5;
-            padding: 20px;
+            /* padding: 20px; */
         }
 
         .container {
@@ -309,7 +316,7 @@
             background-color: white;
             border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
+            /* padding: 20px; */
         }
 
         .patient-info {

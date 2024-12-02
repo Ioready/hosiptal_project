@@ -6,25 +6,25 @@
     }
 </style>
 <style>
-        * {
+        /* * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
+        } */
 
         body {
             font-family: Arial, sans-serif;
             background-color: #f5f5f5;
-            padding: 20px;
+            /* padding: 20px; */
         }
 
         .container {
-            max-width: 1000px;
+            /* max-width: 1000px; */
             margin: auto;
             background-color: white;
             border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
+            /* padding: 20px; */
         }
 
         .patient-info {
@@ -178,10 +178,28 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url($formUrl) ?>" enctype="multipart/form-data">
-                <div class="modal-header text-center">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h2 class="modal-title"><i class="fa fa-pencil"></i> <?php echo "Edit invoice" ?></h2>
-                </div>
+                <!-- <div class="modal-header text-center">
+                    <button type="button" class="close" data-dismiss="modal" id="closeButton"><span aria-hidden="true" >&times;</span><span class="sr-only">Close</span></button>
+                    <h2 class="modal-title">
+                        <i class="fa fa-pencil"></i> 
+                    <?php echo "Edit invoice" ?></h2>
+                </div> -->
+
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; background-color: #f8f9fa; border-bottom: 1px solid #dee2e6;">
+    <!-- Close Button -->
+    <!-- <button type="button" onclick="closeModal()" style="background: none; border: none; font-size: 24px; cursor: pointer; color: #333;">
+        <span aria-hidden="true">&times;</span><span style="font-size: 14px; margin-left: 5px;">Close</span>
+    </button> -->
+    <button type="button" class="btn btn-sm btn-default" onclick="reloadPage()" id="closeButton" style="background: none; border: none; font-size: 24px; cursor: pointer; color: #333;" data-dismiss="modal"><span aria-hidden="true">&times;</span><span style="font-size: 14px; margin-left: 5px;"> Close</span></button>
+                    
+
+    <!-- Modal Title -->
+    <h2 style="font-size: 20px; font-weight: bold; color: #007bff; margin: 0;">
+        <i class="fa fa-pencil" style="margin-right: 10px;"></i> <?php echo "Edit invoice"; ?>
+    </h2>
+</div>
+
+
                 <div class="modal-body">
                     
                     <div class="alert alert-danger" id="error-box" style="display: none"></div>
@@ -305,6 +323,7 @@
                                         <div class="form-group">
                                             <input type="search" class="form-control" id="products" name="products[]" value="<?php echo $item->invoice_product_name ?>" placeholder="Products" onkeyup="myFunctionUpdate()">
                                             <input type="hidden" class="form-control" id="products_idss" name="products_idss[]" onkeyup="myFunctionUpdate()" placeholder="Products">
+                                            <input type="hidden" class="form-control" id="tax" name="tax[]" onkeyup="myFunction()" placeholder="tax" value="<?php echo $item->tax; ?>">
                             
                                         </div>
                                     </div>
@@ -355,7 +374,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" onclick="reloadPage()">Close</button>
                     
                     <button type="submit" id="submit" class="btn btn-sm btn-primary m-2"  style="background: #337ab7">Save invoice</button>
                 </div>
@@ -497,7 +516,7 @@ function education_fields() {
     divtest.innerHTML = `
         <div class="col-sm-3 nopadding">
             <div class="form-group">
-                <input type="search" class="form-control" name="products[]" placeholder="Products name" id="product_item" onkeyup="myProductFunctionEdit()"><input type="hidden" class="form-control" id="products_iditem" name="products_idss[]" onkeyup="getSearchAllProductEdit()" placeholder="Products"><div id="result_productsjkjk"></div>
+                <input type="search" class="form-control" name="products[]" placeholder="Products name" id="product_item" onkeyup="myProductFunctionEdit()"><input type="hidden" class="form-control" id="products_iditem" name="products_idss[]" onkeyup="getSearchAllProductEdit()" placeholder="Products"><input type="text" class="form-control" id="tax_id" name="tax[]" onkeyup="myFunction()" placeholder="tax"><div id="result_productsjkjk"></div>
             </div>
         </div>
         <div class="col-sm-2 nopadding">

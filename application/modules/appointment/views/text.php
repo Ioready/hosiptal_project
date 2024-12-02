@@ -397,24 +397,24 @@ tbody {
                                                             $current_date = date('Y-m-d');
 
 
-                                                                        if ($appointment->practitioner == $object && $formatted_time >= $appointmentTime && $formatted_time <= $end_date_appointment) {
+                                                                        if ($appointment->type =="clinic_appointment" && $appointment->practitioner == $object && $formatted_time >= $appointmentTime && $formatted_time <= $end_date_appointment) {
                                                                             if ($formatted_time == $appointmentTime) {
                                                                                 echo '<label style="background-color:green; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;"><span style="background-color: green; color: white;"><strong>' . $appointment->first_name . ' ' . $appointment->last_name . '</strong><br>' . $appointment->comment_appointment . '<br>' . $appointmentTime . ' - ' . $end_date_appointment . '</span></label>';
                                                                             }
                                                                            
-                                                                        } elseif ($appointment->practitioner == $object && $formatted_time >= $out_start_time_at && $formatted_time <= $out_end_time_at) {
+                                                                        } elseif ($appointment->type =="out_of_office_appointment" && $appointment->practitioner == $object && $formatted_time >= $out_start_time_at && $formatted_time <= $out_end_time_at) {
                                                                             if ($formatted_time == $out_start_time_at) {
-                                                                                echo '<label style="background-color:pink; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;"><span style="background-color: pink; color: white;"><strong>' . $appointment->first_name . ' ' . $appointment->last_name . '</strong><br>' . $appointment->out_of_office_comment . '<br>' . $out_start_time_at . ' - ' . $out_end_time_at . '</span></label>';
+                                                                                echo '<label style="background-color:pink; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;"><span style="background-color: pink; color: black;"><strong>' . $appointment->first_name . ' ' . $appointment->last_name . '</strong><br>' . $appointment->comment_appointment . '<br>' . $out_start_time_at . ' - ' . $out_end_time_at . '</span></label>';
                                                                             }
                                                                            
-                                                                        } elseif ($appointment->practitioner == $object && $formatted_time >= $start_date_availability && $formatted_time <= $end_time_date_availability) {
+                                                                        } elseif ($appointment->type =="availability_appointment" && $appointment->practitioner == $object && $formatted_time >= $start_date_availability && $formatted_time <= $end_time_date_availability) {
                                                                             if ($formatted_time == $start_date_availability) {
-                                                                                echo '<label style="background-color:#40E0D0; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;"><span style="background-color: #40E0D0; color: white;"><strong>' . $appointment->first_name . ' ' . $appointment->last_name . '</strong><br>Available<br>' . $start_date_availability . ' - ' . $end_time_date_availability . '</span></label>';
+                                                                                echo '<label style="background-color:#40E0D0; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;"><span style="background-color: #40E0D0; color: black;"><strong>' . $appointment->first_name . ' ' . $appointment->last_name . '</strong><br>Available<br>' . $start_date_availability . ' - ' . $end_time_date_availability . '</span></label>';
                                                                             }
                                                                            
-                                                                        } elseif ($appointment->theatre_clinician == $object && $formatted_time >= $theatre_date_time && $formatted_time <= $theatre_end_time) {
+                                                                        } elseif ($appointment->type =="theatre_appointment" && $appointment->theatre_clinician == $object && $formatted_time >= $theatre_date_time && $formatted_time <= $theatre_end_time) {
                                                                             if ($formatted_time == $theatre_date_time) {
-                                                                                echo '<label style="background-color:#800080; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;"><span style="background-color: #800080; color: white;"><strong>' . $appointment->first_name . ' ' . $appointment->last_name . '</strong><br>' . $appointment->theatre_comment . '<br>' . $theatre_date_time . ' - ' . $theatre_end_time . '</span></label>';
+                                                                                echo '<label style="background-color:#800080; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;"><span style="background-color: #800080; color: white;"><strong>' . $appointment->first_name . ' ' . $appointment->last_name . '</strong><br>' . $appointment->comment_appointment . '<br>' . $theatre_date_time . ' - ' . $theatre_end_time . '</span></label>';
                                                                             }
                                                                           
                                                                        }
@@ -1277,9 +1277,18 @@ tbody {
                             var name = value.name || '';
                             var firstName = value.first_name || '';
                             var lastName = value.last_name || '';
+
                             if (name !== 'N/A' || firstName !== '') {
-                                $('#departmentanddoctordata').append('<option value="' + value.id + '">' + name + ' ' + firstName + ' ' + lastName + '</option>');
+                                $('#departmentanddoctordata').append('<option data-filter-type="' + value.filter_type + '" value="' + value.id + '" id="location">' + name + ' ' + firstName + ' ' + lastName + '</option>');
+                            
                             }
+                            // else if (name !== 'N/A' || firstName !== ''|| value.filter_type=="practitioner") {
+                            //     $('#departmentanddoctordata').append('<option data-filter-type="' + filter_type + '" value="' + value.id + '" id="practitioner">' + name + ' ' + firstName + ' ' + lastName + '</option>');
+                            // }
+
+                            // if (name !== 'N/A' || firstName !== '') {
+                            //     $('#departmentanddoctordata').append('<option value="' + value.id + '">' + name + ' ' + firstName + ' ' + lastName + '</option>');
+                            // }
                         });
                         $('#departmentanddoctordata').multiselect('rebuild');
                     },
@@ -1314,14 +1323,17 @@ tbody {
     return $(el).val();
 }).get();
 
-// alert(selectedPractitioners);
+var selectedPractitionersType = $("#departmentanddoctordata option:selected").map(function(i, el) { 
+    return $(el).data('filter-type'); // Retrieve the "data-filter-type" attribute
+}).get();
+// alert(selectedPractitionersType);
     //  $(.appointment-header).attr('colspan',-1,selectedPractitioners);
     //  $(.appointment-body).attr('colspan',-1, selectedPractitioners);
     $.ajax({
                     url: 'appointment/filterdateDepartment',
                     type: 'POST',
                     dataType: "html",
-                    data: { departmentId: selectedPractitioners,selectedDate:selectedDate },
+                    data: { departmentId: selectedPractitioners,selectedDate:selectedDate,filterType:selectedPractitionersType},
                     success: function(response) {
                         // alert(response);
                         // $('.datatableappintment').empty(bind());

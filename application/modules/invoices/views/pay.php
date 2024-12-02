@@ -185,7 +185,7 @@
 
             <div class="modal-header text-center" style="padding: 20px; background-color: #f5f5f5; border-bottom: 1px solid #ddd;">
     <!-- Close Button -->
-    <button type="button" class="btn btn-sm btn-default" class="close" data-dismiss="modal" style="position: absolute; top: 15px; right: 20px; font-size: 24px;">
+    <button type="button" class="btn btn-sm btn-default" class="close" data-dismiss="modal" style="position: absolute; top: 15px; right: 20px; font-size: 24px;" onclick="reloadPageReceipt()">
     <!-- <button type="button" class="close" data-dismiss="modal" style="position: absolute; top: 15px; right: 20px; font-size: 24px;"> -->
         <span aria-hidden="true">&times;</span>
         <span class="sr-only">Close</span>
@@ -410,7 +410,7 @@
 
                     <input type="hidden" name="total_cash_pay" id="total_cash_pay" value="<?php echo $results->total_amount; ?>">
 
-                    <button type="button" class="btn btn-sm btn-default" class="close" data-dismiss="modal" >Close</button>
+                    <button type="button" class="btn btn-sm btn-default" class="close" data-dismiss="modal" onclick="reloadPageReceipt()">Close</button>
                     
                     <button type="submit" id="submit" class="btn btn-sm btn-primary m-2"  style="background: #337ab7" value="Pay £ <?php echo $results->total_amount; ?>" >Pay $ <?php echo $results->total_amount; ?></button>
                    
@@ -427,7 +427,7 @@
                 
                     <input type="hidden" name="total_cash_pay" id="total_cash_pay" value="<?php echo $results->total_amount; ?>">
 
-                    <button type="button" class="btn btn-sm btn-default" class="close" data-dismiss="modal" >Close</button>
+                    <button type="button" class="btn btn-sm btn-default" class="close" data-dismiss="modal" onclick="reloadPageReceipt()">Close</button>
                     
                     <button type="submit" id="submit" class="btn btn-sm btn-primary m-2"  style="background: #337ab7" value="Pay £ <?php echo $results->total_amount; ?>" >Pay $ <?php echo $results->total_amount; ?></button>
                    
@@ -440,7 +440,7 @@
                         <img src="<?= $qr_code_url ?>" alt="Invoice QR Code" style="width: 200px; height: 200px; display: block; margin: 0 auto;">
                     <?php endif; ?>
                     <input type="hidden" name="total_cash_pay" id="total_cash_pay" value="<?php echo $results->total_amount; ?>">
-                    <button type="button" class="btn btn-sm btn-default" class="close" data-dismiss="modal" >Close</button>
+                    <button type="button" class="btn btn-sm btn-default" class="close" data-dismiss="modal" onclick="reloadPageReceipt()">Close</button>
                     
                     <button type="submit" id="submit" class="btn btn-sm btn-primary m-2"  style="background: #337ab7" value="Pay £ <?php echo $results->total_amount; ?>" >Pay $ <?php echo $results->total_amount; ?></button>
                    

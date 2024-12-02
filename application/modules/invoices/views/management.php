@@ -4,10 +4,10 @@
         /* Custom Styles for Enhanced UI */
        
 
-        .container {
+        /* .container {
             
             max-width: 1100px;
-        }
+        } */
 
         .table-responsive {
             margin-bottom: 20px;
@@ -435,7 +435,7 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title">Edit Invoice</h5>
-                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close" onbeforeunload="refreshParent();">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
@@ -680,7 +680,7 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title">Edit Invoice</h5>
-                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close" onbeforeunload="refreshParent();">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
@@ -807,7 +807,7 @@
                                     </div>
                                 </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onbeforeunload="refreshParent();">Close</button>
                                 <button type="button" class="btn btn-primary">Save changes</button>
                             </div>
                         </div>
@@ -825,13 +825,44 @@
 <div id="form-modal-box-pay"></div>
 <div id="form-modal-box-pdf"></div>
 <div id="form-modal-box-receipt"></div>
+<script>
+//     $('#commonModal').on('hidden.bs.modal', function () {
+//     location.reload(); // Reload the page
+// });
+// document.getElementById('closeButton').addEventListener('click', function () {
+//     // Close the modal
+//     $('#commonModal').modal('hide'); 
+    
+//     // Reload the window
+//     location.reload();
+// });
 
+// document.getElementById(
+//     'closeButton').addEventListener('click', (e) => {
+//         document.getElementById(
+//             'wrapper').style.visibility = "hidden";
+//         window.location.reload();
+//     });
+
+
+</script>
+
+<script>
+        function reloadPage() {
+            // if (confirm("Are you sure you want to reload the page?")) {
+                location.reload(); // Reloads the page
+            // }
+        }
+        function reloadPageReceipt(){
+            location.reload();
+        }
+    </script>
 <style>
-        * {
+        /* * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
+        } */
 
         body {
             font-family: Arial, sans-serif;
@@ -840,12 +871,12 @@
         }
 
         .container {
-            max-width: 1000px;
+            /* max-width: 1000px; */
             margin: auto;
             background-color: white;
             border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
+            /* padding: 20px; */
         }
 
         .patient-info {
