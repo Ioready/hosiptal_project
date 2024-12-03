@@ -79,52 +79,36 @@
                     if ($menu_name == 'Products') { 
                         if ($menu_view =='1') { ?>
 
-                <div class="table-responsive">
-                <ul class="nav nav-pills-second nav-fill nav-tab-appointment active" id="pills-tab" role="tablist">
+<div class="table-responsive">
+            <ul class="nav nav-pills-second nav-fill nav-tab-appointment active" id="pills-tab" role="tablist">
                                     <li class="nav-item-second col-md-4 p-2">
                                         <a  style="background:#337ab7;" class="btn btn-sm btn-primary mt-2 nav-link-second new-contact save-btn" data-target="#pills-5" role="tab" href="<?php echo base_url() . $this->router->fetch_class(); ?>/open_model">New</a>
                                     </li>
                         </ul>
-                    <table id="common_datatable_users" class="table table-vcenter table-condensed table-bordered">
-                        <thead>
+
+                        <div class="table-responsive">
+        <table id="common_datatable_users" class="table table-striped table-bordered text-center align-middle">
+            <thead class="table-light">
                             <tr>
-                                <th style="background-color:#DBEAFF;font-size:1.3rem;width: 40px;" class="text-center" >Sr. No</th>
-                                <!--                                <th><?php echo "Referral Code"; ?></th>-->
-                                
+                            <th style="background-color:#DBEAFF; font-size:1.2rem; width: 40px;">Sr. No</th>
+                <th style="background-color:#DBEAFF; font-size:1.2rem; width: 150px;">Type</th>
+                <th style="background-color:#DBEAFF; font-size:1.2rem; width: 200px;">Renewal</th>
+                <th style="background-color:#DBEAFF; font-size:1.2rem; width: 200px;">Name</th>
+                <th style="background-color:#DBEAFF; font-size:1.2rem; width: 200px;">Price</th>
+                <th style="background-color:#DBEAFF; font-size:1.2rem; width: 200px;">Product Code</th>
+                <th style="background-color:#DBEAFF; font-size:1.2rem; width: 200px;">Serial Number</th>
+                <th style="background-color:#DBEAFF; font-size:1.2rem; width: 200px;">Supplier</th>
+                <th style="background-color:#DBEAFF; font-size:1.2rem; width: 200px;">Stock Level</th>
+                <th style="background-color:#DBEAFF; font-size:1.2rem; width: 200px;">Tax</th>
+                <th style="background-color:#DBEAFF; font-size:1.2rem; width: 200px;">Cost</th>
+                <th style="background-color:#DBEAFF; font-size:1.2rem; width: 200px;">Comment</th>
+                <th style="background-color:#DBEAFF; font-size:1.2rem; width: 200px;">Appointment Booked</th>
 
-                                <?php //if($this->ion_auth->is_subAdmin()){ ?>
-                                <th style="background-color:#DBEAFF;font-size:1.3rem;width: 150px;" class="text-center"><?php echo "Type"; ?></th>
-                                <?php //} ?>
+                
+                    <th style="background-color:#DBEAFF; font-size:1.2rem; width: 150px;">Created Date</th>
+                    <th style="background-color:#DBEAFF; font-size:1.2rem; width: 100px;">Action</th>
+                
 
-                                <th  class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 200px;"><?php echo "Renewal"; ?></th>
-
-                                <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 200px;"><?php echo "Name"; ?></th>
-                                <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 200px;"><?php echo "Price"; ?></th>
-                                <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 200px;"><?php echo "Product Code"; ?></th>
-                                <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 200px;"><?php echo "Serial Number"; ?></th>
-                                <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 200px;"><?php echo "Supplier"; ?></th>
-                                <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 200px;"><?php echo "Stock Level"; ?></th>
-                                <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 200px;"><?php echo "Tax"; ?></th>
-                                <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 200px;"><?php echo "Cost"; ?></th>
-                                <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 200px;"><?php echo "Comment"; ?></th>
-
-                                <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 200px;"><?php echo "Appointment Booked"; ?></th>
-                                
-                                
-                                <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 200px;"><?php echo "Status"; ?></th>
-                                <!-- <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 200px;"><?php echo "Date"; ?></th> -->
-
-                                
-                                <?php //if($this->ion_auth->is_facilityManager()){?>
-                                <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 60px;">Created Date</th>
-                               
-                                <?php if($this->ion_auth->is_facilityManager()){?>
-                                <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 60px;"><?php echo lang('action'); ?></th>
-                                <?php } ?>
-
-                                
-                                <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 70px;"><?php echo lang('action'); ?></th>
-                               
                             </tr>
                         </thead>
                         <tbody>
@@ -135,47 +119,60 @@
                                 $rowCount++;
                                 ?>
                                 
-                                <tr>
-                                
-                                    <td class="text-center"><strong><?php echo $rowCount; ?></strong></td>  
+                                <tr style="border-bottom: 1px solid #ddd;">
+                                <td style="padding: 10px;"><?php echo $rowCount; ?></td>
 
-                                    
-                                    <td class=""><?php echo $rows->first_name . ' ' . $rows->last_name; ?></td>
+                    <?php if ($this->ion_auth->is_admin()) { ?>
+                        <td style="padding: 10px;"><?php echo $rows->first_name . ' ' . $rows->last_name; ?></td>
+                    <?php } ?>
 
-                                    
-                                    
-                                    <td class=""><?php echo $rows->type; ?></td>
-                               
+                    <td style="padding: 10px;"><?php echo $rows->type; ?></td>
+                    <td style="padding: 10px;"><?php echo $rows->renewal; ?></td>
+                    <td style="padding: 10px;"><?php echo $rows->name; ?></td>
+                    <td style="padding: 10px;"><?php echo $rows->price; ?></td>
+                    <td style="padding: 10px;"><?php echo $rows->product_code; ?></td>
+                    <td style="padding: 10px;"><?php echo $rows->serial_number; ?></td>
+                    <td style="padding: 10px;"><?php echo $rows->supplier; ?></td>
 
-                                    <td><?php echo $rows->renewal ?></td>
-                                    <td><?php echo $rows->name ?></td>
-                                    <td><?php echo $rows->price ?></td>
-                                    <td><?php echo $rows->supplier ?></td>
-                                    <td><?php echo $rows->product_code ?></td>
-                                    <td><?php echo $rows->serial_number ?></td>
-                                    <td><?php echo $rows->stock_level ?></td>
-                                    <td><?php echo $rows->tax ?></td>
-                                    <td><?php echo $rows->cost ?></td>
-                                    <td><?php echo $rows->comment ?></td>
-                                    <td><?php echo $rows->appointment_booked ?></td>
-                                    <!-- <td><?php //echo $rows->status ?></td> -->
-                                    <!-- <td></td> -->
-                                    <td class="text-center"><?php $start_dateAvailability = date('Y-m-d', strtotime($rows->create_on));
-                                    echo $start_dateAvailability; ?></td>
-                                    
-                                    <td class="actions text-center">
-                                        <div class="btn-group btn-group-xs">
-                                            <!-- <a href="<?php echo base_url() . 'products/edit?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-pencil"></i></a> -->
-                                                    <?php if($rows->status == 1){ ?>
+                    
+                    <td style="padding: 10px;">
+                        <?php if ($rows->stock_level > 0) { ?>
+                            <span style="color: green;"><?php echo $rows->stock_level; ?></span>
+                        <?php } else { ?>
+                            <span style="color: red;"><?php echo $rows->stock_level; ?></span>
+                        <?php } ?>
+                    </td>
 
-                                                    
-                                                    <a href="javascript:void(0)" data-toggle="tooltip" class="btn btn-xs btn-danger" onclick="changeVendorStatus('<?php echo encoding($rows->id); ?>', 'No','<?php echo $rows->first_name . ' ' . $rows->last_name; ?>')" title="Active Now"><i class="fa fa-times"></i> Inactive</a>
-                                        <?php   }else {?>
+                    <td style="padding: 10px;"><?php echo $rows->tax; ?></td>
+                    <td style="padding: 10px;"><?php echo $rows->cost; ?></td>
+                    <td style="padding: 10px;"><?php echo $rows->comment; ?></td>
+                    <td style="padding: 10px;"><?php echo $rows->appointment_booked; ?></td>
 
-                                            <a href="javascript:void(0)" data-toggle="tooltip" class="btn btn-xs btn-success" onclick="changeVendorStatus('<?php echo encoding($rows->id); ?>', 'Yes','<?php echo $rows->first_name . ' ' . $rows->last_name; ?>')" title="Inactive"><i class="fa fa-times"></i> Active</a>
-                                            <?php   }?>
-                                            </div>
-                                        </td>
+                    <td style="padding: 10px;"><?php echo date('Y-m-d', strtotime($rows->create_on)); ?></td>
+
+                    <!-- Action Buttons -->
+                    <td style="padding: 10px; display: flex; justify-content: center; gap: 10px; align-items: center;">
+    <!-- Edit Button -->
+    <a href="<?php echo base_url() . 'products/edit?id=' . encoding($rows->id); ?>"
+       style="display: inline-flex; align-items: center; padding: 5px 15px; background-color: #007bff; color: #fff; border-radius: 5px; text-decoration: none; cursor: pointer; gap: 5px;">
+        <i class="fa fa-pencil" style="font-size: 1.2rem;"></i> <span>Edit</span>
+    </a>
+
+    <!-- Status Button -->
+    <?php if ($rows->status == 1) { ?>
+        <!-- Inactive Button -->
+        <a href="javascript:void(0);" onclick="changeVendorStatus('<?php echo encoding($rows->id); ?>', 'No', '<?php echo $rows->first_name . ' ' . $rows->last_name; ?>')"
+           style="display: inline-flex; align-items: center; padding: 5px 15px; background-color: #dc3545; color: #fff; border-radius: 5px; text-decoration: none; cursor: pointer; gap: 5px;">
+            <i class="fa fa-times" style="font-size: 1.2rem;"></i> <span>Inactive</span>
+        </a>
+    <?php } else { ?>
+        <!-- Active Button -->
+        <a href="javascript:void(0);" onclick="changeVendorStatus('<?php echo encoding($rows->id); ?>', 'Yes', '<?php echo $rows->first_name . ' ' . $rows->last_name; ?>')"
+           style="display: inline-flex; align-items: center; padding: 5px 15px; background-color: #28a745; color: #fff; border-radius: 5px; text-decoration: none; cursor: pointer; gap: 5px;">
+            <i class="fa fa-check" style="font-size: 1.2rem;"></i> <span>Active</span>
+        </a>
+    <?php } ?>
+</td>
                                     </tr>
                                    
                                     <?php }; ?>
@@ -194,15 +191,10 @@
                         </ul>
 
                         <div class="table-responsive">
-    <table id="common_datatable_users" class="table table-striped table-bordered text-center align-middle">
-        <thead class="table-light">
+        <table id="common_datatable_users" class="table table-striped table-bordered text-center align-middle">
+            <thead class="table-light">
             <tr>
                 <th style="background-color:#DBEAFF; font-size:1.2rem; width: 40px;">Sr. No</th>
-
-                <?php if ($this->ion_auth->is_admin()) { ?>
-                    <th style="background-color:#DBEAFF; font-size:1.2rem; width: 150px;">Facility Manager Name</th>
-                <?php } ?>
-
                 <th style="background-color:#DBEAFF; font-size:1.2rem; width: 150px;">Type</th>
                 <th style="background-color:#DBEAFF; font-size:1.2rem; width: 200px;">Renewal</th>
                 <th style="background-color:#DBEAFF; font-size:1.2rem; width: 200px;">Name</th>
