@@ -295,7 +295,7 @@
 
 
 
-<div class="container mt-5">
+<div class="containers mt-5">
         
 <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url($formUrlData) ?>" enctype="multipart/form-data">
         <!-- <form class="form-horizontal" role="form" id="" method="post" action="<?php echo base_url();?>LettersAndForm/addBookingForm"> -->

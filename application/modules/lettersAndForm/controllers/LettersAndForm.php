@@ -93,39 +93,38 @@ class LettersAndForm extends Common_Controller {
         $this->data['title'] = "Add " . $this->title;
         $this->data['formUrl'] = $this->router->fetch_class() . "/add";
         $this->data['patient_id'] = $this->input->post('id');
-        $this->data['initial_dx'] = $this->common_model->customGet(array('table' => 'initial_dx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
-        $this->data['culture_source'] = $this->common_model->customGet(array('table' => 'culture_source', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
-        $this->data['organism'] = $this->common_model->customGet(array('table' => 'organism', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
-        $this->data['precautions'] = $this->common_model->customGet(array('table' => 'precautions', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
-        $this->data['initial_rx'] = $this->common_model->customGet(array('table' => 'initial_rx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
-        
-        $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 
-        if ($this->ion_auth->is_facilityManager()) {
-            $user_id = $this->session->userdata('user_id');
-        $hospital_id = $user_id;
+         if ($this->ion_auth->is_facilityManager()) {
+                    $user_id = $this->session->userdata('user_id');
+                $hospital_id = $user_id;
         
-        } else if($this->ion_auth->is_all_roleslogin()) {
-            $user_id = $this->session->userdata('user_id');
-            $optionData = array(
-                'table' => USERS . ' as user',
-                'select' => 'user.*,group.name as group_name',
-                'join' => array(
-                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
-                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
-                ),
-                'order' => array('user.id' => 'DESC'),
-                'where' => array('user.id'=>$user_id),
-                'single'=>true,
-            );
-        
-            $authUser = $this->common_model->customGet($optionData);
-        
-            $hospital_id = $authUser->hospital_id;
-            // 'users.hospital_id'=>$hospital_id
+                } else if($this->ion_auth->is_all_roleslogin()) {
+                    $user_id = $this->session->userdata('user_id');
+                    $optionData = array(
+                        'table' => USERS . ' as user',
+                        'select' => 'user.*,group.name as group_name',
+                        'join' => array(
+                            array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                            array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                        ),
+                        'order' => array('user.id' => 'DESC'),
+                        'where' => array('user.id'=>$user_id),
+                        'single'=>true,
+                    );
             
-        }
-
+                    $authUser = $this->common_model->customGet($optionData);
+        
+                    $hospital_id = $authUser->hospital_id;
+                    // 'users.hospital_id'=>$hospital_id
+                    
+                }
+        
+                $this->data['initial_dx'] = $this->common_model->customGet(array('table' => 'initial_dx', 'select' => 'id,name', 'where' => array('hospital_id'=>$hospital_id,'is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
+                $this->data['culture_source'] = $this->common_model->customGet(array('table' => 'culture_source', 'select' => 'id,name', 'where' => array('hospital_id'=>$hospital_id,'is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
+                $this->data['organism'] = $this->common_model->customGet(array('table' => 'organism', 'select' => 'id,name', 'where' => array('hospital_id'=>$hospital_id,'is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
+                $this->data['precautions'] = $this->common_model->customGet(array('table' => 'precautions', 'select' => 'id,name', 'where' => array('hospital_id'=>$hospital_id,'is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
+                $this->data['initial_rx'] = $this->common_model->customGet(array('table' => 'initial_rx', 'select' => 'id,name', 'where' => array('hospital_id'=>$hospital_id,'is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));    
+        
    
         
         $option = array(
@@ -202,18 +201,10 @@ class LettersAndForm extends Common_Controller {
         $this->data['title'] = "Add " . $this->title;
         $this->data['formUrlData'] = $this->router->fetch_class() . "/add";
         $this->data['patient_id'] = $this->input->post('id');
-        $this->data['initial_dx'] = $this->common_model->customGet(array('table' => 'initial_dx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
-        $this->data['culture_source'] = $this->common_model->customGet(array('table' => 'culture_source', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
-        $this->data['organism'] = $this->common_model->customGet(array('table' => 'organism', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
-        $this->data['precautions'] = $this->common_model->customGet(array('table' => 'precautions', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
-        $this->data['initial_rx'] = $this->common_model->customGet(array('table' => 'initial_rx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
-         
-        $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
-
         if ($this->ion_auth->is_facilityManager()) {
             $user_id = $this->session->userdata('user_id');
         $hospital_id = $user_id;
-        
+
         } else if($this->ion_auth->is_all_roleslogin()) {
             $user_id = $this->session->userdata('user_id');
             $optionData = array(
@@ -227,13 +218,20 @@ class LettersAndForm extends Common_Controller {
                 'where' => array('user.id'=>$user_id),
                 'single'=>true,
             );
-        
+    
             $authUser = $this->common_model->customGet($optionData);
-        
+
             $hospital_id = $authUser->hospital_id;
             // 'users.hospital_id'=>$hospital_id
             
         }
+
+        $this->data['initial_dx'] = $this->common_model->customGet(array('table' => 'initial_dx', 'select' => 'id,name', 'where' => array('hospital_id'=>$hospital_id,'is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
+        $this->data['culture_source'] = $this->common_model->customGet(array('table' => 'culture_source', 'select' => 'id,name', 'where' => array('hospital_id'=>$hospital_id,'is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
+        $this->data['organism'] = $this->common_model->customGet(array('table' => 'organism', 'select' => 'id,name', 'where' => array('hospital_id'=>$hospital_id,'is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
+        $this->data['precautions'] = $this->common_model->customGet(array('table' => 'precautions', 'select' => 'id,name', 'where' => array('hospital_id'=>$hospital_id,'is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
+        $this->data['initial_rx'] = $this->common_model->customGet(array('table' => 'initial_rx', 'select' => 'id,name', 'where' => array('hospital_id'=>$hospital_id,'is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));    
+
             if($this->ion_auth->is_all_roleslogin()){
 
                 $option = array(

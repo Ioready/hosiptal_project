@@ -322,7 +322,7 @@
                                 <div></div>
                             </div>
 
-                            <div class="menu" id="menuDropdown<?php echo $folder->id;?>">
+                            <div class="menu" id="menuDropdown<?php echo $folder->id;?>" style="margin-left: -100%;">
                                 <div>
                                     <ul>
                                         <!-- <li>
@@ -377,37 +377,47 @@
     <!-- Forms list -->
     <div class="row nav-tab-appointment tab-pane-second-list" id="forms_id" style="display: none;">
     <span class="" >
-        <?php foreach($form_list as $folder){ ?>
+        <?php foreach($form_list as $form_folder){ ?>
         
             <div class="col-sm-12 col-md-12" style="padding: 15px; border-block-end-style: inset;">
-                <input type="hidden" name="folder_id" id="folder_id" value="<?php echo $folder->id;?>">
-                <span><b><?php if(!empty($folder->title)){echo $folder->title;}else{ echo 'Imaging request form';} ?></b></span><br>
-                <span>Created <?php echo date_format(date_create($folder->create_date), 'd/m/Y'); ?> | <strong><?php echo $folder->first_name . ' ' . $folder->last_name; ?></strong></span>
+                <input type="hidden" name="folder_id" id="folder_id" value="<?php echo $form_folder->id;?>">
+                <span><b><?php if(!empty($form_folder->title)){echo $form_folder->title;}else{ echo 'Imaging request form';} ?></b></span><br>
+                <span>Created <?php echo date_format(date_create($form_folder->create_date), 'd/m/Y'); ?> | <strong><?php echo $form_folder->first_name . ' ' . $form_folder->last_name; ?></strong></span>
                 <!-- <span style="float:right;">...</span> -->
 
                 <!-- <span id="dropdownMenuButton" class="dropdown-toggle" style="cursor: pointer; float:right;">...</span> -->
     
 
-                            <div class="dots" id="dotsMenu<?php echo $folder->id;?>" style="cursor: pointer; float:right;">
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                            </div>
 
-                            <div class="menu" id="menuDropdown<?php echo $folder->id;?>" style="margin-left: 930px;">
-                                <div >
-                                    <ul>
-                                        
-                                    <li> <a href="<?php echo base_url().'index.php/lettersAndForm/editBookingForm?id=' . encoding($patient_id) . '&form_id=' . encoding($folder->id); ?>" class="link">Edit</a></li>
+                            <div class="dots" id="dotsMenuForm<?php echo $form_folder->id;?>" 
+     style="cursor: pointer; float:right;" 
+     onclick="toggleDropdown(<?php echo $form_folder->id; ?>)">
+    <div></div>
+    <div></div>
+    <div></div>
+</div>
 
-                                        <li>
-                                        <a href="<?php echo base_url().'index.php/lettersAndForm/deleteBookingForm?id=' . encoding($patient_id) . '&form_id=' . encoding($folder->id); ?>" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+<div class="menu menu_form_letter" id="menuDropdownForm<?php echo $form_folder->id;?>" style="display: none;margin-left: 86%;">
+    <ul>
+        <li>
+            <a href="<?php echo base_url().'index.php/lettersAndForm/editBookingForm?id=' . encoding($patient_id) . '&form_id=' . encoding($form_folder->id); ?>" class="link">Edit</a>
+        </li>
+        <li>
+            <a href="<?php echo base_url().'index.php/lettersAndForm/deleteBookingForm?id=' . encoding($patient_id) . '&form_id=' . encoding($form_folder->id); ?>" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+        </li>
+    </ul>
+</div>
 
-                                        </li>
-                                        
-                                    </ul>
-                                </div>
-                            </div>
+<script>
+function toggleDropdown(id) {
+    const dropdown = document.getElementById(`menuDropdownForm${id}`);
+    if (dropdown.style.display === "none" || dropdown.style.display === "") {
+        dropdown.style.display = "block"; // Show dropdown
+    } else {
+        dropdown.style.display = "none"; // Hide dropdown
+    }
+}
+</script>
 
             </div>
 
@@ -484,7 +494,7 @@
                                 <div></div>
                             </div>
 
-                            <div class="menu" id="menuDropdown<?php echo $folder->id;?>">
+                            <div class="menu" id="menuDropdown<?php echo $folder->id;?>" style="margin-left: -100%;">
                                 <div>
                                     <ul>
                                         <!-- <li>
@@ -539,37 +549,74 @@
     <!-- Forms list -->
     <div class="row nav-tab-appointment tab-pane-second-list" id="forms_id" style="display: none;">
     <span class="" >
-        <?php foreach($form_list as $folder){ ?>
+        <?php foreach($form_list as $form_folder){ ?>
         
             <div class="col-sm-12 col-md-12" style="padding: 15px; border-block-end-style: inset;">
-                <input type="hidden" name="folder_id" id="folder_id" value="<?php echo $folder->id;?>">
-                <span><b><?php if(!empty($folder->title)){echo $folder->title;}else{ echo 'Imaging request form';} ?></b></span><br>
-                <span>Created <?php echo date_format(date_create($folder->create_date), 'd/m/Y'); ?> | <strong><?php echo $folder->first_name . ' ' . $folder->last_name; ?></strong></span>
+                <input type="hidden" name="folder_id" id="folder_id" value="<?php echo $form_folder->id;?>">
+                <a href="<?php echo base_url().'index.php/lettersAndForm/editBookingForm?id=' . encoding($patient_id) . '&form_id=' . encoding($form_folder->id); ?>" class="link">
+                <div style="color:black;">
+                <span><b><?php if(!empty($form_folder->title)){echo $form_folder->title;}else{ echo 'Imaging request form';} ?></b></span><br>
+                <span>Created <?php echo date_format(date_create($form_folder->create_date), 'd/m/Y'); ?> | <strong><?php echo $form_folder->first_name . ' ' . $form_folder->last_name; ?></strong></span>
+        </div>
+            </a>
                 <!-- <span style="float:right;">...</span> -->
 
                 <!-- <span id="dropdownMenuButton" class="dropdown-toggle" style="cursor: pointer; float:right;">...</span> -->
     
 
-                            <div class="dots" id="dotsMenu<?php echo $folder->id;?>" style="cursor: pointer; float:right;">
+                            <!-- <div class="dots" id="dotsMenuForm<?php echo $form_folder->id;?>" style="cursor: pointer; float:right;">
                                 <div></div>
                                 <div></div>
                                 <div></div>
-                            </div>
+                            </div> -->
 
-                            <div class="menu" id="menuDropdown<?php echo $folder->id;?>" style="margin-left: 930px;">
-                                <!-- <div > -->
+                            <!-- <div class="menu menu_form_letter" id="menuDropdownForm<?php echo $form_folder->id;?>">
+                               
                                     <ul>
                                         
-                                    <li> <a href="<?php echo base_url().'index.php/lettersAndForm/editBookingForm?id=' . encoding($patient_id) . '&form_id=' . encoding($folder->id); ?>" class="link">Edit</a></li>
+                                    <li> <a href="<?php echo base_url().'index.php/lettersAndForm/editBookingForm?id=' . encoding($patient_id) . '&form_id=' . encoding($form_folder->id); ?>" class="link">Edit</a></li>
 
                                         <li>
-                                        <a href="<?php echo base_url().'index.php/lettersAndForm/deleteBookingForm?id=' . encoding($patient_id) . '&form_id=' . encoding($folder->id); ?>" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+                                        <a href="<?php echo base_url().'index.php/lettersAndForm/deleteBookingForm?id=' . encoding($patient_id) . '&form_id=' . encoding($form_folder->id); ?>" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
 
                                         </li>
                                         
                                     </ul>
-                                <!-- </div> -->
-                            </div>
+                               
+                            </div> -->
+
+                            <div class="dots" id="dotsMenuForm<?php echo $form_folder->id;?>" 
+     style="cursor: pointer; float:right;" 
+     onclick="toggleDropdown(<?php echo $form_folder->id; ?>)">
+    <div></div>
+    <div></div>
+    <div></div>
+</div>
+
+<div class="menu menu_form_letter" id="menuDropdownForm<?php echo $form_folder->id;?>" style="display: none;margin-left: 86%;">
+    <ul>
+        <li>
+            <a href="<?php echo base_url().'index.php/lettersAndForm/editBookingForm?id=' . encoding($patient_id) . '&form_id=' . encoding($form_folder->id); ?>" class="link">Edit</a>
+        </li>
+        <li>
+            <a href="<?php echo base_url().'index.php/lettersAndForm/deleteBookingForm?id=' . encoding($patient_id) . '&form_id=' . encoding($form_folder->id); ?>" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+        </li>
+    </ul>
+</div>
+
+<script>
+function toggleDropdown(id) {
+    const dropdown = document.getElementById(`menuDropdownForm${id}`);
+    if (dropdown.style.display === "none" || dropdown.style.display === "") {
+        dropdown.style.display = "block"; // Show dropdown
+    } else {
+        dropdown.style.display = "none"; // Hide dropdown
+    }
+}
+</script>
+
+
+
 
             </div>
 
@@ -884,7 +931,7 @@ function showForms() {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     min-width: 160px;
     z-index: 1;
-    margin-left: 68px;
+    margin-left: -178px;
   }
 
   .custom-select-box ul {
@@ -1186,6 +1233,44 @@ $(document).on('click', '.toggle-title', function() {
     // Close menu when clicking outside
     document.addEventListener("click", function(event) {
         document.querySelectorAll('.menu').forEach(function(menu) {
+            menu.style.display = 'none';
+        });
+    });
+});
+
+</script>
+
+
+
+<script>
+   document.addEventListener("DOMContentLoaded", function() {
+    var dotsMenus = document.querySelectorAll('[id^="dotsMenuForm"]');
+
+    dotsMenus.forEach(function(dotsMenu) {
+        dotsMenu.addEventListener("click", function(event) {
+            event.stopPropagation();
+            var id = this.id.replace('dotsMenuForm', '');
+            var menu = document.getElementById('menuDropdownForm' + id);
+
+            // Close all other menus
+            document.querySelectorAll('.menu_form_letter').forEach(function(otherMenu) {
+                if (otherMenu !== menu) {
+                    otherMenu.style.display = 'none';
+                }
+            });
+
+            // Toggle the current menu
+            if (menu.style.display === "block") {
+                menu.style.display = "none";
+            } else {
+                menu.style.display = "block";
+            }
+        });
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener("click", function(event) {
+        document.querySelectorAll('.menu_form_letter').forEach(function(menu) {
             menu.style.display = 'none';
         });
     });
