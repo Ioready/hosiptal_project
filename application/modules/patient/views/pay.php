@@ -182,7 +182,7 @@
                  <form class="form-horizontal" role="form" id="addFormAjaxData" method="post" action="<?php echo site_url('/patient/process'); ?>" enctype="multipart/form-data">
                
             <div class="modal-header text-center">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <button type="button" class="close" data-dismiss="modal" onclick="reloadPageReceipt()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h2 class="modal-title"><?php echo "Add Payment on account" ?></h2>
                     <h4 style="margin-left: 233px;"><span><strong><?php echo $results->invoice_number;?></strong></span></h2>
                 </div>
@@ -479,7 +479,7 @@
 
                                                         <input type="hidden" name="total_cash_pay" id="total_cash_pay" value="<?php echo $results->total_amount; ?>">
 
-                    <button type="button" class="btn btn-sm btn-default" class="close" data-dismiss="modal" >Close</button>
+                    <button type="button" class="btn btn-sm btn-default" class="close" data-dismiss="modal" onclick="reloadPageReceipt()">Close</button>
                     
                     <button type="submit" id="submit" class="btn btn-sm btn-primary m-2"  style="background: #337ab7" value="Pay £ <?php echo $results->total_amount; ?>" >Pay $ <?php echo $results->total_amount; ?></button>
                    
@@ -518,7 +518,7 @@
                                                                 
                                                                 <input type="hidden" name="total_cash_pay" id="total_cash_pay" value="<?php echo $results->total_amount; ?>">
 
-                    <button type="button" class="btn btn-sm btn-default" class="close" data-dismiss="modal" >Close</button>
+                    <button type="button" class="btn btn-sm btn-default" class="close" data-dismiss="modal" onclick="reloadPageReceipt()">Close</button>
                     
                     <button type="submit" id="submit" class="btn btn-sm btn-primary m-2"  style="background: #337ab7" value="Pay £ <?php echo $results->total_amount; ?>" >Pay $ <?php echo $results->total_amount; ?></button>
                    
@@ -540,7 +540,7 @@
                                                        
                                                             <input type="hidden" name="total_cash_pay" id="total_cash_pay" value="<?php echo $results->total_amount; ?>">
 
-                    <button type="button" class="btn btn-sm btn-default" class="close" data-dismiss="modal" >Close</button>
+                    <button type="button" class="btn btn-sm btn-default" class="close" data-dismiss="modal" onclick="reloadPageReceipt()">Close</button>
                     
                     <button type="submit" id="submit" class="btn btn-sm btn-primary m-2"  style="background: #337ab7" value="Pay £ <?php echo $results->total_amount; ?>" >Pay $ <?php echo $results->total_amount; ?></button>
                    

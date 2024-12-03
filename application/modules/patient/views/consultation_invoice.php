@@ -519,3 +519,13 @@ function education_fields() {
 	   $('.removeclass'+rid).remove();
    }
 </script>
+<script>
+        function reloadPage() {
+            // if (confirm("Are you sure you want to reload the page?")) {
+                location.reload(); // Reloads the page
+            // }
+        }
+        function reloadPageReceipt(){
+            location.reload();
+        }
+    </script>

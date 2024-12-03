@@ -6,25 +6,25 @@
     }
 </style>
 <style>
-        * {
+        /* * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
+        } */
 
         body {
             font-family: Arial, sans-serif;
             background-color: #f5f5f5;
-            padding: 20px;
+            /* padding: 20px; */
         }
 
         .container {
-            max-width: 1000px;
+            /* max-width: 1000px; */
             margin: auto;
             background-color: white;
             border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
+            /* padding: 20px; */
         }
 
         .patient-info {
@@ -179,7 +179,7 @@
         <div class="modal-content">
             <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url($formUrl) ?>" enctype="multipart/form-data">
                 <div class="modal-header text-center">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <button type="button" class="close" data-dismiss="modal" onclick="reloadPageReceipt()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h2 class="modal-title"> <?php echo "Edit invoice" ?></h2>
                 </div>
                 <div class="modal-body">
@@ -383,7 +383,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" onclick="reloadPageReceipt()">Close</button>
                     
                     <button type="submit" id="submit" class="btn btn-sm btn-primary m-2"  style="background: #337ab7">Save invoice</button>
                 </div>

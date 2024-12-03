@@ -73,7 +73,7 @@
         <div class="modal-content">
                
             <div class="modal-header ">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <button type="button" class="close" data-dismiss="modal" onclick="reloadPageReceipt()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h5 style="text-align:center; margin-left: auto;"><strong><?php echo "Patient invoice details" ?></strong></h5>
                     <button onclick="generatePDF()" class="btn btn-outline-success" style="margin-left: 60%;"> <i class="fa fa-download"></i> Download</button>
 

@@ -15,16 +15,16 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #f5f5f5;
-            padding: 20px;
+            /* padding: 20px; */
         }
 
         .container {
-            max-width: 1000px;
+            /* max-width: 1000px; */
             margin: auto;
             background-color: white;
             border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
+            /* padding: 20px; */
         }
 
         .patient-info {
@@ -178,10 +178,19 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url($formUrlInvoice) ?>" enctype="multipart/form-data">
-                <div class="modal-header text-center">
+                <!-- <div class="modal-header text-center">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h2 class="modal-title"><i class="fa fa-pencil"></i> <?php echo "Add invoice" ?></h2>
+                </div> -->
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; background-color: #f8f9fa; border-bottom: 1px solid #dee2e6;">
+                    <button type="button" class="btn btn-sm btn-default" style="background: none; border: none; font-size: 24px; cursor: pointer; color: #333;" data-dismiss="modal"><span aria-hidden="true">&times;</span><span style="font-size: 14px; margin-left: 5px;"> Close</span></button>
+                    
+                    <!-- Modal Title -->
+                    <h2 style="font-size: 20px; font-weight: bold; color: #007bff; margin: 0;">
+                        <i class="fa fa-pencil" style="margin-right: 10px;"></i> <?php echo "Add invoice"; ?>
+                    </h2>
                 </div>
+
                 <div class="modal-body">
                     <!-- <div class="loaders">
                         <img src="<?php echo base_url() . 'backend_asset/images/Preloader_2.gif'; ?>" class="loaders-img" class="img-responsive">
