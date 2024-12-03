@@ -515,42 +515,42 @@ class Common_model extends MY_Model {
             
         }
 
-        if($this->ion_auth->is_all_roleslogin()){
+        // if($this->ion_auth->is_all_roleslogin()){
     
-            $option = array(
-                'table' => ' doctors',
-                'select' => 'doctors.*',
-                'join' => array(
-                    array('users', 'doctors.user_id=users.id', 'left'),
-                ),
-                'where' => array(
-                    'users.delete_status' => 0,
-                    'doctors.user_id'=>$CareUnitID
-                ),
-                'single' => true,
-            );
+        //     $option = array(
+        //         'table' => ' doctors',
+        //         'select' => 'doctors.*',
+        //         'join' => array(
+        //             array('users', 'doctors.user_id=users.id', 'left'),
+        //         ),
+        //         'where' => array(
+        //             'users.delete_status' => 0,
+        //             'doctors.user_id'=>$CareUnitID
+        //         ),
+        //         'single' => true,
+        //     );
     
-            $datadoctors = $this->common_model->customGet($option);
-            // print_r($datadoctors->facility_user_id);die;
+        //     $datadoctors = $this->common_model->customGet($option);
+        //     // print_r($datadoctors->facility_user_id);die;
            
-            // $this->db->like('patient_id', $query);
+        //     // $this->db->like('patient_id', $query);
 
-            $this->db->select('vendor_sale_patient.*, vendor_sale_users.first_name, vendor_sale_users.last_name');
-            $this->db->from('vendor_sale_patient');
-            $this->db->like('vendor_sale_patient.patient_id', $query);
-            $this->db->like('vendor_sale_patient.name', $query);
-            $this->db->where('vendor_sale_patient.operator_id', $hospital_id);
-            // $this->db->where('vendor_sale_users.hospital_id',$hospital_id);
+        //     $this->db->select('vendor_sale_patient.*, vendor_sale_users.first_name, vendor_sale_users.last_name');
+        //     $this->db->from('vendor_sale_patient');
+        //     $this->db->like('vendor_sale_patient.patient_id', $query);
+        //     $this->db->like('vendor_sale_patient.name', $query);
+        //     $this->db->where('vendor_sale_patient.operator_id', $hospital_id);
+        //     // $this->db->where('vendor_sale_users.hospital_id',$hospital_id);
 
-            // Adding relation (LEFT JOIN) with vendor_sale_users based on a column like operator_id
-            $this->db->join('vendor_sale_users', 'vendor_sale_patient.operator_id = vendor_sale_users.id', 'inner');
+        //     // Adding relation (LEFT JOIN) with vendor_sale_users based on a column like operator_id
+        //     $this->db->join('vendor_sale_users', 'vendor_sale_patient.operator_id = vendor_sale_users.id', 'inner');
 
-            // Run the query
-            $query = $this->db->get();
-            $data = $query->result();
+        //     // Run the query
+        //     $query = $this->db->get();
+        //     $data = $query->result();
 
-        // print_r($query);die;
-        } else if ($this->ion_auth->is_facilityManager()) {
+        // // print_r($query);die;
+        // } else if ($this->ion_auth->is_facilityManager()) {
             
            
             // $this->db->like('patient_id', $query);
@@ -561,7 +561,7 @@ class Common_model extends MY_Model {
 
             $this->db->select('vendor_sale_patient.*, vendor_sale_users.first_name, vendor_sale_users.last_name');
             $this->db->from('vendor_sale_patient');
-            $this->db->like('vendor_sale_patient.patient_id', $query);
+            // $this->db->like('vendor_sale_patient.patient_id', $query);
             $this->db->like('vendor_sale_patient.name', $query);
             $this->db->where('vendor_sale_patient.operator_id', $hospital_id);
             // $this->db->where('vendor_sale_users.hospital_id',$hospital_id);
@@ -573,7 +573,7 @@ class Common_model extends MY_Model {
             $query = $this->db->get();
             $data = $query->result();
 
-        }
+        // }
 
 
 
