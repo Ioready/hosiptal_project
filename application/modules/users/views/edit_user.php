@@ -1,17 +1,39 @@
-<div id="commonModalUser" class="modal fade bd-example-modal-lg" role="dialog">
-    <div class="modal-dialog modal-lg">
+<style>
+    .modal-footer .btn + .btn {
+        margin-bottom: 5px !important;
+        margin-left: 5px;
+    }
+    
+ 
+
+</style>
+
+<div id="commonModalUser" class="modal fade bd-example-modal-lg center" role="dialog">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+    
         <div class="modal-content">
            
             <form class="form-horizontal" role="form" id="editFormAjaxUser" method="post" action="<?php echo base_url('users/updateUserData') ?>" enctype="multipart/form-data">
 
-                <div class="modal-header text-center">
+                <!-- <div class="modal-header text-center">
                     <h2 class="modal-title"><i class="fa fa-pencil"></i> <?php echo (isset($title)) ? ucwords($title) : "" ?></h2>
-                </div>
+                </div> -->
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; background-color: #f8f9fa; border-bottom: 1px solid #dee2e6;">
+                                    <button type="button" class="btn btn-sm btn-default" style="background: none; border: none; font-size: 24px; cursor: pointer; color: #333;" data-bs-dismiss="modal"><span aria-hidden="true">&times;</span><span style="font-size: 14px; margin-left: 5px;"> Close</span></button>
+                                    
+                                    
+                                    <h2 style="font-size: 20px; font-weight: bold; color: #007bff; margin: 0;">
+                                        <i class="fa fa-pencil" style="margin-right: 10px;"></i> <?php echo "Edit User"; ?>
+                                    </h2>
+                                </div>
 
                 <div class="modal-body">
-                   
+
+
+                
                     <div class="alert alert-danger" id="error-box" style="display: none"></div>
                     <div class="form-body">
+                    
                         <div class="row">
                                  <div class="col-md-12" >
                                 <div class="form-group">

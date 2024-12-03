@@ -90,9 +90,7 @@
                             <tr>
                                 <th style="background-color:#DBEAFF;font-size:1.3rem;width: 40px;" class="text-center" >Sr. No</th>
                                 <!--                                <th><?php echo "Referral Code"; ?></th>-->
-                                <?php if($this->ion_auth->is_admin()){ ?>
-                                <th style="background-color:#DBEAFF;font-size:1.3rem;width: 150px;" class="text-center" ><?php echo "Facility Manager Name"; ?></th>
-                                <?php } ?>
+                                
 
                                 <?php //if($this->ion_auth->is_subAdmin()){ ?>
                                 <th style="background-color:#DBEAFF;font-size:1.3rem;width: 150px;" class="text-center"><?php echo "Type"; ?></th>

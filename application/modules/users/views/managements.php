@@ -123,10 +123,10 @@
   <div class="heading-div">
 <ul class="breadcrumb breadcrumb-top" style="background: white;padding-left: 20px; height: 42px;">
     <li style="display: inline-block; ">
-        <a href="<?php echo site_url('pwfpanel');?>" style="text-decoration: none; color:black;">Home</a>
+        <a href="<?php echo site_url('pwfpanel');?>" style="text-decoration: none; color:black;font-size: small;">Home</a>
     </li>
     <li style="display: inline-block;">
-        <a href="<?php echo site_url('users');?>" style="text-decoration: none; color:black;font-weight:bold;">Users</a>
+        <a href="<?php echo site_url('users');?>" style="text-decoration: none; color:black;font-weight:bold;font-size: small;">Users</a>
     </li>
 </ul>
 </div>
@@ -804,12 +804,29 @@
                     <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true"><br><br>
                         <div class="modal-dialog modal-lg">
                             <div class="modal-content">
-                                <div class="modal-header">
+                                
+                                <!-- <div class="modal-header">
                                     <h2 class="modal-title" id="addUserModalLabel"><strong> Add User</strong></h2>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div> -->
+                                <!-- <br>
+                                <br><br><br><br><br><br> -->
+
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; background-color: #f8f9fa; border-bottom: 1px solid #dee2e6;">
+                                    <button type="button" class="btn btn-sm btn-default" style="background: none; border: none; font-size: 24px; cursor: pointer; color: #333;" data-bs-dismiss="modal"><span aria-hidden="true">&times;</span><span style="font-size: 14px; margin-left: 5px;"> Close</span></button>
+                                    
+                                    
+                                    <h2 style="font-size: 20px; font-weight: bold; color: #007bff; margin: 0;">
+                                        <i class="fa fa-pencil" style="margin-right: 10px;"></i> <?php echo "Add User"; ?>
+                                    </h2>
                                 </div>
-                                <br>
-                                <br><br><br><br><br><br>
+
+                                <!-- <button type="button" class="btn btn-sm btn-default" style="background: none; border: none; font-size: 24px; cursor: pointer; color: #333;" data-bs-dismiss="modal">
+                                    <span aria-hidden="true">&times;</span>
+                                    <span style="font-size: 14px; margin-left: 5px;"> Close</span>
+                                </button> -->
+
+
                                 <div class="modal-body">
                             
 
@@ -970,14 +987,21 @@
             
         </div>
 
-        
+        <div id="form-modal-box"></div>
+
+<div id="form-modal-box-user"></div>
 
     <!-- END Datatables Content -->
     </div>
 <!-- END Page Content -->
-<div id="form-modal-box"></div>
 
-<div id="form-modal-box-user"></div>
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+
+<!-- Bootstrap JS -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> -->
+
 
 <style>
     .images_box_upload_ven_adduser_vendores{
@@ -1003,7 +1027,13 @@
     background-repeat: no-repeat;
     margin: 0 auto;
 }
-
+td{
+    font-size: medium;
+}
+.nav-tabs > li {
+    margin-bottom: 0;
+    font-size: small;
+}
 </style>
 
 

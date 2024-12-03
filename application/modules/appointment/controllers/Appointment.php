@@ -1190,10 +1190,10 @@ $option = array(
         
         $this->db->like('patient_id', $paramValue);
         $this->db->limit(1); 
-$results = $this->db->get('vendor_sale_patient')->result_array();
+        $results = $this->db->get('vendor_sale_patient')->result_array();
 
-$this->data['results'] = $results;
-      $this->data['parent'] = $this->title;
+        $this->data['results'] = $results;
+        $this->data['parent'] = $this->title;
         $this->data['title'] = "Add " . $this->title;
         $this->data['formUrl'] = $this->router->fetch_class() . "/add";
         $this->data['model'] = $this->router->fetch_class();
@@ -1357,13 +1357,13 @@ $this->data['results'] = $results;
 
     $option = array(
         'table' => 'appointment_type',
-        'select' => '*', 'where' => array('delete_status' => 0), 'order' => array('name' => 'ASC')
+        'select' => '*', 'where' => array('user_id'=>$hospital_id,'delete_status' => 0), 'order' => array('name' => 'ASC')
     );
     $this->data['appointment_type'] = $this->common_model->customGet($option);
 
     $option = array(
         'table' => 'type_of_stay',
-        'select' => '*', 'where' => array('delete_status' => 0), 'order' => array('name' => 'ASC')
+        'select' => '*', 'where' => array('user_id'=>$hospital_id,'delete_status' => 0), 'order' => array('name' => 'ASC')
     );
     $this->data['type_of_stay'] = $this->common_model->customGet($option);
     
