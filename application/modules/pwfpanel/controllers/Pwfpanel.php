@@ -1006,7 +1006,7 @@ class Pwfpanel extends Common_Controller
 
 
                 $today = date('Y-m-d'); // Assuming you're getting the current date
-$hospital_id = (int)$hospital_id; // Assuming $hospital_id is an integer
+// $hospital_id = (int)$hospital_id; // Assuming $hospital_id is an integer
 
 $sql = "SELECT vendor_sale_clinic_appointment.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state, 
                pa.name as patient_name, cl.name as clinic_name, cl.clinic_location, pr.name as practitioner_name
@@ -1031,8 +1031,7 @@ $sql = "SELECT vendor_sale_clinic_appointment.*, U.first_name, U.last_name, UP.a
 $result = $this->db->query($sql, array("%$today%", "%$today%", "%$today%", "%$today%", $hospital_id));
 $totalAppointment = $result->result();
 
-// Assuming you have a customCount method in common_model for counting
-$data['total_appointment'] = $this->common_model->customCount($totalAppointment);
+// $data['total_appointment'] = $this->common_model->customCount($totalAppointment);
 
 
                 // $result = $this->db->query($sql);
@@ -1042,40 +1041,108 @@ $data['total_appointment'] = $this->common_model->customCount($totalAppointment)
                 // // print_r($option);die;
                 // $data['total_appointment'] = $this->common_model->customCount($totalAppointment);
                 
+
+                
+
+$user_id = $this->session->userdata('user_id');
+$sql = "SELECT vendor_sale_notifications.*, 
+    vendor_sale_notifications.id AS notification_ids, 
+    vendor_sale_users.first_name,vendor_sale_users.last_name, 
+    vendor_sale_users.email, 
+    vendor_sale_clinic_appointment.*, 
+    vendor_sale_clinic_appointment.theatre_date_time AS theatre_start_date_time,
+    vendor_sale_clinic_appointment.type AS appointment_type, 
+    vendor_sale_practitioner.name AS practitioner_name, CONCAT(userss.first_name, ' ', userss.last_name) AS doctor_name, CONCAT(userss_doctor.first_name, ' ', userss_doctor.last_name) AS doctor_full_name
+FROM vendor_sale_notifications
+LEFT JOIN vendor_sale_users ON vendor_sale_users.id = vendor_sale_notifications.patient_id 
+LEFT JOIN vendor_sale_clinic_appointment ON vendor_sale_clinic_appointment.id = vendor_sale_notifications.clinic_appointment_id 
+LEFT JOIN vendor_sale_practitioner ON vendor_sale_practitioner.id = vendor_sale_clinic_appointment.practitioner 
+LEFT JOIN vendor_sale_users AS userss ON userss.id = vendor_sale_clinic_appointment.theatre_clinician
+LEFT JOIN vendor_sale_users AS userss_doctor ON userss_doctor.id = vendor_sale_clinic_appointment.practitioner
+WHERE vendor_sale_users.hospital_id = $hospital_id ORDER BY vendor_sale_clinic_appointment.id DESC";
+$result = $this->db->query($sql);
+
+$datanotifications= $result->result();
+$this->data['total_appointment'] = count($datanotifications);
+
+// print_r($this->data['total_appointment']);die;
+
+    // $result = $this->db->query($sql);
+
+    // $totalAppointment = $result->result();
+
+    // // print_r($option);die;
+    // $data['total_appointment'] = $this->common_model->customCount($totalAppointment);
+    
+  
+
+$AppointmentcurrentDate = date('Y-m-d');
+$today = date('Y-m-d'); // Assuming you're getting the current date
+$hospital_id = (int)$hospital_id; // Assuming $hospital_id is an integer
+
+$sql = "SELECT vendor_sale_clinic_appointment.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state, 
+           pa.name as patient_name, cl.name as clinic_name, cl.clinic_location, pr.name as practitioner_name
+    FROM vendor_sale_clinic_appointment
+    LEFT JOIN vendor_sale_users as U ON vendor_sale_clinic_appointment.location_appointment = U.id
+    LEFT JOIN vendor_sale_patient as pa ON vendor_sale_clinic_appointment.patient = pa.user_id
+    LEFT JOIN vendor_sale_clinic as cl ON vendor_sale_clinic_appointment.location_appointment = cl.id
+    LEFT JOIN vendor_sale_user_profile as UP ON UP.user_id = U.id
+    LEFT JOIN vendor_sale_practitioner as pr ON vendor_sale_clinic_appointment.practitioner = pr.id
+    WHERE (
+        vendor_sale_clinic_appointment.start_date_appointment LIKE ? 
+        OR vendor_sale_clinic_appointment.theatre_date_time LIKE ? 
+        OR vendor_sale_clinic_appointment.out_start_time_at LIKE ? 
+        OR vendor_sale_clinic_appointment.start_date_availability LIKE ?
+    )
+    AND U.hospital_id = ?
+    ORDER BY vendor_sale_clinic_appointment.start_date_appointment DESC,
+             vendor_sale_clinic_appointment.theatre_date_time DESC,
+             vendor_sale_clinic_appointment.out_start_time_at DESC,
+             vendor_sale_clinic_appointment.start_date_availability DESC";
+
+$result = $this->db->query($sql, array("%$today%", "%$today%", "%$today%", "%$today%", $hospital_id));
+$totalAppointment = $result->result();
+
+// Assuming you have a customCount method in common_model for counting
+// $data['total_appointment'] = $this->common_model->customCount($totalAppointment);
+$data['total_appointment'] = count($datanotifications);
+
+
+    // $data['clinic_appointment'] = $result->result();
+    $data['clinic_appointment'] =$datanotifications;
+
+
               
 
-        $AppointmentcurrentDate = date('Y-m-d');
-        $today = date('Y-m-d'); // Assuming you're getting the current date
-        $hospital_id = (int)$hospital_id; // Assuming $hospital_id is an integer
+        // $AppointmentcurrentDate = date('Y-m-d');
+        // $today = date('Y-m-d'); 
+        // $hospital_id = (int)$hospital_id;
         
-        $sql = "SELECT vendor_sale_clinic_appointment.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state, 
-                       pa.name as patient_name, cl.name as clinic_name, cl.clinic_location, pr.name as practitioner_name
-                FROM vendor_sale_clinic_appointment
-                LEFT JOIN vendor_sale_users as U ON vendor_sale_clinic_appointment.location_appointment = U.id
-                LEFT JOIN vendor_sale_patient as pa ON vendor_sale_clinic_appointment.patient = pa.user_id
-                LEFT JOIN vendor_sale_clinic as cl ON vendor_sale_clinic_appointment.location_appointment = cl.id
-                LEFT JOIN vendor_sale_user_profile as UP ON UP.user_id = U.id
-                LEFT JOIN vendor_sale_practitioner as pr ON vendor_sale_clinic_appointment.practitioner = pr.id
-                WHERE (
-                    vendor_sale_clinic_appointment.start_date_appointment LIKE ? 
-                    OR vendor_sale_clinic_appointment.theatre_date_time LIKE ? 
-                    OR vendor_sale_clinic_appointment.out_start_time_at LIKE ? 
-                    OR vendor_sale_clinic_appointment.start_date_availability LIKE ?
-                )
-                AND U.hospital_id = ?
-                ORDER BY vendor_sale_clinic_appointment.start_date_appointment DESC,
-                         vendor_sale_clinic_appointment.theatre_date_time DESC,
-                         vendor_sale_clinic_appointment.out_start_time_at DESC,
-                         vendor_sale_clinic_appointment.start_date_availability DESC";
+        // $sql = "SELECT vendor_sale_clinic_appointment.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state, 
+        //                pa.name as patient_name, cl.name as clinic_name, cl.clinic_location, pr.name as practitioner_name
+        //         FROM vendor_sale_clinic_appointment
+        //         LEFT JOIN vendor_sale_users as U ON vendor_sale_clinic_appointment.location_appointment = U.id
+        //         LEFT JOIN vendor_sale_patient as pa ON vendor_sale_clinic_appointment.patient = pa.user_id
+        //         LEFT JOIN vendor_sale_clinic as cl ON vendor_sale_clinic_appointment.location_appointment = cl.id
+        //         LEFT JOIN vendor_sale_user_profile as UP ON UP.user_id = U.id
+        //         LEFT JOIN vendor_sale_practitioner as pr ON vendor_sale_clinic_appointment.practitioner = pr.id
+        //         WHERE (
+        //             vendor_sale_clinic_appointment.start_date_appointment LIKE ? 
+        //             OR vendor_sale_clinic_appointment.theatre_date_time LIKE ? 
+        //             OR vendor_sale_clinic_appointment.out_start_time_at LIKE ? 
+        //             OR vendor_sale_clinic_appointment.start_date_availability LIKE ?
+        //         )
+        //         AND U.hospital_id = ?
+        //         ORDER BY vendor_sale_clinic_appointment.start_date_appointment DESC,
+        //                  vendor_sale_clinic_appointment.theatre_date_time DESC,
+        //                  vendor_sale_clinic_appointment.out_start_time_at DESC,
+        //                  vendor_sale_clinic_appointment.start_date_availability DESC";
         
-        $result = $this->db->query($sql, array("%$today%", "%$today%", "%$today%", "%$today%", $hospital_id));
-        $totalAppointment = $result->result();
-        
-        // Assuming you have a customCount method in common_model for counting
-        $data['total_appointment'] = $this->common_model->customCount($totalAppointment);
-        
-        
-                $data['clinic_appointment'] = $result->result();
+        // $result = $this->db->query($sql, array("%$today%", "%$today%", "%$today%", "%$today%", $hospital_id));
+        // $totalAppointment = $result->result();
+
+        // $data['total_appointment'] = $this->common_model->customCount($totalAppointment);
+        // $data['clinic_appointment'] = $result->result();
 
 
                 
@@ -1470,8 +1537,31 @@ $result = $this->db->query($sql, array("%$today%", "%$today%", "%$today%", "%$to
 $totalAppointment = $result->result();
 
 // Assuming you have a customCount method in common_model for counting
-$data['total_appointment'] = $this->common_model->customCount($totalAppointment);
+// $data['total_appointment'] = $this->common_model->customCount($totalAppointment);
 
+
+$user_id = $this->session->userdata('user_id');
+            $sql = "SELECT vendor_sale_notifications.*, 
+                vendor_sale_notifications.id AS notification_ids, 
+                vendor_sale_users.first_name,vendor_sale_users.last_name, 
+                vendor_sale_users.email, 
+                vendor_sale_clinic_appointment.*, 
+                vendor_sale_clinic_appointment.theatre_date_time AS theatre_start_date_time,
+                vendor_sale_clinic_appointment.type AS appointment_type, 
+                vendor_sale_practitioner.name AS practitioner_name, CONCAT(userss.first_name, ' ', userss.last_name) AS doctor_name, CONCAT(userss_doctor.first_name, ' ', userss_doctor.last_name) AS doctor_full_name
+        FROM vendor_sale_notifications
+        LEFT JOIN vendor_sale_users ON vendor_sale_users.id = vendor_sale_notifications.patient_id 
+        LEFT JOIN vendor_sale_clinic_appointment ON vendor_sale_clinic_appointment.id = vendor_sale_notifications.clinic_appointment_id 
+        LEFT JOIN vendor_sale_practitioner ON vendor_sale_practitioner.id = vendor_sale_clinic_appointment.practitioner 
+        LEFT JOIN vendor_sale_users AS userss ON userss.id = vendor_sale_clinic_appointment.theatre_clinician
+        LEFT JOIN vendor_sale_users AS userss_doctor ON userss_doctor.id = vendor_sale_clinic_appointment.practitioner
+       WHERE vendor_sale_clinic_appointment.practitioner = $user_id OR vendor_sale_clinic_appointment.theatre_clinician = $user_id ORDER BY vendor_sale_clinic_appointment.id DESC";
+$result = $this->db->query($sql);
+
+$datanotifications= $result->result();
+$this->data['total_appointment'] = count($datanotifications);
+
+// print_r($this->data['total_appointment']);die;
 
                 // $result = $this->db->query($sql);
 
@@ -1510,10 +1600,12 @@ $data['total_appointment'] = $this->common_model->customCount($totalAppointment)
         $totalAppointment = $result->result();
         
         // Assuming you have a customCount method in common_model for counting
-        $data['total_appointment'] = $this->common_model->customCount($totalAppointment);
+        // $data['total_appointment'] = $this->common_model->customCount($totalAppointment);
+        $data['total_appointment'] = count($datanotifications);
         
         
-                $data['clinic_appointment'] = $result->result();
+                // $data['clinic_appointment'] = $result->result();
+                $data['clinic_appointment'] =$datanotifications;
 
 
                 $this->load->admin_render('dashboard', $data);

@@ -207,7 +207,7 @@ class Notification extends Common_Controller {
         LEFT JOIN vendor_sale_practitioner ON vendor_sale_practitioner.id = vendor_sale_clinic_appointment.practitioner 
         LEFT JOIN vendor_sale_users AS userss ON userss.id = vendor_sale_clinic_appointment.theatre_clinician
         LEFT JOIN vendor_sale_users AS userss_doctor ON userss_doctor.id = vendor_sale_clinic_appointment.practitioner
-       WHERE vendor_sale_clinic_appointment.practitioner = $user_id ORDER BY vendor_sale_clinic_appointment.id DESC";
+       WHERE vendor_sale_clinic_appointment.practitioner = $user_id OR vendor_sale_clinic_appointment.theatre_clinician = $user_id ORDER BY vendor_sale_clinic_appointment.id DESC";
 
     // $sql = "SELECT 
     //         vendor_sale_notifications.*, 

@@ -739,9 +739,9 @@
 
                         
     <div class="panel-body">
-                            <form action="<?php echo site_url('pwfpanel'); ?>" name="patientForm" method="get">
+                        <form action="<?php echo site_url('pwfpanel'); ?>" name="patientForm" method="get">
 
-                            <div class="col-lg-3">
+                                <div class="col-lg-2">
                                     <?php // print_r($careUnitsUser);die;
                                     ?>
                                     <select id="weeks" name="weeks" class="form-control select-2">
@@ -755,40 +755,57 @@
                                            
                                     </select>
                                 </div>
-                                <div>
-                                <div class="col-lg-3">
+
+                                <div class="col-lg-2">
+                                    <?php //print_r($doctors_list);die;
+                                    ?>
+                                    <select id="weeks" name="weeks" class="form-control select-2">
+                                       
+                                        <option value="">Select Doctors</option>
+                                        <?php foreach($doctors_list as $rows){?>
+
+
+                                            <option value="<?php echo $rows->user_id; ?>"><?php echo $rows->first_name. ' '.$rows->last_name; ?></option>
+                                            
+                                            <?php }?>
+                                           
+                                    </select>
+                                </div>
+
+                        <div>
+                            <div class="col-lg-2">
                                 <select class="form-control" name="month" id="month">
-    <option value="">Select Month</option>
-    <?php
-    // Get the selected month from the form data
-    $selected_month = $_POST['month'] ?? '';
+                                    <option value="">Select Month</option>
+                                    <?php
+                                    // Get the selected month from the form data
+                                    $selected_month = $_POST['month'] ?? '';
 
-    // Array to map month numbers to month names
-    $months = [
-        '01' => 'January',
-        '02' => 'February',
-        '03' => 'March',
-        '04' => 'April',
-        '05' => 'May',
-        '06' => 'June',
-        '07' => 'July',
-        '08' => 'August',
-        '09' => 'September',
-        '10' => 'October',
-        '11' => 'November',
-        '12' => 'December',
-    ];
+                                    // Array to map month numbers to month names
+                                    $months = [
+                                        '01' => 'January',
+                                        '02' => 'February',
+                                        '03' => 'March',
+                                        '04' => 'April',
+                                        '05' => 'May',
+                                        '06' => 'June',
+                                        '07' => 'July',
+                                        '08' => 'August',
+                                        '09' => 'September',
+                                        '10' => 'October',
+                                        '11' => 'November',
+                                        '12' => 'December',
+                                    ];
 
-    // Loop through the months array to create options
-    foreach ($months as $month_num => $month_name) {
-        // Check if the current month is the selected month
-        $selected = ($month_num == $selected_month) ? 'selected' : '';
+                                        // Loop through the months array to create options
+                                        foreach ($months as $month_num => $month_name) {
+                                            // Check if the current month is the selected month
+                                            $selected = ($month_num == $selected_month) ? 'selected' : '';
 
-        // Output each month as an option
-        echo "<option value='$month_num' $selected>$month_name</option>";
-    }
-    ?>
-</select>
+                                            // Output each month as an option
+                                            echo "<option value='$month_num' $selected>$month_name</option>";
+                                        }
+                                        ?>
+                                    </select>
                                     </div>
                                     <div class="col-lg-2">
                                     <select class="form-control" name="year" id="year">
@@ -820,7 +837,7 @@
                                     </button>
                                 </div>
                             </form>
-                        </div>
+                     </div>
     
             <div class="col-lg-4 dashboardBoxes">
                     <div style="background-color:#D0FAE4; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
@@ -828,7 +845,7 @@
                         </div> -->
                         <div class="ibox-content">
                             <h1 class="no-margins"><?php echo $total_appointment; ?></h1>
-                            <h5 class="text-primary"><strong>Total Today Appointment</strong></h5>
+                            <h5 class="text-primary"><strong>Total Appointment</strong></h5>
                         </div>
                         <a href="<?php echo site_url('appointment'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "appointment") ? "active" : "" ?>">
                         <img src="<?php echo base_url(); ?>uploads/appointment.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
@@ -840,7 +857,7 @@
                 <div style="background-color:<?php echo $total_patient > 0 ? '#F9F5FF' : '#F9F5FF'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
                     <div class="ibox-content">
                         <h1 class="no-margins"><?php echo $total_patient; ?></h1>
-                        <h5 class="text-primary"><strong>Total Patient </strong></h5>
+                        <h5 class="text-primary"><strong>Total Reviews Sent </strong></h5>
                     </div>
                     <a href="<?php echo site_url('patient'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "patient") ? "active" : "" ?>">
                     <img src="<?php echo base_url(); ?>uploads/user.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
@@ -860,7 +877,7 @@
 
                    <?php echo $doctors; ?>
                    </h1>
-                   <h5 class="text-primary"><strong>Total Doctor</strong></h5>
+                   <h5 class="text-primary"><strong>Total Reviews Received</strong></h5>
                    </div>
                    <a href="<?php echo site_url('dataOperator'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "dataOperator") ? "active" : "" ?>">
                    <img src="<?php echo base_url(); ?>uploads/doctor.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
@@ -877,7 +894,7 @@
 
                    <?php echo $careUnit; ?>
                    </h1>
-                   <h5 class="text-primary"><strong>Total Care Unit Department</strong></h5>
+                   <h5 class="text-primary"><strong>Total Injections</strong></h5>
                    </div>
                    <a href="<?php echo site_url('careUnit'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "careUnit") ? "active" : "" ?>">
                    <img src="<?php echo base_url(); ?>uploads/department.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
@@ -911,7 +928,7 @@
 
                    <?php echo $initial_dx; ?>
                    </h1>
-                   <h5 class="text-primary"><strong>Total Infections</strong></h5>
+                   <h5 class="text-primary"><strong>Total Complication</strong></h5>
                    </div>
                    <a href="<?php echo site_url('initialDx'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "initialDx") ? "active" : "" ?>">
                    <img src="<?php echo base_url(); ?>uploads/Infections.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
@@ -926,7 +943,7 @@
                        </div> -->
                        <div class="ibox-content">
                            <h1 class="no-margins"><?php echo $initial_rx; ?></h1>
-                           <h5 class="text-primary"><strong>Total Antibiotic</strong></h5>
+                           <h5 class="text-primary"><strong>Total Conversion Total Patient Operation</strong></h5>
                        </div>
                        <a href="<?php echo site_url('initialRx'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "initialRx") ? "active" : "" ?>">
                        <img src="<?php echo base_url(); ?>uploads/Antibiotic.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
@@ -957,117 +974,42 @@
                 //    echo '0';
                    ?>
                    </h1>
-                   <h5 class="text-primary"><strong>Total Earning</strong></h5>
+                   <h5 class="text-primary"><strong>Total Revenue</strong></h5>
                    </div>
                    <img src="<?php echo base_url(); ?>uploads/earning.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
                </div>
            </div>
 
-                        <div class="row m-2">
-                            <!-- comemnt chart code -->
-                    <!-- <div class="col-lg-6 mt-4">
-                            <canvas id="myChart" style="width: 100%; height: 100%; background-color: #F9F5FF; padding: 15px;  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);"></canvas>
-                        </div>
-                        <div class="col-lg-6 mt-4">
-                            <canvas id="myChart2" style="width: 100%; height: 100%;  background-color: #FFFAEC; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);"></canvas>
-                        </div>    -->
-                    </div>
-                
-
-
-                                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-                                                            <script>
-                                document.addEventListener("DOMContentLoaded", function() {
-                                    const ctx = document.getElementById('myChart');
-                                    new Chart(ctx, {
-                                        type: 'bar',
-                                        data: {
-                                            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                                            datasets: [{
-                                                label: '# of Votes',
-                                                data: [12, 19, 3, 5, 2, 3],
-                                                borderWidth: 2,
-                                                backgroundColor: [
-                                                    'rgba(255, 99, 132, 0.9)',
-                                                    'rgba(54, 162, 235, 0.9)',
-                                                    'rgba(255, 205, 86, 0.9)',
-                                                    'rgba(75, 192, 192, 0.9)',
-                                                    'rgba(153, 102, 255, 0.9)',
-                                                    'rgba(255, 159, 64, 0.9)'
-                                                ],
-                                                borderColor: [
-                                                    'rgba(255, 99, 132, 1)',
-                                                    'rgba(54, 162, 235, 1)',
-                                                    'rgba(255, 205, 86, 1)',
-                                                    'rgba(75, 192, 192, 1)',
-                                                    'rgba(153, 102, 255, 1)',
-                                                    'rgba(255, 159, 64, 1)'
-                                                ],
-                                            }]
-                                        },
-                                        options: {
-                                            scales: {
-                                                y: {
-                                                    beginAtZero: true
-                                                }
-                                            },
-                                            maintainAspectRatio: false, // Allows chart to adjust its size based on the container size
-                                            responsive: true // Ensures chart responsiveness
-                                        }
-                                    });
-
-                                    const pie = document.getElementById('myChart2');
-                                    const data = {
-                                        labels: [
-                                            'Red',
-                                            'Blue',
-                                            'Yellow'
-                                        ],
-                                        datasets: [{
-                                            label: 'My First Dataset',
-                                            data: [300, 50, 100],
-                                            backgroundColor: [
-                                                'rgb(255, 99, 132)',
-                                                'rgb(54, 162, 235)',
-                                                'rgb(255, 205, 86)'
-                                            ],
-                                            hoverOffset: 4
-                                        }]
-                                    };
-                                    const config = {
-                                        type: 'doughnut',
-                                        data: data,
-                                        options: {
-                                            maintainAspectRatio: false, // Allows chart to adjust its size based on the container size
-                                            responsive: true // Ensures chart responsiveness
-                                        }
-                                    };
-                                    new Chart(pie, config);
-                                });
-                            </script>
-
-
-
-
-
-
-
-
-
-
-<div>
+                        
+        </div>
     <div class="row">
         <!-- Upcoming Appointments Table -->
         <div class="col-md-8 mt-4">
             <div class="card recent-sales overflow-auto" style="background-color: #FFFFFF;  border-radius: 8px;">
                 <div class="card-body">
                     <h5 class="card-title fw-bold" style="font-size: 1.2rem; color: #333;">
+                    <div class="row"> <div class="col-md-6 mt-4">
+
                         Upcoming Appointments 
                         <span> | 
                             <a href="<?php echo site_url('appointment'); ?>" class="btn btn-primary btn-sm" style="background-color: #337ab7; color: #fff; padding: 0.3rem 0.6rem; border-radius: 5px;">View all</a>
                         </span>
-                        <!-- <h5 class="card-title fw-bold">Upcoming Appointments <span>| <a href="<?php echo site_url('appointment'); ?>" class="btn btn-primary btn-sm" style="background: #337ab7;">View all</a></span></h5> -->
+                        </div>
+                        <div class="col-md-6 mt-4">
+                        
+                        <select id="weeks" name="weeks" class="form-control select-2">
+                                       
+                                       <option value="">Select Doctors</option>
+                                       <?php foreach($doctors_list as $rows){?>
+
+
+                                           <option value="<?php echo $rows->user_id; ?>"><?php echo $rows->first_name. ' '.$rows->last_name; ?></option>
+                                           
+                                           <?php }?>
+                                          
+                                   </select>
+                                </div>
+                       
                     </h5>
                     <div class="table-responsive" >
                         <table class="table table-striped table-hover datatable" id="todayAppointmentTable" style="height:300px ;overflow-y: scroll;">
@@ -1076,6 +1018,7 @@
                                     <th scope="col" style="font-size: 0.9rem;">#</th>
                                     <th scope="col" style="font-size: 0.9rem;">Address</th>
                                     <th scope="col" style="font-size: 0.9rem;">Appointment With</th>
+                                    <th scope="col" style="font-size: 0.9rem;">Doctors</th>
                                     <th scope="col" style="font-size: 0.9rem;">Description</th>
                                     <th scope="col" style="font-size: 0.9rem;">Time</th>
                                     <th scope="col" style="font-size: 0.9rem;">Status</th>
@@ -1089,6 +1032,7 @@
                                         </td>
                                         <td><?php echo $appointment->address1 . ", " . $appointment->city; ?></td>
                                         <td><?php echo $appointment->first_name . " " . $appointment->last_name . " - " . $appointment->practitioner_name; ?></td>
+                                        <td><?php echo $appointment->doctor_name . " " . $appointment->doctor_full_name . " - " . $appointment->practitioner_name; ?></td>
                                         <td><?php echo $appointment->comment_appointment; ?></td>
                                         <td><?php echo date('g:i A', strtotime($appointment->start_date_appointment)) . " to " . date('g:i A', strtotime($appointment->end_date_appointment)); ?></td>
                                         <td>
@@ -1139,7 +1083,7 @@
             </div>
         </div>
     </div>
-</div>
+<!-- </div> -->
 
 
 
@@ -1151,7 +1095,7 @@
 
 
 
-<div>
+<!-- <div> -->
 <div class="row">
     <!-- New Patients Table -->
     <div class="col-md-8 mt-4">
@@ -1266,6 +1210,11 @@
           
                     
 
+
+                                
+                   
+
+   
 
                                 
                    
@@ -2135,31 +2084,31 @@ li{
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script>
 
-// $(document).ready(function() {
-//     $('#todayAppointmentTable').DataTable({
-//             "paging": true,
-//             "searching": true,
-//             "lengthChange": false,
-//             "pageLength": 6,
-//             "order": [[0, 'desc']]  // Here, 0 represents the first column (index starts from 0)
-//         });
+$(document).ready(function() {
+    $('#todayAppointmentTable').DataTable({
+            "paging": true,
+            "searching": true,
+            "lengthChange": false,
+            "pageLength": 6,
+            "order": [[0, 'desc']]  // Here, 0 represents the first column (index starts from 0)
+        });
 
 
-// $('#todayDoctor').DataTable({
-//             "paging": true,
-//             "searching": true,
-//             "lengthChange": false,
-//             "pageLength": 6,
-//             "order": [[0, 'desc']]  // Here, 0 represents the first column (index starts from 0)
-//         });
+$('#todayDoctor').DataTable({
+            "paging": true,
+            "searching": true,
+            "lengthChange": false,
+            "pageLength": 6,
+            "order": [[0, 'desc']]  // Here, 0 represents the first column (index starts from 0)
+        });
 
-//         $('#todayPatient').DataTable({
-//             "paging": true,
-//             "lengthChange": false,
-//             "pageLength": 10,
-//             "order": [[0, 'desc']]  // Here, 0 represents the first column (index starts from 0)
-//         });
-// });
+        $('#todayPatient').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "pageLength": 10,
+            "order": [[0, 'desc']]  // Here, 0 represents the first column (index starts from 0)
+        });
+});
 </script>
 
 
