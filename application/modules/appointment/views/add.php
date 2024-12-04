@@ -2632,31 +2632,13 @@ input {
                                     <select id="care_unit" name="care_unit_id" class="form-control select-chosen" size="1" onchange='getPatientId(this.value)'>
                                         <option value="">Please select</option>
                                         <?php
-                                        if (!empty($careUnitsUser)) {
-
-
-                                            if (!empty($careUnitsUser)) {
-                                                foreach ($careUnitsUser as $row) {
-
-                                                    //print_r($row);die;
-                                                    $select = "";
-                                                    if (isset($careUnitID)) {
-                                                        if ($careUnitID == $row->id) {
-                                                            $select = "selected";
-                                                        }
-                                                    }
-                                        ?>
-                                                    <option value="<?php echo $row->id; ?>" <?php echo $select; ?>><?php echo $row->name; ?></option>
-                                                <?php
-                                                }
-                                            }
-                                        } else {
+                                        
 
                                             foreach ($care_unit as $category) { ?>
 
                                                 <option value="<?php echo $category->id; ?>"><?php echo $category->name; ?></option>
-                                        <?php }
-                                        } ?>
+                                        <?php } ?>
+                                        
                                     </select>
                                 </div>
                             </div>
