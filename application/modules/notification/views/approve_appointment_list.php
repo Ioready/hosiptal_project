@@ -96,7 +96,7 @@
                                                 <tr > <th>ID</th>
                                                     <th>Appointment Type ID</th>
                                                     <th>Patient Name</th>
-                                                    <!-- <th>Doctor Name</th> -->
+                                                    <th>Doctor Name</th>
                                                     <th>Practitioner Name</th>
                                                     <th>Clinician Name</th>
                                                     <th>Appointment Date</th>
@@ -144,13 +144,13 @@
                                                             $theatre_admission_date = date('Y-m-d', strtotime($notification->theatre_admission_date_time));
                                                         ?>
                                                 <tr>
-                                                <td><?php echo $notification->notification_ids;?></td>
+                                                <td><?php echo $notification->id;?></td>
                                                 <td><?php echo $notification->appointment_type.'_'. $notification->clinic_appointment_id;?></td>
                                                 
                                                     <td><img width="28" height="28" src="<?php echo base_url('/assets/img/user.jpg')?>" class="rounded-circle m-r-5" alt="" style="float:left"> &nbsp;  <?php echo $notification->first_name. ' '.$notification->last_name;?></td>
-                                                    <!-- <td><?php //echo $notification->doctor_name;?></td> -->
+                                                    <td><?php echo $notification->doctor_full_name;?></td>
                                                     <td><?php echo $notification->practitioner_name;?></td>
-                                                    <td><?php echo $notification->doctor_name. ' '.$notification->doctor_last_name;?></td>
+                                                    <td><?php echo $notification->doctor_name;?></td>
                                                     <td><?php if(!empty($appointment_date)){
                                                         echo $appointment_date ?? '';
                                                     }else if(!empty($theatre_admission_date)){
@@ -241,9 +241,10 @@
 								
                                     <thead>
 									<tr>
+                                    <th>Appointment ID</th>
 										<th>Appointment Type ID</th>
 										<th>Patient Name</th>
-                                        <!-- <th>Doctor Name</th> -->
+                                        <th>Doctor Name</th>
                                         <th>Practitioner Name</th>
                                         <th>Clinician Name</th>
 										<th>Appointment Date</th>
@@ -297,13 +298,13 @@
                                     $theatre_start_date_time = date('Y-m-d', strtotime($notification->theatre_start_date_time));
                                         
                                 ?>
-								<tr>
+								<tr><td><?php echo $notification->id; ?></td>
                                     <td><?php echo $notification->appointment_type.'_'. $notification->clinic_appointment_id;?></td>
 										<!-- <td>APT0001</td> -->
 										<td><img width="28" height="28" src="<?php echo base_url('/assets/img/user.jpg')?>" class="rounded-circle m-r-5" alt="" style="float:left"> &nbsp;  <?php echo $notification->first_name. ' '.$notification->last_name;?></td>
-                                        <!-- <td><?php //echo $notification->doctor_name;?></td> -->
+                                        <td><?php echo $notification->doctor_full_name;?></td>
 										<td><?php echo $notification->practitioner_name;?></td>
-                                        <td><?php echo $notification->doctor_name. ' '.$notification->doctor_last_name;?></td>
+                                        <td><?php echo $notification->doctor_name;?></td>
                                         <td><?php echo $appointment_date; ?></td>
 
 										<td>

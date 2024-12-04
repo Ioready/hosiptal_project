@@ -539,11 +539,14 @@ $this->data['all_appointment'] = $result->result();
                 $practitionerData = $this->common_model->customGet($optionPractitioner);
                 $combinedData = array_merge($practitionerData, $doctorsData);
                 $data['practitioner'] = $combinedData;
+
+                
                 // echo json_encode($data['practitioner']);
                 $this->data['practitioner_filter'] = $combinedData;
               
             }
             else{
+
             $optionDoctor = array(
                 'table' => 'doctors',
                 'select' => 'users.*',
@@ -574,6 +577,8 @@ $this->data['all_appointment'] = $result->result();
             $practitionerData = $this->common_model->customGet($optionPractitioner);
             $combinedData = array_merge($practitionerData,$doctorsData);
             $this->data['practitioner'] = $combinedData;
+
+
        
             $option = array(
                 'table' => ' doctors',
@@ -1296,13 +1301,46 @@ $option = array(
         $this->data['clinic_location'] = $this->common_model->customGet($option);
 
 
-        $option = array(
+        // $option = array(
+        //     'table' => 'practitioner',
+        //     'select' => '*',
+        //      'where' => array('hospital_id'=>$hospital_id,'delete_status' => 0), 'order' => array('name' => 'ASC')
+        // );
+        // $this->data['practitioner'] = $this->common_model->customGet($option);
+
+        
+        $optionDoctor = array(
+            'table' => ' doctors',
+            'select' => 'users.*',
+            'join' => array(
+                array('users', 'doctors.user_id=users.id', 'left'),
+                array('user_profile UP', 'UP.user_id=users.id', 'left'),
+                array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
+                
+            ),
+            
+            'where' => array(
+                'users.delete_status' => 0,
+                'users.hospital_id'=>$hospital_id
+                
+            ),
+           
+        );
+        $doctorsData = $this->common_model->customGet($optionDoctor);
+        foreach ($doctorsData as &$rows) { // Use reference (&) to modify the original array
+            $rows->name = $rows->first_name . ' ' . $rows->last_name;
+        }
+
+        $optionPractitioner = array(
             'table' => 'practitioner',
             'select' => '*',
              'where' => array('hospital_id'=>$hospital_id,'delete_status' => 0), 'order' => array('name' => 'ASC')
         );
-        $this->data['practitioner'] = $this->common_model->customGet($option);
+        $practitionerData = $this->common_model->customGet($optionPractitioner);
+    $combinedData = array_merge($practitionerData,$doctorsData);
+    $this->data['practitioner'] = $combinedData;
 
+// print_r($this->data['practitioner']);die;
 
     } else if ($this->ion_auth->is_facilityManager()) {
         
@@ -1332,11 +1370,43 @@ $option = array(
         );
         $this->data['clinic_location'] = $this->common_model->customGet($option);
 
-        $option = array(
-            'table' => 'practitioner',
-            'select' => '*', 'where' => array('hospital_id'=>$hospital_id,'delete_status' => 0), 'order' => array('name' => 'ASC')
+        // $option = array(
+        //     'table' => 'practitioner',
+        //     'select' => '*', 'where' => array('hospital_id'=>$hospital_id,'delete_status' => 0), 'order' => array('name' => 'ASC')
+        // );
+        // $this->data['practitioner'] = $this->common_model->customGet($option);
+
+        $optionDoctor = array(
+            'table' => ' doctors',
+            'select' => 'users.*',
+            'join' => array(
+                array('users', 'doctors.user_id=users.id', 'left'),
+                array('user_profile UP', 'UP.user_id=users.id', 'left'),
+                array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
+                
+            ),
+            
+            'where' => array(
+                'users.delete_status' => 0,
+                'users.hospital_id'=>$hospital_id
+                
+            ),
+           
         );
-        $this->data['practitioner'] = $this->common_model->customGet($option);
+        $doctorsData = $this->common_model->customGet($optionDoctor);
+        foreach ($doctorsData as &$rows) { // Use reference (&) to modify the original array
+            $rows->name = $rows->first_name . ' ' . $rows->last_name;
+        }
+
+        $optionPractitioner = array(
+            'table' => 'practitioner',
+            'select' => '*',
+             'where' => array('hospital_id'=>$hospital_id,'delete_status' => 0), 'order' => array('name' => 'ASC')
+        );
+        $practitionerData = $this->common_model->customGet($optionPractitioner);
+    $combinedData = array_merge($practitionerData,$doctorsData);
+    $this->data['practitioner'] = $combinedData;
+    
         
     }
 
