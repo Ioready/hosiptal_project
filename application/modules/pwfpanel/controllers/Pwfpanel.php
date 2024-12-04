@@ -640,7 +640,9 @@ class Pwfpanel extends Common_Controller
                 $week = $this->input->get('weeks');
                 $month = $this->input->get('month');
                 $year = $this->input->get('year');
-
+                $doctor_id = $this->input->get('doctor_id');
+               
+                
                 // Build the WHERE clause based on the selected date range
                 $whereClause = '';
 
@@ -648,18 +650,22 @@ class Pwfpanel extends Common_Controller
                     // Calculate the start and end dates for the selected week
                     $startDate = date("Y-m-d", strtotime("last monday", strtotime("+$week week")));
                     $endDate = date("Y-m-d", strtotime("next sunday", strtotime("+$week week")));
-                    $whereClause = "AND created_date BETWEEN '$startDate' AND '$endDate'";
+                    $wdoctor_id = "AND doctor_id = '$doctor_id'";
+                    $whereClause = "AND created_date BETWEEN '$startDate' AND '$endDate' AND doctor_id = '$doctor_id'";
+                    // print_r($doctor_id);die;
+                // Filter by the selected year
+                
+
                 } elseif (!empty($month) && !empty($year)) {
                     // Create the date range for the selected month and year
                     $startDate = "$year-$month-01";
                     $endDate = date("Y-m-t", strtotime($startDate)); // Last day of the month
-                    $whereClause = "AND created_date BETWEEN '$startDate' AND '$endDate'";
+                    $whereClause = "AND created_date BETWEEN '$startDate' AND '$endDate' AND doctor_id = '$doctor_id'";
                 
                 } elseif (!empty($year)) {
-                    // Filter by the selected year
                     $whereClause = "AND YEAR(created_date) = '$year'";
-
-                    
+                } else if (!empty($doctor_id) && !empty($year)) {
+                    $whereClause = "AND doctor_id = '$doctor_id'";      
                 }
                 // print_r($whereClause);die;
 
@@ -795,6 +801,46 @@ class Pwfpanel extends Common_Controller
                 
 // 'user.hospital_id'=>$hospital_id 
 
+
+
+            $wherePatient = '';
+
+            if (!empty($week)) {
+                // Calculate the start and end dates for the selected week
+                $startDate = date("Y-m-d", strtotime("last monday", strtotime("+$week week")));
+                $endDate = date("Y-m-d", strtotime("next sunday", strtotime("+$week week")));
+                $wdoctor_id = "AND doctor_id = '$doctor_id'";
+                $wherePatient = "AND patient.created_date BETWEEN '$startDate' AND '$endDate' AND patient.doctor_id = '$doctor_id' OR patient.doctor_id = '$doctor_id'";
+                // print_r($doctor_id);die;
+            // Filter by the selected year
+
+
+            } elseif (!empty($month) && !empty($year)) {
+                // Create the date range for the selected month and year
+                $startDate = "$year-$month-01";
+                $endDate = date("Y-m-t", strtotime($startDate)); // Last day of the month
+                $wherePatient = "AND patient.created_date BETWEEN '$startDate' AND '$endDate' AND patient.doctor_id = '$doctor_id' OR patient.doctor_id = '$doctor_id'";
+
+            } elseif (!empty($year)) {
+                // Filter by the selected year
+                $wherePatient = "AND YEAR(patient.created_date) = '$year'";
+
+                
+
+            } else if (!empty($doctor_id) && !empty($year)) {
+            // print_r($doctor_id);die;
+            // Filter by the selected year
+            $wherePatient = "AND patient.doctor_id = '$doctor_id' OR patient.doctor_id = '$doctor_id'";
+
+
+            } else if (!empty($doctor_id)) {
+        
+            $wherePatient = "AND patient.doctor_id = '$doctor_id' OR patient.doctor_id = '$doctor_id'";
+
+
+            }
+
+
                 $AdminCareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
                 // $Sql = "SELECT vendor_sale_patient.operator_id FROM vendor_sale_patient WHERE vendor_sale_patient.operator_id = $hospital_id $whereClause";
                
@@ -817,7 +863,9 @@ class Pwfpanel extends Common_Controller
                         array('precautions Pre', 'Pre.name=P.precautions', 'left'),
                         array('initial_rx IRX2', 'IRX2.id=PC.new_initial_rx', 'left'),
                         array('initial_dx IDX2', 'IDX2.id=PC.new_initial_dx', 'left')
-                    ),
+                    ),'where' => array(
+                        'U.hospital_id'=>$hospital_id
+                    ),$wherePatient,
                 
                     'group_by' => 'pid'
                 );
@@ -826,11 +874,14 @@ class Pwfpanel extends Common_Controller
                 // if (!empty($date)) {
                 //     $optionAppointment['where']['P.created_date'] = $date;
                 // }
+                // if (!empty($date)) {
+                //     $optionAppointment['where']['P.created_date'] = whereClause;
+                // }
         
-                if (!empty($hospital_id)) {
+                // if (!empty($hospital_id)) {
                     
-                    $optionAppointment['where']['U.hospital_id'] = $hospital_id;
-                }
+                //     $optionAppointment['where']['U.hospital_id'] = $hospital_id . ''.$whereClause;
+                // }
                 
                 $careunit_facility_counts= $this->common_model->customGet($optionAppointment);
                 $user_facility_counts = count($careunit_facility_counts);
@@ -838,6 +889,10 @@ class Pwfpanel extends Common_Controller
                 // $careunit_facility_counts = $this->common_model->customQuery($Sql);
                 // $user_facility_counts = count($careunit_facility_counts);
                 // $data['total_patient'] = $user_facility_counts;
+                // if(!empty($wherePatient)){
+                //     print_r($optionAppointment);die;
+                //     print_r($data['total_patient']);die;
+                // }
                 // print_r($data['total_patient']);die;
 
 
@@ -867,19 +922,19 @@ class Pwfpanel extends Common_Controller
                         array('initial_rx IRX2', 'IRX2.id=PC.new_initial_rx', 'left'),
                         array('initial_dx IDX2', 'IDX2.id=PC.new_initial_dx', 'left')
                     ),
-                    // 'where'=> array(date('P.created_date')=>$date),
+                    'where'=> array('U.hospital_id'=>$hospital_id),$whereClause,
                     'group_by' => 'pid'
                 );
                 // $this->db->where('DATE(P.created_date)', $date);
         
-                if (!empty($date)) {
-                    $optionAppointment['where']['DATE(P.created_date)'] = $date;
-                }
+                // if (!empty($date)) {
+                //     $optionAppointment['where']['DATE(P.created_date)'] = $date;
+                // }
         
-                if (!empty($hospital_id)) {
+                // if (!empty($hospital_id)) {
                     
-                    $optionAppointment['where']['U.hospital_id'] = $hospital_id;
-                }
+                //     $optionAppointment['where']['U.hospital_id'] = $hospital_id;
+                // }
                 
                 $careunit_facility_counts= $this->common_model->customGet($optionAppointment);
                 $user_facility_counts = count($careunit_facility_counts);
@@ -1043,6 +1098,44 @@ $totalAppointment = $result->result();
                 
 
                 
+                $whereAppointment = '';
+
+                if (!empty($week)) {
+                    // Calculate the start and end dates for the selected week
+                    $startDate = date("Y-m-d", strtotime("last monday", strtotime("+$week week")));
+                    $endDate = date("Y-m-d", strtotime("next sunday", strtotime("+$week week")));
+                    $wdoctor_id = "AND doctor_id = '$doctor_id'";
+                    $whereAppointment = "AND vendor_sale_clinic_appointment.created_at BETWEEN '$startDate' AND '$endDate' AND vendor_sale_clinic_appointment.practitioner = '$doctor_id' OR vendor_sale_clinic_appointment.theatre_clinician = '$doctor_id'";
+                    // print_r($doctor_id);die;
+                // Filter by the selected year
+                
+
+                } elseif (!empty($month) && !empty($year)) {
+                    // Create the date range for the selected month and year
+                    $startDate = "$year-$month-01";
+                    $endDate = date("Y-m-t", strtotime($startDate)); // Last day of the month
+                    $whereAppointment = "AND vendor_sale_clinic_appointment.created_at BETWEEN '$startDate' AND '$endDate' AND vendor_sale_clinic_appointment.practitioner = '$doctor_id' OR vendor_sale_clinic_appointment.theatre_clinician = '$doctor_id'";
+                
+                } elseif (!empty($year)) {
+                    // Filter by the selected year
+                    $whereAppointment = "AND YEAR(vendor_sale_clinic_appointment.created_at) = '$year'";
+
+                    
+                
+            } else if (!empty($doctor_id) && !empty($year)) {
+                // print_r($doctor_id);die;
+                // Filter by the selected year
+                $whereAppointment = "AND vendor_sale_clinic_appointment.practitioner = '$doctor_id' OR vendor_sale_clinic_appointment.theatre_clinician = '$doctor_id'";
+                
+                
+            } else if (!empty($doctor_id)) {
+                // print_r($doctor_id);die;
+                // Filter by the selected year
+                $whereAppointment = "AND vendor_sale_clinic_appointment.practitioner = '$doctor_id' OR vendor_sale_clinic_appointment.theatre_clinician = '$doctor_id'";
+                
+                
+            }
+
 
 $user_id = $this->session->userdata('user_id');
 $sql = "SELECT vendor_sale_notifications.*, 
@@ -1059,7 +1152,7 @@ LEFT JOIN vendor_sale_clinic_appointment ON vendor_sale_clinic_appointment.id = 
 LEFT JOIN vendor_sale_practitioner ON vendor_sale_practitioner.id = vendor_sale_clinic_appointment.practitioner 
 LEFT JOIN vendor_sale_users AS userss ON userss.id = vendor_sale_clinic_appointment.theatre_clinician
 LEFT JOIN vendor_sale_users AS userss_doctor ON userss_doctor.id = vendor_sale_clinic_appointment.practitioner
-WHERE vendor_sale_users.hospital_id = $hospital_id ORDER BY vendor_sale_clinic_appointment.id DESC";
+WHERE vendor_sale_users.hospital_id = $hospital_id $whereAppointment ORDER BY vendor_sale_clinic_appointment.id DESC";
 $result = $this->db->query($sql);
 
 $datanotifications= $result->result();
@@ -1105,7 +1198,7 @@ $totalAppointment = $result->result();
 
 // Assuming you have a customCount method in common_model for counting
 // $data['total_appointment'] = $this->common_model->customCount($totalAppointment);
-$data['total_appointment'] = count($datanotifications);
+    $data['total_appointment'] = count($datanotifications);
 
 
     // $data['clinic_appointment'] = $result->result();
@@ -1144,13 +1237,15 @@ $data['total_appointment'] = count($datanotifications);
         // $data['total_appointment'] = $this->common_model->customCount($totalAppointment);
         // $data['clinic_appointment'] = $result->result();
 
+                if(!empty($whereAppointment)){
+                    // print_r($data);die;
+                    $this->load->admin_render('dashboard', $data);
+                    
+                }else{
+                    $this->load->admin_render('dashboard', $data);
+                }
 
-                
-                
-                $this->load->admin_render('dashboard', $data);
-
-        
-
+                // die;
              }
              else if ($this->ion_auth->is_all_roleslogin()) {
                 $user_id = $this->session->userdata('user_id');
@@ -1559,7 +1654,7 @@ $user_id = $this->session->userdata('user_id');
 $result = $this->db->query($sql);
 
 $datanotifications= $result->result();
-$this->data['total_appointment'] = count($datanotifications);
+// $this->data['total_appointment'] = count($datanotifications);
 
 // print_r($this->data['total_appointment']);die;
 

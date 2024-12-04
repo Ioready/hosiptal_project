@@ -759,7 +759,7 @@
                                 <div class="col-lg-2">
                                     <?php //print_r($doctors_list);die;
                                     ?>
-                                    <select id="weeks" name="weeks" class="form-control select-2">
+                                    <select id="doctor_id" name="doctor_id" class="form-control select-2">
                                        
                                         <option value="">Select Doctors</option>
                                         <?php foreach($doctors_list as $rows){?>
