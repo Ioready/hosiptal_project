@@ -1184,10 +1184,10 @@ if (!empty($results->additional_comment_option)) {
 ?>
 
 <select name="additional_comment_option[]" class="form-control multiple-select" multiple="multiple">
-    <option value="Does not meet Loeb/ McGeer Criteria" <?php echo (in_array('Does not meet Loeb/ McGeer Criteria', $selected_options)) ? 'selected' : ''; ?>>Does not meet Loeb/ McGeer Criteria</option>
-    <option value="Consider shorter antibiotic course" <?php echo (in_array('Consider shorter antibiotic course', $selected_options)) ? 'selected' : ''; ?>>Consider shorter antibiotic course</option>
-    <option value="Antibiotics not recommended" <?php echo (in_array('Antibiotics not recommended', $selected_options)) ? 'selected' : ''; ?>>Antibiotics not recommended</option>
-    <option value="Other/Free Text" <?php echo (in_array('Other/Free Text', $selected_options)) ? 'selected' : ''; ?>>Other/Free Text</option>
+    <option value="Does_not_meet_Loeb_McGeer_Criteria" <?php echo (in_array('Does_not_meet_Loeb_McGeer_Criteria', $selected_options)) ? 'selected' : ''; ?>>Does not meet Loeb/ McGeer Criteria</option>
+    <option value="Consider_shorter_antibiotic_course" <?php echo (in_array('Consider_shorter_antibiotic_course', $selected_options)) ? 'selected' : ''; ?>>Consider shorter antibiotic course</option>
+    <option value="Antibiotics_not_recommended" <?php echo (in_array('Antibiotics_not_recommended', $selected_options)) ? 'selected' : ''; ?>>Antibiotics not recommended</option>
+    <option value="Other_Free_Text" <?php echo (in_array('Other_Free_Text', $selected_options)) ? 'selected' : ''; ?>>Other/Free Text</option>
 </select>
 
 

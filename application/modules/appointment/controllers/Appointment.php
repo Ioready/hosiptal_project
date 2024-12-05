@@ -3399,14 +3399,15 @@ public function filterdateDepartment(){
     $selectedDate = $this->input->post('selectedDate');
     $practitionerId = $this->input->post('departmentId'); // Capture practitioner ID
     $filterType = $this->input->post('filterType'); // Capture practitioner ID
-    if (is_array($filterType)) {
-        $filterType = implode(',', $filterType);
-    }
+   
+    // if (is_array($filterType)) {
+    //     $filterType = implode(',', $filterType);
+    // }
+    // print_r($filterType);die;
 
-
-    if($filterType=="practitioner"){
-
-    
+    // if(is_array($filterType,'practitioner')){
+        if (in_array("practitioner", $filterType)) {
+        // print_r($practitionerId);die;
 // print_r($practitionerId);die;
     if (is_array($practitionerId)) {
         $practitionerId = implode(',', $practitionerId);
@@ -3454,7 +3455,7 @@ $sql = "SELECT vendor_sale_clinic_appointment.*, U.first_name, U.last_name, UP.a
         LEFT JOIN vendor_sale_clinic as cl ON vendor_sale_clinic_appointment.location_appointment = cl.id
         LEFT JOIN vendor_sale_user_profile as UP ON UP.user_id = U.id
         LEFT JOIN vendor_sale_practitioner as pr ON vendor_sale_clinic_appointment.practitioner = pr.id
-        WHERE (vendor_sale_clinic_appointment.practitioner IN ($practitionerId) OR vendor_sale_clinic_appointment.theatre_clinician IN ($practitionerId) OR vendor_sale_clinic_appointment.location_appointment IN ($practitionerId) OR vendor_sale_clinic_appointment.clinician_appointment IN ($practitionerId) OR vendor_sale_clinic_appointment.clinician_appointment IN ($practitionerId))
+        WHERE (vendor_sale_clinic_appointment.practitioner IN ($practitionerId))
         AND (
             vendor_sale_clinic_appointment.start_date_appointment LIKE '%$selectedDate%'
             OR vendor_sale_clinic_appointment.theatre_date_time LIKE '%$selectedDate%'
@@ -3469,7 +3470,7 @@ $sql = "SELECT vendor_sale_clinic_appointment.*, U.first_name, U.last_name, UP.a
 $result = $this->db->query($sql);
 
 $all_appointment = $result->result();
-// print_r($all_appointment);die;
+
 
 }else{
 //     $sql = "SELECT vendor_sale_clinic_appointment.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state, pa.name as patient_name, cl.name as clinic_name, cl.clinic_location, pr.name as practitioner_name
@@ -3515,6 +3516,8 @@ $sql = "SELECT vendor_sale_clinic_appointment.*, U.first_name, U.last_name, UP.a
 $result = $this->db->query($sql);
 
 $all_appointment = $result->result();
+
+
 }
 
 

@@ -3016,10 +3016,10 @@ input {
                                                         <div class="col-md-9">
                                                             <select id="additional_comment_option" name="additional_comment_option[]" onchange="isDirty(this.value)" class="form-control multiple-select select-chosen" size="1" multiple="multiple">
                                                                 <option value="" disabled>Please select</option>
-                                                                <option value="Does not meet Loeb/ McGeer Criteria ">Does not meet Loeb/ McGeer Criteria</option>
-                                                                <option value="Consider shorter antibiotic course ">Consider shorter antibiotic course</option>
-                                                                <option value="Antibiotics not recommended ">Antibiotics not recommended</option>
-                                                                <option value="Other/Free Text">Other/Free Text</option>
+                                                                <option value="Does_not_meet_Loeb_McGeer_Criteria">Does not meet Loeb/ McGeer Criteria</option>
+                                                                <option value="Consider_shorter_antibiotic_course">Consider shorter antibiotic course</option>
+                                                                <option value="Antibiotics_not_recommended">Antibiotics not recommended</option>
+                                                                <option value="Other_Free_Text">Other/Free Text</option>
                                                             </select>
                                                         </div>
                                                     </div>
