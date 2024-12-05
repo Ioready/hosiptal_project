@@ -2003,17 +2003,29 @@ input {
 .modal-full .modal-content {
     min-height: 100vh;
 }
+
+@media (min-width: 768px) {
+    .modal-dialog {
+        width: 1017px!important;
+        margin: 30px auto;
+    }
+}
+
 </style>
+
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<div class="container-fluid">
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
 <!-- <div class="modal modal-right fade" id="commonModalNewPatientold" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true"> -->
-<div id="commonModalNewPatientold" class="modal right fade bd-example-modal-lg" role="dialog">
-    <div class="modal-dialog modal-lg">
+<div id="commonModalNewPatientold" class="modal right fade bd-example-modal-xl" role="dialog">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <form class="form-horizontal" role="form" method="post" action="<?php echo base_url($formUrlAddNew) ?>" enctype="multipart/form-data">
-            
-           
-                <div class="modal-header" style="background-color: honeydew;">
+                <div class="modal-header" style="background-color: #a2e3a2;;">
                     <h4 class="modal-title"> Add new patient form</h4>
-                    <button type="button" class="close" data-dismiss="modal" style="position: absolute; top: 25px; right: 25px; font-size: 24px;">
+                    <button type="button" class="close" data-dismiss="modal" style="position: absolute; top: 25px; right: 25px; font-size: 24px;" onclick="reloadPage()">
                         <span aria-hidden="true">&times;</span>
                         <span class="sr-only">Close</span>
                     </button>
@@ -2021,9 +2033,7 @@ input {
                 </div>
                 
                 <div class="modal-body" style="overflow-y: auto; max-height: 80vh;">
-                    <!-- <div class="loaders">
-                        <img src="<?php //echo base_url().'backend_asset/images/Preloader_2.gif';?>" class="loaders-img" class="img-responsive">
-                    </div> -->
+                   
                     <div class="alert alert-danger" id="error-box" style="display: none"></div>
                     <div class="form-body">
 
@@ -2144,9 +2154,7 @@ input {
                         </div>
                     </div>
                     <div class="row">
-                        <!-- <div class="modal-header ">
-                            <h3 class="modal-title text-center"><strong>Contact details</strong></h3>
-                        </div> -->
+                       
 
                         <div class="modal-header text-center">
                             <div class="col-md-12">
@@ -3034,32 +3042,35 @@ input {
                                                 </div>
                                                 <div class="space-22"></div>
                                             </div>
-                                        <!-- </div> -->
-                
-                    <!-- <div class="modal-footer"> -->
+                                        
 
                     <div class="modal-footer">
-                    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal"><?php echo lang('reset_btn');?></button>
+                    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" onclick="reloadPage()">Close</button>
                     <button  style="background: #337ab7" type="submit" class="btn btn-sm btn-primary m-2" ><?php echo lang('submit_btn');?></button>
                 </div> 
 
                                                 <!-- <button type="button" class="btn btn-sm btn-default reset-btn" data-dismiss="modal"><?php echo lang('reset_btn'); ?></button>
                                                 <button type="submit" id="submit" class="save-btn btn btn-sm btn-primary"><?php echo lang('submit_btn'); ?></button> -->
-                                            </div>
-                                        </form>
-        
+            </div>
+        </form>
+        </div>
+        </div>
 
 
                     <div class="modal" id="myModal">
                         <div class="modal-dialog">
                         <div class="modal-content">
-                        
-                            <!-- Modal Header -->
-                            <div class="modal-header">
-                            <h4 class="modal-title">Modal Heading</h4>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; background-color: #f8f9fa; border-bottom: 1px solid #dee2e6;">
+                              
+                                <button type="button" class="btn btn-sm btn-default" style="background: none; border: none; font-size: 24px; cursor: pointer; color: #333;" id="closeModalButton"><span aria-hidden="true">&times;</span><span style="font-size: 14px; margin-left: 5px;"> Close</span></button>
+                                                
+
+                                <!-- Modal Title -->
+                                <h2 style="font-size: 20px; font-weight: bold; color: #007bff; margin: 0;">
+                                    <i class="fa fa-pencil" style="margin-right: 10px;"></i> <?php echo "Modal Heading"; ?>
+                                </h2>
                             </div>
-                            
+                           
                             <!-- Modal body -->
                             <div class="modal-body">
                                     <div class="col-md-12" id="relationship">
@@ -3431,14 +3442,38 @@ input {
 
                             <!-- Modal footer -->
                             <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-danger" id="closeModalButtonss">Close</button>
                             </div>
 
                         </div>
                         </div>
                     </div>
 
-                    <style>
+                    </div>
+                    
+                    
+    <script>
+        // Get modal elements
+        const modal = document.getElementById('myModal');
+        const closeButton = document.getElementById('closeModalButton');
+        const closeButtonss = document.getElementById('closeModalButtonss');
+        // Function to close the modal
+        closeButton.addEventListener('click', function () {
+            modal.style.display = 'none';
+            // overlay.style.display = 'none';
+        });
+        closeButtonss.addEventListener('click', function () {
+            modal.style.display = 'none';
+            // overlay.style.display = 'none';
+        });
+        function reloadPage() {
+            // if (confirm("Are you sure you want to reload the page?")) {
+                location.reload(); // Reloads the page
+            // }
+        }
+    </script>
+
+<style>
     .user-setting{
     background-color: #5c99f130;
     padding: 23px;

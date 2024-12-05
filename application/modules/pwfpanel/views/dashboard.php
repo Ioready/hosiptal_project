@@ -1051,13 +1051,13 @@
         <div class="col-md-4 mt-4">
             <div class="card recent-sales overflow-auto" style="background-color: #FFFFFF;  border-radius: 8px;">
                 <div class="card-body">
-                    <h5 class="card-title fw-bold" style="font-size: 1.2rem; color: #333;">Doctors</h5>
+                    <h5 class="card-title fw-bold" style="font-size: 1.2rem; color: #333;">Doctors in Clinic</h5>
                     <div class="table-responsive">
                         <table class="table table-striped table-hover datatable" id="todayDoctor">
                             <thead class="table-dark" >
                                 <tr>
                                     <th scope="col" style="font-size: 0.9rem;">#</th>
-                                    <th scope="col" style="font-size: 0.9rem;">Doctor</th>
+                                    <th scope="col" style="font-size: 0.9rem;">Doctors in Clinic</th>
                                     <th scope="col" style="font-size: 0.9rem;">Status</th>
                                 </tr>
                             </thead>

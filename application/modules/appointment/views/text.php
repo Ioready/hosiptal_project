@@ -1178,7 +1178,7 @@ tbody {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/js/bootstrap-multiselect.min.js"></script> -->
 
-
+    
     <script>
     $(document).ready(function() {
   var table = $('#all_appointment').DataTable({
@@ -2806,11 +2806,16 @@ input {
                         <div class="modal-dialog">
                         <div class="modal-content">
                         
-                            <!-- Modal Header -->
-                            <div class="modal-header">
-                            <h4 class="modal-title">Modal Heading</h4>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; background-color: #f8f9fa; border-bottom: 1px solid #dee2e6;">
+                              
+                              <button type="button" class="btn btn-sm btn-default" style="background: none; border: none; font-size: 24px; cursor: pointer; color: #333;" id="closeModalButtonside"><span aria-hidden="true">&times;</span><span style="font-size: 14px; margin-left: 5px;"> Close</span></button>
+                                              
+
+                              <!-- Modal Title -->
+                              <h2 style="font-size: 20px; font-weight: bold; color: #007bff; margin: 0;">
+                                  <i class="fa fa-pencil" style="margin-right: 10px;"></i> <?php echo "Modal Heading"; ?>
+                              </h2>
+                          </div>
                             
                             <!-- Modal body -->
                             <div class="modal-body">
@@ -3183,7 +3188,7 @@ input {
 
                             <!-- Modal footer -->
                             <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-danger" id="closeModalButtonss">Close</button>
                             </div>
 
                         </div>
@@ -3784,6 +3789,27 @@ document.getElementById("change_value").style.display = "none";
   
 })();
 </script>
+
+<script>
+        // Get modal elements
+        const modal = document.getElementById('myModal');
+        const closeButton = document.getElementById('closeModalButtonside');
+        const closeButtonss = document.getElementById('closeModalButtonss');
+        // Function to close the modal
+        closeButton.addEventListener('click', function () {
+            modal.style.display = 'none';
+            // overlay.style.display = 'none';
+        });
+        closeButtonss.addEventListener('click', function () {
+            modal.style.display = 'none';
+            // overlay.style.display = 'none';
+        });
+        function reloadPage() {
+            // if (confirm("Are you sure you want to reload the page?")) {
+                location.reload(); // Reloads the page
+            // }
+        }
+    </script>
 
 </body>
 </html>
