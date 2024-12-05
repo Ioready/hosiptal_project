@@ -3504,6 +3504,7 @@ $option = array(
                     'infection_surveillance_checklist' => $this->input->post('infection_surveillance_checklist') ? $this->input->post('infection_surveillance_checklist') : null,
                     'total_days_of_patient_stay' => (!empty($this->input->post('total_days_of_patient_stay'))) ? $this->input->post('total_days_of_patient_stay') : 0,
                     'date_of_start_abx' => date('Y-m-d', strtotime($this->input->post('date_of_start_abx'))) ? $this->input->post('date_of_start_abx') : null,
+                    'additional_comment_option' => json_encode($this->input->post('additional_comment_option')) ? json_encode($this->input->post('additional_comment_option')) : null,
                     //'pct' => (!empty($this->input->post('pct'))) ? $this->input->post('pct') : null,
                     'updated_date' => date('Y-m-d H:i:s')
                 ),

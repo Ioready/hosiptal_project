@@ -1171,19 +1171,15 @@
                                                             
                                                         <?php
 // Decode the selected values as an array with error handling
-$selected_options = [];
+// $selected_options = [];
 if (!empty($results->additional_comment_option)) {
     // $selected_options = $results->additional_comment_option;
 
-    $selected_optionss = json_decode($results->additional_comment_option);
-    // $selected_options= implode(',',$selected_optionss);
-    // Ensure $selected_options is a valid array
-    // $selected_options = is_array($selected_options) ? $selected_options : [];
-    // print_r($selected_options);die;
+    $selected_options = json_decode($results->additional_comment_option);
 }
 ?>
 
-<select name="additional_comment_option[]" class="form-control multiple-select" multiple="multiple">
+<select name="additional_comment_option[]" class="form-control select2-multiple select2" multiple="multiple">
     <option value="Does_not_meet_Loeb_McGeer_Criteria" <?php echo (in_array('Does_not_meet_Loeb_McGeer_Criteria', $selected_options)) ? 'selected' : ''; ?>>Does not meet Loeb/ McGeer Criteria</option>
     <option value="Consider_shorter_antibiotic_course" <?php echo (in_array('Consider_shorter_antibiotic_course', $selected_options)) ? 'selected' : ''; ?>>Consider shorter antibiotic course</option>
     <option value="Antibiotics_not_recommended" <?php echo (in_array('Antibiotics_not_recommended', $selected_options)) ? 'selected' : ''; ?>>Antibiotics not recommended</option>
@@ -1191,6 +1187,21 @@ if (!empty($results->additional_comment_option)) {
 </select>
 
 
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@1.5.2/dist/select2-bootstrap4.min.css" rel="stylesheet" />
+
+<script>
+        $(document).ready(function() {
+        $('.select2-multiple').select2({
+            theme: 'bootstrap4',
+            closeOnSelect: false,
+            placeholder: "Search and select options",
+            allowClear: true,
+            tags: true
+        });
+    });
+</script>
 
 
 
