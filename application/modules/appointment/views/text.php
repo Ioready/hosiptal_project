@@ -616,7 +616,7 @@ tbody {
                                     <option value="0">Please select</option>
                                   
                                     <?php foreach ($practitioner as $practitioners) { ?>
-                                        <option value="<?php echo $practitioners->id; ?>"><?php echo $practitioners->name; ?></option>
+                                        <option value="<?php echo $practitioners->id; ?>"><?php echo $practitioners->first_name. ' '.$practitioners->last_name; ?></option>
                                     <?php } ?>
                                     
                                 </select>
@@ -993,7 +993,7 @@ tbody {
                                                                             <option value="0">Please select</option>
                                                                         
                                                                             <?php foreach ($practitioner as $practitioners) { ?>
-                                                                                <option value="<?php echo $practitioners->id; ?>"><?php echo $practitioners->name; ?></option>
+                                                                                <option value="<?php echo $practitioners->id; ?>"><?php echo $practitioners->first_name. ' '.$practitioners->last_name; ?></option>
                                                                             <?php } ?>
                                                                             
                                                                         </select>
@@ -1095,7 +1095,7 @@ tbody {
                                                                             <option value="0">Please select</option>
                                                                         
                                                                             <?php foreach ($practitioner as $practitioners) { ?>
-                                                                                <option value="<?php echo $practitioners->id; ?>"><?php echo $practitioners->name; ?></option>
+                                                                                <option value="<?php echo $practitioners->id; ?>"><?php echo $practitioners->first_name. ' '.$practitioners->last_name; ?></option>
                                                                             <?php } ?>
                                                                             
                                                                         </select>

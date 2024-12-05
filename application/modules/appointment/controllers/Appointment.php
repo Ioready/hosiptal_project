@@ -357,14 +357,14 @@ class Appointment extends Common_Controller {
             );
             $doctorsData = $this->common_model->customGet($optionDoctor);
 
-            $optionPractitioner = array(
-                'table' => 'practitioner',
-                'select' => '*',
-                 'where' => array('hospital_id'=>$hospital_id,'delete_status' => 0), 'order' => array('name' => 'ASC')
-            );
-            $practitionerData = $this->common_model->customGet($optionPractitioner);
-        $combinedData = array_merge($practitionerData,$doctorsData);
-        $this->data['practitioner'] = $combinedData;
+        //     $optionPractitioner = array(
+        //         'table' => 'practitioner',
+        //         'select' => '*',
+        //          'where' => array('hospital_id'=>$hospital_id,'delete_status' => 0), 'order' => array('name' => 'ASC')
+        //     );
+        //     $practitionerData = $this->common_model->customGet($optionPractitioner);
+        // $combinedData = array_merge($practitionerData,$doctorsData);
+        $this->data['practitioner'] = $doctorsData;
 
         
        $option = array(
@@ -521,9 +521,10 @@ $this->data['all_appointment'] = $result->result();
                     'order' => array('users.id' => 'asc'),
                 );
                 $doctorsData = $this->common_model->customGet($optionDoctor);
-              
 
-                
+                $data['practitioner'] = $doctorsData;
+                // echo json_encode($data['practitioner']);
+                $this->data['practitioner_filter'] = $doctorsData;
        
     $option = array(
         'table' => ' doctors',
@@ -548,24 +549,24 @@ $this->data['all_appointment'] = $result->result();
     $this->data['clinic_location'] = $this->common_model->customGet($option);
 
             
-                $optionPractitioner = array(
-                    'table' => 'practitioner',
-                    'select' => '*',
-                    'where' => array(
-                        'hospital_id' => $hospital_id,
-                        // 'delete_status' => 0,
-                        // 'id' => 10,
-                    ),
-                    'where_in' => array('practitioner.id' => $departmentanddoctordata),  // Use where_in to check for multiple IDs
-                    'order' => array('id' => 'ASC')
-                );
-                $practitionerData = $this->common_model->customGet($optionPractitioner);
-                $combinedData = array_merge($practitionerData, $doctorsData);
-                $data['practitioner'] = $combinedData;
+                // $optionPractitioner = array(
+                //     'table' => 'practitioner',
+                //     'select' => '*',
+                //     'where' => array(
+                //         'hospital_id' => $hospital_id,
+                        
+                //     ),
+                //     'where_in' => array('practitioner.id' => $departmentanddoctordata),  // Use where_in to check for multiple IDs
+                //     'order' => array('id' => 'ASC')
+                // );
+                // $practitionerData = $this->common_model->customGet($optionPractitioner);
+                // $combinedData = array_merge($practitionerData, $doctorsData);
+
+                // $data['practitioner'] = $combinedData;
 
                 
-                // echo json_encode($data['practitioner']);
-                $this->data['practitioner_filter'] = $combinedData;
+                // // echo json_encode($data['practitioner']);
+                // $this->data['practitioner_filter'] = $combinedData;
               
             }
             else{
@@ -587,20 +588,22 @@ $this->data['all_appointment'] = $result->result();
             );
             $doctorsData = $this->common_model->customGet($optionDoctor);
     
-            $optionPractitioner = array(
-                'table' => 'practitioner',
-                'select' => '*',
-                'where' => array(
-                    'hospital_id' => $hospital_id,
-                    // 'id' => 10,
-                    'delete_status' => 0
-                ),
-                'order' => array('id' => 'ASC')
-            );
-            $practitionerData = $this->common_model->customGet($optionPractitioner);
-            $combinedData = array_merge($practitionerData,$doctorsData);
-            $this->data['practitioner'] = $combinedData;
+            // $optionPractitioner = array(
+            //     'table' => 'practitioner',
+            //     'select' => '*',
+            //     'where' => array(
+            //         'hospital_id' => $hospital_id,
+            //         // 'id' => 10,
+            //         'delete_status' => 0
+            //     ),
+            //     'order' => array('id' => 'ASC')
+            // );
+            // $practitionerData = $this->common_model->customGet($optionPractitioner);
 
+            // $combinedData = array_merge($practitionerData,$doctorsData);
+            
+            // $this->data['practitioner'] = $combinedData;
+            $this->data['practitioner'] = $doctorsData;
 
        
             $option = array(
@@ -1022,7 +1025,8 @@ $option = array(
             );
             $practitionerData = $this->common_model->customGet($optionPractitioner);
 
-            $practitioner = array_merge($practitionerData, $doctorsData);
+            // $practitioner = array_merge($practitionerData, $doctorsData);
+            $practitioner = $doctorsData;
             foreach ($practitioner as $item) {
                 $item->filter_type = 'practitioner';
             }
@@ -1078,7 +1082,8 @@ $option = array(
                     'order' => array('name' => 'ASC')
                 );
                 $practitionerData = $this->common_model->customGet($optionPractitioner);
-                $practitioner = array_merge($practitionerData, $doctorsData);
+                // $practitioner = array_merge($practitionerData, $doctorsData);
+                $practitioner = $doctorsData;
 
                 foreach ($practitioner as $item) {
                     $item->filter_type = 'practitioner';
@@ -1361,7 +1366,8 @@ $option = array(
              'where' => array('hospital_id'=>$hospital_id,'delete_status' => 0), 'order' => array('name' => 'ASC')
         );
         $practitionerData = $this->common_model->customGet($optionPractitioner);
-    $combinedData = array_merge($practitionerData,$doctorsData);
+    // $combinedData = array_merge($practitionerData,$doctorsData);
+    $combinedData = $doctorsData;
     $this->data['practitioner'] = $combinedData;
 
 // print_r($this->data['practitioner']);die;
@@ -1428,7 +1434,8 @@ $option = array(
              'where' => array('hospital_id'=>$hospital_id,'delete_status' => 0), 'order' => array('name' => 'ASC')
         );
         $practitionerData = $this->common_model->customGet($optionPractitioner);
-    $combinedData = array_merge($practitionerData,$doctorsData);
+    // $combinedData = array_merge($practitionerData,$doctorsData);
+    $combinedData = $doctorsData;
     $this->data['practitioner'] = $combinedData;
     
         
@@ -2652,6 +2659,30 @@ public function fetch() {
     }
 }
 
+
+// Check availability
+public function checkAvailability() {
+    $date = $this->input->post('date');
+    $time = $this->input->post('time');
+    $practitioner = $this->input->post('practitioner');
+
+    $isAvailable = $this->common_model->isAvailable($date, $time, $practitioner);
+    echo json_encode(['available' => $isAvailable]);
+}
+
+// Book an appointment
+public function bookAppointment() {
+    $date = $this->input->post('date');
+    $time = $this->input->post('time');
+
+    if ($this->common_model->isAvailable($date, $time, $practitioner)) {
+        $this->common_model->book($date, $time, $practitioner);
+        echo json_encode(['success' => true, 'message' => 'Appointment booked successfully.']);
+    } else {
+        echo json_encode(['success' => false, 'message' => 'The selected slot is not available.']);
+    }
+}
+
     public function add() {
 
     //    echo "<pre>";
@@ -2672,6 +2703,8 @@ public function fetch() {
 
         $this->form_validation->set_rules('doctor_name', lang('doctor_name'), 'required');
        
+        
+
      
         if ($this->form_validation->run() == true) {
 
@@ -2790,7 +2823,13 @@ public function fetch() {
 //     }
 
                     
+$date =  $this->input->post('start_date_appointment') ?: $this->input->post('theatre_date_time') ?: $this->input->post('out_start_time_at') ?:$this->input->post('start_date_availability');
+        $practitioner =  $this->input->post('practitioner') ?: $this->input->post('theatre_clinician');
+    $time = $this->input->post('start_date_appointment');
 
+    if ($this->common_model->isAvailable($date, $time, $practitioner)) {
+        // $this->common_model->book($date, $time, $practitioner);
+        
 
 
                     // $this->db->insert('clinic_appointment', $additional_data_profile); 
@@ -2799,7 +2838,7 @@ public function fetch() {
                         'patient' => $this->input->post('patient') ?: null,
                         'location_appointment' => $this->input->post('location_appointment') ?: null,
                         'clinician_appointment' => $this->input->post('location_appointment') ?: null,
-                        'practitioner' => $this->input->post('practitioner') ?: null,
+                        'practitioner' => $this->input->post('practitioner') ?: $this->input->post('theatre_clinician'),
                         'appointment_type' => $this->input->post('appointment_type') ?: null,
                         'start_date_appointment' => $this->input->post('start_date_appointment') ?: $this->input->post('theatre_date_time') ?: $this->input->post('out_start_time_at') ?:$this->input->post('start_date_availability') ?: null,
                         'end_date_appointment' => $this->input->post('end_date_appointment') ?:$this->input->post('end_time_date_availability') ?:$this->input->post('out_end_time_at') ?: null,
@@ -3027,13 +3066,22 @@ $notifications_id = $this->db->insert_id();
                         //     $this->db->insert('notifications', $additional_notification);
 
                         // }
+
                             
                     if ($insert_id) {
                         $html = array();
-                        $response = array('status' => 1, 'message' => 'Added Successfully', 'url' => base_url($this->router->fetch_class()));
-                    } else {
-                        $response = array('status' => 0, 'message' => lang('user_failed'));
+                        // $response = array('status' => 1, 'message' => 'Added Successfully', 'url' => base_url($this->router->fetch_class()));
+                    
+                    // else {
+                    //     $response = array('status' => 0, 'message' => lang('user_failed'));
+                    // }
+
+                    $response = array('status' => 1, 'message' => 'Appointment booked successfully.', 'url' => base_url($this->router->fetch_class()));
                     }
+                    } else {
+                        $response = array('status' => 0, 'message' => 'The selected slot is not available.');
+                    }
+
 
                 }
 
@@ -3367,18 +3415,15 @@ public function filterdateDepartment(){
 $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 
 
-$sql = "SELECT vendor_sale_practitioner.*
-        FROM vendor_sale_practitioner
-        WHERE (vendor_sale_practitioner.id IN ($practitionerId))
-        -- AND (
-        --     vendor_sale_practitioner.hospital_id LIKE '%$CareUnitID%'
-            
-        -- )
-        ";
+// $sql = "SELECT vendor_sale_practitioner.*
+//         FROM vendor_sale_practitioner
+//         WHERE (vendor_sale_practitioner.id IN ($practitionerId))
+    
+//         ";
 
-$result = $this->db->query($sql);
+// $result = $this->db->query($sql);
 
-$doctorsData = $result->result();
+// $doctorsData = $result->result();
 // print_r($doctorsData);die;
 
 $sql = "SELECT U.*, U.first_name, U.last_name
@@ -3395,7 +3440,8 @@ $result = $this->db->query($sql);
 
 $practitionerData = $result->result();
 
-$practitioner = array_merge($doctorsData, $practitionerData);
+// $practitioner = array_merge($doctorsData, $practitionerData);
+$practitioner = $practitionerData;
 
 
 if(!empty($practitionerId)){
@@ -3781,5 +3827,9 @@ $output ='<tbody>'?>
                                         
     }                               
 }
+
+
+
+
 
 }
