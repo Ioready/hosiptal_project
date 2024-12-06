@@ -139,9 +139,12 @@ class Pwfpanel extends Common_Controller
                     'table' => "patient P",
                     'select' => "P.id"
                 );
+                
                 // print_r($this->data['total_md_steward']);die;
 
                 $data['total_patient'] = $this->common_model->customCount($option);
+
+
                 $option = array(
                     'table' => 'task',
                     'select' => 'task.id',
@@ -459,6 +462,7 @@ class Pwfpanel extends Common_Controller
                 $careunit_facility_counts= $this->common_model->customGet($optionAppointment);
                 $user_facility_counts = count($careunit_facility_counts);
                 $data['total_patient_doctors'] = $user_facility_counts;
+                
                 // $careunit_facility_counts = $this->common_model->customQuery($Sql);
                 // $user_facility_counts = count($careunit_facility_counts);
                 // $data['total_patient'] = $user_facility_counts;
@@ -1276,6 +1280,7 @@ $totalAppointment = $result->result();
                     $authUser = $this->common_model->customGet($optionData);
                 
                     $hospital_id = $authUser->hospital_id;
+                    $group_name = $authUser->group_name;
                     // 'users.hospital_id'=>$hospital_id
                     
                 }
@@ -1459,10 +1464,18 @@ $totalAppointment = $result->result();
                     
                     $optionAppointment['where']['U.hospital_id'] = $hospital_id;
                 }
+
+                if ($group_name =='SubAdmin') {
+                    $optionAppointment['where']['P.doctor_id']  = $user_id;
+                }
+                if ($group_name =='Patient') {
+                    $optionAppointment['where']['P.user_id']  = $user_id;
+                }
                 
                 $careunit_facility_counts= $this->common_model->customGet($optionAppointment);
                 $user_facility_counts = count($careunit_facility_counts);
                 $data['total_patient_doctors'] = $user_facility_counts;
+
                 // $careunit_facility_counts = $this->common_model->customQuery($Sql);
                 // $user_facility_counts = count($careunit_facility_counts);
                 // $data['total_patient'] = $user_facility_counts;

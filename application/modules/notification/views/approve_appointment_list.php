@@ -65,6 +65,7 @@
  
 <?php 
                 $all_permission = $this->ion_auth->is_permission();
+               
                 if (!empty($all_permission['form_permission'])) {
                 foreach($all_permission['form_permission'] as $permission){
                    
@@ -173,8 +174,37 @@
                                                         }
                                                         ?>
                                                     </td>
+                                                    
                                                     <td>
-                                                        <?php if($menu_update =='1'){
+                                                        <?php
+                                                        if($this->ion_auth->is_all_roleslogin()) {
+                                                            $user_id = $this->session->userdata('user_id');
+                                                            $optionData = array(
+                                                                'table' => USERS . ' as user',
+                                                                'select' => 'user.*,group.name as group_name',
+                                                                'join' => array(
+                                                                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                                                                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                                                                ),
+                                                                'order' => array('user.id' => 'DESC'),
+                                                                'where' => array('user.id'=>$user_id),
+                                                                'single'=>true,
+                                                            );
+                                                    
+                                                            $authUser = $this->common_model->customGet($optionData);
+                                                            $group_name =$authUser->group_name;
+                                                            
+                                                            
+                                                        }
+                                                        if ($group_name =='SubAdmin') {
+                                                           
+                                                        
+                                                        // if ($group_name =='Patient') {
+                                                        //     $optionHospital['where']['P.user_id']  = $user_id;
+                                                        // }
+
+                                                        
+                                                        if($menu_update =='1'){
                                                          if($notification->appointment_status == 'Inactive'): ?>
                                                             <span class="custom-badge status-red">Inactive</span> 
                                                         <?php elseif($notification->appointment_status == 'Active'): ?>
@@ -190,7 +220,10 @@
                                                                 <option value="Active"><strong>Active</strong></option>
                                                                 <option value="Inactive"><strong>Inactive</strong></option>
                                                             </select>
-                                                        <?php endif; }?>
+                                                        <?php endif; } }else{?>
+                                                            <span class="custom-badge status-red"><?php echo $notification->appointment_status;?></span> 
+                                                            
+                                                                <?php }?>
                                                     </td>
                                                 </tr>
                                                 <?php endforeach; ?>
