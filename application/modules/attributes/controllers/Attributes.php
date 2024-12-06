@@ -419,10 +419,32 @@ class Attributes extends Common_Controller {
             
         }
 
-        $option = array('table' => 'practitioner', 
-        'where' => array('hospital_id'=>$hospital_id,'delete_status' => 0),
-        'order'=>array('name'=>'asc'));
-        $this->data['list'] = $this->common_model->customGet($option);
+        // $option = array('table' => 'practitioner', 
+        // 'where' => array('hospital_id'=>$hospital_id,'delete_status' => 0),
+        // 'order'=>array('name'=>'asc'));
+        // $this->data['list'] = $this->common_model->customGet($option);
+
+        $optionPractitioner = array(
+            'table' => ' doctors',
+            'select' => 'users.*',
+            'join' => array(
+                array('users', 'doctors.user_id=users.id', 'left'),
+                array('user_profile UP', 'UP.user_id=users.id', 'left'),
+                // array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
+                
+            ),
+            
+            'where' => array(
+                'users.delete_status' => 0,
+                // 'doctors.facility_user_id'=>$datadoctors->facility_user_id
+                'users.hospital_id'=>$hospital_id
+            ),
+            'order' => array('users.id' => 'desc'),
+        );
+        $this->data['list'] = $this->common_model->customGet($optionPractitioner);
+
+
+
         $this->load->admin_render('list_practitioner', $this->data, 'inner_script');
     }
 

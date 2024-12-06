@@ -216,10 +216,11 @@
                                     <label for="practitioner">Practitioner</label>
                                     
                                     <select name="practitioner" id="practitioner">
-                                    <?php  foreach($practitioner as $row){ ?>
-                                        <option value="<?php echo $row->id;?>" <?php echo $results->practitioner ==$row->id?'selected':''; ?>><?php echo $row->name;?></option>
-                                        <?php } ?>
+                                    <?php  foreach($practitioner as $row){?>
+                                        <option value="<?php echo $row->id;?>" <?php echo $results->practitioner ==$row->id?'selected':''; ?>><?php echo $row->first_name . ' ' . $row->last_name; ?></option>
+                                        <?php }  ?>
                                     </select>
+                                    
                                     <!-- <input type="text" name="practitioner" id="practitioner" placeholder="Select Practitioner"> -->
                                 </div>
                             </div>

@@ -274,9 +274,9 @@ display:none;
                         </div>
                     </div>
                     <div class="description">
-                    <p class="add-read-more show-less-content">
+                    <p class="add-read-mores show-less-contents">
                         <?php echo $row->plan_description; ?>
-                        </p>
+                    </p>
                     </div>
                     <?php if($this->ion_auth->is_admin()){ ?>
                     <!-- <div class="button">
@@ -345,6 +345,7 @@ display:none;
 
 <script>
     $(document).ready(function(){
+
      function AddReadMore() {
       //This limit you can set after how much characters you want to show Read More.
       var carLmt = 300;
@@ -374,6 +375,36 @@ display:none;
       });
    }
 
+   AddReadMore();
+
+   function AddReadMore() {
+      //This limit you can set after how much characters you want to show Read More.
+      var carLmt = 300;
+      // Text to show when text is collapsed
+      var readMoreTxt = " ...read more";
+      // Text to show when text is expanded
+      var readLessTxt = " read less";
+
+
+      //Traverse all selectors with this class and manupulate HTML part to show Read More
+      $(".add-read-mores").each(function () {
+         if ($(this).find(".first-sections").length)
+            return;
+
+         var allstr = $(this).text();
+         if (allstr.length > carLmt) {
+            var firstSet = allstr.substring(0, carLmt);
+            var secdHalf = allstr.substring(carLmt, allstr.length);
+            var strtoadd = firstSet + "<span class='second-sections'>" + secdHalf + "</span><span class='read-mores'  title='Click to Show More'>" + readMoreTxt + "</span><span class='read-lesss' title='Click to Show Less'>" + readLessTxt + "</span>";
+            $(this).html(strtoadd);
+         }
+      });
+
+      //Read More and Read Less Click Event binding
+      $(document).on("click", ".read-mores,.read-lesss", function () {
+         $(this).closest(".add-read-more").toggleClass("show-less-contents show-more-contents");
+      });
+   }
    AddReadMore();
 });
 
@@ -411,6 +442,30 @@ display:none;
         }
 
         .add-read-more{
+        max-width: 600px;
+        width: 100%;
+        margin: 0 auto;
+        }
+
+
+        .add-read-mores.show-less-contents .second-sections,
+        .add-read-mores.show-less-contents .read-lesss {
+        display: none;
+        }
+
+        .add-read-mores.show-more-contents .read-mores {
+        display: none;
+        }
+
+        .add-read-mores .read-mores,
+        .add-read-mores .read-lesss {
+        font-weight: bold;
+        margin-left: 2px;
+        color: blue;
+        cursor: pointer;
+        }
+
+        .add-read-mores{
         max-width: 600px;
         width: 100%;
         margin: 0 auto;

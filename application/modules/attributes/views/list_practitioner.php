@@ -82,9 +82,9 @@
         <div class="block-title ">
             <h2 class="fw-bold"><strong><?php echo 'Practitioner'; ?></strong> Panel</h2>
             
-                <h2><a href="javascript:void(0)"  onclick="open_model_practitioner('<?php echo $model; ?>')" class="btn btn-sm btn-primary save-btn">
+                <!-- <h2><a href="javascript:void(0)"  onclick="open_model_practitioner('<?php echo $model; ?>')" class="btn btn-sm btn-primary save-btn">
                         <i class="gi gi-circle_plus"></i> <?php echo 'Practitioner'; ?>
-                    </a></h2>
+                    </a></h2> -->
            
         </div>
         <?php } if($menu_view =='1'){ ?>?>
@@ -94,7 +94,7 @@
                     <tr >
                         <th  class="text-center fw-bold" style="background-color:#DBEAFF;font-size:1.3rem;width:15%;;">Sr. No</th>
                         <th  class="text-center fw-bold"  style="background-color:#DBEAFF;font-size:1.3rem;width:60%;;">Name</th>
-                        <th  class="text-center fw-bold" style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('action'); ?></th>
+                        <!-- <th  class="text-center fw-bold" style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('action'); ?></th> -->
                     </tr>
                 </thead>
                 <tbody>
@@ -106,9 +106,9 @@
                             ?>
                             <tr>
                                 <td><?php echo $rowCount; ?></td>            
-                                <td><?php echo $rows->name; ?></td>
+                                <td><?php echo $rows->first_name.' '.$rows->last_name; ?></td>
 
-                                <td class="actions">
+                                <!-- <td class="actions">
                                <?php if($menu_update =='1'){ ?>
                                     <a href="javascript:void(0)" class="btn btn-xs btn-default" onclick="editFn('<?php echo $model; ?>', 'edit_practitioner', '<?php echo encoding($rows->id) ?>', '<?php echo $model; ?>');"><i class="fa fa-pencil"></i></a>
                                     <?php } if ($rows->is_active == 1) { ?>
@@ -118,7 +118,7 @@
                                     <?php }if($menu_delete =='1'){ ?>
                                     <a href="javascript:void(0)" onclick="deleteFn('<?php echo $table; ?>', 'id', '<?php echo encoding($rows->id); ?>', '<?php echo $model; ?>','','<?php echo $rows->name; ?>')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
                                 <?php }?>
-                                </td>
+                                </td> -->
                             </tr>
                             <?php
                         endforeach;
@@ -133,9 +133,9 @@
             <div class="block-title ">
             <h2 class="fw-bold"><strong><?php echo 'Practitioner'; ?></strong> Panel</h2>
             <?php if ($this->ion_auth->is_facilityManager()) { ?>
-                <h2><a href="javascript:void(0)"  onclick="open_model_practitioner('<?php echo $model; ?>')" class="btn btn-sm btn-primary save-btn">
+                <!-- <h2><a href="javascript:void(0)"  onclick="open_model_practitioner('<?php echo $model; ?>')" class="btn btn-sm btn-primary save-btn">
                         <i class="gi gi-circle_plus"></i> <?php echo 'Practitioner'; ?>
-                    </a></h2>
+                    </a></h2> -->
             <?php } ?>
         </div>
         <div class="table-responsive">
@@ -144,7 +144,7 @@
                     <tr >
                         <th  class="text-center fw-bold" style="background-color:#DBEAFF;font-size:1.3rem;width:15%;;">Sr. No</th>
                         <th  class="text-center fw-bold"  style="background-color:#DBEAFF;font-size:1.3rem;width:60%;;">Name</th>
-                        <th  class="text-center fw-bold" style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('action'); ?></th>
+                        <!-- <th  class="text-center fw-bold" style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('action'); ?></th> -->
                     </tr>
                 </thead>
                 <tbody>
@@ -156,9 +156,9 @@
                             ?>
                             <tr>
                                 <td><?php echo $rowCount; ?></td>            
-                                <td><?php echo $rows->name; ?></td>
+                                <td><?php echo $rows->first_name.' '.$rows->last_name; ?></td>
 
-                                <td class="actions">
+                                <!-- <td class="actions">
                                     <a href="javascript:void(0)" class="btn btn-xs btn-default" onclick="editFn('<?php echo $model; ?>', 'edit_practitioner', '<?php echo encoding($rows->id) ?>', '<?php echo $model; ?>');"><i class="fa fa-pencil"></i></a>
                                     <?php if ($rows->is_active == 1) { ?>
                                         <a href="javascript:void(0)" class="btn btn-xs btn-success" onclick="editStatusFn('<?php echo $tablePrefix; ?>', 'id', '<?php echo encoding($rows->id); ?>', '<?php echo $rows->is_active; ?>','<?php echo $rows->name; ?>')" title="Inactive Now"><i class="fa fa-check"></i></a>
@@ -166,7 +166,7 @@
                                         <a href="javascript:void(0)" class="btn btn-xs btn-danger" onclick="editStatusFn('<?php echo $tablePrefix; ?>', 'id', '<?php echo encoding($rows->id); ?>', '<?php echo $rows->is_active; ?>','<?php echo $rows->name; ?>')" title="Active Now"><i class="fa fa-times"></i></a>
                                     <?php } ?>
                                     <a href="javascript:void(0)" onclick="deleteFn('<?php echo $table; ?>', 'id', '<?php echo encoding($rows->id); ?>', '<?php echo $model; ?>','','<?php echo $rows->name; ?>')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
-                                </td>
+                                </td> -->
                             </tr>
                             <?php
                         endforeach;

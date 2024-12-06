@@ -232,8 +232,8 @@
         <label for="practitioner">Practitioner</label>
         <select id="practitioner" name="practitioner" style="width: 100%; padding: 10px; border: 1px solid #ced4da; border-radius: 4px;">
             <?php foreach ($practitioner as $row) {
-                if (!empty($row->name)) { ?>
-                    <option value="<?php echo $row->id; ?>"><?php echo $row->name; ?></option>
+                if (!empty($row->first_name)) { ?>
+                    <option value="<?php echo $row->id; ?>"><?php echo $row->first_name . ' ' . $row->last_name; ?></option>
             <?php } } ?>
         </select>
     </div>

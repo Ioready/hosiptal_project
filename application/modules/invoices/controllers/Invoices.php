@@ -286,17 +286,36 @@ class Invoices extends Common_Controller {
 
         $this->data['patient'] = $this->common_model->customGet($optionPatient);
 
-        $optionPractitioner = array(
-            'table' => 'vendor_sale_users',
-            'select' => 'vendor_sale_practitioner.*',
-            'join' => array(
-                array('vendor_sale_practitioner', 'vendor_sale_users.id=vendor_sale_practitioner.hospital_id','left')
-            ),
-            'where' => array('vendor_sale_practitioner.hospital_id'=>$hospital_id),
-            // 'single'=>true,
-        );
+        // $optionPractitioner = array(
+        //     'table' => 'vendor_sale_users',
+        //     'select' => 'vendor_sale_practitioner.*',
+        //     'join' => array(
+        //         array('vendor_sale_practitioner', 'vendor_sale_users.id=vendor_sale_practitioner.hospital_id','left')
+        //     ),
+        //     'where' => array('vendor_sale_practitioner.hospital_id'=>$hospital_id), 
+        // );
 
+        // $this->data['practitioner'] = $this->common_model->customGet($optionPractitioner);
+
+        $optionPractitioner = array(
+            'table' => ' doctors',
+            'select' => 'users.*',
+            'join' => array(
+                array('users', 'doctors.user_id=users.id', 'left'),
+                array('user_profile UP', 'UP.user_id=users.id', 'left'),
+                // array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
+                
+            ),
+            
+            'where' => array(
+                'users.delete_status' => 0,
+                'users.hospital_id'=>$hospital_id
+                // 'doctors.facility_user_id'=>$datadoctors->facility_user_id
+            ),
+            'order' => array('users.id' => 'desc'),
+        );
         $this->data['practitioner'] = $this->common_model->customGet($optionPractitioner);
+        // print_r($this->data['practitioner']);die;
         // print_r($datadoctors->facility_user_id);die;
 
     } else if ($this->ion_auth->is_facilityManager()) {
@@ -340,17 +359,38 @@ class Invoices extends Common_Controller {
 
         // print_r($this->data['patient']);die;
 
-        $optionPractitioner = array(
-            'table' => 'vendor_sale_users',
-            'select' => 'vendor_sale_practitioner.*',
-            'join' => array(
-                array('vendor_sale_practitioner', 'vendor_sale_users.id=vendor_sale_practitioner.hospital_id','left')
-            ),
-            'where' => array('vendor_sale_practitioner.hospital_id'=>$hospital_id),
-            // 'single'=>true,
-        );
+        // $optionPractitioner = array(
+        //     'table' => 'vendor_sale_users',
+        //     'select' => 'vendor_sale_practitioner.*',
+        //     'join' => array(
+        //         array('vendor_sale_practitioner', 'vendor_sale_users.id=vendor_sale_practitioner.hospital_id','left')
+        //     ),
+        //     'where' => array('vendor_sale_practitioner.hospital_id'=>$hospital_id),
+        //     // 'single'=>true,
+        // );
 
+        // $this->data['practitioner'] = $this->common_model->customGet($optionPractitioner);
+
+        $optionPractitioner = array(
+            'table' => ' doctors',
+            'select' => 'users.*',
+            'join' => array(
+                array('users', 'doctors.user_id=users.id', 'left'),
+                array('user_profile UP', 'UP.user_id=users.id', 'left'),
+                // array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
+                
+            ),
+            
+            'where' => array(
+                'users.delete_status' => 0,
+                'users.hospital_id'=>$hospital_id
+                // 'doctors.facility_user_id'=>$datadoctors->facility_user_id
+            ),
+            'order' => array('users.id' => 'desc'),
+        );
         $this->data['practitioner'] = $this->common_model->customGet($optionPractitioner);
+
+
     }
         
     // print_r($this->data['doctors']);die;
@@ -770,17 +810,36 @@ class Invoices extends Common_Controller {
 
         $this->data['patient'] = $this->common_model->customGet($optionPatient);
 
-        $optionPractitioner = array(
-            'table' => 'vendor_sale_users',
-            'select' => 'vendor_sale_practitioner.*',
-            'join' => array(
-                array('vendor_sale_practitioner', 'vendor_sale_users.id=vendor_sale_practitioner.hospital_id','left')
-            ),
-            // 'where' => array('vendor_sale_practitioner.hospital_id'=>$datadoctors->facility_user_id),
-            // 'single'=>true,
-        );
+        // $optionPractitioner = array(
+        //     'table' => 'vendor_sale_users',
+        //     'select' => 'vendor_sale_practitioner.*',
+        //     'join' => array(
+        //         array('vendor_sale_practitioner', 'vendor_sale_users.id=vendor_sale_practitioner.hospital_id','left')
+        //     ),
+           
+        // );
 
+        // $this->data['practitioner'] = $this->common_model->customGet($optionPractitioner);
+
+        $optionPractitioner = array(
+            'table' => ' doctors',
+            'select' => 'users.*',
+            'join' => array(
+                array('users', 'doctors.user_id=users.id', 'left'),
+                array('user_profile UP', 'UP.user_id=users.id', 'left'),
+                // array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
+                
+            ),
+            
+            'where' => array(
+                'users.delete_status' => 0,
+                'users.hospital_id'=>$hospital_id
+                // 'doctors.facility_user_id'=>$datadoctors->facility_user_id
+            ),
+            'order' => array('users.id' => 'desc'),
+        );
         $this->data['practitioner'] = $this->common_model->customGet($optionPractitioner);
+
         // print_r($datadoctors->facility_user_id);die;
 
     } else if ($this->ion_auth->is_facilityManager()) {
@@ -824,17 +883,36 @@ class Invoices extends Common_Controller {
 
         // print_r($this->data['patient']);die;
 
-        $optionPractitioner = array(
-            'table' => 'vendor_sale_users',
-            'select' => 'vendor_sale_practitioner.*',
-            'join' => array(
-                array('vendor_sale_practitioner', 'vendor_sale_users.id=vendor_sale_practitioner.hospital_id','left')
-            ),
-            'where' => array('vendor_sale_practitioner.hospital_id'=>$hospital_id),
-            // 'single'=>true,
-        );
+        // $optionPractitioner = array(
+        //     'table' => 'vendor_sale_users',
+        //     'select' => 'vendor_sale_practitioner.*',
+        //     'join' => array(
+        //         array('vendor_sale_practitioner', 'vendor_sale_users.id=vendor_sale_practitioner.hospital_id','left')
+        //     ),
+        //     'where' => array('vendor_sale_practitioner.hospital_id'=>$hospital_id),
+        // );
 
+        // $this->data['practitioner'] = $this->common_model->customGet($optionPractitioner);
+
+        $optionPractitioner = array(
+            'table' => ' doctors',
+            'select' => 'users.*',
+            'join' => array(
+                array('users', 'doctors.user_id=users.id', 'left'),
+                array('user_profile UP', 'UP.user_id=users.id', 'left'),
+                // array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
+                
+            ),
+            
+            'where' => array(
+                'users.delete_status' => 0,
+                'users.hospital_id'=>$hospital_id
+                // 'doctors.facility_user_id'=>$datadoctors->facility_user_id
+            ),
+            'order' => array('users.id' => 'desc'),
+        );
         $this->data['practitioner'] = $this->common_model->customGet($optionPractitioner);
+
     }
 
         $id = decoding($this->input->post('id'));

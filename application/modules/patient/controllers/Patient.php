@@ -184,7 +184,7 @@ class Patient extends Common_Controller
                      if ($this->ion_auth->is_facilityManager()) {
                         $user_id = $this->session->userdata('user_id');
                     $hospital_id = $user_id;
-
+                    $group_name ='';
                     } else if($this->ion_auth->is_all_roleslogin()) {
                         $user_id = $this->session->userdata('user_id');
                         $optionData = array(
@@ -200,13 +200,13 @@ class Patient extends Common_Controller
                         );
                 
                         $authUser = $this->common_model->customGet($optionData);
-
+                        $group_name =$authUser->group_name;
                         $hospital_id = $authUser->hospital_id;
                         
                     }
 
         
-        $option = array(
+        $optionHospital = array(
             'table' => 'users U',
             'select' => 'P.id as patient_id,P.patient_id as pid,P.name as patient_name,P.date_of_start_abx,P.address,P.total_days_of_patient_stay,P.room_number,P.symptom_onset,P.md_stayward_consult,P.criteria_met,P.md_stayward_response,P.psa,P.md_patient_status,P.created_date,'
                 . 'P.care_unit_id,CI.name as care_unit_name,P.doctor_id,P.culture_source,P.organism,P.precautions,CS.name as culture_source_name,Org.name as organism_name,Pre.name as precautions_name,DOC.name as doctor_name,P.md_steward_id,U.first_name as md_stayward,'
@@ -236,29 +236,35 @@ class Patient extends Common_Controller
 
 
         if (!empty($careUnitID)) {
-            $option['where']['P.care_unit_id'] = $careUnitID;
+            $optionHospital['where']['P.care_unit_id'] = $careUnitID;
         }
 
         // if (!empty($UsersCareUnitID)) {
-        //     $option['where']['P.operator_id'] = $UsersCareUnitID;
+        //     $optionHospital['where']['P.operator_id'] = $UsersCareUnitID;
         // }
         if (!empty($hospital_id)) {
             
-            $option['where']['U.hospital_id'] = $hospital_id;
+            $optionHospital['where']['U.hospital_id'] = $hospital_id;
         }
         // vendor_sale_patient.operator_id = $UsersCareUnitID
-        if (!empty($AdminCareUnitID)) {
-            $option['where']['P.care_unit_id']  = $AdminCareUnitID;
+        // if (!empty($AdminCareUnitID)) {
+        //     $optionHospital['where']['P.care_unit_id']  = $AdminCareUnitID;
+        // }
+        if ($group_name =='SubAdmin') {
+            $optionHospital['where']['P.doctor_id']  = $user_id;
+        }
+        if ($group_name =='Patient') {
+            $optionHospital['where']['P.user_id']  = $user_id;
         }
         if (!empty($from)) {
-            $option['where']['DATE(P.date_of_start_abx) >='] = $from;
+            $optionHospital['where']['DATE(P.date_of_start_abx) >='] = $from;
         }
         if (!empty($to)) {
-            $option['where']['DATE(P.date_of_start_abx) <='] = $to;
+            $optionHospital['where']['DATE(P.date_of_start_abx) <='] = $to;
         }
-        $option['order'] = array('P.id' => 'desc');
+        $optionHospital['order'] = array('P.id' => 'desc');
 
-        $this->data['list'] = $this->common_model->customGet($option);
+        $this->data['list'] = $this->common_model->customGet($optionHospital);
 
         // print_r($this->data['list']);die;
         $this->load->admin_render('list', $this->data, 'inner_script');
@@ -5086,18 +5092,38 @@ $option = array(
     
             $this->data['patient'] = $this->common_model->customGet($optionPatient);
     
-            $optionPractitioner = array(
-                'table' => 'vendor_sale_users',
-                'select' => 'vendor_sale_practitioner.*',
-                'join' => array(
-                    array('vendor_sale_practitioner', 'vendor_sale_users.id=vendor_sale_practitioner.hospital_id','left')
-                ),
-                // 'where' => array('vendor_sale_practitioner.hospital_id'=>$datadoctors->facility_user_id),
-                'where' => array('vendor_sale_practitioner.hospital_id'=>$hospital_id),
-                // 'single'=>true,
-            );
+            // $optionPractitioner = array(
+            //     'table' => 'vendor_sale_users',
+            //     'select' => 'vendor_sale_practitioner.*',
+            //     'join' => array(
+            //         array('vendor_sale_practitioner', 'vendor_sale_users.id=vendor_sale_practitioner.hospital_id','left')
+            //     ),
+            //     // 'where' => array('vendor_sale_practitioner.hospital_id'=>$datadoctors->facility_user_id),
+            //     'where' => array('vendor_sale_practitioner.hospital_id'=>$hospital_id),
+            //     // 'single'=>true,
+            // );
     
+            // $this->data['practitioner'] = $this->common_model->customGet($optionPractitioner);
+
+            $optionPractitioner = array(
+                'table' => ' doctors',
+                'select' => 'users.*',
+                'join' => array(
+                    array('users', 'doctors.user_id=users.id', 'left'),
+                    array('user_profile UP', 'UP.user_id=users.id', 'left'),
+                    // array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
+                    
+                ),
+                
+                'where' => array(
+                    'users.delete_status' => 0,
+                    // 'doctors.facility_user_id'=>$datadoctors->facility_user_id
+                    'users.hospital_id'=>$hospital_id
+                ),
+                'order' => array('users.id' => 'desc'),
+            );
             $this->data['practitioner'] = $this->common_model->customGet($optionPractitioner);
+    
             // print_r($datadoctors->facility_user_id);die;
     
         } else if ($this->ion_auth->is_facilityManager()) {
@@ -5142,17 +5168,36 @@ $option = array(
     
             // print_r($this->data['patient']);die;
     
-            $optionPractitioner = array(
-                'table' => 'vendor_sale_users',
-                'select' => 'vendor_sale_practitioner.*',
-                'join' => array(
-                    array('vendor_sale_practitioner', 'vendor_sale_users.id=vendor_sale_practitioner.hospital_id','left')
-                ),
-                'where' => array('vendor_sale_practitioner.hospital_id'=>$hospital_id),
-                // 'single'=>true,
-            );
+            // $optionPractitioner = array(
+            //     'table' => 'vendor_sale_users',
+            //     'select' => 'vendor_sale_practitioner.*',
+            //     'join' => array(
+            //         array('vendor_sale_practitioner', 'vendor_sale_users.id=vendor_sale_practitioner.hospital_id','left')
+            //     ),
+            //     'where' => array('vendor_sale_practitioner.hospital_id'=>$hospital_id),
+            //     // 'single'=>true,
+            // );
     
+            // $this->data['practitioner'] = $this->common_model->customGet($optionPractitioner);
+            $optionPractitioner = array(
+                'table' => ' doctors',
+                'select' => 'users.*',
+                'join' => array(
+                    array('users', 'doctors.user_id=users.id', 'left'),
+                    array('user_profile UP', 'UP.user_id=users.id', 'left'),
+                    // array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
+                    
+                ),
+                
+                'where' => array(
+                    'users.delete_status' => 0,
+                    // 'doctors.facility_user_id'=>$datadoctors->facility_user_id
+                    'users.hospital_id'=>$hospital_id
+                ),
+                'order' => array('users.id' => 'desc'),
+            );
             $this->data['practitioner'] = $this->common_model->customGet($optionPractitioner);
+    
         }
 
 // print_r($this->data['practitioner']);die;
@@ -5480,16 +5525,24 @@ $option = array(
         $this->data['patient'] = $this->common_model->customGet($optionPatient);
 
         $optionPractitioner = array(
-            'table' => 'vendor_sale_users',
-            'select' => 'vendor_sale_practitioner.*',
+            'table' => ' doctors',
+            'select' => 'users.*',
             'join' => array(
-                array('vendor_sale_practitioner', 'vendor_sale_users.id=vendor_sale_practitioner.hospital_id','left')
+                array('users', 'doctors.user_id=users.id', 'left'),
+                array('user_profile UP', 'UP.user_id=users.id', 'left'),
+                // array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
+                
             ),
-            'where' => array('vendor_sale_practitioner.hospital_id'=>$hospital_id),
-            // 'single'=>true,
+            
+            'where' => array(
+                'users.delete_status' => 0,
+                // 'doctors.facility_user_id'=>$datadoctors->facility_user_id
+                'users.hospital_id'=>$hospital_id
+            ),
+            'order' => array('users.id' => 'desc'),
         );
-
         $this->data['practitioner'] = $this->common_model->customGet($optionPractitioner);
+
         // print_r($datadoctors->facility_user_id);die;
 
     } else if ($this->ion_auth->is_facilityManager()) {
@@ -5520,17 +5573,36 @@ $option = array(
         $role_name = $this->input->post('role_name');
 
        
-        $optionPractitioner = array(
-            'table' => 'vendor_sale_users',
-            'select' => 'vendor_sale_practitioner.*',
-            'join' => array(
-                array('vendor_sale_practitioner', 'vendor_sale_users.id=vendor_sale_practitioner.hospital_id','left')
-            ),
-            'where' => array('vendor_sale_practitioner.hospital_id'=>$hospital_id),
-            // 'single'=>true,
-        );
+        // $optionPractitioner = array(
+        //     'table' => 'vendor_sale_users',
+        //     'select' => 'vendor_sale_practitioner.*',
+        //     'join' => array(
+        //         array('vendor_sale_practitioner', 'vendor_sale_users.id=vendor_sale_practitioner.hospital_id','left')
+        //     ),
+        //     'where' => array('vendor_sale_practitioner.hospital_id'=>$hospital_id),
+        //     // 'single'=>true,
+        // );
 
+        // $this->data['practitioner'] = $this->common_model->customGet($optionPractitioner);
+        $optionPractitioner = array(
+            'table' => ' doctors',
+            'select' => 'users.*',
+            'join' => array(
+                array('users', 'doctors.user_id=users.id', 'left'),
+                array('user_profile UP', 'UP.user_id=users.id', 'left'),
+                // array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
+                
+            ),
+            
+            'where' => array(
+                'users.delete_status' => 0,
+                // 'doctors.facility_user_id'=>$datadoctors->facility_user_id
+                'users.hospital_id'=>$hospital_id
+            ),
+            'order' => array('users.id' => 'desc'),
+        );
         $this->data['practitioner'] = $this->common_model->customGet($optionPractitioner);
+
     }
 
         $id = decoding($this->input->post('id'));
@@ -5823,17 +5895,36 @@ $option = array(
 
             $this->data['patient'] = $this->common_model->customGet($optionPatient);
 
-            $optionPractitioner = array(
-                'table' => 'vendor_sale_users',
-                'select' => 'vendor_sale_practitioner.*',
-                'join' => array(
-                    array('vendor_sale_practitioner', 'vendor_sale_users.id=vendor_sale_practitioner.hospital_id','left')
-                ),
-                'where' => array('vendor_sale_practitioner.hospital_id'=>$hospital_id),
-                // 'single'=>true,
-            );
+            // $optionPractitioner = array(
+            //     'table' => 'vendor_sale_users',
+            //     'select' => 'vendor_sale_practitioner.*',
+            //     'join' => array(
+            //         array('vendor_sale_practitioner', 'vendor_sale_users.id=vendor_sale_practitioner.hospital_id','left')
+            //     ),
+            //     'where' => array('vendor_sale_practitioner.hospital_id'=>$hospital_id),
+            //     // 'single'=>true,
+            // );
 
+            // $this->data['practitioner'] = $this->common_model->customGet($optionPractitioner);
+            $optionPractitioner = array(
+                'table' => ' doctors',
+                'select' => 'users.*',
+                'join' => array(
+                    array('users', 'doctors.user_id=users.id', 'left'),
+                    array('user_profile UP', 'UP.user_id=users.id', 'left'),
+                    // array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
+                    
+                ),
+                
+                'where' => array(
+                    'users.delete_status' => 0,
+                    // 'doctors.facility_user_id'=>$datadoctors->facility_user_id
+                    'users.hospital_id'=>$hospital_id
+                ),
+                'order' => array('users.id' => 'desc'),
+            );
             $this->data['practitioner'] = $this->common_model->customGet($optionPractitioner);
+    
             // print_r($datadoctors->facility_user_id);die;
 
         } else if ($this->ion_auth->is_facilityManager()) {
@@ -5876,18 +5967,37 @@ $option = array(
 
             // print_r($this->data['patient']);die;
 
-            $optionPractitioner = array(
-                'table' => 'vendor_sale_users',
-                'select' => 'vendor_sale_practitioner.*',
-                'join' => array(
-                    array('vendor_sale_practitioner', 'vendor_sale_users.id=vendor_sale_practitioner.hospital_id','left')
-                ),
-                'where' => array('vendor_sale_practitioner.hospital_id'=>$hospital_id),
-                // 'single'=>true,
-            );
+            // $optionPractitioner = array(
+            //     'table' => 'vendor_sale_users',
+            //     'select' => 'vendor_sale_practitioner.*',
+            //     'join' => array(
+            //         array('vendor_sale_practitioner', 'vendor_sale_users.id=vendor_sale_practitioner.hospital_id','left')
+            //     ),
+            //     'where' => array('vendor_sale_practitioner.hospital_id'=>$hospital_id),
+            //     // 'single'=>true,
+            // );
             
 
+            // $this->data['practitioner'] = $this->common_model->customGet($optionPractitioner);
+            $optionPractitioner = array(
+                'table' => ' doctors',
+                'select' => 'users.*',
+                'join' => array(
+                    array('users', 'doctors.user_id=users.id', 'left'),
+                    array('user_profile UP', 'UP.user_id=users.id', 'left'),
+                    // array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
+                    
+                ),
+                
+                'where' => array(
+                    'users.delete_status' => 0,
+                    // 'doctors.facility_user_id'=>$datadoctors->facility_user_id
+                    'users.hospital_id'=>$hospital_id
+                ),
+                'order' => array('users.id' => 'desc'),
+            );
             $this->data['practitioner'] = $this->common_model->customGet($optionPractitioner);
+    
         }
 
         $id = decoding($this->input->post('id'));
