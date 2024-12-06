@@ -233,216 +233,311 @@
         <span class="highlighter"></span>
     </div>
         </div>
-<!-- 
+
+
+
 <section>
-    <div class="content m-4">
-        <div class="row gy-4">
-            <?php foreach ($all_plan_list as $key => $row) { ?>
-            
-                <?php if ($row->DurationInMonths == 'month') { ?>
-                    <div class="col-md-4 col-sm-6">
-                        <div class="card shadow-sm h-100" style="border-radius: 20px; background-color: #FFF;">
-                            <div class="card-body text-center">
-                                <h2 class="fw-bold mb-3"><?php echo ucfirst($row->PlanName); ?></h2>
-                                <div class="icon mb-3" style="height: 94px;">
-                                    <?php if (!empty($row->icons)) { ?>
-                                        <img src="<?php echo base_url($row->icons); ?>" alt="icon" class="img-fluid">
-                                    <?php } else { ?>
-                                        <img src="https://i.postimg.cc/2jcfMcf4/hot-air-balloon.png" alt="default-icon" class="img-fluid">
-                                    <?php } ?>
-                                </div>
-                                <div class="price">
-                                    <p class="amount fw-bold">$<?php echo $row->Price; ?></p>
-                                    <p class="detail">Admin Per Month</p>
-                                </div>
-                                <div class="description my-3">
-                                    <?php echo $row->plan_description; ?>
-                                </div>
-                                <?php if ($this->ion_auth->is_superAdmin()) { ?>
-                                    <a href="javascript:void(0)" onclick="open_modal_edit('<?php echo $model; ?>', '<?php echo $row->id; ?>')" class="btn btn-sm btn-primary">
-                                        <i class="gi gi-circle_plus"></i> Edit Plan
-                                    </a>
-                                <?php } else if ($this->ion_auth->is_admin()) { ?>
-                                    <a href="<?php echo base_url('make-stripe-payment?id=' . $row->id); ?>" class="btn btn-sm btn-success">
-                                        START FREE 7 DAYS TRIAL
-                                    </a>
-                                <?php } ?>
-                            </div>
-                        </div>
-                    </div>
-                <?php } ?>
-
-             
-                <?php if ($row->DurationInMonths == 'years') { ?>
-                    <div class="col-md-4 col-sm-6">
-                        <div class="card shadow-sm h-100" style="border-radius: 20px; background-color: #FFF;">
-                            <div class="card-body text-center">
-                                <h2 class="fw-bold mb-3"><?php echo ucfirst($row->PlanName); ?></h2>
-                                <div class="icon mb-3" style="height: 94px;">
-                                    <?php if (!empty($row->icons)) { ?>
-                                        <img src="<?php echo base_url($row->icons); ?>" alt="icon" class="img-fluid">
-                                    <?php } else { ?>
-                                        <img src="https://i.postimg.cc/2jcfMcf4/hot-air-balloon.png" alt="default-icon" class="img-fluid">
-                                    <?php } ?>
-                                </div>
-                                <div class="price">
-                                    <p class="amount fw-bold">$<?php echo $row->Price; ?></p>
-                                    <p class="detail">Admin Per Year</p>
-                                </div>
-                                <div class="description my-3">
-                                    <?php echo $row->plan_description; ?>
-                                </div>
-                                <?php if ($this->ion_auth->is_superAdmin()) { ?>
-                                    <a href="javascript:void(0)" onclick="open_modal_edit('<?php echo $model; ?>', '<?php echo $row->id; ?>')" class="btn btn-sm btn-primary">
-                                        <i class="gi gi-circle_plus"></i> Edit Plan
-                                    </a>
-                                <?php } else if ($this->ion_auth->is_admin()) { ?>
-                                    <a href="<?php echo base_url('make-stripe-payment?id=' . $row->id); ?>" class="btn btn-sm btn-success">
-                                        START FREE 7 DAYS TRIAL
-                                    </a>
-                                <?php } ?>
-                            </div>
-                        </div>
-                    </div>
-                <?php } ?>
-            <?php } ?>
-        </div>
-    </div>
-</section> -->
+   
 
 
+   <table id="example" class="table table-striped table-bordered" style="width:100%">
+   <thead>
+       <tr>
+           <th>Plan 1</th>
+           <th>Plan 2</th>
+           <th>Plan 3</th>
+       </tr>
+   </thead>
+   <tbody class="basic price monthly">
+   
+       <?php 
+       $colors = ['#acd34c', '#ffa500', '#4caf50', '#ffd700', '#ff4d4d', '#3498db'];
+       $counter = 0; // Counter to keep track of columns
+       echo '<tr>'; // Start the first row
 
-        <section>
-            <div class="content m-4">
-                <?php 
-                foreach($all_plan_list as $key=> $row){ 
-                if($row->DurationInMonths == 'month'){  
-                ?>
-                <div class="basic box price monthly fw-bold"  style="background-color:#FFFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);border-radius:20px " >
-                    <h2 style="margin-top:0;margin-bottom:0 fw-bold" class="title"><?php echo ucfirst($row->PlanName);?></h2>
-                        <div class="view"  style="background-color:white; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" >
-                            <!-- <div class="icon">
-                                <img src="https://i.postimg.cc/2jcfMcf4/hot-air-balloon.png" alt="hot-air-balloon">
-                            </div> -->
+       foreach ($list as $key => $row) {
+           $randomColor = $colors[array_rand($colors)]; 
 
-                            <div class="icon" style="height: 94px;">
-                                <?php if(!empty($row->icons)){ ?> 
+           if ($row->DurationInMonths == 'month') { 
+       ?>
+           <td>
+               <div class="basic box price monthly">
+                   <!-- <h2 style="margin: 0; background-color: <?php echo $randomColor; ?>">
+                       <?php echo ucfirst($row->PlanName); ?>
+                   </h2> -->
+                   <h2 style="margin-top:0;margin-bottom:0" class="title" ><?php echo ucfirst($row->PlanName);?></h2>
+                   
+                   <div class="view">
+                       <div class="icon" style="height: 94px;">
+                           <?php if (!empty($row->icons)) { ?>
+                               <img src="<?php echo base_url($row->icons); ?>" alt="icon">
+                           <?php } else { ?>
+                               <img src="https://i.postimg.cc/2jcfMcf4/hot-air-balloon.png" alt="default-icon">
+                           <?php } ?>
+                       </div>
+                       <div class="price monthly cost">
+                           <p class="amount">$<?php echo $row->Price; ?></p>
+                           <p class="detail">Admin Per Month</p>
+                       </div>
+                   </div>
 
-                            
-                            <img src="<?php echo base_url($row->icons); ?>" alt="hot-air-balloon">
-                            <?php  } else { ?>
-                                <img src="https://i.postimg.cc/2jcfMcf4/hot-air-balloon.png" alt="hot-air-balloon">
-                            <?php } ?>
-                            </div>
+                   <div class="description">
+                   <p class="add-read-more show-less-content">
+                       <?php echo $row->plan_description; ?>
+                   </p>
+                   </div>
 
-                            <div class="price monthly cost">
-                                <p class="amount">$<?php echo $row->Price;?></p>
-                                <p class="detail">Admin Per Month</p>
-                            </div>
-                            <div class="price yearly hide cost">
-                                <p class="amount">$<?php echo $row->Price;?></p>
-                                <p class="detail">Admin Per Years</p>
-                            </div>
-                        </div>
-                        <div class="description">
-                            <?php echo $row->plan_description; ?>
-                        </div>
-                        <?php if($this->ion_auth->is_superAdmin()){ 
-                        ?>
-                            <div class="button plan_button">              
-                            <!--<a href="<?php echo base_url('make-stripe-payment?'.'id='.$row->id);?>"><button >START FREE 7 DAYS TRIAL </button></a>-->
-                                <h2>
-                                    <a href="javascript:void(0)" onclick="open_modal_edit('<?php echo $model; ?>', '<?php echo $row->id; ?>')" class="save-btn btn btn-sm btn-primary">
-                                    <i class="gi gi-circle_plus"></i> Edit Plan </a>
-                                </h2>
-                            </div>
-                            <?php } else if($this->ion_auth->is_admin()){ ?>
-                        <div class="button plan_button " style="margin-left:25px">
-                        <!-- <a href="<?php echo site_url('stripePayments'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "stripePaymentController") ? "active" : "" ?>"> -->
-                        <!-- <button >START FREE 7 DAYS TRIAL </button></a> -->
-                        <a href="<?php echo base_url('make-stripe-payment?'.'id='.$row->id);?>" style="text-align: center; text-decoration: none; color: white;">
-                        <button style="background-color: transparent; border: none; padding: 0; cursor: pointer; margin:10px; margin-left:60px;" class="text-center">START FREE 7 DAYS TRIAL</button>
-                        </a>
-                        <!-- <a href="<?php echo base_url('my-stripe?'.'id='.$row->id);?>"><button >START FREE 7 DAYS TRIAL </button></a> -->
-                        </div>
-                        <?php } ?>
-                    </div>
+                   <?php if($this->ion_auth->is_admin()){ ?>
+                   <!-- <div class="button">
+                   <a href="<?php echo base_url('make-stripe-payment?'.'id='.$row->id);?>"><button >START FREE 7 DAYS TRIAL </button></a>
+                       
+                   </div> -->
+                   <?php }?>
+                   <?php if($this->ion_auth->is_superAdmin()){ ?>
+                   <div class="plan_button">
+                   
+                  
+                   
+                   <!--<a href="<?php echo base_url('make-stripe-payment?'.'id='.$row->id);?>"><button >START FREE 7 DAYS TRIAL </button></a>-->
+                   <h2 class="">
+                       <a href="javascript:void(0)" onclick="open_modal_edit('<?php echo $model; ?>', '<?php echo $row->id; ?>')" class="plan_button save-btn btn btn-sm btn-primary">
+                           <i class="gi gi-circle_plus"></i> Edit Plan
+                       </a>
+                   </h2>
+                   </div>
+   
+           <?php } else if($this->ion_auth->is_admin()){ ?>
+                   <div class="plan_div">
+                   
+                   <!-- <a href="<?php echo site_url('stripePayments'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "stripePaymentController") ? "active" : "" ?>"> -->
+                   <!-- <button >START FREE 7 DAYS TRIAL </button></a> -->
+                   <a href="<?php echo base_url('make-stripe-payment?'.'id='.$row->id);?>" class="plan_button save-btn btn btn-sm btn-primary">START FREE 7 DAYS TRIAL </a>
+                   <!-- <a href="<?php echo base_url('my-stripe?'.'id='.$row->id);?>"><button >START FREE 7 DAYS TRIAL </button></a> -->
+                   </div>
+                   <?php } ?>
+   
+               <!-- </div> -->
 
-                
+               </div>
+           </td>
 
-                <!-- make-stripe-payment -->
-                <?php 
-                }else if($row->DurationInMonths == 'years'){ ?>
-                    <div class="basic box price yearly ">
-                    <h2 style="margin-top:0;margin-bottom:0" class="title"><?php echo ucfirst($row->PlanName);?></h2>
-                    <div class="view">
-                        <!-- <div class="icon">
-                            <img src="https://i.postimg.cc/2jcfMcf4/hot-air-balloon.png" alt="hot-air-balloon">
-                        </div> -->
+       <?php
+           $counter++;
+           // Start a new row after every 3 <td> elements
+           if ($counter % 3 == 0) {
+               echo '</tr><tr>';
+           }
+      
+           }
+       }
+       
+       // Fill empty cells if the last row is incomplete
+       while ($counter % 3 != 0) {
+           echo '<td></td>';
+           $counter++;
+       }
+       echo '</tr>'; // Close the last row
+   ?>
+   </tbody>
+   <tbody class="basic price yearly">
+   
+   <?php 
+       $colors = ['#acd34c', '#ffa500', '#4caf50', '#ffd700', '#ff4d4d', '#3498db'];
+       $counter = 0; // Counter to keep track of columns
+       echo '<tr>'; // Start the first row
 
-                        <div class="icon" style="height: 94px;">
-                            <?php if(!empty($row->icons)){ ?> 
+       foreach ($list_years as $key => $row) {
+           $randomColor = $colors[array_rand($colors)]; 
 
-                        
-                        <img src="<?php echo base_url($row->icons); ?>" alt="hot-air-balloon">
-                        <?php  } else { ?>
-                            <img src="https://i.postimg.cc/2jcfMcf4/hot-air-balloon.png" alt="hot-air-balloon">
-                        <?php } ?>
-                        </div>
+       if ($row->DurationInMonths == 'years') { 
+           ?>
+               <td>
+               <div class="basic box price yearly " >
+                   <h2 style="margin-top:0;margin-bottom:0" class="title" ><?php echo ucfirst($row->PlanName);?></h2>
+                   
+                   <div class="view">
+                   <div class="icon" style="height: 94px;">
+                           <?php if(!empty($row->icons)){ ?> 
+   
+                          
+                       <img src="<?php echo base_url($row->icons); ?>" alt="hot-air-balloon">
+                       <?php  } else { ?>
+                           <img src="https://i.postimg.cc/2jcfMcf4/hot-air-balloon.png" alt="hot-air-balloon">
+                         <?php } ?>
+                       </div>
+   
+                       <div class="price monthly cost">
+                           <p class="amount">$<?php echo $row->Price;?></p>
+                           <p class="detail">Admin Per Month</p>
+                       </div>
+                       <div class="price yearly hide cost">
+                           <p class="amount">$<?php echo $row->Price;?></p>
+                           <p class="detail">Admin per Years</p>
+                       </div>
+                   </div>
+                   <div class="description">
+                   <p class="add-read-more show-less-content">
+                       <?php echo $row->plan_description; ?>
+                       </p>
+                   </div>
+                   <?php if($this->ion_auth->is_admin()){ ?>
+                   <!-- <div class="button">
+                   <a href="<?php echo base_url('make-stripe-payment?'.'id='.$row->id);?>"><button >START FREE 7 DAYS TRIAL </button></a>
+                       
+                   </div> -->
+                   <?php }?>
+                   <?php if($this->ion_auth->is_superAdmin()){ ?>
+                   <div class="plan_button">
+                   
+                  
+                   
+                   <!--<a href="<?php echo base_url('make-stripe-payment?'.'id='.$row->id);?>"><button >START FREE 7 DAYS TRIAL </button></a>-->
+                   <h2 class="">
+                       <a href="javascript:void(0)" onclick="open_modal_edit('<?php echo $model; ?>', '<?php echo $row->id; ?>')" class="plan_button save-btn btn btn-sm btn-primary">
+                           <i class="gi gi-circle_plus"></i> Edit Plan
+                       </a>
+                   </h2>
+                   </div>
+   
+           <?php } else if($this->ion_auth->is_admin()){ ?>
+                   <div class="plan_div">
+                   
+                   <!-- <a href="<?php echo site_url('stripePayments'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "stripePaymentController") ? "active" : "" ?>"> -->
+                   <!-- <button >START FREE 7 DAYS TRIAL </button></a> -->
+                   <a href="<?php echo base_url('make-stripe-payment?'.'id='.$row->id);?>" class="plan_button save-btn btn btn-sm btn-primary">START FREE 7 DAYS TRIAL </a>
+                   <!-- <a href="<?php echo base_url('my-stripe?'.'id='.$row->id);?>"><button >START FREE 7 DAYS TRIAL </button></a> -->
+                   </div>
+                   <?php } ?>
+   
+               </div>
+               </td>
+           <?php
+               $counter++;
+               // Start a new row after every 3 <td> elements
+               if ($counter % 3 == 0) {
+                   echo '</tr><tr>';
+               }
+           } 
+           }
+           // Fill empty cells if the last row is incomplete
+           while ($counter % 3 != 0) {
+               echo '<td></td>';
+               $counter++;
+           }
+           echo '</tr>'; // Close the last row
+           ?>
+       
+   </tbody>
+</table>  
+</section>
 
-                        <div class="price monthly cost">
-                            <p class="amount">$<?php echo $row->Price;?></p>
-                            <p class="detail">Admin Per Month</p>
-                        </div>
-                        <div class="price yearly hide cost">
-                            <p class="amount">$<?php echo $row->Price;?></p>
-                            <p class="detail">Admin per Years</p>
-                        </div>
-                    </div>
-                    <div class="description">
-                        
-                        <?php echo $row->plan_description; ?>
-                    </div>
-                    <?php if($this->ion_auth->is_admin()){ ?>
-                    <!-- <div class="button">
-                    <a href="<?php echo base_url('make-stripe-payment?'.'id='.$row->id);?>"><button >START FREE 7 DAYS TRIAL </button></a>
-                        
-                    </div> -->
-                    <?php }?>
+<script>
+    $(document).ready(function(){
+     function AddReadMore() {
+      //This limit you can set after how much characters you want to show Read More.
+      var carLmt = 300;
+      // Text to show when text is collapsed
+      var readMoreTxt = " ...read more";
+      // Text to show when text is expanded
+      var readLessTxt = " read less";
 
-                    
-                    <?php if($this->ion_auth->is_superAdmin()){ ?>
-                    <div class="button plan_button">
-                    
-                
-                    
-                    <!--<a href="<?php echo base_url('make-stripe-payment?'.'id='.$row->id);?>"><button >START FREE 7 DAYS TRIAL </button></a>-->
-                    <h2>
-                        <a href="javascript:void(0)" onclick="open_modal_edit('<?php echo $model; ?>', '<?php echo $row->id; ?>')" class="save-btn btn btn-sm btn-primary">
-                            <i class="gi gi-circle_plus"></i> Edit Plan
-                        </a>
-                    </h2>
-                    </div>
 
-                <?php } else if($this->ion_auth->is_admin()){ ?>
-                    <div class="button plan_button" style="margin-left:25px">
-                    
-                    <!-- <a href="<?php echo site_url('stripePayments'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "stripePaymentController") ? "active" : "" ?>"> -->
-                    <!-- <button >START FREE 7 DAYS TRIAL </button></a> -->
-                    <!-- <a href="<?php echo base_url('make-stripe-payment?'.'id='.$row->id);?>"><button >START FREE 7 DAYS TRIAL </button></a> -->
-                    <a href="<?php echo base_url('make-stripe-payment?'.'id='.$row->id);?>" style="text-align: center; text-decoration: none; color: white;">
-                    <button style="background-color: transparent; border: none; padding: 0; cursor: pointer; margin:10px; margin-left:60px;" class="text-center">START FREE 7 DAYS TRIAL</button>
-                    </a>
-                    </div>
-                    <?php } ?>
+      //Traverse all selectors with this class and manupulate HTML part to show Read More
+      $(".add-read-more").each(function () {
+         if ($(this).find(".first-section").length)
+            return;
 
-                </div>
-        <?php } ?>     
-            
-        
-            <?php } ?>
-            </div>
-        </section> 
+         var allstr = $(this).text();
+         if (allstr.length > carLmt) {
+            var firstSet = allstr.substring(0, carLmt);
+            var secdHalf = allstr.substring(carLmt, allstr.length);
+            var strtoadd = firstSet + "<span class='second-section'>" + secdHalf + "</span><span class='read-more'  title='Click to Show More'>" + readMoreTxt + "</span><span class='read-less' title='Click to Show Less'>" + readLessTxt + "</span>";
+            $(this).html(strtoadd);
+         }
+      });
+
+      //Read More and Read Less Click Event binding
+      $(document).on("click", ".read-more,.read-less", function () {
+         $(this).closest(".add-read-more").toggleClass("show-less-content show-more-content");
+      });
+   }
+
+   AddReadMore();
+});
+
+</script>
+<style>
+    .dataTables_wrapper .dataTables_paginate .paginate_button {
+    padding: 6px 12px;
+    margin: 2px;
+    background-color: #007bff;
+    color: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+        }
+
+        .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+
+        .add-read-more.show-less-content .second-section,
+        .add-read-more.show-less-content .read-less {
+        display: none;
+        }
+
+        .add-read-more.show-more-content .read-more {
+        display: none;
+        }
+
+        .add-read-more .read-more,
+        .add-read-more .read-less {
+        font-weight: bold;
+        margin-left: 2px;
+        color: blue;
+        cursor: pointer;
+        }
+
+        .add-read-more{
+        max-width: 600px;
+        width: 100%;
+        margin: 0 auto;
+        }
+
+</style>
+<script>
+    $(document).ready(function() {
+        $('#example').DataTable({
+            "pageLength": 1, // Display 1 row per page
+            "lengthChange": false, // Disable "entries per page" dropdown
+            "pagingType": "full_numbers", // Include numbers with Previous/Next buttons
+            "language": {
+                "paginate": {
+                    "previous": "&laquo;", // Previous button text
+                    "next": "&raquo;" // Next button text
+                }
+            }
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('#example_years').DataTable({
+            "pageLength": 1, // Display 1 row per page
+            "lengthChange": false, // Disable "entries per page" dropdown
+            "pagingType": "full_numbers", // Include numbers with Previous/Next buttons
+            "language": {
+                "paginate": {
+                    "previous": "&laquo;", // Previous button text
+                    "next": "&raquo;" // Next button text
+                }
+            }
+        });
+    });
+</script>
+
+
 
         <?php } else if ($this->ion_auth->is_subAdmin()) { ?>
 
@@ -1972,9 +2067,13 @@ section{
 }
 
 .description{
-    margin: 30px auto;
+    /* margin: 30px auto;
     font-size: 0.8em;
-    color: #7D7C7C;
+    color: #7D7C7C; */
+        /* margin: 30px auto; */
+    font-size: small;
+    color: #0a0909;
+    padding: 20px;
 }
 
 ul{
@@ -2013,16 +2112,22 @@ li{
     border-radius: 50px;
 
     background: transparent; */
+    
     height: 40px;
-    width: 250px;
-    font-size: 0.7em;
+    width: 215px;
+    font-size: small;
     font-weight: bold;
     letter-spacing: 0.5px;
     color: #f7f3f3;
     border: 2px solid #d9416c;
     border-radius: 50px;
     background: #d90a4b;
+    /* padding-left: 35px; */
+
     
+}
+.plan_div{
+    margin-left: 41px;
 }
 
 .plan_button:hover{

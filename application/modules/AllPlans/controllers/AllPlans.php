@@ -30,10 +30,14 @@ class AllPlans extends Common_Controller {
         $this->data['table'] = $this->_table;
 
        
-         $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+        //  $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
          
-        $option = array('table' => $this->_table, 'where' => array('status' => 0), 'order' => array('id' => 'desc'));
+        $option = array('table' => $this->_table, 'where' => array('DurationInMonths'=> 'month','status' => 0), 'order' => array('id' => 'desc'));
         $this->data['list'] = $this->common_model->customGet($option);
+
+        $optionYears = array('table' => $this->_table, 'where' => array('DurationInMonths'=> 'years','status' => 0), 'order' => array('id' => 'desc'));
+        $this->data['list_years'] = $this->common_model->customGet($optionYears);
+// Load view with data
         $this->load->admin_render('list', $this->data, 'inner_script');
     }
 
@@ -200,15 +204,25 @@ class AllPlans extends Common_Controller {
                 $option = array('table' => $this->_table, 'where' => array('id =' => $where_id));
                 if (!empty($this->common_model->customGet($option))) {
 
-                    
+                    if(!empty($image)){
+                        $options_data = array(
+                            'PlanName' => $this->input->post('plan_name'),
+                            'Price' => $this->input->post('price'),
+                            'DurationInMonths' =>$this->input->post('Duration'),
+                            'plan_description' => $this->input->post('plan_description'),
+                            'icons' => $image,
+                        );
+                    }else{
+                        $options_data = array(
+                            'PlanName' => $this->input->post('plan_name'),
+                            'Price' => $this->input->post('price'),
+                            'DurationInMonths' =>$this->input->post('Duration'),
+                            'plan_description' => $this->input->post('plan_description'),
+                           
+                        );
+                    }
 
-                    $options_data = array(
-                        'PlanName' => $this->input->post('plan_name'),
-                        'Price' => $this->input->post('price'),
-                        'DurationInMonths' =>$this->input->post('Duration'),
-                        'plan_description' => $this->input->post('plan_description'),
-                        'icons' => $image,
-                    );
+                   
                     
                     $option = array(
                         'table' => $this->_table,

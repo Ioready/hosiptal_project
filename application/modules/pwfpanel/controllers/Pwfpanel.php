@@ -171,6 +171,13 @@ class Pwfpanel extends Common_Controller
                 $option = array('table' => 'admin_plans', 'where' => array('status' => 0), 'order' => array('id' => 'desc'));
                 $data['all_plan_list'] = $this->common_model->customGet($option);
 
+
+                $option = array('table' => 'admin_plans', 'where' => array('DurationInMonths'=> 'month','status' => 0), 'order' => array('id' => 'desc'));
+        $data['list'] = $this->common_model->customGet($option);
+
+        $optionYears = array('table' =>'admin_plans', 'where' => array('DurationInMonths'=> 'years','status' => 0), 'order' => array('id' => 'desc'));
+        $data['list_years'] = $this->common_model->customGet($optionYears);
+
                 if ($this->ion_auth->is_subAdmin()) {
                     
 

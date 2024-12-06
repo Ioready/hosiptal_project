@@ -42,11 +42,14 @@
                                     <label class="m-4 control-label">Duration</label>
                                     <div class="col-md-12">
                                     <div class="switch-wrapper">
-                                        <input id="toggle-monthly" type="radio" name="Duration" value="month" checked>
-                                        <label for="monthly">Monthly</label>
-                                        <input id="toggle-yearly" type="radio" name="Duration" value="years">
-                                        
-                                        <label for="yearly">Yearly</label>
+                                    <input id="toggle-monthly" type="radio" name="Duration" value="month" 
+                                        <?php echo ($results->DurationInMonths == 'month') ? 'checked' : ''; ?>>
+                                    <label for="monthly">Monthly</label>
+
+                                    <input id="toggle-yearly" type="radio" name="Duration" value="years" 
+                                        <?php echo ($results->DurationInMonths == 'years') ? 'checked' : ''; ?>>
+                                    <label for="yearly">Yearly</label>
+
                                         <span class="highlighter"></span>
                                     </div>
                                     
@@ -60,7 +63,7 @@
                                 <div class="form-group">
                                     <label class="m-4 control-label">Description</label>
                                     <div class="col-md-12">
-                                        <textarea name="plan_description" id="editor" cols="30" rows="10"><?php echo $results->plan_description;?></textarea>
+                                        <textarea name="plan_description" id="editor1" cols="30" rows="10"><?php echo $results->plan_description;?></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -71,6 +74,15 @@
                                     <label class="col-md-3 control-label">Uploads Icon</label>
                                         <input type="file" class="form-control" name="icons" id="icons" placeholder="icons" />
                                 </div>
+                                <div class="icon" style="height: 94px;">
+                            <?php if(!empty($results->icons)){ ?> 
+    
+                           
+                        <img src="<?php echo base_url($results->icons); ?>" alt="hot-air-balloon">
+                        <?php  } else { ?>
+                            <img src="https://i.postimg.cc/2jcfMcf4/hot-air-balloon.png" alt="hot-air-balloon">
+                          <?php } ?>
+                        </div>
                             </div>
                             
                             <div class="space-22"></div>
@@ -85,8 +97,7 @@
         </div> <!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div>
-<script src="https://cdn.ckeditor.com/4.17.2/standard/ckeditor.js"></script>
-<!-- <script src="https://cdn.ckeditor.com/4.24.0-lts/standard/ckeditor.js"></script> -->
+<script src="<?php echo base_url() . 'backend_asset/admin/js/' ?>helpers/ckeditor/ckeditor.js"></script>
 
 <script>
   // Initialize CKEditor

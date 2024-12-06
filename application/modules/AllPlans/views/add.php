@@ -58,7 +58,7 @@
                                 <div class="form-group">
                                     <label class="m-4 control-label">Description</label>
                                     <div class="col-md-12">
-                                        <textarea name="plan_description" id="editor" cols="30" rows="10"></textarea>
+                                        <textarea name="plan_description" id="editor1" cols="30" rows="10"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -92,8 +92,8 @@
     </div><!-- /.modal-dialog -->
 
 </div>
-<script src="https://cdn.ckeditor.com/4.17.2/standard/ckeditor.js"></script>
-<!-- <script src="https://cdn.ckeditor.com/4.24.0-lts/standard/ckeditor.js"></script> -->
+
+<script src="<?php echo base_url() . 'backend_asset/admin/js/' ?>helpers/ckeditor/ckeditor.js"></script>
 
 <script>
   // Initialize CKEditor
