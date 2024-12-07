@@ -1092,14 +1092,15 @@
                         </div>
                         <div class="col-md-6 mt-4">
                         
-                        <select id="weeks" name="weeks" class="form-control select-2">
+                        <select id="doctor_id" name="doctor_id" class="form-control select2 status-dropdown" size="1">
                                        
                                        <option value="">Select Doctors</option>
                                        <?php foreach($doctors_list as $rows){?>
 
-
-                                           <option value="<?php echo $rows->user_id; ?>"><?php echo $rows->first_name. ' '.$rows->last_name; ?></option>
+                                        <option value="<?php echo $rows->first_name. ' '.$rows->last_name; ?>"><?php echo $rows->first_name. ' '.$rows->last_name; ?></option>
                                            
+                                           <!-- <option value="<?php //echo $rows->user_id; ?>"><?php //echo $rows->first_name. ' '.$rows->last_name; ?></option>
+                                            -->
                                            <?php }?>
                                           
                                    </select>
@@ -1188,7 +1189,74 @@
 
 
 
+<script>
 
+
+// $(document).ready(function() {
+//     dataTable = $("#todayAppointmentTable").DataTable({
+//         "paging": true,
+//             "searching": true,
+//             "lengthChange": false,
+//             "pageLength": 6,
+//             "order": [[0, 'desc']] 
+
+//       "columnDefs": [
+//             {
+//                 "targets": [7],
+//                 "visible": false
+//             }
+//         ]
+      
+//     });
+  
+ 
+  
+//     $('.filter-checkbox').on('change', function(e){
+//       var searchTerms = []
+//       $.each($('.filter-checkbox'), function(i,elem){
+//         if($(elem).prop('checked')){
+//           searchTerms.push("^" + $(this).val() + "$")
+//         }
+//       })
+//       dataTable.column(1).search(searchTerms.join('|'), true, false, true).draw();
+//     });
+  
+//     $('.status-dropdown').on('change', function(e){
+//       var Doctors = $(this).val();
+//       $('.status-dropdown').val(Doctors)
+//       console.log(Doctors)
+//       //dataTable.column(6).search('\\s' + status + '\\s', true, false, true).draw();
+//       dataTable.column(7).search(Doctors).draw();
+//     })
+// });
+
+//     function getDoctorAppointment(doctorId) {
+//     $.ajax({
+//         url: 'pwfpanel/filterDoctorAppointment',
+//         type: 'POST',
+//         dataType: "json",
+//         data: { id: doctorId },
+//         success: function(response) {
+            
+//             let data = '<select id="state" onchange="getCities(this.value)" name="state" class="form-control select2" size="1">';
+//             data += '<option value="" disabled selected>Please select</option>';
+            
+//             response.forEach(function(state) {
+//                 data += '<option value="' + state.id_state + '">' + state.state + '</option>';
+//             });
+
+//             data += '</select>';
+            
+//             $('#state_div').html(data);
+//         },
+//         error: function(xhr, status, error) {
+//             console.error('Error:', error);
+            
+//         }
+//     });
+// }
+
+</script>
 
 <!-- <div> -->
 <div class="row">
@@ -2190,13 +2258,36 @@ li{
 <script>
 
 $(document).ready(function() {
-    $('#todayAppointmentTable').DataTable({
-            "paging": true,
-            "searching": true,
-            "lengthChange": false,
-            "pageLength": 6,
-            "order": [[0, 'desc']]  // Here, 0 represents the first column (index starts from 0)
-        });
+    // $('#todayAppointmentTable').DataTable({
+    //         "paging": true,
+    //         "searching": true,
+    //         "lengthChange": false,
+    //         "pageLength": 6,
+    //         "order": [[0, 'desc']],
+    //         $('.status-dropdown').on('change', function(e){
+    //   var Doctors = $(this).val();
+    //   $('.status-dropdown').val(Doctors)
+    //   console.log(Doctors)
+    //   //dataTable.column(6).search('\\s' + status + '\\s', true, false, true).draw();
+    //   dataTable.column(6).search(Doctors).draw();
+    // })
+    //     });
+
+    var dataTable = $('#todayAppointmentTable').DataTable({
+        "paging": true,
+        "searching": true,
+        "lengthChange": false,
+        "pageLength": 6,
+        "order": [[0, 'desc']]
+    });
+
+    
+    $('.status-dropdown').on('change', function(e) {
+        var Doctors = $(this).val(); // Get the selected value
+        console.log(Doctors); // Log the selected value for debugging
+        dataTable.column(3).search(Doctors).draw();
+    });
+// });
 
 
 $('#todayDoctor').DataTable({
