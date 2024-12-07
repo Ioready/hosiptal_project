@@ -266,6 +266,26 @@ class Patient extends Common_Controller
 
         $this->data['list'] = $this->common_model->customGet($optionHospital);
 
+        $optionDoctor = array(
+            'table' => ' doctors',
+            'select' => 'users.*,doctors_qualification.*',
+            'join' => array(
+                array('users', 'doctors.user_id=users.id', 'left'),
+                array('user_profile UP', 'UP.user_id=users.id', 'left'),
+                array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
+                
+            ),
+            
+            'where' => array(
+                'users.delete_status' => 0,
+                // 'doctors.facility_user_id'=>$CareUnitID
+                'users.hospital_id'=>$hospital_id
+            ),
+            'order' => array('users.id' => 'desc'),
+        );
+        $this->data['doctors_list'] = $this->common_model->customGet($optionDoctor);
+
+        
         // print_r($this->data['list']);die;
         $this->load->admin_render('list', $this->data, 'inner_script');
     }

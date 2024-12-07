@@ -165,6 +165,25 @@ class Notification extends Common_Controller {
 
     if($this->ion_auth->is_all_roleslogin()){
 
+        $optionDoctor = array(
+            'table' => ' doctors',
+            'select' => 'users.*,doctors_qualification.*',
+            'join' => array(
+                array('users', 'doctors.user_id=users.id', 'left'),
+                array('user_profile UP', 'UP.user_id=users.id', 'left'),
+                array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
+                
+            ),
+            
+            'where' => array(
+                'users.delete_status' => 0,
+                // 'doctors.facility_user_id'=>$CareUnitID
+                'users.hospital_id'=>$hospital_id
+            ),
+            'order' => array('users.id' => 'desc'),
+        );
+        $this->data['doctors_list'] = $this->common_model->customGet($optionDoctor);
+
         $option = array(
             'table' => ' doctors',
             'select' => 'doctors.*',

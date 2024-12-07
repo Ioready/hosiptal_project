@@ -390,11 +390,28 @@
                     <a href="<?php echo base_url() . $this->router->fetch_class(); ?>/open_model" class="btn btn-sm btn-primary save-btn">
                         <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
                     </a></h2>
+                    
 
         </div>
 
         <div class="table-responsive">
-            <table id="common_datatable_menucat" class="table table-vcenter table-condensed table-bordered text-center">
+            <div class="col-sm-3" >
+                <select id="doctor_id" name="doctor_id" class="form-control select2 status-dropdown-doctors" size="1">
+                    
+                    <option value="">Select Doctors</option>
+                    <?php foreach($doctors_list as $rows){?>
+
+                    <option value="<?php echo $rows->first_name. ' '.$rows->last_name; ?>"><?php echo $rows->first_name. ' '.$rows->last_name; ?></option>
+                        
+                        <!-- <option value="<?php //echo $rows->user_id; ?>"><?php //echo $rows->first_name. ' '.$rows->last_name; ?></option>
+                        -->
+                        <?php }?>
+                        
+                </select>
+            </div>
+
+
+            <table id="common_datatable_menucats" class="table table-vcenter table-condensed table-bordered text-center">
                 <thead>
                 <tr>
     <th style="background-color: #DBEAFF; font-size: 1.3rem; font-weight: bold; padding: 12px; width: 40px; text-align: center; border-bottom: 2px solid #ccc;">Sr. No</th>
@@ -509,6 +526,47 @@
 <!-- END Page Content -->
 <div id="form-modal-box"></div>
 </div>
+
+<script>
+
+$(document).ready(function() {
+    var dataTable = $('#common_datatable_menucats').DataTable({
+            "paging": true,
+            "searching": true,
+            "lengthChange": false,
+            "pageLength": 10,
+            "order": [[0, 'desc']]  // Here, 0 represents the first column (index starts from 0)
+        });
+
+  
+    
+    $('.status-dropdown-doctors').on('change', function(e) {
+        var Doctors = $(this).val(); // Get the selected value
+        console.log(Doctors); // Log the selected value for debugging
+        dataTable.column(5).search(Doctors).draw();
+    });
+    
+});
+
+$(document).ready(function() {
+    var dataTable = $('#common_datatable_menucat').DataTable({
+            "paging": true,
+            "searching": true,
+            "lengthChange": false,
+            "pageLength": 10,
+            "order": [[0, 'desc']]  // Here, 0 represents the first column (index starts from 0)
+        });
+
+  
+    
+    $('.status-dropdown-doctor').on('change', function(e) {
+        var Doctors = $(this).val(); // Get the selected value
+        console.log(Doctors); // Log the selected value for debugging
+        dataTable.column(3).search(Doctors).draw();
+    });
+    
+});
+</script>
 
 <style>
 

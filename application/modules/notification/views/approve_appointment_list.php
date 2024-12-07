@@ -268,7 +268,21 @@
                         <div class="col-sm-12"> 
                          
                                 <div class="table-responsive" >
-                                
+                                <!-- style="margin-bottom: -37px;" -->
+                                    <div class="col-sm-3" >
+                                <select id="doctor_id" name="doctor_id" class="form-control select2 status-dropdown-doctor" size="1">
+                                       
+                                       <option value="">Select Doctors</option>
+                                       <?php foreach($doctors_list as $rows){?>
+
+                                        <option value="<?php echo $rows->first_name. ' '.$rows->last_name; ?>"><?php echo $rows->first_name. ' '.$rows->last_name; ?></option>
+                                           
+                                           <!-- <option value="<?php //echo $rows->user_id; ?>"><?php //echo $rows->first_name. ' '.$rows->last_name; ?></option>
+                                            -->
+                                           <?php }?>
+                                          
+                                   </select>
+                                   </div>
 
                                     <table id="appointmentTable" class="table table-bordered  align-middle text-center">
 								
@@ -394,7 +408,7 @@
 
 <?php } ?>
 
-
+<script></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- Include DataTables CSS -->
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
@@ -405,7 +419,7 @@
 <script>
 
 $(document).ready(function() {
-    $('#appointmentTable').DataTable({
+    var dataTable = $('#appointmentTable').DataTable({
             "paging": true,
             "searching": true,
             "lengthChange": false,
@@ -433,6 +447,23 @@ $(document).ready(function() {
             }
         });
     });
+
+
+// var dataTable = $('#todayAppointmentTable').DataTable({
+//         "paging": true,
+//         "searching": true,
+//         "lengthChange": false,
+//         "pageLength": 6,
+//         "order": [[0, 'desc']]
+//     });
+
+    
+    $('.status-dropdown-doctor').on('change', function(e) {
+        var Doctors = $(this).val(); // Get the selected value
+        console.log(Doctors); // Log the selected value for debugging
+        dataTable.column(3).search(Doctors).draw();
+    });
+    
 });
 </script>
 
