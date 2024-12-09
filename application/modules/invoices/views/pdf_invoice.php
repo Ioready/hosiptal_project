@@ -133,7 +133,7 @@
                                               <th>Quantity</th>
                                               <th>Unit Price</th>
                                               <th>Tax</th>
-                                              <th>Price (USD)</th>
+                                              <th>Price (£)</th>
                                           </tr>
                                           </thead>
                                           <tbody>
@@ -163,6 +163,10 @@
                                           <tr>
                                               <td colspan="5" class="text-right"><strong>Total:</strong></td>
                                               <td>£<?php echo $results->total_amount;?></td>
+                                          </tr>
+                                          <tr>
+                                              <td colspan="5" class="text-right"><strong><span style="color: #dc3545;">Outstanding: </span></strong></td>
+                                              <td> £<?php echo $results->Outstanding; ?></td>
                                           </tr>
                                           <tr>
                                               <td colspan="5" class="text-right"><strong>Total Paid:</strong></td>

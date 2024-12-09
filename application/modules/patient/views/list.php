@@ -205,11 +205,12 @@
 
                        
 
-                                    <div class="col-sm-12 col-lg-12 mt-4" style="margin-left:-20px;margin-right:-12px; ">
+                                    <!-- <div class="col-sm-12 col-lg-12 mt-4" style="margin-left:-20px;margin-right:-12px; ">
                                         <button type="submit" class="btn btn-success  fw-bold btn-sm" value="Export" name="export">
                                             <fa class="fa fa-file-pdf-o"></fa> Download Monthly Surveillance List
                                         </button>
-                                    </div>
+                                    </div> -->
+                                    
                                 </div>
                                 <!-- </form> -->
 

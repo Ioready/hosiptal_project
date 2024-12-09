@@ -2685,9 +2685,7 @@ public function bookAppointment() {
 
     public function add() {
 
-    //    echo "<pre>";
-    //     print_r($this->input->post('patient'));die;
-    //     echo "</pre>";
+      
 
 
         $tables = $this->config->item('tables', 'ion_auth');
@@ -2701,10 +2699,28 @@ public function bookAppointment() {
        
         // $this->form_validation->set_rules('patient', lang('patient'), 'required');
 
+        if($this->input->post('type') =='clinic_appointment'){
+
+            $this->form_validation->set_rules('practitioner', 'practitioner', 'required');
+            $this->form_validation->set_rules('patient', 'patient', 'required');
+        }else if($this->input->post('type') =='theatre_appointment'){
+
+            $this->form_validation->set_rules('theatre_clinician', 'theatre clinician', 'required');
+            $this->form_validation->set_rules('patient', 'patient', 'required');
+        }else if($this->input->post('type') =='availability_appointment'){
+
+            $this->form_validation->set_rules('practitioner', 'practitioner', 'required');
+        }else if($this->input->post('type') =='out_of_office_appointment'){
+
+            $this->form_validation->set_rules('practitioner', 'practitioner', 'required');
+        }
         $this->form_validation->set_rules('doctor_name', lang('doctor_name'), 'required');
+        
        
         
-
+        // echo "<pre>";
+        // print_r($this->input->post());die;
+        // echo "</pre>";
      
         if ($this->form_validation->run() == true) {
 
@@ -3083,7 +3099,10 @@ $notifications_id = $this->db->insert_id();
                     }
 
 
-                }
+                }else {
+                        $messages = (validation_errors()) ? validation_errors() : '';
+                        $response = array('status' => 0, 'message' => $messages);
+                    }
 
         // } else {
         //     $messages = (validation_errors()) ? validation_errors() : '';

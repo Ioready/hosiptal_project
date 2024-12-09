@@ -211,7 +211,7 @@
                         <!-- <input type="search" id="search"> -->
                         <div class="col-md-9">
                                                 <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search" id="search">
+                            <input type="text" class="form-control" placeholder="Search" id="search" name="patient">
                         
                         </div>
                     </div>
@@ -280,7 +280,7 @@
                             <label class="col-md-3 control-label">Practitioner</label>
                             <div class="col-md-9">
                                 <select id="practitioner" name="practitioner" class="form-control select2" size="1">
-                                    <option value="0">Please select</option>
+                                    <option value="">Please select</option>
                                   
                                     <?php foreach ($practitioner as $practitioners) { ?>
                                         <option value="<?php echo $practitioners->id; ?>"><?php echo $practitioners->name; ?></option>
@@ -398,7 +398,7 @@
                         <!-- <input type="search" id="search"> -->
                         <div class="col-md-9">
                                                 <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search" id="search_patient">
+                            <input type="text" class="form-control" placeholder="Search" id="search_patient" name="patient">
                         
                         </div>
                             </div>
@@ -457,7 +457,7 @@
                             <label class="col-md-3 control-label">Clinician</label>
                             <div class="col-md-9">
                                 <select id="country" name="theatre_clinician" class="form-control select2" size="1">
-                                    <option value="0">Please select</option>
+                                    <option value="">Please select</option>
                                     <?php foreach ($doctorsname as $country) { ?>
                                         <option value="<?php echo $country->id; ?>"><?php echo $country->first_name.' '.$country->last_name; ?></option>
                                     <?php } ?>
@@ -685,7 +685,7 @@
                             <label class="col-md-3 control-label">Practitioner</label>
                             <div class="col-md-9">
                                 <select id="practitioner" name="practitioner" class="form-control select2" size="1">
-                                    <option value="0">Please select</option>
+                                    <option value="">Please select</option>
                                   
                                     <?php foreach ($practitioner as $practitioners) { ?>
                                         <option value="<?php echo $practitioners->id; ?>"><?php echo $practitioners->name; ?></option>
@@ -791,7 +791,7 @@
                             <label class="col-md-3 control-label">Practitioner</label>
                             <div class="col-md-9">
                                 <select id="practitioner" name="practitioner" class="form-control select2" size="1">
-                                    <option value="0">Please select</option>
+                                    <option value="">Please select</option>
                                   
                                     <?php foreach ($practitioner as $practitioners) { ?>
                                         <option value="<?php echo $practitioners->id; ?>"><?php echo $practitioners->name; ?></option>
@@ -978,7 +978,7 @@
                         <!-- <input type="search" id="search"> -->
                         <div class="col-md-9">
                                                 <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search" id="search">
+                            <input type="text" class="form-control" placeholder="Search" id="search" name="patient">
                         
                         </div>
                     </div>
@@ -1046,7 +1046,7 @@
                             <label class="col-md-3 control-label">Practitioner</label>
                             <div class="col-md-9">
                                 <select id="practitioner" name="practitioner" class="form-control select2" size="1">
-                                    <option value="0">Please select</option>
+                                    <option value="">Please select</option>
                                   
                                     <?php foreach ($practitioner as $practitioners) { ?>
                                         <option value="<?php echo $practitioners->id; ?>"><?php echo $practitioners->name; ?></option>
@@ -1164,7 +1164,7 @@
                         <!-- <input type="search" id="search"> -->
                         <div class="col-md-9">
                                                 <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search" id="search_patient">
+                            <input type="text" class="form-control" placeholder="Search" id="search_patient" name="patient">
                         
                         </div>
                             </div>
@@ -1223,7 +1223,7 @@
                             <label class="col-md-3 control-label">Clinician</label>
                             <div class="col-md-9">
                                 <select id="country" name="theatre_clinician" class="form-control select2" size="1">
-                                    <option value="0">Please select</option>
+                                    <option value="">Please select</option>
                                     <?php foreach ($doctorsname as $country) { ?>
                                         <option value="<?php echo $country->id; ?>"><?php echo $country->first_name.' '.$country->last_name; ?></option>
                                     <?php } ?>
@@ -1451,7 +1451,7 @@
                             <label class="col-md-3 control-label">Practitioner</label>
                             <div class="col-md-9">
                                 <select id="practitioner" name="practitioner" class="form-control select2" size="1">
-                                    <option value="0">Please select</option>
+                                    <option value="">Please select</option>
                                   
                                     <?php foreach ($practitioner as $practitioners) { ?>
                                         <option value="<?php echo $practitioners->id; ?>"><?php echo $practitioners->name; ?></option>
@@ -1557,7 +1557,7 @@
                             <label class="col-md-3 control-label">Practitioner</label>
                             <div class="col-md-9">
                                 <select id="practitioner" name="practitioner" class="form-control select2" size="1">
-                                    <option value="0">Please select</option>
+                                    <option value="">Please select</option>
                                   
                                     <?php foreach ($practitioner as $practitioners) { ?>
                                         <option value="<?php echo $practitioners->id; ?>"><?php echo $practitioners->name; ?></option>

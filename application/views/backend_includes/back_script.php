@@ -967,8 +967,9 @@ bootbox.confirm({
                     
                     // Check if data is an array and has content
                     if (Array.isArray(data) && data.length > 0) {
+                        output += '<option>Please Select</option>';
                         $.each(data, function(index, element) {
-                            output += '<option>Please Select</option>';
+                            
                             output += '<option value="' + element.id + '">' + element.name + '</option>';
                         });
                     } else {
@@ -1095,8 +1096,9 @@ bootbox.confirm({
                     
                     // Check if data is an array and contains elements
                     if (Array.isArray(data) && data.length > 0) {
+                        output += '<option>Please Select</option>';
                         $.each(data, function(index, element) {
-                            output += '<option>Please Select</option>';
+                            
                             output += '<option value="' + element.id + '">' + element.name + '</option>';
                         });
                     } else {
@@ -1182,6 +1184,7 @@ bootbox.confirm({
 
                                 // Check if data is an array and has content
                                 if (Array.isArray(data) && data.length > 0) {
+                                    output += '<option>Please Select</option>';
                                     $.each(data, function(index, element) {
                                         // output += '<option>Please Select</option>';
                                         output += '<option value="' + element.id + '">' + element.name + '</option>';
@@ -1254,6 +1257,7 @@ bootbox.confirm({
 
                             // Check if data is an array and has content
                             if (Array.isArray(data) && data.length > 0) {
+                                output += '<option>Please Select</option>';
                                 $.each(data, function(index, element) {
                                     // output += '<option>Please Select</option>';
                                     output += '<option value="' + element.id + '">' + element.name + '</option>';

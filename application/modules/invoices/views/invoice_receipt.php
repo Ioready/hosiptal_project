@@ -135,7 +135,7 @@
                                               <th>Quantity</th>
                                               <th>Unit Price</th>
                                               <th>Tax</th>
-                                              <th>Price (USD)</th>
+                                              <th>Price (£)</th>
                                           </tr>
                                           </thead>
                                           <tbody>

@@ -1050,13 +1050,7 @@ class Common_model extends MY_Model {
         return $query->num_rows() === 0; // Available if no records found
     }
 
-    // public function book($date, $time) {
-    //     $data = [
-    //         'appointment_date' => $date,
-    //         'appointment_time' => $time,
-    //         'status' => 'booked'
-    //     ];
-    //     $this->db->insert('vendor_sale_clinic_appointment', $data);
-    // }
+
+    
     
 }

@@ -217,6 +217,54 @@ class Setting extends Common_Controller {
         $this->load->admin_render('bank_transfer', $this->data, 'inner_script');
     }
 
+    public function taxSetting() {
+        $this->data['parent'] = "Settings";
+        $this->data['title'] = "Settings";
+        // $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+
+        // $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+        if ($this->ion_auth->is_superAdmin()) {
+            $user_id = $this->session->userdata('user_id');
+        $LoginID = $user_id;
+
+        }
+        else if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $LoginID = $user_id;
+
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+    
+            $authUser = $this->common_model->customGet($optionData);
+
+            $LoginID = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
+        }
+
+        $optionPayment = array(
+            'table' => 'tax_setting',
+            'select' => 'tax_setting.*',
+            'where' => array('tax_setting.hospital_id' => $LoginID),
+            'single' => true,
+        );
+        
+
+        $this->data['list'] = $this->common_model->customGet($optionPayment);
+// print_r($this->data['list']);die;
+        $this->load->admin_render('tax_setting', $this->data, 'inner_script');
+    }
     
     // public function addBankSetting() {
 
@@ -1459,6 +1507,78 @@ class Setting extends Common_Controller {
         $this->common_model->customDelete($option);
 
         $response = array('status' => 200, 'message' => 'Deleted Successfully', 'url' => base_url($this->router->fetch_class()));
+        echo json_encode($response);
+    }
+
+    public function addTaxSetting() {
+        $this->data['parent'] = "Settings";
+        $this->data['title'] = "Settings";
+    
+        $this->form_validation->set_rules('tax_name', 'tax_name', 'required');
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+        
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+        
+            $authUser = $this->common_model->customGet($optionData);
+        // print_r($authUser);die;
+            $hospital_id = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
+        }
+        if ($this->form_validation->run() == true) {
+            // Check if there's already a bank setting for the user
+            $option_check = array(
+                'table' => 'tax_setting',
+                'where' => array('hospital_id' => $hospital_id)
+            );
+            $existingRecord = $this->common_model->customGet($option_check);
+    
+            // Prepare data for insertion or update
+            $data = array(
+                'hospital_id' => $hospital_id,
+                'tax_name' => $this->input->post('tax_name'),
+                'tax_percentage' => $this->input->post('tax_percentage'),
+                'currency_symbol' => $this->input->post('currency_symbol'),
+            );
+    
+            if (!empty($existingRecord)) {
+                // Update existing record
+                $option_update = array(
+                    'table' => 'tax_setting',
+                    'data' => $data,
+                    'where' => array('hospital_id' => $hospital_id)
+                );
+                $this->common_model->customUpdate($option_update);
+                $response = array('status' => 1, 'message' => "Successfully updated");
+            } else {
+                // Insert new record
+                $option_insert = array(
+                    'table' => 'tax_setting',
+                    'data' => $data
+                );
+                $insert_id = $this->common_model->customInsert($option_insert);
+                $response = array('status' => 1, 'message' => "Successfully added");
+            }
+        } else {
+            // Validation error message
+            $messages = (validation_errors()) ? validation_errors() : '';
+            $response = array('status' => 0, 'message' => $messages);
+        }
+    
         echo json_encode($response);
     }
 }

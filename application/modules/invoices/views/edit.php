@@ -517,7 +517,7 @@ function education_fields() {
     divtest.innerHTML = `
         <div class="col-sm-3 nopadding">
             <div class="form-group">
-                <input type="search" class="form-control" name="products[]" placeholder="Products name" id="product_item" onkeyup="myProductFunctionEdit()"><input type="hidden" class="form-control" id="products_iditem" name="products_idss[]" onkeyup="getSearchAllProductEdit()" placeholder="Products"><input type="text" class="form-control" id="tax_id" name="tax[]" onkeyup="myFunction()" placeholder="tax"><div id="result_productsjkjk"></div>
+                <input type="search" class="form-control" name="products[]" placeholder="Products name" id="product_item" onkeyup="myProductFunctionEdit()"><input type="hidden" class="form-control" id="products_iditem" name="products_idss[]" onkeyup="getSearchAllProductEdit()" placeholder="Products"><input type="hidden" class="form-control" id="tax_id" name="tax[]" onkeyup="myFunction()" placeholder="tax"><div id="result_productsjkjk"></div>
             </div>
         </div>
         <div class="col-sm-2 nopadding">

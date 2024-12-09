@@ -4,6 +4,33 @@
 
 <!-- Custom Styles -->
 <style>
+    td {
+    font-size: medium;
+}
+span {
+    font-size: medium;
+}
+option {
+    font-size: medium;
+}
+label {
+    font-size: medium;
+}
+div {
+    font-size: medium;
+}
+button {
+    font-size: medium;
+}
+
+
+.btn-sm {
+    font-size: medium!important;
+}
+.form-select {
+    font-size: medium!important;
+    font-weight: 400;
+}
     /* Layout Adjustments */
     .container {
         max-width: 1500px;
