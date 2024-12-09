@@ -7,7 +7,7 @@
             <a href="<?php echo site_url('pwfpanel');?>">Home</a>
         </li>
         <li>
-            <a href="<?php echo site_url('letters');?>">Letters</a>
+		<a href="<?php echo site_url('letters/add_new_template');?>">Back</a>
         </li>
     </ul>
     <!-- END Datatables Header -->

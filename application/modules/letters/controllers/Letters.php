@@ -144,7 +144,7 @@ class Letters extends Common_Controller {
         
         $role_name = $this->input->post('role_name');
 
-        $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+        // $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 
         if($LoginID != 1 && $LoginID != NULL ){
             $x = $LoginID;
@@ -159,7 +159,32 @@ class Letters extends Common_Controller {
             $vendor_profile_activate = 1;
         }
 
-     
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $LoginID = $user_id;
+        
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+        
+            $authUser = $this->common_model->customGet($optionData);
+        
+            $LoginID = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
+        }
+
+
         $optionheader = array(
             'table' => 'vendor_sale_lettel_header',
             'select' => 'vendor_sale_lettel_header`.*',
@@ -217,7 +242,7 @@ class Letters extends Common_Controller {
                 array('vendor_sale_lettel_footer', 'vendor_sale_lettel_recipients.id=vendor_sale_lettel_footer.recipient_id','left')
                 
             ),
-            'where' => array('vendor_sale_lettel_header.user_id' => $LoginID)
+            // 'where' => array('vendor_sale_lettel_header.user_id' => $LoginID)
         );
 
         $this->data['template_list'] = $this->common_model->customGet($optionEmailTemplate);
@@ -238,7 +263,30 @@ class Letters extends Common_Controller {
 
         $role_name = $this->input->post('role_name');
 
-        $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $LoginID = $user_id;
+        
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+        
+            $authUser = $this->common_model->customGet($optionData);
+        
+            $LoginID = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
+        }
 
         if($LoginID != 1 && $LoginID != NULL ){
             $x = $LoginID;
@@ -285,7 +333,30 @@ class Letters extends Common_Controller {
         $this->data['formUrl'] = $this->router->fetch_class() . "/addBodies";
         $role_name = $this->input->post('role_name');
 
-        $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $LoginID = $user_id;
+        
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+        
+            $authUser = $this->common_model->customGet($optionData);
+        
+            $LoginID = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
+        }
 
         if($LoginID != 1 && $LoginID != NULL ){
             $x = $LoginID;
@@ -324,7 +395,30 @@ class Letters extends Common_Controller {
         $this->data['formUrl'] = $this->router->fetch_class() . "/addRecipients";
         $role_name = $this->input->post('role_name');
 
-        $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $LoginID = $user_id;
+        
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+        
+            $authUser = $this->common_model->customGet($optionData);
+        
+            $LoginID = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
+        }
 
         if($LoginID != 1 && $LoginID != NULL ){
             $x = $LoginID;
@@ -383,7 +477,30 @@ class Letters extends Common_Controller {
         $this->data['formUrl'] = $this->router->fetch_class() . "/addFooter";
 
 
-        $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $LoginID = $user_id;
+        
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+        
+            $authUser = $this->common_model->customGet($optionData);
+        
+            $LoginID = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
+        }
 
         if($LoginID != 1 && $LoginID != NULL ){
             $x = $LoginID;
@@ -510,7 +627,31 @@ class Letters extends Common_Controller {
         //                 echo "<pre>";
         // print_r($this->input->post());die;
         // echo "</pre>";
-        $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $LoginID = $user_id;
+        
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+        
+            $authUser = $this->common_model->customGet($optionData);
+        
+            $LoginID = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
+        }
+
         $this->form_validation->set_rules('internal_name', "internal_name", 'required|trim');
        
 
@@ -571,7 +712,31 @@ class Letters extends Common_Controller {
         // print_r($this->input->post());die;
         // echo "</pre>";
 
-        $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $LoginID = $user_id;
+        
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+        
+            $authUser = $this->common_model->customGet($optionData);
+        
+            $LoginID = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
+        }
+
 
         // $this->form_validation->set_rules('facility_manager_id', "Facility Manager Name", 'required|xss_clean');
         $this->form_validation->set_rules('internal_name', "internal_name", 'required|trim');
@@ -633,7 +798,30 @@ class Letters extends Common_Controller {
 
     public function addBodies() {
 
-        $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $LoginID = $user_id;
+        
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+        
+            $authUser = $this->common_model->customGet($optionData);
+        
+            $LoginID = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
+        }
 
         // $this->form_validation->set_rules('facility_manager_id', "Facility Manager Name", 'required|xss_clean');
         $this->form_validation->set_rules('internal_name', "internal_name", 'required|trim');
@@ -671,7 +859,30 @@ class Letters extends Common_Controller {
         // print_r($this->input->post());die;
         // echo "</pre>";
 
-        $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $LoginID = $user_id;
+        
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+        
+            $authUser = $this->common_model->customGet($optionData);
+        
+            $LoginID = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
+        }
 
         // $this->form_validation->set_rules('facility_manager_id', "Facility Manager Name", 'required|xss_clean');
         $this->form_validation->set_rules('internal_name', "internal_name", 'required|trim');
@@ -709,7 +920,30 @@ class Letters extends Common_Controller {
         //                 echo "<pre>";
         // print_r($this->input->post());die;
         // echo "</pre>";
-        $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $LoginID = $user_id;
+        
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+        
+            $authUser = $this->common_model->customGet($optionData);
+        
+            $LoginID = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
+        }
 
         // $this->form_validation->set_rules('facility_manager_id', "Facility Manager Name", 'required|xss_clean');
         $this->form_validation->set_rules('first_name', "first_name", 'required|trim');
@@ -772,7 +1006,30 @@ class Letters extends Common_Controller {
         $this->data['model'] = $this->router->fetch_class();
         $role_name = $this->input->post('role_name');
 
-        $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $LoginID = $user_id;
+        
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+        
+            $authUser = $this->common_model->customGet($optionData);
+        
+            $LoginID = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
+        }
 
         if($LoginID != 1 && $LoginID != NULL ){
             $x = $LoginID;
@@ -826,7 +1083,31 @@ class Letters extends Common_Controller {
         // echo "</pre>";
 
 
-        $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $LoginID = $user_id;
+        
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+        
+            $authUser = $this->common_model->customGet($optionData);
+        
+            $LoginID = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
+        }
+
         $this->form_validation->set_rules('internal_name', "internal_name", 'required|trim');
 
         if ($this->form_validation->run() == true) {
@@ -883,7 +1164,31 @@ class Letters extends Common_Controller {
     public function addQuestion() {
 
     
-        $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $LoginID = $user_id;
+        
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+        
+            $authUser = $this->common_model->customGet($optionData);
+        
+            $LoginID = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
+        }
+
         $this->form_validation->set_rules('question', "question", 'required|trim');
        
         if ($this->form_validation->run() == true) {
