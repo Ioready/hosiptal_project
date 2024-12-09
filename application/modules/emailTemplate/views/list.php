@@ -328,6 +328,7 @@
                             // echo $menu_name;
                             if ($menu_name == 'Email Template') {
                               // if ($menu_view =='1') {?>
+                              
  <div class="table-responsive">
                 <table id="common_datatable_cms" class="table table-vcenter table-condensed table-bordered text-center">
                     <thead>
@@ -450,7 +451,7 @@
                         </td>
 
                         <!-- Action Buttons -->
-                        <td style="padding: 10px; text-align: center; display: flex; justify-content: center; gap: 10px;">
+                        <td style="padding: 10px; text-align: center; justify-content: center; gap: 10px;">
                             <?php if ($rows->active_template != 1 && $rows->is_active == 1) { ?>
                                 <?php echo $rows->recipient_template; ?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <a href="javascript:void(0);" onclick="useTemplate('<?php echo $rows->id; ?>')" style="padding: 8px 12px; background-color: #28a745; color: #fff; border-radius: 5px; text-decoration: none; cursor: pointer;">Use Template</a>

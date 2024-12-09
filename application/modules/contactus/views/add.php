@@ -23,10 +23,13 @@
     
  
     
-    <div class="block full min-height-data">
+    <div class="block full min-height-data" >
         <div class="block-title">
             <h2><strong>Contacts</strong> Panel</h2>
         </div>
+        <div class="col-md-12" style="overflow-y: scroll; height: 450px;">
+
+        
         <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url($formUrl) ?>" enctype="multipart/form-data">
 
         <!-- <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('business/vendors_add') ?>" enctype="multipart/form-data"> -->
@@ -336,7 +339,7 @@
                 <button type="submit" id="submit" class="btn btn-sm btn-primary mt-2" style="background:#337ab7;">Save</button>
             </div>
         </form>
-        
+        </div>
     </div>
 <!-- END Datatables Content -->
 </div>

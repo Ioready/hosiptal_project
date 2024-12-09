@@ -199,10 +199,12 @@
     </a>
 
     <!-- Delete Button -->
-    <a href="javascript:void(0);" onclick="deleteFn('<?php echo $table; ?>', 'id', '<?php echo encoding($rows->id); ?>')"
+    <!-- <a href="javascript:void(0);" onclick="deleteFn('<?php echo 'contactus'; ?>', 'id', '<?php echo encoding($rows->id); ?>')"
        style="padding: 8px 12px; background-color: #dc3545; color: #fff; border-radius: 5px; text-decoration: none; display: flex; align-items: center; cursor: pointer;">
         <i class="fa fa-trash" style="margin-right: 5px;"></i> Delete
-    </a>
+    </a> -->
+    <a href="javascript:void(0)" data-toggle="tooltip"   onclick="deleteFn('<?php echo 'vendor_sale_doctors_contactus'; ?>', 'id', '<?php echo encoding($rows->id); ?>', 'index.php/contactus', 'index.php/contactus/delVendors','<?php echo $rows->id . ' ' . $rows->id; ?>')" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                            
 </td>
 
 
@@ -282,10 +284,12 @@
     </a>
 
     <!-- Delete Button -->
-    <a href="javascript:void(0);" onclick="deleteFn('<?php echo $table; ?>', 'id', '<?php echo encoding($rows->id); ?>')"
+    <!-- <a href="javascript:void(0);" onclick="deleteFn('<?php echo $table; ?>', 'id', '<?php echo encoding($rows->id); ?>')"
        style="padding: 8px 12px; background-color: #dc3545; color: #fff; border-radius: 5px; text-decoration: none; display: flex; align-items: center; cursor: pointer;">
         <i class="fa fa-trash" style="margin-right: 5px;"></i> Delete
-    </a>
+    </a> -->
+    <a href="javascript:void(0)" data-toggle="tooltip"   onclick="deleteFn('<?php echo 'vendor_sale_doctors_contactus'; ?>', 'id', '<?php echo encoding($rows->id); ?>', 'index.php/contactus', 'index.php/contactus/delVendors','<?php echo $rows->id . ' ' . $rows->id; ?>')" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+       
 </td>
 
 

@@ -127,26 +127,17 @@
           </div>
 
          
-        <div class="block-title">
-            <!-- <h2><strong><?php echo 'Users';?></strong> Panel</h2> -->
-        </div>
+       
         <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('index.php/' .$formUrl) ?>" enctype="multipart/form-data">
-            <!-- <div class="modal-header text-center">
-                <h2 class="modal-title"><i class="fa fa-pencil"></i> <?php echo (isset($title)) ? ucwords($title) : "" ?></h2>
-            </div> -->
+           
             <div class="alert alert-danger" id="error-box" style="display: none"></div>
             <div class="form-body">
                 <div class="row">
                     <div class="col-md-12" >
                         <div class="form-group">
-            
-                                <div class="col-md-12">
+                            <div class="col-md-12">
                                 <h2>Letters Templates List</h2>
-                            <form id="timeSlotForm" action="submit.php" method="post">
                                     
-                            
-                            <!-- </div> -->
-                             <!-- <input type="date" id="date" name="date" class="form-control" required> -->
                             </div>
                             
                         </div>
@@ -154,46 +145,36 @@
 
                      <div class="col-md-12" >
                         <div class="form-group">
-                            <!-- <label class="col-md-3 control-label">Doctor Name:</label> -->
-                            <div class="col-md-9">
-                           
-                        <input type="hidden" id="doctor_name" name="doctor_name" class="form-control" value="<?php echo $userData->id; ?>">
+                            <div class="col-md-9">  
+                                <input type="hidden" id="doctor_name" name="doctor_name" class="form-control" value="<?php echo $userData->id; ?>">
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12" >
                    
-                    <div class="space-22"></div>
+                </div>
+                <div class="text-right">
+                    <!-- <button type="submit" id="submit" class="btn btn-sm btn-primary" >Save</button> -->
                 </div>
             </div>
-            <div class="text-right">
-                <!-- <button type="submit" id="submit" class="btn btn-sm btn-primary" >Save</button> -->
-            </div>
-            
+          
         </form>
 
         <?php } if ($menu_view =='1'){ ?>
-            <div class="col-sm-12"> 
-                         
-                         <div class="table-responsive" >
-                         
 
-                             <table id="appointmentTable" class="table table-bordered table-hover align-middle text-center">
-                         
-        <!-- <div class="table-responsive"> -->
-            <!-- <table id="common_datatable_users" class="table table-vcenter table-condensed table-bordered"> -->
-            
-            <thead>
-                    <tr>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem;width:10px;" >Sr. No</th>
-                        <th  style="background-color:#DBEAFF;font-size:1.3rem;">Header Name</th>
-                        <th  style="background-color:#DBEAFF;font-size:1.3rem;">Header logo</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem;">Bodies</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem;">Recipients</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem;">Footer</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem;"><?php echo lang('action'); ?></th>
-                    </tr>
-                </thead>
+            <!-- <div class="col-sm-12">  -->
+                <div class="table-responsive" >
+                    <table id="appointmentTable" class="table table-bordered table-hover align-middle text-center">
+                        <thead>
+                            <tr>
+                                <th style="background-color:#DBEAFF;font-size:1.3rem;width:10px;" >Sr. No</th>
+                                <th  style="background-color:#DBEAFF;font-size:1.3rem;">Header Name</th>
+                                <th  style="background-color:#DBEAFF;font-size:1.3rem;">Header logo</th>
+                                <th style="background-color:#DBEAFF;font-size:1.3rem;">Bodies</th>
+                                <th style="background-color:#DBEAFF;font-size:1.3rem;">Recipients</th>
+                                <th style="background-color:#DBEAFF;font-size:1.3rem;">Footer</th>
+                                <th style="background-color:#DBEAFF;font-size:1.3rem;"><?php echo lang('action'); ?></th>
+                            </tr>
+                        </thead>
 
                 <tbody>
 
@@ -253,7 +234,7 @@
                 </tbody>
             </table>
             </div>
-        </div>
+        <!-- </div> -->
 
         <?php }}}} if($this->ion_auth->is_facilityManager()){?>
 
@@ -272,13 +253,9 @@
                 <?php } ?>
           </div>
 
-        <div class="block-title">
-            <!-- <h2><strong><?php echo 'Users';?></strong> Panel</h2> -->
-        </div>
+        
         <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('index.php/' .$formUrl) ?>" enctype="multipart/form-data">
-            <!-- <div class="modal-header text-center">
-                <h2 class="modal-title"><i class="fa fa-pencil"></i> <?php echo (isset($title)) ? ucwords($title) : "" ?></h2>
-            </div> -->
+           
             <div class="alert alert-danger" id="error-box" style="display: none"></div>
             <div class="form-body">
                 <div class="row">
@@ -286,139 +263,132 @@
                         <div class="form-group">
             
                                 <div class="col-md-12">
-                                <h2>Letters Templates List</h2>
-                            <form id="timeSlotForm" action="submit.php" method="post">
-                                    
-                            
-                            <!-- </div> -->
-                             <!-- <input type="date" id="date" name="date" class="form-control" required> -->
-                            </div>
+                                    <h2>Letters Templates List</h2>
+                                </div>
                             
                         </div>
                     </div>
 
                      <div class="col-md-12" >
                         <div class="form-group">
-                            <!-- <label class="col-md-3 control-label">Doctor Name:</label> -->
+                           
                             <div class="col-md-9">
                            
-                        <input type="hidden" id="doctor_name" name="doctor_name" class="form-control" value="<?php echo $userData->id; ?>">
+                                <input type="hidden" id="doctor_name" name="doctor_name" class="form-control" value="<?php echo $userData->id; ?>">
                             </div>
                         </div>
                     </div>
                     <div class="col-md-12" >
                    
                     <div class="space-22"></div>
+
                 </div>
             </div>
+
             <div class="text-right">
                 <!-- <button type="submit" id="submit" class="btn btn-sm btn-primary" >Save</button> -->
             </div>
             
         </form>
-        <div class="col-sm-12"> 
-                         
-                         <div class="table-responsive" >
-                         
 
-                             <table id="appointmentTable" class="table table-bordered table-hover align-middle text-center">
-                         
-            <!-- <table id="common_datatable_users" class="table table-vcenter table-condensed table-bordered"> -->
-            <thead>
-                    <tr>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem;width:10px;" >Sr. No</th>
-                        <th  style="background-color:#DBEAFF;font-size:1.3rem;">Header Name</th>
-                        <th  style="background-color:#DBEAFF;font-size:1.3rem;">Header logo</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem;">Bodies</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem;">Recipients</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem;">Footer</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem;"><?php echo lang('action'); ?></th>
-                    </tr>
-                </thead>
+        <!-- <div class="col-sm-12">  -->
+            <div class="table-responsive" >
+                <table id="appointmentTable" class="table table-bordered table-hover align-middle text-center">       
+           
+                    <thead>
+                        <tr>
+                            <th style="background-color:#DBEAFF;font-size:1.3rem;width:10px;" >Sr. No</th>
+                            <th  style="background-color:#DBEAFF;font-size:1.3rem;">Header Name</th>
+                            <th  style="background-color:#DBEAFF;font-size:1.3rem;">Header logo</th>
+                            <th style="background-color:#DBEAFF;font-size:1.3rem;">Bodies</th>
+                            <th style="background-color:#DBEAFF;font-size:1.3rem;">Recipients</th>
+                            <th style="background-color:#DBEAFF;font-size:1.3rem;">Footer</th>
+                            <th style="background-color:#DBEAFF;font-size:1.3rem;"><?php echo lang('action'); ?></th>
+                        </tr>
+                    </thead>
 
-                <tbody>
-
-
-                    <?php
-                    
-                    if (!empty($template_list)) {
-                        $rowCount = 0;
-                        foreach ($template_list as $rows) {
-                            $rowCount++;
-                            // print_r($rows->bodies_template);
-                            if(!empty($rows->header_internal_name)){
-                    ?>
-                           
-
-                            <tr>
-                                <td><?php echo $rowCount; ?></td>
-                                <td><?php echo $rows->header_internal_name; ?></td>
-                                <?php $image_url = base_url('/uploads/'); ?>
-                                <td><img width="100px;" src="<?php echo $image_url.$rows->header_logo; ?>" alt="header"></td>
-                                
-                                <td style="vertical-align: top;">
-                                    <?php 
-                                    // Get the content from the `bodies_template`
-                                    $content = $rows->bodies_template;
-
-                                    // Split the content into words
-                                    $words = explode(' ', $content);
-
-                                    // Check if the content has more than 20 words
-                                    if (count($words) > 20) {
-                                        // Take only the first 20 words and join them into a string
-                                        $content_trimmed = implode(' ', array_slice($words, 0, 20)) . '...';
-                                    } else {
-                                        // If it's less than 20 words, show the full content
-                                        $content_trimmed = $content;
-                                    }
-
-                                    // Echo the content (trimmed or full)
-                                    echo $content_trimmed;
-                                    ?>
-                                </td>
-
-
-                                <td><?php echo $rows->recipient_template; ?></td>
-                               
-                                
-                                <td><?php echo $rows->footer_internal_name; ?><img width="100px;" src="<?php echo $image_url.$rows->logo; ?>" alt="footer"></td>
-                                <td class="actions">
-                                    <h3>
-                                        <a href="javascript:void(0)" onclick="generateTemplate('<?php echo $rows->id; ?>')" class="btn btn-sm save-btn">Generate Template</a>
-                                    </h3>
-                                    <?php  //print_r($rows->bodies_template);?>
-                                    <!-- Hidden form -->
-                                    <form id="templateForm_<?php echo $rows->id; ?>" style="display: none;">
-                                        <input type="hidden" name="id" value="<?php echo $rows->id; ?>">
-                                        <input type="hidden" name="internal_name" value="<?php echo $rows->header_internal_name; ?>">
-                                        <input type="hidden" name="header_logo" value="<?php echo $rows->header_logo; ?>">
-                                        <textarea name="bodies_templatess" id="bodies_templatess" value="<?php echo $rows->bodies_template; ?>"><?php echo $rows->bodies_template; ?></textarea>
-                                        <textarea name="recipient_template" id="recipient_template" value="<?php echo $rows->recipient_template; ?>"><?php echo $rows->recipient_template; ?></textarea>
-                                        <!-- <input type="text" name="bodies_templatess" value="<?php echo $rows->bodies_template; ?>"> -->
-                                        <!-- <input type="hidden" name="recipient_template" value="<?php echo $rows->recipient_template; ?>"> -->
-                                        <input type="hidden" name="logo" value="<?php echo $rows->logo; ?>">
-                                        <!-- Add other hidden fields if needed -->
-                                    </form>
-                                </td>
-                            </tr>
-
+                    <tbody>
                         <?php
-                        }
                         
-                    }
-                   
-                    
-                    }
-                    ?>
+                        if (!empty($template_list)) {
+                            $rowCount = 0;
+                            foreach ($template_list as $rows) {
+                                $rowCount++;
+                                // print_r($rows->bodies_template);
+                                if(!empty($rows->header_internal_name)){
+                        ?>
+                            
 
-                </tbody>
-            </table>
+                                <tr>
+                                    <td><?php echo $rowCount; ?></td>
+                                    <td><?php echo $rows->header_internal_name; ?></td>
+                                    <?php $image_url = base_url('/uploads/'); ?>
+                                    <td><img width="100px;" src="<?php echo $image_url.$rows->header_logo; ?>" alt="header"></td>
+                                    
+                                    <td style="vertical-align: top;">
+                                        <?php 
+                                        // Get the content from the `bodies_template`
+                                        $content = $rows->bodies_template;
+
+                                        // Split the content into words
+                                        $words = explode(' ', $content);
+
+                                        // Check if the content has more than 20 words
+                                        if (count($words) > 20) {
+                                            // Take only the first 20 words and join them into a string
+                                            $content_trimmed = implode(' ', array_slice($words, 0, 20)) . '...';
+                                        } else {
+                                            // If it's less than 20 words, show the full content
+                                            $content_trimmed = $content;
+                                        }
+
+                                        // Echo the content (trimmed or full)
+                                        echo $content_trimmed;
+                                        ?>
+                                    </td>
+
+
+                                    <td><?php echo $rows->recipient_template; ?></td>
+                                
+                                    
+                                    <td><?php echo $rows->footer_internal_name; ?><img width="100px;" src="<?php echo $image_url.$rows->logo; ?>" alt="footer"></td>
+                                    <td class="actions">
+                                        <h3>
+                                            <a href="javascript:void(0)" onclick="generateTemplate('<?php echo $rows->id; ?>')" class="btn btn-sm save-btn">Generate Template</a>
+                                        </h3>
+                                        <?php  //print_r($rows->bodies_template);?>
+                                        <!-- Hidden form -->
+                                        <form id="templateForm_<?php echo $rows->id; ?>" style="display: none;">
+                                            <input type="hidden" name="id" value="<?php echo $rows->id; ?>">
+                                            <input type="hidden" name="internal_name" value="<?php echo $rows->header_internal_name; ?>">
+                                            <input type="hidden" name="header_logo" value="<?php echo $rows->header_logo; ?>">
+                                            <textarea name="bodies_templatess" id="bodies_templatess" value="<?php echo $rows->bodies_template; ?>"><?php echo $rows->bodies_template; ?></textarea>
+                                            <textarea name="recipient_template" id="recipient_template" value="<?php echo $rows->recipient_template; ?>"><?php echo $rows->recipient_template; ?></textarea>
+                                            <!-- <input type="text" name="bodies_templatess" value="<?php echo $rows->bodies_template; ?>"> -->
+                                            <!-- <input type="hidden" name="recipient_template" value="<?php echo $rows->recipient_template; ?>"> -->
+                                            <input type="hidden" name="logo" value="<?php echo $rows->logo; ?>">
+                                            <!-- Add other hidden fields if needed -->
+                                        </form>
+                                    </td>
+                                </tr>
+
+                            <?php
+                            }
+                            
+                        }
+                    
+                        
+                        }
+                        ?>
+
+                    </tbody>
+                </table>
             </div>
-        </div>
+        <!-- </div> -->
 
             <?php }?>
     <!-- END Datatables Content -->
+</div>
 </div>
 <!-- END Page Content -->
 <div id="form-modal-box"></div>
