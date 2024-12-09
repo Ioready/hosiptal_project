@@ -548,67 +548,13 @@
     });
 
 
-    // $(document).ready(function () {
-    // $("#template_list").change(function () {
-    //     var template_id = this.value;
 
-    //     <?php //echo $EmailTemplates;?>
-
-    //     $.ajax({
-    //         url: '<?php echo base_url(); ?>' + "/emailTemplate/index",
-    //         method: 'GET', 
-    //         data: { template_id: template_id },
-    //         success: function(response) {
-              
-    //             document.write(response);
-    //         },
-    //         error: function(xhr, status, error) {
-                
-    //             console.error(xhr.responseText);
-    //         }
-    //     });
-    // });
-// });
-
-
-
-    // $(document).ready(function(){
-    // $("#template_list").change(function () {
-    //     var template_id = this.value;
-    //     $.ajax({
-    //         url: '<?php echo base_url(); ?>' + "/emailTemplate/index", // Replace with your controller endpoint URL
-    //         method: 'GET', // Or 'POST' depending on your preference
-    //         data: { template_id: template_id },
-    //         success: function(response) {
-    //             // Update the content of the div with the main content area
-    //             $('#template_data').html($(response).find('#main-content').html());
-    //         },
-    //         error: function(xhr, status, error) {
-    //             // Handle any errors
-    //             console.error(xhr.responseText);
-    //         }
-    //     });
-    // });
-// })
 </script>
 
 
 
 <!-- Script to initialize CKEditor -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
+   
 
     <!-- END Page Content -->
 <div id="form-modal-box"></div>
@@ -618,62 +564,6 @@
 </div> 
 
 <script>
-// function useTemplate(id) {
-//     // Populate hidden form with data
-//     var form = document.getElementById('templateForm_' + id);
-//     form.action = '<?php echo base_url('emailTemplate/usedTemplate'); ?>';
-   
-//     $.ajax({
-//         type: 'POST',
-//         url: form.action,
-//         data: $(form).serialize(), // Serialize form data
-//         success: function(response) {
-//             // Handle success response
-//             alert(status);
-//             if (response.status === 1) {
-//             alert(response.message); // Show success message
-//             if (response.reload) {
-//                 location.reload(); // Reload the window
-//             }
-//         } else {
-//             alert(response.message); // Show error message
-//         }
-//         },
-//         error: function(xhr, status, error) {
-//             // Handle error
-//             console.error(xhr.responseText);
-//         }
-//     });
-// }
-
-// function useTemplate(id) {
-//     // alert(id);
-//     // Populate hidden form with data
-//     // var form = document.getElementById('templateForm_' + id);
-//     // form.action = '<?php //echo base_url('emailTemplate/usedTemplate'); ?>';
-   
-//     $.ajax({
-//         type: 'POST',
-//         url: '<?php echo base_url('emailTemplate/usedTemplate'); ?>',
-//         data: 'id:id', // Serialize form data
-//         success: function(response) {
-//             // Handle success response
-//             // alert(JSON.stringify(response['status'])); // Alert the entire response object as a string
-//             // if (response.status === 1) {
-//                 // alert(response.message); // Show success message
-//                 // if (response.reload) {
-//                     location.reload(); // Reload the window
-//                 // }
-//             // } else {
-//             //     alert(response.message); // Show error message
-//             // }
-//         },
-//         error: function(xhr, status, error) {
-//             // Handle error
-//             console.error(xhr.responseText);
-//         }
-//     });
-// }
 
 function useTemplate(id) {
 
@@ -702,5 +592,19 @@ function useTemplate(id) {
 
 
 </script>
+<script>
+
+$(document).ready(function() {
+    var dataTable = $('#common_datatable_cms').DataTable({
+            "paging": true,
+            "searching": true,
+            "lengthChange": false,
+            "pageLength": 10,
+            "order": [[0, 'desc']]  // Here, 0 represents the first column (index starts from 0)
+        });
+    }
+);
+</script>
+
                     
 
