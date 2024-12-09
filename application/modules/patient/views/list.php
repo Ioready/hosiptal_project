@@ -210,7 +210,7 @@
                                             <fa class="fa fa-file-pdf-o"></fa> Download Monthly Surveillance List
                                         </button>
                                     </div> -->
-                                    
+
                                 </div>
                                 <!-- </form> -->
 
@@ -267,7 +267,7 @@
 
         <?php } if($menu_view =='1'){ ?>
         <div class="table-responsive">
-            <table id="common_datatable_menucat" class="table table-vcenter table-condensed table-bordered text-center">
+            <table id="common_datatable_menucat_patient" class="table table-vcenter table-condensed table-bordered text-center">
                
             <thead>
                     <tr>
@@ -550,7 +550,7 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
-    var dataTable = $('#common_datatable_menucat').DataTable({
+    var dataTable = $('#common_datatable_menucat_patient').DataTable({
             "paging": true,
             "searching": true,
             "lengthChange": false,

@@ -1768,16 +1768,16 @@ input {
                         <div class="col-md-4">
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <label class="control-label">First Name</label>
-                                    <input type="text" class="form-control" name="first_name" id="first_name" placeholder="First Name" style="text-align: justify;"/>
+                                    <label class="control-label">First Name<span style="color:red">*</span></label>
+                                    <input type="text" class="form-control" name="first_name" id="first_name" placeholder="First Name" style="text-align: justify;" required/>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <label class="control-label">Last Name</label>
-                                    <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Last Name" style="text-align: justify;"/>
+                                    <label class="control-label">Last Name<span style="color:red">*</span></label>
+                                    <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Last Name" style="text-align: justify;" required/>
                                 </div>
                             </div>
                         </div>
@@ -1795,16 +1795,16 @@ input {
                         <div class="col-md-3">
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <label class="control-label">Date Of Birth</label>
-                                    <input type="text" class="form-control" name="day" id="day" placeholder="Day" maxlength="2" style="text-align: justify;"/>
+                                    <label class="control-label">Date Of Birth<span style="color:red">*</span></label>
+                                    <input type="text" class="form-control" name="day" id="day" placeholder="Day" maxlength="2" style="text-align: justify;" required/>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-2" style="padding-top: 10px;">
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <label class="control-label"></label>
-                                    <select class="form-control" name="month" id="month">
+                                    <label class="control-label">Month<span style="color:red">*</span></label>
+                                    <select class="form-control" name="month" id="month" required>
                                         <option value="">Select Month</option>
                                         <option value="01">January</option>
                                         <option value="02">February</option>
@@ -1849,8 +1849,8 @@ input {
                         <div class="col-md-5">
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <label class="control-label">Gender</label>
-                                    <select class="form-control" name="gender" id="gender">
+                                    <label class="control-label">Gender<span style="color:red">*</span></label>
+                                    <select class="form-control" name="gender" id="gender" required>
                                         <option value="">Select Gender</option>
                                         <option value="Male">Male</option>
                                         <option value="Female">Female</option>
@@ -1889,8 +1889,8 @@ input {
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <div class="col-md-6">
-                                        <label class="">Phone Type</label>
-                                        <select id="phone_code" name="phone_type" class="form-control select2" size="1" placeholder="Choose a phone type">
+                                        <label class="">Phone Type<span style="color:red">*</span></label>
+                                        <select id="phone_code" name="phone_type" class="form-control select2" size="1" placeholder="Choose a phone type" required>
                                             <option value="" disabled selected>Choose a phone type</option>
                                             <option value="mobile">Mobile</option>
                                             <option value="home">Home</option>
@@ -1901,8 +1901,8 @@ input {
                                     </div>
 
                                     <div class="col-md-6">
-                                        <label class="">Phone Number</label>
-                                        <input type="text" class="form-control" name="phone_number" id="phone_number" placeholder="<?php echo lang('Phone Number');?>" style="text-align: justify;"/>
+                                        <label class="">Phone Number<span style="color:red">*</span></label>
+                                        <input type="text" class="form-control" name="phone_number" id="phone_number" placeholder="<?php echo lang('Phone Number');?>" style="text-align: justify;" required/>
                                     </div>
                                 </div>
                             </div>
@@ -1912,8 +1912,8 @@ input {
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <div class="col-md-12">
-                                        <label class=""><?php echo lang('user_email');?></label>
-                                        <input type="email" class="form-control" name="user_email" id="user_email" placeholder="<?php echo lang('user_email');?>" style="text-align: justify;"/>
+                                        <label class=""><?php echo lang('user_email');?><span style="color:red">*</span></label>
+                                        <input type="email" class="form-control" name="user_email" id="user_email" placeholder="<?php echo lang('user_email');?>" style="text-align: justify;" required/>
                                     </div>
                                 </div>
                             </div>
@@ -1923,8 +1923,8 @@ input {
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <div class="col-md-12">
-                                        <label class="control-label"><?php echo lang('password'); ?></label>
-                                        <input type="text" class="form-control" name="password" id="password" placeholder="<?php echo lang('password'); ?>" value="<?php echo randomPassword(); ?>" style="text-align: justify;"/>
+                                        <label class="control-label"><?php echo lang('password'); ?><span style="color:red">*</span></label>
+                                        <input type="text" class="form-control" name="password" id="password" placeholder="<?php echo lang('password'); ?>" value="<?php echo randomPassword(); ?>" style="text-align: justify;" required/>
                                     </div>
                                 </div>
                             </div>
@@ -1934,8 +1934,8 @@ input {
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <div class="col-md-12">
-                                        <label class="">Address Lookup</label>
-                                        <input type="text" class="form-control" name="address_lookup" id="address_lookup" placeholder="Address Lookup" style="text-align: justify;"/>
+                                        <label class="">Address Lookup<span style="color:red">*</span></label>
+                                        <input type="text" class="form-control" name="address_lookup" id="address_lookup" placeholder="Address Lookup" style="text-align: justify;" required/>
                                     </div>
                                 </div>
                             </div>
@@ -1983,12 +1983,12 @@ input {
 
                                     <div class="col-md-6" >
                                             <div class="form-group">
-                                                <label class="m-4 control-label">Country</label>
+                                                <label class="m-4 control-label">Country<span style="color:red">*</span></label>
                                             
                                                 <div class="col-md-12">
                                                     <!-- <input type="text" class="col-md-12 form-control" name="country_id" id="country_in" placeholder="Country"/> <br> -->
                                                     
-                                                        <select id="country" onchange="getStates(this.value)" name="country" class="form-control select2" size="1">
+                                                        <select id="country" onchange="getStates(this.value)" name="country" class="form-control select2" size="1" required>
                                                             <option value="0">Please select</option>
                                                                 <?php foreach ($countries as $country) { ?>
                                                                             
@@ -2002,7 +2002,7 @@ input {
                                         </div>
                                         <div class="col-md-6" >
                                             <div class="form-group">
-                                                <label class="m-4 control-label">State</label>
+                                                <label class="m-4 control-label">State<span style="color:red">*</span></label>
                                                 <div class="col-md-12">
                                                 <!-- <input type="text" class="form-control" name="state_id" id="state_in" placeholder="State Name"/> -->
                                                 </div>
@@ -2012,7 +2012,7 @@ input {
                                         </div>
                                         <div class="col-md-6" >
                                             <div class="form-group">
-                                                <label class="m-4 control-label">City</label>
+                                                <label class="m-4 control-label">City<span style="color:red">*</span></label>
                                                 <div class="col-md-12">
                                                 <!-- <input type="text" class="form-control" name="city_id" id="city_in" placeholder="City Name"/> -->
                                                 </div>
@@ -2427,11 +2427,11 @@ input {
 
                         <?php } else if ($this->ion_auth->is_facilityManager()) { ?>
 
-                            <div class="col-md-6">
+                            <!-- <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Doctor</label>
                                     <div class="col-md-9">
-                                        <select id="doctor_id" name="doctor_id" class="form-control select-chosen">
+                                    <select id="doctor_id" name="doctor_id" class="form-control select2" size="1" required>
                                             <option value="">Please Select</option>
                                             <?php
                                             if (!empty($doctors)) {
@@ -2447,13 +2447,13 @@ input {
 
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <?php $md_steward_id = $this->session->userdata('user_id');?>
                             <input type="hidden" class="form-control" name="md_steward_id" id="name" placeholder="Patient Id" maxlength="9" value="<?php echo $md_steward_id?>"/>
                             
 
                         <?php } else if ($this->ion_auth->is_subAdmin()) { ?>
-                            <div class="col-md-6">
+                            <!-- <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Doctor</label>
                                     <div class="col-md-9">
@@ -2475,7 +2475,7 @@ input {
 
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -2494,7 +2494,27 @@ input {
                             </div>
                           
                             <?php }?>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Doctor<span style="color:red">*</span></label>
+                                    <div class="col-md-9">
+                                    <select id="doctor_id" name="doctor_id" class="form-control select2" size="1" required>
+                                            <option value="">Please Select</option>
+                                            <?php
+                                            if (!empty($doctors)) {
+                                                foreach ($doctors as $doctor) {
+                                            ?>
+                                            <option value="<?php echo $doctor->id; ?>"><?php echo $doctor->first_name. ' '.$doctor->last_name; ?></option>
 
+                                            <?php
+                                                }
+                                            }
+                                            ?>
+                                        </select>
+
+                                    </div>
+                                </div>
+                            </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Infection Onset</label>

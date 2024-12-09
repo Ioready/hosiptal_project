@@ -2095,6 +2095,37 @@ $option = array(
        
     $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
     
+        // $this->form_validation->set_rules('first_name', 'first_name', 'trim');
+        // $this->form_validation->set_rules('last_name', 'last_name', 'trim');
+        // // $this->form_validation->set_rules('title', 'title', 'trim');
+        // $this->form_validation->set_rules('day', 'day', 'trim|required');
+        // $this->form_validation->set_rules('month', 'month', 'trim|required');
+        // $this->form_validation->set_rules('year', 'year', 'trim|required');
+        // $this->form_validation->set_rules('gender', 'gender', 'trim|required');
+        // //  $this->form_validation->set_rules('comment', 'comment', 'trim|required');
+        // $this->form_validation->set_rules('phone_type', 'phone_type', 'trim|required');
+        // // if ($this->input->post('infection_surveillance_checklist') != 'N/A') {
+        //     $this->form_validation->set_rules('phone_number', 'phone_number', 'trim|required');
+        // // }
+        // $this->form_validation->set_rules('user_email', 'user_email', 'trim|required');
+        // $this->form_validation->set_rules('password', 'password', 'trim|required');
+        // $this->form_validation->set_rules('address_lookup', 'address_lookup', 'trim|required');
+        // // $this->form_validation->set_rules('streem_address', 'streem_address', 'trim|required');
+        // $this->form_validation->set_rules('city', 'city', 'trim');
+        // $this->form_validation->set_rules('post_code', 'post_code', 'trim');
+        // $this->form_validation->set_rules('country', 'country', 'trim');
+       
+        // $this->form_validation->set_rules('relation', 'relation', 'trim');
+        // $this->form_validation->set_rules('storedDataType', 'Relation Type', 'trim|required');
+
+        // $this->form_validation->set_rules('storedData', 'storedData', 'trim|required');
+        // $this->form_validation->set_rules('privacy_policy', 'privacy_policy', 'trim|required');
+        // $this->form_validation->set_rules('card_number', 'card_number', 'trim|required');
+        // $this->form_validation->set_rules('exp_month_year', 'exp_month_year', 'trim|required');
+        // $this->form_validation->set_rules('cvv', 'cvv', 'trim|required');
+        // $this->form_validation->set_rules('System_id', 'System_id', 'trim|required');
+        
+
         $this->form_validation->set_rules('first_name', 'first_name', 'trim');
         $this->form_validation->set_rules('last_name', 'last_name', 'trim');
         // $this->form_validation->set_rules('title', 'title', 'trim');
@@ -2102,30 +2133,17 @@ $option = array(
         $this->form_validation->set_rules('month', 'month', 'trim|required');
         $this->form_validation->set_rules('year', 'year', 'trim|required');
         $this->form_validation->set_rules('gender', 'gender', 'trim|required');
-        //  $this->form_validation->set_rules('comment', 'comment', 'trim|required');
         $this->form_validation->set_rules('phone_type', 'phone_type', 'trim|required');
-        // if ($this->input->post('infection_surveillance_checklist') != 'N/A') {
-            $this->form_validation->set_rules('phone_number', 'phone_number', 'trim|required');
-        // }
+        $this->form_validation->set_rules('phone_number', 'phone_number', 'trim|required');
         $this->form_validation->set_rules('user_email', 'user_email', 'trim|required');
         $this->form_validation->set_rules('password', 'password', 'trim|required');
         $this->form_validation->set_rules('address_lookup', 'address_lookup', 'trim|required');
-        // $this->form_validation->set_rules('streem_address', 'streem_address', 'trim|required');
+        $this->form_validation->set_rules('doctor_id', 'doctor_id', 'trim|required');
+
         $this->form_validation->set_rules('city', 'city', 'trim');
-        $this->form_validation->set_rules('post_code', 'post_code', 'trim');
+        // $this->form_validation->set_rules('post_code', 'post_code', 'trim');
         $this->form_validation->set_rules('country', 'country', 'trim');
-       
-        // $this->form_validation->set_rules('relation', 'relation', 'trim');
-        // $this->form_validation->set_rules('storedDataType', 'Relation Type', 'trim|required');
-
-        // $this->form_validation->set_rules('storedData', 'storedData', 'trim|required');
-        $this->form_validation->set_rules('privacy_policy', 'privacy_policy', 'trim|required');
-        $this->form_validation->set_rules('card_number', 'card_number', 'trim|required');
-        $this->form_validation->set_rules('exp_month_year', 'exp_month_year', 'trim|required');
-        $this->form_validation->set_rules('cvv', 'cvv', 'trim|required');
-        $this->form_validation->set_rules('System_id', 'System_id', 'trim|required');
         
-
         if ($this->form_validation->run() == true) {
 
             $operator_id = ($this->ion_auth->is_admin()) ? 0 : $this->session->userdata('user_id');
@@ -2280,41 +2298,74 @@ $option = array(
             //     )
             // );
 
+            // $option = array(
+            //     'table' => 'patient',
+            //     'data' => array(
+            //         'name' => ucwords($this->input->post('first_name').' '.$this->input->post('last_name')),
+            //         'operator_id' =>$hospital_id,
+            //         // 'operator_id' => $hospitalAndDoctorId,
+            //         'patient_id' => $patient_unique,
+                    
+            //         'address' => ucwords($this->input->post('address_lookup')),
+            //         'additional_comment_option' => $this->input->post('comment') ?  $this->input->post('comment'): null,
+
+            //         'room_number' => (!empty($this->input->post('room_number'))) ? $this->input->post('room_number') : null,
+            //         'symptom_onset' => $this->input->post('symptom_onset')? $this->input->post('symptom_onset') : null,
+            //         'culture_source' => $this->input->post('culture_source'),
+            //         'organism' => $this->input->post('organism'),
+            //         'precautions' => $this->input->post('precautions'),
+            //         'care_unit_id' => $this->input->post('care_unit_id'),
+            //         'doctor_id' => $this->input->post('doctor_id')? $this->input->post('doctor_id') : null,
+            //         'md_steward_id' => (!empty($this->input->post('md_steward_id'))) ? $this->input->post('md_steward_id') : null,
+            //         // 'md_stayward_consult' => $this->input->post('md_stayward_consult'),
+            //         'criteria_met' => $this->input->post('criteria_met'),
+            //         'md_stayward_response' => (!empty($this->input->post('md_stayward_response'))) ? $this->input->post('md_stayward_response') : null,
+            //         'psa' => (!empty($this->input->post('psa'))) ? $this->input->post('psa') : null,
+            //         //'pct' => (!empty($this->input->post('pct'))) ? $this->input->post('pct') : null,
+            //         'total_days_of_patient_stay' => (!empty($this->input->post('total_days_of_patient_stay'))) ? $this->input->post('total_days_of_patient_stay') : 0,
+            //         'infection_surveillance_checklist' => $this->input->post('infection_surveillance_checklist'),
+            //         'date_of_start_abx' => date('Y-m-d', strtotime($this->input->post('date_of_start_abx'))),
+            //         // 'pct' => (!empty($this->input->post('pct'))) ? $this->input->post('pct') : null,
+            //         'user_id' =>$insert_user_id,
+            //         'created_date' => date('Y-m-d H:i:s')
+                    
+
+            //     )
+            // );
+
             $option = array(
                 'table' => 'patient',
                 'data' => array(
-                    'name' => ucwords($this->input->post('first_name').' '.$this->input->post('last_name')),
-                    'operator_id' =>$hospital_id,
-                    // 'operator_id' => $hospitalAndDoctorId,
+                    'name' => ucwords($this->input->post('first_name') . ' '.$this->input->post('last_name')) ? $this->input->post('first_name') .' '.$this->input->post('last_name') : null,
+                    'operator_id' => $hospitalAndDoctorId,
                     'patient_id' => $patient_unique,
                     
-                    'address' => ucwords($this->input->post('address_lookup')),
-                    'additional_comment_option' => $this->input->post('comment'),
+                    'address' => ucwords($this->input->post('address_lookup')) ? $this->input->post('address_lookup') : null,
+                    'additional_comment_option' => json_encode($this->input->post('additional_comment_option')) ? json_encode($this->input->post('additional_comment_option')) : null,
+                    'comment' => $this->input->post('patient_comment') ? $this->input->post('patient_comment') : null,
 
                     'room_number' => (!empty($this->input->post('room_number'))) ? $this->input->post('room_number') : null,
-                    'symptom_onset' => $this->input->post('symptom_onset')? $this->input->post('symptom_onset') : null,
-                    'culture_source' => $this->input->post('culture_source'),
-                    'organism' => $this->input->post('organism'),
-                    'precautions' => $this->input->post('precautions'),
-                    'care_unit_id' => $this->input->post('care_unit_id'),
+                    'symptom_onset' => $this->input->post('symptom_onset') ? $this->input->post('symptom_onset') : null,
+                    'culture_source' => $this->input->post('culture_source') ? $this->input->post('culture_source') : null,
+                    'organism' => $this->input->post('organism') ? $this->input->post('organism') : null,
+                    'precautions' => $this->input->post('precautions') ? $this->input->post('precautions') : null,
+                    'care_unit_id' => $this->input->post('care_unit_id') ? $this->input->post('care_unit_id') : null,
                     'doctor_id' => $this->input->post('doctor_id')? $this->input->post('doctor_id') : null,
-                    'md_steward_id' => (!empty($this->input->post('md_steward_id'))) ? $this->input->post('md_steward_id') : null,
+                    'md_steward_id' => (!empty($this->input->post('md_steward_id'))) ? $this->input->post('md_steward_id') : $hospitalAndDoctorId,
                     // 'md_stayward_consult' => $this->input->post('md_stayward_consult'),
-                    'criteria_met' => $this->input->post('criteria_met'),
+                    'criteria_met' => $this->input->post('criteria_met') ? $this->input->post('criteria_met') : null,
                     'md_stayward_response' => (!empty($this->input->post('md_stayward_response'))) ? $this->input->post('md_stayward_response') : null,
                     'psa' => (!empty($this->input->post('psa'))) ? $this->input->post('psa') : null,
                     //'pct' => (!empty($this->input->post('pct'))) ? $this->input->post('pct') : null,
                     'total_days_of_patient_stay' => (!empty($this->input->post('total_days_of_patient_stay'))) ? $this->input->post('total_days_of_patient_stay') : 0,
-                    'infection_surveillance_checklist' => $this->input->post('infection_surveillance_checklist'),
-                    'date_of_start_abx' => date('Y-m-d', strtotime($this->input->post('date_of_start_abx'))),
+                    'infection_surveillance_checklist' => $this->input->post('infection_surveillance_checklist')? $this->input->post('infection_surveillance_checklist') : null,
+                    'date_of_start_abx' => date('Y-m-d', strtotime($this->input->post('date_of_start_abx'))) ? $this->input->post('date_of_start_abx') : null,
                     // 'pct' => (!empty($this->input->post('pct'))) ? $this->input->post('pct') : null,
                     'user_id' =>$insert_user_id,
                     'created_date' => date('Y-m-d H:i:s')
                     
-
                 )
             );
-
             $patient_id = $this->common_model->customInsert($option);
 
             
@@ -2366,75 +2417,212 @@ $option = array(
                     //     show_error($this->email->print_debugger());             
                     //         }
 
+            // if ($patient_id) {
+            //     $option = array(
+            //         'table' => 'patient_consult',
+            //         'data' => array(
+            //             'patient_id' => $patient_id,
+            //             'initial_rx' => $this->input->post('initial_rx'),
+            //             'initial_dx' => $this->input->post('initial_dx'),
+            //             //'culture_source' => $this->input->post('culture_source'),
+            //             'initial_dot' => $this->input->post('initial_dot'),
+            //             'new_initial_rx' => (!empty($this->input->post('new_initial_rx'))) ? $this->input->post('new_initial_rx') : $this->input->post('initial_rx'),
+            //             'new_initial_dx' => (!empty($this->input->post('new_initial_dx'))) ? $this->input->post('new_initial_dx') : $this->input->post('initial_dx'),
+            //             'new_initial_dot' => (!empty($this->input->post('new_initial_dot'))) ? $this->input->post('new_initial_dot') : $this->input->post('initial_dot'),
+            //             // 'additional_comment_option' => (!empty($this->input->post('additional_comment_option'))) ? json_encode($this->input->post('additional_comment_option')) : null,
+            //         )
+            //     );
+            //     $insert_id = $this->common_model->customInsert($option);
+
+            //     // print_r($insert_user_id);die;
+            //     $option2 = array(
+            //         'table' => 'user_address',
+            //         'data' => array(
+            //             'user_id' => $insert_user_id,
+            //             'company_name' => $this->input->post('Company'),
+            //             'occupation' => $this->input->post('Occupation'),
+            //             'religion' => $this->input->post('religion'),
+            //             'ethnicity' => $this->input->post('ethnicity'),
+            //             'address1' => $this->input->post('address_lookup'),
+            //             'address2' => $this->input->post('streem_address'),
+            //             'city' => $this->input->post('city'),
+            //             'country' => $this->input->post('country'),
+            //             'pin_code' => $this->input->post('post_code'),
+            //             'is_billing' => $this->input->post('initial_rx'),
+            //             'date_of_death' => $this->input->post('death_day').'/'.$this->input->post('death_month').'/'.$this->input->post('death_year'),
+
+            //             )
+            //     );
+            //     $insert_id1 = $this->common_model->customInsert($option2);
+
+
+
+            //     $option3 = array(
+            //         'table' => 'patient_communication_relation',
+            //         'data' => array(
+            //             'user_id' => $insert_user_id,
+            //             'relation' => $this->input->post('relation'),
+            //             'relation_number' => $this->input->post('storedData'),
+            //             'policy_number' => $this->input->post('policy_number'),
+            //             'authorisation_code' => $this->input->post('authorisation_code'),
+            //             'receive_emails' => $this->input->post('receive_emails'),
+            //             'receive_sms_messages' => $this->input->post('receive_sms_messages'),
+            //             'has_consented_to_promotional_marketing' => $this->input->post('has_consented_to_promotional_marketing'),
+            //             'receive_payment_reminders' => $this->input->post('receive_payment_reminders'),
+            //             'privacy_policy' => $this->input->post('privacy_policy'),
+            //             'System_id' => $this->input->post('System_id'),
+                        
+
+            //             )
+            //     );
+            //     $insert_id2 = $this->common_model->customInsert($option3);
+
+            //     $option3 = array(
+            //         'table' => 'patient_billing_detail',
+            //         'data' => array(
+            //             'user_id' => $insert_user_id,
+            //             'billing_detail' => $this->input->post('billing_detail'),
+            //             'payment_reference' => $this->input->post('payment_reference'),
+            //             'card_number' => $this->input->post('card_number'),
+            //             'exp_month_year' => $this->input->post('exp_month_year'),
+            //             'cvv' => $this->input->post('cvv'),
+                        
+                        
+
+            //             )
+            //     );
+            //     $insert_id3 = $this->common_model->customInsert($option3);
+
+
+            //     $option = array(
+            //         'table' => 'notifications',
+            //         'data' => array(
+            //             'user_id' => $insert_user_id,
+            //             'sender_id' => 1,
+            //             'message' => "ID: $patient_unique_id New patient added",
+            //             'user_type' => "USER",
+            //             'type_id' => $patient_unique_id,
+            //             'care_unit_id' => $this->input->post('care_unit_id'),
+            //             'patient_id' => $patient_id,
+            //             'sent_time' => date('Y-m-d H:i:s')
+            //         )
+            //     );
+            //     $patient_id = $this->common_model->customInsert($option);
+
+                
+
+            //     if ($patient_id) {
+            //         $option = array(
+            //             'table' => 'patient_consult',
+            //             'data' => array(
+            //                 'patient_id' => $patient_id,
+            //                 'initial_rx' => $this->input->post('initial_rx'),
+            //                 'initial_dx' => $this->input->post('initial_dx'),
+            //                 //'culture_source' => $this->input->post('culture_source'),
+            //                 'initial_dot' => $this->input->post('initial_dot'),
+            //                 'new_initial_rx' => (!empty($this->input->post('new_initial_rx'))) ? $this->input->post('new_initial_rx') : $this->input->post('initial_rx'),
+            //                 'new_initial_dx' => (!empty($this->input->post('new_initial_dx'))) ? $this->input->post('new_initial_dx') : $this->input->post('initial_dx'),
+            //                 'new_initial_dot' => (!empty($this->input->post('new_initial_dot'))) ? $this->input->post('new_initial_dot') : $this->input->post('initial_dot'),
+            //                 'additional_comment_option' => (!empty($this->input->post('additional_comment_option'))) ? json_encode($this->input->post('additional_comment_option')) : null,
+
+            //             )
+            //         );
+            //         $insert_id = $this->common_model->customInsert($option);
+
+
+
+            //         $option = array(
+            //             'table' => 'notifications',
+            //             'data' => array(
+            //                 'user_id' => $insert_user_id,
+            //                 'sender_id' => 1,
+            //                 'message' => "ID: $patient_unique_id New patient added",
+            //                 'user_type' => "USER",
+            //                 'type_id' => $patient_unique_id,
+            //                 'care_unit_id' => $this->input->post('care_unit_id'),
+            //                 'patient_id' => $patient_id,
+            //                 'sent_time' => date('Y-m-d H:i:s')
+            //             )
+            //         );
+            //         $this->common_model->customInsert($option);
+
             if ($patient_id) {
                 $option = array(
                     'table' => 'patient_consult',
                     'data' => array(
                         'patient_id' => $patient_id,
-                        'initial_rx' => $this->input->post('initial_rx'),
-                        'initial_dx' => $this->input->post('initial_dx'),
+                        'initial_rx' => $this->input->post('initial_rx') ? $this->input->post('initial_rx') : null,
+                        'initial_dx' => $this->input->post('initial_dx') ? $this->input->post('initial_dx') : null,
                         //'culture_source' => $this->input->post('culture_source'),
-                        'initial_dot' => $this->input->post('initial_dot'),
-                        'new_initial_rx' => (!empty($this->input->post('new_initial_rx'))) ? $this->input->post('new_initial_rx') : $this->input->post('initial_rx'),
-                        'new_initial_dx' => (!empty($this->input->post('new_initial_dx'))) ? $this->input->post('new_initial_dx') : $this->input->post('initial_dx'),
-                        'new_initial_dot' => (!empty($this->input->post('new_initial_dot'))) ? $this->input->post('new_initial_dot') : $this->input->post('initial_dot'),
-                        // 'additional_comment_option' => (!empty($this->input->post('additional_comment_option'))) ? json_encode($this->input->post('additional_comment_option')) : null,
-                    )
+                        'initial_dot' => $this->input->post('initial_dot') ? $this->input->post('initial_dot') : null,
+                        'new_initial_rx' => (!empty($this->input->post('new_initial_rx'))) ? $this->input->post('new_initial_rx') : null,
+                        'new_initial_dx' => (!empty($this->input->post('new_initial_dx'))) ? $this->input->post('new_initial_dx') : null,
+                        'new_initial_dot' => (!empty($this->input->post('new_initial_dot'))) ? $this->input->post('new_initial_dot') : null,
+                        'additional_comment_option' => (!empty($this->input->post('additional_comment_option'))) ? json_encode($this->input->post('additional_comment_option')) : null
+               
+                        )
                 );
+
+                
                 $insert_id = $this->common_model->customInsert($option);
 
-                // print_r($insert_user_id);die;
+                if(!empty($this->input->post('Occupation'))){
+
+                
                 $option2 = array(
                     'table' => 'user_address',
                     'data' => array(
                         'user_id' => $insert_user_id,
-                        'company_name' => $this->input->post('Company'),
-                        'occupation' => $this->input->post('Occupation'),
-                        'religion' => $this->input->post('religion'),
-                        'ethnicity' => $this->input->post('ethnicity'),
-                        'address1' => $this->input->post('address_lookup'),
-                        'address2' => $this->input->post('streem_address'),
-                        'city' => $this->input->post('city'),
-                        'country' => $this->input->post('country'),
-                        'pin_code' => $this->input->post('post_code'),
-                        'is_billing' => $this->input->post('initial_rx'),
-                        'date_of_death' => $this->input->post('death_day').'/'.$this->input->post('death_month').'/'.$this->input->post('death_year'),
+                        'company_name' => $this->input->post('Company') ? $this->input->post('Company') : null,
+                        'occupation' => $this->input->post('Occupation') ? $this->input->post('Occupation') : null,
+                        'religion' => $this->input->post('religion') ? $this->input->post('religion') : null,
+                        'ethnicity' => $this->input->post('ethnicity') ? $this->input->post('ethnicity') : null,
+                        'address1' => $this->input->post('address_lookup') ? $this->input->post('address_lookup') : null,
+                        'address2' => $this->input->post('streem_address') ? $this->input->post('streem_address') : null,
+                        'city' => $this->input->post('city') ? $this->input->post('city') : null,
+                        'country' => $this->input->post('country') ? $this->input->post('country') : null,
+                        'pin_code' => $this->input->post('post_code') ? $this->input->post('post_code') : null,
+                        // 'is_billing' => $this->input->post('initial_rx') ? $this->input->post('initial_rx') : null,
+                        'date_of_death' => $this->input->post('death_day') ? $this->input->post('death_day') : null .'/'.($this->input->post('death_month') ? $this->input->post('death_month') : null) .'/'.($this->input->post('death_year') ? $this->input->post('death_year') : null),
 
                         )
                 );
+              
                 $insert_id1 = $this->common_model->customInsert($option2);
-
-
+            }
+                // print_r($insert_id1);die;
 
                 $option3 = array(
                     'table' => 'patient_communication_relation',
                     'data' => array(
                         'user_id' => $insert_user_id,
-                        'relation' => $this->input->post('relation'),
-                        'relation_number' => $this->input->post('storedData'),
-                        'policy_number' => $this->input->post('policy_number'),
-                        'authorisation_code' => $this->input->post('authorisation_code'),
-                        'receive_emails' => $this->input->post('receive_emails'),
-                        'receive_sms_messages' => $this->input->post('receive_sms_messages'),
-                        'has_consented_to_promotional_marketing' => $this->input->post('has_consented_to_promotional_marketing'),
-                        'receive_payment_reminders' => $this->input->post('receive_payment_reminders'),
-                        'privacy_policy' => $this->input->post('privacy_policy'),
-                        'System_id' => $this->input->post('System_id'),
+                        'relation' => $this->input->post('relation') ? $this->input->post('relation') : null,
+                        'type' => $this->input->post('storedDataType') ? $this->input->post('storedDataType') : null,
+                        'relation_number' => $this->input->post('storedData') ? $this->input->post('storedData') : null,
+                        'policy_number' => $this->input->post('policy_number') ? $this->input->post('policy_number') : null,
+                        'authorisation_code' => $this->input->post('authorisation_code') ? $this->input->post('authorisation_code') : null,
+                        'receive_emails' => $this->input->post('receive_emails') ? $this->input->post('receive_emails') : null,
+                        'receive_sms_messages' => $this->input->post('receive_sms_messages') ? $this->input->post('receive_sms_messages') : null,
+                        'has_consented_to_promotional_marketing' => $this->input->post('has_consented_to_promotional_marketing') ? $this->input->post('has_consented_to_promotional_marketing') : null,
+                        'receive_payment_reminders' => $this->input->post('receive_payment_reminders') ? $this->input->post('receive_payment_reminders') : null,
+                        'privacy_policy' => $this->input->post('privacy_policy') ? $this->input->post('privacy_policy') : null,
+                        'System_id' => $this->input->post('System_id') ? $this->input->post('System_id') : null,
                         
 
                         )
                 );
+               
                 $insert_id2 = $this->common_model->customInsert($option3);
 
                 $option3 = array(
                     'table' => 'patient_billing_detail',
                     'data' => array(
                         'user_id' => $insert_user_id,
-                        'billing_detail' => $this->input->post('billing_detail'),
-                        'payment_reference' => $this->input->post('payment_reference'),
-                        'card_number' => $this->input->post('card_number'),
-                        'exp_month_year' => $this->input->post('exp_month_year'),
-                        'cvv' => $this->input->post('cvv'),
+                        'billing_detail' => $this->input->post('billing_detail') ? $this->input->post('billing_detail') : null,
+                        'payment_reference' => $this->input->post('payment_reference') ? $this->input->post('payment_reference') : null,
+                        'card_number' => $this->input->post('card_number') ? $this->input->post('card_number') : null,
+                        'exp_month_year' => $this->input->post('exp_month_year') ? $this->input->post('exp_month_year') : null,
+                        'cvv' => $this->input->post('cvv') ? $this->input->post('cvv') : null,
                         
                         
 
@@ -2451,7 +2639,7 @@ $option = array(
                         'message' => "ID: $patient_unique_id New patient added",
                         'user_type' => "USER",
                         'type_id' => $patient_unique_id,
-                        'care_unit_id' => $this->input->post('care_unit_id'),
+                        'care_unit_id' => $this->input->post('care_unit_id') ? $this->input->post('care_unit_id') : null,
                         'patient_id' => $patient_id,
                         'sent_time' => date('Y-m-d H:i:s')
                     )
@@ -2465,13 +2653,16 @@ $option = array(
                         'table' => 'patient_consult',
                         'data' => array(
                             'patient_id' => $patient_id,
-                            'initial_rx' => $this->input->post('initial_rx'),
-                            'initial_dx' => $this->input->post('initial_dx'),
+                            'initial_rx' => $this->input->post('initial_rx') ? $this->input->post('initial_rx') : null,
+                            'initial_dx' => $this->input->post('initial_dx') ? $this->input->post('initial_dx') : null,
                             //'culture_source' => $this->input->post('culture_source'),
-                            'initial_dot' => $this->input->post('initial_dot'),
-                            'new_initial_rx' => (!empty($this->input->post('new_initial_rx'))) ? $this->input->post('new_initial_rx') : $this->input->post('initial_rx'),
-                            'new_initial_dx' => (!empty($this->input->post('new_initial_dx'))) ? $this->input->post('new_initial_dx') : $this->input->post('initial_dx'),
-                            'new_initial_dot' => (!empty($this->input->post('new_initial_dot'))) ? $this->input->post('new_initial_dot') : $this->input->post('initial_dot'),
+                            'initial_dot' => $this->input->post('initial_dot') ? $this->input->post('initial_dot') : null,
+                            'new_initial_rx' => (!empty($this->input->post('new_initial_rx'))) ? $this->input->post('new_initial_rx') : null,
+                            'new_initial_dx' => (!empty($this->input->post('new_initial_dx'))) ? $this->input->post('new_initial_dx') : null,
+                            'new_initial_dot' => (!empty($this->input->post('new_initial_dot'))) ? $this->input->post('new_initial_dot') : null,
+                            // 'new_initial_rx' => (!empty($this->input->post('new_initial_rx'))) ? $this->input->post('new_initial_rx') : $this->input->post('initial_rx'),
+                            // 'new_initial_dx' => (!empty($this->input->post('new_initial_dx'))) ? $this->input->post('new_initial_dx') : $this->input->post('initial_dx'),
+                            // 'new_initial_dot' => (!empty($this->input->post('new_initial_dot'))) ? $this->input->post('new_initial_dot') : $this->input->post('initial_dot'),
                             'additional_comment_option' => (!empty($this->input->post('additional_comment_option'))) ? json_encode($this->input->post('additional_comment_option')) : null,
 
                         )
@@ -2488,12 +2679,14 @@ $option = array(
                             'message' => "ID: $patient_unique_id New patient added",
                             'user_type' => "USER",
                             'type_id' => $patient_unique_id,
-                            'care_unit_id' => $this->input->post('care_unit_id'),
+                            'care_unit_id' => $this->input->post('care_unit_id') ? $this->input->post('care_unit_id') : null,
                             'patient_id' => $patient_id,
                             'sent_time' => date('Y-m-d H:i:s')
                         )
                     );
                     $this->common_model->customInsert($option);
+
+
 
                     if ($this->input->post('infection_surveillance_checklist') == 'N/A') {
 

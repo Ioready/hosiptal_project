@@ -56,7 +56,7 @@
     <div class="col-md-4">
         <div class="form-group">
             <div class="col-md-12">
-                <label class="control-label">First Name</label>
+                <label class="control-label">First Names <span style="color:red">*</span> </label>
                 <input type="text" class="form-control" name="first_name" id="first_name" placeholder="First Name" />
             </div>
         </div>
@@ -64,7 +64,7 @@
     <div class="col-md-4">
         <div class="form-group">
             <div class="col-md-12">
-                <label class="control-label">Last Name</label>
+                <label class="control-label">Last Name<span style="color:red">*</span></label>
                 <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Last Name" />
             </div>
         </div>
@@ -86,7 +86,7 @@
     <div class="col-md-3">
         <div class="form-group">
             <div class="col-md-12">
-                <label class="control-label">Date Of Birth</label>
+                <label class="control-label">Date Of Birth<span style="color:red">*</span></label>
                 <input type="text" class="form-control" name="day" id="day" placeholder="Day" maxlength="2" />
             </div>
         </div>
@@ -94,7 +94,7 @@
     <div class="col-md-2" style="padding-top: 10px;">
         <div class="form-group">
             <div class="col-md-12">
-                <label class="control-label"></label>
+                <label class="control-label">Month<span style="color:red">*</span></label>
                 <select class="form-control" name="month" id="month">
                     <option value="">Select Month</option>
                     <option value="01">January</option>
@@ -116,7 +116,7 @@
     <div class="col-md-2" style="padding-top: 10px;">
         <div class="form-group">
             <div class="col-md-12">
-                <label class="control-label"></label>
+                <label class="control-label">Year<span style="color:red">*</span></label>
                 <select class="form-control" name="year" id="year">
                                             <?php
                                             // Get the current year
@@ -140,7 +140,7 @@
     <div class="col-md-5">
         <div class="form-group">
             <div class="col-md-12">
-                <label class="control-label">Gender</label>
+                <label class="control-label">Gender<span style="color:red">*</span></label>
                 <select class="form-control" name="gender" id="gender">
                     <option value="">Select Gender</option>
                     <option value="Male">Male</option>
@@ -184,7 +184,7 @@
         <div class="form-group">
             <div class="col-md-12">
                 <div class="col-md-6">
-                    <label class="">Phone Type</label>
+                    <label class="">Phone Type<span style="color:red">*</span></label>
                     <select id="phone_code" name="phone_type" class="form-control select2" size="1" placeholder="Choose a phone type">
                         <option value="" disabled selected>Choose a phone type</option>
                         <option value="mobile">Mobile</option>
@@ -196,7 +196,7 @@
                 </div>
 
                 <div class="col-md-6">
-                    <label class="">Phone Number</label>
+                    <label class="">Phone Number<span style="color:red">*</span></label>
                     <input type="text" class="form-control" name="phone_number" id="phone_number" placeholder="<?php echo lang('Phone Number');?>" />
                 </div>
             </div>
@@ -207,7 +207,7 @@
         <div class="form-group">
             <div class="col-md-12">
                 <div class="col-md-12">
-                    <label class=""><?php echo lang('user_email');?></label>
+                    <label class=""><?php echo lang('user_email');?><span style="color:red">*</span></label>
                     <input type="email" class="form-control" name="user_email" id="user_email" placeholder="<?php echo lang('user_email');?>" />
                 </div>
             </div>
@@ -218,7 +218,7 @@
         <div class="form-group">
             <div class="col-md-12">
                 <div class="col-md-12">
-                    <label class="control-label"><?php echo lang('password'); ?></label>
+                    <label class="control-label"><?php echo lang('password'); ?><span style="color:red">*</span></label>
                     <input type="text" class="form-control" name="password" id="password" placeholder="<?php echo lang('password'); ?>" value="<?php echo randomPassword(); ?>" />
                 </div>
             </div>
@@ -229,7 +229,7 @@
         <div class="form-group">
             <div class="col-md-12">
                 <div class="col-md-12">
-                    <label class="">Address Lookup</label>
+                    <label class="">Address Lookup<span style="color:red">*</span></label>
                     <input type="text" class="form-control" name="address_lookup" id="address_lookup" placeholder="Address Lookup" />
                 </div>
             </div>
@@ -278,7 +278,7 @@
 
                 <div class="col-md-6" >
                         <div class="form-group">
-                            <label class="m-4 control-label">Country</label>
+                            <label class="m-4 control-label">Country<span style="color:red">*</span></label>
                            
                             <div class="col-md-12">
                                  <!-- <input type="text" class="col-md-12 form-control" name="country_id" id="country_in" placeholder="Country"/> <br> -->
@@ -297,7 +297,7 @@
                     </div>
                     <div class="col-md-6" >
                         <div class="form-group">
-                            <label class="m-4 control-label">State</label>
+                            <label class="m-4 control-label">State<span style="color:red">*</span></label>
                             <div class="col-md-12">
                             <!-- <input type="text" class="form-control" name="state_id" id="state_in" placeholder="State Name"/> -->
                             </div>
@@ -307,7 +307,7 @@
                     </div>
                     <div class="col-md-6" >
                         <div class="form-group">
-                            <label class="m-4 control-label">City</label>
+                            <label class="m-4 control-label">City<span style="color:red">*</span></label>
                             <div class="col-md-12">
                             <!-- <input type="text" class="form-control" name="city_id" id="city_in" placeholder="City Name"/> -->
                             </div>
@@ -692,7 +692,7 @@
                                             <?php if ($this->ion_auth->is_admin()) { ?>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label class="col-md-3 control-label">Select MD Steward</label>
+                                                        <label class="col-md-3 control-label">Select MD Steward<span style="color:red">*</span></label>
                                                         <div class="col-md-9">
                                                             <select id="md_steward_id" name="md_steward_id" class="form-control select-chosen" size="1">
                                                                 <option value="">Select MD Steward</option>
@@ -711,7 +711,7 @@
                 
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label class="col-md-3 control-label">Doctor</label>
+                                                        <label class="col-md-3 control-label">Doctor<span style="color:red">*</span></label>
                                                         <div class="col-md-9">
                                                             <select id="doctor_id" name="doctor_id" class="form-control select-chosen">
                                                                 <option value="">Please Select</option>

@@ -1300,7 +1300,8 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
             'order' => array('user.id' => 'ASC'),
             'where' => array(
                 'user.delete_status' => 0,
-                'group.id' => 6
+                'group.id' => 6,
+                'user.id'=>$hospital_id
             ),
             'order' => array('user.first_name' => 'ASC')
         );
@@ -2311,6 +2312,8 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
         $this->form_validation->set_rules('user_email', 'user_email', 'trim|required');
         $this->form_validation->set_rules('password', 'password', 'trim|required');
         $this->form_validation->set_rules('address_lookup', 'address_lookup', 'trim|required');
+        $this->form_validation->set_rules('doctor_id', 'doctor_id', 'trim|required');
+
         $this->form_validation->set_rules('city', 'city', 'trim');
         // $this->form_validation->set_rules('post_code', 'post_code', 'trim');
         $this->form_validation->set_rules('country', 'country', 'trim');
