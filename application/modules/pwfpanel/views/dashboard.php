@@ -1280,6 +1280,7 @@
                             <th scope="col" style="font-size: 0.9rem;">Name</th>
                             <th scope="col" style="font-size: 0.9rem;">Email</th>
                             <th scope="col" style="font-size: 0.9rem;">Phone</th>
+                            <th scope="col" style="font-size: 0.9rem;">Doctor Name</th>
                             <th scope="col" style="font-size: 0.9rem;">Status</th>
                         </tr>
                     </thead>
@@ -1288,6 +1289,7 @@
                         $count = 0;
                         foreach ($today_patient_list as $list) {
                             if ($count >= 5) break;
+                            // print_r($list);die;
                         ?>
                         <tr>
                             <td style="vertical-align: middle;">
@@ -1296,6 +1298,7 @@
                             <td><?php echo $list->patient_name; ?></td>
                             <td><?php echo $list->email; ?></td>
                             <td><?php echo $list->phone; ?></td>
+                            <td><?php echo $list->doctor_name; ?></td>
                             <td>
                                 <span class="badge bg-primary"><?php echo $list->md_patient_status; ?></span>
                             </td>

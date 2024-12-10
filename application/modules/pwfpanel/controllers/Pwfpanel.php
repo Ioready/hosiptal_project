@@ -168,7 +168,7 @@ class Pwfpanel extends Common_Controller
                 );
 
                 $data['total_patient_today'] = $this->common_model->customCount($option);
-               
+              
                 // print_r($this->data['total_order']);die;
                
                 $option = array('table' => 'admin_plans', 'where' => array('status' => 0), 'order' => array('id' => 'desc'));
@@ -897,6 +897,7 @@ class Pwfpanel extends Common_Controller
                 $careunit_facility_counts= $this->common_model->customGet($optionAppointment);
                 $user_facility_counts = count($careunit_facility_counts);
                 $data['total_patient'] = $user_facility_counts;
+                
                 // $careunit_facility_counts = $this->common_model->customQuery($Sql);
                 // $user_facility_counts = count($careunit_facility_counts);
                 // $data['total_patient'] = $user_facility_counts;
@@ -908,6 +909,7 @@ class Pwfpanel extends Common_Controller
 
 
                 $date = date("Y-m-d");
+                $currentDate = date("Y-m-d");
                 // print_r($date);die;
                 $AdminCareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
                
@@ -933,7 +935,7 @@ class Pwfpanel extends Common_Controller
                         array('initial_rx IRX2', 'IRX2.id=PC.new_initial_rx', 'left'),
                         array('initial_dx IDX2', 'IDX2.id=PC.new_initial_dx', 'left')
                     ),
-                    'where'=> array('U.hospital_id'=>$hospital_id),$whereClause,
+                    'where'=> array('U.hospital_id'=>$hospital_id,'DATE(P.created_date)'=> $currentDate),$whereClause,
                     'group_by' => 'pid'
                 );
                 // $this->db->where('DATE(P.created_date)', $date);
@@ -949,9 +951,10 @@ class Pwfpanel extends Common_Controller
                 
                 $careunit_facility_counts= $this->common_model->customGet($optionAppointment);
                 $user_facility_counts = count($careunit_facility_counts);
+                
                 $data['total_patient_today'] = $user_facility_counts;
 
-               
+                // print_r($data['total_patient_today']);die;
                 
                 $data['today_patient_list'] = $this->common_model->customGet($optionAppointment);
 
@@ -1508,6 +1511,7 @@ $datanotificationsupcomming= $result->result();
 
 
                 $date = date("Y-m-d");
+                $currentDate = date("Y-m-d");
                 // print_r($date);die;
                 $AdminCareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
                
@@ -1533,6 +1537,7 @@ $datanotificationsupcomming= $result->result();
                         array('initial_rx IRX2', 'IRX2.id=PC.new_initial_rx', 'left'),
                         array('initial_dx IDX2', 'IDX2.id=PC.new_initial_dx', 'left')
                     ),
+                    'where'=> array('U.hospital_id'=>$hospital_id,'DATE(P.created_date)'=> $currentDate),
                     // 'where'=> array(date('P.created_date')=>$date),
                     'group_by' => 'pid'
                 );
@@ -1542,10 +1547,10 @@ $datanotificationsupcomming= $result->result();
                     $optionAppointment['where']['DATE(P.created_date)'] = $date;
                 }
         
-                if (!empty($hospital_id)) {
+                // if (!empty($hospital_id)) {
                     
-                    $optionAppointment['where']['U.hospital_id'] = $hospital_id;
-                }
+                //     $optionAppointment['where']['U.hospital_id'] = $hospital_id;
+                // }
                 
                 $careunit_facility_counts= $this->common_model->customGet($optionAppointment);
                 $user_facility_counts = count($careunit_facility_counts);
@@ -1555,7 +1560,7 @@ $datanotificationsupcomming= $result->result();
                 
                 // $data['today_patient_list'] = $this->common_model->customGet($optionAppointment);
 
-
+                $today = date('Y-m-d');
                 $optionAppointment = array(
                     'table' => 'users U',
                     'select' => 'P.id as patient_id,P.patient_id as pid,P.name as patient_name,P.date_of_start_abx,P.address,P.total_days_of_patient_stay,P.room_number,P.symptom_onset,P.md_stayward_consult,P.criteria_met,P.md_stayward_response,P.psa,P.md_patient_status,P.created_date,'
@@ -1584,7 +1589,10 @@ $datanotificationsupcomming= $result->result();
                 if (!empty($date)) {
                     $optionAppointment['where']['DATE(P.created_date)'] = $date;
                 }
-        
+                if (!empty($today)) {
+                    $optionAppointment['where']['DATE(P.created_date)'] = $today;
+                }
+                
                 if (!empty($hospital_id)) {
                     
                     $optionAppointment['where']['U.hospital_id'] = $hospital_id;
@@ -1592,6 +1600,7 @@ $datanotificationsupcomming= $result->result();
                 
                 $careunit_facility_counts= $this->common_model->customGet($optionAppointment);
                 $user_facility_counts = count($careunit_facility_counts);
+                
                 $data['total_patient_today'] = $user_facility_counts;
 
 

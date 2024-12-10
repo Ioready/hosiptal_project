@@ -216,14 +216,40 @@ class EmailTemplate extends Common_Controller {
         $this->form_validation->set_rules('subject', lang('subject'), 'required');
         
         $this->form_validation->set_rules('from_mail', lang('from_mail'), 'required');
-        $user_id = $this->session->userdata('user_id');
+        // $user_id = $this->session->userdata('user_id');
+
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+        
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+        
+            $authUser = $this->common_model->customGet($optionData);
+        
+            $hospital_id = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
+        }
+
         if ($this->form_validation->run() == true) {
                 $from = $this->input->post('from_mail');
     //             echo '<pre>';
     //   print_r($this->input->post());die;
     //   echo '</pre>';
                     $additional_data = array(
-                        'user_id' => $user_id,
+                        'user_id' => $hospital_id,
                         'app_name' => $this->input->post('app_name'),
                         'company_name' => $this->input->post('company_name'),
                         'app_url' => $this->input->post('app_url'),
