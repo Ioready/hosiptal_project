@@ -1130,7 +1130,7 @@
                                         <td><?php echo $appointment->first_name . " " . $appointment->last_name . " - " . $appointment->practitioner_name; ?></td>
                                         <td><?php echo $appointment->doctor_name . " " . $appointment->doctor_full_name . " - " . $appointment->practitioner_name; ?></td>
                                         <td><?php echo $appointment->comment_appointment; ?></td>
-                                        <td><?php echo date('Y-m-d', strtotime($appointment->start_date_appointment)) . ' time '.date('g:i A', strtotime($appointment->start_date_appointment)) . " to " . date('g:i A', strtotime($appointment->end_date_appointment)); ?></td>
+                                        <td><?php echo date('d-m-Y', strtotime($appointment->start_date_appointment)) . ' time '.date('g:i A', strtotime($appointment->start_date_appointment)) . " to " . date('g:i A', strtotime($appointment->end_date_appointment)); ?></td>
                                         <td>
                                             <a href="#"><span class="badge bg-primary" style="font-size: 0.8rem;">Take Up</span></a>
                                         </td>
