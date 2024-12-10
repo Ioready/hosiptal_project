@@ -594,8 +594,8 @@ hh
                                     <img src="<?php echo base_url(); ?>uploads/appointment.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Appointments</span></a>
                                 </li>
 
-                                <li title="Aprove">
-                                    <a href="<?php echo site_url('notification/notification_list'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "notification") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/tasks.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">&nbsp;Aprove Appointment</span></a>
+                                <li title="Approve">
+                                    <a href="<?php echo site_url('notification/notification_list'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "notification") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/tasks.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">&nbsp;Approve Appointment</span></a>
                                 </li>
                                 
                                 <!-- <li>

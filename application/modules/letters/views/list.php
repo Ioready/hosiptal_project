@@ -212,8 +212,8 @@
                                         <input type="hidden" name="id" value="<?php echo $rows->id; ?>">
                                         <input type="hidden" name="internal_name" value="<?php echo $rows->header_internal_name; ?>">
                                         <input type="hidden" name="header_logo" value="<?php echo $rows->header_logo; ?>">
-                                        <textarea name="bodies_templatess" id="bodies_templatess" value="<?php echo $rows->bodies_template; ?>"></textarea>
-                                        <textarea name="recipient_template" id="recipient_template" value="<?php echo $rows->recipient_template; ?>"></textarea>
+                                        <textarea name="bodies_templatess" id="bodies_templatess" value="<?php echo $rows->bodies_template; ?>"><?php echo $rows->bodies_template; ?></textarea>
+                                        <textarea name="recipient_template" id="recipient_template" value="<?php echo $rows->recipient_template; ?>"><?php echo $rows->recipient_template; ?></textarea>
                                         <!-- <input type="text" name="bodies_templatess" value="<?php echo $rows->bodies_template; ?>"> -->
                                         <!-- <input type="hidden" name="recipient_template" value="<?php echo $rows->recipient_template; ?>"> -->
                                         <input type="hidden" name="logo" value="<?php echo $rows->logo; ?>">

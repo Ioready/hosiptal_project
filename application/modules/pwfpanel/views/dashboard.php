@@ -1004,7 +1004,7 @@
                    <div class="ibox-content">
                    <h1 class="no-margins">
 
-                   <?php echo $doctors; ?>
+                   <?php echo $total_operation; ?>
                    </h1>
                    <h5 class="text-primary"><strong>Total Operation</strong></h5>
                    </div>
@@ -1037,7 +1037,7 @@
                        <!-- <div class="ibox-title">
                        </div> -->
                        <div class="ibox-content">
-                           <h1 class="no-margins"><?php echo $initial_rx; ?></h1>
+                           <h1 class="no-margins"><?php echo $total_operation; ?></h1>
                            <h5 class="text-primary"><strong>Total Conversion Total Patient Operation</strong></h5>
                        </div>
                        <a href="<?php echo site_url('initialRx'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "initialRx") ? "active" : "" ?>">
@@ -1078,70 +1078,58 @@
                         
         </div>
     <div class="row">
-        <!-- Upcoming Appointments Table -->
-        <div class="col-md-8 mt-4">
-            <div class="card recent-sales overflow-auto" style="background-color: #FFFFFF;  border-radius: 8px;">
-                <div class="card-body">
-                    <h5 class="card-title fw-bold" style="font-size: 1.2rem; color: #333;">
-                    <div class="row"> <div class="col-md-6 mt-4">
-
-                        Upcoming Appointments 
-                        <span> | 
-                            <a href="<?php echo site_url('appointment'); ?>" class="btn btn-primary btn-sm" style="background-color: #337ab7; color: #fff; padding: 0.3rem 0.6rem; border-radius: 5px;">View all</a>
-                        </span>
-                        </div>
-                        <div class="col-md-6 mt-4">
-                        
-                        <select id="doctor_id" name="doctor_id" class="form-control select2 status-dropdown" size="1">
-                                       
-                                       <option value="">Select Doctors</option>
-                                       <?php foreach($doctors_list as $rows){?>
-
-                                        <option value="<?php echo $rows->first_name. ' '.$rows->last_name; ?>"><?php echo $rows->first_name. ' '.$rows->last_name; ?></option>
-                                           
-                                           <!-- <option value="<?php //echo $rows->user_id; ?>"><?php //echo $rows->first_name. ' '.$rows->last_name; ?></option>
-                                            -->
-                                           <?php }?>
-                                          
-                                   </select>
-                                </div>
-                       
-                    </h5>
-                    <div class="table-responsive" >
-                        <table class="table table-striped table-hover datatable" id="todayAppointmentTable" style="height:300px ;overflow-y: scroll;">
-                            <thead class="table-dark">
-                                <tr>
-                                    <th scope="col" style="font-size: 0.9rem;">#</th>
-                                    <th scope="col" style="font-size: 0.9rem;">Address</th>
-                                    <th scope="col" style="font-size: 0.9rem;">Appointment With</th>
-                                    <th scope="col" style="font-size: 0.9rem;">Doctors</th>
-                                    <th scope="col" style="font-size: 0.9rem;">Description</th>
-                                    <th scope="col" style="font-size: 0.9rem;">Time</th>
-                                    <th scope="col" style="font-size: 0.9rem;">Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach ($clinic_appointment as $appointment): ?>
-                                    <tr>
-                                        <td style="vertical-align: middle;">
-                                            <img src="https://via.placeholder.com/36" width="36" height="36" alt="Profile" class="rounded-circle">
-                                        </td>
-                                        <td><?php echo $appointment->address1 . ", " . $appointment->city; ?></td>
-                                        <td><?php echo $appointment->first_name . " " . $appointment->last_name . " - " . $appointment->practitioner_name; ?></td>
-                                        <td><?php echo $appointment->doctor_name . " " . $appointment->doctor_full_name . " - " . $appointment->practitioner_name; ?></td>
-                                        <td><?php echo $appointment->comment_appointment; ?></td>
-                                        <td><?php echo date('d-m-Y', strtotime($appointment->start_date_appointment)) . ' time '.date('g:i A', strtotime($appointment->start_date_appointment)) . " to " . date('g:i A', strtotime($appointment->end_date_appointment)); ?></td>
-                                        <td>
-                                            <a href="#"><span class="badge bg-primary" style="font-size: 0.8rem;">Take Up</span></a>
-                                        </td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+         <!-- New Patients Table -->
+    <div class="col-md-8 mt-4">
+        <div class="card recent-sales overflow-auto">
+            <div class="card-body">
+                <h5 class="card-title fw-bold">
+                    New Patients
+                    <span>
+                        |  
+                        <a href="<?php echo site_url('patient'); ?>" class="btn btn-primary btn-sm <?php echo (strtolower($this->router->fetch_class()) == 'patient') ? 'active' : ''; ?>" style="background: #337ab7;">
+                            View all
+                        </a>
+                    </span>
+                </h5>
+                <table class="table table-striped table-hover" id="todayPatient" style="height:170px">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col" style="font-size: 0.9rem;">Image</th>
+                            <th scope="col" style="font-size: 0.9rem;">Name</th>
+                            <th scope="col" style="font-size: 0.9rem;">Email</th>
+                            <th scope="col" style="font-size: 0.9rem;">Phone</th>
+                            <th scope="col" style="font-size: 0.9rem;">Doctor Name</th>
+                            <th scope="col" style="font-size: 0.9rem;">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $count = 0;
+                        foreach ($today_patient_list as $list) {
+                            if ($count >= 5) break;
+                            // print_r($list);die;
+                        ?>
+                        <tr>
+                            <td style="vertical-align: middle;">
+                                <img src="https://via.placeholder.com/36" width="36" height="36" alt="Profile" class="rounded-circle">
+                            </td>
+                            <td><?php echo $list->patient_name; ?></td>
+                            <td><?php echo $list->email; ?></td>
+                            <td><?php echo $list->phone; ?></td>
+                            <td><?php echo $list->doctor_name; ?></td>
+                            <td>
+                                <span class="badge bg-primary"><?php echo $list->md_patient_status; ?></span>
+                            </td>
+                        </tr>
+                        <?php
+                            $count++;
+                        }
+                        ?>
+                    </tbody>
+                </table>
             </div>
         </div>
+    </div>
 
         <!-- Doctors Table -->
         <div class="col-md-4 mt-4">
@@ -1256,65 +1244,84 @@
 //     });
 // }
 
+
 </script>
 
 <!-- <div> -->
 <div class="row">
-    <!-- New Patients Table -->
-    <div class="col-md-8 mt-4">
-        <div class="card recent-sales overflow-auto">
-            <div class="card-body">
-                <h5 class="card-title fw-bold">
-                    New Patients
-                    <span>
-                        |  
-                        <a href="<?php echo site_url('patient'); ?>" class="btn btn-primary btn-sm <?php echo (strtolower($this->router->fetch_class()) == 'patient') ? 'active' : ''; ?>" style="background: #337ab7;">
-                            View all
-                        </a>
-                    </span>
-                </h5>
-                <table class="table table-striped table-hover" id="todayPatient" style="height:170px">
-                    <thead class="table-dark">
-                        <tr>
-                            <th scope="col" style="font-size: 0.9rem;">Image</th>
-                            <th scope="col" style="font-size: 0.9rem;">Name</th>
-                            <th scope="col" style="font-size: 0.9rem;">Email</th>
-                            <th scope="col" style="font-size: 0.9rem;">Phone</th>
-                            <th scope="col" style="font-size: 0.9rem;">Doctor Name</th>
-                            <th scope="col" style="font-size: 0.9rem;">Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        $count = 0;
-                        foreach ($today_patient_list as $list) {
-                            if ($count >= 5) break;
-                            // print_r($list);die;
-                        ?>
-                        <tr>
-                            <td style="vertical-align: middle;">
-                                <img src="https://via.placeholder.com/36" width="36" height="36" alt="Profile" class="rounded-circle">
-                            </td>
-                            <td><?php echo $list->patient_name; ?></td>
-                            <td><?php echo $list->email; ?></td>
-                            <td><?php echo $list->phone; ?></td>
-                            <td><?php echo $list->doctor_name; ?></td>
-                            <td>
-                                <span class="badge bg-primary"><?php echo $list->md_patient_status; ?></span>
-                            </td>
-                        </tr>
-                        <?php
-                            $count++;
-                        }
-                        ?>
-                    </tbody>
-                </table>
+  
+
+
+     <!-- Upcoming Appointments Table -->
+     <div class="col-md-12 mt-4">
+            <div class="card recent-sales overflow-auto" style="background-color: #FFFFFF;  border-radius: 8px;">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold" style="font-size: 1.2rem; color: #333;">
+                    <div class="row"> <div class="col-md-6 mt-4">
+
+                        Upcoming Appointments 
+                        <span> | 
+                            <a href="<?php echo site_url('appointment'); ?>" class="btn btn-primary btn-sm" style="background-color: #337ab7; color: #fff; padding: 0.3rem 0.6rem; border-radius: 5px;">View all</a>
+                        </span>
+                        </div>
+                        <div class="col-md-6 mt-4">
+                        
+                        <select id="doctor_id" name="doctor_id" class="form-control select2 status-dropdown" size="1">
+                                       
+                                       <option value="">Select Doctors</option>
+                                       <?php foreach($doctors_list as $rows){?>
+
+                                        <option value="<?php echo $rows->first_name. ' '.$rows->last_name; ?>"><?php echo $rows->first_name. ' '.$rows->last_name; ?></option>
+                                           
+                                           <!-- <option value="<?php //echo $rows->user_id; ?>"><?php //echo $rows->first_name. ' '.$rows->last_name; ?></option>
+                                            -->
+                                           <?php }?>
+                                          
+                                   </select>
+                                </div>
+                       
+                    </h5>
+                    <div class="table-responsive" >
+                        <table class="table table-striped table-hover datatable" id="todayAppointmentTable" style="height:300px ;overflow-y: scroll;">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th scope="col" style="font-size: 0.9rem;">#</th>
+                                    <th scope="col" style="font-size: 0.9rem;">Address</th>
+                                    <th scope="col" style="font-size: 0.9rem;">Appointment With</th>
+                                    <th scope="col" style="font-size: 0.9rem;">Doctors</th>
+                                    <th scope="col" style="font-size: 0.9rem;">Description</th>
+                                    <th scope="col" style="font-size: 0.9rem;">Date</th>
+                                    <th scope="col" style="font-size: 0.9rem;">Time</th>
+                                    <th scope="col" style="font-size: 0.9rem;">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($clinic_appointment as $appointment): ?>
+                                    <tr>
+                                        <td style="vertical-align: middle;">
+                                            <img src="https://via.placeholder.com/36" width="36" height="36" alt="Profile" class="rounded-circle">
+                                        </td>
+                                        <td><?php echo $appointment->address1 . ", " . $appointment->city; ?></td>
+                                        <td><?php echo $appointment->first_name . " " . $appointment->last_name . " - " . $appointment->practitioner_name; ?></td>
+                                        <td><?php echo $appointment->doctor_name . " " . $appointment->doctor_full_name . " - " . $appointment->practitioner_name; ?></td>
+                                        <td><?php echo $appointment->comment_appointment; ?></td>
+                                        <td><?php echo date('d-m-Y', strtotime($appointment->start_date_appointment)); ?></td>
+                                        <td><?php echo date('g:i A', strtotime($appointment->start_date_appointment)) . " to " . date('g:i A', strtotime($appointment->end_date_appointment)); ?></td>
+                                        <td>
+                                        
+                                            <a href="#"><span class="badge bg-primary" style="font-size: 0.8rem;"><?php echo $appointment->appointment_status; ?></span></a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
 
     <!-- Hospital Management Table -->
-    <div class="col-md-4 mt-4">
+    <!-- <div class="col-md-4 mt-4">
         <div class="card recent-sales overflow-auto">
             <div class="card-body">
                 <h5 class="card-title fw-bold">Hospital Management</h5>
@@ -1329,22 +1336,22 @@
                     <tbody>
                         <tr>
                             <td><a href="#">1</a></td>
-                            <td>OPD Patient</td>
+                            <td>Clinic Appointment</td>
                             <td><span class="badge bg-warning">16%</span></td>
                         </tr>
                         <tr>
                             <td><a href="#">2</a></td>
-                            <td>OPD Patient</td>
+                            <td>Theatre Appointment</td>
                             <td><span class="badge bg-success">24%</span></td>
                         </tr>
                         <tr>
                             <td><a href="#">3</a></td>
-                            <td>OPD Patient</td>
+                            <td>Availability</td>
                             <td><span class="badge bg-success">32%</span></td>
                         </tr>
                         <tr>
                             <td><a href="#">4</a></td>
-                            <td>OPD Patient</td>
+                            <td>Out Of Office</td>
                             <td><span class="badge bg-success">45%</span></td>
                         </tr>
                         <tr>
@@ -1361,7 +1368,7 @@
                 </table>
             </div>
         </div>
-    </div>
+    </div> -->
 </div>
 
 </div>

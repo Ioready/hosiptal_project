@@ -398,7 +398,7 @@
                                         <?php } 
                                     //} if ($menu_delete =='1') {?>
                                         <!-- <a href="javascript:void(0)" onclick="deleteFn('vendor_sale_email_template','id','<?php echo encoding($rows->header_id); ?>','emailTemplate')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a> -->
-                                        <a href="javascript:void(0)" data-toggle="tooltip"   onclick="deleteFn('<?php echo 'vendor_sale_lettel_header'; ?>', 'id', '<?php echo encoding($rows->header_id); ?>', 'index.php/emailTemplate', 'index.php/emailTemplate/delVendors','<?php echo $rows->header_id . ' ' . $rows->header_id; ?>')" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                        <a href="javascript:void(0)" data-toggle="tooltip"   onclick="deleteFn('<?php echo 'vendor_sale_lettel_header'; ?>', 'id', '<?php echo encoding($rows->id); ?>', 'index.php/emailTemplate', 'index.php/emailTemplate/delVendors','<?php echo $rows->id . ' ' . $rows->id; ?>')" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                                             
                                         <form id="templateForm_<?php echo $rows->header_id; ?>" style="display: none;">
                                             <input type="hidden" name="id" value="<?php echo $rows->header_id; ?>">
@@ -485,7 +485,7 @@
                                         <?php } 
                                     //} if ($menu_delete =='1') {?>
                                         <!-- <a href="javascript:void(0)" onclick="deleteFn('vendor_sale_email_template','id','<?php echo encoding($rows->header_id); ?>','emailTemplate')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a> -->
-                                        <a href="javascript:void(0)" data-toggle="tooltip"   onclick="deleteFn('<?php echo 'vendor_sale_lettel_header'; ?>', 'id', '<?php echo encoding($rows->id); ?>', 'index.php/emailTemplate', 'index.php/emailTemplate/delVendors','<?php echo $rows->header_id . ' ' . $rows->header_id; ?>')" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                        <a href="javascript:void(0)" data-toggle="tooltip"   onclick="deleteFn('<?php echo 'vendor_sale_lettel_header'; ?>', 'id', '<?php echo encoding($rows->id); ?>', 'index.php/emailTemplate', 'index.php/emailTemplate/delVendors','<?php echo $rows->id . ' ' . $rows->id; ?>')" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                                             
                                         <form id="templateForm_<?php echo $rows->header_id; ?>" style="display: none;">
                                             <input type="hidden" name="id" value="<?php echo $rows->header_id; ?>">
