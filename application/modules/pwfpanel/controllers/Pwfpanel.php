@@ -1213,7 +1213,32 @@ $totalAppointment = $result->result();
 
 
     // $data['clinic_appointment'] = $result->result();
-    $data['clinic_appointment'] =$datanotifications;
+
+
+
+    $currentDate = date('Y-m-d');
+$user_id = $this->session->userdata('user_id');
+$sql = "SELECT vendor_sale_notifications.*, 
+    vendor_sale_notifications.id AS notification_ids, 
+    vendor_sale_users.first_name,vendor_sale_users.last_name, 
+    vendor_sale_users.email, 
+    vendor_sale_clinic_appointment.*, 
+    vendor_sale_clinic_appointment.theatre_date_time AS theatre_start_date_time,
+    vendor_sale_clinic_appointment.type AS appointment_type, 
+    vendor_sale_practitioner.name AS practitioner_name, CONCAT(userss.first_name, ' ', userss.last_name) AS doctor_name, CONCAT(userss_doctor.first_name, ' ', userss_doctor.last_name) AS doctor_full_name
+FROM vendor_sale_notifications
+LEFT JOIN vendor_sale_users ON vendor_sale_users.id = vendor_sale_notifications.patient_id 
+LEFT JOIN vendor_sale_clinic_appointment ON vendor_sale_clinic_appointment.id = vendor_sale_notifications.clinic_appointment_id 
+LEFT JOIN vendor_sale_practitioner ON vendor_sale_practitioner.id = vendor_sale_clinic_appointment.practitioner 
+LEFT JOIN vendor_sale_users AS userss ON userss.id = vendor_sale_clinic_appointment.theatre_clinician
+LEFT JOIN vendor_sale_users AS userss_doctor ON userss_doctor.id = vendor_sale_clinic_appointment.practitioner
+WHERE vendor_sale_users.hospital_id = $hospital_id AND vendor_sale_clinic_appointment.start_date_appointment >= '$currentDate'
+ $whereAppointment ORDER BY vendor_sale_clinic_appointment.id DESC";
+$result = $this->db->query($sql);
+
+$datanotificationsupcomming= $result->result();
+// $this->data['total_appointment'] = count($datanotifications);
+    $data['clinic_appointment'] =$datanotificationsupcomming;
 
 
               
