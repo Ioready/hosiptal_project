@@ -688,10 +688,9 @@
            </div>
            
            
-           <div class="col-lg-4 dashboardBoxes">
+           <!-- <div class="col-lg-4 dashboardBoxes">
                    <div style="background-color:#D0FAE4; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
-                       <!-- <div class="ibox-title">
-                       </div> -->
+                       
                        <div class="ibox-content">
                            <a href="<?php echo site_url('tasks'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "tasks") ? "active" : "" ?>">
                            <h1 class="no-margins"><?php echo $total_task; ?></h1>
@@ -700,7 +699,24 @@
                        <img src="<?php echo base_url(); ?>uploads/medicine.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
                         </a>
                     </div>
-           </div>
+           </div> -->
+           <div class="col-lg-4 col-md-6 dashboardBoxes">
+                        <div style="background-color:<?php echo $total_task > 0 ? '#D0FAE4' : '#D0FAE4'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
+                            <div class="ibox-content">
+                            <a href="<?php echo site_url('tasks'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "tasks") ? "active" : "" ?>">
+
+                                <h1 class="no-margins"><?php if(!empty($total_task)){
+                                     echo $total_task;
+                                     }else{ 
+                                        echo '0';
+                                        }; ?></h1>
+                                <h5 class="text-primary"><strong>Task to complete</strong></h5>
+                            </div>
+                            <img src="<?php echo base_url(); ?>uploads/medicine.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+                            </a>
+                        </div>
+
+                    </div>
 
            <div class="col-lg-4 dashboardBoxes">
                    <div style="background-color:#D0FAE4; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">

@@ -2204,4 +2204,34 @@ public function process() {
         }
     }
 
+    public function getAllPatients()
+    {
+        $response = array();
+        $id = $this->input->post('id');
+       
+        if (!empty($id)) {
+           
+
+            $options = array(
+                'table' => 'vendor_sale_patient',
+                'select' => 'vendor_sale_patient.*',
+                'where' => array('doctor_id' => $id),
+            );
+            $states = $this->common_model->customGet($options);
+            
+            // $data.= '<select id="state" onchange="getCities(this.value)" name="state" class="form-control select2" size="1">';
+            // $data.= '<option value="" disabled selected>Please select</option>';
+            
+            // foreach ($states as $state_list) {
+               
+            //     $data.= '<option value="' . $state_list->id_state . '">' . $state_list->state . '</option>';
+            // }
+            //  $data.= '</select>';
+        }
+
+        echo json_encode($states);
+
+    //    return  json_encode($response);
+    }
+
 }

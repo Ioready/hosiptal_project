@@ -215,7 +215,7 @@
                                 <h2>Edit Invoice</h2>
                                 <div class="form-group">
                                     <label for="header">Header <span class="required" style="color:red;">*</span></label>
-                                    <select name="header" id="header" required>
+                                    <select name="header" id="header" class="form-control select2" required>
                                         
                                     <?php  foreach($doctors as $row){ ?>
                                         <option value="<?php echo $row->id;?>" <?php echo $results->header ==$row->id?'selected':'';?>><?php echo $row->first_name.' '.$row->last_name;?></option>
@@ -233,7 +233,7 @@
                                 <div class="form-group">
                                     <label for="practitioner">Practitioner</label>
                                     
-                                    <select name="practitioner" id="practitioner">
+                                    <select name="practitioner" id="practitioner" class="form-control select2">
                                     <?php  foreach($practitioner as $row){ if(!empty($row->first_name)){?>
                                         <option value="<?php echo $row->id;?>" <?php echo $results->practitioner ==$row->id?'selected':''; ?>><?php echo $row->first_name . ' ' . $row->last_name; ?></option>
                                         <?php } } ?>
@@ -249,7 +249,7 @@
                                 <div class="form-group">
                                     <label for="patient">Patient <span style="color:red;">*</span></label>
                                     
-                                    <select name="patient" id="patient">
+                                    <select name="patient" id="patient" class="form-control select2">
                                     <?php  foreach($patient as $rows){ if(!empty($rows->name)){?>
                                         <option value="<?php echo $rows->id;?>" <?php echo $results->patient_id ==$rows->id?'selected':''; ?>><?php echo $rows->name;?></option>
                                         <?php } }?>
@@ -260,7 +260,7 @@
 
                                 <div class="form-group">
                                     <label for="billing">Billing to <span style="color:red;">*</span></label>
-                                    <select name="billing_to" id="billing_to">
+                                    <select name="billing_to" id="billing_to" class="form-control select2">
                                     <option value="">Select Billing Type</option>
                                     <option value="Self Pay" <?php echo $results->billing_to =='Self Pay'?'selected':'';?>>Self Pay</option>
                                     <option value="Insurance" <?php echo $results->billing_to =='Insurance'?'selected':'';?>>Insurance</option>
@@ -551,3 +551,57 @@ function education_fields() {
 
 </script>
 
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+    $(".select2").select2({
+        // maximumSelectionLength: 2
+        placeholder: "Please select",
+    });
+
+//     function getPatients(headerId) {
+//     $.ajax({
+//         url: 'Invoices/getAllPatients',
+//         type: 'POST',
+//         dataType: "json",
+//         data: { id: headerId },
+//         success: function(response) {
+//             let data = '<select id="state" onchange="getCities(this.value)" name="state" class="form-control select2" size="1">';
+//             data += '<option value="" disabled selected>Please select</option>';
+//             response.forEach(function(state) {
+//                 data += '<option value="' + state.id_state + '">' + state.state + '</option>';
+//             });
+
+//             data += '</select>';
+            
+//             $('#state_div').html(data);
+//         },
+//         error: function(xhr, status, error) {
+//             console.error('Error:', error);
+//             // Handle errors gracefully if needed
+//         }
+//     });
+// }
+function getPatients(headerId) {
+    $.ajax({
+        url: 'Invoices/getAllPatients',
+        type: 'POST',
+        dataType: "json",
+        data: { id: headerId },
+        success: function(response) {
+            // Clear existing options first, if necessary
+            $('#patient_id').empty();
+            $('#patient_id').append('<option value="" disabled selected>Please select</option>');
+
+            // Populate dropdown with options
+            response.forEach(function(patient) {
+                $('#patient_id').append('<option value="' + patient.id + '">' + patient.name + '</option>');
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error('Error:', error);
+            // Handle errors gracefully if needed
+        }
+    });
+}
+
+</script>

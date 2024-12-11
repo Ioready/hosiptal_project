@@ -1,4 +1,28 @@
-<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.js"></script>
+<!-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+<style>
+    .modal-footer .btn+.btn {
+        margin-bottom: 5px !important;
+        margin-left: 5px;
+    }
+
+    span.select2.select2-container.select2-container--default {
+        /* width: 100% !important; */
+    }
+
+    span.select2-selection.select2-selection--multiple {
+        min-height: auto !important;
+        overflow: auto !important;
+        border: solid #ddd0d0 1px;
+        color: black;
+    }
+
+    .select2-container--default .select2-selection--multiple .select2-selection__choice {
+        background-color: var(--bs-nav-pills-link-active-bg);
+    }
+</style> -->
+
 <style>
     .modal-footer .btn + .btn {
         margin-bottom: 5px !important;
@@ -15,16 +39,16 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #f5f5f5;
-            padding: 20px;
+            /* padding: 20px; */
         }
 
         .container {
-            max-width: 1000px;
+            /* max-width: 1000px; */
             margin: auto;
             background-color: white;
             border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
+            /* padding: 20px; */
         }
 
         .patient-info {
@@ -214,8 +238,10 @@
     <!-- Header -->
     <div style="margin-bottom: 15px;">
         <label for="header">Header <span style="color: red;">*</span></label>
-        <select id="header" name="header" required style="width: 100%; padding: 10px; border: 1px solid #ced4da; border-radius: 4px;">
-            <?php foreach ($doctors as $row) { ?>
+        <select id="header" name="header" onchange="getPatients(this.value)" class="form-control select2 select-chosen" required style="padding: 0px; border: 1px solid #ced4da; border-radius: 4px;height: auto;">
+            
+        <option value="">Please Select </option>
+        <?php foreach ($doctors as $row) { ?>
                 <option value="<?php echo $row->id; ?>"><?php echo $row->first_name . ' ' . $row->last_name; ?></option>
             <?php } ?>
         </select>
@@ -230,7 +256,8 @@
     <!-- Practitioner -->
     <div style="margin-bottom: 15px;">
         <label for="practitioner">Practitioner</label>
-        <select id="practitioner" name="practitioner" style="width: 100%; padding: 10px; border: 1px solid #ced4da; border-radius: 4px;">
+        <select id="practitioner" name="practitioner" class="form-control select2" style="padding: 0px; border: 1px solid #ced4da; border-radius: 4px;height: auto;">
+        <option value="">Please Select </option>
             <?php foreach ($practitioner as $row) {
                 if (!empty($row->first_name)) { ?>
                     <option value="<?php echo $row->id; ?>"><?php echo $row->first_name . ' ' . $row->last_name; ?></option>
@@ -247,17 +274,19 @@
 
     <div style="margin-bottom: 15px;">
         <label for="patient">Patient <span style="color: red;">*</span></label>
-        <select id="patient" name="patient" style="width: 100%; padding: 10px; border: 1px solid #ced4da; border-radius: 4px;">
+        <select id="patient_id" name="patient" class="form-control select2" size="1" style="padding: 0px; border: 1px solid #ced4da; border-radius: 4px;height: auto;">
+        
+        <!-- <option value="">Please Select </option>
             <?php foreach ($patient as $row) {
                 if (!empty($row->name)) { ?>
                     <option value="<?php echo $row->id; ?>"><?php echo $row->name; ?></option>
-            <?php } } ?>
+            <?php } } ?> -->
         </select>
     </div>
 
     <div style="margin-bottom: 15px;">
         <label for="billing_to">Billing to <span style="color: red;">*</span></label>
-        <select id="billing_to" name="billing_to" style="width: 100%; padding: 10px; border: 1px solid #ced4da; border-radius: 4px;">
+        <select id="billing_to" name="billing_to" class="form-control select2" style="padding: 0px; border: 1px solid #ced4da; border-radius: 4px;height: auto;">
             <option value="">Select Billing Type</option>
             <option value="Self Pay">Self Pay</option>
             <option value="Insurance">Insurance</option>
@@ -418,4 +447,61 @@ function education_fields() {
    function remove_education_fields(rid) {
 	   $('.removeclass'+rid).remove();
    }
+</script>
+
+
+<!-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+    $(".select2").select2({
+        // maximumSelectionLength: 2
+        placeholder: "Please select",
+    });
+
+//     function getPatients(headerId) {
+//     $.ajax({
+//         url: 'Invoices/getAllPatients',
+//         type: 'POST',
+//         dataType: "json",
+//         data: { id: headerId },
+//         success: function(response) {
+//             let data = '<select id="state" onchange="getCities(this.value)" name="state" class="form-control select2" size="1">';
+//             data += '<option value="" disabled selected>Please select</option>';
+//             response.forEach(function(state) {
+//                 data += '<option value="' + state.id_state + '">' + state.state + '</option>';
+//             });
+
+//             data += '</select>';
+            
+//             $('#state_div').html(data);
+//         },
+//         error: function(xhr, status, error) {
+//             console.error('Error:', error);
+//             // Handle errors gracefully if needed
+//         }
+//     });
+// }
+function getPatients(headerId) {
+    $.ajax({
+        url: 'Invoices/getAllPatients',
+        type: 'POST',
+        dataType: "json",
+        data: { id: headerId },
+        success: function(response) {
+            // Clear existing options first, if necessary
+            $('#patient_id').empty();
+            $('#patient_id').append('<option value="" disabled selected>Please select</option>');
+
+            // Populate dropdown with options
+            response.forEach(function(patient) {
+                $('#patient_id').append('<option value="' + patient.id + '">' + patient.name + '</option>');
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error('Error:', error);
+            // Handle errors gracefully if needed
+        }
+    });
+}
+
 </script>

@@ -58,13 +58,13 @@
 
                            <div class="col-md-10"> -->
                             <div class="col-md-4">
-                            <label class="">First Name</label>
+                            <label class="">First Name <span style="color:red">*</span></label>
                                 <input type="text" class="form-control" name="first_name" id="first_name" placeholder="<?php echo lang('first_name');?>" value="<?php echo $results->first_name; ?>"/>
                             </div>
                             <!-- <span class="help-block m-b-none col-md-offset-3"><i class="fa fa-arrow-circle-o-up"></i> <?php echo lang('english_note');?></span> -->
                             
                             <div class="col-md-4">
-                            <label class=""><?php echo lang('last_name');?></label>
+                            <label class=""><?php echo lang('last_name');?> <span style="color:red">*</span></label>
                                 <input type="text" class="form-control" name="last_name" id="last_name" placeholder="<?php echo lang('last_name');?>" value="<?php echo $results->last_name; ?>"/>
                             </div>
 
@@ -102,7 +102,7 @@
 
                             <!-- <div class="col-md-10"> -->
                                 <!-- <div class="col-md-12"> -->
-                                 <label class="">This Contacts is a clinician</label> <br>
+                                 <label class="">This Contacts is a clinician <span style="color:red">*</span></label> <br>
                                  
                                     <div class="form-group">
                                         <div class="col-md-1">
@@ -152,7 +152,7 @@
 
                            <!-- <div class="col-md-10"> -->
                                 <div class="col-md-6">
-                                    <label class="">Phone Type</label>
+                                    <label class="">Phone Type <span style="color:red">*</span></label>
                                     <select id="phone_code" name="phone_type" class="form-control select2" size="1" placeholder="Choose a phone type" value="<?php echo $results->phone_type; ?>">
                                         <option value="" disabled selected>Choose a phone type</option>
                                         <option value="mobile">Mobile</option>
@@ -165,7 +165,7 @@
                                     <!-- <span class="help-block m-b-none col-md-offset-3"><i class="fa fa-arrow-circle-o-up"></i> <?php echo lang('english_note');?></span> -->
                             
                                 <div class="col-md-6">
-                                    <label class="">Phone Number</label>
+                                    <label class="">Phone Number <span style="color:red">*</span></label>
                                     <input type="text" class="form-control" name="phone_number" id="phone_number" placeholder="<?php echo lang('Phone Number');?>" value="<?php echo $results->phone_number; ?>"/>
                                 </div>
                             <!-- </div> -->
@@ -199,7 +199,7 @@
 
                             <!-- <div class="col-md-10">
                                 <div class="col-md-12"> -->
-                                    <label class="">Address Lookup</label>
+                                    <label class="">Address Lookup <span style="color:red">*</span></label>
                                     <input type="text" class="form-control" name="address_lookup" id="address_lookup" placeholder="Address Lookup" value="<?php echo $results->address_lookup; ?>"/>
                                 <!-- </div>
                             
@@ -232,13 +232,13 @@
                            <!-- <div class="col-md-10"> -->
                            <div class="col-md-4">
                            <div class="form-group">
-                            <label class="m-4 control-label">Country*</label>
+                            <label class="m-4 control-label">Country <span style="color:red">*</span></label>
                                     
                                     <select id="country" onchange="getStates(this.value)" name="country" class="form-control select2" size="1" value="<?php echo $results->country; ?>">
-                                        <option value="0">Please select</option>
+                                        <!-- <option value="0">Please select</option> -->
                                             <?php foreach ($countries as $country) { ?>
                                                         
-                                            <option value="<?php echo $country->id; ?>"><?php echo $country->name; ?></option>
+                                            <option value="<?php echo $country->id; ?>" <?php echo $results->country ==$country->id?'selected':''; ?>><?php echo $country->name; ?></option>
                                                     
                                             <?php } ?>
                                     </select>
@@ -247,19 +247,31 @@
 
                             <div class="col-md-4" >
                                 <div class="form-group">
-                                    <label class="m-4 control-label">State</label>
+                                    <label class="m-4 control-label">State <span style="color:red">*</span></label>
+                                    <select id="state" onchange="getCities(this.value)" name="state" class="form-control select2" size="1">
                                    
-                                    <div class="col-md-12" id="state_div">
-                                    </div>
+                                    
+                                    <!-- <option value="">Please select</option> -->
+                                            <?php foreach ($states_list as $states) { ?>
+                                                        
+                                            <option value="<?php echo $states->id_state; ?>" <?php echo $results->state ==$states->id_state?'selected':''; ?>><?php echo $states->state; ?></option>
+                                                    
+                                            <?php } ?>
+
+                                    <!-- <div class="col-md-12" id="state_div">
+                                    </div> -->
+                                    </select>
                                 </div>
                             </div>
                         <div class="col-md-4" >
                             <div class="form-group">
-                                <label class="m-4 control-label">City</label>
+                                <label class="m-4 control-label">City <span style="color:red">*</span></label>
+                                <select id="city_id" name="city" class="form-control select2" size="1">
+                                   
+                                </select>
+                                <!-- <div class="col-md-12" id="city">
                                 
-                                <div class="col-md-12" id="city">
-                                
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                         </div>
@@ -394,38 +406,53 @@
 
 
 function getStates(countryId) {
-   
-
     $.ajax({
-        url: 'contactus/getStates',
+        url: 'contactus/getEditStates',
         type: 'POST',
         dataType: "json",
         data: { id: countryId },
         success: function(response) {
-            $('#state_div').html(response);
-            
+            // Clear existing options first
+            $('#state_id').empty();
+            $('#state_id').append('<option value="" disabled selected>Please select</option>');
+
+            // Append options dynamically
+            response.forEach(function(state_list) {
+                $('#state_id').append('<option value="' + state_list.id_state + '">' + state_list.state + '</option>');
+            });
         },
         error: function(xhr, status, error) {
-            // console.error(xhr.responseText);
+            console.error('Error:', error);
+            // Optionally, display an error message in the UI
         }
     });
 }
+
+
 
 
 function getCities(stateId) {
     $.ajax({
-        url: 'contactus/getCity',
+        url: 'contactus/getEditCity',
         type: 'POST',
         dataType: "json",
         data: { id: stateId },
         success: function(response) {
-   
-    $('#city').html(response);
-},
+            // Clear existing options first
+            $('#city_id').empty();
+            $('#city_id').append('<option value="" disabled selected>Please select</option>');
+
+            // Append options dynamically
+            response.forEach(function(cities_list) {
+                $('#city_id').append('<option value="' + cities_list.id_city + '">' + cities_list.city + '</option>');
+            });
+        },
         error: function(xhr, status, error) {
-            console.error(xhr.responseText);
+            console.error('Error:', error);
+            // Optionally, display an error message in the UI
         }
     });
 }
+
 
 </script>
