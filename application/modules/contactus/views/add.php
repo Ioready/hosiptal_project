@@ -48,14 +48,14 @@
 
                            <div class="col-md-10"> -->
                             <div class="col-md-4">
-                            <label class="">First Name</label>
-                                <input type="text" class="form-control" name="first_name" id="first_name" placeholder="<?php echo lang('first_name');?>" />
+                            <label class="">First Name<span style="color:red;">*</span></label>
+                                <input type="text" class="form-control" name="first_name" id="first_name" placeholder="<?php echo lang('first_name');?>" required/>
                             </div>
                             <!-- <span class="help-block m-b-none col-md-offset-3"><i class="fa fa-arrow-circle-o-up"></i> <?php echo lang('english_note');?></span> -->
                             
                             <div class="col-md-4">
-                            <label class=""><?php echo lang('last_name');?></label>
-                                <input type="text" class="form-control" name="last_name" id="last_name" placeholder="<?php echo lang('last_name');?>" />
+                            <label class=""><?php echo lang('last_name');?><span style="color:red;">*</span></label>
+                                <input type="text" class="form-control" name="last_name" id="last_name" placeholder="<?php echo lang('last_name');?>" required/>
                             </div>
 
                             
@@ -92,7 +92,7 @@
 
                             <!-- <div class="col-md-10"> -->
                                 <!-- <div class="col-md-12"> -->
-                                 <label class="">This Contacts is a clinician</label> <br>
+                                 <label class="">This Contacts is a clinician<span style="color:red;">*</span></label> <br>
                                  
                                     <div class="form-group">
                                         <div class="col-md-1">
@@ -142,8 +142,8 @@
 
                            <!-- <div class="col-md-10"> -->
                                 <div class="col-md-6">
-                                    <label class="">Phone Type</label>
-                                    <select id="phone_code" name="phone_type" class="form-control select2" size="1" placeholder="Choose a phone type">
+                                    <label class="">Phone Type<span style="color:red;">*</span></label>
+                                    <select id="phone_code" name="phone_type" class="form-control select2" size="1" placeholder="Choose a phone type" required>
                                         <option value="" disabled selected>Choose a phone type</option>
                                         <option value="mobile">Mobile</option>
                                         <option value="home">Home</option>
@@ -155,8 +155,8 @@
                                     <!-- <span class="help-block m-b-none col-md-offset-3"><i class="fa fa-arrow-circle-o-up"></i> <?php echo lang('english_note');?></span> -->
                             
                                 <div class="col-md-6">
-                                    <label class="">Phone Number</label>
-                                    <input type="text" class="form-control" name="phone_number" id="phone_number" placeholder="<?php echo lang('Phone Number');?>" />
+                                    <label class="">Phone Number<span style="color:red;">*</span></label>
+                                    <input type="text" class="form-control" name="phone_number" id="phone_number" placeholder="<?php echo lang('Phone Number');?>" required/>
                                 </div>
                             <!-- </div> -->
                         </div>
@@ -189,8 +189,8 @@
 
                             <!-- <div class="col-md-10">
                                 <div class="col-md-12"> -->
-                                    <label class="">Address Lookup</label>
-                                    <input type="text" class="form-control" name="address_lookup" id="address_lookup" placeholder="Address Lookup" />
+                                    <label class="">Address Lookup<span style="color:red;">*</span></label>
+                                    <input type="text" class="form-control" name="address_lookup" id="address_lookup" placeholder="Address Lookup" required/>
                                 <!-- </div>
                             
                             </div> -->
@@ -222,9 +222,9 @@
                            <!-- <div class="col-md-10"> -->
                            <div class="col-md-4">
                            <div class="form-group">
-                            <label class="m-4 control-label">Country*</label>
+                            <label class="m-4 control-label">Country<span style="color:red;">*</span></label>
                                     
-                                    <select id="country" onchange="getStates(this.value)" name="country" class="form-control select2" size="1">
+                                    <select id="country" onchange="getStates(this.value)" name="country" class="form-control select2" size="1" required>
                                         <option value="0">Please select</option>
                                             <?php foreach ($countries as $country) { ?>
                                                         
@@ -237,7 +237,7 @@
 
                             <div class="col-md-4" >
                                 <div class="form-group">
-                                    <label class="m-4 control-label">State</label>
+                                    <label class="m-4 control-label">State<span style="color:red;">*</span></label>
                                    
                                     <div class="col-md-12" id="state_div">
                                     </div>
@@ -245,7 +245,7 @@
                             </div>
                         <div class="col-md-4" >
                             <div class="form-group">
-                                <label class="m-4 control-label">City</label>
+                                <label class="m-4 control-label">City<span style="color:red;">*</span></label>
                                 
                                 <div class="col-md-12" id="city">
                                 
