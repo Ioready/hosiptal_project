@@ -406,6 +406,21 @@
                 <div id="menu1" class="tab-pane">
                     <h3 style="text-align: center; margin-bottom: 20px;">Enter bank details to pay</h3>
                     <div class="row">
+                    <div class="col-md-12">
+                    <label for="input1">Hospital Bank Details</label>
+                        <div class="form-group">
+                                                            
+                    <textarea name="bank_details" rows="28" cols="120" id="editorss" style="font-size: small; height: 120px; border-color: cyan;" placeholder="    Bank: Bank of America
+    Bank Holder Name: Hospital management
+    Account Number: 0123456789
+    IFSC Code: ABC123
+    Swift Code: 123456"><?php echo $bank_setting->bank_details?></textarea>
+                                                           
+                            </div>
+                            </div>
+                            </div>
+
+                    <div class="row">
                         <div class="col-md-6">
                     <label>Cardholder's Name:</label>
                     <input type="text" id="user_name" class="form-control" style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 4px;" placeholder="Cardholder name">
@@ -449,8 +464,7 @@
                 <div id="menu2" class="tab-pane in active">
                     <h3 style="text-align: center; margin-bottom: 20px;">Enter your card details to pay</h3>
                     
-                    <?php// if(!empty($results->card_number)){?>
-
+                    
                     <label>Cardholder's Name:</label>
                     <input type="text" id="user_name_card" class="form-control" style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 4px;" placeholder="Cardholder name">
                     <label>Cardholder's Email:</label>
@@ -458,25 +472,12 @@
                     <div class="form-control" id="card-element" style="padding: 10px; border-radius: 4px; margin-bottom: 15px;"></div>
                 
                     <input type="hidden" name="total_cash_pay" id="total_cash_pay" value="<?php echo $results->total_amount; ?>">
+                    <!-- <input type="text" name="card_details_pay" id="card_details_pay"> -->
 
                     <button type="button" class="btn btn-sm btn-default" class="close" data-dismiss="modal" onclick="reloadPageReceipt()">Close</button>
                     
                     <button type="submit" id="submit" class="btn btn-sm btn-primary m-2"  style="background: #337ab7" value="Pay £ <?php echo $results->total_amount; ?>" >Pay $ <?php echo $results->total_amount; ?></button>
-                   <?php// }else{?>
-
-                    <!-- <label>Cardholder's Name:</label>
-                    <input type="text" id="user_name_card" class="form-control" style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 4px;" placeholder="Cardholder name">
-                    <label>Cardholder's Email:</label>
-                    <input type="email" id="email_card" class="form-control" style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 4px;" placeholder="text@email.com">
-                    <div class="form-control" id="card-element" style="padding: 10px; border-radius: 4px; margin-bottom: 15px;"></div>
-                
-                    <input type="hidden" name="total_cash_pay" id="total_cash_pay" value="<?php echo $results->total_amount; ?>">
-
-                    <button type="button" class="btn btn-sm btn-default" class="close" data-dismiss="modal" onclick="reloadPageReceipt()">Close</button>
-                    
-                    <button type="submit" id="submit" class="btn btn-sm btn-primary m-2"  style="background: #337ab7" value="Pay £ <?php echo $results->total_amount; ?>" >Pay $ <?php echo $results->total_amount; ?></button> -->
                    
-                    <?php //}?>
                 </div>
 
                 <!-- QR Payment Tab -->
@@ -557,8 +558,24 @@
             }
 
             // Append the Stripe token to the form data
-            const formData = new FormData(this);
-            formData.append('stripeToken', token.id);
+            // const formData = new FormData(this);
+            // formData.append('stripeToken', token.id);
+            const cardDetails = {
+            brand: token.card.brand,
+            last4: token.card.last4,
+            exp_month: token.card.exp_month,
+            exp_year: token.card.exp_year
+        };
+
+        // Append card details to the form data
+        const formData = new FormData(this);
+        formData.append('stripeToken', token.id);
+        formData.append('cardBrand', cardDetails.brand);
+        formData.append('cardLast4', cardDetails.last4);
+        formData.append('cardExpMonth', cardDetails.exp_month);
+        formData.append('cardExpYear', cardDetails.exp_year);
+        
+            
             submitForm(formData); // Submit form data with Stripe token
         }
     });

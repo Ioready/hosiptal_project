@@ -192,9 +192,14 @@
     function changeVendorStatus(id,status, txt) {
     
         var message = "";
-        if (status == "Yes") {
+        // if (status == "Yes") {
+        //     message = "Active";
+        // } else if (status == "No") {
+        //     message = "Inactive";
+        // }
+        if (status == "No") {
             message = "Active";
-        } else if (status == "No") {
+        } else if (status == "Yes") {
             message = "Inactive";
         }
 

@@ -256,6 +256,7 @@ class Patient extends Common_Controller
         if ($group_name =='Patient') {
             $optionHospital['where']['P.user_id']  = $user_id;
         }
+        
         if (!empty($from)) {
             $optionHospital['where']['DATE(P.date_of_start_abx) >='] = $from;
         }
@@ -6970,13 +6971,12 @@ if (!empty($id)) {
                 'pay_amount	' => $this->input->post('amount'),                                               
                 'payment_type' => $this->input->post('billing_to'),
                 'payment_method'=>'card',
-                // 'name' => $this->input->post('user_name'),
-                // 'email' => $this->input->post('email'), 
-                // 'card_num' => $card_num, 
-        // 'card_cvc' => $card_cvc, 
-        // 'card_exp_month' => $card_exp_month, 
-        // 'card_exp_year' => $card_exp_year,                         
-                                         
+                'name' => $this->input->post('user_name'),
+                'email' => $this->input->post('email'), 
+                'card_num' => $card_num, 
+                'card_cvc' => $card_cvc, 
+                'card_exp_month' => $card_exp_month, 
+                'card_expire' => $card_exp_month.'/'.$card_exp_year, 
             );
             // print_r($options_data);die;
             $option = array('table' => 'vendor_sale_invoice_pay', 'data' => $options_data);

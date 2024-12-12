@@ -1464,6 +1464,16 @@ class Invoices extends Common_Controller {
                 
             }
 
+            $optionPayment = array(
+                'table' => 'bank_setting',
+                'select' => 'bank_setting.*',
+                'where' => array('bank_setting.user_id' => $hospital_id),
+                'single' => true,
+            );
+            
+    
+            $this->data['bank_setting'] = $this->common_model->customGet($optionPayment);
+
 
         if($this->ion_auth->is_all_roleslogin()){
 
@@ -1710,9 +1720,15 @@ public function process() {
                 
             }
 
-            // print_r($this->input->post());die;
+            
 
     $token =  $this->input->post('stripeToken');
+    $brand =$this->input->post('cardBrand');
+    $cardLast4 =$this->input->post('cardLast4');
+    // $card_cvc =$this->input->post('cardCvc');
+    $cardExpMonth =$this->input->post('cardExpMonth');
+    $cardExpYear =$this->input->post('cardExpYear');
+    // print_r($cardExpYear);die;
         // print_r($token);die;
 
     // if(!empty($_POST['stripeToken'])){
@@ -1782,7 +1798,6 @@ public function process() {
                 
                
                 
-                
 
                 try {
                     // Assuming the customer has been created successfully
@@ -1795,6 +1810,8 @@ public function process() {
                             'item_id' => $itemNumber
                         )
                     ));
+                    // $brand = $charge->brand;
+                    $card_cvc = $charge->cvc_check;
                     
 // 'pay_amount	' => $this->input->post('amount'),
                     
@@ -1807,12 +1824,13 @@ public function process() {
                         'pay_amount	' => $this->input->post('amount'),                                               
                         'payment_type' => $this->input->post('billing_to'),
                         'payment_method'=>'card',
-                        // 'name' => $this->input->post('user_name'),
-                        // 'email' => $this->input->post('email'), 
-                        // 'card_num' => $card_num, 
-                // 'card_cvc' => $card_cvc, 
-                // 'card_exp_month' => $card_exp_month, 
-                // 'card_exp_year' => $card_exp_year,                         
+                        'name' => $this->input->post('user_name'),
+                        'email' => $this->input->post('email'),
+                        'brand' => $brand,  
+                        'card_num' => $cardLast4, 
+                        'card_cvc' => $card_cvc, 
+                        'card_exp_month' => $cardExpMonth, 
+                        'card_expire' =>$cardExpYear,                         
                                                  
                     );
                     // print_r($options_data);die;

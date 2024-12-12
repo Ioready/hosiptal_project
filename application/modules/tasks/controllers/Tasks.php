@@ -44,7 +44,7 @@ class Tasks extends Common_Controller
             );
         
             $authUser = $this->common_model->customGet($optionData);
-        
+            $group_name =$authUser->group_name;
             $hospital_id = $authUser->hospital_id;
             // 'users.hospital_id'=>$hospital_id
             
@@ -187,7 +187,16 @@ class Tasks extends Common_Controller
     
 
          $Sql = "SELECT vendor_sale_task.id as patient_id, vendor_sale_task.status as task_status,vendor_sale_task.task_name,vendor_sale_task.patient_name,vendor_sale_task.task_comment,vendor_sale_task.type,vendor_sale_task.due_date as culture_source_name,vendor_sale_users.first_name as f_name, vendor_sale_users.last_name as l_name, vendor_sale_care_unit.name as type_name, vendor_sale_task.priority, patients_user.first_name as patient_fname, patients_user.last_name as patient_lname FROM vendor_sale_task  LEFT JOIN vendor_sale_users ON vendor_sale_users.id= vendor_sale_task.assign_to LEFT JOIN vendor_sale_care_unit ON vendor_sale_care_unit.id = vendor_sale_task.type LEFT JOIN vendor_sale_users AS patients_user ON patients_user.id= vendor_sale_task.patient_name WHERE vendor_sale_users.hospital_id =$hospital_id";
-        // WHERE vendor_sale_task.facility_user_id= $facility_id
+         
+        // Add dynamic conditions based on user group
+if ($group_name == 'SubAdmin') {
+    $Sql .= " AND vendor_sale_task.assign_to = $user_id";
+}
+if ($group_name == 'Patient') {
+    $Sql .= " AND vendor_sale_task.patient_name = $user_id";
+}
+
+         // WHERE vendor_sale_task.facility_user_id= $facility_id
         // WHERE vendor_sale_users.hospital_id'=>$hospital_id
 
         $careunit_facility_counts = $this->common_model->customQuery($Sql);
@@ -198,7 +207,20 @@ class Tasks extends Common_Controller
     } else if ($this->ion_auth->is_facilityManager()) {
         
         $Sql = "SELECT vendor_sale_task.id as patient_id, vendor_sale_task.status as task_status,vendor_sale_task.task_name,vendor_sale_task.patient_name,vendor_sale_task.task_comment,vendor_sale_task.type,vendor_sale_task.due_date as culture_source_name,vendor_sale_users.first_name as f_name, vendor_sale_users.last_name as l_name, vendor_sale_care_unit.name as type_name, vendor_sale_task.priority, patients_user.first_name as patient_fname, patients_user.last_name as patient_lname FROM vendor_sale_task  LEFT JOIN vendor_sale_users ON vendor_sale_users.id= vendor_sale_task.assign_to LEFT JOIN vendor_sale_care_unit ON vendor_sale_care_unit.id = vendor_sale_task.type LEFT JOIN vendor_sale_users AS patients_user ON patients_user.id= vendor_sale_task.patient_name  WHERE vendor_sale_users.hospital_id =$hospital_id";
-   
+        
+        // if ($group_name =='SubAdmin') {
+        //     $Sql['where']['t.assign_to']  = $user_id;
+        // }
+        // if ($group_name =='Patient') {
+        //     $Sql['where']['t.patient_name']  = $user_id;
+        // }
+        // Add dynamic conditions based on user group
+        if ($group_name == 'SubAdmin') {
+            $Sql .= " AND vendor_sale_task.assign_to = $user_id";
+        }
+        if ($group_name == 'Patient') {
+            $Sql .= " AND vendor_sale_task.patient_name = $user_id";
+        }
 
         $careunit_facility_counts = $this->common_model->customQuery($Sql);
         $this->data['careUnitsUser_list'] = $careunit_facility_counts;
@@ -259,11 +281,16 @@ class Tasks extends Common_Controller
                 
             ),
             //'group_by' => 't.patient_id'
-            // 'where'=> array('t.facility_user_id'=> $facility_id),
+            'where'=> array('t.facility_user_id'=> $hospital_id),
              'order' => array('t.id' => 'desc'),
              
         );
-
+        if ($group_name =='SubAdmin') {
+            $option['where']['t.assign_to']  = $user_id;
+        }
+        if ($group_name =='Patient') {
+            $option['where']['t.patient_name']  = $user_id;
+        }
         if (!empty($careUnitID)) {
             $option['where']['cu.id'] = $careUnitID;
         }

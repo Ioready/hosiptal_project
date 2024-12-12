@@ -73,11 +73,11 @@
                                                 <div class="block-title">
                                                     <h2 class="fw-bold"><strong><?php echo $title; ?></strong> Panel</h2>
                                                     <?php if ($this->ion_auth->is_facilityManager()) { ?>
-                                                        <h2>
+                                                        <!-- <h2>
                                                             <a href="javascript:void(0)" onclick="open_modal('<?php echo $model; ?>')" class="btn btn-sm btn-primary">
                                                                 <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
                                                             </a>
-                                                        </h2>
+                                                        </h2> -->
                                                     <?php } ?>
                                                     <div>
                                                         <div style="float:right;margin-top:-38px">
@@ -294,11 +294,11 @@
                                                 <div class="block-title">
                                                     <h2 class="fw-bold"><strong><?php echo $title; ?></strong> Panel</h2>
                                                     <?php if ($this->ion_auth->is_facilityManager()) { ?>
-                                                        <h2>
+                                                        <!-- <h2>
                                                             <a href="javascript:void(0)" onclick="open_modal('<?php echo $model; ?>')" class="btn btn-sm btn-primary">
                                                                 <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
                                                             </a>
-                                                        </h2>
+                                                        </h2> -->
                                                     <?php } ?>
                                                     <div>
                                                         <div style="float:right;margin-top:-38px">

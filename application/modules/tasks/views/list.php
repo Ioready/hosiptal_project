@@ -443,29 +443,63 @@
                                             <?php 
                                             if ($this->ion_auth->is_all_roleslogin()){
                     
-                                                if ($rows->task_status == 'Done'): ?>
-                                                    <input type="hidden" class="notification-id" value="<?php echo $rows->patient_id; ?>">
-                                                    <select class="statusDropdown custom-badge <?php echo ($rows->task_status == 'Done') ? 'status-green' : 'status-red'; ?>">
-                                                        <option value="Done" selected><strong>Done</strong></option>
-                                                        <option value="Pending"><strong>Pending</strong></option>
-                                                    </select>
-                                                <?php else: ?>
-                                                    <input type="hidden" class="notification-id" value="<?php echo $rows->patient_id; ?>">
-                                                    <select class="statusDropdown custom-badge <?php echo ($rows->task_status == 'Pending') ? 'status-red' : 'status-green'; ?>">
-                                                        <option value="Done"><strong>Done</strong></option>
-                                                        <option value="Pending" selected><strong>Pending</strong></option>
-                                                    </select>
-                                                <?php endif; 
                                                 
-
-                                             }else if($this->ion_auth->is_facilityManager()){ 
-                                                if($rows->task_status == 'Done'): ?>
-                                                <span class="custom-badge status-green"><?php echo $rows->task_status; ?></span> 
-                                                
-                                            <?php else: ?>
-                                                <span class="custom-badge status-red"><?php echo $rows->task_status; ?></span> 
-                                
-                                             <?php endif; } ?>
+                                                    $user_id = $this->session->userdata('user_id');
+                                                    $optionData = array(
+                                                        'table' => USERS . ' as user',
+                                                        'select' => 'user.*,group.name as group_name',
+                                                        'join' => array(
+                                                            array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                                                            array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                                                        ),
+                                                        'order' => array('user.id' => 'DESC'),
+                                                        'where' => array('user.id'=>$user_id),
+                                                        'single'=>true,
+                                                    );
+                                            
+                                                    $authUser = $this->common_model->customGet($optionData);
+                                                    $group_name =$authUser->group_name;
+                                                    
+                                                if ($group_name =='SubAdmin') {
+                                                    // if ($this->ion_auth->is_subAdmin()) {
+                                    
+                                                        if ($rows->task_status == 'Done') { ?>
+                                                            <input type="hidden" class="notification-id" value="<?php echo $rows->patient_id; ?>">
+                                                            <select style="padding: 5px; border-radius: 4px; background-color: #dff0d8; color: #3c763d; border: 1px solid #3c763d;">
+                                                                <option value="Done" selected>Done</option>
+                                                                <option value="Pending">Pending</option>
+                                                            </select>
+                                                        <?php } else  { ?>
+                                                            <input type="hidden" class="notification-id" value="<?php echo $rows->patient_id; ?>">
+                                                            <select style="padding: 5px; border-radius: 4px; background-color: #dff0d8; color: #3c763d; border: 1px solid #3c763d;">
+                                                                <option value="Done">Done</option>
+                                                                <option value="Pending">Pending</option>
+                                                            </select>
+                                                           <?php } 
+                                    
+                                     } else if ($group_name =='Patient') {?>
+                                        <input type="hidden" class="notification-id" value="<?php echo $rows->patient_id; ?>">
+                                                           
+                                                           <?php if ($rows->task_status == 'Done') { ?>
+                                                            <span style="padding: 5px 10px; border-radius: 4px; background-color: #dff0d8; color: #3c763d;">Done</span>
+                                                        <?php } else { ?>
+                                                            <span style="padding: 5px 10px; border-radius: 4px; background-color: #f2dede; color: #a94442;">Pending</span>
+                                                        <?php }
+                                     
+                                    
+                                     } else{ ?>
+                                    
+                                        <input type="hidden" class="notification-id" value="<?php echo $rows->patient_id; ?>">
+                                                            
+                                                           <?php if ($rows->task_status == 'Done') { ?>
+                                                            <span style="padding: 5px 10px; border-radius: 4px; background-color: #dff0d8; color: #3c763d;">Done</span>
+                                                        <?php } else { ?>
+                                                            <span style="padding: 5px 10px; border-radius: 4px; background-color: #f2dede; color: #a94442;">Pending</span>
+                                                        <?php }
+                                      
+                                     }
+                                                    
+                                                    } ?>
                                         </td>
                             </tr>
 
@@ -565,21 +599,8 @@
             <!-- Task Status -->
             <td style="padding: 10px; text-align: center;">
                 <?php 
-                if ($this->ion_auth->is_subAdmin()) {
-                    if ($rows->task_status == 'Done') { ?>
-                        <input type="hidden" class="notification-id" value="<?php echo $rows->patient_id; ?>">
-                        <select style="padding: 5px; border-radius: 4px; background-color: #dff0d8; color: #3c763d; border: 1px solid #3c763d;">
-                            <option value="Done" selected>Done</option>
-                            <option value="Pending">Pending</option>
-                        </select>
-                    <?php } else { ?>
-                        <input type="hidden" class="notification-id" value="<?php echo $rows->patient_id; ?>">
-                        <select style="padding: 5px; border-radius: 4px; background-color: #f2dede; color: #a94442; border: 1px solid #a94442;">
-                            <option value="Done">Done</option>
-                            <option value="Pending" selected>Pending</option>
-                        </select>
-                    <?php } 
-                } elseif ($this->ion_auth->is_facilityManager()) {
+                
+                 if ($this->ion_auth->is_facilityManager()) {
                     if ($rows->task_status == 'Done') { ?>
                         <span style="padding: 5px 10px; border-radius: 4px; background-color: #dff0d8; color: #3c763d;">Done</span>
                     <?php } else { ?>

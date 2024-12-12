@@ -623,9 +623,9 @@ hh
                                 <li title="Attributes">
                                 <a href="<?php echo site_url('attributes'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "attributes") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/labs.svg" height="23px" width="23px"><span class="sidebar-nav-mini-hide text-dark">Attributes</span></a>
                                 </li>
-                                <li title="Appointment Type">
+                                <!-- <li title="Appointment Type">
                                  <a href="<?php echo site_url('appointmentType'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "appointmentType") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/labs.svg" height="23px" width="23px"><span class="sidebar-nav-mini-hide text-dark">Appointment Type</span></a>
-                                </li>
+                                </li> -->
 
                                 <li title="Type Of Stay">
                                  <a href="<?php echo site_url('typeOfStay'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "typeOfStay") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/labs.svg" height="23px" width="23px"><span class="sidebar-nav-mini-hide text-dark">Type Of Stay</span></a>
