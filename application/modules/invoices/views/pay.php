@@ -184,16 +184,16 @@
             <form class="form-horizontal form-validation" role="form" id="addFormAjaxData" method="post" action="<?php echo site_url('/invoices/process'); ?>" enctype="multipart/form-data">
 
             <div class="modal-header text-center" style="padding: 20px; background-color: #f5f5f5; border-bottom: 1px solid #ddd;">
-    <!-- Close Button -->
+  
     <button type="button" class="btn btn-sm btn-default" class="close" data-dismiss="modal" style="position: absolute; top: 15px; right: 20px; font-size: 24px;" onclick="reloadPageReceipt()">
     <!-- <button type="button" class="close" data-dismiss="modal" style="position: absolute; top: 15px; right: 20px; font-size: 24px;"> -->
         <span aria-hidden="true">&times;</span>
         <span class="sr-only">Close</span>
     </button>
 
-    <!-- Modal Title -->
-    <h2 class="modal-title" style="font-weight: 600;font-size:20px; color: #333; margin-bottom: 10px;">
-        <?php echo "Add Payment on Account"; ?>
+   
+    <h2 class="modal-title" style="font-size: 20px; font-weight: bold; color: #007bff; margin: 0;">
+        <?php echo " Payment on Account"; ?>
       &nbsp;  &nbsp;  &nbsp;  <span><strong><?php echo $results->invoice_number; ?></strong></span>
     </h2>
 
@@ -299,7 +299,7 @@
 </div>
 
 <!-- Payment Sidebar and Tabs -->
-<div class="card card0" style="border: 1px solid #ddd; border-radius: 8px; padding: 20px; height:300px;overflow-y:auto">
+<div class="card card0" style="border: 1px solid #ddd; border-radius: 8px; padding: 20px; overflow-y:auto">
     <div style="display: flex;" id="wrapper">
 
         <!-- Sidebar -->
@@ -341,27 +341,35 @@
                 <!-- Cash Payment Tab -->
                 <div id="menu4" class="tab-pane">
                     <h3 style="text-align: center; margin-bottom: 20px;">Enter Cash details to pay</h3>
-                    <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
                         <label for="totalAmount">Total Amount</label>
                         <input type="number" id="totalAmount" name="totalAmount" class="form-control" style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ced4da;" readonly value="<?php echo $results->total_amount; ?>">
                     </div>
-                    <div class="form-group">
+                     <div class="col-md-6">
                         <label for="cashReceived">Cash Received</label>
                         <input type="number" id="cashReceived" name="cashReceived" class="form-control" style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ced4da;" placeholder="Enter cash received" oninput="updateTotals()">
                     </div>
-                    <div class="form-group">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
                         <label for="totalPaid">Total Paid</label>
                         <input type="number" id="totalPaid" name="totalPaid" class="form-control" style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ced4da;" readonly>
                     </div>
-                    <div class="form-group">
+                    <div class="col-md-6">
                         <label for="balance">Balance</label>
                         <input type="number" id="balance" name="balance" class="form-control" style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ced4da;" readonly>
                     </div>
-
+                    </div>
+                    <div class="row">
+                    <div class="col-md-12">
                     <button type="submit" id="submit" class="btn btn-sm btn-primary m-2" style="background: #337ab7">
                         Pay £ <input type="hidden" name="total_cash_pay" id="total_cash_pay"><span id="totalPayAmount">0</span>
                     </button>
                 </div>
+                </div>
+                </div>
+                <!-- </div> -->
 
                 <div id="menu4" class="tab-pane">
                 <h3 style="text-align: center; margin-bottom: 20px;">Enter Cash details to pay</h3>
@@ -397,28 +405,52 @@
                 <!-- Bank Payment Tab -->
                 <div id="menu1" class="tab-pane">
                     <h3 style="text-align: center; margin-bottom: 20px;">Enter bank details to pay</h3>
+                    <div class="row">
+                        <div class="col-md-6">
                     <label>Cardholder's Name:</label>
                     <input type="text" id="user_name" class="form-control" style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 4px;" placeholder="Cardholder name">
+                        </div>
+                        <div class="col-md-6">
                     <label>Cardholder's Email:</label>
                     <input type="email" id="email" class="form-control" style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 4px;" placeholder="text@email.com">
+                    </div>
+                     </div>
+                    <div class="row">
+                        <div class="col-md-6">
                     <label>Transaction ID:</label>
                     <input type="text" id="transaction_id" class="form-control" style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 4px;" placeholder="Transaction ID">
+                    
+                        </div>
+                        <div class="col-md-6">
+
                     <label>Upload PDF Receipt:</label>
                     <input type="file" accept=".pdf" style="width: 100%; padding: 5px; margin-bottom: 15px;">
+                    </div>
+                        </div>
+                    <div class="row">
+                        <div class="col-md-12">
                     <label>Upload PNG Receipt:</label>
                     <input type="file" accept=".png" style="width: 100%; padding: 5px;">
 
                     <input type="hidden" name="total_cash_pay" id="total_cash_pay" value="<?php echo $results->total_amount; ?>">
-
+                    </div>
+                        </div>
+                    <div class="row">
+                        <div class="col-md-12">
                     <button type="button" class="btn btn-sm btn-default" class="close" data-dismiss="modal" onclick="reloadPageReceipt()">Close</button>
                     
                     <button type="submit" id="submit" class="btn btn-sm btn-primary m-2"  style="background: #337ab7" value="Pay £ <?php echo $results->total_amount; ?>" >Pay $ <?php echo $results->total_amount; ?></button>
+                    </div>
+                    </div>
                    
                 </div>
 
                 <!-- Card Payment Tab -->
                 <div id="menu2" class="tab-pane in active">
                     <h3 style="text-align: center; margin-bottom: 20px;">Enter your card details to pay</h3>
+                    
+                    <?php// if(!empty($results->card_number)){?>
+
                     <label>Cardholder's Name:</label>
                     <input type="text" id="user_name_card" class="form-control" style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 4px;" placeholder="Cardholder name">
                     <label>Cardholder's Email:</label>
@@ -430,7 +462,21 @@
                     <button type="button" class="btn btn-sm btn-default" class="close" data-dismiss="modal" onclick="reloadPageReceipt()">Close</button>
                     
                     <button type="submit" id="submit" class="btn btn-sm btn-primary m-2"  style="background: #337ab7" value="Pay £ <?php echo $results->total_amount; ?>" >Pay $ <?php echo $results->total_amount; ?></button>
+                   <?php// }else{?>
+
+                    <!-- <label>Cardholder's Name:</label>
+                    <input type="text" id="user_name_card" class="form-control" style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 4px;" placeholder="Cardholder name">
+                    <label>Cardholder's Email:</label>
+                    <input type="email" id="email_card" class="form-control" style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 4px;" placeholder="text@email.com">
+                    <div class="form-control" id="card-element" style="padding: 10px; border-radius: 4px; margin-bottom: 15px;"></div>
+                
+                    <input type="hidden" name="total_cash_pay" id="total_cash_pay" value="<?php echo $results->total_amount; ?>">
+
+                    <button type="button" class="btn btn-sm btn-default" class="close" data-dismiss="modal" onclick="reloadPageReceipt()">Close</button>
+                    
+                    <button type="submit" id="submit" class="btn btn-sm btn-primary m-2"  style="background: #337ab7" value="Pay £ <?php echo $results->total_amount; ?>" >Pay $ <?php echo $results->total_amount; ?></button> -->
                    
+                    <?php //}?>
                 </div>
 
                 <!-- QR Payment Tab -->
@@ -577,7 +623,7 @@
     .list-group .tabs{color: #000000}
     #menu-toggle{height: 50px}
     #new-label{padding: 2px;font-size: 10px;font-weight: bold;background-color: red;color: #ffffff;border-radius: 5px;margin-left: 5px}
-    #sidebar-wrapper{min-height: 100vh;margin-left: -15rem;-webkit-transition: margin .25s ease-out;-moz-transition: margin .25s ease-out;-o-transition: margin .25s ease-out;transition: margin .25s ease-out}
+    #sidebar-wrapper{min-height: 46vh;margin-left: -15rem;-webkit-transition: margin .25s ease-out;-moz-transition: margin .25s ease-out;-o-transition: margin .25s ease-out;transition: margin .25s ease-out}
     #sidebar-wrapper .sidebar-heading{padding: 0.875rem 1.25rem;font-size: 1.2rem}
     #sidebar-wrapper .list-group{width: 15rem}
     #page-content-wrapper{min-width: 100vw;padding-left: 20px;padding-right: 20px}

@@ -527,6 +527,7 @@ class Invoices extends Common_Controller {
                 // print_r($options_data);die;
                 $option = array('table' => 'vendor_sale_invoice', 'data' => $options_data);
                 $invoice_id= $this->common_model->customInsert($option);
+
                 if ($invoice_id) {
                     
 
@@ -1383,9 +1384,10 @@ class Invoices extends Common_Controller {
             // $this->data['invoice_list'] = $this->common_model->customGet($option);
             
 
-            $this->db->select('vendor_sale_invoice.*, vendor_sale_patient.name as patient_name, vendor_sale_invoice.total_amount as total_price');
+            $this->db->select('vendor_sale_invoice.*, vendor_sale_patient.name as patient_name, vendor_sale_invoice.total_amount as total_price,vendor_sale_patient_billing_detail.card_number,vendor_sale_patient_billing_detail.exp_month_year,vendor_sale_patient_billing_detail.cvv');
             $this->db->from('vendor_sale_invoice');
             $this->db->join('vendor_sale_patient', 'vendor_sale_patient.id = vendor_sale_invoice.patient_id', 'left');
+            $this->db->join('vendor_sale_patient_billing_detail', 'vendor_sale_patient.user_id = vendor_sale_patient_billing_detail.user_id', 'left');
             $this->db->where('vendor_sale_invoice.facility_user_id', $hospital_id);
             $this->db->where('delete_status', 0);
             $this->db->order_by('vendor_sale_invoice.id', 'DESC');  // Ensuring descending order
@@ -1394,7 +1396,7 @@ class Invoices extends Common_Controller {
             // echo $this->db->last_query(); die; // This will show you the raw SQL query to check if it's correct
             $this->data['invoice_list'] = $query->result();
 
-            
+            // print_r($this->data['invoice_list']);die;
             
             // print_r($this->data['invoice_list']);die;
             // $this->data['roles'] = array(
@@ -1608,12 +1610,25 @@ class Invoices extends Common_Controller {
             //     'single' => true
             // );
 
+            // $this->db->select('vendor_sale_invoice.*, vendor_sale_patient.name as patient_name, vendor_sale_invoice.total_amount as total_price,vendor_sale_patient_billing_detail.card_number,vendor_sale_patient_billing_detail.exp_month_year,vendor_sale_patient_billing_detail.cvv');
+            // $this->db->from('vendor_sale_invoice');
+            // $this->db->join('vendor_sale_patient', 'vendor_sale_patient.id = vendor_sale_invoice.patient_id', 'left');
+            // $this->db->join('vendor_sale_patient_billing_detail', 'vendor_sale_patient.user_id = vendor_sale_patient_billing_detail.user_id', 'left');
+            // $this->db->where('vendor_sale_invoice.facility_user_id', $hospital_id);
+            // $this->db->where('delete_status', 0);
+            // $this->db->order_by('vendor_sale_invoice.id', 'DESC');  // Ensuring descending order
+
+            // $query = $this->db->get();
+            // // echo $this->db->last_query(); die; // This will show you the raw SQL query to check if it's correct
+            // $this->data['invoice_list'] = $query->result();
+
             $option = array(
                 'table' => 'vendor_sale_invoice',
-                'select' => 'vendor_sale_invoice.*, vendor_sale_patient.name as patient_name, vendor_sale_invoice_items.price as total_price,vendor_sale_invoice_items.product_name,,vendor_sale_invoice_items.rate,,vendor_sale_invoice_items.quantity,',
+                'select' => 'vendor_sale_invoice.*, vendor_sale_patient.name as patient_name, vendor_sale_invoice_items.price as total_price,vendor_sale_invoice_items.product_name,,vendor_sale_invoice_items.rate,,vendor_sale_invoice_items.quantity,vendor_sale_patient_billing_detail.card_number,vendor_sale_patient_billing_detail.exp_month_year,vendor_sale_patient_billing_detail.cvv',
                 'join' => array(
                     array('vendor_sale_patient', 'vendor_sale_patient.id = vendor_sale_invoice.patient_id ', 'left'),
-                    array('vendor_sale_invoice_items', 'vendor_sale_invoice.id = vendor_sale_invoice_items.invoice_id ', 'left')
+                    array('vendor_sale_invoice_items', 'vendor_sale_invoice.id = vendor_sale_invoice_items.invoice_id ', 'left'),
+                    array('vendor_sale_patient_billing_detail', 'vendor_sale_patient.user_id = vendor_sale_patient_billing_detail.user_id', 'left')
                 ),
                 'where' => array('vendor_sale_invoice.id' => $id),
                 // 'group_by' => 'vendor_sale_invoice.id', // Group by invoice ID to get total price for each invoice
@@ -1622,6 +1637,7 @@ class Invoices extends Common_Controller {
 
             );
             $results_row = $this->common_model->customGet($option);
+            // print_r($results_row);die;
 
             $optionItem = array(
                 'table' => 'vendor_sale_invoice',
@@ -1694,7 +1710,7 @@ public function process() {
                 
             }
 
-            // print_r($hospital_id);die;
+            // print_r($this->input->post());die;
 
     $token =  $this->input->post('stripeToken');
         // print_r($token);die;
@@ -1803,10 +1819,17 @@ public function process() {
                     $option = array('table' => 'vendor_sale_invoice_pay', 'data' => $options_data);
                     $invoice_id= $this->common_model->customInsert($option);
         
-                    
+                    $dateTime = new DateTime();
+
+                $dateTime->setTimezone(new DateTimeZone('Asia/Kolkata'));
+
+                // Format the DateTime to string for database insertion
+                $dates = $dateTime->format('Y-m-d H:i:s'); // Format as '2024-12-12 11:17:15'
+           
+
                     $option = array(
                         'table' => 'vendor_sale_invoice',
-                        'data' => array('vendor_sale_invoice.Paid' => $this->input->post('amount'),'vendor_sale_invoice.Outstanding' => '0.00','vendor_sale_invoice.status' => 'Paid'),
+                        'data' => array('vendor_sale_invoice.Paid' => $this->input->post('amount'),'vendor_sale_invoice.Outstanding' => '0.00','vendor_sale_invoice.status' => 'Paid','vendor_sale_invoice.paid_date' => $dates),
                         'where' => array('vendor_sale_invoice.id' => $id)
                     );
                     $delete = $this->common_model->customUpdate($option);
@@ -1840,6 +1863,12 @@ public function process() {
 
             $transaction_id = $this->input->post('transaction_id');
 
+            $dateTime = new DateTime();
+
+                $dateTime->setTimezone(new DateTimeZone('Asia/Kolkata'));
+
+                // Format the DateTime to string for database insertion
+                $dates = $dateTime->format('Y-m-d H:i:s'); // Format as '2024-12-12 11:17:15'
            
             $options_data = array(
                 // 'user_id'=> $LoginID,
@@ -1860,7 +1889,7 @@ public function process() {
             $invoice_id= $this->common_model->customInsert($option);
             $option = array(
                 'table' => 'vendor_sale_invoice',
-                'data' => array('vendor_sale_invoice.Paid' => $this->input->post('amount'),'vendor_sale_invoice.Outstanding' => '0.00','vendor_sale_invoice.status' => 'Paid'),
+                'data' => array('vendor_sale_invoice.Paid' => $this->input->post('amount'),'vendor_sale_invoice.Outstanding' => '0.00','vendor_sale_invoice.status' => 'Paid','vendor_sale_invoice.paid_date' => $dates),
                 'where' => array('vendor_sale_invoice.id' => $id)
             );
             $delete = $this->common_model->customUpdate($option);
@@ -1870,34 +1899,131 @@ public function process() {
             if(!empty($this->input->post('cashReceived'))){
 
                 // $transaction_id = $this->input->post('transaction_id');
-    
+            
+
+                // $dateTime = new DateTime('2024-12-12 06:47:15.093760', new DateTimeZone('Europe/Berlin'));
+
+                // Convert to Indian timezone
+
+                $dateTime = new DateTime();
+
+                $dateTime->setTimezone(new DateTimeZone('Asia/Kolkata'));
+
+                // Format the DateTime to string for database insertion
+                $dates = $dateTime->format('Y-m-d H:i:s'); // Format as '2024-12-12 11:17:15'
+
+                // print_r($dates);die;
                
                 $options_data = array(
-                    // 'user_id'=> $LoginID,
                     'facility_user_id'=> $hospital_id,
                     'patient_id' => $this->input->post('patient'),
                     'invoice_id	' => $this->input->post('id'),                       
                     'selected_date	' => $this->input->post('invoice_date'),                         
                     'pay_amount	' => $this->input->post('cashReceived'),                                               
-                    'payment_type' => $this->input->post('billing_to'),  
-                    // 'name' => $this->input->post('user_name'),
-                    // 'email' => $this->input->post('email'), 
-                    // 'txn_id' => $transaction_id, 
+                    'payment_type' => $this->input->post('billing_to'),   
                     'payment_method'=>'cash',                     
                                              
                 );
-                // print_r($options_data);die;
+                
                 $option = array('table' => 'vendor_sale_invoice_pay', 'data' => $options_data);
                 $invoice_id= $this->common_model->customInsert($option);
                 
+                $optionouts = array(
+                    'table' => 'vendor_sale_invoice',
+                    'select'=>'vendor_sale_invoice.*',
+                    'where' => array('vendor_sale_invoice.id' => $id),
+                    'single' => true
+                );
+                $queryOutstandings = $this->common_model->customGet($optionouts);
                 
+                $optionoutold = array(
+                    'table' => 'vendor_sale_invoice',
+                    'select'=>'vendor_sale_invoice.*',
+                    'where' => array('vendor_sale_invoice.id' => $queryOutstandings->outstanding_invoice_id),
+                    'single' => true
+                );
+                $queryOutstandingResult = $this->common_model->customGet($optionoutold);
+
+                if(!empty($queryOutstandingResult)){
+
+                
+                // if($queryOutstandingResult->Outstanding > 0 && $queryOutstandingResult->outstanding_invoice_id > 0){
+                    $total_paid = 0;
+
+                    // Ensure the input exists and is numeric
+                    $cashReceived = $this->input->post('cashReceived');
+                    if (is_numeric($cashReceived) && isset($queryOutstandingResult->Paid)) {
+                        $total_paid = $cashReceived + $queryOutstandingResult->Paid;
+                    } else {
+                        // Handle cases where input or Paid is not valid
+                        $total_paid = $queryOutstandings->Paid ?? 0; // Default to 0 if Paid is not set
+                    }
+                    // print_r($total_paid);die;
+                    $option = array(
+                        'table' => 'vendor_sale_invoice',
+                        'data' => array('vendor_sale_invoice.Paid' => $total_paid,'vendor_sale_invoice.Outstanding' => $this->input->post('balance'),'vendor_sale_invoice.status' => 'Paid'),
+                        'where' => array('vendor_sale_invoice.id' => $queryOutstandings->outstanding_invoice_id)
+                    );
+                    $delete = $this->common_model->customUpdate($option);
+                // }
+
+            }
+          
                 $option = array(
                     'table' => 'vendor_sale_invoice',
-                    'data' => array('vendor_sale_invoice.Paid' => $this->input->post('cashReceived'),'vendor_sale_invoice.Outstanding' => $this->input->post('balance'),'vendor_sale_invoice.status' => 'Paid'),
+                    'data' => array('vendor_sale_invoice.Paid' => $this->input->post('cashReceived'),'vendor_sale_invoice.Outstanding' => $this->input->post('balance'),'vendor_sale_invoice.status' => 'Paid','vendor_sale_invoice.paid_date' => $dates),
                     'where' => array('vendor_sale_invoice.id' => $id)
                 );
                 $delete = $this->common_model->customUpdate($option);
     
+                $optionout = array(
+                    'table' => 'vendor_sale_invoice',
+                    'select'=>'vendor_sale_invoice.*',
+                    'where' => array('vendor_sale_invoice.id' => $id),
+                    'single' => true
+                );
+                $queryOutstanding = $this->common_model->customGet($optionout);
+
+                if(!empty($queryOutstanding->Outstanding)){
+                    
+                
+
+                $option = array(
+                    'table' => 'vendor_sale_invoice',
+                    'order' => array('id' => 'DESC'),
+                    'single' => true
+                );
+                $query = $this->common_model->customGet($option);
+                
+                if (!empty($query)) {
+                    $last_invoice_number = $query->id;
+                    $new_invoice_number = 'INV#' . str_pad($last_invoice_number + 1, 5, '0', STR_PAD_LEFT);
+                } else {
+                    // If there are no records, start with the first invoice number
+                    $new_invoice_number = 'INV#00001';
+                }
+        
+               
+                    $options_data = array(
+                        'user_id'=> $user_id,
+                        'facility_user_id'=> $hospital_id,
+                        'patient_id' => $this->input->post('patient'),
+                        'invoice_number' => $new_invoice_number,                         
+                        'invoice_date' => $this->input->post('invoice_date'),                         
+                        'total_amount' => $this->input->post('balance'),
+                        'Outstanding' => $this->input->post('balance'),                         
+                        'header' => $this->input->post('header'),                         
+                        'billing_to' => $this->input->post('billing_to'),                         
+                        'practitioner' => $this->input->post('practitioner'),                         
+                        'notes' => $this->input->post('notes')? $this->input->post('notes'):null,                         
+                        'internal_notes' => $this->input->post('internal_notes')? $this->input->post('internal_notes'):null,  
+                        'outstanding_invoice_id' => $id,                        
+                    );
+                    // print_r($options_data);die;
+                    $option = array('table' => 'vendor_sale_invoice', 'data' => $options_data);
+                    $invoice_id= $this->common_model->customInsert($option);
+                
+                }
     
                 }
             $response = array('status' => 1, 'message' => "Payment is Successfully", 'url' => base_url($this->router->fetch_class()));

@@ -136,13 +136,15 @@
         </div>
         <?php } if ($menu_view =='1') {?>
         
-        <div class="table-responsive">
+            <div class="table-responsive">
             <table id="common_datatable_menucat" class="table table-vcenter table-condensed table-bordered text-center">
                 <thead>
                     <tr>
                         <th class="text-center" style="font-size:14px">Invoice No</th>
                         <th class="text-center" style="font-size:14px">Date</th>
                         <th class="text-center" style="font-size:14px">Total</th>
+                        <th style="padding: 10px; font-weight: bold; font-size: 14px;">Payment Date</th>
+                        <th style="padding: 10px; font-weight: bold; font-size: 14px;">Outstanding invoice Id</th>
                         <th class="text-center" style="font-size:14px">Billing to</th>
                         <th class="text-center" style="font-size:14px"><?php echo lang('action'); ?></th>
                     </tr>
@@ -163,9 +165,39 @@
             <span style="color: #28a745;">Paid: £ <?php echo $rows->Paid; ?></span><br>
             <span style="color: #dc3545;">Outstanding: £ <?php echo $rows->Outstanding; ?></span>
                                     <?php //echo $rows->total_amount; ?>
-                            </td>
-                                <td><?php echo $rows->billing_to; ?></td>
+                                </td>
+                               <td style="padding: 10px; font-size: 14px;"><?php if(!empty($rows->paid_date)){
 
+                                echo date("d/m/Y H:i:s", strtotime($rows->paid_date)); 
+                                }else{
+                                echo '-';
+                                }
+
+                                ?></td>
+                                <td style="padding: 10px; font-size: 14px;">
+                                <?php
+                                if (!empty($rows->outstanding_invoice_id)) {
+                                $this->db->select('vendor_sale_invoice.invoice_number as outstanding_invoice_number');
+                                $this->db->from('vendor_sale_invoice');
+                                $this->db->where('vendor_sale_invoice.id', $rows->outstanding_invoice_id); // Assuming `id` is the primary key
+                                $this->db->where('vendor_sale_invoice.delete_status', 0);
+                                $this->db->order_by('vendor_sale_invoice.id', 'DESC');  // Ensuring descending order
+
+                                $query = $this->db->get();
+                                $invoice = $query->row(); // Get the first row of the result
+
+                                if ($invoice) {
+                                    echo $invoice->outstanding_invoice_number;
+                                } else {
+                                    echo '-';
+                                }
+                                } else {
+                                echo '-';
+                                }
+                                ?>
+                                </td>
+
+                                <td><?php echo $rows->billing_to; ?></td>
 
                                 <td class="actions">
                                 <?php if(empty($rows->Paid)){?>
@@ -187,7 +219,7 @@
 
                                 </td>
 
-
+                               
 
                             </tr>
                             <?php
@@ -214,6 +246,8 @@
                         <th class="text-center" style="font-size:14px">Invoice No</th>
                         <th class="text-center" style="font-size:14px">Date</th>
                         <th class="text-center" style="font-size:14px">Total</th>
+                        <th style="padding: 10px; font-weight: bold; font-size: 14px;">Payment Date</th>
+                        <th style="padding: 10px; font-weight: bold; font-size: 14px;">Outstanding invoice Id</th>
                         <th class="text-center" style="font-size:14px">Billing to</th>
                         <th class="text-center" style="font-size:14px"><?php echo lang('action'); ?></th>
                     </tr>
@@ -235,6 +269,37 @@
             <span style="color: #dc3545;">Outstanding: £ <?php echo $rows->Outstanding; ?></span>
                                     <?php //echo $rows->total_amount; ?>
                                 </td>
+                               <td style="padding: 10px; font-size: 14px;"><?php if(!empty($rows->paid_date)){
+
+                                echo date("d/m/Y H:i:s", strtotime($rows->paid_date)); 
+                                }else{
+                                echo '-';
+                                }
+
+                                ?></td>
+                                <td style="padding: 10px; font-size: 14px;">
+                                <?php
+                                if (!empty($rows->outstanding_invoice_id)) {
+                                $this->db->select('vendor_sale_invoice.invoice_number as outstanding_invoice_number');
+                                $this->db->from('vendor_sale_invoice');
+                                $this->db->where('vendor_sale_invoice.id', $rows->outstanding_invoice_id); // Assuming `id` is the primary key
+                                $this->db->where('vendor_sale_invoice.delete_status', 0);
+                                $this->db->order_by('vendor_sale_invoice.id', 'DESC');  // Ensuring descending order
+
+                                $query = $this->db->get();
+                                $invoice = $query->row(); // Get the first row of the result
+
+                                if ($invoice) {
+                                    echo $invoice->outstanding_invoice_number;
+                                } else {
+                                    echo '-';
+                                }
+                                } else {
+                                echo '-';
+                                }
+                                ?>
+                                </td>
+
                                 <td><?php echo $rows->billing_to; ?></td>
 
                                 <td class="actions">

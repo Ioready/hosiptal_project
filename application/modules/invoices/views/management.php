@@ -623,8 +623,10 @@
     <tr  style="background-color: #f8f9fa; text-align: center; ">
         <th style="padding: 10px; font-weight: bold; font-size: 14px;">Invoice</th>
         <th style="padding: 10px; font-weight: bold; font-size: 14px;">Patient</th>
-        <th style="padding: 10px; font-weight: bold; font-size: 14px;">Total</th>
         <th style="padding: 10px; font-weight: bold; font-size: 14px;">Invoice Date</th>
+        <th style="padding: 10px; font-weight: bold; font-size: 14px;">Total</th>
+        <th style="padding: 10px; font-weight: bold; font-size: 14px;">Payment Date</th>
+        <th style="padding: 10px; font-weight: bold; font-size: 14px;">Outstanding invoice Id</th>
         <th style="padding: 10px; font-weight: bold; font-size: 14px;">Action</th>
     </tr>
 </thead>
@@ -637,6 +639,8 @@
 
     <!-- Patient Name -->
     <td style="padding: 10px; font-size: 14px;"><?php echo $row->patient_name; ?></td>
+    <td style="padding: 10px; font-size: 14px;"><?php echo date("d/m/Y", strtotime($row->invoice_date)); ?></td>
+
 
     <!-- Invoice Status (Total, Paid, Outstanding) -->
     <td style="padding: 10px; font-size: 14px;">
@@ -648,7 +652,37 @@
     </td>
 
     <!-- Invoice Date -->
-    <td style="padding: 10px; font-size: 14px;"><?php echo date("d/m/Y", strtotime($row->invoice_date)); ?></td>
+    <td style="padding: 10px; font-size: 14px;"><?php if(!empty($row->paid_date)){
+
+     echo date("d/m/Y H:i:s", strtotime($row->paid_date)); 
+    }else{
+        echo '-';
+    }
+     
+     ?></td>
+      <td style="padding: 10px; font-size: 14px;">
+    <?php
+    if (!empty($row->outstanding_invoice_id)) {
+        $this->db->select('vendor_sale_invoice.invoice_number as outstanding_invoice_number');
+        $this->db->from('vendor_sale_invoice');
+        $this->db->where('vendor_sale_invoice.id', $row->outstanding_invoice_id); // Assuming `id` is the primary key
+        $this->db->where('vendor_sale_invoice.delete_status', 0);
+        $this->db->order_by('vendor_sale_invoice.id', 'DESC');  // Ensuring descending order
+
+        $query = $this->db->get();
+        $invoice = $query->row(); // Get the first row of the result
+
+        if ($invoice) {
+            echo $invoice->outstanding_invoice_number;
+        } else {
+            echo '-';
+        }
+    } else {
+        echo '-';
+    }
+    ?>
+</td>
+
 
     <!-- Action Buttons -->
     <td style="padding: 10px; text-align: center;">

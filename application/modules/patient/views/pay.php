@@ -183,7 +183,7 @@
                
             <div class="modal-header text-center">
                     <button type="button" class="close" data-dismiss="modal" onclick="reloadPageReceipt()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h2 class="modal-title"><?php echo "Add Payment on account" ?></h2>
+                    <h2 class="modal-title" style="font-size: 20px; font-weight: bold; color: #007bff; margin: 0;"> <?php echo "Payment on account" ?></h2>
                     <h4 style="margin-left: 233px;"><span><strong><?php echo $results->invoice_number;?></strong></span></h2>
                 </div>
                 <div class="modal-body">
@@ -274,7 +274,7 @@
                          </div>
 
 
-                         <div class="card card0" style="border: 1px solid #ddd; border-radius: 8px; padding: 20px; height:300px; overflow-y:auto">
+                         <div class="card card0" style="border: 1px solid #ddd; border-radius: 8px; padding: 20px; overflow-y:auto">
     <div style="display: flex;" id="wrapper">
 
 
@@ -354,39 +354,41 @@
                                                 <div class="row justify-content-center">
                                                     <div class="col-11">
                                                         <div class="form-card">
-                                                            <h3 class="mt-0 mb-4 text-center">Enter Cash details to pay</h3>
+                                                            <h4 class="mt-0 mb-4 text-center">Enter Cash details to pay</h4>
                                                             
 
                                                         <div class="row">
-                                                       
-                                                            <!-- Total Amount -->
-                                                            <div class="form-group">
+                                                            <div class="col-md-6">
                                                                 <label for="totalAmount">Total Amount</label>
                                                                 <input type="number" class="form-control" id="totalAmount" name="totalAmount" placeholder="Enter total amount" readonly value="<?php echo $results->total_amount; ?>">
                                                             </div>
-
-                                                            <!-- Cash Received -->
-                                                            <div class="form-group">
+                                                           
+                                                            <div class="col-md-6">
                                                                 <label for="cashReceived">Cash Received</label>
                                                                 <input type="number" class="form-control" id="cashReceived" name="cashReceived" placeholder="Enter cash received" oninput="updateTotals()">
                                                             </div>
-
-                                                            <!-- Total Paid -->
-                                                            <div class="form-group">
+                                                        </div>
+                                                        <div class="row">
+                                                            
+                                                         
+                                                            <div class="col-md-6">
                                                                 <label for="totalPaid">Total Paid</label>
                                                                 <input type="number" class="form-control" id="totalPaid" name="totalPaid" readonly>
                                                             </div>
-
-                                                            <!-- Balance -->
-                                                            <div class="form-group">
+                                                            
+                                                            <div class="col-md-6">
                                                                 <label for="balance">Balance</label>
                                                                 <input type="number" class="form-control" id="balance" name="balance" readonly>
                                                             </div>
-
+                                                        </div>
+                                                           
+                                                        <div class="row">
+                                                        <div class="col-md-6">
                                                             <button type="submit" id="submit" class="btn btn-sm btn-primary m-2" style="background: #337ab7">
                                                                 Pay £ <input type="hidden" name="total_cash_pay" id="total_cash_pay"><span id="totalPayAmount">0</span>
                                                             </button>
                                                        
+                                                    </div>
                                                     </div>
 
                                                     <script>
@@ -399,10 +401,6 @@
 
                                                             // Calculate Balance
                                                             const balance = totalAmount - totalPaid;
-
-                                                            // Update fields
-                                                            // document.getElementById('totalPaid').value = totalPaid.toFixed(2);
-                                                            // document.getElementById('balance').value = balance.toFixed(2);
 
                                                             document.getElementById('totalPaid').value = totalPaid.toFixed(2);
                                                             document.getElementById('balance').value = balance;
@@ -449,40 +447,53 @@
                                                         </div> -->
 
                                                         <div class="form-card">
-                                                            <h3 class="mt-0 mb-4 text-center">Enter bank details to pay</h3>
+                                                            <h4 class="mt-0 mb-4 text-center">Enter bank details to pay</h4>
+                                                    <div class="row"> 
+                                                        <div class="col-md-6">
                                                             <span>Cardholder's name:</span>
-                                                                <input 
-                                                                    type="text" name="user_name" id="user_name"
-                                                                    class="form-control mb-3" 
-                                                                    placeholder="Cardholder name" 
-                                                                    
-                                                                    title="Name should contain only letters and spaces" 
-                                                                    >
+                                                                <input type="text" name="user_name" id="user_name" class="form-control mb-3" 
+                                                                    placeholder="Cardholder name"  title="Name should contain only letters and spaces">
 
+                                                                    </div> 
+                                                                <div class="col-md-6">
                                                                     <span>Cardholder's Email:</span>
-                                                                <input 
-                                                                    type="email" name="email" id="email"
+                                                                <input type="email" name="email" id="email"
                                                                     class="form-control mb-3" 
                                                                     placeholder="text@email" 
                                                                     
                                                                     title="Name should contain only letters and spaces" 
                                                                     >
                                                                 <br>
+                                                                </div>
+                                                    </div>
+                                                        <div class="row"> 
 
-                                                        <label>Transaction ID:</label><input type="text" name="transaction_id" id="transaction_id" placeholder="Transaction ID">
+                                                                <div class="col-md-6">
+
+                                                        <label>Transaction ID:</label>
+                                                        <input type="text" name="transaction_id" id="transaction_id" placeholder="Transaction ID">
+                                                        </div>
+                                                        <div class="col-md-6">
                                                         <!-- <input type="text" name="bank_name" placeholder="BBB Bank"> -->
                                                         <!-- <input type="text" name="beneficiary_name" placeholder="John Smith"> -->
                                                         <!-- <input type="text" name="account_number" placeholder="123456789"> -->
                                                         <!-- <input type="text" name="swift_code" placeholder="ABCDAB1S"> -->
                                                         <label>Upload PDF Receipt:</label> <input type="file" name="receipt_pdf" accept=".pdf">
+                                                    </div>
+                                                    
+                                                    <!-- <div class="col-md-6">
                                                         <label>Upload PNG Receipt:</label> <input type="file" name="receipt_png" accept=".png">
 
                                                         <input type="hidden" name="total_cash_pay" id="total_cash_pay" value="<?php echo $results->total_amount; ?>">
-
+                                                    </div> -->
+                                                    </div>
+                                                    <div class="row"> 
+                                                    <div class="col-md-6">
                     <button type="button" class="btn btn-sm btn-default" class="close" data-dismiss="modal" onclick="reloadPageReceipt()">Close</button>
                     
                     <button type="submit" id="submit" class="btn btn-sm btn-primary m-2"  style="background: #337ab7" value="Pay £ <?php echo $results->total_amount; ?>" >Pay $ <?php echo $results->total_amount; ?></button>
-                   
+                                                    </div>
+                                                    </div>
                                                     </div>
                                                     </div>
                                                 </div>
@@ -492,7 +503,7 @@
                                                     <div class="col-11">
                                                         
                                                         <div class="form-card">
-                                                            <h3 class="mt-0 mb-4 text-center">Enter your card details to pay</h3>
+                                                            <h4 class="mt-0 mb-4 text-center">Enter your card details to pay</h4>
                                                            
                                                                 <span>Cardholder's name:</span>
                                                                 <input 
@@ -529,7 +540,7 @@
                                             <div id="menu3" class="tab-pane">
                                                 <div class="row justify-content-center">
                                                     <div class="col-11">
-                                                        <h3 class="mt-0 mb-4 text-center">Scan the QR code to pay</h3>
+                                                        <h4 class="mt-0 mb-4 text-center">Scan the QR code to pay</h4>
                                                         <div class="row justify-content-center" style="width: 200px;">
                                                             <!-- Display the QR Code Image -->
                                                             <?php if (!empty($qr_code_url)): ?>
@@ -729,7 +740,7 @@
     .list-group .tabs{color: #000000}
     #menu-toggle{height: 50px}
     #new-label{padding: 2px;font-size: 10px;font-weight: bold;background-color: red;color: #ffffff;border-radius: 5px;margin-left: 5px}
-    #sidebar-wrapper{min-height: 100vh;margin-left: -15rem;-webkit-transition: margin .25s ease-out;-moz-transition: margin .25s ease-out;-o-transition: margin .25s ease-out;transition: margin .25s ease-out}
+    #sidebar-wrapper{min-height: 46vh;margin-left: -15rem;-webkit-transition: margin .25s ease-out;-moz-transition: margin .25s ease-out;-o-transition: margin .25s ease-out;transition: margin .25s ease-out}
     #sidebar-wrapper .sidebar-heading{padding: 0.875rem 1.25rem;font-size: 1.2rem}
     #sidebar-wrapper .list-group{width: 15rem}
     #page-content-wrapper{min-width: 100vw;padding-left: 20px;padding-right: 20px}
