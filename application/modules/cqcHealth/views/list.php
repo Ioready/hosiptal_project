@@ -82,7 +82,10 @@ display:none;
         </li>
         <li>
             <a href="<?php echo site_url($parent); ?>"><?php echo 'Risk Management Dashboard'; ?></a>
-        </li>
+        </li> 
+        <div>
+            <h2><strong style="color:red">Coming soon</strong></h2>
+        </div>
     </ul>
     <!-- Datatables Content -->
     <div class="block full">
