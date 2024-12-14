@@ -406,27 +406,26 @@
                 <div id="menu1" class="tab-pane">
                     <h3 style="text-align: center; margin-bottom: 20px;">Enter bank details to pay</h3>
                     <div class="row">
-                    <div class="col-md-12">
-                    <label for="input1">Hospital Bank Details</label>
-                        <div class="form-group">
-                                                            
-                    <textarea name="bank_details" rows="28" cols="120" id="editorss" style="font-size: small; height: 120px; border-color: cyan;" placeholder="    Bank: Bank of America
+                    <div class="col-md-12" style="">
+                    <label for="input1">Hospital Bank Details</label><br>
+                                                         
+                    <span name="bank_details"  id="editorss" style="white-space: pre-line; font-size: small; height: 120px; border-color: cyan;" placeholder="    Bank: Bank of America
     Bank Holder Name: Hospital management
     Account Number: 0123456789
     IFSC Code: ABC123
-    Swift Code: 123456"><?php echo $bank_setting->bank_details?></textarea>
+    Swift Code: 123456"><?php echo $bank_setting->bank_details?></span>
                                                            
+                            
                             </div>
-                            </div>
-                            </div>
+                            </div><br><br>
 
                     <div class="row">
                         <div class="col-md-6">
-                    <label>Cardholder's Name:</label>
+                    <label>Bank holder's Name:</label>
                     <input type="text" id="user_name" class="form-control" style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 4px;" placeholder="Cardholder name">
                         </div>
                         <div class="col-md-6">
-                    <label>Cardholder's Email:</label>
+                    <label>Bank holder's Email:</label>
                     <input type="email" id="email" class="form-control" style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 4px;" placeholder="text@email.com">
                     </div>
                      </div>
@@ -438,19 +437,13 @@
                         </div>
                         <div class="col-md-6">
 
-                    <label>Upload PDF Receipt:</label>
+                    <label>Upload Receipt:</label>
                     <input type="file" accept=".pdf" style="width: 100%; padding: 5px; margin-bottom: 15px;">
                     </div>
-                        </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                    <label>Upload PNG Receipt:</label>
-                    <input type="file" accept=".png" style="width: 100%; padding: 5px;">
-
-                    <input type="hidden" name="total_cash_pay" id="total_cash_pay" value="<?php echo $results->total_amount; ?>">
                     </div>
-                        </div>
+                   
                     <div class="row">
+                    <input type="hidden" name="total_cash_pay" id="total_cash_pay" value="<?php echo $results->total_amount; ?>">
                         <div class="col-md-12">
                     <button type="button" class="btn btn-sm btn-default" class="close" data-dismiss="modal" onclick="reloadPageReceipt()">Close</button>
                     

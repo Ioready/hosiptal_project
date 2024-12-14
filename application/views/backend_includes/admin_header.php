@@ -620,9 +620,9 @@ hh
                                     <a href="<?php echo site_url('tasks'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "tasks") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/tasks.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Tasks</span></a>
                                 </li>
 
-                                <li title="Attributes">
+                                <!-- <li title="Attributes">
                                 <a href="<?php echo site_url('attributes'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "attributes") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/labs.svg" height="23px" width="23px"><span class="sidebar-nav-mini-hide text-dark">Attributes</span></a>
-                                </li>
+                                </li> -->
                                 <!-- <li title="Appointment Type">
                                  <a href="<?php echo site_url('appointmentType'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "appointmentType") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/labs.svg" height="23px" width="23px"><span class="sidebar-nav-mini-hide text-dark">Appointment Type</span></a>
                                 </li> -->

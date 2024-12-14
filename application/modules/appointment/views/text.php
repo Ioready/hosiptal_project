@@ -452,7 +452,7 @@ tbody {
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h4 class="modal-title"> Appointments</h4>
-                                <button type="button" class="close" data-dismiss="modal" style="position: absolute; top: 25px; right: 25px; font-size: 24px;">
+                                <button type="button" class="close" data-dismiss="modal" style="position: absolute; top: 25px; right: 25px; font-size: 24px;" onclick="reloadPageReceipt()">
                                     <span aria-hidden="true">&times;</span>
                                     <span class="sr-only">Close</span>
                                 </button>
@@ -2181,28 +2181,44 @@ input {
                                         <h3 class="modal-title"><strong> Relationships and emergency contacts</strong></h3>
                                     </div> -->
                                     <div class="modal-header text-center">
-        <div class="col-md-12">
-            <div class="vender_title_admin">
-                <h3><strong>Relationships and emergency contacts</strong></h3>
-            </div>
-        </div>
-    </div>
-                
-                                    <div class="col-md-12" >
-                                        <div class="form-group">
-                                        <div class="col-md-12">
-                                                <table>
-                                                    
-                                                </table>
-                                            </div>
-                                            
-                                            <div class="col-md-12">
-                                               
-                                                <button class="save-btn" type="button" style="border:#b4bdb4" data-toggle="modal" data-target="#myModal" >Add New Relationship</button>
-                                                
-                                            </div>
-                
+                                        <div class="col-md-12" style="padding-top: 0px;">
+                                            <!-- <div class="vender_title_admin"> -->
+                                                <h3><strong>Relationships and emergency contacts</strong></h3>
+                                            <!-- </div> -->
                                         </div>
+                                    </div>
+                
+                                    <div class="col-md-4" >
+                                        <!-- HTML !-->
+                                         <br>
+
+                                            <style>
+                                            /* CSS */
+                                            .button-43 {
+                                            background-image: linear-gradient(-180deg, #37AEE2 0%, #1E96C8 100%);
+                                            border-radius: .5rem;
+                                            box-sizing: border-box;
+                                            color: #FFFFFF;
+                                            display: flex;
+                                            font-size: 16px;
+                                            justify-content: center;
+                                            padding: 1rem 1.75rem;
+                                            text-decoration: none;
+                                            width: 100%;
+                                            border: 0;
+                                            cursor: pointer;
+                                            user-select: none;
+                                            -webkit-user-select: none;
+                                            touch-action: manipulation;
+                                            }
+
+                                            .button-43:hover {
+                                            background-image: linear-gradient(-180deg, #1D95C9 0%, #17759C 100%);
+                                            }
+
+
+                                            </style>
+                                        <button class="button-43" type="button" data-toggle="modal" data-target="#myModal" ><h4> Add New Relationship</h4></button>
                                     </div>
                 
                 
@@ -2545,14 +2561,14 @@ input {
 
                             </div>
                         </div>
-                        <div class="modal-header text-center"></div>
+                        <!-- <div class="modal-header text-center"></div> -->
                         <div class="modal-header text-center">
-                        <div class="col-md-12">
-                            <div class="" style="padding-top: 0px;">
-                                <h3><strong>Initial</strong></h3>
+                            <div class="col-md-12">
+                                <div class="" style="padding-top: 0px;">
+                                    <h3><strong>Initial</strong></h3>
+                                </div>
                             </div>
                         </div>
-                    </div>
                 
                                             <div class="col-md-6">
                                                 <div class="form-group">
@@ -2681,7 +2697,14 @@ input {
                                             </iframe>
                                             <!-- <iframe src='http://localhost/IDCARE/aj.pdf' id='myFrame' frameborder='0' style='border:0;' width='300' height='300' hidden>
                                             </iframe> -->
-                                            <div class="modal-header text-center"></div>
+                                            <div class="modal-header text-center">
+                                                <div class="col-md-12">
+                                                    <div class="" style="padding-top: 0px;">
+                                                        <h3><strong>MD Steward Recommendation </strong></h3>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="modal-header text-center"></div> -->
                                             <!--   <div class="col-md-12">
                                                 <div class="vender_title_admin">
                                                     <h3>MD Steward Recommendation</h3>
@@ -3828,6 +3851,13 @@ document.getElementById("change_value").style.display = "none";
             // if (confirm("Are you sure you want to reload the page?")) {
                 location.reload(); // Reloads the page
             // }
+        }
+    </script>
+
+<script>
+    
+        function reloadPageReceipt(){
+            location.reload();
         }
     </script>
 
