@@ -2,7 +2,7 @@
     var urls = "<?php echo base_url() ?>";
     /* window.setTimeout(function () {
      bootbox.hideAll();
-     }, 2000);*/
+     }, 2000);
 
     /** start script in application **/
 

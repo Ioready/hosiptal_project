@@ -222,8 +222,8 @@ button.btn-danger:hover {
                                     <select id="careUnit" name="careUnit" class="form-control select-2" onchange="getAntibioticByCareUnit(this.value)">
                                         <option value="">Select Care Unit</option>
                                          <?php
-                                                if (isset($care_unit) && !empty($careUnit)) {
-                                                    foreach ($careUnit as $row) {
+                                                if (isset($care_unit) && !empty($care_unit)) {
+                                                    foreach ($care_unit as $row) {
                                                         $select = "";
                                                         if (isset($careUnitID)) {
                                                             if ($careUnitID == $row->id) {
@@ -236,35 +236,7 @@ button.btn-danger:hover {
                                                     }
                                                 }
                                     ?>
-                                        <?php
-                                        if (!empty($careUnitsUser)) {
-
-
-                                            if (!empty($careUnitsUser)) {
-                                                foreach ($careUnitsUser as $row) {
-
-                                                    //print_r($row);die;
-                                                    $select = "";
-                                                    if (isset($careUnitID)) {
-                                                        if ($careUnitID == $row->id) {
-                                                            $select = "selected";
-                                                        }
-                                                    }
-                                        ?>
-                                                    <option value="<?php echo $row->id; ?>" <?php echo $select; ?>><?php echo $row->name; ?></option>
-                                                <?php
-                                                }
-                                            }
-                                        } else {
-
-
-
-
-                                            foreach ($care_unit as $category) { ?>
-
-                                                <option value="<?php echo $category->id; ?>"><?php echo $category->name; ?></option>
-                                        <?php }
-                                        } ?>
+                                        
                                     </select>
                                 </div>
 
@@ -328,7 +300,9 @@ button.btn-danger:hover {
                                                         <div data-toggle="collapse" data-target="#collapseOne6">
                                                             <div data-toggle="collapse" data-target="#collapseOne7" >
                                                                 <div data-toggle="collapse" data-target="#collapseOne8"  class="">
-                                                                    <button type="button " style="color:white;" data-toggle="tooltip" data-placement="bottom" class="form-control btn btn-success text-truncate" onclick="setTimeout(downloadPDF23,1000)">Download Monthly reports</button>
+                                                                    <!-- <button type="button " style="color:white;" data-toggle="tooltip" data-placement="bottom" class="form-control btn btn-success text-truncate" onclick="setTimeout(downloadPDF23,1000)">Download Monthly reports</button> -->
+                                                                    <!-- <button type="button " style="color:white;" data-toggle="tooltip" data-placement="bottom" class="form-control btn btn-success text-truncate" onclick="downloadPDF2('canvas21','canvas30','canvas43','canvas42','canvas32','canvas33','canvas49','canvas34','canvas35','canvas37','canvas38','canvas46','canvas47','canvas44','canvas45','Total Antibiotic Days by Provider'),3000)">Download Monthly reports</button> -->
+                                                               
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -338,6 +312,7 @@ button.btn-danger:hover {
                                         </div>
                                     </div>
                                 </div>
+                                
                                 <div class="col-12 col-lg-2 col-md-6 mb-3 mb-lg-0  ajay1-btn" >
                                     <button type="button"  class="btn btn-sm btn-danger  fw-bold"  onclick="un_days()"><i class="fa fa-undo"></i> Reset</button>
                                 </div>
@@ -347,15 +322,15 @@ button.btn-danger:hover {
                                    
                             <div class="panel-body panel-bodyy">
                                 <!-- col-sm-12 col-md-6 col-lg-2 -->
-                                <!-- <div class="col-sm-12 col-lg-3">
+                                <div class="col-sm-12 col-lg-3">
                                 <input type="text" class="form-control" name="fromdate" id="date1" placeholder="From Date" onchange="getReports()" />
                             </div>
 
                             <div class="col-sm-12 col-lg-3">
                                 <input type="text" class="form-control" name="todate" id="date2" placeholder="To Date" onchange="getReports()" />
-                            </div> -->
+                            </div>
                             <div class="row">
-                                <div class="col-12 col-lg-2 col-md-6 mb-3 mb-lg-0">
+                                <div class="col-12 col-lg-3 col-md-6 mb-3 mb-lg-0">
                                     <select id="date_of_start_abx2" name="date_of_start_abx2" class="form-control select-2" onchange="getAntibioticByCareUnit(this.value)">
                                         <option value="">Select Quarter/Year</option>
                                         <!-- <?php
@@ -379,7 +354,7 @@ button.btn-danger:hover {
                                     </select>
                                 </div>
 
-                                <div class="col-12 col-lg-2 col-md-6 mb-3 mb-lg-0">
+                                <div class="col-12 col-lg-3 col-md-6 mb-3 mb-lg-0">
                                     <select id="date_of_start_abx3" name="date_of_start_abx3" class="form-control select-2" onchange="getAntibioticByCareUnit(this.value)">
                                         <option value="">Select Year</option>
                                         <!-- <?php
@@ -391,13 +366,23 @@ button.btn-danger:hover {
                                                     }
                                                 }
                                     ?> -->
-                                        <option value="2023">2023</option>
-                                        <option value="2022">2022</option>
-                                        <option value="2021">2021</option>
+                                        <?php
+                                            // Get the current year
+                                            $current_year = date("Y");
+
+                                            // // Loop through years from 10 years ago to 10 years in the future
+                                            for ($i = $current_year - 40; $i <= $current_year + 6; $i++) {
+                                                // Check if the current iteration is the current year
+                                                $selected = ($i == $current_year) ? 'selected' : '';
+
+                                                // Output each year as an option
+                                                echo "<option value='$i' $selected>$i</option>";
+                                            }
+                                            ?>
                                     </select>
                                 </div>
                                 <!-- col-sm-12 col-md-6 col-lg-3 ajay1 -->
-                                <div class="col-12 col-lg-2 col-md-6 mb-3 mb-lg-0 ajay1">
+                                <div class="col-12 col-lg-3 col-md-6 mb-3 mb-lg-0 ajay1">
                                     <div class="">
                                         <div data-toggle="collapse" data-target="#collapseOne">
                                             <div data-toggle="collapse" data-target="#collapseOne2">
@@ -406,7 +391,7 @@ button.btn-danger:hover {
                                                         <div data-toggle="collapse" data-target="#collapseOne6">
                                                             <div data-toggle="collapse" data-target="#collapseOne7">
                                                                 <div data-toggle="collapse" data-target="#collapseOne8" class="">
-                                                                    <button style="color:white;padding-right:18px" type="button" data-toggle="tooltip" data-placement="bottom" class="form-control btn btn-success text-truncate" onclick="setTimeout(downloadPDF22,1000)"> Download Quarterly/Yearly reports </button>
+                                                                    <!-- <button style="color:white;padding-right:18px" type="button" data-toggle="tooltip" data-placement="bottom" class="form-control btn btn-success text-truncate" onclick="setTimeout(downloadPDF22,1000)"> Download Quarterly/Yearly reports </button> -->
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -417,7 +402,7 @@ button.btn-danger:hover {
                                     </div>
                                 </div>
 
-                                <div class="col-12 col-lg-2 col-md-6 mb-3 mb-lg-0 ajay1" style="padding-left:10px;">
+                                <div class="col-12 col-lg-3 col-md-6 mb-3 mb-lg-0 ajay1" style="padding-left:10px;">
                                     <button type="button" id="moreFilters"  class="btn btn-md btn-primary  fw-bold" style="background:#337ab7;" onclick="toggleFilterOptions()" value="More filters">More filters</button>
                                 </div>
                                             </div>
@@ -916,14 +901,14 @@ button.btn-danger:hover {
                                 </div>
 
                                 <div class="col-lg-12 col-sm-12">
-                                    <h5><strong>Total Antibiotic Dollars on Therapy vs. Steward Dollars on Therapy<button type="button" onclick="downloadPDF46('canvas46','Total Antibiotic Dollars on Therapy vs. Steward Dollars on Therapy')"> Export </button></strong></h5>
+                                    <h5><strong>Total Antibiotic <?php echo $tax_currency->tax_name;?> on Therapy vs. Steward <?php echo $tax_currency->tax_name;?> on Therapy<button type="button" onclick="downloadPDF46('canvas46','Total Antibiotic <?php echo $tax_currency->tax_name;?> on Therapy vs. Steward <?php echo $tax_currency->tax_name;?> on Therapy')"> Export </button></strong></h5>
                                     <div id='Graph-chart46' style="min-width:250px; min-height: 320px;">
                                         <canvas id="canvas46"></canvas>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-12 col-sm-12">
-                                    <h5><strong>Total Dollars Saved<button type="button" onclick="downloadPDF47('canvas47','Total Dollars Saved')"> Export </button></strong></h5>
+                                    <h5><strong>Total <?php echo $tax_currency->tax_name;?> Saved<button type="button" onclick="downloadPDF47('canvas47','Total <?php echo $tax_currency->tax_name;?> Saved')"> Export </button></strong></h5>
                                     <div id='Graph-chart47' style="min-width:250px; min-height: 320px;">
                                         <canvas id="canvas47"></canvas>
                                     </div>
@@ -937,7 +922,7 @@ button.btn-danger:hover {
                                 </div>
 
                                 <div class="col-lg-12 col-sm-12">
-                                    <h5><strong>Antibiotic Dollars on Therapy: Provider vs. Steward<button type="button" onclick="downloadPDF45('canvas45','Antibiotic Dollars on Therapy:  Provider vs. Steward')"> Export </button></strong></h5>
+                                    <h5><strong>Antibiotic <?php echo $tax_currency->tax_name;?> on Therapy: Provider vs. Steward<button type="button" onclick="downloadPDF45('canvas45','Antibiotic <?php echo $tax_currency->tax_name;?> on Therapy:  Provider vs. Steward')"> Export </button></strong></h5>
                                     <div id='Graph-chart45' style="min-width:250px; min-height: 750px;">
                                         <canvas id="canvas45"></canvas>
                                     </div>

@@ -685,7 +685,9 @@ class Setting extends Common_Controller {
         }
 
         $this->session->set_flashdata('success', "Successfully added");
-        redirect('reports');
+
+        redirect('reportsSummary');
+        // redirect('reports');
     }
 
     public function un_days() {

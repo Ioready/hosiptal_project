@@ -21,7 +21,52 @@ class ReportsSummary extends Common_Controller {
             //$this->session->set_flashdata('message', 'Your session has been expired');
             redirect('pwfpanel/login', 'refresh');
         } else {
-            if ($this->ion_auth->is_admin() || $this->ion_auth->is_subAdmin() || $this->ion_auth->is_user()  || $this->ion_auth->is_all_roleslogin()) {
+            if ($this->ion_auth->is_admin() || $this->ion_auth->is_subAdmin() || $this->ion_auth->is_user()  || $this->ion_auth->is_all_roleslogin() || $this->ion_auth->is_facilityManager()) {
+
+
+                if ($this->ion_auth->is_facilityManager()) {
+                    $user_id = $this->session->userdata('user_id');
+                $hospital_id = $user_id;
+                $group_name ='';
+                $optionData = array(
+                    'table' => 'vendor_sale_tax_setting',
+                    'select' => 'vendor_sale_tax_setting.*',
+                    'where' => array('vendor_sale_tax_setting.hospital_id'=>$hospital_id),
+                    'single'=>true,
+                );
+        
+                $this->data['tax_currency'] =  $this->common_model->customGet($optionData);
+// print_r($this->data['tax_currency']);die;
+                
+                } else if($this->ion_auth->is_all_roleslogin()) {
+                    $user_id = $this->session->userdata('user_id');
+                    $optionData = array(
+                        'table' => USERS . ' as user',
+                        'select' => 'user.*,group.name as group_name',
+                        'join' => array(
+                            array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                            array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                        ),
+                        'order' => array('user.id' => 'DESC'),
+                        'where' => array('user.id'=>$user_id),
+                        'single'=>true,
+                    );
+            
+                    $authUser = $this->common_model->customGet($optionData);
+                    $group_name =$authUser->group_name;
+                    $hospital_id = $authUser->hospital_id;
+
+                    $optionData = array(
+                        'table' => 'vendor_sale_tax_setting',
+                        'select' => 'vendor_sale_tax_setting.*',
+                        'where' => array('vendor_sale_tax_setting.hospital_id'=>$hospital_id),
+                        'single'=>true,
+                    );
+            
+                    $this->data['tax_currency'] = $this->common_model->customGet($optionData);
+                    
+                }
+
 
                 $option = array('table' => USERS . ' as user',
                     'select' => 'user.*,group.name as group_name,UP.doc_file',
@@ -30,7 +75,7 @@ class ReportsSummary extends Common_Controller {
                         array('user_profile UP', 'UP.user_id=user.id', 'left')),
                     'order' => array('user.id' => 'ASC'),
                     'where' => array('user.delete_status' => 0,
-                        'group.id' => 3),
+                        'user.id'=>$hospital_id),
                     'order' => array('user.first_name' => 'ASC')
                 );
 
@@ -39,29 +84,64 @@ class ReportsSummary extends Common_Controller {
 
                 //start ---for Admin--
                 $this->data['careUnit'] = $this->common_model->customGet(array('table' => 'care_unit', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'ASC')));
-               //end ---for Admin--
+                $option = array('table' => 'care_unit', 'select' => 'id,name', 'where' => array('facility_user_id'=>$hospital_id,'is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc'));
+                if (!empty($AdminCareUnitID)) {
+                    $option['where']['id']  = $AdminCareUnitID;
+                }
+                $this->data['care_unit'] = $this->common_model->customGet($option);
 
+                
+                //end ---for Admin--
+            //    print_r($this->data['careUnit']);die;
                 //start ---for facility manager--
               
                 //end ---for facility manager--
 
-                $this->data['initial_dx'] = $this->common_model->customGet(array('table' => 'initial_dx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'ASC')));
-                $this->data['initial_rx'] = $this->common_model->customGet(array('table' => 'initial_rx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'ASC')));
-                $this->data['doctors'] = $this->common_model->customGet(array('table' => 'doctors', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'ASC')));
+                // $this->data['initial_dx'] = $this->common_model->customGet(array('table' => 'initial_dx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'ASC')));
+                // $this->data['initial_rx'] = $this->common_model->customGet(array('table' => 'initial_rx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'ASC')));
+                // $this->data['doctors'] = $this->common_model->customGet(array('table' => 'doctors', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'ASC')));
 
-                $this->data['symptom_onset'] = $this->common_model->customGet(array('table' => 'patient', 'select' => 'id,symptom_onset', 'where' => array('md_steward_id' => 94), 'order' => array('md_steward_id' => 'ASC')));
+                $optionDoctor = array(
+                    'table' => ' doctors',
+                    'select' => 'users.*,doctors_qualification.*',
+                    'join' => array(
+                        array('users', 'doctors.user_id=users.id', 'left'),
+                        array('user_profile UP', 'UP.user_id=users.id', 'left'),
+                        array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
+                        
+                    ),
+                    
+                    'where' => array(
+                        'users.delete_status' => 0,
+                        // 'doctors.facility_user_id'=>$CareUnitID
+                        'users.hospital_id'=>$hospital_id
+                    ),
+                    'order' => array('users.id' => 'desc'),
+                );
+                $this->data['doctors'] = $this->common_model->customGet($optionDoctor);
 
-                $this->data['criteria_met'] = $this->common_model->customGet(array('table' => 'patient', 'select' => 'id,criteria_met', 'where' => array('md_steward_id' => 94), 'order' => array('md_steward_id' => 'ASC')));
+                
+                $this->data['symptom_onset'] = $this->common_model->customGet(array('table' => 'patient', 'select' => 'id,symptom_onset', 'where' => array('md_steward_id' => $hospital_id), 'order' => array('md_steward_id' => 'ASC')));
 
-                $this->data['criteria_met'] = $this->common_model->customGet(array('table' => 'patient', 'select' => 'id,infection_surveillance_checklist', 'where' => array('md_steward_id' => 94), 'order' => array('md_steward_id' => 'ASC')));
+                $this->data['criteria_met'] = $this->common_model->customGet(array('table' => 'patient', 'select' => 'id,criteria_met', 'where' => array('md_steward_id' => $hospital_id), 'order' => array('md_steward_id' => 'ASC')));
 
-                $this->data['md_stayward_response'] = $this->common_model->customGet(array('table' => 'patient', 'select' => 'id,md_stayward_response', 'where' => array('md_steward_id' => 94), 'order' => array('md_steward_id' => 'ASC')));
+                $this->data['criteria_met'] = $this->common_model->customGet(array('table' => 'patient', 'select' => 'id,infection_surveillance_checklist', 'where' => array('md_steward_id' => $hospital_id), 'order' => array('md_steward_id' => 'ASC')));
 
-                $this->data['culture_source'] = $this->common_model->customGet(array('table' => 'culture_source', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'ASC')));
+                $this->data['md_stayward_response'] = $this->common_model->customGet(array('table' => 'patient', 'select' => 'id,md_stayward_response', 'where' => array('md_steward_id' => $hospital_id), 'order' => array('md_steward_id' => 'ASC')));
 
-                $this->data['organism'] = $this->common_model->customGet(array('table' => 'organism', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'ASC')));
-                $this->data['precautions'] = $this->common_model->customGet(array('table' => 'precautions', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'ASC')));
+                // $this->data['culture_source'] = $this->common_model->customGet(array('table' => 'culture_source', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'ASC')));
 
+                // $this->data['organism'] = $this->common_model->customGet(array('table' => 'organism', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'ASC')));
+                // $this->data['precautions'] = $this->common_model->customGet(array('table' => 'precautions', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'ASC')));
+
+
+                $this->data['initial_dx'] = $this->common_model->customGet(array('table' => 'initial_dx', 'select' => 'id,name', 'where' => array('hospital_id'=>$hospital_id,'is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
+                $this->data['culture_source'] = $this->common_model->customGet(array('table' => 'culture_source', 'select' => 'id,name', 'where' => array('hospital_id'=>$hospital_id,'is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
+                $this->data['organism'] = $this->common_model->customGet(array('table' => 'organism', 'select' => 'id,name', 'where' => array('hospital_id'=>$hospital_id,'is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
+                $this->data['precautions'] = $this->common_model->customGet(array('table' => 'precautions', 'select' => 'id,name', 'where' => array('hospital_id'=>$hospital_id,'is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
+                $this->data['initial_rx'] = $this->common_model->customGet(array('table' => 'initial_rx', 'select' => 'id,name', 'where' => array('hospital_id'=>$hospital_id,'is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
+        
+                
                 
              // print_r($r);die;
                 
@@ -86,9 +166,33 @@ class ReportsSummary extends Common_Controller {
                 $this->data['toatl_patient_days_average'] = ($total_days > 0) ? round(($total_antibiotic_days / $total_days) * 1000) : 0;
               
                 $this->load->admin_render('dashboards', $this->data, 'inner_script');
-            } else if (  $this->ion_auth->is_facilityManager()) {
+            } else if ( $this->ion_auth->is_facilityManager()) {
 
-           
+            if ($this->ion_auth->is_facilityManager()) {
+                        $user_id = $this->session->userdata('user_id');
+                    $hospital_id = $user_id;
+                    $group_name ='';
+                    } else if($this->ion_auth->is_all_roleslogin()) {
+                        $user_id = $this->session->userdata('user_id');
+                        $optionData = array(
+                            'table' => USERS . ' as user',
+                            'select' => 'user.*,group.name as group_name',
+                            'join' => array(
+                                array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                                array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                            ),
+                            'order' => array('user.id' => 'DESC'),
+                            'where' => array('user.id'=>$user_id),
+                            'single'=>true,
+                        );
+                
+                        $authUser = $this->common_model->customGet($optionData);
+                        $group_name =$authUser->group_name;
+                        $hospital_id = $authUser->hospital_id;
+                        
+                    }
+
+
             //     $option = array('table' => USERS . ' as user',
             //     'select' => 'user.*,group.name as group_name,UP.doc_file',
             //     'join' => array(array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
@@ -110,7 +214,7 @@ class ReportsSummary extends Common_Controller {
                 
                 'where' => array(
                     'users.delete_status' => 0,
-                    'doctors.facility_user_id'=>$CareUnitID
+                    'users.id'=>$hospital_id
                 ),
                 'order' => array('users.id' => 'desc'),
             );
@@ -131,6 +235,7 @@ class ReportsSummary extends Common_Controller {
             // }
             $this->data['care_unit'] = $this->common_model->customGet($option);
     
+          
             $this->data['careUnitss'] = json_decode($AdminCareUnitID);
     
             $careUnitDatas =array();
@@ -147,10 +252,15 @@ class ReportsSummary extends Common_Controller {
             $this->data['careUnitsUser'] = $arraySingle;
             //end ---for facility manager--
 
-            $this->data['initial_dx'] = $this->common_model->customGet(array('table' => 'initial_dx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'ASC')));
-            $this->data['initial_rx'] = $this->common_model->customGet(array('table' => 'initial_rx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'ASC')));
+            // $this->data['initial_dx'] = $this->common_model->customGet(array('table' => 'initial_dx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'ASC')));
+            // $this->data['initial_rx'] = $this->common_model->customGet(array('table' => 'initial_rx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'ASC')));
             // $this->data['doctors'] = $this->common_model->customGet(array('table' => 'doctors', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'ASC')));
-
+            $this->data['initial_dx'] = $this->common_model->customGet(array('table' => 'initial_dx', 'select' => 'id,name', 'where' => array('hospital_id'=>$hospital_id,'is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
+            $this->data['culture_source'] = $this->common_model->customGet(array('table' => 'culture_source', 'select' => 'id,name', 'where' => array('hospital_id'=>$hospital_id,'is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
+            $this->data['organism'] = $this->common_model->customGet(array('table' => 'organism', 'select' => 'id,name', 'where' => array('hospital_id'=>$hospital_id,'is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
+            $this->data['precautions'] = $this->common_model->customGet(array('table' => 'precautions', 'select' => 'id,name', 'where' => array('hospital_id'=>$hospital_id,'is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
+            $this->data['initial_rx'] = $this->common_model->customGet(array('table' => 'initial_rx', 'select' => 'id,name', 'where' => array('hospital_id'=>$hospital_id,'is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
+            
 
 
             $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
@@ -174,21 +284,41 @@ class ReportsSummary extends Common_Controller {
         $datadoctors = $this->common_model->customGet($option);
 
 
-    $option = array(
+    // $option = array(
+    //         'table' => ' doctors',
+    //         'select' => 'users.*',
+    //         'join' => array(
+    //             array('users', 'doctors.user_id=users.id', 'left'),
+    //             array('user_profile UP', 'UP.user_id=users.id', 'left'),
+    //         ),
+            
+    //         'where' => array(
+    //             'users.delete_status' => 0,
+    //             'doctors.facility_user_id'=>$datadoctors->facility_user_id
+    //         ),
+    //         'order' => array('users.id' => 'desc'),
+    //     );
+    //     $this->data['doctors'] = $this->common_model->customGet($option);
+
+        $optionDoctor = array(
             'table' => ' doctors',
-            'select' => 'users.*',
+            'select' => 'users.*,doctors_qualification.*',
             'join' => array(
                 array('users', 'doctors.user_id=users.id', 'left'),
                 array('user_profile UP', 'UP.user_id=users.id', 'left'),
+                array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
+                
             ),
             
             'where' => array(
                 'users.delete_status' => 0,
-                'doctors.facility_user_id'=>$datadoctors->facility_user_id
+                // 'doctors.facility_user_id'=>$CareUnitID
+                'users.hospital_id'=>$hospital_id
             ),
             'order' => array('users.id' => 'desc'),
         );
-        $this->data['doctors'] = $this->common_model->customGet($option);
+        $this->data['doctors'] = $this->common_model->customGet($optionDoctor);
+        
         // print_r($datadoctors->facility_user_id);die;
 
     } else if ($this->ion_auth->is_facilityManager()) {
@@ -211,20 +341,27 @@ class ReportsSummary extends Common_Controller {
     }
 
 
-            $this->data['symptom_onset'] = $this->common_model->customGet(array('table' => 'patient', 'select' => 'id,symptom_onset', 'where' => array('md_steward_id' => 94), 'order' => array('md_steward_id' => 'ASC')));
+            $this->data['symptom_onset'] = $this->common_model->customGet(array('table' => 'patient', 'select' => 'id,symptom_onset', 'where' => array('md_steward_id' => $hospital_id), 'order' => array('md_steward_id' => 'ASC')));
 
-            $this->data['criteria_met'] = $this->common_model->customGet(array('table' => 'patient', 'select' => 'id,criteria_met', 'where' => array('md_steward_id' => 94), 'order' => array('md_steward_id' => 'ASC')));
+            $this->data['criteria_met'] = $this->common_model->customGet(array('table' => 'patient', 'select' => 'id,criteria_met', 'where' => array('md_steward_id' => $hospital_id), 'order' => array('md_steward_id' => 'ASC')));
 
-            $this->data['criteria_met'] = $this->common_model->customGet(array('table' => 'patient', 'select' => 'id,infection_surveillance_checklist', 'where' => array('md_steward_id' => 94), 'order' => array('md_steward_id' => 'ASC')));
+            $this->data['criteria_met'] = $this->common_model->customGet(array('table' => 'patient', 'select' => 'id,infection_surveillance_checklist', 'where' => array('md_steward_id' => $hospital_id), 'order' => array('md_steward_id' => 'ASC')));
 
-            $this->data['md_stayward_response'] = $this->common_model->customGet(array('table' => 'patient', 'select' => 'id,md_stayward_response', 'where' => array('md_steward_id' => 94), 'order' => array('md_steward_id' => 'ASC')));
+            $this->data['md_stayward_response'] = $this->common_model->customGet(array('table' => 'patient', 'select' => 'id,md_stayward_response', 'where' => array('md_steward_id' => $hospital_id), 'order' => array('md_steward_id' => 'ASC')));
 
-            $this->data['culture_source'] = $this->common_model->customGet(array('table' => 'culture_source', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'ASC')));
+            // $this->data['culture_source'] = $this->common_model->customGet(array('table' => 'culture_source', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'ASC')));
 
-            $this->data['organism'] = $this->common_model->customGet(array('table' => 'organism', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'ASC')));
-            $this->data['precautions'] = $this->common_model->customGet(array('table' => 'precautions', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'ASC')));
+            // $this->data['organism'] = $this->common_model->customGet(array('table' => 'organism', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'ASC')));
+            // $this->data['precautions'] = $this->common_model->customGet(array('table' => 'precautions', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'ASC')));
             
-         // print_r($r);die;
+
+            $this->data['initial_dx'] = $this->common_model->customGet(array('table' => 'initial_dx', 'select' => 'id,name', 'where' => array('hospital_id'=>$hospital_id,'is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
+        $this->data['culture_source'] = $this->common_model->customGet(array('table' => 'culture_source', 'select' => 'id,name', 'where' => array('hospital_id'=>$hospital_id,'is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
+        $this->data['organism'] = $this->common_model->customGet(array('table' => 'organism', 'select' => 'id,name', 'where' => array('hospital_id'=>$hospital_id,'is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
+        $this->data['precautions'] = $this->common_model->customGet(array('table' => 'precautions', 'select' => 'id,name', 'where' => array('hospital_id'=>$hospital_id,'is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
+        $this->data['initial_rx'] = $this->common_model->customGet(array('table' => 'initial_rx', 'select' => 'id,name', 'where' => array('hospital_id'=>$hospital_id,'is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'asc')));
+        
+        
             
              $patients_days = $this->common_model->customGet(array('table' => 'patient', 'select' => 'SUM(total_days_of_patient_stay) as tatal_days', 'single' => true));
             $this->data['tatal_days']= $patients_days->tatal_days;
@@ -247,6 +384,7 @@ class ReportsSummary extends Common_Controller {
             $this->data['toatl_patient_days_average'] = ($total_days > 0) ? round(($total_antibiotic_days / $total_days) * 1000) : 0;
           
             $this->load->admin_render('dashboards', $this->data, 'inner_script');
+
             } else if ($this->ion_auth->is_vendor()) {
                 $this->load->admin_render('dashboard', $this->data, 'inner_script');
             } else if ($this->ion_auth->is_user()) {
@@ -324,6 +462,9 @@ class ReportsSummary extends Common_Controller {
         }
         if (!empty($steward)) {
             $option['where']['P.md_steward_id'] = $steward;
+        }
+        if (!empty($hospital_id)) {
+            $option['where']['P.md_steward_id'] = $hospital_id;
         }
         if(!empty($symptom_onset)){
             $option['where']['P.symptom_onset'] = $symptom_onset;
@@ -865,6 +1006,29 @@ class ReportsSummary extends Common_Controller {
   
     /** new **/
     public function get_antibiotic_by_care_unit_provider_pie() {
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+        $group_name ='';
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+    
+            $authUser = $this->common_model->customGet($optionData);
+            $group_name =$authUser->group_name;
+            $hospital_id = $authUser->hospital_id;
+            
+        }
          $return = array();
         $return['status'] = 200;
         $antibiotic = array();
@@ -922,6 +1086,9 @@ class ReportsSummary extends Common_Controller {
         }
         if (!empty($steward)) {
             $option['where']['P.md_steward_id'] = $steward;
+        }
+        if (!empty($hospital_id)) {
+            $option['where']['P.md_steward_id'] = $hospital_id;
         }
         if(!empty($symptom_onset)){
             $option['where']['P.symptom_onset'] = $symptom_onset;
@@ -1186,6 +1353,30 @@ class ReportsSummary extends Common_Controller {
     }
     /** new **/
     public function get_dx_by_actual_dots_new() {
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+        $group_name ='';
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+    
+            $authUser = $this->common_model->customGet($optionData);
+            $group_name =$authUser->group_name;
+            $hospital_id = $authUser->hospital_id;
+            
+        }
+
         $return = array();
         $return['status'] = 200;
         $antibiotic = array();
@@ -1214,6 +1405,8 @@ class ReportsSummary extends Common_Controller {
             'group_by' => array('IRX.name'),
             'order' => array('IRX.name' => 'ASC')
         );
+        // $list = $this->common_model->customGet($option);
+        // print_r($list);die;
         if (!empty($date1) && !empty($date2)) {
           $option['where']['date(P.date_of_start_abx) >='] = $date1;
           $option['where']['date(P.date_of_start_abx) <='] = $date2;
@@ -1270,6 +1463,9 @@ class ReportsSummary extends Common_Controller {
         if(!empty($precautions)){
             $option['where']['P.precautions'] = $precautions;
         }
+        if (!empty($hospital_id)) {
+            $option['where']['P.md_steward_id'] = $hospital_id;
+        }
         if(!empty($criteria_met=='Yes')){
             $option['where']['P.criteria_met'] = $criteria_met;
         }
@@ -1311,6 +1507,30 @@ class ReportsSummary extends Common_Controller {
 
 
     public function get_avg_dx_by_actual_dots_new() {
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+        $group_name ='';
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+    
+            $authUser = $this->common_model->customGet($optionData);
+            $group_name =$authUser->group_name;
+            $hospital_id = $authUser->hospital_id;
+            
+        }
+
         $return = array();
         $return['status'] = 200;
         $antibiotic = array();
@@ -1338,6 +1558,7 @@ class ReportsSummary extends Common_Controller {
             'group_by' => array('IRX.name'),
             'order' => array('IRX.name' => 'ASC')
         );
+        
         if (!empty($date1) && !empty($date2)) {
           $option['where']['date(P.date_of_start_abx) >='] = $date1;
           $option['where']['date(P.date_of_start_abx) <='] = $date2;
@@ -1410,6 +1631,29 @@ class ReportsSummary extends Common_Controller {
 
     /** new **/
     public function total_abx_days() {
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+        $group_name ='';
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+    
+            $authUser = $this->common_model->customGet($optionData);
+            $group_name =$authUser->group_name;
+            $hospital_id = $authUser->hospital_id;
+            
+        }
         $return = array();
         $return['status'] = 200;
         $antibiotic = array();
@@ -1477,6 +1721,9 @@ class ReportsSummary extends Common_Controller {
         if (!empty($steward_id)) {
             $option['where']['P.md_steward_id'] = $steward_id;
         }
+        if (!empty($hospital_id)) {
+            $option['where']['P.md_steward_id'] = $hospital_id;
+        }
         if(!empty($symptom_onset)){
             $option['where']['P.symptom_onset'] = $symptom_onset;
         }
@@ -1533,6 +1780,29 @@ class ReportsSummary extends Common_Controller {
 
      /** new **/
      public function total_abx_days_dollar() {
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+        $group_name ='';
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+    
+            $authUser = $this->common_model->customGet($optionData);
+            $group_name =$authUser->group_name;
+            $hospital_id = $authUser->hospital_id;
+            
+        }
         $return = array();
         $return['status'] = 200;
         $antibiotic = array();
@@ -1595,6 +1865,9 @@ class ReportsSummary extends Common_Controller {
         if (!empty($steward_id)) {
             $option['where']['P.md_steward_id'] = $steward_id;
         }
+        if (!empty($hospital_id)) {
+            $option['where']['P.md_steward_id'] = $hospital_id;
+        }
         if(!empty($symptom_onset)){
             $option['where']['P.symptom_onset'] = $symptom_onset;
         }
@@ -1651,6 +1924,29 @@ class ReportsSummary extends Common_Controller {
 
     /** new **/
     public function get_days_provider_and_steward() {
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+        $group_name ='';
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+    
+            $authUser = $this->common_model->customGet($optionData);
+            $group_name =$authUser->group_name;
+            $hospital_id = $authUser->hospital_id;
+            
+        }
         $return = array();
         $return['status'] = 200;
         $antibiotic = array();
@@ -1706,6 +2002,9 @@ class ReportsSummary extends Common_Controller {
         }
         if (!empty($steward_id)) {
             $option['where']['P.md_steward_id'] = $steward_id;
+        }
+        if (!empty($hospital_id)) {
+            $option['where']['P.md_steward_id'] = $hospital_id;
         }
         if(!empty($symptom_onset)){
             $option['where']['P.symptom_onset'] = $symptom_onset;
@@ -1803,6 +2102,9 @@ class ReportsSummary extends Common_Controller {
                 if (!empty($steward_id)) {
                     $option['where']['P.md_steward_id'] = $steward_id;
                 }
+                if (!empty($hospital_id)) {
+                    $option['where']['P.md_steward_id'] = $hospital_id;
+                }
                 $option['where']['P.doctor_id'] = $row->doctor_id;
                 $list = $this->common_model->customGet($option);
                 if (!empty($list)) {
@@ -1833,6 +2135,29 @@ class ReportsSummary extends Common_Controller {
     }
     /** new **/
     public function get_days_cost() {
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+        $group_name ='';
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+    
+            $authUser = $this->common_model->customGet($optionData);
+            $group_name =$authUser->group_name;
+            $hospital_id = $authUser->hospital_id;
+            
+        }
         $return = array();
         $return['status'] = 200;
         $antibiotic = array();
@@ -1895,6 +2220,9 @@ class ReportsSummary extends Common_Controller {
                 if (!empty($steward_id)) {
             $option['where']['P.md_steward_id'] = $steward_id;
         }
+        if (!empty($hospital_id)) {
+            $option['where']['P.md_steward_id'] = $hospital_id;
+        }
         if(!empty($symptom_onset)){
             $option['where']['P.symptom_onset'] = $symptom_onset;
         }
@@ -1934,6 +2262,29 @@ class ReportsSummary extends Common_Controller {
 
  /** new **/
  public function get_days_costsavedbysteward() {
+    if ($this->ion_auth->is_facilityManager()) {
+        $user_id = $this->session->userdata('user_id');
+    $hospital_id = $user_id;
+    $group_name ='';
+    } else if($this->ion_auth->is_all_roleslogin()) {
+        $user_id = $this->session->userdata('user_id');
+        $optionData = array(
+            'table' => USERS . ' as user',
+            'select' => 'user.*,group.name as group_name',
+            'join' => array(
+                array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+            ),
+            'order' => array('user.id' => 'DESC'),
+            'where' => array('user.id'=>$user_id),
+            'single'=>true,
+        );
+
+        $authUser = $this->common_model->customGet($optionData);
+        $group_name =$authUser->group_name;
+        $hospital_id = $authUser->hospital_id;
+        
+    }
     $return = array();
     $return['status'] = 200;
     $antibiotic = array();
@@ -2000,6 +2351,9 @@ class ReportsSummary extends Common_Controller {
             if (!empty($steward_id)) {
                $option['where']['P.md_steward_id'] = $steward_id;
             }
+            if (!empty($hospital_id)) {
+                $option['where']['P.md_steward_id'] = $hospital_id;
+            }
             if(!empty($symptom_onset)){
                  $option['where']['P.symptom_onset'] = $symptom_onset;
             }
@@ -2042,6 +2396,29 @@ class ReportsSummary extends Common_Controller {
 
  /** new **/
  public function get_days_provider_and_steward_new() {
+    if ($this->ion_auth->is_facilityManager()) {
+        $user_id = $this->session->userdata('user_id');
+    $hospital_id = $user_id;
+    $group_name ='';
+    } else if($this->ion_auth->is_all_roleslogin()) {
+        $user_id = $this->session->userdata('user_id');
+        $optionData = array(
+            'table' => USERS . ' as user',
+            'select' => 'user.*,group.name as group_name',
+            'join' => array(
+                array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+            ),
+            'order' => array('user.id' => 'DESC'),
+            'where' => array('user.id'=>$user_id),
+            'single'=>true,
+        );
+
+        $authUser = $this->common_model->customGet($optionData);
+        $group_name =$authUser->group_name;
+        $hospital_id = $authUser->hospital_id;
+        
+    }
     $return = array();
     $return['status'] = 200;
     $antibiotic = array();
@@ -2108,6 +2485,9 @@ class ReportsSummary extends Common_Controller {
     } 
     if (!empty($steward_id)) {
         $option['where']['P.md_steward_id'] = $steward_id;
+    }
+    if (!empty($hospital_id)) {
+        $option['where']['P.md_steward_id'] = $hospital_id;
     }
     if (!empty($rx)) {
         $option['where']['PC.initial_rx'] = $rx;
@@ -2181,6 +2561,9 @@ class ReportsSummary extends Common_Controller {
               if (!empty($steward_id)) {
                 $option['where']['P.md_steward_id'] = $steward_id;
             }
+            if (!empty($hospital_id)) {
+                $option['where']['P.md_steward_id'] = $hospital_id;
+            }
               if(!empty($symptom_onset)){
                 $option['where']['P.symptom_onset'] = $symptom_onset;
             }
@@ -2246,6 +2629,29 @@ class ReportsSummary extends Common_Controller {
 
 /** new **/
 public function get_days_provider_and_steward_cost() {
+    if ($this->ion_auth->is_facilityManager()) {
+        $user_id = $this->session->userdata('user_id');
+    $hospital_id = $user_id;
+    $group_name ='';
+    } else if($this->ion_auth->is_all_roleslogin()) {
+        $user_id = $this->session->userdata('user_id');
+        $optionData = array(
+            'table' => USERS . ' as user',
+            'select' => 'user.*,group.name as group_name',
+            'join' => array(
+                array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+            ),
+            'order' => array('user.id' => 'DESC'),
+            'where' => array('user.id'=>$user_id),
+            'single'=>true,
+        );
+
+        $authUser = $this->common_model->customGet($optionData);
+        $group_name =$authUser->group_name;
+        $hospital_id = $authUser->hospital_id;
+        
+    }
     $return = array();
     $return['status'] = 200;
     $antibiotic = array();
@@ -2311,6 +2717,9 @@ public function get_days_provider_and_steward_cost() {
     }
     if (!empty($steward_id)) {
         $option['where']['P.md_steward_id'] = $steward_id;
+    }
+    if (!empty($hospital_id)) {
+        $option['where']['P.md_steward_id'] = $hospital_id;
     }
     if (!empty($rx)) {
         $option['where']['PC.initial_rx'] = $rx;
@@ -2455,6 +2864,30 @@ public function get_days_provider_and_steward_cost() {
 
     /** new **/
     public function get_cost_cost() {
+
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+        $group_name ='';
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+    
+            $authUser = $this->common_model->customGet($optionData);
+            $group_name =$authUser->group_name;
+            $hospital_id = $authUser->hospital_id;
+            
+        }
         $return = array();
         $return['status'] = 200;
         $antibiotic = array();
@@ -2512,8 +2945,11 @@ public function get_days_provider_and_steward_cost() {
                         if (!empty($provider)) {
             $option['where']['P.doctor_id'] = $provider;
         }
-                if (!empty($steward_id)) {
+         if (!empty($steward_id)) {
             $option['where']['P.md_steward_id'] = $steward_id;
+        }
+        if (!empty($hospital_id)) {
+            $option['where']['P.md_steward_id'] = $hospital_id;
         }
         if(!empty($symptom_onset)){
             $option['where']['P.symptom_onset'] = $symptom_onset;
@@ -2521,6 +2957,7 @@ public function get_days_provider_and_steward_cost() {
         if(!empty($md_stayward_response)){
             $option['where']['P.md_stayward_response'] = $md_stayward_response;
         }
+        
         if(!empty($culture_source)){
             $option['where']['P.culture_source'] = $culture_source;
         }
@@ -2563,6 +3000,31 @@ public function get_days_provider_and_steward_cost() {
       /** new **/
       public function get_antibiotic_by_care_unit_facility_days() {
         
+
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+        $group_name ='';
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+    
+            $authUser = $this->common_model->customGet($optionData);
+            $group_name =$authUser->group_name;
+            $hospital_id = $authUser->hospital_id;
+            
+        }
+
         $return = array();
         $return['status'] = 200;
         $antibiotic = array();
@@ -2628,6 +3090,9 @@ public function get_days_provider_and_steward_cost() {
         }
         if (!empty($provider)) {
             $option['where']['P.doctor_id'] = $provider;
+        }
+        if (!empty($hospital_id)) {
+            $option['where']['P.md_steward_id'] = $hospital_id;
         }
         if (!empty($steward)) {
             $option['where']['P.md_steward_id'] = $steward;
@@ -2703,6 +3168,10 @@ public function get_days_provider_and_steward_cost() {
                 if (!empty($provider)) {
                     $option['where']['P.doctor_id'] = $provider;
                 }
+                if (!empty($hospital_id)) {
+                    $option['where']['P.md_steward_id'] = $hospital_id;
+                }
+                
                 if (!empty($steward)) {
                     $option['where']['P.md_steward_id'] = $steward;
                 }
@@ -2764,6 +3233,30 @@ public function get_days_provider_and_steward_cost() {
 
     public function get_antibiotic_by_care_unit_facility_days_average() {
         
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+        $group_name ='';
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+    
+            $authUser = $this->common_model->customGet($optionData);
+            $group_name =$authUser->group_name;
+            $hospital_id = $authUser->hospital_id;
+            
+        }
+
         $return = array();
         $return['status'] = 200;
         $antibiotic = array();
@@ -3020,6 +3513,30 @@ public function get_days_provider_and_steward_cost() {
 
     public function get_provider_steward_agreement_days() {
         
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+        $group_name ='';
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+    
+            $authUser = $this->common_model->customGet($optionData);
+            $group_name =$authUser->group_name;
+            $hospital_id = $authUser->hospital_id;
+            
+        }
+
         $return = array();
         $return['status'] = 200;
         $antibiotic = array();
@@ -3228,6 +3745,29 @@ public function get_days_provider_and_steward_cost() {
     /** new **/
     public function get_antibiotic_by_care_unit_facility() {
         
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+        $group_name ='';
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+    
+            $authUser = $this->common_model->customGet($optionData);
+            $group_name =$authUser->group_name;
+            $hospital_id = $authUser->hospital_id;
+            
+        }
         $return = array();
         $return['status'] = 200;
         $antibiotic = array();
@@ -3418,6 +3958,31 @@ public function get_days_provider_and_steward_cost() {
     }
 
     public function app() {
+
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+        $group_name ='';
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+    
+            $authUser = $this->common_model->customGet($optionData);
+            $group_name =$authUser->group_name;
+            $hospital_id = $authUser->hospital_id;
+            
+        }
+
         $this->data['parent'] = "Dashboard";
         $option = array('table' => USERS . ' as user',
             'select' => 'user.*,group.name as group_name,UP.doc_file',
@@ -3426,15 +3991,18 @@ public function get_days_provider_and_steward_cost() {
                 array('user_profile UP', 'UP.user_id=user.id', 'left')),
             'order' => array('user.id' => 'ASC'),
             'where' => array('user.delete_status' => 0,
-                'group.id' => 3),
+                'group.id' => 3,
+            'user.id'=>$hospital_id),
             'order' => array('user.first_name' => 'ASC')
         );
         $this->data['staward'] = $this->common_model->customGet($option);
+
         $this->data['careUnit'] = $this->common_model->customGet(array('table' => 'care_unit', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'ASC')));
         $this->data['initial_dx'] = $this->common_model->customGet(array('table' => 'initial_dx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'ASC')));
         $this->data['initial_rx'] = $this->common_model->customGet(array('table' => 'initial_rx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'ASC')));
         $this->data['doctors'] = $this->common_model->customGet(array('table' => 'doctors', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0), 'order' => array('name' => 'ASC')));
         $this->data['patients_days'] = $patients_days = $this->common_model->customGet(array('table' => 'patient', 'select' => 'SUM(total_days_of_patient_stay) as tatal_days', 'single' => true));
+        
         $option = array(
             'table' => 'patient P',
             'select' => '(CASE WHEN new_initial_dot IS NOT NULL THEN SUM(new_initial_dot) ELSE SUM(initial_dot) END) totalDays ,'
@@ -3451,6 +4019,30 @@ public function get_days_provider_and_steward_cost() {
     }
 
     function get_antibiotic_by_care_unit() {
+
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+        $group_name ='';
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+    
+            $authUser = $this->common_model->customGet($optionData);
+            $group_name =$authUser->group_name;
+            $hospital_id = $authUser->hospital_id;
+            
+        }
         $return = array();
         $return['status'] = 200;
         $antibiotic = array();
@@ -3527,6 +4119,29 @@ public function get_days_provider_and_steward_cost() {
     }
 
     function get_antibiotic_by_care_unit_md_steward() {
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+        $group_name ='';
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+    
+            $authUser = $this->common_model->customGet($optionData);
+            $group_name =$authUser->group_name;
+            $hospital_id = $authUser->hospital_id;
+            
+        }
         $return = array();
         $return['status'] = 200;
         $antibiotic = array();
@@ -3674,6 +4289,30 @@ public function get_days_provider_and_steward_cost() {
     }
 
     function get_antibiotic_by_care_unit_md_steward_old_barcharts() {
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+        $group_name ='';
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+    
+            $authUser = $this->common_model->customGet($optionData);
+            $group_name =$authUser->group_name;
+            $hospital_id = $authUser->hospital_id;
+            
+        }
+
         $return = array();
         $return['status'] = 200;
         $antibiotic = array();
@@ -3813,6 +4452,30 @@ public function get_days_provider_and_steward_cost() {
 
 
     function get_antibiotic_by_care_unit_provider_id() {
+
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+        $group_name ='';
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+    
+            $authUser = $this->common_model->customGet($optionData);
+            $group_name =$authUser->group_name;
+            $hospital_id = $authUser->hospital_id;
+            
+        }
         $return = array();
         $return['status'] = 200;
         $antibiotic = array();
@@ -4043,6 +4706,29 @@ public function get_days_provider_and_steward_cost() {
     }
 
     function actual_dot_vs_new_dot_by_care_unit_md_steward() {
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+        $group_name ='';
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+    
+            $authUser = $this->common_model->customGet($optionData);
+            $group_name =$authUser->group_name;
+            $hospital_id = $authUser->hospital_id;
+            
+        }
         $return = array();
         $return['status'] = 200;
         $antibiotic = array();
@@ -4159,6 +4845,29 @@ public function get_days_provider_and_steward_cost() {
     }
 
     function get_antibiotic_by_care_unit_md_steward_old() {
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+        $group_name ='';
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+    
+            $authUser = $this->common_model->customGet($optionData);
+            $group_name =$authUser->group_name;
+            $hospital_id = $authUser->hospital_id;
+            
+        }
         $return = array();
         $return['status'] = 200;
         $antibiotic = array();
@@ -4228,6 +4937,29 @@ public function get_days_provider_and_steward_cost() {
     }
 
     function get_days_saved_by_care_unit() {
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+        $group_name ='';
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+    
+            $authUser = $this->common_model->customGet($optionData);
+            $group_name =$authUser->group_name;
+            $hospital_id = $authUser->hospital_id;
+            
+        }
         $return = array();
         $return['status'] = 200;
         $antibiotic = array();
@@ -4285,6 +5017,29 @@ public function get_days_provider_and_steward_cost() {
     }
 
     function actual_dot_vs_new_dot_by_care_unit() {
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+        $group_name ='';
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+    
+            $authUser = $this->common_model->customGet($optionData);
+            $group_name =$authUser->group_name;
+            $hospital_id = $authUser->hospital_id;
+            
+        }
         $return = array();
         $return['status'] = 200;
         $antibiotic = array();
@@ -4347,6 +5102,29 @@ public function get_days_provider_and_steward_cost() {
     }
 
     function actual_dot_vs_new_dot_by_care_unit_md_stewardOLD() {
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+        $group_name ='';
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+    
+            $authUser = $this->common_model->customGet($optionData);
+            $group_name =$authUser->group_name;
+            $hospital_id = $authUser->hospital_id;
+            
+        }
         $return = array();
         $return['status'] = 200;
         $antibiotic = array();
@@ -4384,6 +5162,29 @@ public function get_days_provider_and_steward_cost() {
     }
 
     function actual_dot_vs_new_dot_by_care_unit_provider_doctorOLD() {
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+        $group_name ='';
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+    
+            $authUser = $this->common_model->customGet($optionData);
+            $group_name =$authUser->group_name;
+            $hospital_id = $authUser->hospital_id;
+            
+        }
         $return = array();
         $return['status'] = 200;
         $antibiotic = array();
@@ -4422,6 +5223,30 @@ public function get_days_provider_and_steward_cost() {
     }
 
     function get_rx_by_actual_dots() {
+
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+        $group_name ='';
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+    
+            $authUser = $this->common_model->customGet($optionData);
+            $group_name =$authUser->group_name;
+            $hospital_id = $authUser->hospital_id;
+            
+        }
         $return = array();
         $return['status'] = 200;
         $antibiotic = array();
@@ -4495,6 +5320,29 @@ public function get_days_provider_and_steward_cost() {
     }
 
     function get_dx_by_actual_dots() {
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+        $group_name ='';
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+    
+            $authUser = $this->common_model->customGet($optionData);
+            $group_name =$authUser->group_name;
+            $hospital_id = $authUser->hospital_id;
+            
+        }
         $return = array();
         $return['status'] = 200;
         $antibiotic = array();
@@ -4567,6 +5415,29 @@ public function get_days_provider_and_steward_cost() {
     }
 
     function get_antibiotic_by_care_unit_provider_price() {
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+        $group_name ='';
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+    
+            $authUser = $this->common_model->customGet($optionData);
+            $group_name =$authUser->group_name;
+            $hospital_id = $authUser->hospital_id;
+            
+        }
         $return = array();
         $return['status'] = 200;
         $antibiotic = array();
@@ -4738,6 +5609,29 @@ public function get_days_provider_and_steward_cost() {
     }
 
     function get_antibiotic_by_care_unit_steward_price() {
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+        $group_name ='';
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+    
+            $authUser = $this->common_model->customGet($optionData);
+            $group_name =$authUser->group_name;
+            $hospital_id = $authUser->hospital_id;
+            
+        }
         $return = array();
         $return['status'] = 200;
         $antibiotic = array();
