@@ -572,10 +572,10 @@ hh
                                     <img src="<?php echo base_url(); ?>uploads/home.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide">Dashboard</span></a>
                                 </li>
 
-                                <li title="Reports">
+                                <!-- <li title="Reports">
                                     <a href="<?php echo site_url('reports'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "reports") ? "active" : "" ?>">
                                     <img src="<?php echo base_url(); ?>uploads/icons/report.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Report Summary</span></a>
-                                </li>
+                                </li> -->
 
                                 <li title="Risk Analysis">
                                     <a href="<?php echo site_url('reportsSummary'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "reportsSummary") ? "active" : "" ?>">
