@@ -902,5 +902,32 @@ class Contactus extends Common_Controller {
         echo json_encode($data);
     }
     
+    public function getCity()
+    {
+        $response = array();
+        $id = $this->input->post('id');
+        if (!empty($id)) {
+            $options = array(
+                'table' => 'cities',
+                'select' => 'cities.*',
+                'where' => array('state_id' => $id),
+            );
+            $cities = $this->common_model->customGet($options);
+
+            
+
+            $data.= '<select id="city" name="city" class="form-control" size="1">';
+            $data.= '<option value="" disabled selected>Please select</option>';
+            
+            
+            foreach ($cities as $cities_list) {
+               
+                $data.= '<option value="' . $cities_list->id_city . '">' . $cities_list->city . '</option>';
+            }
+            
+             $data.= '</select>';
+        }
+        echo json_encode($data);
+    }
 
 }
