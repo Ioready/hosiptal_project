@@ -147,7 +147,7 @@
             new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: ['Admin', 'Hospital', 'Plan', 'Order'],
+                    labels: ['Admin', 'Coupon', 'Plan', 'Order'],
                     datasets: [{
                         label: '# of Votes',
                         // data: [12, 19, 3, 5, 2, 3],
