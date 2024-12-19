@@ -265,7 +265,7 @@ hh
 </li>
 
 <li title="setting">
-    <a href="<?php echo site_url('setting'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "setting") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/setting.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark text-dark">&nbsp;Admin Setting</span></a>
+    <a href="<?php echo site_url('setting'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "setting") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/setting.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark text-dark">&nbsp;Setting</span></a>
 </li>
             <?php }else if ($this->ion_auth->is_admin()) { ?>
 
@@ -1094,14 +1094,20 @@ hh
                     <div class="d-flex  align-items-center">
                         <img src="<?php echo base_url(); ?>uploads/user.svg" style="height: 45px;width:45px;filter: invert(1%) sepia(166%) saturate(178%) hue-rotate(140deg) brightness(113%); margin-bottom:5px;" alt="">
                         <h2 style="font-size:1.5rem;font-weight:600" class="headerFonts ms-2">
-                        <a href="<?php echo site_url('pwfpanel/profile'); ?>" data-toggle="tooltip" data-placement="bottom" title="Profile" style="color:black;">User</a>
+                        <a href="<?php echo site_url('pwfpanel/profile'); ?>" data-toggle="tooltip" data-placement="bottom" title="Profile" style="color:black;">
+                            <!-- User -->
+                        </a>
                         </h2>
                     </div>
                        <div>
                         <!-- <h2 style="font-size:1.5rem;font-weight:700" class="headerFonts ms-5 ">
                         <a href="javascript:void(0)" onclick="logout()" data-toggle="tooltip" data-placement="bottom" title="Logout">Logout</a>
                         </h2> -->
-                        
+                        <h2 style="font-size: 1.5rem; font-weight:600" class="headerFonts">
+                        <a href="<?php echo site_url('pwfpanel/password'); ?>" data-toggle="tooltip" data-placement="bottom" title="Change Password"><img src="<?php echo base_url(); ?>uploads/icons/password.png" style="height: 35px;width:35px;filter: invert(1%) sepia(166%) saturate(178%) hue-rotate(140deg) brightness(113%); margin-bottom:5px;" alt="avatar"></a>
+                        </h2>
+                    </div>
+                        <div>
                         <h2 style="font-size: 1.5rem; font-weight:600" class="headerFonts">
                            <a href="javascript:void(0)" onclick="logout()" data-toggle="tooltip" data-placement="bottom" title="Logout" style="color:black;" ><img src="<?php echo base_url(); ?>uploads/logout.svg" style="height: 45px;width:45px;filter: invert(1%) sepia(166%) saturate(178%) hue-rotate(140deg) brightness(113%); margin-bottom:5px;" alt=""> 
                            <!-- Logout -->
@@ -1110,11 +1116,11 @@ hh
 
                        </div>                                                                                             
                 </div>
-
+                <!-- modal-user-settings -->
 
                 <!-- <a href="<?php echo site_url('pwfpanel/profile'); ?>" data-toggle="tooltip" data-placement="bottom" title="Profile"><img src="<?php echo base_url(); ?>uploads/icons/profile.png" style="height: 20px;width:20px;" alt="avatar"></a>
                                 <a href="<?php echo site_url('pwfpanel/password'); ?>" data-toggle="tooltip" data-placement="bottom" title="Change Password"><img src="<?php echo base_url(); ?>uploads/icons/password.png" style="height: 20px;width:20px;" alt="avatar"></a>
-                                <a href="javascript:void(0)" onclick="logout()" data-toggle="tooltip" data-placement="bottom" title="Logout"><img src="<?php echo base_url(); ?>uploads/icons/logout.png" style="height: 20px;width:20px;" alt="avatar"></a>
-                               -->
+                                <a href="javascript:void(0)" onclick="logout()" data-toggle="tooltip" data-placement="bottom" title="Logout"><img src="<?php echo base_url(); ?>uploads/icons/logout.png" style="height: 20px;width:20px;" alt="avatar"></a> -->
+                              
 
              </header>  

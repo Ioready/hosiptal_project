@@ -2651,7 +2651,7 @@ $datanotifications= $result->result();
     public function password()
     {
         $this->data['parent'] = "Password";
-        $this->adminIsAuth();
+        // $this->adminIsAuth();
         $this->data['error'] = "";
         $this->data['message'] = "";
         $this->data['min_password_length'] = $this->config->item('min_password_length', 'ion_auth');
@@ -2693,7 +2693,7 @@ $datanotifications= $result->result();
     public function change_password()
     {
         $data['parent'] = "Password";
-        $this->adminIsAuth();
+        // $this->adminIsAuth();
 
         $data['title'] = "Password";
         $this->form_validation->set_rules('old', $this->lang->line('change_password_validation_old_password_label'), 'required');
