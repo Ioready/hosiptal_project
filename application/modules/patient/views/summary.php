@@ -267,7 +267,12 @@
                         <div class="col-md-3 col-lg-3">
                             <div class="card l-bg-blue-dark">
                                 <div class="card-statistic-3 m-4">
-                                    <div class="card-icon card-icon-large"><i class="fas fa-heartbeat" style="font-size:3em;"></i></div> <!-- Using fa-heartbeat icon -->
+                                    <div class="card-icon card-icon-large">
+                                    <!-- <img src="<?php echo base_url(); ?>uploads/blood_pressure.svg" style="width: 40px; cursor: pointer;filter: invert(1%) sepia(15%) saturate(46%) hue-rotate(1790deg) brightness(98%);
+    background: linear-gradient(to right, #00b4d8, #ff69b4);" 
+                                    alt="Calendar Icon" id="calendarIcon"> -->
+                                        <i class="fas fa-heartbeat" style="font-size:3em;"></i>
+                                </div> <!-- Using fa-heartbeat icon -->
                                     <div class="mb-4">
                                         <h4 class="card-title mb-0">Blood Pressure</h4>
                                         <h4 class="text-center fw-bold m-2 editable" 

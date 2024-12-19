@@ -720,7 +720,8 @@ a.sidebar-title:focus {
     padding: 1rem 2rem ;
 }
 .sidebar-nav li img {
-    filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%)
+    /* filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%) */
+    /* filter: invert(1%) sepia(27%) saturate(429%) hue-rotate(742deg) brightness(113%) contrast(100%);   */
 }
 .sidebar-nav li{
     display: flex;
@@ -764,6 +765,8 @@ width: 100%;
     color: #ffffff ;
     text-decoration: none;
     background: linear-gradient(141.55deg, #6FD943 3.46%, #6FD943 99.86%), #6FD943;
+    /* filter: invert(1%) sepia(27%) saturate(429%) hue-rotate(742deg) brightness(113%) contrast(100%);   */
+
 }
 
 .sidebar-nav a span{
@@ -2900,7 +2903,7 @@ li.dropdown-header {
 
 .breadcrumb-top {
     margin: -10px -5px 10px;
-    padding: 7px 10px;
+    padding: 17px 10px;
     border-top: 1px solid #eaedf1;
     border-bottom: 1px solid #dbe1e8;
     font-size: 12px;

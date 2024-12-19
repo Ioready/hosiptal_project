@@ -239,7 +239,10 @@ tbody {
     ?>
         <div style="position: absolute; left: 10px;">
             <a href="<?php echo base_url().'index.php/' . $this->router->fetch_class(); ?>/open_model" class="btn btn-sm btn-primary" style="display: flex; align-items: center; gap: 5px;">
-                <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
+                <i class="gi gi-circle_plus"></i> 
+                <!-- <img src="<?php echo base_url(); ?>uploads/add_form.svg" style="position: absolute; top: 50%; transform: translateY(-50%); height: 25px; width: 25px; cursor: pointer;" 
+                alt="Calendar Icon" id="calendarIcon"> -->
+                <?php echo $title; ?>
             </a>
         </div>
     <?php 
@@ -319,10 +322,43 @@ tbody {
                     
                 <?php } } } ?>
                
+
+                    <script>
+        $(document).ready(function () {
+            // Initialize Datepicker
+            $("#datePicker").datepicker({
+                format: 'yyyy-mm-dd',
+                autoclose: true, // Full day name, month name, day, and year
+                showAnim: "slideDown",     // Animation when the datepicker appears
+                changeMonth: true,         // Allow month change via dropdown
+                changeYear: true,          // Allow year change via dropdown
+                showButtonPanel: true,     // Adds Today and Done buttons
+                closeText: "Close",        // Customize the Close button
+                currentText: "Today",      // Customize the Today button text
+                onClose: function (selectedDate) {
+                    console.log("Date selected: " + selectedDate); // Optional: Log selected date
+                }
+            });
+
+            // Trigger Datepicker when clicking the calendar icon
+            $("#calendarIcon").on("click", function () {
+                $("#datePicker").datepicker("show");
+            });
+        });
+    </script>
+
+
+
                     <div class="form-group">
                         <label for="datePicker">Select Date:</label>
-                        <input type="date" id="datePicker" class="form-control">
+                        <!-- <input type="date" id="datePicker" class="form-control"><img src="<?php echo base_url(); ?>uploads/calendar.svg" style="height: 23px;width:23px;" alt="avatar"> -->
+                        <div style="position: relative; display: inline-block;">
+    <input type="text" id="datePicker" class="form-control" placeholder="Select Date" style="padding-right: 40px;">
+    <img src="<?php echo base_url(); ?>uploads/calendar.svg" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); height: 25px; width: 25px; cursor: pointer;" 
+    alt="Calendar Icon" id="calendarIcon">
+</div>
                     </div>
+
             </div> 
             
 

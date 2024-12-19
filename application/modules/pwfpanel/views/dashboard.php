@@ -959,19 +959,21 @@
                             <h5 class="text-primary"><strong>Total Appointment</strong></h5>
                         </div>
                         <a href="<?php echo site_url('appointment'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "appointment") ? "active" : "" ?>">
-                        <img src="<?php echo base_url(); ?>uploads/appointment.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+                        <img src="<?php echo base_url(); ?>uploads/total_appointment.svg" style="height: 50px;width:50px;filter: invert(1%) sepia(166%) saturate(178%) hue-rotate(140deg) brightness(96%); margin-bottom:5px" alt="">
+                        <!-- <img src="<?php echo base_url(); ?>uploads/calendar.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt=""> -->
                         </a>
                     </div>
             </div>
 
             <div class="col-lg-4 col-md-6 dashboardBoxes">
-                <div style="background-color:<?php echo $total_patient > 0 ? '#F9F5FF' : '#F9F5FF'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
+                <div style="background-color:<?php echo $total_patient > 0 ? '#bfd3c4' : '#bfd3c4'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
                     <div class="ibox-content">
                         <h1 class="no-margins"><?php echo $total_patient; ?></h1>
                         <h5 class="text-primary"><strong>Total Reviews Sent </strong></h5>
                     </div>
                     <a href="<?php echo site_url('patient'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "patient") ? "active" : "" ?>">
-                    <img src="<?php echo base_url(); ?>uploads/user.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+                    <!-- <img src="<?php echo base_url(); ?>uploads/user.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt=""> -->
+                    <img src="<?php echo base_url(); ?>uploads/review.svg" style="height: 50px;width:50px; filter: invert(1%) sepia(1147%) saturate(985%) hue-rotate(1618deg) brightness(97%); margin-bottom:5px;" alt="">
                     </a>
                 </div>
             </div>
@@ -991,7 +993,8 @@
                    <h5 class="text-primary"><strong>Total Reviews Received</strong></h5>
                    </div>
                    <a href="<?php echo site_url('dataOperator'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "dataOperator") ? "active" : "" ?>">
-                   <img src="<?php echo base_url(); ?>uploads/doctor.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+                   <!-- <img src="<?php echo base_url(); ?>uploads/doctor.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt=""> -->
+                   <img src="<?php echo base_url(); ?>uploads/favourite.svg" style="height: 50px;width:50px;filter: invert(1%) sepia(276%) saturate(248%) hue-rotate(154deg) brightness(93%); margin-bottom:5px" alt="">
                 </a>
                </div>
            </div>
@@ -1008,7 +1011,8 @@
                    <h5 class="text-primary"><strong>Total Injections</strong></h5>
                    </div>
                    <a href="<?php echo site_url('careUnit'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "careUnit") ? "active" : "" ?>">
-                   <img src="<?php echo base_url(); ?>uploads/department.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+                   <!-- <img src="<?php echo base_url(); ?>uploads/department.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt=""> -->
+                   <img src="<?php echo base_url(); ?>uploads/vaccine.svg" style="height: 50px;width:50px;filter: invert(1%) sepia(0%) saturate(288%) hue-rotate(181deg) brightness(96%); margin-bottom:5px" alt="">
                     </a>
                </div>
            </div>
@@ -1025,7 +1029,8 @@
                    <h5 class="text-primary"><strong>Total Operation</strong></h5>
                    </div>
                    <a href="<?php echo site_url('careUnit'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "careUnit") ? "active" : "" ?>">
-                   <img src="<?php echo base_url(); ?>uploads/operation.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+                   <!-- <img src="<?php echo base_url(); ?>uploads/operation.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt=""> -->
+                   <img src="<?php echo base_url(); ?>uploads/patient_operation.svg" style="height: 50px;width:50px;filter: invert(1%) sepia(166%) saturate(178%) hue-rotate(140deg) brightness(113%); margin-bottom:5px" alt="">
                     </a>
                 </div>
            </div>
@@ -1042,7 +1047,8 @@
                    <h5 class="text-primary"><strong>Total Complication</strong></h5>
                    </div>
                    <a href="<?php echo site_url('initialDx'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "initialDx") ? "active" : "" ?>">
-                   <img src="<?php echo base_url(); ?>uploads/Infections.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+                   <!-- <img src="<?php echo base_url(); ?>uploads/Infections.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt=""> -->
+                   <img src="<?php echo base_url(); ?>uploads/complication.svg" style="height: 50px;width:50px;filter: invert(1%) sepia(276%) saturate(248%) hue-rotate(154deg) brightness(93%); margin-bottom:5px" alt="">
                     </a>
                </div>
            </div>
@@ -1057,7 +1063,7 @@
                            <h5 class="text-primary"><strong>Total Conversion Total Patient Operation</strong></h5>
                        </div>
                        <a href="<?php echo site_url('initialRx'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "initialRx") ? "active" : "" ?>">
-                       <img src="<?php echo base_url(); ?>uploads/Antibiotic.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+                       <img src="<?php echo base_url(); ?>uploads/patient_operation.svg" style="height: 50px;width:50px;filter: invert(1%) sepia(166%) saturate(178%) hue-rotate(140deg) brightness(96%); margin-bottom:5px" alt="">
                         </a>
                    </div>
            </div>
@@ -1065,13 +1071,14 @@
                         
 
            <div class="col-lg-4 col-md-6 dashboardBoxes">
-                                <div style="background-color:<?php echo $total_patient_today > 0 ? '#F9F5FF' : '#F9F5FF'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
+                                <div style="background-color:<?php echo $total_patient_today > 0 ? '#dbd5e5;' : '#dbd5e5;'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
                                     <div class="ibox-content">
                                         <h1 class="no-margins"><?php echo $total_patient_today; ?></h1>
                                         <h5 class="text-primary"><strong>Total Patient Today </strong></h5>
                                     </div>
                                     <a href="<?php echo site_url('patient'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "patient") ? "active" : "" ?>">
-                                    <img src="<?php echo base_url(); ?>uploads/user.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+                                    <!-- <img src="<?php echo base_url(); ?>uploads/user.png" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt=""> -->
+                                    <img src="<?php echo base_url(); ?>uploads/total_patient_today.svg" style="height: 50px;width:50px;filter: invert(1%) sepia(1147%) saturate(985%) hue-rotate(1264deg) brightness(97%); margin-bottom:5px" alt="">
                                      </a>
                                 </div>
                             </div>
@@ -1087,7 +1094,8 @@
                    </h1>
                    <h5 class="text-primary"><strong>Total Revenue</strong></h5>
                    </div>
-                   <img src="<?php echo base_url(); ?>uploads/earning.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt="">
+                   <!-- <img src="<?php echo base_url(); ?>uploads/earning.svg" style="height: 45px;width:45px;filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);margin-bottom:5px" alt=""> -->
+                   <img src="<?php echo base_url(); ?>uploads/total_revenue.svg" style="height: 50px;width:50px;filter: invert(1%) sepia(276%) saturate(248%) hue-rotate(154deg) brightness(93%); margin-bottom:5px" alt="">
                </div>
            </div>
 
