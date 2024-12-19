@@ -642,7 +642,7 @@ hh
                                 </li> -->
 
                                 <li title="Type Of Stay">
-                                 <a href="<?php echo site_url('TypeOfStay'); ?>" class=" <?php echo ($this->router->fetch_class() == "TypeOfStay") ? "active" : "" ?>">
+                                 <a href="<?php echo site_url('typeOfStay'); ?>" class=" <?php echo (lcfirst($this->router->fetch_class()) == "typeOfStay") ? "active" : "" ?>">
                                     <!-- <img src="<?php echo base_url(); ?>uploads/labs.svg" height="23px" width="23px"><span class="sidebar-nav-mini-hide text-dark">Type Of Stay</span> -->
                                     <img src="<?php echo base_url(); ?>uploads/type_of_stay.svg" height="23px" width="23px"><span class="sidebar-nav-mini-hide text-dark">Type Of Stay</span>
                                 </a>
@@ -655,7 +655,7 @@ hh
                                     <a href="<?php echo site_url('mdSteward'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "mdSteward") ? "active" : "" ?>"><i class="fa fa-user-md sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Doctors</span></a>
                                 </li> -->
                                 <li title="Data Operator">
-                                    <a href="<?php echo site_url('DataOperator'); ?>" class=" <?php echo ($this->router->fetch_class() == "DataOperator") ? "active" : "" ?>">
+                                    <a href="<?php echo site_url('dataOperator'); ?>" class=" <?php echo (lcfirst($this->router->fetch_class()) == "dataOperator") ? "active" : "" ?>">
                                         <!-- <img src="<?php echo base_url(); ?>uploads/doctor.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Doctor</span> -->
                                         <img src="<?php echo base_url(); ?>uploads/doctor.svg" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Doctor</span>
                                     </a>
